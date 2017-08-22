@@ -727,6 +727,7 @@ namespace BrawlCrate
 
         public Control _currentControl = null;
         private Control _secondaryControl = null;
+        private Type selectedType = null;
         public unsafe void resourceTree_SelectionChanged(object sender, EventArgs e)
         {
             audioPlaybackPanel1.TargetSource = null;
@@ -755,7 +756,31 @@ namespace BrawlCrate
             bool disable2nd = false;
             if ((resourceTree.SelectedNode is BaseWrapper) && ((node = (w = resourceTree.SelectedNode as BaseWrapper).ResourceNode) != null))
             {
+                Action setScrollOffset = null;
+                if (selectedType == resourceTree.SelectedNode.GetType())
+                    foreach (Control c in propertyGrid1.Controls)
+                    {
+                        if (c.GetType().Name == "PropertyGridView")
+                        {
+                            object scrollOffset = c.GetType().GetMethod("GetScrollOffset").Invoke(c, null);
+                            setScrollOffset = () => c.GetType().GetMethod("SetScrollOffset").Invoke(c, new object[] { scrollOffset });
+                            break;
+                        }
+                    }
+                else
+                    foreach (Control c in propertyGrid1.Controls)
+                    {
+                        if (c.GetType().Name == "PropertyGridView")
+                        {
+                            setScrollOffset = () => c.GetType().GetMethod("SetScrollOffset").Invoke(c, new object[] { 0 });
+                            break;
+                        }
+                    }
+
                 propertyGrid1.SelectedObject = node;
+                propertyGrid1.ExpandAllGridItems();
+                setScrollOffset?.Invoke();
+
                 if (node is IBufferNode && MainForm.Instance.ShowHex)
                 {
                     IBufferNode d = node as IBufferNode;
@@ -1023,6 +1048,7 @@ namespace BrawlCrate
             }
             else if (_currentControl is TexCoordControl)
                 texCoordControl1.TargetNode = ((MDL0MaterialRefNode)node);
+            selectedType = resourceTree.SelectedNode == null ? null : resourceTree.SelectedNode.GetType();
         }
 
         protected override void OnClosing(CancelEventArgs e)
