@@ -351,7 +351,7 @@ namespace BrawlBox
 					newControl = attributeGrid1;
 				} else if(node != null)
                 {
-                    if(node != null)
+                    if(node.IsValid())
                     {
                         hexBox1.ByteProvider = new Be.Windows.Forms.DynamicFileByteProvider(new UnmanagedMemoryStream(
                                 (byte*)node.OriginalSource.Address,
