@@ -60,9 +60,27 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override int GetHashCode() { return base.GetHashCode(); }
     }
 
-    public abstract class ResourceNode : IDisposable
+    public abstract unsafe class ResourceNode : IDisposable
     {
         public Form _mainForm;
+
+        public UnsafeBuffer _buffer;
+        internal byte* Header { get { return (byte*)WorkingUncompressed.Address; } }
+
+        public VoidPtr GetAddress()
+        {
+            return _buffer.Address;
+        }
+
+        public int GetLength()
+        {
+            return _buffer.Length;
+        }
+
+        public bool IsValid()
+        {
+            return _buffer != null && _buffer.Length > 0;
+        }
 
         // Check for stages for what gets loaded in game
         public bool loadedInGame = true;
@@ -469,7 +487,15 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
         //Called when property values are requested. Allows node to cache values from source data.
         //Return true to indicate there are child nodes.
-        public virtual bool OnInitialize() { return false; }
+        public virtual bool OnInitialize() {
+
+            _buffer = new UnsafeBuffer(WorkingUncompressed.Length);
+
+            Memory.Move(_buffer.Address, (VoidPtr)Header, (uint)_buffer.Length);
+
+
+            return false;
+        }
         //Restores node to its original form using the backing tree. 
         public virtual void Restore()
         {
@@ -721,6 +747,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         public virtual void OnRebuild(VoidPtr address, int length, bool force)
         {
             MoveRawUncompressed(address, length);
+
+            VoidPtr header = (VoidPtr)address;
+            Memory.Move(header, _buffer.Address, (uint)length);
         }
 
         //Shouldn't this move compressed data? YES!

@@ -13,9 +13,9 @@ namespace BrawlLib.SSBB.ResourceNodes
     }
     public unsafe class RawDataNode : ResourceNode, IBufferNode
     {
-        internal byte* Header { get { return (byte*)WorkingUncompressed.Address; } }
+        //internal byte* Header { get { return (byte*)WorkingUncompressed.Address; } }
 
-        public UnsafeBuffer _buffer;
+        //public UnsafeBuffer _buffer;
 
         public int Size { get { return WorkingUncompressed.Length; } }
 
@@ -59,7 +59,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             Memory.Move(header, _buffer.Address, (uint)length);
         }
 
-        public VoidPtr GetAddress()
+        /*public VoidPtr GetAddress()
         {
             return _buffer.Address;
         }
@@ -72,6 +72,6 @@ namespace BrawlLib.SSBB.ResourceNodes
         public bool IsValid()
         {
             return _buffer != null && _buffer.Length > 0;
-        }
+        }*/
     }
 }
