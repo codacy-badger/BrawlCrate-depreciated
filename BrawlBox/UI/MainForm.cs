@@ -349,7 +349,7 @@ namespace BrawlBox
 					attributeGrid1.AddRange(stdt.GetPossibleInterpretations());
 					attributeGrid1.TargetNode = stdt;
 					newControl = attributeGrid1;
-				} else if(node != null)
+				} else if(node != null && !(node is ARCNode))
                 {
                     if(node.IsValid())
                     {
