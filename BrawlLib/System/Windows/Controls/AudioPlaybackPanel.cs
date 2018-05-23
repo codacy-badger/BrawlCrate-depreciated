@@ -15,9 +15,7 @@ namespace System.Windows.Forms
         private System.ComponentModel.IContainer components;
         private ComboBox lstStreams;
         private CustomTrackBar trackBarVolume;
-        private Panel panel1;
         private Panel panel2;
-        private Panel panel3;
         private CheckBox chkLoop;
 
         private void InitializeComponent()
@@ -29,24 +27,19 @@ namespace System.Windows.Forms
             this.lblProgress = new System.Windows.Forms.Label();
             this.tmrUpdate = new System.Windows.Forms.Timer(this.components);
             this.lstStreams = new System.Windows.Forms.ComboBox();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.trackBarVolume = new System.Windows.Forms.CustomTrackBar();
             this.trackBarPosition = new System.Windows.Forms.CustomTrackBar();
-            this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPosition)).BeginInit();
             this.SuspendLayout();
             // 
             // btnPlay
             // 
-            this.btnPlay.AutoSize = true;
-            this.btnPlay.Location = new System.Drawing.Point(34, 3);
+            this.btnPlay.Location = new System.Drawing.Point(35, 4);
             this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(73, 23);
+            this.btnPlay.Size = new System.Drawing.Size(73, 20);
             this.btnPlay.TabIndex = 1;
             this.btnPlay.Text = "Play";
             this.btnPlay.UseVisualStyleBackColor = true;
@@ -54,10 +47,9 @@ namespace System.Windows.Forms
             // 
             // btnRewind
             // 
-            this.btnRewind.AutoSize = true;
-            this.btnRewind.Location = new System.Drawing.Point(3, 3);
+            this.btnRewind.Location = new System.Drawing.Point(5, 4);
             this.btnRewind.Name = "btnRewind";
-            this.btnRewind.Size = new System.Drawing.Size(25, 23);
+            this.btnRewind.Size = new System.Drawing.Size(24, 20);
             this.btnRewind.TabIndex = 2;
             this.btnRewind.Text = "|<";
             this.btnRewind.UseVisualStyleBackColor = true;
@@ -65,10 +57,9 @@ namespace System.Windows.Forms
             // 
             // chkLoop
             // 
-            this.chkLoop.AutoSize = true;
-            this.chkLoop.Location = new System.Drawing.Point(113, 7);
+            this.chkLoop.Location = new System.Drawing.Point(114, 5);
             this.chkLoop.Name = "chkLoop";
-            this.chkLoop.Size = new System.Drawing.Size(50, 17);
+            this.chkLoop.Size = new System.Drawing.Size(50, 20);
             this.chkLoop.TabIndex = 3;
             this.chkLoop.Text = "Loop";
             this.chkLoop.UseVisualStyleBackColor = true;
@@ -76,10 +67,11 @@ namespace System.Windows.Forms
             // 
             // lblProgress
             // 
-            this.lblProgress.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblProgress.Location = new System.Drawing.Point(0, 0);
+            this.lblProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblProgress.Location = new System.Drawing.Point(0, 31);
             this.lblProgress.Name = "lblProgress";
-            this.lblProgress.Size = new System.Drawing.Size(259, 27);
+            this.lblProgress.Size = new System.Drawing.Size(377, 23);
             this.lblProgress.TabIndex = 4;
             this.lblProgress.Text = "0/0";
             this.lblProgress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -91,55 +83,35 @@ namespace System.Windows.Forms
             // 
             // lstStreams
             // 
-            this.lstStreams.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lstStreams.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.lstStreams.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.lstStreams.FormattingEnabled = true;
-            this.lstStreams.Location = new System.Drawing.Point(259, 0);
+            this.lstStreams.Location = new System.Drawing.Point(219, 34);
             this.lstStreams.Name = "lstStreams";
             this.lstStreams.Size = new System.Drawing.Size(73, 21);
             this.lstStreams.TabIndex = 5;
             this.lstStreams.SelectedIndexChanged += new System.EventHandler(this.lstStreams_SelectedIndexChanged);
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.lblProgress);
-            this.panel1.Controls.Add(this.lstStreams);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 45);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(332, 27);
-            this.panel1.TabIndex = 10;
-            // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.panel3);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 72);
+            this.panel2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel2.Controls.Add(this.btnPlay);
+            this.panel2.Controls.Add(this.btnRewind);
+            this.panel2.Controls.Add(this.chkLoop);
+            this.panel2.Location = new System.Drawing.Point(116, 61);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(332, 48);
-            this.panel2.TabIndex = 12;
-            // 
-            // panel3
-            // 
-            this.panel3.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.panel3.AutoSize = true;
-            this.panel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel3.Controls.Add(this.chkLoop);
-            this.panel3.Controls.Add(this.btnPlay);
-            this.panel3.Controls.Add(this.btnRewind);
-            this.panel3.Location = new System.Drawing.Point(83, 6);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(166, 29);
-            this.panel3.TabIndex = 12;
+            this.panel2.Size = new System.Drawing.Size(167, 30);
+            this.panel2.TabIndex = 9;
             // 
             // trackBarVolume
             // 
-            this.trackBarVolume.Dock = System.Windows.Forms.DockStyle.Right;
-            this.trackBarVolume.Location = new System.Drawing.Point(332, 45);
+            this.trackBarVolume.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBarVolume.Location = new System.Drawing.Point(329, 31);
             this.trackBarVolume.Maximum = 100;
             this.trackBarVolume.Name = "trackBarVolume";
             this.trackBarVolume.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarVolume.Size = new System.Drawing.Size(45, 75);
+            this.trackBarVolume.Size = new System.Drawing.Size(45, 89);
             this.trackBarVolume.TabIndex = 6;
             this.trackBarVolume.TickFrequency = 25;
             this.trackBarVolume.Value = 100;
@@ -147,8 +119,9 @@ namespace System.Windows.Forms
             // 
             // trackBarPosition
             // 
-            this.trackBarPosition.Dock = System.Windows.Forms.DockStyle.Top;
-            this.trackBarPosition.Location = new System.Drawing.Point(0, 0);
+            this.trackBarPosition.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBarPosition.Location = new System.Drawing.Point(0, 4);
             this.trackBarPosition.Name = "trackBarPosition";
             this.trackBarPosition.Size = new System.Drawing.Size(377, 45);
             this.trackBarPosition.TabIndex = 0;
@@ -158,17 +131,14 @@ namespace System.Windows.Forms
             // 
             // AudioPlaybackPanel
             // 
+            this.Controls.Add(this.lstStreams);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.trackBarVolume);
+            this.Controls.Add(this.lblProgress);
             this.Controls.Add(this.trackBarPosition);
             this.Name = "AudioPlaybackPanel";
             this.Size = new System.Drawing.Size(377, 120);
-            this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPosition)).EndInit();
             this.ResumeLayout(false);
@@ -244,35 +214,35 @@ namespace System.Windows.Forms
             set { TargetChanged(value); }
         }
 
-		private int? _volume;
-		/// <summary>
-		/// How much quieter to make the audio output, in hundredths of a decibel.
-		/// Custom Song Volume code's difference between 7F (max) and 3F seems to be 1/4 volume - about -6dB. In other words, both the maximum and minimum amplitudes are halved.
-		/// See: http://msdn.microsoft.com/en-us/library/windows/desktop/bb280955%28v=vs.85%29.aspx
-		/// </summary>
-		public int? Volume {
-			get {
-				return _volume;
-			}
-			set {
-				_volume = value;
-				if (CurrentBuffer != null && _volume != null) {
-					CurrentBuffer.Volume = _volume.Value;
-				}
-			}
-		}
+        private int? _volume;
+        /// <summary>
+        /// How much quieter to make the audio output, in hundredths of a decibel.
+        /// Custom Song Volume code's difference between 7F (max) and 3F seems to be 1/4 volume - about -6dB. In other words, both the maximum and minimum amplitudes are halved.
+        /// See: http://msdn.microsoft.com/en-us/library/windows/desktop/bb280955%28v=vs.85%29.aspx
+        /// </summary>
+        public int? Volume {
+            get {
+                return _volume;
+            }
+            set {
+                _volume = value;
+                if (CurrentBuffer != null && _volume != null) {
+                    CurrentBuffer.Volume = _volume.Value;
+                }
+            }
+        }
 
-		/// <summary>
-		/// Sets Volume appropriately.
-		/// Range: above .00001, below or at 1. Anything lower than .00001 will set Volume to -10000.
-		/// </summary>
-		public double? VolumePercent {
-			set {
-				if (value == null) {
-					Volume = null;
-				} else {
-					Volume = Math.Max(-10000, (int)(Math.Log10(value.Value) * 2000));
-				}
+        /// <summary>
+        /// Sets Volume appropriately.
+        /// Range: above .00001, below or at 1. Anything lower than .00001 will set Volume to -10000.
+        /// </summary>
+        public double? VolumePercent {
+            set {
+                if (value == null) {
+                    Volume = null;
+                } else {
+                    Volume = Math.Max(-10000, (int)(Math.Log10(value.Value) * 2000));
+                }
 
                 //This should really be in the volume property, but this way I don't need to do more calculations
                 BrawlLib.Properties.Settings.Default.AudioVolumePercent = value;
@@ -280,8 +250,8 @@ namespace System.Windows.Forms
 
                 if (!_updating)
                     trackBarVolume.Value = (int)(value * 100d + 0.5d);
-			}
-		}
+            }
+        }
 
         private AudioProvider _provider;
 
@@ -296,6 +266,8 @@ namespace System.Windows.Forms
                 return _buffers[_targetIndex]; 
             }
         }
+
+        public event EventHandler AudioEnded;
 
         public AudioPlaybackPanel()
         {
@@ -349,42 +321,44 @@ namespace System.Windows.Forms
         {
             if (_targetSource == newTarget)
                 return;
-
+            
             Close();
-
+            
             if ((_targetSource = newTarget) == null)
                 return;
             if ((TargetStreams = _targetSource.CreateStreams()) == null)
                 return;
             if (_targetStream == null)
                 return;
-
+            
             //Create provider
             if (_provider == null)
             {
                 _provider = AudioProvider.Create(null);
-                _provider.Attach(this);
+                if (_provider != null)
+                    _provider.Attach(this);
             }
-
+            
             chkLoop.Checked = false;
             chkLoop.Enabled = _targetStream.IsLooping;
-
+            
             //Create buffer for stream
-            for (int i = 0; i < _buffers.Length; i++)
-                _buffers[i] = _provider.CreateBuffer(_targetStreams[i]);
-
+            if (_provider != null)
+                for (int i = 0; i < _buffers.Length; i++)
+                    _buffers[i] = _provider.CreateBuffer(_targetStreams[i]);
+            
             if (_targetStream.Frequency > 0)
                 _sampleTime = new DateTime((long)_targetStream.Samples * 10000000 / _targetStream.Frequency);
-
+            
             trackBarPosition.Value = 0;
             trackBarPosition.TickStyle = TickStyle.None;
             trackBarPosition.Maximum = _targetStream.Samples;
             trackBarPosition.TickFrequency = _targetStream.Samples / 8;
             trackBarPosition.TickStyle = TickStyle.BottomRight;
-
+            
             if (_targetStream.Frequency > 0)
                 UpdateTimeDisplay();
-
+            
             Enabled = _targetStream.Samples > 0;
         }
 
@@ -403,12 +377,13 @@ namespace System.Windows.Forms
             if (_isPlaying)
             {
                 Stop();
-                CurrentBuffer.Seek(sample);
+                if (CurrentBuffer != null)
+                    CurrentBuffer.Seek(sample);
                 Play();
             }
         }
 
-        private void Play()
+        public void Play()
         {
             if ((_isPlaying) || (CurrentBuffer == null))
                 return;
@@ -427,8 +402,8 @@ namespace System.Windows.Forms
             //Start timer
             tmrUpdate.Start();
 
-			//Change volume
-			if (Volume != null) CurrentBuffer.Volume = Volume.Value;
+            //Change volume
+            if (Volume != null) CurrentBuffer.Volume = Volume.Value;
             //Begin playback
             CurrentBuffer.Play();
 
@@ -462,7 +437,10 @@ namespace System.Windows.Forms
                 if (!_loop)
                 {
                     if (CurrentBuffer.ReadSample >= _targetStream.Samples)
+                    {
                         Stop();
+                        AudioEnded?.Invoke(this, new EventArgs());
+                    }
                 }
             }
         }
