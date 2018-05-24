@@ -70,6 +70,39 @@ namespace BrawlLib.SSBB.ResourceNodes
             mr.EmbossSource = 5;*/
         }
 
+        public void AddShadowDiffuse()
+        {
+            // Currently only works if the material has only one texture reference
+            if(Children.Count >= 7)
+            {
+                return;
+            }
+
+            List<MDL0MaterialRefNode> oldMaterialReferences = new List<MDL0MaterialRefNode>();
+            for (int i = 0; i < Children.Count; i++)
+            {
+                oldMaterialReferences.Add((MDL0MaterialRefNode)Children[i]);
+            }
+            
+            HardcodedFiles.CreateDiffuseShadowMaterial();
+            ReplaceRaw(FileMap.FromFile(BulborbShadowMaterial.Name));
+
+            Children.RemoveAt(0);
+
+            for (int j = 0; j < oldMaterialReferences.Count; j++)
+            {
+                Children.Insert(Children.Count - 1, oldMaterialReferences[j]);
+                Children[j].Name = oldMaterialReferences[j].Name;
+            }
+
+            Rebuild(true);
+            SignalPropertyChange();
+            /*for (int i = 0; i < oldMaterialReferences.Count; i++)
+            {
+                Children[i].Name = oldMaterialReferences[i].Name;
+            }*/
+        }
+
         #region Variables
 
         [Category("User Data"), TypeConverter(typeof(ExpandableObjectCustomConverter))]

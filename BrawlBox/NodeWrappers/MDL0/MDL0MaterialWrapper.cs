@@ -25,6 +25,7 @@ namespace BrawlBox.NodeWrappers
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("Add New Reference", null, CreateAction, Keys.Control | Keys.Alt | Keys.N));
             _menu.Items.Add(new ToolStripMenuItem("Export GLSL Shader", null, ExportShaderAction));
+            _menu.Items.Add(new ToolStripMenuItem("Add shadow diffuse", null, AddShadowDiffuseAction));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteAction, Keys.Control | Keys.Delete));
             _menu.Opening += MenuOpening;
@@ -32,6 +33,7 @@ namespace BrawlBox.NodeWrappers
         }
         protected static void CreateAction(object sender, EventArgs e) { GetInstance<MDL0MaterialWrapper>().CreateRef(); }
         protected static void ExportShaderAction(object sender, EventArgs e) { GetInstance<MDL0MaterialWrapper>().ExportShader(); }
+        protected static void AddShadowDiffuseAction(object sender, EventArgs e) { GetInstance<MDL0MaterialWrapper>().AddShadowDiffuse(); }
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
             _menu.Items[4].Enabled = _menu.Items[5].Enabled = _menu.Items[7].Enabled = true;
@@ -59,6 +61,14 @@ namespace BrawlBox.NodeWrappers
                 //TreeView.SelectedNode = Nodes[Nodes.Count - 1];
             }
         }
+
+        private void AddShadowDiffuse()
+        {
+            // For whatever reason if the node isn't collapsed it will remain as the bulborb material this is based on
+            Collapse();
+            ((MDL0MaterialNode)_resource).AddShadowDiffuse();
+        }
+
         private void ExportShader()
         {
             MDL0MaterialNode mat = _resource as MDL0MaterialNode;
