@@ -10,6 +10,7 @@ using BrawlLib.IO;
 using OpenTK.Graphics.OpenGL;
 using BrawlLib.Modeling;
 using BrawlLib.Wii.Animations;
+using BrawlLib.Wii.Models;
 using BrawlLib.StageBox;
 
 namespace BrawlLib.SSBB.ResourceNodes
@@ -57,7 +58,108 @@ namespace BrawlLib.SSBB.ResourceNodes
             _tevColorBlock.TevReg1Lo.AG = 70;
             CompareBeforeTexture = true;
             EnableDepthUpdate = false;
-            
+
+            addShadowReference();
+        }
+
+        public void AddShadowDiffuse(bool generateShader, bool updateShader)
+        {
+            if(Children == null)
+            {
+                Console.WriteLine("What.");
+                return;
+            }
+            // Can only have 8 texture references, and must have at least one
+            if(Children.Count >= 8 || Children.Count <= 0)
+            {
+                Console.WriteLine(Children.Count);
+                return;
+            }
+            // Don't allow this for a material that already has a shadow
+            if(FindChildrenByName("TShadow1").Length != 0)
+            {
+                Console.WriteLine("TShadow1 already exists?");
+                return;
+            }
+
+            Name = "MShadow_" + Name;
+            addShadowReference();
+            _tevColorBlock.TevReg1Lo.AG = 70;
+            _tevKonstBlock.TevReg3Lo.AG = 128;
+
+            if(generateShader)
+            {
+                // Shader generation does not currently work, will have to edit pre-existing shader instead
+                /*Console.WriteLine("1");
+                MDL0Node model = (MDL0Node)(_parent._parent);
+                Console.WriteLine(_parent._parent.Name);
+
+                MDL0GroupNode g = model._shadGroup;
+                if (model._shadGroup == null)
+                {
+                    Console.WriteLine("2");
+                    if (g == null)
+                    {
+                        model.AddChild(g = new MDL0GroupNode(MDLResourceType.Shaders), true);
+                        model._shadGroup = g; model._shadList = g.Children;
+                    }
+                }
+                Console.WriteLine("3");
+                if (model._shadList != null &&
+                        model._matList != null &&
+                        model._shadList.Count < model._matList.Count)
+                {
+                    MDL0ShaderNode currentShader = (MDL0ShaderNode)(g.FindChildrenByName(Shader)[0]);
+                    if (model._parent != null)
+                    {
+                        model._parent._parent.Rebuild(true);
+                    }
+                    MDL0ShaderNode newShader = NodeFactory.FromAddress(null, currentShader.WorkingSource.Address, currentShader.WorkingSource.Length) as MDL0ShaderNode;
+
+                    model.ShaderGroup.AddChild(newShader);
+                    Console.WriteLine(newShader.Name);
+                    newShader.Rebuild(true);
+                }
+                else if(model._shadList.Count >= model._matList.Count)
+                {
+                    // If the model has the same number of shaders as materials, none should be reused?
+                    updateShader = true;
+                }*/
+            }
+            if(updateShader)
+            {
+
+                MDL0Node model = (MDL0Node)(_parent._parent);
+                Console.WriteLine(_parent._parent.Name);
+
+                MDL0GroupNode g = model._shadGroup;
+                MDL0ShaderNode currentShader = (MDL0ShaderNode)(g.FindChildrenByName(Shader)[0]);
+                if(currentShader == null)
+                {
+                    Console.WriteLine("?");
+                    return;
+                }
+                MDL0TEVStageNode stage1 = new MDL0TEVStageNode();
+                MDL0TEVStageNode stage2 = new MDL0TEVStageNode();
+                stage1.TextureEnabled = true;
+                stage1.TextureMapID = TexMapID.TexMap0;
+                stage1.TextureCoordID = TexCoordID.TexCoord0;
+                stage1.ConstantColorSelection = TevKColorSel.ConstantColor0_RGB;
+                stage1.ColorSelectionA = ColorArg.One;
+                stage1.ColorSelectionC = ColorArg.One;
+                stage1.ColorSelectionD = ColorArg.Color0;
+                stage1.ColorOperation = TevColorOp.Subtract;
+                stage1.ConstantAlphaSelection = TevKAlphaSel.ConstantColor0_Alpha;
+                stage1.AlphaSelectionB = AlphaArg.Alpha0;
+                stage1.AlphaSelectionC = AlphaArg.TextureAlpha;
+                stage1.AlphaRegister = TevAlphaRegID.Alpha1;
+                currentShader.AddChild(stage1, true);
+                currentShader.AddChild(stage2, true);
+            }
+        }
+
+        private void addShadowReference()
+        {
             MDL0MaterialRefNode mr = new MDL0MaterialRefNode();
             AddChild(mr);
             mr.Name = "TShadow1";
@@ -76,39 +178,6 @@ namespace BrawlLib.SSBB.ResourceNodes
             shadowData.Entries = new string[1];
             shadowData.Entries[0] = Children.Count.ToString();
             UserEntries.Add(shadowData);
-        }
-
-        public void AddShadowDiffuse()
-        {
-            // Currently only works if the material has only one texture reference
-            if(Children.Count >= 7)
-            {
-                return;
-            }
-
-            List<MDL0MaterialRefNode> oldMaterialReferences = new List<MDL0MaterialRefNode>();
-            for (int i = 0; i < Children.Count; i++)
-            {
-                oldMaterialReferences.Add((MDL0MaterialRefNode)Children[i]);
-            }
-            
-            HardcodedFiles.CreateDiffuseShadowMaterial();
-            ReplaceRaw(FileMap.FromFile(BulborbShadowMaterial.Name));
-
-            Children.RemoveAt(0);
-
-            for (int j = 0; j < oldMaterialReferences.Count; j++)
-            {
-                Children.Insert(Children.Count - 1, oldMaterialReferences[j]);
-                Children[j].Name = oldMaterialReferences[j].Name;
-            }
-
-            Rebuild(true);
-            SignalPropertyChange();
-            /*for (int i = 0; i < oldMaterialReferences.Count; i++)
-            {
-                Children[i].Name = oldMaterialReferences[i].Name;
-            }*/
         }
 
         #region Variables

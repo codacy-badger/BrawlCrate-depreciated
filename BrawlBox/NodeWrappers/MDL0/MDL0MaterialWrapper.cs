@@ -64,9 +64,8 @@ namespace BrawlBox.NodeWrappers
 
         private void AddShadowDiffuse()
         {
-            // For whatever reason if the node isn't collapsed it will remain as the bulborb material this is based on
-            Collapse();
-            ((MDL0MaterialNode)_resource).AddShadowDiffuse();
+            Expand();
+            ((MDL0MaterialNode)_resource).AddShadowDiffuse(false, false);
         }
 
         private void ExportShader()
