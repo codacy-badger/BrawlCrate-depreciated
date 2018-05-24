@@ -310,6 +310,19 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 MaterialGroup.RemoveChild(mat1);
             }
+
+            MDL0BoneNode b = FindBoneByIndex(0);
+            b.Name = b.Name + "_NShadow";
+            b.setManualScale('X', (float)(b.Scale._x * 1.01));
+            b.setManualScale('Y', (float)(b.Scale._y * 1.01));
+            b.setManualScale('Z', (float)(b.Scale._z * 1.01));
+
+            if(Name.Length > 4)
+            {
+                if (Name.Substring(Name.Length - 4) == " (2)")
+                    Name = Name.Substring(0, Name.Length - 4);
+            }
+            Name = Name + "_Shadow";
         }
 
         public MDL0BoneNode FindBoneByIndex(int givenIndex)
