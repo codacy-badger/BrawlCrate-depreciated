@@ -42,9 +42,9 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public void GenerateShadowMaterial()
         {
-            HardcodedFiles.CreateShadowMaterial();
-            ReplaceRaw(FileMap.FromFile(ShadowMaterial.Name));
-            /*Name = "MShadow1";
+            //HardcodedFiles.CreateShadowMaterial();
+            //ReplaceRaw(FileMap.FromFile(ShadowMaterial.Name));
+            Name = "MShadow1";
 
             EnableBlend = true;
             LightChannel0.MaterialColor = new Vector4(255 * 255, 255 * 255, 255 * 255, 255 * 255);
@@ -67,7 +67,15 @@ namespace BrawlLib.SSBB.ResourceNodes
             mr.VWrapMode = MatWrapMode.Clamp;
             mr.Projection = TexProjection.STQ;
             mr.InputForm = TexInputForm.ABC1;
-            mr.EmbossSource = 5;*/
+            mr.EmbossSource = 5;
+
+
+            UserDataClass shadowData = new UserDataClass();
+            shadowData._name = "shadow";
+            shadowData.DataType = UserValueType.Int;
+            shadowData.Entries = new string[1];
+            shadowData.Entries[0] = Children.Count.ToString();
+            UserEntries.Add(shadowData);
         }
 
         public void AddShadowDiffuse()
