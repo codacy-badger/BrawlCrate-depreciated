@@ -40,7 +40,6 @@ namespace BrawlBox.NodeWrappers
         }
 
         protected static void OptimizeAction(object sender, EventArgs e) { GetInstance<MDL0PolygonWrapper>().Optimize(); }
-        protected static void DuplicateAction(object sender, EventArgs e) { GetInstance<MDL0PolygonWrapper>().Duplicate(); }
         #endregion
 
         public override string ExportFilter { get { return FileFilters.Object; } }
@@ -48,11 +47,12 @@ namespace BrawlBox.NodeWrappers
 
         public MDL0PolygonWrapper() { ContextMenuStrip = _menu; }
 
-        public void Duplicate()
+        public override ResourceNode Duplicate()
         {
             MDL0ObjectNode node = ((MDL0ObjectNode)_resource).HardCopy();
             node.Name += " - Copy";
             ((MDL0ObjectNode)_resource).Model._objGroup.AddChild(node);
+            return node;
             //((MDL0ObjectNode)_resource).Model.Rebuild(true);
         }
 
