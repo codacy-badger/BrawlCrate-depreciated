@@ -11,7 +11,7 @@ using OpenTK.Graphics.OpenGL;
 using BrawlLib.Modeling;
 using BrawlLib.Wii.Animations;
 using BrawlLib.Wii.Models;
-using BrawlLib.StageBox;
+//using BrawlLib.StageBox;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
