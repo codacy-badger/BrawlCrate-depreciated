@@ -25,7 +25,7 @@ namespace BrawlBox.NodeWrappers
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("Add New Reference", null, CreateAction, Keys.Control | Keys.Alt | Keys.N));
             _menu.Items.Add(new ToolStripMenuItem("Export GLSL Shader", null, ExportShaderAction));
-            _menu.Items.Add(new ToolStripMenuItem("Add shadow diffuse", null, AddShadowDiffuseAction));
+            //_menu.Items.Add(new ToolStripMenuItem("Add shadow diffuse", null, AddShadowDiffuseAction));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteAction, Keys.Control | Keys.Delete));
             _menu.Opening += MenuOpening;
