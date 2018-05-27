@@ -1,5 +1,5 @@
 ﻿
-StageBox - v0.5
+StageBox - v0.6
 Copyright © 2018 soopercool101
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,24 @@ they be held accountable for the manner in which it is used.
  =============================================
 |************ StageBox Change Log ************|
  =============================================
+ 
+ - v0.6 - (5/26/2018)
+ . Issue reporter functionality restored. Sends issues to https://github.com/StageBoxBrawl/StageBoxIssues/issues
+ . Adds right-click menu functionality to automatically convert a given MDL0 into a stage shadow model
+ . Automatic file compressor now works if the parent ARC's name begins with "stg" or "Stg", along with the original "STG"
+ . BrawlBox improvements ported in from main branch
+    - RSTM Updates
+        . ADPCM encoding fixed to match Nintendo's implementation
+        . ADPC Header built properly for BRSTMs with more or less than 2 channels
+        . Proper track data saved in mono and stereo BRSTMs
+    - Audio Playback Updates
+        . Audio playback panel no longer crashes with Mono sound playing
+        . Properly ensures audio provider is loaded before buffering
+        . Doesn't use DirectSound if running in 64-bit mode
+    - Texture converter updates
+        . Add "Swap RGB" functionality
+        . Add "Swap Alpha" functionality
+        . Add "Swap Alpha with RGB" functionality
  
  - v0.5 - (5/18/2018)
  . StageBox can now be associated with any file formats BrawlBox v0.77 could be
