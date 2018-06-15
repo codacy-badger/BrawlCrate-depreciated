@@ -148,13 +148,13 @@ namespace BrawlLib.SSBB.ResourceNodes
         [Category("STPM Values")]
         public float CameraSpeed { get { return _values.GetFloat(18); } set { _values.SetFloat(18, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
-        public float Value20 { get { return _values.GetFloat(19); } set { _values.SetFloat(19, value); SignalPropertyChange(); } }
+        public float StarKOCamTilt { get { return _values.GetFloat(19); } set { _values.SetFloat(19, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
-        public float Value21 { get { return _values.GetFloat(20); } set { _values.SetFloat(20, value); SignalPropertyChange(); } }
+        public float FinalSmashCamTilt { get { return _values.GetFloat(20); } set { _values.SetFloat(20, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
-        public float Value22 { get { return _values.GetFloat(21); } set { _values.SetFloat(21, value); SignalPropertyChange(); } }
+        public float CameraRight { get { return _values.GetFloat(21); } set { _values.SetFloat(21, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
-        public float Value23 { get { return _values.GetFloat(22); } set { _values.SetFloat(22, value); SignalPropertyChange(); } }
+        public float CameraLeft { get { return _values.GetFloat(22); } set { _values.SetFloat(22, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
         public float PauseCamX { get { return _values.GetFloat(23); } set { _values.SetFloat(23, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
@@ -232,7 +232,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [Category("STPM Values")]
         public int Value58 { get { return _values.GetInt(57); } set { _values.SetInt(57, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
-        public int Value59 { get { return _values.GetInt(58); } set { _values.SetInt(58, value); SignalPropertyChange(); } }
+        public int EchoMultiplier { get { return _values.GetInt(58); } set { _values.SetInt(58, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
         public int Value60 { get { return _values.GetInt(59); } set { _values.SetInt(59, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
