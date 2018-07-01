@@ -103,7 +103,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override ResourceType ResourceType { get { return ResourceType.ENEMY; } }
 
         internal byte _enemy;
-        internal Vector2 spawnPos;
+        internal Vector2 _spawnPos;
 
         [Browsable(true)]
         [Category("Enemy Info")]
@@ -159,12 +159,11 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                return spawnPos;
+                return _spawnPos;
             }
             set
             {
-                spawnPos._x = value._x;
-                spawnPos._y = value._y;
+                _spawnPos = value;
                 SignalPropertyChange();
             }
         }
@@ -174,8 +173,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             base.OnInitialize();
             _enemy = *(byte*)(WorkingUncompressed.Address + 0x1D);
-            spawnPos._x = *(bfloat*)(WorkingUncompressed.Address + 0x28);
-            spawnPos._y = *(bfloat*)(WorkingUncompressed.Address + 0x2C);
+            _spawnPos._x = *(bfloat*)(WorkingUncompressed.Address + 0x28);
+            _spawnPos._y = *(bfloat*)(WorkingUncompressed.Address + 0x2C);
             if (_name == null)
                 _name = EnemyNameList();
             return false;
