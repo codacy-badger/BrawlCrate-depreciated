@@ -133,8 +133,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         [Category("Enemy Info")]
-        [DisplayName("Enemy Brres ID")]
-        public int EnemyBID
+        [DisplayName("Enemy ARC ID")]
+        public int EnemyArcID
         {
             get
             {
@@ -142,6 +142,15 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
+        [Category("Enemy Info")]
+        [DisplayName("Enemy BRRES ARC ID")]
+        public int EnemyBrresID
+        {
+            get
+            {
+                return (_enemy * 2) + 1;
+            }
+        }
 
         [Browsable(true)]
         [Category("Enemy Info")]
