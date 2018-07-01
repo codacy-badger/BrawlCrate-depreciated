@@ -102,7 +102,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         internal GEG1Entry* Header { get { return (GEG1Entry*)WorkingUncompressed.Address; } }
         public override ResourceType ResourceType { get { return ResourceType.ENEMY; } }
 
-        internal int _enemy;
+        internal byte _enemy;
         internal Vector2 spawnPos;
 
         [Browsable(true)]
@@ -116,15 +116,15 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
             set
             {
-                _enemy = (int)value;
-                generateEnemyName();
+                _enemy = (byte)value;
+                Name = EnemyNameList();
                 SignalPropertyChange();
             }
         }
 
         [Category("Enemy Info")]
         [DisplayName("Enemy ID")]
-        public int EnemyID
+        public byte EnemyID
         {
             get
             {
@@ -138,7 +138,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                return _enemy*2;
+                return _enemy * 2;
             }
         }
 
@@ -168,7 +168,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             spawnPos._x = *(bfloat*)(WorkingUncompressed.Address + 0x28);
             spawnPos._y = *(bfloat*)(WorkingUncompressed.Address + 0x2C);
             if (_name == null)
-                generateEnemy_name();
+                _name = EnemyNameList();
             return false;
         }
 
@@ -178,388 +178,133 @@ namespace BrawlLib.SSBB.ResourceNodes
             
         }*/
 
-        private void generateEnemyName()
+        private string EnemyNameList()
         {
-            if (Index >= 0 && Index <= 255)
+            if (Enum.IsDefined(typeof(EnemyList), Index))
             {
-                if (Enum.IsDefined(typeof(EnemyList), Index))
+                switch (_enemy)
                 {
-                    switch (_enemy)
-                    {
-                        case 0:
-                            Name = "Goomba [" + Index + "]";
-                            return;
-                        case 1:
-                            Name = "Poppant [" + Index + "]";
-                            return;
-                        case 2:
-                            Name = "Feyesh [" + Index + "]";
-                            return;
-                        case 3:
-                            Name = "Jyk [" + Index + "]";
-                            return;
-                        case 4:
-                            Name = "Auroros [" + Index + "]";
-                            return;
-                        case 5:
-                            Name = "Cymul [" + Index + "]";
-                            return;
-                        case 6:
-                            Name = "Roturret [" + Index + "]";
-                            return;
-                        case 7:
-                            Name = "Borboras [" + Index + "]";
-                            return;
-                        case 8:
-                            Name = "Giant Goomba [" + Index + "]";
-                            return;
-                        case 9:
-                            Name = "Buckot [" + Index + "]";
-                            return;
-                        case 10:
-                            Name = "Bucculus [" + Index + "]";
-                            return;
-                        case 11:
-                            Name = "Greap [" + Index + "]";
-                            return;
-                        case 12:
-                            Name = "Armight [" + Index + "]";
-                            return;
-                        case 13:
-                            Name = "Bullet Bill [" + Index + "]";
-                            return;
-                        case 14:
-                            Name = "Roader [" + Index + "]";
-                            return;
-                        case 15:
-                            Name = "Spaak [" + Index + "]";
-                            return;
-                        case 16:
-                            Name = "Mite [" + Index + "]";
-                            return;
-                        case 17:
-                            Name = "Ticken [" + Index + "]";
-                            return;
-                        case 18:
-                            Name = "Towtow [" + Index + "]";
-                            return;
-                        case 19:
-                            Name = "Hammer Bro [" + Index + "]";
-                            return;
-                        case 20:
-                            Name = "Bytan [" + Index + "]";
-                            return;
-                        case 21:
-                            Name = "Floow [" + Index + "]";
-                            return;
-                        case 22:
-                            Name = "Puppit [" + Index + "]";
-                            return;
-                        case 23:
-                            Name = "Primid [" + Index + "]";
-                            return;
-                        case 24:
-                            Name = "Shellpod [" + Index + "]";
-                            return;
-                        case 25:
-                            Name = "Koopa [" + Index + "]";
-                            return;
-                        case 26:
-                            Name = "Shaydas [" + Index + "]";
-                            return;
-                        case 27:
-                            Name = "Bombed [" + Index + "]";
-                            return;
-                        case 28:
-                            Name = "Metal Primid [" + Index + "]";
-                            return;
-                        case 29:
-                            Name = "Nagagog [" + Index + "]";
-                            return;
-                        case 30:
-                            Name = "Trowlon [" + Index + "]";
-                            return;
-                        case 31:
-                            Name = "Big Primid [" + Index + "]";
-                            return;
-                        case 32:
-                            Name = "Boomerang Primid [" + Index + "]";
-                            return;
-                        case 33:
-                            Name = "Fire Primid [" + Index + "]";
-                            return;
-                        case 34:
-                            Name = "Scope Primid [" + Index + "]";
-                            return;
-                        case 35:
-                            Name = "Sword Primid [" + Index + "]";
-                            return;
-                        case 36:
-                            Name = "Gamyga [" + Index + "]";
-                            return;
-                        case 37:
-                            Name = "R.O.B. Blaster [" + Index + "]";
-                            return;
-                        case 38:
-                            Name = "R.O.B. Distance (?) [" + Index + "]";
-                            return;
-                        case 39:
-                            Name = "R.O.B. Launcher [" + Index + "]";
-                            return;
-                        case 40:
-                            Name = "R.O.B. Sentry [" + Index + "]";
-                            return;
-                        case 41:
-                            Name = "Autolance [" + Index + "]";
-                            return;
-                        case 42:
-                            Name = "Armank [" + Index + "]";
-                            return;
-                        case 43:
-                            Name = "Glire [" + Index + "]";
-                            return;
-                        case 44:
-                            Name = "Glice [" + Index + "]";
-                            return;
-                        case 45:
-                            Name = "Glunder [" + Index + "]";
-                            return;
-                        case 46:
-                            Name = "Petey Piranha [" + Index + "]";
-                            return;
-                        case 47:
-                            Name = "Gamyga Base [" + Index + "]";
-                            return;
-                        case 51:
-                            Name = "Galleom [" + Index + "]";
-                            return;
-                        case 52:
-                            Name = "Ridley [" + Index + "]";
-                            return;
-                        case 53:
-                            Name = "Rayquaza [" + Index + "]";
-                            return;
-                        case 54:
-                            Name = "Duon [" + Index + "]";
-                            return;
-                        case 55:
-                            Name = "Porky [" + Index + "]";
-                            return;
-                        case 56:
-                            Name = "Meta Ridley [" + Index + "]";
-                            return;
-                        case 57:
-                            Name = "Falcon Flyer [" + Index + "]";
-                            return;
-                        case 58:
-                            Name = "Tabuu [" + Index + "]";
-                            return;
-                        case 59:
-                            Name = "Master Hand [" + Index + "]";
-                            return;
-                        case 60:
-                            Name = "Crazy Hand [" + Index + "]";
-                            return;
-                        default:
-                            Name = "Unknown Enemy [" + Index + "]";
-                            return;
-                    }
+                    case 0:
+                        return "Goomba [" + Index + "]";
+                    case 1:
+                        return "Poppant [" + Index + "]";
+                    case 2:
+                        return "Feyesh [" + Index + "]";
+                    case 3:
+                        return "Jyk [" + Index + "]";
+                    case 4:
+                        return "Auroros [" + Index + "]";
+                    case 5:
+                        return "Cymul [" + Index + "]";
+                    case 6:
+                        return "Roturret [" + Index + "]";
+                    case 7:
+                        return "Borboras [" + Index + "]";
+                    case 8:
+                        return "Giant Goomba [" + Index + "]";
+                    case 9:
+                        return "Buckot [" + Index + "]";
+                    case 10:
+                        return "Bucculus [" + Index + "]";
+                    case 11:
+                        return "Greap [" + Index + "]";
+                    case 12:
+                        return "Armight [" + Index + "]";
+                    case 13:
+                        return "Bullet Bill [" + Index + "]";
+                    case 14:
+                        return "Roader [" + Index + "]";
+                    case 15:
+                        return "Spaak [" + Index + "]";
+                    case 16:
+                        return "Mite [" + Index + "]";
+                    case 17:
+                        return "Ticken [" + Index + "]";
+                    case 18:
+                        return "Towtow [" + Index + "]";
+                    case 19:
+                        return "Hammer Bro [" + Index + "]";
+                    case 20:
+                        return "Bytan [" + Index + "]";
+                    case 21:
+                        return "Floow [" + Index + "]";
+                    case 22:
+                        return "Puppit [" + Index + "]";
+                    case 23:
+                        return "Primid [" + Index + "]";
+                    case 24:
+                        return "Shellpod [" + Index + "]";
+                    case 25:
+                        return "Koopa [" + Index + "]";
+                    case 26:
+                        return "Shaydas [" + Index + "]";
+                    case 27:
+                        return "Bombed [" + Index + "]";
+                    case 28:
+                        return "Metal Primid [" + Index + "]";
+                    case 29:
+                        return "Nagagog [" + Index + "]";
+                    case 30:
+                        return "Trowlon [" + Index + "]";
+                    case 31:
+                        return "Big Primid [" + Index + "]";
+                    case 32:
+                        return "Boomerang Primid [" + Index + "]";
+                    case 33:
+                        return "Fire Primid [" + Index + "]";
+                    case 34:
+                        return "Scope Primid [" + Index + "]";
+                    case 35:
+                        return "Sword Primid [" + Index + "]";
+                    case 36:
+                        return "Gamyga [" + Index + "]";
+                    case 37:
+                        return "R.O.B. Blaster [" + Index + "]";
+                    case 38:
+                        return "R.O.B. Distance (?) [" + Index + "]";
+                    case 39:
+                        return "R.O.B. Launcher [" + Index + "]";
+                    case 40:
+                        return "R.O.B. Sentry [" + Index + "]";
+                    case 41:
+                        return "Autolance [" + Index + "]";
+                    case 42:
+                        return "Armank [" + Index + "]";
+                    case 43:
+                        return "Glire [" + Index + "]";
+                    case 44:
+                        return "Glice [" + Index + "]";
+                    case 45:
+                        return "Glunder [" + Index + "]";
+                    case 46:
+                        return "Petey Piranha [" + Index + "]";
+                    case 47:
+                        return "Gamyga Base [" + Index + "]";
+                    case 51:
+                        return "Galleom [" + Index + "]";
+                    case 52:
+                        return "Ridley [" + Index + "]";
+                    case 53:
+                        return "Rayquaza [" + Index + "]";
+                    case 54:
+                        return "Duon [" + Index + "]";
+                    case 55:
+                        return "Porky [" + Index + "]";
+                    case 56:
+                        return "Meta Ridley [" + Index + "]";
+                    case 57:
+                        return "Falcon Flyer [" + Index + "]";
+                    case 58:
+                        return "Tabuu [" + Index + "]";
+                    case 59:
+                        return "Master Hand [" + Index + "]";
+                    case 60:
+                        return "Crazy Hand [" + Index + "]";
+                    default:
+                        return "Unknown Enemy [" + Index + "]";
                 }
             }
-            Name = "Unknown Enemy [" + Index + "]";
-            return;
-        }
-
-        private void generateEnemy_name()
-        {
-            if (Index >= 0 && Index <= 255)
-            {
-                if (Enum.IsDefined(typeof(EnemyList), Index))
-                {
-                    switch (_enemy)
-                    {
-                        case 0:
-                            _name = "Goomba [" + Index + "]";
-                            return;
-                        case 1:
-                            _name = "Poppant [" + Index + "]";
-                            return;
-                        case 2:
-                            _name = "Feyesh [" + Index + "]";
-                            return;
-                        case 3:
-                            _name = "Jyk [" + Index + "]";
-                            return;
-                        case 4:
-                            _name = "Auroros [" + Index + "]";
-                            return;
-                        case 5:
-                            _name = "Cymul [" + Index + "]";
-                            return;
-                        case 6:
-                            _name = "Roturret [" + Index + "]";
-                            return;
-                        case 7:
-                            _name = "Borboras [" + Index + "]";
-                            return;
-                        case 8:
-                            _name = "Giant Goomba [" + Index + "]";
-                            return;
-                        case 9:
-                            _name = "Buckot [" + Index + "]";
-                            return;
-                        case 10:
-                            _name = "Bucculus [" + Index + "]";
-                            return;
-                        case 11:
-                            _name = "Greap [" + Index + "]";
-                            return;
-                        case 12:
-                            _name = "Armight [" + Index + "]";
-                            return;
-                        case 13:
-                            _name = "Bullet Bill [" + Index + "]";
-                            return;
-                        case 14:
-                            _name = "Roader [" + Index + "]";
-                            return;
-                        case 15:
-                            _name = "Spaak [" + Index + "]";
-                            return;
-                        case 16:
-                            _name = "Mite [" + Index + "]";
-                            return;
-                        case 17:
-                            _name = "Ticken [" + Index + "]";
-                            return;
-                        case 18:
-                            _name = "Towtow [" + Index + "]";
-                            return;
-                        case 19:
-                            _name = "Hammer Bro [" + Index + "]";
-                            return;
-                        case 20:
-                            _name = "Bytan [" + Index + "]";
-                            return;
-                        case 21:
-                            _name = "Floow [" + Index + "]";
-                            return;
-                        case 22:
-                            _name = "Puppit [" + Index + "]";
-                            return;
-                        case 23:
-                            _name = "Primid [" + Index + "]";
-                            return;
-                        case 24:
-                            _name = "Shellpod [" + Index + "]";
-                            return;
-                        case 25:
-                            _name = "Koopa [" + Index + "]";
-                            return;
-                        case 26:
-                            _name = "Shaydas [" + Index + "]";
-                            return;
-                        case 27:
-                            _name = "Bombed [" + Index + "]";
-                            return;
-                        case 28:
-                            _name = "Metal Primid [" + Index + "]";
-                            return;
-                        case 29:
-                            _name = "Nagagog [" + Index + "]";
-                            return;
-                        case 30:
-                            _name = "Trowlon [" + Index + "]";
-                            return;
-                        case 31:
-                            _name = "Big Primid [" + Index + "]";
-                            return;
-                        case 32:
-                            _name = "Boomerang Primid [" + Index + "]";
-                            return;
-                        case 33:
-                            _name = "Fire Primid [" + Index + "]";
-                            return;
-                        case 34:
-                            _name = "Scope Primid [" + Index + "]";
-                            return;
-                        case 35:
-                            _name = "Sword Primid [" + Index + "]";
-                            return;
-                        case 36:
-                            _name = "Gamyga [" + Index + "]";
-                            return;
-                        case 37:
-                            _name = "R.O.B. Blaster [" + Index + "]";
-                            return;
-                        case 38:
-                            _name = "R.O.B. Distance (?) [" + Index + "]";
-                            return;
-                        case 39:
-                            _name = "R.O.B. Launcher [" + Index + "]";
-                            return;
-                        case 40:
-                            _name = "R.O.B. Sentry [" + Index + "]";
-                            return;
-                        case 41:
-                            _name = "Autolance [" + Index + "]";
-                            return;
-                        case 42:
-                            _name = "Armank [" + Index + "]";
-                            return;
-                        case 43:
-                            _name = "Glire [" + Index + "]";
-                            return;
-                        case 44:
-                            _name = "Glice [" + Index + "]";
-                            return;
-                        case 45:
-                            _name = "Glunder [" + Index + "]";
-                            return;
-                        case 46:
-                            _name = "Petey Piranha [" + Index + "]";
-                            return;
-                        case 47:
-                            _name = "Gamyga Base [" + Index + "]";
-                            return;
-                        case 51:
-                            _name = "Galleom [" + Index + "]";
-                            return;
-                        case 52:
-                            _name = "Ridley [" + Index + "]";
-                            return;
-                        case 53:
-                            _name = "Rayquaza [" + Index + "]";
-                            return;
-                        case 54:
-                            _name = "Duon [" + Index + "]";
-                            return;
-                        case 55:
-                            _name = "Porky [" + Index + "]";
-                            return;
-                        case 56:
-                            _name = "Meta Ridley [" + Index + "]";
-                            return;
-                        case 57:
-                            _name = "Falcon Flyer [" + Index + "]";
-                            return;
-                        case 58:
-                            _name = "Tabuu [" + Index + "]";
-                            return;
-                        case 59:
-                            _name = "Master Hand [" + Index + "]";
-                            return;
-                        case 60:
-                            _name = "Crazy Hand [" + Index + "]";
-                            return;
-                        default:
-                            _name = "Unknown Enemy [" + Index + "]";
-                            return;
-                    }
-                }
-            }
-            _name = "Unknown Enemy [" + Index + "]";
-            return;
+            return "Unknown Enemy [" + Index + "]";
         }
     }
 }
