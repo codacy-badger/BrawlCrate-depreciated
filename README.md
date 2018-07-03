@@ -8,6 +8,6 @@ BrawlBox and BrawlLib were developed initially by Kryal
 (http://code.google.com/p/brawltools2), then by libertyernie
 (https://github.com/libertyernie/brawltools)
 
-Current StageBox contributors: soopercool101
+Current StageBox contributors: soopercool101, MarioDox
 
 Join the Brawl Stage Compendium Discord to talk to the developers: https://discord.gg/s7c8763
