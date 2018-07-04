@@ -107,7 +107,10 @@ namespace BrawlLib.SSBB.ResourceNodes
         Glice = 44,
         Glunder = 45,
         PeteyPiranha = 46,
-        GamygaBase = 47,
+        GamygaBase1 = 47,
+        GamygaBase2 = 48,
+        GamygaBase3 = 49,
+        GamygaBase4 = 50,
         Galleom = 51,
         Ridley = 52,
         Rayquaza = 53,
@@ -128,125 +131,125 @@ namespace BrawlLib.SSBB.ResourceNodes
         // Headers are known
         public uint _header1;
         public uint _header2;
-        public byte _unknown8;   // 0x08
-        public byte _unknown9;   // 0x09
-        public byte _unknown10;  // 0x0A
-        public byte _unknown11;  // 0x0B
-        public byte _unknown12;  // 0x0C
-        public byte _unknown13;  // 0x0D
-        public byte _unknown14;  // 0x0E
-        public byte _unknown15;  // 0x0F
-        public byte _unknown16;  // 0x10
-        public byte _unknown17;  // 0x11
-        public byte _unknown18;  // 0x12
-        public byte _unknown19;  // 0x13
-        public byte _unknown20;  // 0x14
-        public byte _unknown21;  // 0x15
-        public byte _unknown22;  // 0x16
-        public byte _unknown23;  // 0x17
-        public byte _unknown24;  // 0x18
-        public byte _unknown25;  // 0x19
-        public byte _unknown26;  // 0x1A
-        public byte _unknown27;  // 0x1B
-        public byte _unknown28;  // 0x1C
+        public byte _unknown0x08;
+        public byte _unknown0x09;
+        public byte _unknown0x0A;
+        public byte _unknown0x0B;
+        public byte _unknown0x0C;
+        public byte _unknown0x0D;
+        public byte _unknown0x0E;
+        public byte _unknown0x0F;
+        public byte _unknown0x10;
+        public byte _unknown0x11;
+        public byte _unknown0x12;
+        public byte _unknown0x13;
+        public byte _unknown0x14;
+        public byte _unknown0x15;
+        public byte _unknown0x16;
+        public byte _unknown0x17;
+        public byte _unknown0x18;
+        public byte _unknown0x19;
+        public byte _unknown0x1A;
+        public byte _unknown0x1B;
+        public byte _unknown0x1C;
         // EnemyID is known
-        public byte _enemyID;   // 0x1D
-        public byte _unknown30;  // 0x1E
-        public byte _unknown31;  // 0x1F
-        public byte _unknown32;  // 0x20
-        public byte _unknown33;  // 0x21
-        public byte _unknown34;  // 0x22
-        public byte _unknown35;  // 0x23
-        public byte _unknown36;  // 0x24
-        public byte _unknown37;  // 0x25
-        public byte _unknown38;  // 0x26
-        public byte _unknown39;  // 0x27
+        public byte _enemyID;
+        public byte _unknown0x1E;
+        public byte _unknown0x1F;
+        public byte _unknown0x20;
+        public byte _unknown0x21;
+        public byte _unknown0x22;
+        public byte _unknown0x23;
+        public byte _unknown0x24;
+        public byte _unknown0x25;
+        public byte _unknown0x26;
+        public byte _unknown0x27;
         // Spawn Position is known
         public Vector2 _spawnPos;
-        public byte _unknown48;  // 0x30
-        public byte _unknown49;  // 0x31
-        public byte _unknown50;  // 0x32
-        public byte _unknown51;  // 0x33
-        public byte _unknown52;  // 0x34
-        public byte _unknown53;  // 0x35
-        public byte _unknown54;  // 0x36
-        public byte _unknown55;  // 0x37
-        public byte _unknown56;  // 0x38
-        public byte _unknown57;  // 0x39
-        public byte _unknown58;  // 0x3A
-        public byte _unknown59;  // 0x3B
-        public byte _unknown60;  // 0x3C
-        public byte _unknown61;  // 0x3D
-        public byte _unknown62;  // 0x3E
-        public byte _unknown63;  // 0x3F
-        public byte _unknown64;  // 0x40
-        public byte _unknown65;  // 0x41
-        public byte _unknown66;  // 0x42
-        public byte _unknown67;  // 0x43
-        public byte _unknown68;  // 0x44
-        public byte _unknown69;  // 0x45
-        public byte _unknown70;  // 0x46
-        public byte _unknown71;  // 0x47
-        public byte _unknown72;  // 0x48
-        public byte _unknown73;  // 0x49
-        public byte _unknown74;  // 0x4A
-        public byte _unknown75;  // 0x4B
-        public byte _unknown76;  // 0x4C
-        public byte _unknown77;  // 0x4D
-        public byte _unknown78;  // 0x4E
-        public byte _unknown79;  // 0x4F
-        public byte _unknown80;  // 0x50
-        public byte _unknown81;  // 0x51
-        public byte _unknown82;  // 0x52
-        public byte _unknown83;  // 0x53
-        public byte _unknown84;  // 0x54
-        public byte _unknown85;  // 0x55
-        public byte _unknown86;  // 0x56
-        public byte _unknown87;  // 0x57
-        public byte _unknown88;  // 0x58
-        public byte _unknown89;  // 0x59
-        public byte _unknown90;  // 0x5A
-        public byte _unknown91;  // 0x5B
-        public byte _unknown92;  // 0x5C
-        public byte _unknown93;  // 0x5D
-        public byte _unknown94;  // 0x5E
-        public byte _unknown95;  // 0x5F
-        public byte _unknown96;  // 0x60
-        public byte _unknown97;  // 0x61
-        public byte _unknown98;  // 0x62
-        public byte _unknown99;  // 0x63
-        public byte _unknown100; // 0x64
-        public byte _unknown101; // 0x65
-        public byte _unknown102; // 0x66
-        public byte _unknown103; // 0x67
-        public byte _unknown104; // 0x68
-        public byte _unknown105; // 0x69
-        public byte _unknown106; // 0x6A
-        public byte _unknown107; // 0x6B
-        public byte _unknown108; // 0x6C
-        public byte _unknown109; // 0x6D
-        public byte _unknown110; // 0x6E
-        public byte _unknown111; // 0x6F
-        public byte _unknown112; // 0x70
-        public byte _unknown113; // 0x71
-        public byte _unknown114; // 0x72
-        public byte _unknown115; // 0x73
-        public byte _unknown116; // 0x74
-        public byte _unknown117; // 0x75
-        public byte _unknown118; // 0x76
-        public byte _unknown119; // 0x77
-        public byte _unknown120; // 0x78
-        public byte _unknown121; // 0x79
-        public byte _unknown122; // 0x7A
-        public byte _unknown123; // 0x7B
-        public byte _unknown124; // 0x7C
-        public byte _unknown125; // 0x7D
-        public byte _unknown126; // 0x7E
-        public byte _unknown127; // 0x7F
-        public byte _unknown128; // 0x80
-        public byte _unknown129; // 0x81
-        public byte _unknown130; // 0x82
-        public byte _unknown131; // 0x83
+        public byte _unknown0x30;
+        public byte _unknown0x31;
+        public byte _unknown0x32;
+        public byte _unknown0x33;
+        public byte _unknown0x34;
+        public byte _unknown0x35;
+        public byte _unknown0x36;
+        public byte _unknown0x37;
+        public byte _unknown0x38;
+        public byte _unknown0x39;
+        public byte _unknown0x3A;
+        public byte _unknown0x3B;
+        public byte _unknown0x3C;
+        public byte _unknown0x3D;
+        public byte _unknown0x3E;
+        public byte _unknown0x3F;
+        public byte _unknown0x40;
+        public byte _unknown0x41;
+        public byte _unknown0x42;
+        public byte _unknown0x43;
+        public byte _unknown0x44;
+        public byte _unknown0x45;
+        public byte _unknown0x46;
+        public byte _unknown0x47;
+        public byte _unknown0x48;
+        public byte _unknown0x49;
+        public byte _unknown0x4A;
+        public byte _unknown0x4B;
+        public byte _unknown0x4C;
+        public byte _unknown0x4D;
+        public byte _unknown0x4E;
+        public byte _unknown0x4F;
+        public byte _unknown0x50;
+        public byte _unknown0x51;
+        public byte _unknown0x52;
+        public byte _unknown0x53;
+        public byte _unknown0x54;
+        public byte _unknown0x55;
+        public byte _unknown0x56;
+        public byte _unknown0x57;
+        public byte _unknown0x58;
+        public byte _unknown0x59;
+        public byte _unknown0x5A;
+        public byte _unknown0x5B;
+        public byte _unknown0x5C;
+        public byte _unknown0x5D;
+        public byte _unknown0x5E;
+        public byte _unknown0x5F;
+        public byte _unknown0x60;
+        public byte _unknown0x61;
+        public byte _unknown0x62;
+        public byte _unknown0x63;
+        public byte _unknown0x64;
+        public byte _unknown0x65;
+        public byte _unknown0x66;
+        public byte _unknown0x67;
+        public byte _unknown0x68;
+        public byte _unknown0x69;
+        public byte _unknown0x6A;
+        public byte _unknown0x6B;
+        public byte _unknown0x6C;
+        public byte _unknown0x6D;
+        public byte _unknown0x6E;
+        public byte _unknown0x6F;
+        public byte _unknown0x70;
+        public byte _unknown0x71;
+        public byte _unknown0x72;
+        public byte _unknown0x73;
+        public byte _unknown0x74;
+        public byte _unknown0x75;
+        public byte _unknown0x76;
+        public byte _unknown0x77;
+        public byte _unknown0x78;
+        public byte _unknown0x79;
+        public byte _unknown0x7A;
+        public byte _unknown0x7B;
+        public byte _unknown0x7C;
+        public byte _unknown0x7D;
+        public byte _unknown0x7E;
+        public byte _unknown0x7F;
+        public byte _unknown0x80;
+        public byte _unknown0x81;
+        public byte _unknown0x82;
+        public byte _unknown0x83;
 
         [Browsable(true)]
         [Category("Enemy Info")]
@@ -316,124 +319,124 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             _header1 = Header->_header1;
             _header2 = Header->_header2;
-            _unknown8 = Header->_unknown8;
-            _unknown9 = Header->_unknown9;
-            _unknown10 = Header->_unknown10;
-            _unknown11 = Header->_unknown11;
-            _unknown12 = Header->_unknown12;
-            _unknown13 = Header->_unknown13;
-            _unknown14 = Header->_unknown14;
-            _unknown15 = Header->_unknown15;
-            _unknown16 = Header->_unknown16;
-            _unknown17 = Header->_unknown17;
-            _unknown18 = Header->_unknown18;
-            _unknown19 = Header->_unknown19;
-            _unknown20 = Header->_unknown20;
-            _unknown21 = Header->_unknown21;
-            _unknown22 = Header->_unknown22;
-            _unknown23 = Header->_unknown23;
-            _unknown24 = Header->_unknown24;
-            _unknown25 = Header->_unknown25;
-            _unknown26 = Header->_unknown26;
-            _unknown27 = Header->_unknown27;
-            _unknown28 = Header->_unknown28;
+            _unknown0x08 = Header->_unknown0x08;
+            _unknown0x09 = Header->_unknown0x09;
+            _unknown0x0A = Header->_unknown0x0A;
+            _unknown0x0B = Header->_unknown0x0B;
+            _unknown0x0C = Header->_unknown0x0C;
+            _unknown0x0D = Header->_unknown0x0D;
+            _unknown0x0E = Header->_unknown0x0E;
+            _unknown0x0F = Header->_unknown0x0F;
+            _unknown0x10 = Header->_unknown0x10;
+            _unknown0x11 = Header->_unknown0x11;
+            _unknown0x12 = Header->_unknown0x12;
+            _unknown0x13 = Header->_unknown0x13;
+            _unknown0x14 = Header->_unknown0x14;
+            _unknown0x15 = Header->_unknown0x15;
+            _unknown0x16 = Header->_unknown0x16;
+            _unknown0x17 = Header->_unknown0x17;
+            _unknown0x18 = Header->_unknown0x18;
+            _unknown0x19 = Header->_unknown0x19;
+            _unknown0x1A = Header->_unknown0x1A;
+            _unknown0x1B = Header->_unknown0x1B;
+            _unknown0x1C = Header->_unknown0x1C;
             _enemyID = Header->_enemyID;
-            _unknown30 = Header->_unknown30;
-            _unknown31 = Header->_unknown31;
-            _unknown32 = Header->_unknown32;
-            _unknown33 = Header->_unknown33;
-            _unknown34 = Header->_unknown34;
-            _unknown35 = Header->_unknown35;
-            _unknown36 = Header->_unknown36;
-            _unknown37 = Header->_unknown37;
-            _unknown38 = Header->_unknown38;
-            _unknown39 = Header->_unknown39;
+            _unknown0x1E = Header->_unknown0x1E;
+            _unknown0x1F = Header->_unknown0x1F;
+            _unknown0x20 = Header->_unknown0x20;
+            _unknown0x21 = Header->_unknown0x21;
+            _unknown0x22 = Header->_unknown0x22;
+            _unknown0x23 = Header->_unknown0x23;
+            _unknown0x24 = Header->_unknown0x24;
+            _unknown0x25 = Header->_unknown0x25;
+            _unknown0x26 = Header->_unknown0x26;
+            _unknown0x27 = Header->_unknown0x27;
             _spawnPos._x = Header->_spawnX;
             _spawnPos._y = Header->_spawnY;
-            _unknown48 = Header->_unknown48;
-            _unknown49 = Header->_unknown49;
-            _unknown50 = Header->_unknown50;
-            _unknown51 = Header->_unknown51;
-            _unknown52 = Header->_unknown52;
-            _unknown53 = Header->_unknown53;
-            _unknown54 = Header->_unknown54;
-            _unknown55 = Header->_unknown55;
-            _unknown56 = Header->_unknown56;
-            _unknown57 = Header->_unknown57;
-            _unknown58 = Header->_unknown58;
-            _unknown59 = Header->_unknown59;
-            _unknown60 = Header->_unknown60;
-            _unknown61 = Header->_unknown61;
-            _unknown62 = Header->_unknown62;
-            _unknown63 = Header->_unknown63;
-            _unknown64 = Header->_unknown64;
-            _unknown65 = Header->_unknown65;
-            _unknown66 = Header->_unknown66;
-            _unknown67 = Header->_unknown67;
-            _unknown68 = Header->_unknown68;
-            _unknown69 = Header->_unknown69;
-            _unknown70 = Header->_unknown70;
-            _unknown71 = Header->_unknown71;
-            _unknown72 = Header->_unknown72;
-            _unknown73 = Header->_unknown73;
-            _unknown74 = Header->_unknown74;
-            _unknown75 = Header->_unknown75;
-            _unknown76 = Header->_unknown76;
-            _unknown77 = Header->_unknown77;
-            _unknown78 = Header->_unknown78;
-            _unknown79 = Header->_unknown79;
-            _unknown80 = Header->_unknown80;
-            _unknown81 = Header->_unknown81;
-            _unknown82 = Header->_unknown82;
-            _unknown83 = Header->_unknown83;
-            _unknown84 = Header->_unknown84;
-            _unknown85 = Header->_unknown85;
-            _unknown86 = Header->_unknown86;
-            _unknown87 = Header->_unknown87;
-            _unknown88 = Header->_unknown88;
-            _unknown89 = Header->_unknown89;
-            _unknown90 = Header->_unknown90;
-            _unknown91 = Header->_unknown91;
-            _unknown92 = Header->_unknown92;
-            _unknown93 = Header->_unknown93;
-            _unknown94 = Header->_unknown94;
-            _unknown95 = Header->_unknown95;
-            _unknown96 = Header->_unknown96;
-            _unknown97 = Header->_unknown97;
-            _unknown98 = Header->_unknown98;
-            _unknown99 = Header->_unknown99;
-            _unknown100 = Header->_unknown100;
-            _unknown101 = Header->_unknown101;
-            _unknown102 = Header->_unknown102;
-            _unknown103 = Header->_unknown103;
-            _unknown104 = Header->_unknown104;
-            _unknown105 = Header->_unknown105;
-            _unknown106 = Header->_unknown106;
-            _unknown107 = Header->_unknown107;
-            _unknown108 = Header->_unknown108;
-            _unknown109 = Header->_unknown109;
-            _unknown110 = Header->_unknown110;
-            _unknown111 = Header->_unknown111;
-            _unknown112 = Header->_unknown112;
-            _unknown113 = Header->_unknown113;
-            _unknown114 = Header->_unknown114;
-            _unknown115 = Header->_unknown115;
-            _unknown116 = Header->_unknown116;
-            _unknown117 = Header->_unknown117;
-            _unknown118 = Header->_unknown118;
-            _unknown119 = Header->_unknown119;
-            _unknown120 = Header->_unknown120;
-            _unknown121 = Header->_unknown121;
-            _unknown122 = Header->_unknown122;
-            _unknown123 = Header->_unknown123;
-            _unknown124 = Header->_unknown124;
-            _unknown125 = Header->_unknown125;
-            _unknown126 = Header->_unknown126;
-            _unknown127 = Header->_unknown127;
-            _unknown128 = Header->_unknown128;
-            _unknown129 = Header->_unknown129;
-            _unknown130 = Header->_unknown130;
-            _unknown131 = Header->_unknown131;
+            _unknown0x30 = Header->_unknown0x30;
+            _unknown0x31 = Header->_unknown0x31;
+            _unknown0x32 = Header->_unknown0x32;
+            _unknown0x33 = Header->_unknown0x33;
+            _unknown0x34 = Header->_unknown0x34;
+            _unknown0x35 = Header->_unknown0x35;
+            _unknown0x36 = Header->_unknown0x36;
+            _unknown0x37 = Header->_unknown0x37;
+            _unknown0x38 = Header->_unknown0x38;
+            _unknown0x39 = Header->_unknown0x39;
+            _unknown0x3A = Header->_unknown0x3A;
+            _unknown0x3B = Header->_unknown0x3B;
+            _unknown0x3C = Header->_unknown0x3C;
+            _unknown0x3D = Header->_unknown0x3D;
+            _unknown0x3E = Header->_unknown0x3E;
+            _unknown0x3F = Header->_unknown0x3F;
+            _unknown0x40 = Header->_unknown0x40;
+            _unknown0x41 = Header->_unknown0x41;
+            _unknown0x42 = Header->_unknown0x42;
+            _unknown0x43 = Header->_unknown0x43;
+            _unknown0x44 = Header->_unknown0x44;
+            _unknown0x45 = Header->_unknown0x45;
+            _unknown0x46 = Header->_unknown0x46;
+            _unknown0x47 = Header->_unknown0x47;
+            _unknown0x48 = Header->_unknown0x48;
+            _unknown0x49 = Header->_unknown0x49;
+            _unknown0x4A = Header->_unknown0x4A;
+            _unknown0x4B = Header->_unknown0x4B;
+            _unknown0x4C = Header->_unknown0x4C;
+            _unknown0x4D = Header->_unknown0x4D;
+            _unknown0x4E = Header->_unknown0x4E;
+            _unknown0x4F = Header->_unknown0x4F;
+            _unknown0x50 = Header->_unknown0x50;
+            _unknown0x51 = Header->_unknown0x51;
+            _unknown0x52 = Header->_unknown0x52;
+            _unknown0x53 = Header->_unknown0x53;
+            _unknown0x54 = Header->_unknown0x54;
+            _unknown0x55 = Header->_unknown0x55;
+            _unknown0x56 = Header->_unknown0x56;
+            _unknown0x57 = Header->_unknown0x57;
+            _unknown0x58 = Header->_unknown0x58;
+            _unknown0x59 = Header->_unknown0x59;
+            _unknown0x5A = Header->_unknown0x5A;
+            _unknown0x5B = Header->_unknown0x5B;
+            _unknown0x5C = Header->_unknown0x5C;
+            _unknown0x5D = Header->_unknown0x5D;
+            _unknown0x5E = Header->_unknown0x5E;
+            _unknown0x5F = Header->_unknown0x5F;
+            _unknown0x60 = Header->_unknown0x60;
+            _unknown0x61 = Header->_unknown0x61;
+            _unknown0x62 = Header->_unknown0x62;
+            _unknown0x63 = Header->_unknown0x63;
+            _unknown0x64 = Header->_unknown0x64;
+            _unknown0x65 = Header->_unknown0x65;
+            _unknown0x66 = Header->_unknown0x66;
+            _unknown0x67 = Header->_unknown0x67;
+            _unknown0x68 = Header->_unknown0x68;
+            _unknown0x69 = Header->_unknown0x69;
+            _unknown0x6A = Header->_unknown0x6A;
+            _unknown0x6B = Header->_unknown0x6B;
+            _unknown0x6C = Header->_unknown0x6C;
+            _unknown0x6D = Header->_unknown0x6D;
+            _unknown0x6E = Header->_unknown0x6E;
+            _unknown0x6F = Header->_unknown0x6F;
+            _unknown0x70 = Header->_unknown0x70;
+            _unknown0x71 = Header->_unknown0x71;
+            _unknown0x72 = Header->_unknown0x72;
+            _unknown0x73 = Header->_unknown0x73;
+            _unknown0x74 = Header->_unknown0x74;
+            _unknown0x75 = Header->_unknown0x75;
+            _unknown0x76 = Header->_unknown0x76;
+            _unknown0x77 = Header->_unknown0x77;
+            _unknown0x78 = Header->_unknown0x78;
+            _unknown0x79 = Header->_unknown0x79;
+            _unknown0x7A = Header->_unknown0x7A;
+            _unknown0x7B = Header->_unknown0x7B;
+            _unknown0x7C = Header->_unknown0x7C;
+            _unknown0x7D = Header->_unknown0x7D;
+            _unknown0x7E = Header->_unknown0x7E;
+            _unknown0x7F = Header->_unknown0x7F;
+            _unknown0x80 = Header->_unknown0x80;
+            _unknown0x81 = Header->_unknown0x81;
+            _unknown0x82 = Header->_unknown0x82;
+            _unknown0x83 = Header->_unknown0x83;
             if (_name == null)
                 _name = EnemyNameList();
             return false;
@@ -447,126 +450,124 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
             GEG1Entry* hdr = (GEG1Entry*)address;
-            hdr->_header1 = _header1;
-            hdr->_header2 = _header2;
-            hdr->_unknown8 = _unknown8;
-            hdr->_unknown9 = _unknown9;
-            hdr->_unknown10 = _unknown10;
-            hdr->_unknown11 = _unknown11;
-            hdr->_unknown12 = _unknown12;
-            hdr->_unknown13 = _unknown13;
-            hdr->_unknown14 = _unknown14;
-            hdr->_unknown15 = _unknown15;
-            hdr->_unknown16 = _unknown16;
-            hdr->_unknown17 = _unknown17;
-            hdr->_unknown18 = _unknown18;
-            hdr->_unknown19 = _unknown19;
-            hdr->_unknown20 = _unknown20;
-            hdr->_unknown21 = _unknown21;
-            hdr->_unknown22 = _unknown22;
-            hdr->_unknown23 = _unknown23;
-            hdr->_unknown24 = _unknown24;
-            hdr->_unknown25 = _unknown25;
-            hdr->_unknown26 = _unknown26;
-            hdr->_unknown27 = _unknown27;
-            hdr->_unknown28 = _unknown28;
+            hdr->_unknown0x08 = _unknown0x08;
+            hdr->_unknown0x09 = _unknown0x09;
+            hdr->_unknown0x0A = _unknown0x0A;
+            hdr->_unknown0x0B = _unknown0x0B;
+            hdr->_unknown0x0C = _unknown0x0C;
+            hdr->_unknown0x0D = _unknown0x0D;
+            hdr->_unknown0x0E = _unknown0x0E;
+            hdr->_unknown0x0F = _unknown0x0F;
+            hdr->_unknown0x10 = _unknown0x10;
+            hdr->_unknown0x11 = _unknown0x11;
+            hdr->_unknown0x12 = _unknown0x12;
+            hdr->_unknown0x13 = _unknown0x13;
+            hdr->_unknown0x14 = _unknown0x14;
+            hdr->_unknown0x15 = _unknown0x15;
+            hdr->_unknown0x16 = _unknown0x16;
+            hdr->_unknown0x17 = _unknown0x17;
+            hdr->_unknown0x18 = _unknown0x18;
+            hdr->_unknown0x19 = _unknown0x19;
+            hdr->_unknown0x1A = _unknown0x1A;
+            hdr->_unknown0x1B = _unknown0x1B;
+            hdr->_unknown0x1C = _unknown0x1C;
             hdr->_enemyID = _enemyID;
-            hdr->_unknown30 = _unknown30;
-            hdr->_unknown31 = _unknown31;
-            hdr->_unknown32 = _unknown32;
-            hdr->_unknown33 = _unknown33;
-            hdr->_unknown34 = _unknown34;
-            hdr->_unknown35 = _unknown35;
-            hdr->_unknown36 = _unknown36;
-            hdr->_unknown37 = _unknown37;
-            hdr->_unknown38 = _unknown38;
-            hdr->_unknown39 = _unknown39;
+            hdr->_unknown0x1E = _unknown0x1E;
+            hdr->_unknown0x1F = _unknown0x1F;
+            hdr->_unknown0x20 = _unknown0x20;
+            hdr->_unknown0x21 = _unknown0x21;
+            hdr->_unknown0x22 = _unknown0x22;
+            hdr->_unknown0x23 = _unknown0x23;
+            hdr->_unknown0x24 = _unknown0x24;
+            hdr->_unknown0x25 = _unknown0x25;
+            hdr->_unknown0x26 = _unknown0x26;
+            hdr->_unknown0x27 = _unknown0x27;
             hdr->_spawnX = _spawnPos._x;
             hdr->_spawnY = _spawnPos._y;
-            hdr->_unknown48 = _unknown48;
-            hdr->_unknown49 = _unknown49;
-            hdr->_unknown50 = _unknown50;
-            hdr->_unknown51 = _unknown51;
-            hdr->_unknown52 = _unknown52;
-            hdr->_unknown53 = _unknown53;
-            hdr->_unknown54 = _unknown54;
-            hdr->_unknown55 = _unknown55;
-            hdr->_unknown56 = _unknown56;
-            hdr->_unknown57 = _unknown57;
-            hdr->_unknown58 = _unknown58;
-            hdr->_unknown59 = _unknown59;
-            hdr->_unknown60 = _unknown60;
-            hdr->_unknown61 = _unknown61;
-            hdr->_unknown62 = _unknown62;
-            hdr->_unknown63 = _unknown63;
-            hdr->_unknown64 = _unknown64;
-            hdr->_unknown65 = _unknown65;
-            hdr->_unknown66 = _unknown66;
-            hdr->_unknown67 = _unknown67;
-            hdr->_unknown68 = _unknown68;
-            hdr->_unknown69 = _unknown69;
-            hdr->_unknown70 = _unknown70;
-            hdr->_unknown71 = _unknown71;
-            hdr->_unknown72 = _unknown72;
-            hdr->_unknown73 = _unknown73;
-            hdr->_unknown74 = _unknown74;
-            hdr->_unknown75 = _unknown75;
-            hdr->_unknown76 = _unknown76;
-            hdr->_unknown77 = _unknown77;
-            hdr->_unknown78 = _unknown78;
-            hdr->_unknown79 = _unknown79;
-            hdr->_unknown80 = _unknown80;
-            hdr->_unknown81 = _unknown81;
-            hdr->_unknown82 = _unknown82;
-            hdr->_unknown83 = _unknown83;
-            hdr->_unknown84 = _unknown84;
-            hdr->_unknown85 = _unknown85;
-            hdr->_unknown86 = _unknown86;
-            hdr->_unknown87 = _unknown87;
-            hdr->_unknown88 = _unknown88;
-            hdr->_unknown89 = _unknown89;
-            hdr->_unknown90 = _unknown90;
-            hdr->_unknown91 = _unknown91;
-            hdr->_unknown92 = _unknown92;
-            hdr->_unknown93 = _unknown93;
-            hdr->_unknown94 = _unknown94;
-            hdr->_unknown95 = _unknown95;
-            hdr->_unknown96 = _unknown96;
-            hdr->_unknown97 = _unknown97;
-            hdr->_unknown98 = _unknown98;
-            hdr->_unknown99 = _unknown99;
-            hdr->_unknown100 = _unknown100;
-            hdr->_unknown101 = _unknown101;
-            hdr->_unknown102 = _unknown102;
-            hdr->_unknown103 = _unknown103;
-            hdr->_unknown104 = _unknown104;
-            hdr->_unknown105 = _unknown105;
-            hdr->_unknown106 = _unknown106;
-            hdr->_unknown107 = _unknown107;
-            hdr->_unknown108 = _unknown108;
-            hdr->_unknown109 = _unknown109;
-            hdr->_unknown110 = _unknown110;
-            hdr->_unknown111 = _unknown111;
-            hdr->_unknown112 = _unknown112;
-            hdr->_unknown113 = _unknown113;
-            hdr->_unknown114 = _unknown114;
-            hdr->_unknown115 = _unknown115;
-            hdr->_unknown116 = _unknown116;
-            hdr->_unknown117 = _unknown117;
-            hdr->_unknown118 = _unknown118;
-            hdr->_unknown119 = _unknown119;
-            hdr->_unknown120 = _unknown120;
-            hdr->_unknown121 = _unknown121;
-            hdr->_unknown122 = _unknown122;
-            hdr->_unknown123 = _unknown123;
-            hdr->_unknown124 = _unknown124;
-            hdr->_unknown125 = _unknown125;
-            hdr->_unknown126 = _unknown126;
-            hdr->_unknown127 = _unknown127;
-            hdr->_unknown128 = _unknown128;
-            hdr->_unknown129 = _unknown129;
-            hdr->_unknown130 = _unknown130;
-            hdr->_unknown131 = _unknown131;
+            hdr->_unknown0x30 = _unknown0x30;
+            hdr->_unknown0x31 = _unknown0x31;
+            hdr->_unknown0x32 = _unknown0x32;
+            hdr->_unknown0x33 = _unknown0x33;
+            hdr->_unknown0x34 = _unknown0x34;
+            hdr->_unknown0x35 = _unknown0x35;
+            hdr->_unknown0x36 = _unknown0x36;
+            hdr->_unknown0x37 = _unknown0x37;
+            hdr->_unknown0x38 = _unknown0x38;
+            hdr->_unknown0x39 = _unknown0x39;
+            hdr->_unknown0x3A = _unknown0x3A;
+            hdr->_unknown0x3B = _unknown0x3B;
+            hdr->_unknown0x3C = _unknown0x3C;
+            hdr->_unknown0x3D = _unknown0x3D;
+            hdr->_unknown0x3E = _unknown0x3E;
+            hdr->_unknown0x3F = _unknown0x3F;
+            hdr->_unknown0x40 = _unknown0x40;
+            hdr->_unknown0x41 = _unknown0x41;
+            hdr->_unknown0x42 = _unknown0x42;
+            hdr->_unknown0x43 = _unknown0x43;
+            hdr->_unknown0x44 = _unknown0x44;
+            hdr->_unknown0x45 = _unknown0x45;
+            hdr->_unknown0x46 = _unknown0x46;
+            hdr->_unknown0x47 = _unknown0x47;
+            hdr->_unknown0x48 = _unknown0x48;
+            hdr->_unknown0x49 = _unknown0x49;
+            hdr->_unknown0x4A = _unknown0x4A;
+            hdr->_unknown0x4B = _unknown0x4B;
+            hdr->_unknown0x4C = _unknown0x4C;
+            hdr->_unknown0x4D = _unknown0x4D;
+            hdr->_unknown0x4E = _unknown0x4E;
+            hdr->_unknown0x4F = _unknown0x4F;
+            hdr->_unknown0x50 = _unknown0x50;
+            hdr->_unknown0x51 = _unknown0x51;
+            hdr->_unknown0x52 = _unknown0x52;
+            hdr->_unknown0x53 = _unknown0x53;
+            hdr->_unknown0x54 = _unknown0x54;
+            hdr->_unknown0x55 = _unknown0x55;
+            hdr->_unknown0x56 = _unknown0x56;
+            hdr->_unknown0x57 = _unknown0x57;
+            hdr->_unknown0x58 = _unknown0x58;
+            hdr->_unknown0x59 = _unknown0x59;
+            hdr->_unknown0x5A = _unknown0x5A;
+            hdr->_unknown0x5B = _unknown0x5B;
+            hdr->_unknown0x5C = _unknown0x5C;
+            hdr->_unknown0x5D = _unknown0x5D;
+            hdr->_unknown0x5E = _unknown0x5E;
+            hdr->_unknown0x5F = _unknown0x5F;
+            hdr->_unknown0x60 = _unknown0x60;
+            hdr->_unknown0x61 = _unknown0x61;
+            hdr->_unknown0x62 = _unknown0x62;
+            hdr->_unknown0x63 = _unknown0x63;
+            hdr->_unknown0x64 = _unknown0x64;
+            hdr->_unknown0x65 = _unknown0x65;
+            hdr->_unknown0x66 = _unknown0x66;
+            hdr->_unknown0x67 = _unknown0x67;
+            hdr->_unknown0x68 = _unknown0x68;
+            hdr->_unknown0x69 = _unknown0x69;
+            hdr->_unknown0x6A = _unknown0x6A;
+            hdr->_unknown0x6B = _unknown0x6B;
+            hdr->_unknown0x6C = _unknown0x6C;
+            hdr->_unknown0x6D = _unknown0x6D;
+            hdr->_unknown0x6E = _unknown0x6E;
+            hdr->_unknown0x6F = _unknown0x6F;
+            hdr->_unknown0x70 = _unknown0x70;
+            hdr->_unknown0x71 = _unknown0x71;
+            hdr->_unknown0x72 = _unknown0x72;
+            hdr->_unknown0x73 = _unknown0x73;
+            hdr->_unknown0x74 = _unknown0x74;
+            hdr->_unknown0x75 = _unknown0x75;
+            hdr->_unknown0x76 = _unknown0x76;
+            hdr->_unknown0x77 = _unknown0x77;
+            hdr->_unknown0x78 = _unknown0x78;
+            hdr->_unknown0x79 = _unknown0x79;
+            hdr->_unknown0x7A = _unknown0x7A;
+            hdr->_unknown0x7B = _unknown0x7B;
+            hdr->_unknown0x7C = _unknown0x7C;
+            hdr->_unknown0x7D = _unknown0x7D;
+            hdr->_unknown0x7E = _unknown0x7E;
+            hdr->_unknown0x7F = _unknown0x7F;
+            hdr->_unknown0x80 = _unknown0x80;
+            hdr->_unknown0x81 = _unknown0x81;
+            hdr->_unknown0x82 = _unknown0x82;
+            hdr->_unknown0x83 = _unknown0x83;
         }
 
         private string EnemyNameList()
@@ -670,6 +671,12 @@ namespace BrawlLib.SSBB.ResourceNodes
                     case 46:
                         return "Petey Piranha [" + Index + "]";
                     case 47:
+                        return "Gamyga Base [" + Index + "]";
+                    case 48:
+                        return "Gamyga Base [" + Index + "]";
+                    case 49:
+                        return "Gamyga Base [" + Index + "]";
+                    case 50:
                         return "Gamyga Base [" + Index + "]";
                     case 51:
                         return "Galleom [" + Index + "]";
