@@ -107,10 +107,10 @@ namespace BrawlLib.SSBB.ResourceNodes
         Glice = 44,
         Glunder = 45,
         PeteyPiranha = 46,
-        GamygaBase1 = 47,
-        GamygaBase2 = 48,
-        GamygaBase3 = 49,
-        GamygaBase4 = 50,
+        GamygaBase01_Top = 47,
+        GamygaBase02 = 48,
+        GamygaBase03 = 49,
+        GamygaBase04_Bottom = 50,
         Galleom = 51,
         Ridley = 52,
         Rayquaza = 53,
@@ -838,13 +838,13 @@ namespace BrawlLib.SSBB.ResourceNodes
                     case 46:
                         return "Petey Piranha [" + Index + "]";
                     case 47:
-                        return "Gamyga Base [" + Index + "]";
+                        return "Gamyga Base 01 (Top) [" + Index + "]";
                     case 48:
-                        return "Gamyga Base [" + Index + "]";
+                        return "Gamyga Base 02 [" + Index + "]";
                     case 49:
-                        return "Gamyga Base [" + Index + "]";
+                        return "Gamyga Base 03 [" + Index + "]";
                     case 50:
-                        return "Gamyga Base [" + Index + "]";
+                        return "Gamyga Base 04 (Bottom) [" + Index + "]";
                     case 51:
                         return "Galleom [" + Index + "]";
                     case 52:
