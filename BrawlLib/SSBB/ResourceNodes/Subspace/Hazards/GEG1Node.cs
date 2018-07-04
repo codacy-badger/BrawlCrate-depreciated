@@ -131,12 +131,15 @@ namespace BrawlLib.SSBB.ResourceNodes
         // Headers are known
         public uint _header1;
         public uint _header2;
-        public byte _unknown0x08;
-        public byte _unknown0x09;
-        public byte _unknown0x0A;
-        public byte _unknown0x0B;
-        public byte _unknown0x0C;
-        public byte _unknown0x0D;
+        // Some form of byte flags
+        public byte _flag0x08;
+        public byte _flag0x09;
+        public byte _flag0x0A;
+        public byte _flag0x0B;
+        // Another byte flag
+        public byte _flag0x0C;
+        // Another byte flag (Possibly unstable?)
+        public byte _flag0x0D;
         public byte _unknown0x0E;
         public byte _unknown0x0F;
         public byte _unknown0x10;
@@ -159,7 +162,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x20;
         public byte _unknown0x21;
         public byte _unknown0x22;
-        public byte _unknown0x23;
+        // Some form of byte flag
+        public byte _flag0x23;
         public byte _unknown0x24;
         public byte _unknown0x25;
         public byte _unknown0x26;
@@ -218,10 +222,12 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x61;
         public byte _unknown0x62;
         public byte _unknown0x63;
-        public byte _unknown0x64;
+        // Another flag
+        public byte _flag0x64;
         public byte _unknown0x65;
         public byte _unknown0x66;
-        public byte _unknown0x67;
+        // Another flag?
+        public byte _flag0x67;
         public byte _unknown0x68;
         public byte _unknown0x69;
         public byte _unknown0x6A;
@@ -243,7 +249,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x7A;
         public byte _unknown0x7B;
         public byte _unknown0x7C;
-        public byte _unknown0x7D;
+        // Difficulty of spawn / Spawn ID
+        public byte _difficulty;
         public byte _unknown0x7E;
         public byte _unknown0x7F;
         public byte _unknown0x80;
@@ -299,7 +306,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         [Browsable(true)]
-        [Category("Enemy Info")]
+        [Category("Spawn Info")]
         [DisplayName("Spawn Position"), TypeConverter(typeof(Vector2StringConverter))]
         public Vector2 EnemySpawnPos
         {
@@ -314,17 +321,177 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
+        [Browsable(true)]
+        [Category("Spawn Info")]
+        [DisplayName("Difficulty ID")]
+        public byte DifficultyID
+        {
+            get
+            {
+                return _difficulty;
+            }
+            set
+            {
+                _difficulty = value;
+                SignalPropertyChange();
+            }
+        }
+
+        [Browsable(true)]
+        [Category("Special Flags")]
+        [DisplayName("Flag 0x08")]
+        public byte Flag0x08
+        {
+            get
+            {
+                return _flag0x08;
+            }
+            set
+            {
+                _flag0x08 = value;
+                SignalPropertyChange();
+            }
+        }
+
+        [Browsable(true)]
+        [Category("Special Flags")]
+        [DisplayName("Flag 0x09")]
+        public byte Flag0x09
+        {
+            get
+            {
+                return _flag0x09;
+            }
+            set
+            {
+                _flag0x09 = value;
+                SignalPropertyChange();
+            }
+        }
+
+        [Browsable(true)]
+        [Category("Special Flags")]
+        [DisplayName("Flag 0x0A")]
+        public byte Flag0x0A
+        {
+            get
+            {
+                return _flag0x0A;
+            }
+            set
+            {
+                _flag0x0A = value;
+                SignalPropertyChange();
+            }
+        }
+
+        [Browsable(true)]
+        [Category("Special Flags")]
+        [DisplayName("Flag 0x0B")]
+        public byte Flag0x0B
+        {
+            get
+            {
+                return _flag0x0B;
+            }
+            set
+            {
+                _flag0x0B = value;
+                SignalPropertyChange();
+            }
+        }
+
+        [Browsable(true)]
+        [Category("Special Flags")]
+        [DisplayName("Flag 0x0C")]
+        public byte Flag0x0C
+        {
+            get
+            {
+                return _flag0x0C;
+            }
+            set
+            {
+                _flag0x0C = value;
+                SignalPropertyChange();
+            }
+        }
+
+        [Browsable(true)]
+        [Category("Special Flags")]
+        [DisplayName("Flag 0x0D")]
+        public byte Flag0x0D
+        {
+            get
+            {
+                return _flag0x0D;
+            }
+            set
+            {
+                _flag0x0D = value;
+                SignalPropertyChange();
+            }
+        }
+
+        [Browsable(true)]
+        [Category("Special Flags")]
+        [DisplayName("Flag 0x23")]
+        public byte Flag0x23
+        {
+            get
+            {
+                return _flag0x23;
+            }
+            set
+            {
+                _flag0x23 = value;
+                SignalPropertyChange();
+            }
+        }
+
+        [Browsable(true)]
+        [Category("Special Flags")]
+        [DisplayName("Flag 0x64")]
+        public byte Flag0x64
+        {
+            get
+            {
+                return _flag0x64;
+            }
+            set
+            {
+                _flag0x64 = value;
+                SignalPropertyChange();
+            }
+        }
+
+        [Browsable(true)]
+        [Category("Special Flags")]
+        [DisplayName("Flag 0x67")]
+        public byte Flag0x67
+        {
+            get
+            {
+                return _flag0x67;
+            }
+            set
+            {
+                _flag0x67 = value;
+                SignalPropertyChange();
+            }
+        }
+
 
         public override bool OnInitialize()
         {
             _header1 = Header->_header1;
             _header2 = Header->_header2;
-            _unknown0x08 = Header->_unknown0x08;
-            _unknown0x09 = Header->_unknown0x09;
-            _unknown0x0A = Header->_unknown0x0A;
-            _unknown0x0B = Header->_unknown0x0B;
-            _unknown0x0C = Header->_unknown0x0C;
-            _unknown0x0D = Header->_unknown0x0D;
+            _flag0x08 = Header->_flag0x08;
+            _flag0x09 = Header->_flag0x09;
+            _flag0x0A = Header->_flag0x0A;
+            _flag0x0B = Header->_flag0x0B;
+            _flag0x0C = Header->_flag0x0C;
+            _flag0x0D = Header->_flag0x0D;
             _unknown0x0E = Header->_unknown0x0E;
             _unknown0x0F = Header->_unknown0x0F;
             _unknown0x10 = Header->_unknown0x10;
@@ -346,7 +513,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             _unknown0x20 = Header->_unknown0x20;
             _unknown0x21 = Header->_unknown0x21;
             _unknown0x22 = Header->_unknown0x22;
-            _unknown0x23 = Header->_unknown0x23;
+            _flag0x23 = Header->_flag0x23;
             _unknown0x24 = Header->_unknown0x24;
             _unknown0x25 = Header->_unknown0x25;
             _unknown0x26 = Header->_unknown0x26;
@@ -405,10 +572,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             _unknown0x61 = Header->_unknown0x61;
             _unknown0x62 = Header->_unknown0x62;
             _unknown0x63 = Header->_unknown0x63;
-            _unknown0x64 = Header->_unknown0x64;
+            _flag0x64 = Header->_flag0x64;
             _unknown0x65 = Header->_unknown0x65;
             _unknown0x66 = Header->_unknown0x66;
-            _unknown0x67 = Header->_unknown0x67;
+            _flag0x67 = Header->_flag0x67;
             _unknown0x68 = Header->_unknown0x68;
             _unknown0x69 = Header->_unknown0x69;
             _unknown0x6A = Header->_unknown0x6A;
@@ -430,7 +597,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             _unknown0x7A = Header->_unknown0x7A;
             _unknown0x7B = Header->_unknown0x7B;
             _unknown0x7C = Header->_unknown0x7C;
-            _unknown0x7D = Header->_unknown0x7D;
+            _difficulty = Header->_difficulty;
             _unknown0x7E = Header->_unknown0x7E;
             _unknown0x7F = Header->_unknown0x7F;
             _unknown0x80 = Header->_unknown0x80;
@@ -450,12 +617,12 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
             GEG1Entry* hdr = (GEG1Entry*)address;
-            hdr->_unknown0x08 = _unknown0x08;
-            hdr->_unknown0x09 = _unknown0x09;
-            hdr->_unknown0x0A = _unknown0x0A;
-            hdr->_unknown0x0B = _unknown0x0B;
-            hdr->_unknown0x0C = _unknown0x0C;
-            hdr->_unknown0x0D = _unknown0x0D;
+            hdr->_flag0x08 = _flag0x08;
+            hdr->_flag0x09 = _flag0x09;
+            hdr->_flag0x0A = _flag0x0A;
+            hdr->_flag0x0B = _flag0x0B;
+            hdr->_flag0x0C = _flag0x0C;
+            hdr->_flag0x0D = _flag0x0D;
             hdr->_unknown0x0E = _unknown0x0E;
             hdr->_unknown0x0F = _unknown0x0F;
             hdr->_unknown0x10 = _unknown0x10;
@@ -477,7 +644,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             hdr->_unknown0x20 = _unknown0x20;
             hdr->_unknown0x21 = _unknown0x21;
             hdr->_unknown0x22 = _unknown0x22;
-            hdr->_unknown0x23 = _unknown0x23;
+            hdr->_flag0x23 = _flag0x23;
             hdr->_unknown0x24 = _unknown0x24;
             hdr->_unknown0x25 = _unknown0x25;
             hdr->_unknown0x26 = _unknown0x26;
@@ -536,10 +703,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             hdr->_unknown0x61 = _unknown0x61;
             hdr->_unknown0x62 = _unknown0x62;
             hdr->_unknown0x63 = _unknown0x63;
-            hdr->_unknown0x64 = _unknown0x64;
+            hdr->_flag0x64 = _flag0x64;
             hdr->_unknown0x65 = _unknown0x65;
             hdr->_unknown0x66 = _unknown0x66;
-            hdr->_unknown0x67 = _unknown0x67;
+            hdr->_flag0x67 = _flag0x67;
             hdr->_unknown0x68 = _unknown0x68;
             hdr->_unknown0x69 = _unknown0x69;
             hdr->_unknown0x6A = _unknown0x6A;
@@ -561,7 +728,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             hdr->_unknown0x7A = _unknown0x7A;
             hdr->_unknown0x7B = _unknown0x7B;
             hdr->_unknown0x7C = _unknown0x7C;
-            hdr->_unknown0x7D = _unknown0x7D;
+            hdr->_difficulty = _difficulty;
             hdr->_unknown0x7E = _unknown0x7E;
             hdr->_unknown0x7F = _unknown0x7F;
             hdr->_unknown0x80 = _unknown0x80;

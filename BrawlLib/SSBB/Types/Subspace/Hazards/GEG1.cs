@@ -30,19 +30,18 @@ namespace BrawlLib.SSBBTypes
     public unsafe struct GEG1Entry
     {
 
-
         // I believe these are constant values for the Header
         public const uint Header1 = 0x3F800000; // 0x00
         public const uint Header2 = 0x0001FF00; // 0x04
         // Unknown values. I just assumed byte for all of them for now// Headers are known
         public uint _header1;       // 0x00
         public uint _header2;       // 0x04
-        public byte _unknown0x08;
-        public byte _unknown0x09;
-        public byte _unknown0x0A;
-        public byte _unknown0x0B;
-        public byte _unknown0x0C;
-        public byte _unknown0x0D;
+        public byte _flag0x08;
+        public byte _flag0x09;
+        public byte _flag0x0A;
+        public byte _flag0x0B;
+        public byte _flag0x0C;
+        public byte _flag0x0D;
         public byte _unknown0x0E;
         public byte _unknown0x0F;
         public byte _unknown0x10;
@@ -65,7 +64,7 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x20;
         public byte _unknown0x21;
         public byte _unknown0x22;
-        public byte _unknown0x23;
+        public byte _flag0x23;
         public byte _unknown0x24;
         public byte _unknown0x25;
         public byte _unknown0x26;
@@ -125,10 +124,10 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x61;
         public byte _unknown0x62;
         public byte _unknown0x63;
-        public byte _unknown0x64;
+        public byte _flag0x64;
         public byte _unknown0x65;
         public byte _unknown0x66;
-        public byte _unknown0x67;
+        public byte _flag0x67;
         public byte _unknown0x68;
         public byte _unknown0x69;
         public byte _unknown0x6A;
@@ -150,7 +149,7 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x7A;
         public byte _unknown0x7B;
         public byte _unknown0x7C;
-        public byte _unknown0x7D;
+        public byte _difficulty;
         public byte _unknown0x7E;
         public byte _unknown0x7F;
         public byte _unknown0x80;
