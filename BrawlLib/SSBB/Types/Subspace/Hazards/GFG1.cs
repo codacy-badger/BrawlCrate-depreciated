@@ -22,9 +22,7 @@ namespace BrawlLib.SSBBTypes
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct GFG1Entry
     {
-        public byte _unknown0x01;
-        public byte _unknown0x02;
-        public byte _unknown0x03;
+        public uint _header1;       // 0x00
         public byte _unknown0x04;
         public byte _unknown0x05;
         public byte _unknown0x06;
@@ -39,7 +37,7 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x0F;
         public byte _unknown0x10;
         public byte _unknown0x11;
-        public byte costumeID;      //0x12
+        public byte _costumeID;      //0x12
         public byte _flag0x13;
         public byte _unknown0x14;
         public byte _unknown0x15;
@@ -59,7 +57,7 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x23;
         public bfloat _float0x24;
         public bfloat _float0x28;
-        public bfloat scale;        // 0x2C
+        public bfloat _scale;        // 0x2C
         public byte _unknown0x30;
         public byte _unknown0x31;
         public byte _unknown0x32;
