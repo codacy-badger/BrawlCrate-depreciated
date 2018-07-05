@@ -169,6 +169,8 @@
     <None Include="SSBB\ResourceNodes\FMDL\FMDLObjectNode.cs" />
     <None Include="SSBB\ResourceNodes\FMDL\FMDLUniformNode.cs" />
     <None Include="SSBB\ResourceNodes\Graphics\FTEXNode.cs" />
+    <Compile Include="SSBB\ResourceNodes\Subspace\Hazards\GFG1Node.cs" />
+    <Compile Include="SSBB\Types\Subspace\Hazards\GFG1.cs" />
     <Compile Include="StageBox\HardcodedFiles.cs" />
     <Compile Include="SSBB\ResourceNodes\AllstarStageTblNode.cs" />
     <Compile Include="SSBB\ResourceNodes\EventMatchNode.cs" />
