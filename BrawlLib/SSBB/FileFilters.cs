@@ -88,6 +88,10 @@ namespace BrawlLib
             SupportedFilesHandler.GetCompleteFilter("tbrm");
         public static string TBST =
             SupportedFilesHandler.GetCompleteFilter("tbst");
+
+        // Subspace files
+        public static string GEG1 =
+            SupportedFilesHandler.GetCompleteFilter("geg1");
             
         // MDL0 subnodes
         public static string MDL0Material =

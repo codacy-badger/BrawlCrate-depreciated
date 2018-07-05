@@ -6,7 +6,7 @@ namespace BrawlLib.SSBB
 {
     public static class SupportedFilesHandler
     {
-        public static readonly SupportedFileInfo[] Files = 
+        public static readonly SupportedFileInfo[] Files =
         {
             //Archives
             new SupportedFileInfo(true, "PAC File Archive", "pac"),
@@ -96,6 +96,9 @@ namespace BrawlLib.SSBB
             new SupportedFileInfo(true, "Brawl TBLV File", "tblv"),
             new SupportedFileInfo(true, "Brawl TBRM File", "tbrm"),
             new SupportedFileInfo(true, "Brawl TBST File", "tbst"),
+
+            //Brawl Subspace files
+            new SupportedFileInfo(true, "Brawl GEG1 File", "geg1"),
 
             //MDL0 subfiles
             new SupportedFileInfo(false, "MDL0 Material", "mdl0mat"),
