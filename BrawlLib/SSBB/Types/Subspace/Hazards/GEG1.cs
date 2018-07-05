@@ -31,8 +31,8 @@ namespace BrawlLib.SSBBTypes
     {
 
         // I believe these are constant values for the Header
-        public const uint Header1 = 0x3F800000; // 0x00
-        public const uint Header2 = 0x0001FF00; // 0x04
+        public const uint Header1 = 0x0000803F; // 0x00
+        public const uint Header2 = 0x00FF0100; // 0x04
         // Unknown values. I just assumed byte for all of them for now// Headers are known
         public uint _header1;       // 0x00
         public uint _header2;       // 0x04
