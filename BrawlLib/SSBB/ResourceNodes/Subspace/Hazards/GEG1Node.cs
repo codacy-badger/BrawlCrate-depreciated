@@ -128,6 +128,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         internal GEG1Entry* Header { get { return (GEG1Entry*)WorkingUncompressed.Address; } }
         public override ResourceType ResourceType { get { return ResourceType.ENEMY; } }
 
+        // I believe these are constant values for the Header
+        public const uint Header1 = 0x3F800000; // 0x00
+        public const uint Header2 = 0x0001FF00; // 0x04
         // Headers are known
         public uint _header1;
         public uint _header2;

@@ -51,6 +51,8 @@ namespace BrawlBox.NodeWrappers
         public void NewEntry()
         {
             GEG1EntryNode node = new GEG1EntryNode();
+            node._header1 = GEG1EntryNode.Header1;
+            node._header2 = GEG1EntryNode.Header2;
             _resource.AddChild(node);
         }
         
