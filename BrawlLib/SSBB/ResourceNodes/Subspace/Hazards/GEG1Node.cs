@@ -617,6 +617,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
             GEG1Entry* hdr = (GEG1Entry*)address;
+            hdr->_header1 = _header1;
+            hdr->_header2 = _header2;
             hdr->_flag0x08 = _flag0x08;
             hdr->_flag0x09 = _flag0x09;
             hdr->_flag0x0A = _flag0x0A;
