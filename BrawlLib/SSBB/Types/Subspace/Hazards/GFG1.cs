@@ -14,6 +14,13 @@ namespace BrawlLib.SSBBTypes
 
         //private GDOR* Address { get { fixed (GDOR* ptr = &this)return ptr; } }
         //public byte* Data { get { return (byte*)(Address + _DataOffset); } }
+        
+        public GFG1(int count)
+        {
+            _tag = Tag;
+            _count = count;
+            _DataOffset = count * 4;
+        }
 
         public VoidPtr this[int index] { get { return (VoidPtr)((byte*)Address + Offsets(index)); } }
         public uint Offsets(int index) { return *(buint*)((byte*)Address + 0x08 + (index * 4)); }
@@ -55,8 +62,8 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x21;
         public byte _unknown0x22;
         public byte _unknown0x23;
-        public bfloat _float0x24;
-        public bfloat _float0x28;
+        public bfloat _offenseKBMult;
+        public bfloat _defenseKBMult;
         public bfloat _scale;        // 0x2C
         public byte _unknown0x30;
         public byte _unknown0x31;

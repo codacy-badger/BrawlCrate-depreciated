@@ -40,8 +40,8 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
-            GEG1* header = (GEG1*)address;
-            *header = new GEG1(Children.Count);
+            GFG1* header = (GFG1*)address;
+            *header = new GFG1(Children.Count);
             uint offset = (uint)(0x08 + (Children.Count * 4));
             for (int i = 0; i < Children.Count; i++)
             {
@@ -93,8 +93,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x21;
         public byte _unknown0x22;
         public byte _unknown0x23;
-        public float _float0x24;
-        public float _float0x28;
+        public float _offenseKBMult;
+        public float _defenseKBMult;
         public float _scale;        // 0x2C
         public byte _unknown0x30;
         public byte _unknown0x31;
@@ -164,31 +164,31 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         [Category("Fighter Info")]
-        [DisplayName("Float 0x24")]
-        public float Float0x24
+        [DisplayName("Offensive Knockback Multiplier")]
+        public float OffensiveKBMult
         {
             get
             {
-                return _float0x24;
+                return _offenseKBMult;
             }
             set
             {
-                _float0x24 = value;
+                _offenseKBMult = value;
                 SignalPropertyChange();
             }
         }
 
         [Category("Fighter Info")]
-        [DisplayName("Float 0x28")]
-        public float Float0x28
+        [DisplayName("Defensive Knockback Multiplier")]
+        public float DefensiveKBMult
         {
             get
             {
-                return _float0x28;
+                return _defenseKBMult;
             }
             set
             {
-                _float0x28 = value;
+                _defenseKBMult = value;
                 SignalPropertyChange();
             }
         }
@@ -243,8 +243,8 @@ namespace BrawlLib.SSBB.ResourceNodes
             _unknown0x21 = Header->_unknown0x21;
             _unknown0x22 = Header->_unknown0x22;
             _unknown0x23 = Header->_unknown0x23;
-            _float0x24 = Header->_float0x24;
-            _float0x28 = Header->_float0x28;
+            _offenseKBMult = Header->_offenseKBMult;
+            _defenseKBMult = Header->_defenseKBMult;
             _scale = Header->_scale;
             _unknown0x30 = Header->_unknown0x30;
             _unknown0x31 = Header->_unknown0x31;
@@ -328,8 +328,8 @@ namespace BrawlLib.SSBB.ResourceNodes
             hdr->_unknown0x21 = _unknown0x21;
             hdr->_unknown0x22 = _unknown0x22;
             hdr->_unknown0x23 = _unknown0x23;
-            hdr->_float0x24 = _float0x24;
-            hdr->_float0x28 = _float0x28;
+            hdr->_offenseKBMult = _offenseKBMult;
+            hdr->_defenseKBMult = _defenseKBMult;
             hdr->_scale = _scale;
             hdr->_unknown0x30 = _unknown0x30;
             hdr->_unknown0x31 = _unknown0x31;
