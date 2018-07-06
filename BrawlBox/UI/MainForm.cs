@@ -406,7 +406,21 @@ namespace BrawlBox
                     attributeGrid1.AddRange(tbst.GetPossibleInterpretations());
                     attributeGrid1.TargetNode = tbst;
                     newControl = attributeGrid1;
-                } 
+                }
+#if DEBUG
+                else
+                {
+                    if (node.WorkingUncompressed.Length > 0)
+                    {
+                        hexBox1.ByteProvider = new Be.Windows.Forms.DynamicFileByteProvider(new UnmanagedMemoryStream(
+                                (byte*)node.WorkingUncompressed.Address,
+                                node.WorkingUncompressed.Length,
+                                node.WorkingUncompressed.Length,
+                                FileAccess.ReadWrite)) { _supportsInsDel = false };
+                        newControl = hexBox1;
+                    }
+                }
+#endif
 
                 if (node is IColorSource && !disable2nd)
                 {
