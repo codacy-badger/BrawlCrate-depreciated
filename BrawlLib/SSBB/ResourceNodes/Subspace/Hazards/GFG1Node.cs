@@ -60,7 +60,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         internal GFG1Entry* Header { get { return (GFG1Entry*)WorkingUncompressed.Address; } }
         //public override ResourceType ResourceType { get { return ResourceType.GFG1ENTRY; } }
 
-        public uint _header1;       // 0x00
+        public uint _header1;           // 0x00
         public byte _unknown0x04;
         public byte _unknown0x05;
         public byte _unknown0x06;
@@ -75,7 +75,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x0F;
         public byte _unknown0x10;
         public byte _unknown0x11;
-        public byte _costumeID;      //0x12
+        public byte _costumeID;         // 0x12
         public byte _flag0x13;
         public byte _unknown0x14;
         public byte _unknown0x15;
@@ -93,9 +93,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x21;
         public byte _unknown0x22;
         public byte _unknown0x23;
-        public float _offenseKBMult;
-        public float _defenseKBMult;
-        public float _scale;        // 0x2C
+        public float _offenseKBMult;    // 0x24
+        public float _defenseKBMult;    // 0x28
+        public float _scale;            // 0x2C
         public byte _unknown0x30;
         public byte _unknown0x31;
         public byte _unknown0x32;
