@@ -204,8 +204,11 @@ namespace BrawlLib.SSBB.ResourceNodes
                 Directory.CreateDirectory(outFolder);
 
             string ext = "";
+            bool extract = true;
             foreach (BRESGroupNode group in Children)
             {
+                ext = "";
+                extract = true;
                 if (group.Type == BRESGroupNode.BRESGroupType.Textures)
                     ext = imageExtension;
                 else if (group.Type == BRESGroupNode.BRESGroupType.Models)
@@ -225,9 +228,15 @@ namespace BrawlLib.SSBB.ResourceNodes
                 else if (group.Type == BRESGroupNode.BRESGroupType.SCN0)
                     ext = ".scn0";
                 else if (group.Type == BRESGroupNode.BRESGroupType.Palettes)
+                {
                     ext = ".plt0";
-                foreach (BRESEntryNode entry in group.Children)
-                    entry.Export(Path.Combine(outFolder, entry.Name + ext));
+                    if(imageExtension != ".tex0")
+                        extract = false;
+                } else
+                    extract = false;
+                if(extract)
+                    foreach (BRESEntryNode entry in group.Children)
+                        entry.Export(Path.Combine(outFolder, entry.Name + ext));
             }
         }
         public void ReplaceFromFolder(string inFolder) { ReplaceFromFolder(inFolder, ".tex0"); }
