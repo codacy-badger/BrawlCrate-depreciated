@@ -80,16 +80,17 @@ namespace BrawlLib.SSBB.ResourceNodes
             return Header->_numFiles > 0;
         }
 
-        public void ExtractToFolder(string outFolder)
+        public void ExtractToFolder(string outFolder) { ExtractToFolder(outFolder, ".tex0"); }
+        public void ExtractToFolder(string outFolder, string imageExtension)
         {
             if (!Directory.Exists(outFolder))
                 Directory.CreateDirectory(outFolder);
 
             foreach (ARCEntryNode entry in Children)
                 if (entry is ARCNode)
-                    ((ARCNode)entry).ExtractToFolder(Path.Combine(outFolder, entry.Name));
+                    ((ARCNode)entry).ExtractToFolder(Path.Combine(outFolder, entry.Name), imageExtension);
                 else if (entry is BRRESNode)
-                    ((BRRESNode)entry).ExportToFolder(outFolder);
+                    ((BRRESNode)entry).ExportToFolder(outFolder, imageExtension);
         }
 
         public void ReplaceFromFolder(string inFolder)

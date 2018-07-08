@@ -532,7 +532,31 @@ namespace BrawlBox
             if (path == null)
                 return;
 
-            ((ARCNode)_resource).ExtractToFolder(path);
+            bool hasTextures = false;
+            foreach (ARCEntryNode b in _resource.Children)
+            {
+                if (b is BRRESNode)
+                {
+                    foreach (BRESGroupNode e in b.Children)
+                    {
+                        if (e.Type == BRESGroupNode.BRESGroupType.Textures)
+                        {
+                            hasTextures = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            if (hasTextures)
+            {
+                ExportAllFormatDialog dialog = new ExportAllFormatDialog();
+
+                if (dialog.ShowDialog() == DialogResult.OK) { }
+                    ((ARCNode)_resource).ExtractToFolder(path, dialog.SelectedExtension);
+            }
+            else
+                ((ARCNode)_resource).ExtractToFolder(path);
         }
 
         public void ReplaceAll()
