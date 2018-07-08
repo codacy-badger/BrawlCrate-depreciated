@@ -116,7 +116,11 @@ namespace BrawlBox.Properties {
 
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+#if DEBUG
+        [global::System.Configuration.DefaultSettingValueAttribute("true")]
+#else
         [global::System.Configuration.DefaultSettingValueAttribute("false")]
+#endif
         public bool ShowHex
         {
             get
