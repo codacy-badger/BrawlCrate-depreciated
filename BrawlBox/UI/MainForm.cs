@@ -56,6 +56,7 @@ namespace BrawlBox
 
             _displayPropertyDescription = BrawlBox.Properties.Settings.Default.DisplayPropertyDescriptionWhenAvailable;
             _updatesOnStartup = BrawlBox.Properties.Settings.Default.CheckUpdatesAtStartup;
+            _showHex = BrawlBox.Properties.Settings.Default.ShowHex;
 
 #if !DEBUG //Don't need to see this every time a debug build is compiled
             if (CheckUpdatesOnStartup)
@@ -140,6 +141,19 @@ namespace BrawlBox
             }
         }
         bool _updatesOnStartup;
+
+        public bool ShowHex
+        {
+            get { return _showHex; }
+            set
+            {
+                _showHex = value;
+
+                BrawlBox.Properties.Settings.Default.ShowHex = _showHex;
+                BrawlBox.Properties.Settings.Default.Save();
+            }
+        }
+        bool _showHex;
 
         private void UpdatePropertyDescriptionBox(GridItem item)
         {
@@ -239,9 +253,7 @@ namespace BrawlBox
             if ((resourceTree.SelectedNode is BaseWrapper) && ((node = (w = resourceTree.SelectedNode as BaseWrapper).ResourceNode) != null))
             {
                 propertyGrid1.SelectedObject = node;
-
-#if DEBUG
-                if (node is IBufferNode)
+                if (node is IBufferNode && MainForm.Instance.ShowHex)
                 {
                     IBufferNode d = node as IBufferNode;
                     if (d.IsValid())
@@ -254,9 +266,7 @@ namespace BrawlBox
                         newControl = hexBox1;
                     }
                 }
-                else
-#endif
-                if (node is RSARGroupNode)
+                else if (node is RSARGroupNode)
                 {
                     rsarGroupEditor.LoadGroup(node as RSARGroupNode);
                     newControl = rsarGroupEditor;
@@ -406,9 +416,16 @@ namespace BrawlBox
                     attributeGrid1.AddRange(tbst.GetPossibleInterpretations());
                     attributeGrid1.TargetNode = tbst;
                     newControl = attributeGrid1;
+                } else if (node is IColorSource && !disable2nd)
+                {
+                    clrControl.ColorSource = node as IColorSource;
+                    if (((IColorSource)node).ColorCount(0) > 0)
+                        if (newControl != null)
+                            newControl2 = clrControl;
+                        else
+                            newControl = clrControl;
                 }
-#if DEBUG
-                else
+                else if (MainForm.Instance.ShowHex)
                 {
                     if (node.WorkingUncompressed.Length > 0)
                     {
@@ -419,17 +436,6 @@ namespace BrawlBox
                                 FileAccess.ReadWrite)) { _supportsInsDel = false };
                         newControl = hexBox1;
                     }
-                }
-#endif
-
-                if (node is IColorSource && !disable2nd)
-                {
-                    clrControl.ColorSource = node as IColorSource;
-                    if (((IColorSource)node).ColorCount(0) > 0)
-                        if (newControl != null)
-                            newControl2 = clrControl;
-                        else
-                            newControl = clrControl;
                 }
 
                 if ((editToolStripMenuItem.DropDown = w.ContextMenuStrip) != null)

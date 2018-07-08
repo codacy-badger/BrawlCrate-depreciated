@@ -23,7 +23,7 @@ namespace BrawlBox
         private static List<FileAssociation> _assocList = new List<FileAssociation>();
         private static List<FileType> _typeList = new List<FileType>();
         private CheckBox chkUpdatesOnStartup;
-
+        private CheckBox chkShowHex;
         private CheckBox chkShowPropDesc;
 
         public SettingsDialog()
@@ -99,6 +99,7 @@ namespace BrawlBox
             _updating = true;
             chkUpdatesOnStartup.Checked = MainForm.Instance.CheckUpdatesOnStartup;
             chkShowPropDesc.Checked = MainForm.Instance.DisplayPropertyDescriptionsWhenAvailable;
+            chkShowHex.Checked = MainForm.Instance.ShowHex;
             _updating = false;
             btnApply.Enabled = false;      
         }
@@ -177,6 +178,7 @@ namespace BrawlBox
             this.btnApply = new System.Windows.Forms.Button();
             this.chkShowPropDesc = new System.Windows.Forms.CheckBox();
             this.chkUpdatesOnStartup = new System.Windows.Forms.CheckBox();
+            this.chkShowHex = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -189,7 +191,7 @@ namespace BrawlBox
             this.groupBox1.Controls.Add(this.listView1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(329, 264);
+            this.groupBox1.Size = new System.Drawing.Size(329, 313);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File Associations";
@@ -291,7 +293,7 @@ namespace BrawlBox
             this.listView1.Location = new System.Drawing.Point(3, 37);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(323, 221);
+            this.listView1.Size = new System.Drawing.Size(323, 270);
             this.listView1.TabIndex = 6;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -305,7 +307,7 @@ namespace BrawlBox
             // btnOkay
             // 
             this.btnOkay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOkay.Location = new System.Drawing.Point(91, 328);
+            this.btnOkay.Location = new System.Drawing.Point(91, 409);
             this.btnOkay.Name = "btnOkay";
             this.btnOkay.Size = new System.Drawing.Size(75, 23);
             this.btnOkay.TabIndex = 1;
@@ -316,7 +318,7 @@ namespace BrawlBox
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(172, 328);
+            this.btnCancel.Location = new System.Drawing.Point(172, 409);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 2;
@@ -327,7 +329,7 @@ namespace BrawlBox
             // btnApply
             // 
             this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnApply.Location = new System.Drawing.Point(253, 328);
+            this.btnApply.Location = new System.Drawing.Point(253, 409);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(75, 23);
             this.btnApply.TabIndex = 3;
@@ -339,10 +341,10 @@ namespace BrawlBox
             // 
             this.chkShowPropDesc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkShowPropDesc.AutoSize = true;
-            this.chkShowPropDesc.Location = new System.Drawing.Point(11, 301);
+            this.chkShowPropDesc.Location = new System.Drawing.Point(86, 357);
             this.chkShowPropDesc.Name = "chkShowPropDesc";
             this.chkShowPropDesc.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.chkShowPropDesc.Size = new System.Drawing.Size(317, 21);
+            this.chkShowPropDesc.Size = new System.Drawing.Size(242, 17);
             this.chkShowPropDesc.TabIndex = 7;
             this.chkShowPropDesc.Text = "Show property description box when available";
             this.chkShowPropDesc.UseVisualStyleBackColor = true;
@@ -352,18 +354,32 @@ namespace BrawlBox
             // 
             this.chkUpdatesOnStartup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkUpdatesOnStartup.AutoSize = true;
-            this.chkUpdatesOnStartup.Location = new System.Drawing.Point(115, 278);
+            this.chkUpdatesOnStartup.Location = new System.Drawing.Point(165, 334);
             this.chkUpdatesOnStartup.Name = "chkUpdatesOnStartup";
             this.chkUpdatesOnStartup.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.chkUpdatesOnStartup.Size = new System.Drawing.Size(213, 21);
+            this.chkUpdatesOnStartup.Size = new System.Drawing.Size(163, 17);
             this.chkUpdatesOnStartup.TabIndex = 8;
             this.chkUpdatesOnStartup.Text = "Check for updates on startup";
             this.chkUpdatesOnStartup.UseVisualStyleBackColor = true;
             this.chkUpdatesOnStartup.CheckedChanged += new System.EventHandler(this.chkUpdatesOnStartup_CheckedChanged);
             // 
+            // chkShowHex
+            // 
+            this.chkShowHex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkShowHex.AutoSize = true;
+            this.chkShowHex.Location = new System.Drawing.Point(95, 380);
+            this.chkShowHex.Name = "chkShowHex";
+            this.chkShowHex.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.chkShowHex.Size = new System.Drawing.Size(233, 17);
+            this.chkShowHex.TabIndex = 9;
+            this.chkShowHex.Text = "Show hexadecimal for files without previews";
+            this.chkShowHex.UseVisualStyleBackColor = true;
+            this.chkShowHex.CheckedChanged += new System.EventHandler(this.chkShowHex_CheckedChanged);
+            // 
             // SettingsDialog
             // 
-            this.ClientSize = new System.Drawing.Size(353, 363);
+            this.ClientSize = new System.Drawing.Size(353, 444);
+            this.Controls.Add(this.chkShowHex);
             this.Controls.Add(this.chkUpdatesOnStartup);
             this.Controls.Add(this.chkShowPropDesc);
             this.Controls.Add(this.btnApply);
@@ -373,6 +389,7 @@ namespace BrawlBox
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "SettingsDialog";
             this.Text = "Settings";
+            this.Load += new System.EventHandler(this.SettingsDialog_Load);
             this.Shown += new System.EventHandler(this.SettingsDialog_Shown);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -401,6 +418,17 @@ namespace BrawlBox
         {
             if (!_updating)
                 MainForm.Instance.CheckUpdatesOnStartup = chkUpdatesOnStartup.Checked;
+        }
+
+        private void SettingsDialog_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkShowHex_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!_updating)
+                MainForm.Instance.ShowHex = chkShowHex.Checked;
         }
     }
 }

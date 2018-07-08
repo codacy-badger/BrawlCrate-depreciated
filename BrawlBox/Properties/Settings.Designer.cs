@@ -117,6 +117,21 @@ namespace BrawlBox.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("false")]
+        public bool ShowHex
+        {
+            get
+            {
+                return ((bool)(this["ShowHex"]));
+            }
+            set
+            {
+                this["ShowHex"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("false")]
         public bool PixelLighting
         {
             get
