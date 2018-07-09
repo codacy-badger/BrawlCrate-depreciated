@@ -9,8 +9,12 @@ namespace System.Windows.Forms
             InitializeComponent();
             string[] source = FileFilters.TEX0.Split('|');
             for (int i = 0; i < source.Length; i += 2)
-                if (!source[i].StartsWith("All"))
+            {
+                if (source[i] == "NW4R Texture (*.tex0)")
+                    comboBox1.Items.Add(new FormatForExportAllDialog("NW4R Texture (*.tex0 / *.plt0)", source[i + 1]));
+                else if (!source[i].StartsWith("All"))
                     comboBox1.Items.Add(new FormatForExportAllDialog(source[i], source[i + 1]));
+            }
             comboBox1.SelectedIndex = 0;
         }
 
