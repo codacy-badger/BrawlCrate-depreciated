@@ -3,8 +3,6 @@ using System.Runtime.InteropServices;
 
 namespace BrawlLib.SSBBTypes
 {
-#if RSTMLIB
-#else
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     unsafe struct RWAV
     {
@@ -121,7 +119,6 @@ namespace BrawlLib.SSBBTypes
         PCM16 = 1,
         ADPCM = 2
     }
-#endif
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct AudioFormatInfo

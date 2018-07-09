@@ -72,7 +72,7 @@ namespace BrawlLib.SSBBTypes
         }
     }
 
-    unsafe struct DataBlockCollection
+    public unsafe struct DataBlockCollection
     {
         private DataBlock _block;
 
@@ -87,7 +87,7 @@ namespace BrawlLib.SSBBTypes
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    unsafe struct NW4RCommonHeader
+    public unsafe struct NW4RCommonHeader
     {
         public const uint Size = 0x10;
 
@@ -98,7 +98,7 @@ namespace BrawlLib.SSBBTypes
         public bushort _firstOffset;
         public bushort _numEntries;
 
-        public VoidPtr Address { get { fixed (void* ptr = &this)return ptr; } }
+        public VoidPtr Address { get { fixed (void* ptr = &this) return ptr; } }
         public DataBlock DataBlock { get { return new DataBlock(Address, Size); } }
 
         public byte VersionMajor { get { return ((byte*)_version.Address)[0]; } set { ((byte*)_version.Address)[0] = value; } }
@@ -107,7 +107,7 @@ namespace BrawlLib.SSBBTypes
 
         public DataBlockCollection Entries { get { return new DataBlockCollection(DataBlock); } }
     }
-    
+
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     unsafe struct NW4FCommonHeader
     {

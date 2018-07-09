@@ -1,8 +1,4 @@
 ﻿using System;
-#if RSTMLIB
-#else
-using BrawlLib.IO;
-#endif
 using System.Audio;
 using BrawlLib.SSBBTypes;
 using System.Runtime.InteropServices;
@@ -12,10 +8,21 @@ namespace BrawlLib.Wii.Audio
 {
     public static class CSTMConverter
     {
+        public static unsafe byte[] FromRSTM(byte[] rstm)
+        {
+            fixed (byte* ptr = rstm)
+            {
+                return FromRSTM((RSTMHeader*)ptr);
+            }
+        }
+
         internal static unsafe byte[] FromRSTM(RSTMHeader* rstm)
         {
             StrmDataInfo strmDataInfo = *rstm->HEADData->Part1;
             int channels = strmDataInfo._format._channels;
+
+            if (strmDataInfo._format._encoding != (byte)WaveEncoding.ADPCM)
+                throw new NotImplementedException("CSTM export only supports ADPCM encoding.");
 
             // Get section sizes from the BRSTM - BCSTM is such a similar format that we can assume the sizes will match.
             int rstmSize = 0x40;
@@ -62,6 +69,14 @@ namespace BrawlLib.Wii.Audio
             return array;
         }
 
+        public static unsafe byte[] ToRSTM(byte[] cstm)
+        {
+            fixed (byte* ptr = cstm)
+            {
+                return ToRSTM((CSTMHeader*)ptr);
+            }
+        }
+
         internal static unsafe byte[] ToRSTM(CSTMHeader* cstm)
         {
             CSTMDataInfo cstmDataInfo = cstm->INFOData->_dataInfo;
@@ -91,7 +106,7 @@ namespace BrawlLib.Wii.Audio
 
                 //Initialize sections
                 rstm->Set(infoSize, seekSize, dataSize);
-                info->Set(infoSize, channels);
+                info->Set(infoSize, channels, (WaveEncoding)cstm->INFOData->_dataInfo._format._encoding);
                 seek->Set(seekSize);
                 data->Set(dataSize);
 
@@ -117,28 +132,5 @@ namespace BrawlLib.Wii.Audio
             }
             return array;
         }
-
-#if RSTMLIB
-        public static unsafe byte[] FromRSTM(byte[] rstm)
-        {
-            fixed (byte* ptr = rstm)
-            {
-                return FromRSTM((RSTMHeader*)ptr);
-            }
-        }
-
-        public static unsafe byte[] ToRSTM(byte[] cstm)
-        {
-            fixed (byte* ptr = cstm)
-            {
-                return ToRSTM((CSTMHeader*)ptr);
-            }
-        }
-
-        public static unsafe byte[] EncodeToByteArray(IAudioStream stream, IProgressTracker progress)
-        {
-            return FromRSTM(RSTMConverter.EncodeToByteArray(stream, progress));
-        }
-#endif
     }
 }

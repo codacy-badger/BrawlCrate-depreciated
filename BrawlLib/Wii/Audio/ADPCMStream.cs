@@ -84,6 +84,11 @@ namespace BrawlLib.Wii.Audio
                 sPtr += _blockLen;
             }
 
+            for (int cIndex = 0; cIndex < _numChannels; cIndex++) {
+                yn1 = *ynCache++;
+                yn2 = *ynCache++;
+            }
+
             //Fill block states in a linear fashion
             sPtr = (byte*)dataAddr;
             for (int sIndex = 0, bIndex = 0; sIndex < _numSamples; sIndex += _samplesPerBlock, bIndex++)
@@ -103,7 +108,7 @@ namespace BrawlLib.Wii.Audio
             _numChannels = channels;
             _startChannel = startChannel;
         }
-
+        
         public ADPCMStream(RSTMHeader* pRSTM, VoidPtr dataAddr)
         {
             HEADHeader* pHeader = pRSTM->HEADData;
@@ -185,8 +190,7 @@ namespace BrawlLib.Wii.Audio
             }
             _lastBlockSize = _lastBlockSamples.Align(14) / 14 * 8;
         }
-#if RSTMLIB
-#else
+
         public VoidPtr _dataAddress;
         public ADPCMStream(WaveInfo* pWAVE, VoidPtr dataAddr)
         {
@@ -244,7 +248,6 @@ namespace BrawlLib.Wii.Audio
                     sPtr += (bIndex == _numBlocks - 1) ? _lastBlockSize : _blockLen;
                 }
         }
-#endif
 
         int _startChannel = 0;
         private void RefreshStates()
@@ -285,9 +288,7 @@ namespace BrawlLib.Wii.Audio
         //    }
         //    _useLoop = false;
         //}
-
-#if RSTMLIB
-#else
+        
         public RIFFHeader GetPCMHeader()
         {
             return new RIFFHeader(1, _numChannels, 16, _sampleRate, _numSamples);
@@ -313,7 +314,6 @@ namespace BrawlLib.Wii.Audio
             }
             SamplePosition = oldPos;
         }
-#endif
 
         #region IAudioStream Members
 

@@ -11,7 +11,7 @@ namespace BrawlLib.SSBB.ResourceNodes
     {
         internal VoidPtr Data { get { return (VoidPtr)WorkingUncompressed.Address; } }
         
-        internal DataSource _audioSource;
+        public DataSource _audioSource;
         
         internal RSARNode RSARNode
         {
@@ -106,12 +106,16 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override bool OnInitialize()
         {
             base.OnInitialize();
-            _groupRefs = new List<RSARGroupNode>();
+
+            if (!_replaced)
+                _groupRefs = new List<RSARGroupNode>();
+
             if (_name == null)
                 if (_parent == null)
                     _name = Path.GetFileNameWithoutExtension(_origPath);
                 else
                     _name = String.Format("[{0}] {1}", _fileIndex, ResourceType.ToString());
+
             return false;
         }
 
