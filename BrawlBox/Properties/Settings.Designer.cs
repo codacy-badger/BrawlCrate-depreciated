@@ -86,7 +86,7 @@ namespace BrawlBox.Properties {
 
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("false")]
+        [global::System.Configuration.DefaultSettingValueAttribute("true")]
         public bool DisplayPropertyDescriptionWhenAvailable
         {
             get
