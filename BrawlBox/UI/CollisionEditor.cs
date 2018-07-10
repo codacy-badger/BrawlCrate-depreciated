@@ -2088,19 +2088,185 @@ namespace System.Windows.Forms
         {
             if (_updating) return;
             foreach (CollisionPlane plane in _selectedPlanes)
+            {
                 plane.Type = (CollisionPlaneType)cboType.SelectedItem;
+                if (!plane.IsRotating)
+                {
+                    if (!plane.IsFloor)
+                    {
+                        plane.IsFallThrough = false;
+                        chkFallThrough.Checked = false;
+                        plane.IsRightLedge = false;
+                        chkRightLedge.Checked = false;
+                        plane.IsLeftLedge = false;
+                        chkLeftLedge.Checked = false;
+                    }
+                    if(!plane.IsWall)
+                    {
+                        plane.IsNoWalljump = false;
+                        chkNoWalljump.Checked = false;
+                    }
+                }
+            }
             TargetNode.SignalPropertyChange();
         }
 
-        private void chkTypeCharacters_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsCharacters = chkTypeCharacters.Checked; }
-        private void chkTypeItems_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsItems = chkTypeItems.Checked; }
-        private void chkTypePokemonTrainer_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsPokemonTrainer = chkTypePokemonTrainer.Checked; }
-        private void chkTypeRotating_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsRotating = chkTypeRotating.Checked; }
+        private void chkTypeCharacters_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_updating)
+                return;
+            TargetNode.SignalPropertyChange();
+            foreach (CollisionPlane p in _selectedPlanes)
+            {
+                p.IsCharacters = chkTypeCharacters.Checked;
+                if (p.IsCharacters)
+                {
+                    p.IsItems = false;
+                    chkTypeItems.Checked = false;
+                    p.IsPokemonTrainer = false;
+                    chkTypePokemonTrainer.Checked = false;
+                }
+            }
+        }
 
-        private void chkFallThrough_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsFallThrough = chkFallThrough.Checked; }
-        private void chkLeftLedge_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsLeftLedge = chkLeftLedge.Checked; }
-        private void chkRightLedge_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsRightLedge = chkRightLedge.Checked; }
-        private void chkNoWalljump_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsNoWalljump = chkNoWalljump.Checked; }
+        private void chkTypeItems_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_updating)
+                return;
+            TargetNode.SignalPropertyChange();
+            foreach (CollisionPlane p in _selectedPlanes)
+            {
+                p.IsItems = chkTypeItems.Checked;
+                if (p.IsItems)
+                {
+                    p.IsCharacters = false;
+                    chkTypeCharacters.Checked = false;
+                }
+            }
+        }
+
+        private void chkTypePokemonTrainer_CheckedChanged(object sender, EventArgs e) {
+            if (_updating)
+                return;
+            TargetNode.SignalPropertyChange();
+            foreach (CollisionPlane p in _selectedPlanes)
+            {
+                p.IsPokemonTrainer = chkTypePokemonTrainer.Checked;
+                if (p.IsPokemonTrainer)
+                {
+                    p.IsCharacters = false;
+                    chkTypeCharacters.Checked = false;
+                }
+            }
+        }
+
+        private void chkTypeRotating_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_updating)
+                return;
+            TargetNode.SignalPropertyChange();
+            foreach (CollisionPlane p in _selectedPlanes)
+            {
+                p.IsRotating = chkTypeRotating.Checked;
+                if (!p.IsRotating)
+                {
+                    if (!p.IsFloor)
+                    {
+                        p.IsFallThrough = false;
+                        chkFallThrough.Checked = false;
+                        p.IsRightLedge = false;
+                        chkRightLedge.Checked = false;
+                        p.IsLeftLedge = false;
+                        chkLeftLedge.Checked = false;
+                    }
+                    if (!p.IsWall)
+                    {
+                        p.IsNoWalljump = false;
+                        chkNoWalljump.Checked = false;
+                    }
+                }
+            }
+        }
+
+        private void chkFallThrough_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_updating)
+                return;
+            TargetNode.SignalPropertyChange();
+            foreach (CollisionPlane p in _selectedPlanes)
+            {
+                p.IsFallThrough = chkFallThrough.Checked;
+                if ((!p.IsFloor && !p.IsRotating) || !p.IsCharacters)
+                {
+                    p.IsFallThrough = false;
+                    chkFallThrough.Checked = false;
+                }
+            }
+        }
+
+        private void chkLeftLedge_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_updating)
+                return;
+            TargetNode.SignalPropertyChange();
+            foreach (CollisionPlane p in _selectedPlanes)
+            {
+                p.IsLeftLedge = chkLeftLedge.Checked;
+                if (p.IsLeftLedge)
+                {
+                    p.IsRightLedge = false;
+                    chkRightLedge.Checked = false;
+                }
+                if (!p.IsFloor && !p.IsRotating)
+                {
+                    p.IsRightLedge = false;
+                    chkRightLedge.Checked = false;
+                    p.IsLeftLedge = false;
+                    chkLeftLedge.Checked = false;
+                }
+            }
+            _modelPanel.Invalidate();
+        }
+
+        private void chkRightLedge_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_updating)
+                return;
+            TargetNode.SignalPropertyChange();
+            foreach (CollisionPlane p in _selectedPlanes)
+            {
+                p.IsRightLedge = chkRightLedge.Checked;
+                if (p.IsRightLedge)
+                {
+                    p.IsLeftLedge = false;
+                    chkLeftLedge.Checked = false;
+                }
+                if (!p.IsFloor && !p.IsRotating)
+                {
+                    p.IsRightLedge = false;
+                    chkRightLedge.Checked = false;
+                    p.IsLeftLedge = false;
+                    chkLeftLedge.Checked = false;
+                }
+            }
+            _modelPanel.Invalidate();
+        }
+
+        private void chkNoWalljump_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_updating)
+                return;
+            TargetNode.SignalPropertyChange();
+            foreach (CollisionPlane p in _selectedPlanes)
+            {
+                p.IsNoWalljump = chkNoWalljump.Checked;
+                if (!p.IsWall && !p.IsRotating)
+                {
+                    p.IsNoWalljump = false;
+                    chkNoWalljump.Checked = false;
+                }
+            }
+        }
 
         private void chkFlagUnknown1_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsUnknownStageBox = chkFlagUnknown1.Checked; }
         private void chkFlagUnknown2_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsUnknownFlag1 = chkFlagUnknown2.Checked; }

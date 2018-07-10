@@ -594,6 +594,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             get { return (_type & CollisionPlaneType.RightWall) != 0; }
             set { _type = (_type & ~CollisionPlaneType.RightWall) | (value ? CollisionPlaneType.RightWall : 0); }
         }
+        public bool IsWall
+        {
+            get { return (((_type & CollisionPlaneType.RightWall) != 0) || ((_type & CollisionPlaneType.LeftWall) != 0)); }
+        }
 
         public bool IsCharacters
         {

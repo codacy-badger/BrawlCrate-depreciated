@@ -145,8 +145,12 @@ namespace BrawlBox
 
         private void AdvancedEdit()
         {
-            using (AdvancedCollisionForm frm = new AdvancedCollisionForm())
-                frm.ShowDialog(null, _resource as CollisionNode);
+            DialogResult CollisionResult = MessageBox.Show("Please note: The advanced collision editor is for experimental purposes only. Unless you really know what you're doing, the regular collision editor is overall better for the same purposes. Are you sure you'd like to open in the Advanced Editor?", "Open Advanced Editor", MessageBoxButtons.YesNo);
+            if (CollisionResult == DialogResult.Yes)
+            {
+                using (AdvancedCollisionForm frm = new AdvancedCollisionForm())
+                    frm.ShowDialog(null, _resource as CollisionNode);
+            }
         }
     }
 }
