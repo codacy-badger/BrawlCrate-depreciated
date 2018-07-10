@@ -2168,12 +2168,12 @@ namespace System.Windows.Forms
             if (_updating)
                 return;
             TargetNode.SignalPropertyChange();
+            bool selection = chkTypeRotating.Checked;
             CollisionPlaneType firstType = _selectedPlanes[0].Type;
-            bool firstIsRotating = _selectedPlanes[0].IsRotating;
             bool allSameType = true;
             foreach (CollisionPlane p in _selectedPlanes)
             {
-                p.IsRotating = chkTypeRotating.Checked;
+                p.IsRotating = selection;
                 if (!p.IsRotating)
                 {
                     if (!p.IsFloor)
@@ -2189,10 +2189,6 @@ namespace System.Windows.Forms
                 }
                 if (allSameType)
                 {
-                    if (p.IsRotating != firstIsRotating)
-                    {
-                        allSameType = false;
-                    }
                     if (p.IsWall && (firstType == CollisionPlaneType.LeftWall && firstType == CollisionPlaneType.RightWall))
                     {
                         // This is fine as far as types are concerned
@@ -2219,6 +2215,7 @@ namespace System.Windows.Forms
                     }
                 }
             }
+            _modelPanel.Invalidate();
         }
 
         private void chkFallThrough_CheckedChanged(object sender, EventArgs e)
