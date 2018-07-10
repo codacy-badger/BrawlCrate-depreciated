@@ -933,6 +933,80 @@ namespace BrawlLib.SSBB.ResourceNodes
             return null;
         }
 
+        // Used to find textures. Case Sensitive and can ignore non-texture datas
+        public ResourceNode SearchForTextures(string path, bool searchChildren, bool searchTextureDatasOnly)
+        {
+            ResourceNode node = null;
+            bool searchThisNode = true;
+            if (path == null)
+                return null;
+
+            if (searchTextureDatasOnly)
+            {
+                if (node is BRRESNode)
+                {
+                    if (((BRRESNode)node).FileType != SSBBTypes.ARCFileType.TextureData)
+                    {
+                        searchThisNode = false;
+                    }
+                }
+            }
+            if (searchThisNode)
+            {
+                if (path.Contains("/"))
+                {
+                    string next = path.Substring(0, path.IndexOf('/'));
+                    foreach (ResourceNode n in Children)
+                        if (n.Name != null && n.Name.Equals(next, StringComparison.Ordinal))
+                            if ((node = FindNode(n, path.Substring(next.Length + 1), searchChildren)) != null)
+                            {
+                                if (searchTextureDatasOnly)
+                                {
+                                    if (node._parent._parent is BRRESNode)
+                                    {
+                                        if (((BRRESNode)node._parent._parent).FileType == SSBBTypes.ARCFileType.TextureData)
+                                        {
+                                            return node;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    return node;
+                                }
+                            }
+                }
+                else
+                {
+                    //Search direct children first
+                    foreach (ResourceNode n in Children)
+                        if (n.Name != null && n.Name.Equals(path, StringComparison.Ordinal))
+                        {
+                            if(searchTextureDatasOnly)
+                            {
+                                if(n._parent._parent is BRRESNode)
+                                {
+                                    if(((BRRESNode)n._parent._parent).FileType == SSBBTypes.ARCFileType.TextureData)
+                                    {
+                                        return n;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                return n;
+                            }
+                        }
+                }
+            }
+            if (searchChildren)
+                foreach (ResourceNode n in Children)
+                    if ((node = n.SearchForTextures(path, true, searchTextureDatasOnly)) != null)
+                        return node;
+
+            return null;
+        }
+
         public ResourceNode[] FindChildrenByClassType(string path, Type type)
         {
             if (!String.IsNullOrEmpty(path))

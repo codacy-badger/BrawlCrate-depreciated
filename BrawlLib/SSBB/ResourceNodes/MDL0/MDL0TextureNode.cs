@@ -186,6 +186,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             if (TKContext.CurrentContext == null)
                 return;
 
+            bool isStage = false;
             Source = null;
 
             if (Texture != null)
@@ -194,6 +195,11 @@ namespace BrawlLib.SSBB.ResourceNodes
             Texture.Bind(index, program);
 
             Bitmap bmp = null;
+
+            if(RootNode is ARCNode)
+            {
+                isStage = ((ARCNode)RootNode).IsStage;
+            }
 
             if (_folderWatcher.EnableRaisingEvents && !String.IsNullOrEmpty(_folderWatcher.Path))
                 bmp = SearchDirectory(_folderWatcher.Path + Name);
@@ -226,7 +232,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 searched.Add(node);
 
                 //Search node itself first
-                if ((tNode = node.FindChild("Textures(NW4R)/" + Name, true) as TEX0Node) != null)
+                if ((tNode = node.SearchForTextures("Textures(NW4R)/" + Name, true, false) as TEX0Node) != null)
                 {
                     Source = tNode;
                     Texture.Attach(tNode, _palette);
@@ -241,12 +247,18 @@ namespace BrawlLib.SSBB.ResourceNodes
                 foreach (ResourceNode n in nodes)
                 {
                     ResourceNode node = n.RootNode;
+                    // Console.WriteLine("N:    " + n.Name);
+                    // Console.WriteLine("Node: " + node.Name);
                     if (searched.Contains(node))
+                    {
+                        // Console.WriteLine("  Already found");
                         continue;
+                    }
                     searched.Add(node);
+                    // Console.WriteLine("  Searching...");
 
                     //Search node itself first
-                    if ((tNode = node.FindChild("Textures(NW4R)/" + Name, true) as TEX0Node) != null)
+                    if ((tNode = node.SearchForTextures("Textures(NW4R)/" + Name, true, isStage) as TEX0Node) != null)
                     {
                         Source = tNode;
                         Texture.Attach(tNode, _palette);

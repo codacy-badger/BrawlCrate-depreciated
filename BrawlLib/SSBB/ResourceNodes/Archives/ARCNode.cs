@@ -20,6 +20,10 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         [Browsable(false)]
+        public bool IsStage { get { return _isStage; } set { _isStage = value; } }
+        private bool _isStage;
+
+        [Browsable(false)]
         public bool IsPair { get { return _isPair; } set { _isPair = value; } }
         private bool _isPair;
 
@@ -49,10 +53,12 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             base.OnInitialize();
             _name = Header->Name;
+            IsStage = false;
             if (_name.Length >= 3)
             {
                 if (_name.Substring(0, 3) == "STG" || _name.Substring(0, 3) == "Stg" || _name.Substring(0, 3) == "stg")
                 {
+                    IsStage = true;
                     Console.WriteLine(_name + " Generating MetaData");
                 }
             }
