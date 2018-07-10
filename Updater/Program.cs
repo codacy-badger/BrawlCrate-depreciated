@@ -109,7 +109,10 @@ namespace Net
                     !String.Equals(releases[0].TagName, releaseTag, StringComparison.InvariantCulture) && //Make sure the most recent version is not this version
                     releases[0].Name.IndexOf("StageBox", StringComparison.InvariantCultureIgnoreCase) >= 0) //Make sure this is a StageBox release
                 {
-                    DialogResult UpdateResult = MessageBox.Show(releases[0].Name + " is available! Update now?", "Update", MessageBoxButtons.YesNo);
+                    int descriptionOffset = 0;
+                    if (releases[0].Body.Substring(releases[0].Body.Length - 109) == "\nAlso check out the Brawl Stage Compendium for info and research on Stage Modding: https://discord.gg/s7c8763")
+                        descriptionOffset = 110;
+                    DialogResult UpdateResult = MessageBox.Show(releases[0].Name + " is available! Update now? \n\n" + releases[0].Body.Substring(0, releases[0].Body.Length - descriptionOffset), "Update", MessageBoxButtons.YesNo);
                     if (UpdateResult == DialogResult.Yes)
                     {
                         DialogResult OverwriteResult = MessageBox.Show("Overwrite current installation?", "", MessageBoxButtons.YesNoCancel);
