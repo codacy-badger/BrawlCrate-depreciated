@@ -198,12 +198,46 @@ namespace BrawlLib.SSBB.ResourceNodes
             if (_folderWatcher.EnableRaisingEvents && !String.IsNullOrEmpty(_folderWatcher.Path))
                 bmp = SearchDirectory(_folderWatcher.Path + Name);
 
+            BRRESNode parentBRRES = null;
+            // Safely search for whether this is part of a BRRES
+            if (_parent != null)
+            {
+                if (_parent._parent != null)
+                {
+                    if (_parent._parent._parent != null)
+                    {
+                        if (_parent._parent._parent._parent != null)
+                        {
+                            if (_parent._parent._parent._parent is BRRESNode)
+                            {
+                                parentBRRES = (BRRESNode)_parent._parent._parent._parent;
+                            }
+                        }
+                    }
+                }
+            }
+
+            List<ResourceNode> nodes = TKContext.CurrentContext._states["_Node_Refs"] as List<ResourceNode>;
+            List<ResourceNode> searched = new List<ResourceNode>(nodes.Count);
+            TEX0Node tNode = null;
+            if (bmp == null && TKContext.CurrentContext._states.ContainsKey("_Node_Refs") && parentBRRES != null)
+            {
+                ResourceNode node = parentBRRES;
+                searched.Add(node);
+
+                //Search node itself first
+                if ((tNode = node.FindChild("Textures(NW4R)/" + Name, true) as TEX0Node) != null)
+                {
+                    Source = tNode;
+                    Texture.Attach(tNode, _palette);
+                    return;
+                }
+                else //Then search the directory
+                    bmp = SearchDirectory(node._origPath);
+            }
+
             if (bmp == null && TKContext.CurrentContext._states.ContainsKey("_Node_Refs"))
             {
-                List<ResourceNode> nodes = TKContext.CurrentContext._states["_Node_Refs"] as List<ResourceNode>;
-                List<ResourceNode> searched = new List<ResourceNode>(nodes.Count);
-                TEX0Node tNode = null;
-
                 foreach (ResourceNode n in nodes)
                 {
                     ResourceNode node = n.RootNode;
