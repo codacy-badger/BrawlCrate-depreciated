@@ -864,6 +864,10 @@ namespace System.Windows.Forms
         /// </summary>
         private void SelectVertices(IObject o, ModelPanel panel)
         {
+            if (o.Vertices == null)
+            {
+                return;
+            }
             foreach (Vertex3 v in o.Vertices)
             {
                 //Project each vertex into screen coordinates.
