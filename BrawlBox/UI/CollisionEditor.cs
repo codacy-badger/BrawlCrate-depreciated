@@ -2274,6 +2274,8 @@ namespace System.Windows.Forms
             bool allSameType = true;
             foreach (CollisionPlane p in _selectedPlanes)
             {
+                chkRightLedge.Checked = false;
+                chkLeftLedge.Checked = selection;
                 p.IsLeftLedge = selection;
                 if (p.IsLeftLedge)
                 {
@@ -2300,7 +2302,6 @@ namespace System.Windows.Forms
                     }
                 }
             }
-            chkRightLedge.Checked = false;
             if ((_selectedPlanes.Count == 1 || allSameType) && _selectedPlanes.Count > 0)
             {
                 if (_selectedPlanes[0].IsLeftLedge)
@@ -2327,6 +2328,8 @@ namespace System.Windows.Forms
             bool allSameType = true;
             foreach (CollisionPlane p in _selectedPlanes)
             {
+                chkLeftLedge.Checked = false;
+                chkRightLedge.Checked = selection;
                 p.IsRightLedge = selection;
                 if (p.IsRightLedge)
                 {
@@ -2354,7 +2357,6 @@ namespace System.Windows.Forms
                     }
                 }
             }
-            chkLeftLedge.Checked = false;
             if ((_selectedPlanes.Count == 1 || allSameType) && _selectedPlanes.Count > 0)
             {
                 if (_selectedPlanes[0].IsRightLedge)
