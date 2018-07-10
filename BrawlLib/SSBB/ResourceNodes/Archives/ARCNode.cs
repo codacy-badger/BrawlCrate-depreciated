@@ -54,7 +54,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             base.OnInitialize();
             _name = Header->Name;
             IsStage = false;
-            if (_name.Length >= 3)
+            if (_name.Length >= 3 && AbsoluteIndex == -1)
             {
                 if (_name.Substring(0, 3) == "STG" || _name.Substring(0, 3) == "Stg" || _name.Substring(0, 3) == "stg")
                 {
