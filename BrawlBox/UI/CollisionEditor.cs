@@ -2116,9 +2116,10 @@ namespace System.Windows.Forms
             if (_updating)
                 return;
             TargetNode.SignalPropertyChange();
+            bool selection = chkTypeCharacters.Checked;
             foreach (CollisionPlane p in _selectedPlanes)
             {
-                p.IsCharacters = chkTypeCharacters.Checked;
+                p.IsCharacters = selection;
                 if (p.IsCharacters)
                 {
                     p.IsItems = false;
@@ -2134,9 +2135,10 @@ namespace System.Windows.Forms
             if (_updating)
                 return;
             TargetNode.SignalPropertyChange();
+            bool selection = chkTypeItems.Checked;
             foreach (CollisionPlane p in _selectedPlanes)
             {
-                p.IsItems = chkTypeItems.Checked;
+                p.IsItems = selection;
                 if (p.IsItems)
                 {
                     p.IsCharacters = false;
@@ -2149,9 +2151,10 @@ namespace System.Windows.Forms
             if (_updating)
                 return;
             TargetNode.SignalPropertyChange();
+            bool selection = chkTypePokemonTrainer.Checked;
             foreach (CollisionPlane p in _selectedPlanes)
             {
-                p.IsPokemonTrainer = chkTypePokemonTrainer.Checked;
+                p.IsPokemonTrainer = selection;
                 if (p.IsPokemonTrainer)
                 {
                     p.IsCharacters = false;
@@ -2165,6 +2168,9 @@ namespace System.Windows.Forms
             if (_updating)
                 return;
             TargetNode.SignalPropertyChange();
+            CollisionPlaneType firstType = _selectedPlanes[0].Type;
+            bool firstIsRotating = _selectedPlanes[0].IsRotating;
+            bool allSameType = true;
             foreach (CollisionPlane p in _selectedPlanes)
             {
                 p.IsRotating = chkTypeRotating.Checked;
@@ -2173,15 +2179,42 @@ namespace System.Windows.Forms
                     if (!p.IsFloor)
                     {
                         p.IsFallThrough = false;
-                        chkFallThrough.Checked = false;
                         p.IsRightLedge = false;
-                        chkRightLedge.Checked = false;
                         p.IsLeftLedge = false;
-                        chkLeftLedge.Checked = false;
                     }
                     if (!p.IsWall)
                     {
                         p.IsNoWalljump = false;
+                    }
+                }
+                if (allSameType)
+                {
+                    if (p.IsRotating != firstIsRotating)
+                    {
+                        allSameType = false;
+                    }
+                    if (p.IsWall && (firstType == CollisionPlaneType.LeftWall && firstType == CollisionPlaneType.RightWall))
+                    {
+                        // This is fine as far as types are concerned
+                    }
+                    else if (p.Type != firstType)
+                    {
+                        allSameType = false;
+                    }
+                }
+            }
+            if ((_selectedPlanes.Count == 1 || allSameType) && _selectedPlanes.Count > 0)
+            {
+                if (!_selectedPlanes[0].IsRotating)
+                {
+                    if (!_selectedPlanes[0].IsFloor)
+                    {
+                        chkFallThrough.Checked = false;
+                        chkRightLedge.Checked = false;
+                        chkLeftLedge.Checked = false;
+                    }
+                    if (!_selectedPlanes[0].IsWall)
+                    {
                         chkNoWalljump.Checked = false;
                     }
                 }
@@ -2193,12 +2226,38 @@ namespace System.Windows.Forms
             if (_updating)
                 return;
             TargetNode.SignalPropertyChange();
+            bool selection = chkFallThrough.Checked;
+            CollisionPlaneType firstType = _selectedPlanes[0].Type;
+            bool firstIsRotating = _selectedPlanes[0].IsRotating;
+            bool allSameType = true;
             foreach (CollisionPlane p in _selectedPlanes)
             {
-                p.IsFallThrough = chkFallThrough.Checked;
+                p.IsFallThrough = selection;
                 if ((!p.IsFloor && !p.IsRotating) || !p.IsCharacters)
                 {
                     p.IsFallThrough = false;
+                }
+
+                if (allSameType)
+                {
+                    if (p.IsRotating != firstIsRotating)
+                    {
+                        allSameType = false;
+                    }
+                    if (p.IsWall && (firstType == CollisionPlaneType.LeftWall && firstType == CollisionPlaneType.RightWall))
+                    {
+                        // This is fine as far as types are concerned
+                    }
+                    else if (p.Type != firstType)
+                    {
+                        allSameType = false;
+                    }
+                }
+            }
+            if ((_selectedPlanes.Count == 1 || allSameType) && _selectedPlanes.Count > 0)
+            {
+                if ((!_selectedPlanes[0].IsFloor && !_selectedPlanes[0].IsRotating) || !_selectedPlanes[0].IsCharacters)
+                {
                     chkFallThrough.Checked = false;
                 }
             }
@@ -2209,19 +2268,48 @@ namespace System.Windows.Forms
             if (_updating)
                 return;
             TargetNode.SignalPropertyChange();
+            bool selection = chkLeftLedge.Checked;
+            CollisionPlaneType firstType = _selectedPlanes[0].Type;
+            bool firstIsRotating = _selectedPlanes[0].IsRotating;
+            bool allSameType = true;
             foreach (CollisionPlane p in _selectedPlanes)
             {
-                p.IsLeftLedge = chkLeftLedge.Checked;
+                p.IsLeftLedge = selection;
                 if (p.IsLeftLedge)
                 {
                     p.IsRightLedge = false;
-                    chkRightLedge.Checked = false;
                 }
                 if (!p.IsFloor && !p.IsRotating)
                 {
                     p.IsRightLedge = false;
-                    chkRightLedge.Checked = false;
                     p.IsLeftLedge = false;
+                }
+                if(allSameType)
+                {
+                    if(p.IsRotating != firstIsRotating)
+                    {
+                        allSameType = false;
+                    }
+                    if(p.IsWall && (firstType == CollisionPlaneType.LeftWall && firstType == CollisionPlaneType.RightWall))
+                    {
+                        // This is fine as far as types are concerned
+                    }
+                    else if(p.Type != firstType)
+                    {
+                        allSameType = false;
+                    }
+                }
+            }
+            chkRightLedge.Checked = false;
+            if ((_selectedPlanes.Count == 1 || allSameType) && _selectedPlanes.Count > 0)
+            {
+                if (_selectedPlanes[0].IsLeftLedge)
+                {
+                    chkRightLedge.Checked = false;
+                }
+                if (!_selectedPlanes[0].IsFloor && !_selectedPlanes[0].IsRotating)
+                {
+                    chkRightLedge.Checked = false;
                     chkLeftLedge.Checked = false;
                 }
             }
@@ -2233,19 +2321,49 @@ namespace System.Windows.Forms
             if (_updating)
                 return;
             TargetNode.SignalPropertyChange();
+            bool selection = chkRightLedge.Checked;
+            CollisionPlaneType firstType = _selectedPlanes[0].Type;
+            bool firstIsRotating = _selectedPlanes[0].IsRotating;
+            bool allSameType = true;
             foreach (CollisionPlane p in _selectedPlanes)
             {
-                p.IsRightLedge = chkRightLedge.Checked;
+                p.IsRightLedge = selection;
                 if (p.IsRightLedge)
                 {
                     p.IsLeftLedge = false;
-                    chkLeftLedge.Checked = false;
                 }
                 if (!p.IsFloor && !p.IsRotating)
                 {
                     p.IsRightLedge = false;
-                    chkRightLedge.Checked = false;
                     p.IsLeftLedge = false;
+                }
+
+                if (allSameType)
+                {
+                    if (p.IsRotating != firstIsRotating)
+                    {
+                        allSameType = false;
+                    }
+                    if (p.IsWall && (firstType == CollisionPlaneType.LeftWall && firstType == CollisionPlaneType.RightWall))
+                    {
+                        // This is fine as far as types are concerned
+                    }
+                    else if (p.Type != firstType)
+                    {
+                        allSameType = false;
+                    }
+                }
+            }
+            chkLeftLedge.Checked = false;
+            if ((_selectedPlanes.Count == 1 || allSameType) && _selectedPlanes.Count > 0)
+            {
+                if (_selectedPlanes[0].IsRightLedge)
+                {
+                    chkLeftLedge.Checked = false;
+                }
+                if (!_selectedPlanes[0].IsFloor && !_selectedPlanes[0].IsRotating)
+                {
+                    chkRightLedge.Checked = false;
                     chkLeftLedge.Checked = false;
                 }
             }
@@ -2257,12 +2375,39 @@ namespace System.Windows.Forms
             if (_updating)
                 return;
             TargetNode.SignalPropertyChange();
+            bool selection = chkNoWalljump.Checked;
+            CollisionPlaneType firstType = _selectedPlanes[0].Type;
+            bool firstIsRotating = _selectedPlanes[0].IsRotating;
+            bool allSameType = true;
             foreach (CollisionPlane p in _selectedPlanes)
             {
-                p.IsNoWalljump = chkNoWalljump.Checked;
+                p.IsNoWalljump = selection;
                 if (!p.IsWall && !p.IsRotating)
                 {
                     p.IsNoWalljump = false;
+                }
+
+                if (allSameType)
+                {
+                    if (p.IsRotating != firstIsRotating)
+                    {
+                        allSameType = false;
+                    }
+                    if (p.IsWall && (firstType == CollisionPlaneType.LeftWall && firstType == CollisionPlaneType.RightWall))
+                    {
+                        // This is fine as far as types are concerned
+                    }
+                    else if (p.Type != firstType)
+                    {
+                        allSameType = false;
+                    }
+                }
+            }
+
+            if ((_selectedPlanes.Count == 1 || allSameType) && _selectedPlanes.Count > 0)
+            {
+                if (!_selectedPlanes[0].IsWall && !_selectedPlanes[0].IsRotating)
+                {
                     chkNoWalljump.Checked = false;
                 }
             }
