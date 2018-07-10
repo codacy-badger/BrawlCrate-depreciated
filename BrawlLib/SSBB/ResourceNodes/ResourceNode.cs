@@ -874,6 +874,23 @@ namespace BrawlLib.SSBB.ResourceNodes
             return root.FindChild(path, searchChildren);
         }
 
+        public static ResourceNode FindNode(ResourceNode root, string path, bool searchChildren, bool caseSensitive)
+        {
+            if (!caseSensitive)
+                return FindNode(root, path, searchChildren);
+
+            if (String.IsNullOrEmpty(path))
+                return root;
+
+            if (root.Name.Equals(path, StringComparison.Ordinal))
+                return root;
+
+            if ((path.Contains("/")) && (path.Substring(0, path.IndexOf('/')).Equals(root.Name, StringComparison.Ordinal)))
+                return root.FindChild(path.Substring(path.IndexOf('/') + 1), searchChildren);
+
+            return root.FindChild(path, searchChildren, caseSensitive);
+        }
+
         public ResourceNode FindChildByType(string path, bool searchChildren, ResourceType type)
         {
             if (path == null)
@@ -933,6 +950,40 @@ namespace BrawlLib.SSBB.ResourceNodes
             return null;
         }
 
+        public ResourceNode FindChild(string path, bool searchChildren, bool caseSensitive)
+        {
+            if(!caseSensitive)
+            {
+                FindChild(path, searchChildren);
+            }
+
+            ResourceNode node = null;
+            if (path == null)
+                return null;
+            if (path.Contains("/"))
+            {
+                string next = path.Substring(0, path.IndexOf('/'));
+                foreach (ResourceNode n in Children)
+                    if (n.Name != null && n.Name.Equals(next, StringComparison.Ordinal))
+                        if ((node = FindNode(n, path.Substring(next.Length + 1), searchChildren)) != null)
+                            return node;
+            }
+            else
+            {
+                //Search direct children first
+                foreach (ResourceNode n in Children)
+                    if (n.Name != null && n.Name.Equals(path, StringComparison.Ordinal))
+                        return n;
+
+            }
+            if (searchChildren)
+                foreach (ResourceNode n in Children)
+                    if ((node = n.FindChild(path, true)) != null)
+                        return node;
+
+            return null;
+        }
+
         // Used to find textures. Case Sensitive and can ignore non-texture datas
         public ResourceNode SearchForTextures(string path, bool searchChildren, bool searchTextureDatasOnly)
         {
@@ -940,7 +991,6 @@ namespace BrawlLib.SSBB.ResourceNodes
             bool searchThisNode = true;
             if (path == null)
                 return null;
-
             if (searchTextureDatasOnly)
             {
                 if (node is BRRESNode)
@@ -958,7 +1008,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                     string next = path.Substring(0, path.IndexOf('/'));
                     foreach (ResourceNode n in Children)
                         if (n.Name != null && n.Name.Equals(next, StringComparison.Ordinal))
-                            if ((node = FindNode(n, path.Substring(next.Length + 1), searchChildren)) != null)
+                            if ((node = FindNode(n, path.Substring(next.Length + 1), searchChildren, true)) != null)
                             {
                                 if (searchTextureDatasOnly)
                                 {
@@ -982,7 +1032,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                     foreach (ResourceNode n in Children)
                         if (n.Name != null && n.Name.Equals(path, StringComparison.Ordinal))
                         {
-                            if(searchTextureDatasOnly)
+                            if (searchTextureDatasOnly)
                             {
                                 if(n._parent._parent is BRRESNode)
                                 {
