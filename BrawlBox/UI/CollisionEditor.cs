@@ -2278,7 +2278,7 @@ namespace System.Windows.Forms
                 {
                     p.IsRightLedge = false;
                 }
-                if (!p.IsFloor && !p.IsRotating)
+                if ((!p.IsFloor && !p.IsRotating) || !p.IsCharacters)
                 {
                     p.IsRightLedge = false;
                     p.IsLeftLedge = false;
@@ -2332,7 +2332,7 @@ namespace System.Windows.Forms
                 {
                     p.IsLeftLedge = false;
                 }
-                if (!p.IsFloor && !p.IsRotating)
+                if ((!p.IsFloor && !p.IsRotating) || !p.IsCharacters)
                 {
                     p.IsRightLedge = false;
                     p.IsLeftLedge = false;
@@ -2381,7 +2381,7 @@ namespace System.Windows.Forms
             foreach (CollisionPlane p in _selectedPlanes)
             {
                 p.IsNoWalljump = selection;
-                if (!p.IsWall && !p.IsRotating)
+                if ((!p.IsWall && !p.IsRotating) || !p.IsCharacters)
                 {
                     p.IsNoWalljump = false;
                 }
