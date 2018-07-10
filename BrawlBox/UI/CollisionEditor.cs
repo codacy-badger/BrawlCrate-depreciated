@@ -2126,6 +2126,16 @@ namespace System.Windows.Forms
                     chkTypeItems.Checked = false;
                     p.IsPokemonTrainer = false;
                     chkTypePokemonTrainer.Checked = false;
+                } else
+                {
+                    p.IsFallThrough = false;
+                    chkFallThrough.Checked = false;
+                    p.IsNoWalljump = false;
+                    chkNoWalljump.Checked = false;
+                    p.IsRightLedge = false;
+                    chkRightLedge.Checked = false;
+                    p.IsLeftLedge = false;
+                    chkLeftLedge.Checked = false;
                 }
             }
         }
@@ -2143,6 +2153,14 @@ namespace System.Windows.Forms
                 {
                     p.IsCharacters = false;
                     chkTypeCharacters.Checked = false;
+                    p.IsFallThrough = false;
+                    chkFallThrough.Checked = false;
+                    p.IsNoWalljump = false;
+                    chkNoWalljump.Checked = false;
+                    p.IsRightLedge = false;
+                    chkRightLedge.Checked = false;
+                    p.IsLeftLedge = false;
+                    chkLeftLedge.Checked = false;
                 }
             }
         }
@@ -2159,6 +2177,14 @@ namespace System.Windows.Forms
                 {
                     p.IsCharacters = false;
                     chkTypeCharacters.Checked = false;
+                    p.IsFallThrough = false;
+                    chkFallThrough.Checked = false;
+                    p.IsNoWalljump = false;
+                    chkNoWalljump.Checked = false;
+                    p.IsRightLedge = false;
+                    chkRightLedge.Checked = false;
+                    p.IsLeftLedge = false;
+                    chkLeftLedge.Checked = false;
                 }
             }
         }
@@ -2201,6 +2227,7 @@ namespace System.Windows.Forms
             }
             if ((_selectedPlanes.Count == 1 || allSameType) && _selectedPlanes.Count > 0)
             {
+                chkTypeRotating.Checked = _selectedPlanes[0].IsRotating;
                 if (!_selectedPlanes[0].IsRotating)
                 {
                     if (!_selectedPlanes[0].IsFloor)
@@ -2227,6 +2254,7 @@ namespace System.Windows.Forms
             CollisionPlaneType firstType = _selectedPlanes[0].Type;
             bool firstIsRotating = _selectedPlanes[0].IsRotating;
             bool allSameType = true;
+            bool allNonCharacters = !_selectedPlanes[0].IsCharacters;
             foreach (CollisionPlane p in _selectedPlanes)
             {
                 p.IsFallThrough = selection;
@@ -2250,13 +2278,23 @@ namespace System.Windows.Forms
                         allSameType = false;
                     }
                 }
+
+                if (allNonCharacters)
+                {
+                    allNonCharacters = !p.IsCharacters;
+                }
             }
             if ((_selectedPlanes.Count == 1 || allSameType) && _selectedPlanes.Count > 0)
             {
+                chkFallThrough.Checked = _selectedPlanes[0].IsFallThrough;
                 if ((!_selectedPlanes[0].IsFloor && !_selectedPlanes[0].IsRotating) || !_selectedPlanes[0].IsCharacters)
                 {
                     chkFallThrough.Checked = false;
                 }
+            }
+            if(allNonCharacters)
+            {
+                chkFallThrough.Checked = false;
             }
         }
 
@@ -2269,6 +2307,7 @@ namespace System.Windows.Forms
             CollisionPlaneType firstType = _selectedPlanes[0].Type;
             bool firstIsRotating = _selectedPlanes[0].IsRotating;
             bool allSameType = true;
+            bool allNonCharacters = !_selectedPlanes[0].IsCharacters;
             foreach (CollisionPlane p in _selectedPlanes)
             {
                 chkRightLedge.Checked = false;
@@ -2298,9 +2337,14 @@ namespace System.Windows.Forms
                         allSameType = false;
                     }
                 }
+                if (allNonCharacters)
+                {
+                    allNonCharacters = !p.IsCharacters;
+                }
             }
             if ((_selectedPlanes.Count == 1 || allSameType) && _selectedPlanes.Count > 0)
             {
+                chkLeftLedge.Checked = _selectedPlanes[0].IsLeftLedge;
                 if (_selectedPlanes[0].IsLeftLedge)
                 {
                     chkRightLedge.Checked = false;
@@ -2310,6 +2354,10 @@ namespace System.Windows.Forms
                     chkRightLedge.Checked = false;
                     chkLeftLedge.Checked = false;
                 }
+            }
+            if (allNonCharacters)
+            {
+                chkLeftLedge.Checked = false;
             }
             _modelPanel.Invalidate();
         }
@@ -2323,6 +2371,7 @@ namespace System.Windows.Forms
             CollisionPlaneType firstType = _selectedPlanes[0].Type;
             bool firstIsRotating = _selectedPlanes[0].IsRotating;
             bool allSameType = true;
+            bool allNonCharacters = !_selectedPlanes[0].IsCharacters;
             foreach (CollisionPlane p in _selectedPlanes)
             {
                 chkLeftLedge.Checked = false;
@@ -2353,9 +2402,14 @@ namespace System.Windows.Forms
                         allSameType = false;
                     }
                 }
+                if (allNonCharacters)
+                {
+                    allNonCharacters = !p.IsCharacters;
+                }
             }
             if ((_selectedPlanes.Count == 1 || allSameType) && _selectedPlanes.Count > 0)
             {
+                chkRightLedge.Checked = _selectedPlanes[0].IsRightLedge;
                 if (_selectedPlanes[0].IsRightLedge)
                 {
                     chkLeftLedge.Checked = false;
@@ -2365,6 +2419,10 @@ namespace System.Windows.Forms
                     chkRightLedge.Checked = false;
                     chkLeftLedge.Checked = false;
                 }
+            }
+            if (allNonCharacters)
+            {
+                chkRightLedge.Checked = false;
             }
             _modelPanel.Invalidate();
         }
@@ -2378,6 +2436,7 @@ namespace System.Windows.Forms
             CollisionPlaneType firstType = _selectedPlanes[0].Type;
             bool firstIsRotating = _selectedPlanes[0].IsRotating;
             bool allSameType = true;
+            bool allNonCharacters = !_selectedPlanes[0].IsCharacters;
             foreach (CollisionPlane p in _selectedPlanes)
             {
                 p.IsNoWalljump = selection;
@@ -2401,14 +2460,23 @@ namespace System.Windows.Forms
                         allSameType = false;
                     }
                 }
+                if (allNonCharacters)
+                {
+                    allNonCharacters = !p.IsCharacters;
+                }
             }
 
             if ((_selectedPlanes.Count == 1 || allSameType) && _selectedPlanes.Count > 0)
             {
+                chkNoWalljump.Checked = _selectedPlanes[0].IsNoWalljump;
                 if (!_selectedPlanes[0].IsWall && !_selectedPlanes[0].IsRotating)
                 {
                     chkNoWalljump.Checked = false;
                 }
+            }
+            if (allNonCharacters)
+            {
+                chkNoWalljump.Checked = false;
             }
         }
 
