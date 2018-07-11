@@ -2677,7 +2677,13 @@ namespace Be.Windows.Forms
 			Brush foreBrush = GetDefaultForeColor();
             Brush backBrush = null;
 
-			int counter = 0;
+            if (_selectionBackBrush == null)
+                _selectionBackBrush = new SolidBrush(_selectionBackColor);
+
+            if (_selectionForeBrush == null)
+                _selectionForeBrush = new SolidBrush(_selectionForeColor);
+
+            int counter = 0;
 			long intern_endByte = Math.Min(_byteProvider.Length - 1, endByte + _iHexMaxHBytes);
 
 			bool isKeyInterpreterActive = _keyInterpreter == null || _keyInterpreter.GetType() == typeof(KeyInterpreter);
@@ -2744,7 +2750,7 @@ namespace Be.Windows.Forms
                     string s = new String(ByteCharConverter.ToChar(b), 1);
 
                     if (_stringViewVisible)
-                        if (isSelectedByte && isStringKeyInterpreterActive && _selectionBackBrush != null)
+                        if (isSelectedByte && isStringKeyInterpreterActive && _selectionBackBrush != null && _selectionForeBrush != null)
                         {
                             g.FillRectangle(_selectionBackBrush, byteStringPointF.X, byteStringPointF.Y, _charSize.Width, _charSize.Height);
                             g.DrawString(s, Font, _selectionForeBrush, byteStringPointF, _stringFormat);
