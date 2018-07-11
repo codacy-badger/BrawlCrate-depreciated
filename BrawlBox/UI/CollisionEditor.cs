@@ -1218,6 +1218,11 @@ namespace System.Windows.Forms
             
             if (pnlPlaneProps.Visible)
             {
+                if(_selectedPlanes.Count <= 0)
+                {
+                    pnlPlaneProps.Visible = false;
+                    return;
+                }
                 CollisionPlane p = _selectedPlanes[0];
 
                 //Material
@@ -1250,11 +1255,21 @@ namespace System.Windows.Forms
             }
             else if (pnlPointProps.Visible)
             {
+                if (_selectedLinks.Count <= 0)
+                {
+                    pnlPointProps.Visible = false;
+                    return;
+                }
                 numX.Value = _selectedLinks[0].Value._x;
                 numY.Value = _selectedLinks[0].Value._y;
             }
             else if (pnlObjProps.Visible)
             {
+                if(_selectedObject == null)
+                {
+                    pnlObjProps.Visible = false;
+                    return;
+                }
                 txtModel.Text = _selectedObject._modelName;
                 txtBone.Text = _selectedObject._boneName;
                 chkObjUnk.Checked = _selectedObject._flags[0];
@@ -1786,11 +1801,26 @@ namespace System.Windows.Forms
                     }
                     else
                     {
-                        //Create new plane extending to point
-                        CollisionLink link = _selectedLinks[0];
-                        _selectedLinks[0] = link.Branch((Vector2)target);
-                        _selectedLinks[0]._highlight = true;
-                        link._highlight = false;
+                        //Create new planes extending to point
+                        CollisionLink link = null;
+                        List<CollisionLink> links = new List<CollisionLink>();
+                        foreach(CollisionLink l in _selectedLinks)
+                        {
+                            links.Add(l.Branch((Vector2)target));
+                        }
+                        link = links[0];
+                        links.RemoveAt(0);
+                        for (int x = 0; x < links.Count;)
+                        {
+                            if (link.Merge(links[x]))
+                            {
+                                links.RemoveAt(x);
+                            }
+                            else
+                                x++;
+                        }
+                        _selectedLinks.Add(link);
+                        link._highlight = true;
                         SelectionModified();
                         _modelPanel.Invalidate();
 
