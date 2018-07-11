@@ -1749,7 +1749,7 @@ namespace System.Windows.Forms
                         BeginHover(target);
                         return;
                     }
-                    else
+                    else if (_selectedPlanes.Count > 0)
                     {
                         //Find two closest points and insert between
                         CollisionPlane bestMatch = null;
@@ -1768,17 +1768,34 @@ namespace System.Windows.Forms
                             }
                         }
 
+                        if (bestMatch == null)
+                            bestMatch = _selectedPlanes[0];
                         ClearSelection();
+                        if (bestMatch != null)
+                        {
+                            _selectedLinks.Add(bestMatch.Split(point));
+                            _selectedLinks[0]._highlight = true;
+                            SelectionModified();
+                            _modelPanel.Invalidate();
 
-                        _selectedLinks.Add(bestMatch.Split(point));
+                            _creating = true;
+                            BeginHover(target);
+                        }
+                        
+                        return;
+                    }
+                    else
+                    {
+                        //Create new plane extending to point
+                        CollisionLink link = _selectedLinks[0];
+                        _selectedLinks[0] = link.Branch((Vector2)target);
                         _selectedLinks[0]._highlight = true;
+                        link._highlight = false;
                         SelectionModified();
                         _modelPanel.Invalidate();
 
-                        _creating = true;
+                        //Hover new point so it can be moved
                         BeginHover(target);
-
-                        return;
                     }
                 }
 
