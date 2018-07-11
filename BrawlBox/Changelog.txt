@@ -49,6 +49,7 @@ they be held accountable for the manner in which it is used.
  . Updated all audio handling to BrawlBox's latest version
  . "Export All" for ARCs now correctly asks how to export textures if there are textures in BRRESs in the ARC
  . "Export All" no longer exports palette files unless ".tex0" is selected for the texture output
+ . Updater now pulls the description from the GitHub release
  
  - v0.6 - (5/26/2018)
  . Issue reporter functionality restored. Sends issues to https://github.com/StageBoxBrawl/StageBoxIssues/issues
