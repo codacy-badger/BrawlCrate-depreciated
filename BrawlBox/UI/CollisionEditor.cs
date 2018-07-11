@@ -1804,9 +1804,11 @@ namespace System.Windows.Forms
                         //Create new planes extending to point
                         CollisionLink link = null;
                         List<CollisionLink> links = new List<CollisionLink>();
-                        foreach(CollisionLink l in _selectedLinks)
+                        _creating = true;
+                        foreach (CollisionLink l in _selectedLinks)
                         {
                             links.Add(l.Branch((Vector2)target));
+                            l._highlight = false;
                         }
                         link = links[0];
                         links.RemoveAt(0);
@@ -1819,6 +1821,7 @@ namespace System.Windows.Forms
                             else
                                 x++;
                         }
+                        _selectedLinks.Clear();
                         _selectedLinks.Add(link);
                         link._highlight = true;
                         SelectionModified();
@@ -1826,6 +1829,8 @@ namespace System.Windows.Forms
 
                         //Hover new point so it can be moved
                         BeginHover(target);
+
+                        return;
                     }
                 }
 
