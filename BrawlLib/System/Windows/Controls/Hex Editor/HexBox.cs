@@ -2744,7 +2744,7 @@ namespace Be.Windows.Forms
                     string s = new String(ByteCharConverter.ToChar(b), 1);
 
                     if (_stringViewVisible)
-                        if (isSelectedByte && isStringKeyInterpreterActive)
+                        if (isSelectedByte && isStringKeyInterpreterActive && _selectionBackBrush != null)
                         {
                             g.FillRectangle(_selectionBackBrush, byteStringPointF.X, byteStringPointF.Y, _charSize.Width, _charSize.Height);
                             g.DrawString(s, Font, _selectionForeBrush, byteStringPointF, _stringFormat);
