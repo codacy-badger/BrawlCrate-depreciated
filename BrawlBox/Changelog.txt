@@ -1,6 +1,6 @@
 ﻿
-StageBox - v0.6
-Copyright © 2018 soopercool101
+StageBox - v0.7
+Copyright © 2018 soopercool101, MarioDox
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
 https://github.com/soopercool101/stagebox
@@ -16,55 +16,89 @@ they be held accountable for the manner in which it is used.
 |************ StageBox Change Log ************|
  =============================================
  
+ - v0.7 - (7/10/2018)
+ . Issue reporter now also links to the Discord (It's more helpful to me to know more specifics of what causes the crashes)
+ . Improved texture renderer to match Brawl's implementation
+   - Textures now load from the BRRES containing the model before checking anywhere else in the ARC
+   - Textures are now case-sensitive
+   - Textures will not be loaded from different ARCs than the model
+   - After the initial check for textures within the BRRES, now only searches within TextureDatas (Has this behavior on stages only; not sure if this is the implementation for all of Brawl's files)
+ . Improved both collision editors
+   - Both collision editors both update planes immediately when grabbable ledges are changed
+   - Both collision editors no longer crash when drawing a new collision from two or more points when no planes are selected. Now draws collision planes from each selected point to the target (merges them if they are all from the same collision object)
+   - Regular Collision Editor:
+     . Now has support for the four currently unknown collision flags
+     . Now has error checking that prevents users from editing collisions in ways that are redundant, unnecessary, or known to be glitchy
+       - Will uncheck the opposite grabbable ledge when one is selected (having both selected causes a glitch in which you can ledgeguard from either side of a collision)
+       - Will disable grabbable ledges and fall-through on non-floors that aren't flagged as "Rotating"
+       - Will disable "NoWalljump" on non-wall collisions that aren't flagged as "Rotating"
+       - The "Characters" flag, as it allows collision for both Pokemon Trainer and Items as well, cannot be selected at the same time as either of those flags (Those flags can still be selected at the same time as each other)
+       - Only allows ledge flags, the fall-through flag, and the no walljump flag if the collision is marked as "Characters"
+ . Updated Stage Parameters with more known values
+   - "Value20" -> "StarKOCamTilt"
+   - "Value21" -> "FinalSmashCamTilt"
+   - "Value22" -> "CameraRight"
+   - "Value23" -> "CameraLeft"
+   - "Value59" -> "EchoMultiplier"
+ . Fixed issue where if the ModelViewer glitched out during vertex editing, the program would crash (now just deselects vertices)
+ . Added initial parsing/editing/saving for GEG1 files in Subspace. Allows editing of which and how many enemies spawn
+ . Added very basic parsing/editing/saving for GFG1 files in Subspace (not too much is known for these files, so the current descriptions may not be perfect)
+ . Added new setting to show a hex view of files without previews (off by default)
+ . "Show Property Box" setting is now on by default
+ . REL Section Editor now properly uses StageBox icon instead of BrawlBox
+ . Updated all audio handling to BrawlBox's latest version
+ . "Export All" for ARCs now correctly asks how to export textures if there are textures in BRRESs in the ARC
+ . "Export All" no longer exports palette files unless ".tex0" is selected for the texture output
+ 
  - v0.6 - (5/26/2018)
  . Issue reporter functionality restored. Sends issues to https://github.com/StageBoxBrawl/StageBoxIssues/issues
  . Adds right-click menu functionality to automatically convert a given MDL0 into a stage shadow model
  . Automatic file compressor now works if the parent ARC's name begins with "stg" or "Stg", along with the original "STG"
  . BrawlBox improvements ported in from main branch
-    - RSTM Updates
-        . ADPCM encoding fixed to match Nintendo's implementation
-        . ADPC Header built properly for BRSTMs with more or less than 2 channels
-        . Proper track data saved in mono and stereo BRSTMs
-    - Audio Playback Updates
-        . Audio playback panel no longer crashes with Mono sound playing
-        . Properly ensures audio provider is loaded before buffering
-        . Doesn't use DirectSound if running in 64-bit mode
-    - Texture converter updates
-        . Add "Swap RGB" functionality
-        . Add "Swap Alpha" functionality
-        . Add "Swap Alpha with RGB" functionality
+   - RSTM Updates
+     . ADPCM encoding fixed to match Nintendo's implementation
+     . ADPC Header built properly for BRSTMs with more or less than 2 channels
+     . Proper track data saved in mono and stereo BRSTMs
+   - Audio Playback Updates
+     . Audio playback panel no longer crashes with Mono sound playing
+     . Properly ensures audio provider is loaded before buffering
+     . Doesn't use DirectSound if running in 64-bit mode
+   - Texture converter updates
+     . Add "Swap RGB" functionality
+     . Add "Swap Alpha" functionality
+     . Add "Swap Alpha with RGB" functionality
  
  - v0.5 - (5/18/2018)
  . StageBox can now be associated with any file formats BrawlBox v0.77 could be
  . Texture recommending reverted to BrawlBox v0.77 behavior
  . Added "Duplicate" functionality to the following file formats:
-    - ARC
-    - BRRES
-    - CHR0
-    - CLR0
-    - COLL
-    - MDL0
-    - MSBin
-    - PAT0
-    - SCLA
-    - SHP0
-    - SRT0
-    - STDT
-    - STPM
-    - TBCL
-    - TBGC
-    - TBGD
-    - TBGM
-    - TBLV
-    - TBRM
-    - TBST
-    - VIS0
+   - ARC
+   - BRRES
+   - CHR0
+   - CLR0
+   - COLL
+   - MDL0
+   - MSBin
+   - PAT0
+   - SCLA
+   - SHP0
+   - SRT0
+   - STDT
+   - STPM
+   - TBCL
+   - TBGC
+   - TBGD
+   - TBGM
+   - TBLV
+   - TBRM
+   - TBST
+   - VIS0
  . Collisions with the pass-through flag that are not floors now render as yellower versions of their original color
  . Renamed some more collision materials:
-    - "Unknown1" -> "UnknownDustless"
-    - "Unknown2" -> "Unknown0x19"
+   - "Unknown1" -> "UnknownDustless"
+   - "Unknown2" -> "Unknown0x19"
  . Added support for CollEx (Collision Expansion) in the Advanced Collision Editor
-    - Allows usage of "CollEx32" through "CollEx255". CollEx material names are based on their IDs in decimal.
+   - Allows usage of "CollEx32" through "CollEx255". CollEx material names are based on their IDs in decimal.
  . Added support to generate new expanded SCLA files for CollEx compatibility
  . Added support to Fill (Expanded) on existing SCLA files for CollEx compatibility
  . Fill and Fill (Expanded) for SCLA now place missing subentries at their proper spot
@@ -991,7 +1025,7 @@ Initial Release (2/19/2015):
 |*********** Requirements ***********|
  ====================================
  
-* BrawlBox: Microsoft .Net Framework v4.5.1
+* StageBox: Microsoft .Net Framework v4.5.1
 	http://www.microsoft.com/en-us/download/details.aspx?id=40779 (Offline installer)
 	http://www.microsoft.com/en-us/download/details.aspx?id=40773 (Web installer)
 
