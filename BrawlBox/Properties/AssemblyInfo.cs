@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("StageBox")]
-[assembly: AssemblyCopyright(@"Copyright © 2018 soopercool101
+[assembly: AssemblyCopyright(@"Copyright © 2018 soopercool101, MarioDox
 BrawlBox © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie && Sammi Husky
 Super Smash Bros. Brawl © 2008 Nintendo and HAL Laboratory")]
 [assembly: AssemblyTrademark(@"Characters are copyrighted by the following:
@@ -38,4 +38,4 @@ Super Smash Bros. Brawl © 2008 Nintendo and HAL Laboratory")]
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("0.77.*")]
-[assembly: AssemblyFileVersion("0.77.0.6")]
+[assembly: AssemblyFileVersion("0.77.0.7")]
