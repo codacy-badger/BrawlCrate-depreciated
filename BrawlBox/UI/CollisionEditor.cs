@@ -2267,7 +2267,7 @@ namespace System.Windows.Forms
                 }
                 if (allSameType)
                 {
-                    if (p.IsWall && (firstType == CollisionPlaneType.LeftWall && firstType == CollisionPlaneType.RightWall))
+                    if (p.IsWall && (firstType == CollisionPlaneType.LeftWall || firstType == CollisionPlaneType.RightWall))
                     {
                         // This is fine as far as types are concerned
                     }
@@ -2321,7 +2321,7 @@ namespace System.Windows.Forms
                     {
                         allSameType = false;
                     }
-                    if (p.IsWall && (firstType == CollisionPlaneType.LeftWall && firstType == CollisionPlaneType.RightWall))
+                    if (p.IsWall && (firstType == CollisionPlaneType.LeftWall || firstType == CollisionPlaneType.RightWall))
                     {
                         // This is fine as far as types are concerned
                     }
@@ -2380,7 +2380,7 @@ namespace System.Windows.Forms
                     {
                         allSameType = false;
                     }
-                    if(p.IsWall && (firstType == CollisionPlaneType.LeftWall && firstType == CollisionPlaneType.RightWall))
+                    if(p.IsWall && (firstType == CollisionPlaneType.LeftWall || firstType == CollisionPlaneType.RightWall))
                     {
                         // This is fine as far as types are concerned
                     }
@@ -2445,7 +2445,7 @@ namespace System.Windows.Forms
                     {
                         allSameType = false;
                     }
-                    if (p.IsWall && (firstType == CollisionPlaneType.LeftWall && firstType == CollisionPlaneType.RightWall))
+                    if (p.IsWall && (firstType == CollisionPlaneType.LeftWall || firstType == CollisionPlaneType.RightWall))
                     {
                         // This is fine as far as types are concerned
                     }
@@ -2503,7 +2503,7 @@ namespace System.Windows.Forms
                     {
                         allSameType = false;
                     }
-                    if (p.IsWall && (firstType == CollisionPlaneType.LeftWall && firstType == CollisionPlaneType.RightWall))
+                    if (p.IsWall && (firstType == CollisionPlaneType.LeftWall || firstType == CollisionPlaneType.RightWall))
                     {
                         // This is fine as far as types are concerned
                     }
