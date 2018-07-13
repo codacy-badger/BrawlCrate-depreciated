@@ -2365,18 +2365,19 @@ namespace System.Windows.Forms
             foreach (CollisionPlane p in _selectedPlanes)
             {
                 bool noLedge = false;
-                foreach (CollisionPlane x in p._linkLeft._members)
-                {
-                    if (x != p)
+                if(!p.IsRotating)
+                    foreach (CollisionPlane x in p._linkLeft._members)
                     {
-                        if ((x.Type == CollisionPlaneType.Floor || x.Type == CollisionPlaneType.RightWall) && x.IsCharacters)
+                        if (x != p)
                         {
-                            noLedge = true;
-                            if(x.Type == CollisionPlaneType.Floor)
-                                anyNoLedgeFloors = true;
+                            if ((x.Type == CollisionPlaneType.Floor || x.Type == CollisionPlaneType.RightWall) && x.IsCharacters)
+                            {
+                                noLedge = true;
+                                if(x.Type == CollisionPlaneType.Floor)
+                                    anyNoLedgeFloors = true;
+                            }
                         }
                     }
-                }
                 if ((!p.IsFloor && !p.IsRotating) || !p.IsCharacters)
                 {
                     noLedge = true;
@@ -2462,21 +2463,24 @@ namespace System.Windows.Forms
             bool allNonCharacters = !_selectedPlanes[0].IsCharacters;
             bool anyNoLedgeFloors = false;
             bool allNoLedge = true;
+
             foreach (CollisionPlane p in _selectedPlanes)
             {
                 bool noLedge = false;
-                foreach (CollisionPlane x in p._linkRight._members)
-                {
-                    if (x != p)
+
+                if (!p.IsRotating)
+                    foreach (CollisionPlane x in p._linkRight._members)
                     {
-                        if ((x.Type == CollisionPlaneType.Floor || x.Type == CollisionPlaneType.LeftWall) && x.IsCharacters)
+                        if (x != p)
                         {
-                            noLedge = true;
-                            if (x.Type == CollisionPlaneType.Floor)
-                                anyNoLedgeFloors = true;
+                            if ((x.Type == CollisionPlaneType.Floor || x.Type == CollisionPlaneType.LeftWall) && x.IsCharacters)
+                            {
+                                noLedge = true;
+                                if (x.Type == CollisionPlaneType.Floor)
+                                    anyNoLedgeFloors = true;
+                            }
                         }
                     }
-                }
                 if ((!p.IsFloor && !p.IsRotating) || !p.IsCharacters)
                 {
                     noLedge = true;
