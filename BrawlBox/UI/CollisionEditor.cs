@@ -2524,10 +2524,8 @@ namespace System.Windows.Forms
                     allNonCharacters = !p.IsCharacters;
                 }
             }
-            Console.WriteLine("Selection: " + selection);
             if (allNonCharacters)
             {
-                Console.WriteLine("ButtstufF");
                 chkRightLedge.Checked = false;
             }
             else if (allNoLedge)
