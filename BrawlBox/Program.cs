@@ -274,15 +274,25 @@ namespace BrawlBox
 
         public static bool Save()
         {
+            bool restoreHex = false;
             if (_rootNode != null)
             {
                 #if !DEBUG
                 try
                 {
                 #endif
-
+                
                 if (_rootPath == null)
                     return SaveAs();
+                
+                if (MainForm.Instance.ShowHex == true)
+                {
+                    Console.WriteLine("Test");
+                    MainForm.Instance.ShowHex = false;
+                    MainForm.Instance.Invalidate();
+                    MainForm.Instance.resourceTree_SelectionChanged(MainForm.Instance, EventArgs.Empty);
+                    restoreHex = true;
+                }
 
                 bool force = Control.ModifierKeys == (Keys.Control | Keys.Shift);
                 if (!force && !_rootNode.IsDirty)
@@ -294,6 +304,13 @@ namespace BrawlBox
                 _rootNode.Merge(force);
                 _rootNode.Export(_rootPath);
                 _rootNode.IsDirty = false;
+
+                if (restoreHex)
+                {
+                    MainForm.Instance.ShowHex = true;
+                    MainForm.Instance.Invalidate();
+                    MainForm.Instance.resourceTree_SelectionChanged(MainForm.Instance, EventArgs.Empty);
+                }
 
                 return true;
 
@@ -392,12 +409,22 @@ namespace BrawlBox
 
         internal static bool SaveAs()
         {
+            bool restoreHex = false;
             if (MainForm.Instance.RootNode is GenericWrapper)
             {
                 #if !DEBUG
                 try
                 {
                 #endif
+                    if (MainForm.Instance.ShowHex == true)
+                    {
+                        Console.WriteLine("Test");
+                        MainForm.Instance.ShowHex = false;
+                        MainForm.Instance.Invalidate();
+                        MainForm.Instance.resourceTree_SelectionChanged(MainForm.Instance, EventArgs.Empty);
+                        restoreHex = true;
+                    }
+
                     GenericWrapper w = MainForm.Instance.RootNode as GenericWrapper;
                     string path = w.Export();
                     if (path != null)
@@ -405,6 +432,13 @@ namespace BrawlBox
                         _rootPath = path;
                         MainForm.Instance.UpdateName();
                         w.ResourceNode.IsDirty = false;
+
+                        if (restoreHex)
+                        {
+                            MainForm.Instance.ShowHex = true;
+                            MainForm.Instance.Invalidate();
+                            MainForm.Instance.resourceTree_SelectionChanged(MainForm.Instance, EventArgs.Empty);
+                        }
                         return true;
                     }
                 #if !DEBUG
@@ -412,6 +446,13 @@ namespace BrawlBox
                 catch (Exception x) { Say(x.Message); }
                 //finally { }
                 #endif
+            }
+
+            if (restoreHex)
+            {
+                MainForm.Instance.ShowHex = true;
+                MainForm.Instance.Invalidate();
+                MainForm.Instance.resourceTree_SelectionChanged(MainForm.Instance, EventArgs.Empty);
             }
             return false;
         }
