@@ -53,6 +53,7 @@
         SCLA = 0x6D34,
         SndBgmTitleDataEntry = 0x6E00,
         SndBgmTitleDataFolder = 0x6E01,
+        ClassicStageTbl = 0x6F01,
 
         //Stage Tables
         TBCL = 0x9000,
