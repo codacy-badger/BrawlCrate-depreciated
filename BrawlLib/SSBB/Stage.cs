@@ -355,7 +355,6 @@ namespace BrawlLib.SSBB
             new Stage(0xFC, "Custom BD",                "st_customBD.rel",      "customBD"),
             new Stage(0xFD, "Custom BE",                "st_customBE.rel",      "customBE"),
             new Stage(0xFE, "Custom BF",                "st_customBF.rel",      "customBF"),
-            new Stage(0xFF, "Custom C0",                "st_customC0.rel",      "customC0"),
         };
     }
 }
