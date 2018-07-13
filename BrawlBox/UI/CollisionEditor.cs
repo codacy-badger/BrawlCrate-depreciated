@@ -2418,20 +2418,27 @@ namespace System.Windows.Forms
                     allNonCharacters = !p.IsCharacters;
                 }
             }
-            if(allNoLedge)
+
+            if (allNonCharacters)
+            {
+                chkLeftLedge.Checked = false;
+            }
+            else if (allNoLedge)
             {
                 chkLeftLedge.Checked = false;
             }
             else if (anyNoLedgeFloors)
             {
-                //chkLeftLedge.Checked = selection;
+                if (chkLeftLedge.Checked != selection)
+                    chkLeftLedge.Checked = selection;
             }
             else if (!anyNoLedgeFloors)
             {
-                //chkLeftLedge.Checked = selection;
                 chkRightLedge.Checked = false;
+                if (chkLeftLedge.Checked != selection)
+                    chkLeftLedge.Checked = selection;
             }
-            if ((_selectedPlanes.Count == 1 || allSameType) && _selectedPlanes.Count > 0 && !anyNoLedgeFloors)
+            if ((_selectedPlanes.Count == 1 || allSameType) && _selectedPlanes.Count > 0 && !anyNoLedgeFloors && !allNonCharacters)
             {
                 chkLeftLedge.Checked = _selectedPlanes[0].IsLeftLedge;
                 if (_selectedPlanes[0].IsLeftLedge)
@@ -2443,10 +2450,6 @@ namespace System.Windows.Forms
                     chkRightLedge.Checked = false;
                     chkLeftLedge.Checked = false;
                 }
-            }
-            if (allNonCharacters)
-            {
-                chkLeftLedge.Checked = false;
             }
             _modelPanel.Invalidate();
         }
@@ -2521,20 +2524,29 @@ namespace System.Windows.Forms
                     allNonCharacters = !p.IsCharacters;
                 }
             }
-            if (allNoLedge)
+            Console.WriteLine("Selection: " + selection);
+            if (allNonCharacters)
             {
+                Console.WriteLine("ButtstufF");
                 chkRightLedge.Checked = false;
+            }
+            else if (allNoLedge)
+            {
+                if (chkRightLedge.Checked == true)
+                    chkRightLedge.Checked = false;
             }
             else if (anyNoLedgeFloors)
             {
-                //chkRightLedge.Checked = selection;
+                if (chkRightLedge.Checked != selection)
+                    chkRightLedge.Checked = selection;
             }
             else if (!anyNoLedgeFloors)
             {
-                //chkRightLedge.Checked = selection;
                 chkLeftLedge.Checked = false;
+                if (chkRightLedge.Checked != selection)
+                    chkRightLedge.Checked = selection;
             }
-            if ((_selectedPlanes.Count == 1 || allSameType) && _selectedPlanes.Count > 0 && !anyNoLedgeFloors)
+            if ((_selectedPlanes.Count == 1 || allSameType) && _selectedPlanes.Count > 0 && !anyNoLedgeFloors && !allNonCharacters)
             {
                 chkRightLedge.Checked = _selectedPlanes[0].IsRightLedge;
                 if (_selectedPlanes[0].IsRightLedge)
@@ -2546,10 +2558,6 @@ namespace System.Windows.Forms
                     chkLeftLedge.Checked = false;
                     chkRightLedge.Checked = false;
                 }
-            }
-            if (allNonCharacters)
-            {
-                chkRightLedge.Checked = false;
             }
             _modelPanel.Invalidate();
         }
