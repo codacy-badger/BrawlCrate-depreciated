@@ -2362,9 +2362,29 @@ namespace System.Windows.Forms
             bool allNonCharacters = !_selectedPlanes[0].IsCharacters;
             foreach (CollisionPlane p in _selectedPlanes)
             {
-                chkRightLedge.Checked = false;
-                chkLeftLedge.Checked = selection;
-                p.IsLeftLedge = selection;
+                bool noLedge = false;
+                foreach (CollisionPlane x in p._linkLeft._members)
+                {
+                    if (x != p)
+                    {
+                        if ((x.Type == CollisionPlaneType.Floor || x.Type == CollisionPlaneType.RightWall) && x.IsCharacters)
+                        {
+                            noLedge = true;
+                        }
+                    }
+                }
+
+                if (!noLedge)
+                {
+                    chkRightLedge.Checked = false;
+                    chkLeftLedge.Checked = selection;
+                    p.IsLeftLedge = selection;
+                }
+                else
+                {
+                    continue;
+                }
+                
                 if (p.IsLeftLedge)
                 {
                     p.IsRightLedge = false;
@@ -2426,9 +2446,29 @@ namespace System.Windows.Forms
             bool allNonCharacters = !_selectedPlanes[0].IsCharacters;
             foreach (CollisionPlane p in _selectedPlanes)
             {
-                chkLeftLedge.Checked = false;
-                chkRightLedge.Checked = selection;
-                p.IsRightLedge = selection;
+                bool noLedge = false;
+                foreach (CollisionPlane x in p._linkRight._members)
+                {
+                    if (x != p)
+                    {
+                        if ((x.Type == CollisionPlaneType.Floor || x.Type == CollisionPlaneType.LeftWall) && x.IsCharacters)
+                        {
+                            noLedge = true;
+                        }
+                    }
+                }
+
+                if (!noLedge)
+                {
+                    chkLeftLedge.Checked = false;
+                    chkRightLedge.Checked = selection;
+                    p.IsRightLedge = selection;
+                }
+                else
+                {
+                    continue;
+                }
+
                 if (p.IsRightLedge)
                 {
                     p.IsLeftLedge = false;
