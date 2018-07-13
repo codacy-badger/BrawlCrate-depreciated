@@ -67,9 +67,9 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 if (_parent != null)
                 {
-                    if (_parent._name.Length >= 3)
+                    if (_parent is ARCNode)
                     {
-                        if (_parent._name.Substring(0, 3) == "STG" || _parent._name.Substring(0, 3) == "Stg" || _parent._name.Substring(0, 3) == "stg")
+                        if (((ARCNode)_parent).IsStage)
                         {
                             // Console.WriteLine(_parent._name);
                             CompressionType type;

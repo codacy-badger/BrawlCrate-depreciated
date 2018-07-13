@@ -414,6 +414,6 @@ namespace BrawlLib.SSBB
             new Stage(0x37, "Online Training",              "st_otrain.rel",        "onlinetraining"),
             new Stage(0x38, "Target Break",                 "st_tbreak.rel",        "targetlv"),
             new Stage(0x39, "Classic mode credits",         "st_croll.rel",         "chararoll"),
-        }
+        };
     }
 }
