@@ -1,4 +1,4 @@
-﻿using BrawlLib.SSBB.Types;
+using BrawlLib.SSBB.Types;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -18,8 +18,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         public short DefenseRatio { get { return data._defenseRatio; } set { data._defenseRatio = value; SignalPropertyChange(); } }
 
         public byte Unknown08 { get { return data._unknown08; } set { data._unknown08 = value; SignalPropertyChange(); } }
-        public byte Color     { get { return data._color; }     set { data._color = value;     SignalPropertyChange(); } }
-        public byte Stock     { get { return data._stock; }     set { data._stock = value;     SignalPropertyChange(); } }
+        public byte Color { get { return data._color; } set { data._color = value; SignalPropertyChange(); } }
+        public byte Stock { get { return data._stock; } set { data._stock = value; SignalPropertyChange(); } }
         public byte Unknown0b { get { return data._unknown0b; } set { data._unknown0b = value; SignalPropertyChange(); } }
 
         public short Unknown0c { get { return data._unknown0c; } set { data._unknown0c = value; SignalPropertyChange(); } }
@@ -49,7 +49,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
     public unsafe class AllstarFighterNode : ResourceNode
     {
-        private byte _fighterID;
+        private byte _fighterID, _unknown01, _unknown02, _unknown03;
         private float _unknown04;
 
         [TypeConverter(typeof(DropDownListFighterIDs))]
@@ -66,6 +66,9 @@ namespace BrawlLib.SSBB.ResourceNodes
             // Copy the data from the address
             AllstarFighterData* ptr = (AllstarFighterData*)WorkingUncompressed.Address;
             _fighterID = ptr->_fighterID;
+            _unknown01 = ptr->_unknown01;
+            _unknown02 = ptr->_unknown02;
+            _unknown03 = ptr->_unknown03;
             _unknown04 = ptr->_unknown04;
 
             if (_name == null)
@@ -96,6 +99,9 @@ namespace BrawlLib.SSBB.ResourceNodes
             // Copy the data back to the address
             AllstarFighterData* header_ptr = (AllstarFighterData*)address;
             header_ptr->_fighterID = _fighterID;
+            header_ptr->_unknown01 = _unknown01;
+            header_ptr->_unknown02 = _unknown02;
+            header_ptr->_unknown03 = _unknown03;
             header_ptr->_unknown04 = _unknown04;
 
             // Rebuild children using new address

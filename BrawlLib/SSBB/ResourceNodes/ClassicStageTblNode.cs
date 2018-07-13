@@ -1,14 +1,17 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel;
 using BrawlLib.SSBB.Types;
+using BrawlLib.IO;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class ClassicStageBlockNode : ResourceNode
     {
-        private ClassicStageBlock data;
+        private ClassicStageBlockStageData data;
+
+        public override ResourceType ResourceType => ResourceType.Container;
 
         [TypeConverter(typeof(DropDownListStageIDs))]
         public int StageID1 { get { return data._stageID1; } set { data._stageID1 = (ushort)value; SignalPropertyChange(); } }
@@ -27,10 +30,11 @@ namespace BrawlLib.SSBB.ResourceNodes
                 throw new Exception("Wrong size for ClassicStageBlockNode");
 
             // Copy the data from the address
-            data = *(ClassicStageBlock*)WorkingUncompressed.Address;
+            data = ((ClassicStageBlock*)WorkingUncompressed.Address)->_stages;
 
             List<string> stageList = new List<string>();
-            foreach (int stageID in new int[] { StageID1, StageID2, StageID3, StageID4 }) {
+            foreach (int stageID in new int[] { StageID1, StageID2, StageID3, StageID4 })
+            {
                 if (stageID == 255) continue;
                 Stage found = Stage.Stages.FirstOrDefault(s => s.ID == stageID);
                 stageList.Add(found == null ? stageID.ToString() : found.PacBasename);
@@ -38,13 +42,39 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             _name = "Classic Stage Block (" + string.Join(", ", stageList) + ")";
 
-            return false;
+            return true;
         }
+
+        public override void OnPopulate()
+        {
+            AllstarFighterData* ptr = &((ClassicStageBlock*)WorkingUncompressed.Address)->_opponent1;
+            for (int i = 0; i < 3; i++)
+            {
+                DataSource source = new DataSource(ptr, sizeof(AllstarFighterData));
+                new AllstarFighterNode().Initialize(this, source);
+                ptr++;
+            }
+        }
+
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
             // Copy the data back to the address
-            *(ClassicStageBlock*)address = data;
+            ClassicStageBlock* dataPtr = (ClassicStageBlock*)address;
+            dataPtr->_stages._unknown00 = data._unknown00;
+            dataPtr->_stages._stageID1 = data._stageID1;
+            dataPtr->_stages._stageID2 = data._stageID2;
+            dataPtr->_stages._stageID3 = data._stageID3;
+            dataPtr->_stages._stageID4 = data._stageID4;
+
+            // Rebuild children using new address
+            AllstarFighterData* ptr = &((ClassicStageBlock*)address)->_opponent1;
+            for (int i = 0; i < Children.Count; i++)
+            {
+                Children[i].Rebuild(ptr, sizeof(AllstarFighterData), true);
+                ptr++;
+            }
         }
+
         public override int OnCalculateSize(bool force)
         {
             // Constant size (260 bytes)
@@ -54,7 +84,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
     public unsafe class ClassicStageTblNode : ResourceNode
     {
-        public override ResourceType ResourceType { get { return ResourceType.Container; } }
+        public override ResourceType ResourceType => ResourceType.ClassicStageTbl;
 
         private List<int> _padding;
 
@@ -66,7 +96,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             VoidPtr ptr = WorkingUncompressed.Address;
             int numEntries = WorkingUncompressed.Length / sizeof(ClassicStageBlock);
-            for (int i=0; i<numEntries; i++) ptr += sizeof(ClassicStageBlock);
+            for (int i = 0; i < numEntries; i++) ptr += sizeof(ClassicStageBlock);
 
             _padding = new List<int>();
             bint* ptr2 = (bint*)ptr;
@@ -112,5 +142,16 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             return sizeof(ClassicStageBlock) * Children.Count + Padding.Length * sizeof(bint);
         }
+
+        public void CreateEntry()
+        {
+            FileMap tempFile = FileMap.FromTempFile(sizeof(ClassicStageBlock));
+            // Is this the right way to add a new child node?
+            var node = new ClassicStageBlockNode();
+            node.Initialize(this, tempFile);
+            AddChild(node, true);
+        }
     }
+
+    public class ClassicStageTblSizeTblNode : RawDataNode { }
 }
