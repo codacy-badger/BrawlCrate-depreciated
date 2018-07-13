@@ -20,7 +20,39 @@ namespace BrawlLib.SSBB
         /// after an underscore (e.g. "gw" or "emblem").
         /// </summary>
         public string PacBasename { get; private set; }
-
+        
+        // StageBox extra stage data
+        
+        /// <summary>
+        /// Indexes of the used ModelDatas in the base stage
+        /// </summary>
+        public int[] UsedModelDatas { get; private set; }
+        
+        /// <summary>
+        /// Indexes of the used Collision Datas in the base stage
+        /// </summary>
+        public int[] UsedCollisionDatas { get; private set; }
+        
+        /// <summary>
+        /// What ModelData the main StagePosition is stored in
+        /// </summary>
+        public int StagePositionModelData { get; private set; }
+        
+        /// <summary>
+        /// Index of the Stage Parameters
+        /// </summary>
+        public int STPMIndex { get; private set; }
+        
+        /// <summary>
+        /// Index of the SCLA
+        /// </summary>
+        public int SCLAIndex { get; private set; }
+        
+        /// <summary>
+        /// Index of the STDT (-1 if there isn't one)
+        /// </summary>
+        public int STDTIndex { get; private set; }
+        
         public bool ContainsPac(string filename) {
             int i = filename.IndexOfAny(new char[] { '.', '_' });
             if (filename.Length < 3 || i < 0) return false;
@@ -34,6 +66,19 @@ namespace BrawlLib.SSBB
             this.Name = name;
             this.RelName = relname;
             this.PacBasename = pac_basename;
+        }
+        
+        public Stage(byte id, string name, string relname, string pac_basename, int stagePosMD, int stpm, int scla, int stdt, int[] usedCD, int[] usedMD) {
+            this.ID = id;
+            this.Name = name;
+            this.RelName = relname;
+            this.PacBasename = pac_basename;
+            this.StagePositionModelData = stagePosMD;
+            this.STPMIndex = stpm;
+            this.SCLAIndex = scla;
+            this.STDTIndex = stdt;
+            this.UsedCollisionDatas = usedCD;
+            this.UsedModelDatas = usedMD;
         }
 
         public override string ToString() { return Name; }
@@ -69,10 +114,10 @@ namespace BrawlLib.SSBB
         }
 
         public readonly static Stage[] Stages = new Stage[] {
-            //        ID    Display Name                .rel filename           Name without STG
+            //        ID    Display Name                .rel filename           Name without STG        Stage Position      STPM ID     SCLA ID     STDT ID     Collision Datas             Model Datas
             new Stage(0x00, "STGCUSTOM##.pac",          "st_custom##.rel",      "custom"),
-            new Stage(0x01, "Battlefield",              "st_battle.rel",        "battlefield"),
-            new Stage(0x02, "Final Destination",        "st_final.rel",         "final"),
+            new Stage(0x01, "Battlefield",              "st_battle.rel",        "battlefield",          100,                10,         30,         -1,         new int[] {2},              new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 100, 101, 200}),
+            new Stage(0x02, "Final Destination",        "st_final.rel",         "final",                100,                10,         30,         -1,         new int[] {2},              new int[] {1, 2, 100, 101}),
             new Stage(0x03, "Delfino Plaza",            "st_dolpic.rel",        "dolpic"),
             new Stage(0x04, "Luigi's Mansion",          "st_mansion.rel",       "mansion"),
             new Stage(0x05, "Mushroomy Kingdom",        "st_mariopast.rel",     "mariopast"),
