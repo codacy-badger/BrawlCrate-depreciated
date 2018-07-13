@@ -5,7 +5,7 @@ namespace System.Windows.Forms
     public partial class ProgressWindow : Form, IProgressTracker
     {
         private bool _canCancel = false, _cancelled = false;
-        public bool CanCancel { get { return _canCancel; } set { btnCancel.Enabled = _canCancel = value; } }
+        public bool CanCancel { get { return _canCancel; } set { btnCancel.Visible = btnCancel.Enabled = _canCancel = value; } }
         public string Caption { get { return label1.Text; } set { label1.Text = value; } }
 
         public ProgressWindow() { InitializeComponent(); }
