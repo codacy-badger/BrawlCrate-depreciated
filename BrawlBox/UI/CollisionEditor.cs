@@ -2360,6 +2360,8 @@ namespace System.Windows.Forms
             bool firstIsRotating = _selectedPlanes[0].IsRotating;
             bool allSameType = true;
             bool allNonCharacters = !_selectedPlanes[0].IsCharacters;
+            bool anyNoLedgeFloors = false;
+            bool allNoLedge = true;
             foreach (CollisionPlane p in _selectedPlanes)
             {
                 bool noLedge = false;
@@ -2370,29 +2372,30 @@ namespace System.Windows.Forms
                         if ((x.Type == CollisionPlaneType.Floor || x.Type == CollisionPlaneType.RightWall) && x.IsCharacters)
                         {
                             noLedge = true;
+                            if(x.Type == CollisionPlaneType.Floor)
+                                anyNoLedgeFloors = true;
                         }
                     }
+                }
+                if ((!p.IsFloor && !p.IsRotating) || !p.IsCharacters)
+                {
+                    noLedge = true;
                 }
 
                 if (!noLedge)
                 {
-                    chkRightLedge.Checked = false;
-                    chkLeftLedge.Checked = selection;
+                    allNoLedge = false;
                     p.IsLeftLedge = selection;
                 }
                 else
                 {
+                    p.IsLeftLedge = false;
                     continue;
                 }
                 
                 if (p.IsLeftLedge)
                 {
                     p.IsRightLedge = false;
-                }
-                if ((!p.IsFloor && !p.IsRotating) || !p.IsCharacters)
-                {
-                    p.IsRightLedge = false;
-                    p.IsLeftLedge = false;
                 }
                 if(allSameType)
                 {
@@ -2414,7 +2417,20 @@ namespace System.Windows.Forms
                     allNonCharacters = !p.IsCharacters;
                 }
             }
-            if ((_selectedPlanes.Count == 1 || allSameType) && _selectedPlanes.Count > 0)
+            if(allNoLedge)
+            {
+                chkLeftLedge.Checked = false;
+            }
+            else if (anyNoLedgeFloors)
+            {
+                //chkLeftLedge.Checked = selection;
+            }
+            else if (!anyNoLedgeFloors)
+            {
+                //chkLeftLedge.Checked = selection;
+                chkRightLedge.Checked = false;
+            }
+            if ((_selectedPlanes.Count == 1 || allSameType) && _selectedPlanes.Count > 0 && !anyNoLedgeFloors)
             {
                 chkLeftLedge.Checked = _selectedPlanes[0].IsLeftLedge;
                 if (_selectedPlanes[0].IsLeftLedge)
@@ -2444,6 +2460,8 @@ namespace System.Windows.Forms
             bool firstIsRotating = _selectedPlanes[0].IsRotating;
             bool allSameType = true;
             bool allNonCharacters = !_selectedPlanes[0].IsCharacters;
+            bool anyNoLedgeFloors = false;
+            bool allNoLedge = true;
             foreach (CollisionPlane p in _selectedPlanes)
             {
                 bool noLedge = false;
@@ -2454,18 +2472,24 @@ namespace System.Windows.Forms
                         if ((x.Type == CollisionPlaneType.Floor || x.Type == CollisionPlaneType.LeftWall) && x.IsCharacters)
                         {
                             noLedge = true;
+                            if (x.Type == CollisionPlaneType.Floor)
+                                anyNoLedgeFloors = true;
                         }
                     }
+                }
+                if ((!p.IsFloor && !p.IsRotating) || !p.IsCharacters)
+                {
+                    noLedge = true;
                 }
 
                 if (!noLedge)
                 {
-                    chkLeftLedge.Checked = false;
-                    chkRightLedge.Checked = selection;
+                    allNoLedge = false;
                     p.IsRightLedge = selection;
                 }
                 else
                 {
+                    p.IsRightLedge = false;
                     continue;
                 }
 
@@ -2473,19 +2497,13 @@ namespace System.Windows.Forms
                 {
                     p.IsLeftLedge = false;
                 }
-                if ((!p.IsFloor && !p.IsRotating) || !p.IsCharacters)
-                {
-                    p.IsRightLedge = false;
-                    p.IsLeftLedge = false;
-                }
-
                 if (allSameType)
                 {
                     if (p.IsRotating != firstIsRotating)
                     {
                         allSameType = false;
                     }
-                    if (p.IsWall && (firstType == CollisionPlaneType.LeftWall || firstType == CollisionPlaneType.RightWall))
+                    if (p.IsWall && (firstType == CollisionPlaneType.RightWall || firstType == CollisionPlaneType.LeftWall))
                     {
                         // This is fine as far as types are concerned
                     }
@@ -2499,7 +2517,20 @@ namespace System.Windows.Forms
                     allNonCharacters = !p.IsCharacters;
                 }
             }
-            if ((_selectedPlanes.Count == 1 || allSameType) && _selectedPlanes.Count > 0)
+            if (allNoLedge)
+            {
+                chkRightLedge.Checked = false;
+            }
+            else if (anyNoLedgeFloors)
+            {
+                //chkRightLedge.Checked = selection;
+            }
+            else if (!anyNoLedgeFloors)
+            {
+                //chkRightLedge.Checked = selection;
+                chkLeftLedge.Checked = false;
+            }
+            if ((_selectedPlanes.Count == 1 || allSameType) && _selectedPlanes.Count > 0 && !anyNoLedgeFloors)
             {
                 chkRightLedge.Checked = _selectedPlanes[0].IsRightLedge;
                 if (_selectedPlanes[0].IsRightLedge)
@@ -2508,8 +2539,8 @@ namespace System.Windows.Forms
                 }
                 if (!_selectedPlanes[0].IsFloor && !_selectedPlanes[0].IsRotating)
                 {
-                    chkRightLedge.Checked = false;
                     chkLeftLedge.Checked = false;
+                    chkRightLedge.Checked = false;
                 }
             }
             if (allNonCharacters)
