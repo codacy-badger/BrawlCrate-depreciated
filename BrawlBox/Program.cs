@@ -287,7 +287,6 @@ namespace BrawlBox
                 
                 if (MainForm.Instance.ShowHex == true)
                 {
-                    Console.WriteLine("Test");
                     MainForm.Instance.ShowHex = false;
                     MainForm.Instance.Invalidate();
                     MainForm.Instance.resourceTree_SelectionChanged(MainForm.Instance, EventArgs.Empty);
@@ -418,7 +417,6 @@ namespace BrawlBox
                 #endif
                     if (MainForm.Instance.ShowHex == true)
                     {
-                        Console.WriteLine("Test");
                         MainForm.Instance.ShowHex = false;
                         MainForm.Instance.Invalidate();
                         MainForm.Instance.resourceTree_SelectionChanged(MainForm.Instance, EventArgs.Empty);
