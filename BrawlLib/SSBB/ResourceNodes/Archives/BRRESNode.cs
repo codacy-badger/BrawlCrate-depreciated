@@ -20,6 +20,83 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override ResourceType ResourceType { get { return ResourceType.BRES; } }
 
+        [Category("Models")]
+        public int NumModels
+        {
+            get
+            {
+                Populate();
+                if (GetFolder<MDL0Node>() == null)
+                    return 0;
+                int count = 0;
+                foreach (MDL0Node m in GetFolder<MDL0Node>().Children)
+                    count += 1;
+                return count;
+            }
+        }
+        [Category("Models"), Description("How many points are stored in the models in this BRRES and sent to the GPU every frame. A lower value is better.")]
+        public int NumFacepoints
+        {
+            get
+            {
+                Populate();
+                if (GetFolder<MDL0Node>() == null)
+                    return 0;
+                int count = 0;
+                foreach (MDL0Node m in GetFolder<MDL0Node>().Children)
+                    count += m.NumFacepoints;
+                return count;
+            }
+        }
+        [Browsable(true)]
+        [Category("Models"), Description("How many individual vertices models in this BRRES have. A vertex in this case is only a point in space with its associated influence.")]
+        public int NumVertices
+        {
+            get
+            {
+                Populate();
+                if (GetFolder<MDL0Node>() == null)
+                    return 0;
+                int count = 0;
+                foreach (MDL0Node m in GetFolder<MDL0Node>().Children)
+                    count += m.NumVertices;
+                return count;
+            }
+        }
+        [Category("Models"), Description("The total number of individual triangle faces models in this BRRES have.")]
+        public int NumTriangles
+        {
+            get
+            {
+                Populate();
+                if (GetFolder<MDL0Node>() == null)
+                    return 0;
+                int count = 0;
+                foreach (MDL0Node m in GetFolder<MDL0Node>().Children)
+                    count += m.NumTriangles;
+                return count;
+            }
+        }
+        [Category("Models"), Description("The total number of matrices used in this BRRES (bones + weighted influences).")]
+        public int NumNodes
+        {
+            get
+            {
+                Populate();
+                if (GetFolder<MDL0Node>() == null)
+                    return 0;
+                int count = 0;
+                foreach (MDL0Node m in GetFolder<MDL0Node>().Children)
+                    count += m.NumNodes;
+                return count;
+            }
+        }
+
+        public bool isModelData()
+        {
+            return (FileType == ARCFileType.ModelData);
+        }
+
         public override Type[] AllowedChildTypes
         {
             get

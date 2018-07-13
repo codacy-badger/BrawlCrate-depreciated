@@ -27,6 +27,93 @@ namespace BrawlLib.SSBB.ResourceNodes
         public bool IsPair { get { return _isPair; } set { _isPair = value; } }
         private bool _isPair;
 
+        [Category("Models")]
+        public int NumModels
+        {
+            get
+            {
+                Populate();
+                if (_children == null)
+                    return 0;
+                int count = 0;
+                foreach (ARCEntryNode b in Children)
+                    if (b is BRRESNode)
+                        count += ((BRRESNode)b).NumModels;
+                    else if (b is ARCNode)
+                        count += ((ARCNode)b).NumModels;
+                return count;
+            }
+        }
+        [Category("Models"), Description("How many points are stored in the models in this ARC and sent to the GPU every frame. A lower value is better.")]
+        public int NumFacepoints
+        {
+            get
+            {
+                Populate();
+                if (_children == null)
+                    return 0;
+                int count = 0;
+                foreach (ARCEntryNode b in Children)
+                    if (b is BRRESNode)
+                        count += ((BRRESNode)b).NumFacepoints;
+                    else if (b is ARCNode)
+                        count += ((ARCNode)b).NumFacepoints;
+                return count;
+            }
+        }
+        [Browsable(true)]
+        [Category("Models"), Description("How many individual vertices models in this ARC have. A vertex in this case is only a point in space with its associated influence.")]
+        public int NumVertices
+        {
+            get
+            {
+                Populate();
+                if (_children == null)
+                    return 0;
+                int count = 0;
+                foreach (ARCEntryNode b in Children)
+                    if (b is BRRESNode)
+                        count += ((BRRESNode)b).NumVertices;
+                    else if (b is ARCNode)
+                        count += ((ARCNode)b).NumVertices;
+                return count;
+            }
+        }
+        [Category("Models"), Description("The total number of individual triangle faces models in this ARC have.")]
+        public int NumTriangles
+        {
+            get
+            {
+                Populate();
+                if (_children == null)
+                    return 0;
+                int count = 0;
+                foreach (ARCEntryNode b in Children)
+                    if (b is BRRESNode)
+                        count += ((BRRESNode)b).NumTriangles;
+                    else if (b is ARCNode)
+                        count += ((ARCNode)b).NumTriangles;
+                return count;
+            }
+        }
+        [Category("Models"), Description("The total number of matrices used in this ARC (bones + weighted influences).")]
+        public int NumNodes
+        {
+            get
+            {
+                Populate();
+                if (_children == null)
+                    return 0;
+                int count = 0;
+                foreach (ARCEntryNode b in Children)
+                    if (b is BRRESNode)
+                        count += ((BRRESNode)b).NumNodes;
+                    else if (b is ARCNode)
+                        count += ((ARCNode)b).NumNodes;
+                return count;
+            }
+        }
+
         public override void OnPopulate()
         {
             ARCFileHeader* entry = Header->First;
@@ -293,7 +380,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         [Category("ARC Entry"), Browsable(true)]
         public int AbsoluteIndex { get { return base.Index; } }
-        
+
         internal short _redirectIndex = -1;
 
         [Category("ARC Entry")]
