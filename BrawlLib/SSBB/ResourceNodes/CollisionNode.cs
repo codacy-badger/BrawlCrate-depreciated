@@ -727,6 +727,14 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             CollisionLink link = new CollisionLink(_parent, point);
             CollisionPlane plane = new CollisionPlane(_parent, link, _linkRight);
+            plane._material = _material;
+            plane._flags = _flags;
+            plane._flags2 = _flags2;
+            plane._type = _type;
+            if (IsRightLedge)
+                IsRightLedge = false;
+            if (IsLeftLedge)
+                plane.IsLeftLedge = false;
             LinkRight = link;
             return link;
         }
