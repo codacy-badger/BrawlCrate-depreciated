@@ -458,7 +458,7 @@ namespace System.Windows.Forms
                     if (obj._render) {
                         foreach (CollisionPlane plane in obj._planes) {
                             if (plane._type == BrawlLib.SSBBTypes.CollisionPlaneType.Floor) {
-                                if (plane.PointLeft._x < v2._x && plane.PointRight._x > v2._x) {
+                                if (plane.PointLeft._x <= v2._x && plane.PointRight._x >= v2._x) {
                                     float x = v2._x;
                                     float m = (plane.PointLeft._y - plane.PointRight._y)
                                         / (plane.PointLeft._x - plane.PointRight._x);
