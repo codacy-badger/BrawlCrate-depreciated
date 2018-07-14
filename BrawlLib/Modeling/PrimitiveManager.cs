@@ -78,6 +78,7 @@ namespace BrawlLib.Modeling
             }
         }
         public bool[] HasTextureMatrix = new bool[8];
+        public bool[] UseIdentityTexMtx = new bool[8];
 
         //Set these in OnCalculateSize!
         public bool _remakePrimitives; //Otherwise, copies previous raw primitive values
@@ -523,7 +524,7 @@ namespace BrawlLib.Modeling
                 pData += 2;
 
                 //Extract facepoints here!
-                desc.Run(ref pData, pAssets, pOut, value, group, ref indices, cache);
+                desc.Run(ref pData, pAssets, pOut, value, group, ref indices, cache, UseIdentityTexMtx);
 
                 Next:
                 if (length > 0 && pData >= pEnd)
@@ -914,7 +915,13 @@ namespace BrawlLib.Modeling
                     case GXAttribute.Tex6MtxId:
                     case GXAttribute.Tex7MtxId:
                         if (d._type == XFDataFormat.Direct)
-                            *(byte*)address++ = (byte)(30 + (3 * g._nodes.IndexOf(f.NodeID)));
+                        {
+                            int texId = d._attr - GXAttribute.Tex0MtxId;
+                            byte value = (byte)(3 * g._nodes.IndexOf(f.NodeID));
+                            if (!UseIdentityTexMtx[texId])
+                                value += 30;
+                            *(byte*)address++ = value;
+                        }
                         break;
                     case GXAttribute.Position:
                         switch (d._type)
@@ -1041,7 +1048,7 @@ namespace BrawlLib.Modeling
                 //    _fpStride += linker._vertices[indices[0]]._dstStride;
                 //}
                 //else
-                    _fpStride += (int)fmt - 1;
+                _fpStride += (int)fmt - 1;
             }
             if (indices[1] > -1 && _faceData[1] != null) //Normals
             {
@@ -1054,7 +1061,7 @@ namespace BrawlLib.Modeling
                 //    _fpStride += linker._normals[indices[1]]._dstStride;
                 //}
                 //else
-                    _fpStride += (int)fmt - 1;
+                _fpStride += (int)fmt - 1;
             }
             for (int i = 2; i < 4; i++)
                 if (indices[i] > -1 && _faceData[i] != null) //Colors
@@ -1070,7 +1077,7 @@ namespace BrawlLib.Modeling
                     //    _fpStride +=  linker._colors[indices[i]]._dstStride;
                     //}
                     //else
-                        _fpStride += (int)fmt - 1;
+                    _fpStride += (int)fmt - 1;
                 }
             for (int i = 4; i < 12; i++)
                 if (indices[i] > -1 && _faceData[i] != null) //UVs
@@ -1084,7 +1091,7 @@ namespace BrawlLib.Modeling
                     //    _fpStride += linker._uvs[indices[i]]._dstStride;
                     //}
                     //else
-                        _fpStride += (int)fmt - 1;
+                    _fpStride += (int)fmt - 1;
                 }
         }
 
