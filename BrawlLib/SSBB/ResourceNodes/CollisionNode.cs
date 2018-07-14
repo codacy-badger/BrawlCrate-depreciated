@@ -739,7 +739,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             return link;
         }
 
-        private void SwapLinks()
+        public void SwapLinks()
         {
             CollisionLink l = _linkLeft; 
             _linkLeft = _linkRight; 
