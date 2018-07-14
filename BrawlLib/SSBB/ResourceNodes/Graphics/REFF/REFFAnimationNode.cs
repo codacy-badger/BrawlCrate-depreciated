@@ -377,7 +377,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override int OnCalculateSize(bool force)
         {
-            return base.OnCalculateSize(force);
+            return (VoidPtr)Header + 0x20 + KeyTableSize + RangeTableSize + RandomTableSize + NameTableSize;
         }
 
         public override void OnRebuild(VoidPtr address, int length, bool force)
