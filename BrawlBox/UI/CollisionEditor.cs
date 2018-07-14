@@ -2175,6 +2175,7 @@ namespace System.Windows.Forms
                     }
                 }
             }
+            _modelPanel.Invalidate();
             TargetNode.SignalPropertyChange();
         }
 
