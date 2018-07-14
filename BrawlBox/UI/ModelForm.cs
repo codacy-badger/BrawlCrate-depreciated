@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using BrawlLib.Modeling;
 using BrawlLib.SSBB.ResourceNodes;
 using System.Drawing;
+using BrawlLib.Imaging;
 
 namespace BrawlBox
 {
@@ -93,11 +94,26 @@ namespace BrawlBox
         public unsafe void ReadSettings()
         {
             BrawlBox.Properties.Settings settings = BrawlBox.Properties.Settings.Default;
+            bool isStage = false;
+            if (MainForm.Instance.RootNode is ARCWrapper)
+                if (((ARCNode)((ARCWrapper)MainForm.Instance.RootNode).ResourceNode).IsStage)
+                    isStage = true;
 
-            ModelEditorSettings viewerSettings = settings.ViewerSettingsSet ? settings.ViewerSettings : ModelEditorSettings.Default();
+            ModelEditorSettings viewerSettings = settings.ViewerSettingsSet ? settings.ViewerSettings : ModelEditorSettings.Default(isStage);
 
+            if(settings.ViewerSettingsSet)
+                if (settings.ViewerSettings._viewports.Count > 0)
+                {
+                    if (settings.ViewerSettings._viewports[0]._backColor == new ARGBPixel((byte)0, (byte)230, (byte)230, (byte)250) && isStage)
+                        settings.ViewerSettings.SetColor(Color.Black);
+                    else if (settings.ViewerSettings._viewports[0]._backColor == new ARGBPixel((byte)0, (byte)0, (byte)0, (byte)0) && !isStage)
+                        settings.ViewerSettings.SetColor(Color.Lavender);
+                }
+            
             if (viewerSettings == null)
                 return;
+
+            
 
             modelEditControl1.DistributeSettings(viewerSettings);
             modelEditControl1.ModelPanel.ResetCamera();

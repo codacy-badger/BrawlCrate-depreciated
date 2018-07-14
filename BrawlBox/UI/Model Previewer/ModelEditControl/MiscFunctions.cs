@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using BrawlLib.Wii.Graphics;
+using BrawlBox;
 
 namespace System.Windows.Forms
 {
@@ -537,7 +538,15 @@ namespace System.Windows.Forms
             };
             return settings;
         }
-        public override void SetDefaultSettings() { DistributeSettings(ModelEditorSettings.Default()); }
+        public override void SetDefaultSettings() {
+            bool isStage = false;
+
+            if (MainForm.Instance.RootNode is ARCWrapper)
+                if (((ARCNode)((ARCWrapper)MainForm.Instance.RootNode).ResourceNode).IsStage)
+                    isStage = true;
+
+            DistributeSettings(ModelEditorSettings.Default(isStage));
+        }
         public void DistributeSettings(ModelEditorSettings settings)
         {
             if (settings == null)

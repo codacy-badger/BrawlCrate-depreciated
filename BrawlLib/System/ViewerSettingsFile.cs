@@ -63,7 +63,7 @@ namespace System
         /// <summary>
         /// These are the settings that the model viewer will default to the first time it is opened.
         /// </summary>
-        public static ModelEditorSettings Default()
+        public static ModelEditorSettings Default(bool isStage)
         {
             ModelEditorSettings s = new ModelEditorSettings()
             {
@@ -102,10 +102,12 @@ namespace System
                     //ModelPanelViewport.DefaultTop.GetInfo(),
                 },
             };
-            foreach (ModelPanelViewportInfo v in s._viewports)
-            {
-                v._backColor = (ARGBPixel)Color.Lavender;
-            }
+            if(isStage)
+                foreach (ModelPanelViewportInfo v in s._viewports)
+                    v._backColor = (ARGBPixel)Color.Black;
+            else
+                foreach (ModelPanelViewportInfo v in s._viewports)
+                    v._backColor = (ARGBPixel)Color.Lavender;
 
             //s._viewports[0]._percentages = new Vector4(0.0f, 0.5f, 0.5f, 1.0f);
             //s._viewports[1]._percentages = new Vector4(0.5f, 0.5f, 1.0f, 1.0f);
@@ -134,6 +136,12 @@ namespace System
                 Type t = f.FieldType;
                 info.AddValue(f.Name, f.GetValue(this));
             }
+        }
+
+        public void SetColor(Color c)
+        {
+            foreach (ModelPanelViewportInfo v in _viewports)
+                v._backColor = (ARGBPixel)c;
         }
     }
 
