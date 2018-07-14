@@ -1147,6 +1147,7 @@ namespace System.Windows.Forms
 
             _modelPanel.CurrentViewport.DefaultTranslate = new Vector3(0.0f, 10.0f, 250.0f);
             _modelPanel.CurrentViewport.AllowSelection = false;
+            _modelPanel.CurrentViewport.BackgroundColor = Color.Black;
 
             pnlObjProps.Dock = DockStyle.Fill;
             pnlPlaneProps.Dock = DockStyle.Fill;
