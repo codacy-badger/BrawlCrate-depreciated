@@ -552,7 +552,7 @@ namespace BrawlBox
             {
                 ExportAllFormatDialog dialog = new ExportAllFormatDialog();
 
-                if (dialog.ShowDialog() == DialogResult.OK) { }
+                if (dialog.ShowDialog() == DialogResult.OK)
                     ((ARCNode)_resource).ExtractToFolder(path, dialog.SelectedExtension);
             }
             else
@@ -564,8 +564,12 @@ namespace BrawlBox
             string path = Program.ChooseFolder();
             if (path == null)
                 return;
+            ExportAllFormatDialog dialog = new ExportAllFormatDialog();
+            dialog.Text = "Replace All";
+            dialog.label1.Text = "Input format for textures:";
 
-            ((ARCNode)_resource).ReplaceFromFolder(path);
+            if (dialog.ShowDialog() == DialogResult.OK)
+                ((ARCNode)_resource).ReplaceFromFolder(path, dialog.SelectedExtension);
         }
     }
 }

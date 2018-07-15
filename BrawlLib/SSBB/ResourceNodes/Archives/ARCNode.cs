@@ -186,7 +186,8 @@ namespace BrawlLib.SSBB.ResourceNodes
                     ((BRRESNode)entry).ExportToFolder(outFolder, imageExtension);
         }
 
-        public void ReplaceFromFolder(string inFolder)
+        public void ReplaceFromFolder(string inFolder) { ReplaceFromFolder(inFolder, ".tex0"); }
+        public void ReplaceFromFolder(string inFolder, string imageExtension)
         {
             DirectoryInfo dir = new DirectoryInfo(inFolder);
             DirectoryInfo[] dirs;
@@ -197,13 +198,13 @@ namespace BrawlLib.SSBB.ResourceNodes
                     dirs = dir.GetDirectories(entry.Name);
                     if (dirs.Length > 0)
                     {
-                        ((ARCNode)entry).ReplaceFromFolder(dirs[0].FullName);
+                        ((ARCNode)entry).ReplaceFromFolder(dirs[0].FullName, imageExtension);
                         continue;
                     }
                 }
                 else if (entry is BRRESNode)
                 {
-                    ((BRRESNode)entry).ReplaceFromFolder(inFolder);
+                    ((BRRESNode)entry).ReplaceFromFolder(inFolder, imageExtension);
                     continue;
                 }
             }

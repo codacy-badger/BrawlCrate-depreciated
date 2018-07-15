@@ -395,6 +395,7 @@ namespace BrawlBox
                 return;
 
             ExportAllFormatDialog dialog = new ExportAllFormatDialog();
+            dialog.Text = "Replace All";
             dialog.label1.Text = "Input format for textures:";
 
             if (dialog.ShowDialog() == DialogResult.OK)
