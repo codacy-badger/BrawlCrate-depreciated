@@ -103,6 +103,7 @@ namespace System.Windows.Forms
         private ToolStripSeparator toolStripSeparatorCamera;    // Seperator for Camera controls
         private ToolStripButton btnPerspectiveCam;              // Goes into perspective mode
         private ToolStripButton btnOrthographicCam;             // Goes into orthographic mode
+        private ToolStripButton btnFlipColl;
 
         private void InitializeComponent()
         {
@@ -198,6 +199,7 @@ namespace System.Windows.Forms
             this.btnHelp = new System.Windows.Forms.ToolStripButton();
             this.btnResetRot = new System.Windows.Forms.Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.btnFlipColl = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.undoToolStrip)).BeginInit();
             this.undoToolStrip.Panel1.SuspendLayout();
             this.undoToolStrip.Panel2.SuspendLayout();
@@ -943,6 +945,7 @@ namespace System.Windows.Forms
             this.toolStripSeparator3,
             this.btnSplit,
             this.btnMerge,
+            this.btnFlipColl,
             this.btnDelete,
             this.toolStripSeparator2,
             this.btnSameX,
@@ -1123,6 +1126,16 @@ namespace System.Windows.Forms
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar1.Visible = false;
             this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
+            // btnFlipColl
+            // 
+            this.btnFlipColl.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnFlipColl.Enabled = false;
+            this.btnFlipColl.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFlipColl.Name = "btnFlipColl";
+            this.btnFlipColl.Size = new System.Drawing.Size(30, 22);
+            this.btnFlipColl.Text = "Flip";
+            this.btnFlipColl.Click += new System.EventHandler(this.btnFlipColl_Click);
             // 
             // CollisionEditor
             // 
@@ -1513,11 +1526,12 @@ namespace System.Windows.Forms
         public void UpdateTools()
         {
             if (_selecting || _hovering || (_selectedLinks.Count == 0))
-                btnMerge.Enabled = btnSplit.Enabled = btnSameX.Enabled = btnSameY.Enabled = false;
+                btnFlipColl.Enabled = btnMerge.Enabled = btnSplit.Enabled = btnSameX.Enabled = btnSameY.Enabled = false;
             else
             {
                 btnMerge.Enabled = btnSameX.Enabled = btnSameY.Enabled = _selectedLinks.Count > 1;
                 btnSplit.Enabled = true;
+                btnFlipColl.Enabled = _selectedPlanes.Count > 0;
             }
         }
 
@@ -2376,6 +2390,15 @@ namespace System.Windows.Forms
         private void btnResetSnap_Click(object sender, EventArgs e)
         {
             _snapMatrix = Matrix.Identity;
+            _modelPanel.Invalidate();
+        }
+
+        private void btnFlipColl_Click(object sender, EventArgs e)
+        {
+            foreach (CollisionPlane p in _selectedPlanes)
+            {
+                p.SwapLinks();
+            }
             _modelPanel.Invalidate();
         }
 
