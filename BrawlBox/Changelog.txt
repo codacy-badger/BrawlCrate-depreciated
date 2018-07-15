@@ -1,5 +1,5 @@
 ﻿
-StageBox - v0.7
+StageBox - v0.8
 Copyright © 2018 soopercool101, MarioDox
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,20 @@ they be held accountable for the manner in which it is used.
  =============================================
 |************ StageBox Change Log ************|
  =============================================
+ 
+ - v0.8 - (7/15/2018)
+ . Model viewer now defaults to a black background on stages
+ . ARC and BRRES files now show a total for models, facepoints, vertices, triangles, and nodes within them
+ . Added error handling on regular collision editor to only allow ledges where they make sense
+ . Splitting a collision plane with a new point properly maintains the collision's properties for both sides
+ . Improved updater's showing of the description to be more natural
+ . Improved Hex Viewer stability
+ . Rotating collisions are no longer oriented automatically when changing collision type in the regular editor
+ . Added "Flip" option to collision editor to easily change which way collisions are facing
+ . The player spawn overlay now correctly draws as green when on the edge of a floor (fixes spawns appearing invalid on stages like Battlefield)
+ . Compression window now no longer shows the cancel button (was greyed out anyway)
+ . Backported Texture Matrices handling from the dev build of BrawlBox
+ . Backported Common2 editing functionality from the dev build of BrawlBox
  
  - v0.7 - (7/10/2018)
  . Issue reporter now also links to the Discord (It's more helpful to me to know more specifics of what causes the crashes)
