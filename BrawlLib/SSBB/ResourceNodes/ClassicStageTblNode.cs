@@ -131,7 +131,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public const int Size = 0x50;
 
         public byte _fighterID;
-        public byte _unknown01;
+        public byte _fighterstatus;
         public byte _unknown02;
         public byte _unknown03;
         public float _fighterscale;
@@ -139,17 +139,25 @@ namespace BrawlLib.SSBB.ResourceNodes
         private VoidPtr Address { get { fixed (void* ptr = &this) return ptr; } }
     }
 
-        public unsafe class ClassicFighterNode : ResourceNode
+    public unsafe class ClassicFighterNode : ResourceNode
     {
-        private ClassicTblHeader _header;
 
-        [TypeConverter(typeof(DropDownListFighterIDs))]
+    private ClassicTblHeader _header;
+
+        public enum StatusEnum : byte
+        {
+            Normal = 0,
+            Metal = 1,
+            Invisible = 2,
+        }
+
+    [TypeConverter(typeof(DropDownListFighterIDs))]
         [Category("Fighter")]
         [DisplayName("Fighter ID")]
         public byte FighterID { get { return _header._fighterID; } set { _header._fighterID = value; SignalPropertyChange(); } }
-        [Category("Unknown")]
-        [DisplayName("Unknown 01")]
-        public byte Unknown01 { get { return _header._unknown01; } set { _header._unknown01 = value; SignalPropertyChange(); } }
+        [Category("Fighter")]
+        [DisplayName("Fighter Status")]
+        public StatusEnum FighterStatus { get { return (StatusEnum)_header._fighterstatus; } set { _header._fighterstatus = (byte)value; SignalPropertyChange(); } }
         [Category("Unknown")]
         [DisplayName("Unknown 02")]
         public byte Unknown02 { get { return _header._unknown02; } set { _header._unknown02 = value; SignalPropertyChange(); } }
@@ -170,7 +178,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             // Copy the data from the address
             ClassicFighterData* ptr = (ClassicFighterData*)WorkingUncompressed.Address;
             _header._fighterID = ptr->_fighterID;
-            _header._unknown01 = ptr->_unknown01;
+            _header._fighterstatus = ptr->_fighterstatus;
             _header._unknown02 = ptr->_unknown02;
             _header._unknown03 = ptr->_unknown03;
             _header._fighterscale = ptr->_fighterscale;
@@ -203,7 +211,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             // Copy the data back to the address
             ClassicFighterData* header_ptr = (ClassicFighterData*)address;
             header_ptr->_fighterID = _header._fighterID;
-            header_ptr->_unknown01 = _header._unknown01;
+            header_ptr->_fighterstatus = _header._fighterstatus;
             header_ptr->_unknown02 = _header._unknown02;
             header_ptr->_unknown03 = _header._unknown03;
             header_ptr->_fighterscale = _header._fighterscale;
