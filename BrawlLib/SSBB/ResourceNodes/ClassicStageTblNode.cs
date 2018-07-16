@@ -134,8 +134,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown01;
         public byte _unknown02;
         public byte _unknown03;
-        public float _unknown04;
-        public byte _isAlly;
+        public float _fighterscale;
 
         private VoidPtr Address { get { fixed (void* ptr = &this) return ptr; } }
     }
@@ -145,27 +144,21 @@ namespace BrawlLib.SSBB.ResourceNodes
         private ClassicTblHeader _header;
 
         [TypeConverter(typeof(DropDownListFighterIDs))]
+        [Category("Fighter")]
+        [DisplayName("Fighter ID")]
         public byte FighterID { get { return _header._fighterID; } set { _header._fighterID = value; SignalPropertyChange(); } }
+        [Category("Unknown")]
+        [DisplayName("Unknown 01")]
         public byte Unknown01 { get { return _header._unknown01; } set { _header._unknown01 = value; SignalPropertyChange(); } }
+        [Category("Unknown")]
+        [DisplayName("Unknown 02")]
         public byte Unknown02 { get { return _header._unknown02; } set { _header._unknown02 = value; SignalPropertyChange(); } }
+        [Category("Unknown")]
+        [DisplayName("Unknown 03")]
         public byte Unknown03 { get { return _header._unknown03; } set { _header._unknown03 = value; SignalPropertyChange(); } }
-        public float Unknown04 { get { return _header._unknown04; } set { _header._unknown04 = value; SignalPropertyChange(); } }
-        //public byte IsAlly { get { return _isally; } set { _isally = value; SignalPropertyChange(); } }
-        public bool IsAlly
-        {
-            get
-            {
-                return (_header._isAlly) != 0;
-            }
-            set
-            {
-                SignalPropertyChange();
-                if (value)
-                    _header._isAlly = 1;
-                else
-                    _header._isAlly = 0;
-            }
-        }
+        [Category("Fighter")]
+        [DisplayName("Fighter Scale")]
+        public float FighterScale { get { return _header._fighterscale; } set { _header._fighterscale = value; SignalPropertyChange(); } }
 
         public override bool OnInitialize()
         {
@@ -177,19 +170,15 @@ namespace BrawlLib.SSBB.ResourceNodes
             // Copy the data from the address
             ClassicFighterData* ptr = (ClassicFighterData*)WorkingUncompressed.Address;
             _header._fighterID = ptr->_fighterID;
-            //_unknown01 = ptr->_unknown01;
-            //_unknown02 = ptr->_unknown02;
-            //_unknown03 = ptr->_unknown03;
-            _header._unknown04 = ptr->_unknown04;
-            //_unknown05 = ptr->_unknown05;
-            //_unknown06 = ptr->_unknown06;
-            //_unknown07 = ptr->_unknown07;
-            _header._isAlly = ptr->_isAlly;
+            _header._unknown01 = ptr->_unknown01;
+            _header._unknown02 = ptr->_unknown02;
+            _header._unknown03 = ptr->_unknown03;
+            _header._fighterscale = ptr->_fighterscale;
 
             if (_name == null)
             {
                 var fighter = Fighter.Fighters.Where(s => s.ID == FighterID).FirstOrDefault();
-                _name = "Fighter: 0x" + FighterID.ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
+                _name = (fighter == null ? "" : fighter.Name + " ") + "(0x" + FighterID.ToString("X2") + ")";
             }
 
             return true;
@@ -214,17 +203,13 @@ namespace BrawlLib.SSBB.ResourceNodes
             // Copy the data back to the address
             ClassicFighterData* header_ptr = (ClassicFighterData*)address;
             header_ptr->_fighterID = _header._fighterID;
-            //header_ptr->_unknown01 = _unknown01;
-            //header_ptr->_unknown02 = _unknown02;
-            //header_ptr->_unknown03 = _unknown03;
-            header_ptr->_unknown04 = _header._unknown04;
-            //header_ptr->_unknown05 = _unknown05;
-            //header_ptr->_unknown06 = _unknown06;
-            //header_ptr->_unknown07 = _unknown07;
-            header_ptr->_isAlly = _header._isAlly;
+            header_ptr->_unknown01 = _header._unknown01;
+            header_ptr->_unknown02 = _header._unknown02;
+            header_ptr->_unknown03 = _header._unknown03;
+            header_ptr->_fighterscale = _header._fighterscale;
 
             // Rebuild children using new address
-            VoidPtr ptr = address + 9;
+            VoidPtr ptr = address + 8;
             for (int i = 0; i < Children.Count; i++)
             {
                 Children[i].Rebuild(ptr, sizeof(ClassicDifficultyData), true);

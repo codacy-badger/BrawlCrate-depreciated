@@ -74,7 +74,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             if (_name == null)
             {
                 var fighter = Fighter.Fighters.Where(s => s.ID == FighterID).FirstOrDefault();
-                _name = "Fighter: 0x" + FighterID.ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
+                _name = (fighter == null ? "" : fighter.Name + " ") + "(0x" + FighterID.ToString("X2") + ")";
             }
 
             return true;
