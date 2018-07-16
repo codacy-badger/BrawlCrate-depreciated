@@ -87,19 +87,55 @@ namespace BrawlLib.SSBB.ResourceNodes
     {
         private ClassicDifficultyData data;
 
+        public enum AiTypeEnum : byte
+        {
+            Normal = 0,
+            Walk = 1,
+            Run = 2,
+            Jump = 3,
+            Avoid = 4,
+            AI5 = 5,
+            AI6 = 6,
+            AI7 = 7,
+            AI8 = 8,
+            AI9 = 9,
+            AI10 = 10,
+            AI11 = 11,
+            AI12 = 12,
+        }
+
+        [Category("Unknown")]
+        [DisplayName("Unknown 00")]
         public byte Unknown00 { get { return data._unknown00; } set { data._unknown00 = value; SignalPropertyChange(); } }
-        public byte Unknown01 { get { return data._unknown01; } set { data._unknown01 = value; SignalPropertyChange(); } }
+        [Category("Fighter")]
+        [DisplayName("Handicap")]
+        public byte Handicap { get { return data._handicap; } set { data._handicap = value; SignalPropertyChange(); } }
+        [Category("Unknown")]
+        [DisplayName("Unknown 02")]
         public byte Unknown02 { get { return data._unknown02; } set { data._unknown02 = value; SignalPropertyChange(); } }
+        [Category("Unknown")]
+        [DisplayName("Unknown 03")]
         public byte Unknown03 { get { return data._unknown03; } set { data._unknown03 = value; SignalPropertyChange(); } }
-
+        [Category("Fighter")]
+        [DisplayName("Offense Ratio")]
         public short OffenseRatio { get { return data._offenseRatio; } set { data._offenseRatio = value; SignalPropertyChange(); } }
+        [Category("Fighter")]
+        [DisplayName("Defense Ratio")]
         public short DefenseRatio { get { return data._defenseRatio; } set { data._defenseRatio = value; SignalPropertyChange(); } }
-
-        public byte Unknown08 { get { return data._unknown08; } set { data._unknown08 = value; SignalPropertyChange(); } }
-        public byte Color { get { return data._color; } set { data._color = value; SignalPropertyChange(); } }
+        [Category("Fighter")]
+        [DisplayName("AI Type")]
+        public AiTypeEnum AIType { get { return (AiTypeEnum)data._aiType; } set { data._aiType = (byte)value; SignalPropertyChange(); } }
+        [Category("Fighter")]
+        [DisplayName("CostumeID")]
+        public byte CostumeID { get { return data._color; } set { data._color = value; SignalPropertyChange(); } }
+        [Category("Fighter")]
+        [DisplayName("Number of Stocks")]
         public byte Stock { get { return data._stock; } set { data._stock = value; SignalPropertyChange(); } }
+        [Category("Unknown")]
+        [DisplayName("Unknown 0b")]
         public byte Unknown0b { get { return data._unknown0b; } set { data._unknown0b = value; SignalPropertyChange(); } }
-
+        [Category("Unknown")]
+        [DisplayName("Unknown 0c")]
         public short Unknown0c { get { return data._unknown0c; } set { data._unknown0c = value; SignalPropertyChange(); } }
 
         public override bool OnInitialize()

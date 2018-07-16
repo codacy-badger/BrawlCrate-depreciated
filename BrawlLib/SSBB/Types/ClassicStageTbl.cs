@@ -55,12 +55,12 @@ namespace BrawlLib.SSBB.Types
         public const int Size = 0x0E;
 
         public byte _unknown00;
-        public byte _unknown01;
+        public byte _handicap;
         public byte _unknown02;
         public byte _unknown03;
         public bshort _offenseRatio;
         public bshort _defenseRatio;
-        public byte _unknown08;
+        public byte _aiType;
         public byte _color;
         public byte _stock;
         public byte _unknown0b;
