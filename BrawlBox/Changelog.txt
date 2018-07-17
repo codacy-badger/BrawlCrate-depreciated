@@ -1,5 +1,5 @@
 ﻿
-StageBox - v0.8
+StageBox - v0.8 Hotfix 1
 Copyright © 2018 soopercool101, MarioDox
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,20 @@ they be held accountable for the manner in which it is used.
  =============================================
 |************ StageBox Change Log ************|
  =============================================
+ 
+ - v0.8 Hotfix 1 - (7/17/2018)
+ . Added compatibility mode setting, as stages with corrupted models would have those models broken immediately on open, or wouldn't open at all, due to the model counter from v0.8
+ . Switched Zelda/Sheik and Samus/ZSS in the fighter list
+ . Added Project M's Mewtwo and Roy, as well as BrawlEx IDs to the Fighter List (excluding 48, 49, 4A, which are used elsewhere)
+ . Added additional Classic Mode parsing
+   - Fighter Scale
+   - Handicap
+   - AI type
+   - Offense Ratio
+   - Defense Ratio
+   - Costume ID
+   - Number of stocks
+   - Status (Normal/Metal/Invisible)
  
  - v0.8 - (7/15/2018)
  . Model viewer now defaults to a black background on stages
