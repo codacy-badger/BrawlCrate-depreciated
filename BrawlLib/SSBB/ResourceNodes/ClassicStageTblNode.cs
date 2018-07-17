@@ -178,7 +178,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             Invisible = 2,
         }
 
-    [TypeConverter(typeof(DropDownListFighterIDs))]
+        [TypeConverter(typeof(DropDownListFighterIDs))]
         [Category("Fighter")]
         [DisplayName("Fighter ID")]
         public byte FighterID { get { return _header._fighterID; } set { _header._fighterID = value; SignalPropertyChange(); } }
