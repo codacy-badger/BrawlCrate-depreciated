@@ -32,6 +32,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
+                    return -1;
                 Populate();
                 if (_children == null)
                     return 0;
@@ -49,6 +51,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
+                    return -1;
                 Populate();
                 if (_children == null)
                     return 0;
@@ -67,6 +71,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
+                    return -1;
                 Populate();
                 if (_children == null)
                     return 0;
@@ -84,6 +90,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
+                    return -1;
                 Populate();
                 if (_children == null)
                     return 0;
@@ -101,6 +109,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
+                    return -1;
                 Populate();
                 if (_children == null)
                     return 0;

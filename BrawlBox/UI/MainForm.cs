@@ -57,6 +57,7 @@ namespace BrawlBox
             _displayPropertyDescription = BrawlBox.Properties.Settings.Default.DisplayPropertyDescriptionWhenAvailable;
             _updatesOnStartup = BrawlBox.Properties.Settings.Default.CheckUpdatesAtStartup;
             _showHex = BrawlBox.Properties.Settings.Default.ShowHex;
+            _compatibilityMode = BrawlLib.Properties.Settings.Default.CompatibilityMode;
 
 #if !DEBUG //Don't need to see this every time a debug build is compiled
             if (CheckUpdatesOnStartup)
@@ -154,6 +155,19 @@ namespace BrawlBox
             }
         }
         bool _showHex;
+
+        public bool CompatibilityMode
+        {
+            get { return _compatibilityMode; }
+            set
+            {
+                _compatibilityMode = value;
+
+                BrawlLib.Properties.Settings.Default.CompatibilityMode = _compatibilityMode;
+                BrawlLib.Properties.Settings.Default.Save();
+            }
+        }
+        bool _compatibilityMode;
 
         private void UpdatePropertyDescriptionBox(GridItem item)
         {

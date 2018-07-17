@@ -92,5 +92,20 @@ namespace BrawlLib.Properties
                 this["AudioVolumePercent"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("false")]
+        public bool CompatibilityMode
+        {
+            get
+            {
+                return (bool)(this["CompatibilityMode"]);
+            }
+            set
+            {
+                this["CompatibilityMode"] = value;
+            }
+        }
     }
 }
