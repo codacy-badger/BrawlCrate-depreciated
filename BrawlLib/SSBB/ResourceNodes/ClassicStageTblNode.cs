@@ -93,15 +93,6 @@ namespace BrawlLib.SSBB.ResourceNodes
             Walk = 1,
             Run = 2,
             Jump = 3,
-            Avoid = 4,
-            AI5 = 5,
-            AI6 = 6,
-            AI7 = 7,
-            AI8 = 8,
-            AI9 = 9,
-            AI10 = 10,
-            AI11 = 11,
-            AI12 = 12,
         }
 
         [Category("Unknown")]
