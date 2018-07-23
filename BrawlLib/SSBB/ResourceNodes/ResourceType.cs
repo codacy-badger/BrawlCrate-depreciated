@@ -171,14 +171,15 @@
         //Subspace Emmisary
         GDOR = 0x5D27,
         GEG1 = 0x5D28,
-        ENEMY = 0x5d29,
-        GMOV = 0x5d2A,
+        ENEMY = 0x5D29,
+        GMOV = 0x5D2A,
         GSND = 0x5D2B,
         GMOT = 0x5D2C,
         ADSJ = 0x5D2D,
         GBLK = 0x5D2E,
         GMPS = 0x5D2F,
         BGMG = 0x5F32,
+        GDBF = 0x5D35,
 
         FMDL = 0x6D00,
 

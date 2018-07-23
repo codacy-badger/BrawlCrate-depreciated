@@ -74,7 +74,7 @@ namespace BrawlBox
                         Resources.BGMG,//50
                         Resources.SharedTEX0,
                         Resources.SCLA,
-                        Resources.BRESOff,
+                        Resources.GDBF,
                     });
                 }
                 return _imgList;

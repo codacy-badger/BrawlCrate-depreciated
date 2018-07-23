@@ -4,13 +4,13 @@ using System.ComponentModel;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
-    public unsafe class GDORNode : ResourceNode
+    public unsafe class GDBFNode : ResourceNode
     {
-        internal GDOR* Header { get { return (GDOR*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.GDOR; } }
+        internal GDBF* Header { get { return (GDBF*)WorkingUncompressed.Address; } }
+        public override ResourceType ResourceType { get { return ResourceType.GDBF; } }
 
         private int _doors;
-        [Category("GDOR")]
+        [Category("GDBF")]
         public int Doors { get { return _doors; } }
 
         public override void OnPopulate()
@@ -21,7 +21,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 if (i == Header->_count - 1)
                 { source = new DataSource((*Header)[i], WorkingUncompressed.Address + WorkingUncompressed.Length - (*Header)[i]); }
                 else { source = new DataSource((*Header)[i], (*Header)[i + 1] - (*Header)[i]); }
-                new GDOREntryNode().Initialize(this, source);
+                new GDBFEntryNode().Initialize(this, source);
 
             }
         }
@@ -30,22 +30,22 @@ namespace BrawlLib.SSBB.ResourceNodes
             base.OnInitialize();
 
             if (_name == null)
-                _name = "Adventure Doors";
+                _name = "Factory Doors";
             _doors = Header->_count;
 
             return Header->_count > 0;
         }
         public override int OnCalculateSize(bool force)
         {
-            int size = GDOR.Size + (Children.Count * 4);
+            int size = GDBF.Size + (Children.Count * 4);
             foreach (ResourceNode node in Children)
                 size += node.CalculateSize(force);
             return size;
         }
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
-            GDOR* header = (GDOR*)address;
-            *header = new GDOR(Children.Count);
+            GDBF* header = (GDBF*)address;
+            *header = new GDBF(Children.Count);
             uint offset = (uint)(0x08 + (Children.Count * 4));
             for (int i = 0; i < Children.Count; i++)
             {
@@ -55,12 +55,12 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        internal static ResourceNode TryParse(DataSource source) { return ((GDOR*)source.Address)->_tag == GDOR.Tag ? new GDORNode() : null; }
+        internal static ResourceNode TryParse(DataSource source) { return ((GDBF*)source.Address)->_tag == GDBF.Tag ? new GDBFNode() : null; }
     }
 
-    public unsafe class GDOREntryNode : ResourceNode
+    public unsafe class GDBFEntryNode : ResourceNode
     {
-        internal GDOREntry* Header { get { return (GDOREntry*)WorkingUncompressed.Address; } }
+        internal GDBFEntry* Header { get { return (GDBFEntry*)WorkingUncompressed.Address; } }
         public override ResourceType ResourceType { get { return ResourceType.Unknown; } }
 
         private string _doorID;
@@ -192,8 +192,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
-            GDOREntry* header = (GDOREntry*)address;
-            *header = new GDOREntry();
+            GDBFEntry* header = (GDBFEntry*)address;
+            *header = new GDBFEntry();
 
             header->DoorID = _doorID;
             header->_doorIndex = (byte)_doorIndex;
@@ -225,7 +225,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
         public override int OnCalculateSize(bool force)
         {
-            return GDOREntry.Size;
+            return GDBFEntry.Size;
         }
     }
 }

@@ -170,7 +170,9 @@
     <None Include="SSBB\ResourceNodes\FMDL\FMDLUniformNode.cs" />
     <None Include="SSBB\ResourceNodes\Graphics\FTEXNode.cs" />
     <Compile Include="SSBB\ResourceNodes\Subspace\Hazards\GFG1Node.cs" />
+    <Compile Include="SSBB\ResourceNodes\Subspace\Navigation\GDBFNode.cs" />
     <Compile Include="SSBB\Types\Subspace\Hazards\GFG1.cs" />
+    <Compile Include="SSBB\Types\Subspace\Navigation\GDBF.cs" />
     <Compile Include="StageBox\HardcodedFiles.cs" />
     <Compile Include="SSBB\ResourceNodes\AllstarStageTblNode.cs" />
     <Compile Include="SSBB\ResourceNodes\EventMatchNode.cs" />
@@ -330,9 +332,7 @@
     <Compile Include="OpenGL\TKContext.cs" />
     <Compile Include="OpenGL\GLCamera.cs" />
     <Compile Include="OpenGL\GLDisplayList.cs" />
-    <Compile Include="OpenGL\GLPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="OpenGL\GLPanel.cs" />
     <Compile Include="OpenGL\GLTexture.cs" />
     <Compile Include="OpenGL\IRenderedObject.cs" />
     <Compile Include="Platform\Win32.DirectSound.cs" />

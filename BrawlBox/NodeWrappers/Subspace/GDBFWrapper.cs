@@ -5,13 +5,13 @@ using System.ComponentModel;
 
 namespace BrawlBox.NodeWrappers
 {
-    [NodeWrapper(ResourceType.GDOR)]
-    class GDORWrapper : GenericWrapper
+    [NodeWrapper(ResourceType.GDBF)]
+    class GDBFWrapper : GenericWrapper
     {
         #region Menu
 
         private static ContextMenuStrip _menu;
-        static GDORWrapper()
+        static GDBFWrapper()
         {
             _menu = new ContextMenuStrip();
 
@@ -30,14 +30,14 @@ namespace BrawlBox.NodeWrappers
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
-        protected static void NewEntryAction(object sender, EventArgs e) { GetInstance<GDORWrapper>().NewEntry(); }
+        protected static void NewEntryAction(object sender, EventArgs e) { GetInstance<GDBFWrapper>().NewEntry(); }
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
             _menu.Items[6].Enabled = _menu.Items[7].Enabled = true;
         }
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
-            GDORWrapper w = GetInstance<GDORWrapper>();
+            GDBFWrapper w = GetInstance<GDBFWrapper>();
             _menu.Items[6].Enabled = w.PrevNode != null;
             _menu.Items[7].Enabled = w.NextNode != null;
         }
@@ -45,11 +45,11 @@ namespace BrawlBox.NodeWrappers
 
         public void NewEntry()
         {
-            GDOREntryNode node = new GDOREntryNode() { Name = "Door[0]", Trigger0 ="00000100",
+            GDBFEntryNode node = new GDBFEntryNode() { Name = "Door[0]", Trigger0 ="00000100",
                 Trigger1 = "00000100", Trigger2 = "00000100", DoorID = "00000000" };
             _resource.AddChild(node);
         }
 
-        public GDORWrapper() { ContextMenuStrip = _menu; }
+        public GDBFWrapper() { ContextMenuStrip = _menu; }
     }
 }

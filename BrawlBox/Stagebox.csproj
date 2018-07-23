@@ -149,6 +149,7 @@
     <Compile Include="NodeWrappers\Stage Tables\TBGMWrapper.cs" />
     <Compile Include="NodeWrappers\Subspace\ADSJWrapper.cs" />
     <Compile Include="NodeWrappers\Subspace\BLOCWrapper.cs" />
+    <Compile Include="NodeWrappers\Subspace\GDBFWrapper.cs" />
     <Compile Include="NodeWrappers\Subspace\GDORWrapper.cs" />
     <Compile Include="NodeWrappers\Audio\RSARWrapper.cs" />
     <Compile Include="NodeWrappers\Stage Tables\STDTWrapper.cs" />
@@ -467,6 +468,7 @@
     <None Include="Resources\GMOV.png" />
     <None Include="Resources\GEG1.png" />
     <None Include="Resources\GDOR.png" />
+    <None Include="Resources\GDBF.png" />
     <None Include="Resources\STDT.png" />
     <None Include="Resources\BLOCEntry.png" />
     <None Include="Resources\BLOC.png" />
