@@ -139,6 +139,7 @@
     <None Include="NodeWrappers\BMDWrapper.cs" />
     <None Include="NodeWrappers\RARCWrapper.cs" />
     <None Include="NodeWrappers\FMDLWrapper.cs" />
+    <Compile Include="NodeWrappers\ClassicStageTblWrapper.cs" />
     <Compile Include="NodeWrappers\GEG1Wrapper.cs" />
     <Compile Include="NodeWrappers\SndBgmTitleDataFolderWrapper.cs" />
     <Compile Include="NodeWrappers\Stage Tables\TBCLWrapper.cs" />
