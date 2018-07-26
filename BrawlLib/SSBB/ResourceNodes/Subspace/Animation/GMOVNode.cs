@@ -54,6 +54,11 @@ namespace BrawlLib.SSBB.ResourceNodes
                 return CID;
             } 
         }
+
+        [Category("Movable Ground")]
+        [DisplayName("Path Index")]
+        public int PID { get { return *(byte*)(WorkingUncompressed.Address + 0x06); } }
+
         public override bool OnInitialize()
         {
             base.OnInitialize();
