@@ -11,7 +11,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         
         [Category("GWAT")]
         [DisplayName("Entry Count")]
-        public int count { get { return Header->_count; } }
+        public int Count { get { return _count; } }
+
+        public int _count;
 
         const int _entrySize = 0x38;    // The constant size of a child entry
 
@@ -51,6 +53,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             base.OnInitialize();
             if (_name == null)
                 _name = "Swimmable Water";
+            _count = Header->_count;
             return Header->_count > 0;
         }
 

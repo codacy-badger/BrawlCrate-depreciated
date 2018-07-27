@@ -55,6 +55,7 @@ namespace BrawlBox.NodeWrappers
             node._unknown0x2C = 0x01;
             node._float0x24 = 300;
             _resource.AddChild(node);
+            ((GWATNode)_resource)._count += 1;
             node.Name = "Water [" + node.Index + "]";
         }
         
