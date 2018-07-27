@@ -9,7 +9,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         internal GDOR* Header { get { return (GDOR*)WorkingUncompressed.Address; } }
         public override ResourceType ResourceType { get { return ResourceType.GDOR; } }
 
-        private int _doors;
+        public int _doors;
         [Category("GDOR")]
         public int Doors { get { return _doors; } }
 
