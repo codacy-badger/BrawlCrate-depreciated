@@ -7,7 +7,7 @@ namespace BrawlLib.SSBB.ResourceNodes
     public unsafe class GWATNode : ResourceNode
     {
         internal GWAT* Header { get { return (GWAT*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.Unknown; } }
+        public override ResourceType ResourceType { get { return ResourceType.GWAT; } }
         
         [Category("GWAT")]
         [DisplayName("Entry Count")]
@@ -50,7 +50,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             base.OnInitialize();
             if (_name == null)
-                _name = "GWAT";
+                _name = "Swimmable Water";
             return Header->_count > 0;
         }
 

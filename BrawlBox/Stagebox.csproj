@@ -140,7 +140,8 @@
     <None Include="NodeWrappers\RARCWrapper.cs" />
     <None Include="NodeWrappers\FMDLWrapper.cs" />
     <Compile Include="NodeWrappers\ClassicStageTblWrapper.cs" />
-    <Compile Include="NodeWrappers\GEG1Wrapper.cs" />
+    <Compile Include="NodeWrappers\Subspace\GWATWrapper.cs" />
+    <Compile Include="NodeWrappers\Subspace\GEG1Wrapper.cs" />
     <Compile Include="NodeWrappers\SndBgmTitleDataFolderWrapper.cs" />
     <Compile Include="NodeWrappers\Stage Tables\TBCLWrapper.cs" />
     <Compile Include="NodeWrappers\Stage Tables\TBGCWrapper.cs" />
@@ -453,6 +454,7 @@
     <None Include="Resources\STPM.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\GWAT.png" />
     <Content Include="Stagebox.ico" />
     <Content Include="OpenTK.dll" />
     <None Include="Resources\SharedTEX0.png" />

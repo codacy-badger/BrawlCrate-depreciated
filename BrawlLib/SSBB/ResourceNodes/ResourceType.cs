@@ -180,6 +180,7 @@
         GMPS = 0x5D2F,
         BGMG = 0x5F32,
         GDBF = 0x5D35,
+        GWAT = 0x5D36,
 
         FMDL = 0x6D00,
 
