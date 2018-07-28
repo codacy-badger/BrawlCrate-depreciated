@@ -19,7 +19,8 @@ namespace BrawlBox
             new ToolStripMenuItem("ADSJ Stepjump File", null, NewADSJAction),
             new ToolStripMenuItem("GDOR Adventure Door File", null, NewGDORAction),
             new ToolStripMenuItem("GDBF Factory Door File", null, NewGDBFAction),
-            new ToolStripMenuItem("GWAT Swimmable Water File", null, NewGWATAction)
+            new ToolStripMenuItem("GWAT Swimmable Water File", null, NewGWATAction),
+            new ToolStripMenuItem("GEG1 Enemy File", null, NewGEG1Action)
             ));
 
             _menu.Items.Add(new ToolStripMenuItem("&Export", null, ExportAction, Keys.Control | Keys.E));
@@ -39,6 +40,7 @@ namespace BrawlBox
         protected static void NewGDORAction(object sender, EventArgs e) { GetInstance<BLOCWrapper>().NewGDOR(); }
         protected static void NewGDBFAction(object sender, EventArgs e) { GetInstance<BLOCWrapper>().NewGDBF(); }
         protected static void NewGWATAction(object sender, EventArgs e) { GetInstance<BLOCWrapper>().NewGWAT(); }
+        protected static void NewGEG1Action(object sender, EventArgs e) { GetInstance<BLOCWrapper>().NewGEG1(); }
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
             _menu.Items[8].Enabled = true;
@@ -97,6 +99,16 @@ namespace BrawlBox
         public GWATNode NewGWAT()
         {
             GWATNode node = new GWATNode() { Name = _resource.FindName("NewGWAT") };
+            _resource.AddChild(node);
+
+            BaseWrapper w = this.FindResource(node, false);
+            w.EnsureVisible();
+            w.TreeView.SelectedNode = w;
+            return node;
+        }
+        public GEG1Node NewGEG1()
+        {
+            GEG1Node node = new GEG1Node() { Name = _resource.FindName("NewGEG1") };
             _resource.AddChild(node);
 
             BaseWrapper w = this.FindResource(node, false);
