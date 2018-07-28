@@ -42,8 +42,8 @@ namespace BrawlLib.SSBBTypes
         public byte _flag0x0B;
         public byte _flag0x0C;
         public byte _flag0x0D;
-        public byte _unknown0x0E;
-        public byte _unknown0x0F;
+        public byte _flag0x0E;
+        public byte _flag0x0F;
         public byte _unknown0x10;
         public byte _unknown0x11;
         public byte _unknown0x12;
@@ -150,12 +150,12 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x7B;
         public byte _unknown0x7C;
         public byte _difficulty;
-        public byte _unknown0x7E;
-        public byte _unknown0x7F;
-        public byte _unknown0x80;
-        public byte _unknown0x81;
-        public byte _unknown0x82;
-        public byte _unknown0x83;
+        public byte _startingaction;
+        public byte _flag0x7F;
+        public byte _flag0x80;
+        public byte _flag0x81;
+        public byte _flag0x82;
+        public byte _flag0x83;
 
         private VoidPtr Address { get { fixed (void* ptr = &this)return ptr; } }
         
