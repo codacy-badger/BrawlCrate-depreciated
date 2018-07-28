@@ -20,7 +20,8 @@ namespace BrawlBox
             new ToolStripMenuItem("GDOR Adventure Door File", null, NewGDORAction),
             new ToolStripMenuItem("GDBF Factory Door File", null, NewGDBFAction),
             new ToolStripMenuItem("GWAT Swimmable Water File", null, NewGWATAction),
-            new ToolStripMenuItem("GEG1 Enemy File", null, NewGEG1Action)
+            new ToolStripMenuItem("GEG1 Enemy File", null, NewGEG1Action),
+            new ToolStripMenuItem("GCAM Animated Camera File", null, NewGCAMAction)
             ));
 
             _menu.Items.Add(new ToolStripMenuItem("&Export", null, ExportAction, Keys.Control | Keys.E));
@@ -41,6 +42,7 @@ namespace BrawlBox
         protected static void NewGDBFAction(object sender, EventArgs e) { GetInstance<BLOCWrapper>().NewGDBF(); }
         protected static void NewGWATAction(object sender, EventArgs e) { GetInstance<BLOCWrapper>().NewGWAT(); }
         protected static void NewGEG1Action(object sender, EventArgs e) { GetInstance<BLOCWrapper>().NewGEG1(); }
+        protected static void NewGCAMAction(object sender, EventArgs e) { GetInstance<BLOCWrapper>().NewGCAM(); }
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
             _menu.Items[8].Enabled = true;
@@ -109,6 +111,16 @@ namespace BrawlBox
         public GEG1Node NewGEG1()
         {
             GEG1Node node = new GEG1Node() { Name = _resource.FindName("NewGEG1") };
+            _resource.AddChild(node);
+
+            BaseWrapper w = this.FindResource(node, false);
+            w.EnsureVisible();
+            w.TreeView.SelectedNode = w;
+            return node;
+        }
+        public GCAMNode NewGCAM()
+        {
+            GCAMNode node = new GCAMNode() { Name = _resource.FindName("NewGCAM") };
             _resource.AddChild(node);
 
             BaseWrapper w = this.FindResource(node, false);

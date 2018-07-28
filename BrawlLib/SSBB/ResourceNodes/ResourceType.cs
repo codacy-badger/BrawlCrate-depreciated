@@ -181,6 +181,7 @@
         BGMG = 0x5F32,
         GDBF = 0x5D35,
         GWAT = 0x5D36,
+        GCAM = 0x5D37,
 
         FMDL = 0x6D00,
 
