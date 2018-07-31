@@ -173,10 +173,12 @@
     <Compile Include="SSBB\ResourceNodes\Subspace\Hazards\GWATNode.cs" />
     <Compile Include="SSBB\ResourceNodes\Subspace\Hazards\GFG1Node.cs" />
     <Compile Include="SSBB\ResourceNodes\Subspace\Navigation\GDBFNode.cs" />
+    <Compile Include="SSBB\ResourceNodes\Subspace\Objects\GITMNode.cs" />
     <Compile Include="SSBB\Types\Subspace\Animation\GCAM.cs" />
     <Compile Include="SSBB\Types\Subspace\Hazards\GWAT.cs" />
     <Compile Include="SSBB\Types\Subspace\Hazards\GFG1.cs" />
     <Compile Include="SSBB\Types\Subspace\Navigation\GDBF.cs" />
+    <Compile Include="SSBB\Types\Subspace\Objects\GITM.cs" />
     <Compile Include="StageBox\HardcodedFiles.cs" />
     <Compile Include="SSBB\ResourceNodes\AllstarStageTblNode.cs" />
     <Compile Include="SSBB\ResourceNodes\EventMatchNode.cs" />

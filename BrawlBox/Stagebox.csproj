@@ -141,6 +141,7 @@
     <None Include="NodeWrappers\FMDLWrapper.cs" />
     <Compile Include="NodeWrappers\ClassicStageTblWrapper.cs" />
     <Compile Include="NodeWrappers\Subspace\GCAMWrapper.cs" />
+    <Compile Include="NodeWrappers\Subspace\GITMWrapper.cs" />
     <Compile Include="NodeWrappers\Subspace\GWATWrapper.cs" />
     <Compile Include="NodeWrappers\Subspace\GEG1Wrapper.cs" />
     <Compile Include="NodeWrappers\SndBgmTitleDataFolderWrapper.cs" />
