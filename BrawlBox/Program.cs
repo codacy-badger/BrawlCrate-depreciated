@@ -285,6 +285,13 @@ namespace BrawlBox
                 
                 if (_rootPath == null)
                     return SaveAs();
+
+                bool force = Control.ModifierKeys == (Keys.Control | Keys.Shift);
+                if (!force && !_rootNode.IsDirty)
+                {
+                    MessageBox.Show("No changes have been made.");
+                    return false;
+                }
                 
                 if (MainForm.Instance.ShowHex == true)
                 {
@@ -292,13 +299,6 @@ namespace BrawlBox
                     MainForm.Instance.Invalidate();
                     MainForm.Instance.resourceTree_SelectionChanged(MainForm.Instance, EventArgs.Empty);
                     restoreHex = true;
-                }
-
-                bool force = Control.ModifierKeys == (Keys.Control | Keys.Shift);
-                if (!force && !_rootNode.IsDirty)
-                {
-                    MessageBox.Show("No changes have been made.");
-                    return false;
                 }
 
                 _rootNode.Merge(force);
