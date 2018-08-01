@@ -186,6 +186,7 @@ namespace BrawlBox
 
             _rootPath = null;
             //HardcodedFiles.DeleteHardcodedFiles();
+            MainForm.Instance.UpdateName();
             return true;
         }
 
