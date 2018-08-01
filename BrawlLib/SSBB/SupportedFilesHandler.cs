@@ -134,6 +134,7 @@ namespace BrawlLib.SSBB
             new SupportedFileInfo(false, "Uncompressed PCM", "wav"),
             new SupportedFileInfo(false, "3D Object Mesh", "obj"),
             new SupportedFileInfo(false, "JSON File", "json"),
+            new SupportedFileInfo(true, "BrawlEx Configuration", "dat"),
             new SupportedFileInfo(false, "Raw Data File", "*"),
         };
 

@@ -15,8 +15,11 @@ namespace BrawlBox
                 if (info._forEditing)
                     foreach (string s in info._extensions)
                     {
-                        _assocList.Add(FileAssociation.Get("." + s));
-                        _typeList.Add(FileType.Get("SSBB." + s.ToUpper()));
+                        if (s != "dat")
+                        {
+                            _assocList.Add(FileAssociation.Get("." + s));
+                            _typeList.Add(FileType.Get("SSBB." + s.ToUpper()));
+                        }
                     }
         }
 
@@ -38,7 +41,8 @@ namespace BrawlBox
             foreach (SupportedFileInfo info in SupportedFilesHandler.Files)
                 if (info._forEditing)
                     foreach (string s in info._extensions)
-                        listView1.Items.Add(new ListViewItem() { Text = String.Format("{0} (*.{1})", info._name, s) });
+                        if(s != "dat")
+                            listView1.Items.Add(new ListViewItem() { Text = String.Format("{0} (*.{1})", info._name, s) });
         }
 
         private void Apply()
