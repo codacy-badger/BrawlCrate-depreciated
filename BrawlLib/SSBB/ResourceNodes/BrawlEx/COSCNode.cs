@@ -44,7 +44,6 @@ namespace BrawlLib.SSBB.ResourceNodes
             set
             {
                 _victoryName = value;
-                //Name = "Cosmetic" + _cosmeticID.ToString("X2") + " (" + _victoryName + ")";
                 SignalPropertyChange();
             }
         }
@@ -112,8 +111,6 @@ namespace BrawlLib.SSBB.ResourceNodes
             set
             {
                 _cosmeticID = Convert.ToByte(value, 16);
-                Name = "Cosmetic" + _cosmeticID.ToString("X2");
-                //Name = "Cosmetic" + _cosmeticID.ToString("X2") + " (" + _victoryName + ")";
                 SignalPropertyChange();
             }
         }
@@ -363,7 +360,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             _victoryNameArray[31] = Header->_victoryNameArray[31];
             _victoryName = System.Text.Encoding.UTF8.GetString(_victoryNameArray).TrimEnd(new char[] { '\0' });
             if ((_name == null) && (_origPath != null))
-                _name = "Cosmetic" + _cosmeticID.ToString("X2");
+                _name = Path.GetFileNameWithoutExtension(_origPath);
                 //_name = "Cosmetic" + _cosmeticID.ToString("X2") + " (" + _victoryName + ")";
 
             return false;
