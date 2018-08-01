@@ -53,10 +53,10 @@ namespace BrawlLib.SSBB
             new Fighter(0x1c, "Diddy Kong"),
             new Fighter(0x1d, "Charizard"),
             new Fighter(0x1e, "Charizard (independent)"),
-            new Fighter(0x1f, "Ivysaur"),
-            new Fighter(0x20, "Ivysaur (independent)"),
-            new Fighter(0x21, "Squirtle"),
-            new Fighter(0x22, "Squirtle (independent)"),
+            new Fighter(0x1f, "Squirtle"),
+            new Fighter(0x20, "Squirtle (independent)"),
+            new Fighter(0x21, "Ivysaur"),
+            new Fighter(0x22, "Ivysaur (independent)"),
             new Fighter(0x23, "King Dedede"),
             new Fighter(0x24, "Lucario"),
             new Fighter(0x25, "Ike"),
@@ -138,10 +138,12 @@ namespace BrawlLib.SSBB
             new Fighter(0x7F, "EXCharacter 7F"),
 
             // Event Matches
-            new Fighter(0x3e, "None / Select Character"),
+            new Fighter(0x3E, "None / Select Character"),
             new Fighter(0x48, "Pokémon Trainer"),
             new Fighter(0x49, "Samus/ZSS"),
-            new Fighter(0x4a, "Zelda/Sheik")
+            new Fighter(0x4A, "Zelda/Sheik"),
+            
+            new Fighter(0xFF, "None")
         };
     }
 }
