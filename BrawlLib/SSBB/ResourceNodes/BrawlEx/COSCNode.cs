@@ -116,16 +116,17 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         [Category("Cosmetics")]
+        [TypeConverter(typeof(DropDownListBrawlExIconIDs))]
         [DisplayName("Franchise Icon")]
-        public string FranchiseIconID
+        public byte FranchiseIconID
         {
             get
             {
-                return _franchise.ToString("X2");
+                return _franchise;
             }
             set
             {
-                _franchise = Convert.ToByte(value, 16);
+                _franchise = value;
                 SignalPropertyChange();
             }
         }
