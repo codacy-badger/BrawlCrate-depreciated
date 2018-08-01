@@ -188,6 +188,9 @@
 
         Havok = 0x8500,
         HavokGroup = 0x8501,
+
+        //BrawlEx
+        CSSC = 0x8600,
     }
     
     public enum ResourceTypeDisabled : int

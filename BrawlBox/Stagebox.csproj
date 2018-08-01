@@ -139,6 +139,7 @@
     <None Include="NodeWrappers\BMDWrapper.cs" />
     <None Include="NodeWrappers\RARCWrapper.cs" />
     <None Include="NodeWrappers\FMDLWrapper.cs" />
+    <Compile Include="NodeWrappers\BrawlEx\CSSCWrapper.cs" />
     <Compile Include="NodeWrappers\ClassicStageTblWrapper.cs" />
     <Compile Include="NodeWrappers\Subspace\GCAMWrapper.cs" />
     <Compile Include="NodeWrappers\Subspace\GITMWrapper.cs" />

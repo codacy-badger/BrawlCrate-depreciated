@@ -9,7 +9,7 @@ namespace BrawlLib.SSBB.ResourceNodes
     public unsafe class CSSCNode : ResourceNode
     {
         internal CSSC* Header { get { return (CSSC*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.Unknown; } }
+        public override ResourceType ResourceType { get { return ResourceType.CSSC; } }
 
         public uint _tag;                   // 0x00 - Uneditable; CSSC
         public uint _size;                  // 0x04 - Uneditable; Should be "40"
