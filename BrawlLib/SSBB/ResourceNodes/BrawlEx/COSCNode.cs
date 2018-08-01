@@ -11,7 +11,6 @@ namespace BrawlLib.SSBB.ResourceNodes
         internal COSC* Header { get { return (COSC*)WorkingUncompressed.Address; } }
         public override ResourceType ResourceType { get { return ResourceType.Unknown; } }
         
-        const int Size = 0x40;              // The constant size of the cfg
         public uint _tag;                   // 0x00 - Uneditable; COSC
         public uint _size;                  // 0x04 - Uneditable; Should be "40"
         public uint _version;               // 0x08 - Version; Only parses "2" currently
@@ -106,11 +105,13 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                return _cosmeticID.ToString("X2");
+                return "0x" + _cosmeticID.ToString("X2");
             }
             set
             {
-                _cosmeticID = Convert.ToByte(value, 16);
+                string field0 = (value.ToString() ?? "").Split(' ')[0];
+                int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase) ? 16 : 10;
+                _cosmeticID = Convert.ToByte(field0, fromBase);
                 SignalPropertyChange();
             }
         }
@@ -133,15 +134,17 @@ namespace BrawlLib.SSBB.ResourceNodes
         
         [Category("Cosmetics")]
         [DisplayName("Announcer Call")]
-        public int AnnouncerID
+        public string AnnouncerID
         {
             get
             {
-                return _announcerSFX;
+                return "0x" + _announcerSFX.ToString("X8");
             }
             set
             {
-                _announcerSFX = value;
+                string field0 = (value.ToString() ?? "").Split(' ')[0];
+                int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase) ? 16 : 10;
+                _announcerSFX = Convert.ToInt32(field0, fromBase);
                 SignalPropertyChange();
             }
         }
@@ -153,7 +156,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override int OnCalculateSize(bool force)
         {
-            return Size;
+            return COSC.Size;
         }
 
         public override void OnRebuild(VoidPtr address, int length, bool force)

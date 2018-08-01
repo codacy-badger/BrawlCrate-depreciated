@@ -10,14 +10,7 @@ namespace System.BrawlEx
 {
     public class FranchiseIcon
     {
-        /// <summary>
-        /// The character slot index, as used by common2.pac event match and all-star data.
-        /// See: http://opensa.dantarion.com/wiki/Character_Slots
-        /// </summary>
         public int ID { get; private set; }
-        /// <summary>
-        /// The fighter name (e.g. "Yoshi").
-        /// </summary>
         public string Name { get; private set; }
 
         public FranchiseIcon(int id, string name)
@@ -29,7 +22,7 @@ namespace System.BrawlEx
         public override string ToString() { return Name; }
 
         public readonly static FranchiseIcon[] Icons = new FranchiseIcon[] {
-            //                ID     Display Name     
+            //                ID     Display Name
             new FranchiseIcon(0x00, "Super Mario"),
             new FranchiseIcon(0x01, "Donkey Kong"),
             new FranchiseIcon(0x02, "Zelda"),
