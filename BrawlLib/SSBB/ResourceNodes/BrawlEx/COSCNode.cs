@@ -100,7 +100,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         [Category("Cosmetics")]
-        [DisplayName("Cosmetic Slot")]
+        [DisplayName("Cosmetic ID")]
         public string CosmeticID
         {
             get
