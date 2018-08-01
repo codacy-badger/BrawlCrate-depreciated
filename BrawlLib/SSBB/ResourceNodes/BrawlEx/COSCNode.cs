@@ -50,7 +50,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         [Category("Character")]
-        [DisplayName("Has Secondary Character")]
+        [DisplayName("Set Primary/Secondary")]
         public bool HasSecondary
         {
             get
