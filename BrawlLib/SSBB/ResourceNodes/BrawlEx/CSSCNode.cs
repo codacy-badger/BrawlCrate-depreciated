@@ -183,6 +183,11 @@ namespace BrawlLib.SSBB.ResourceNodes
             hdr->_editFlag1 = _editFlag1;
             hdr->_editFlag2 = _editFlag2;
             hdr->_editFlag3 = _editFlag3;
+            _editFlag4 = 0;
+            if (_primarySecondarySet)
+                _editFlag4 += 0x01;
+            if (_cosmeticSlotSet)
+                _editFlag4 += 0x02;
             hdr->_editFlag4 = _editFlag4;
             hdr->_primaryCharSlot = _primaryCharSlot;
             hdr->_secondaryCharSlot = _secondaryCharSlot;
