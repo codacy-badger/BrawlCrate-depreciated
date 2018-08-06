@@ -113,7 +113,7 @@ namespace System.BrawlEx
             new RecordBank(0x11, "Wario"),
             new RecordBank(0x12, "Meta Knight"),
             new RecordBank(0x13, "Pit"),
-            new RecordBank(0x14, "Pikmin & Olimar"),
+            new RecordBank(0x14, "Olimar"),
             new RecordBank(0x15, "Lucas"),
             new RecordBank(0x16, "Diddy Kong"),
             new RecordBank(0x17, "King Dedede"),
@@ -171,7 +171,7 @@ namespace System.BrawlEx
             new ExFighterLong(0x16, "Meta Knight"),
             new ExFighterLong(0x17, "Pit"),
             new ExFighterLong(0x18, "Zero Suit Samus"),
-            new ExFighterLong(0x19, "Pikmin & Olimar"),
+            new ExFighterLong(0x19, "Olimar"),
             new ExFighterLong(0x1A, "Lucas"),
             new ExFighterLong(0x1B, "Diddy Kong"),
             new ExFighterLong(0x1C, "Pokémon Trainer"),
@@ -195,70 +195,366 @@ namespace System.BrawlEx
             new ExFighterLong(0x33, "Blue Alloy"),
             new ExFighterLong(0x34, "Yellow Alloy"),
             new ExFighterLong(0x35, "Green Alloy"),
-            new ExFighterLong(0x3F, "EXCharacter 3F"),
-            new ExFighterLong(0x40, "EXCharacter 40"),
-            new ExFighterLong(0x41, "EXCharacter 41"),
-            new ExFighterLong(0x42, "EXCharacter 42"),
-            new ExFighterLong(0x43, "EXCharacter 43"),
-            new ExFighterLong(0x44, "EXCharacter 44"),
-            new ExFighterLong(0x45, "EXCharacter 45"),
-            new ExFighterLong(0x46, "EXCharacter 46"),
-            new ExFighterLong(0x47, "EXCharacter 47"),
-            new ExFighterLong(0x4B, "EXCharacter 4B"),
-            new ExFighterLong(0x4C, "EXCharacter 4C"),
-            new ExFighterLong(0x4D, "EXCharacter 4D"),
-            new ExFighterLong(0x4E, "EXCharacter 4E"),
-            new ExFighterLong(0x4F, "EXCharacter 4F"),
-            new ExFighterLong(0x50, "EXCharacter 50"),
-            new ExFighterLong(0x51, "EXCharacter 51"),
-            new ExFighterLong(0x52, "EXCharacter 52"),
-            new ExFighterLong(0x53, "EXCharacter 53"),
-            new ExFighterLong(0x54, "EXCharacter 54"),
-            new ExFighterLong(0x55, "EXCharacter 55"),
-            new ExFighterLong(0x56, "EXCharacter 56"),
-            new ExFighterLong(0x57, "EXCharacter 57"),
-            new ExFighterLong(0x58, "EXCharacter 58"),
-            new ExFighterLong(0x59, "EXCharacter 59"),
-            new ExFighterLong(0x5A, "EXCharacter 5A"),
-            new ExFighterLong(0x5B, "EXCharacter 5B"),
-            new ExFighterLong(0x5C, "EXCharacter 5C"),
-            new ExFighterLong(0x5D, "EXCharacter 5D"),
-            new ExFighterLong(0x5E, "EXCharacter 5E"),
-            new ExFighterLong(0x5F, "EXCharacter 5F"),
-            new ExFighterLong(0x60, "EXCharacter 60"),
-            new ExFighterLong(0x61, "EXCharacter 61"),
-            new ExFighterLong(0x62, "EXCharacter 62"),
-            new ExFighterLong(0x63, "EXCharacter 63"),
-            new ExFighterLong(0x64, "EXCharacter 64"),
-            new ExFighterLong(0x65, "EXCharacter 65"),
-            new ExFighterLong(0x66, "EXCharacter 66"),
-            new ExFighterLong(0x67, "EXCharacter 67"),
-            new ExFighterLong(0x68, "EXCharacter 68"),
-            new ExFighterLong(0x69, "EXCharacter 69"),
-            new ExFighterLong(0x6A, "EXCharacter 6A"),
-            new ExFighterLong(0x6B, "EXCharacter 6B"),
-            new ExFighterLong(0x6C, "EXCharacter 6C"),
-            new ExFighterLong(0x6D, "EXCharacter 6D"),
-            new ExFighterLong(0x6E, "EXCharacter 6E"),
-            new ExFighterLong(0x6F, "EXCharacter 6F"),
-            new ExFighterLong(0x70, "EXCharacter 70"),
-            new ExFighterLong(0x71, "EXCharacter 71"),
-            new ExFighterLong(0x72, "EXCharacter 72"),
-            new ExFighterLong(0x73, "EXCharacter 73"),
-            new ExFighterLong(0x74, "EXCharacter 74"),
-            new ExFighterLong(0x75, "EXCharacter 75"),
-            new ExFighterLong(0x76, "EXCharacter 76"),
-            new ExFighterLong(0x77, "EXCharacter 77"),
-            new ExFighterLong(0x78, "EXCharacter 78"),
-            new ExFighterLong(0x79, "EXCharacter 79"),
-            new ExFighterLong(0x7A, "EXCharacter 7A"),
-            new ExFighterLong(0x7B, "EXCharacter 7B"),
-            new ExFighterLong(0x7C, "EXCharacter 7C"),
-            new ExFighterLong(0x7D, "EXCharacter 7D"),
-            new ExFighterLong(0x7E, "EXCharacter 7E"),
-            new ExFighterLong(0x7F, "EXCharacter 7F"),
+            new ExFighterLong(0x3F, "ExFighter3F"),
+            new ExFighterLong(0x40, "ExFighter40"),
+            new ExFighterLong(0x41, "ExFighter41"),
+            new ExFighterLong(0x42, "ExFighter42"),
+            new ExFighterLong(0x43, "ExFighter43"),
+            new ExFighterLong(0x44, "ExFighter44"),
+            new ExFighterLong(0x45, "ExFighter45"),
+            new ExFighterLong(0x46, "ExFighter46"),
+            new ExFighterLong(0x47, "ExFighter47"),
+            new ExFighterLong(0x48, "ExFighter48"),
+            new ExFighterLong(0x49, "ExFighter49"),
+            new ExFighterLong(0x4A, "ExFighter4A"),
+            new ExFighterLong(0x4B, "ExFighter4B"),
+            new ExFighterLong(0x4C, "ExFighter4C"),
+            new ExFighterLong(0x4D, "ExFighter4D"),
+            new ExFighterLong(0x4E, "ExFighter4E"),
+            new ExFighterLong(0x4F, "ExFighter4F"),
+            new ExFighterLong(0x50, "ExFighter50"),
+            new ExFighterLong(0x51, "ExFighter51"),
+            new ExFighterLong(0x52, "ExFighter52"),
+            new ExFighterLong(0x53, "ExFighter53"),
+            new ExFighterLong(0x54, "ExFighter54"),
+            new ExFighterLong(0x55, "ExFighter55"),
+            new ExFighterLong(0x56, "ExFighter56"),
+            new ExFighterLong(0x57, "ExFighter57"),
+            new ExFighterLong(0x58, "ExFighter58"),
+            new ExFighterLong(0x59, "ExFighter59"),
+            new ExFighterLong(0x5A, "ExFighter5A"),
+            new ExFighterLong(0x5B, "ExFighter5B"),
+            new ExFighterLong(0x5C, "ExFighter5C"),
+            new ExFighterLong(0x5D, "ExFighter5D"),
+            new ExFighterLong(0x5E, "ExFighter5E"),
+            new ExFighterLong(0x5F, "ExFighter5F"),
+            new ExFighterLong(0x60, "ExFighter60"),
+            new ExFighterLong(0x61, "ExFighter61"),
+            new ExFighterLong(0x62, "ExFighter62"),
+            new ExFighterLong(0x63, "ExFighter63"),
+            new ExFighterLong(0x64, "ExFighter64"),
+            new ExFighterLong(0x65, "ExFighter65"),
+            new ExFighterLong(0x66, "ExFighter66"),
+            new ExFighterLong(0x67, "ExFighter67"),
+            new ExFighterLong(0x68, "ExFighter68"),
+            new ExFighterLong(0x69, "ExFighter69"),
+            new ExFighterLong(0x6A, "ExFighter6A"),
+            new ExFighterLong(0x6B, "ExFighter6B"),
+            new ExFighterLong(0x6C, "ExFighter6C"),
+            new ExFighterLong(0x6D, "ExFighter6D"),
+            new ExFighterLong(0x6E, "ExFighter6E"),
+            new ExFighterLong(0x6F, "ExFighter6F"),
+            new ExFighterLong(0x70, "ExFighter70"),
+            new ExFighterLong(0x71, "ExFighter71"),
+            new ExFighterLong(0x72, "ExFighter72"),
+            new ExFighterLong(0x73, "ExFighter73"),
+            new ExFighterLong(0x74, "ExFighter74"),
+            new ExFighterLong(0x75, "ExFighter75"),
+            new ExFighterLong(0x76, "ExFighter76"),
+            new ExFighterLong(0x77, "ExFighter77"),
+            new ExFighterLong(0x78, "ExFighter78"),
+            new ExFighterLong(0x79, "ExFighter79"),
+            new ExFighterLong(0x7A, "ExFighter7A"),
+            new ExFighterLong(0x7B, "ExFighter7B"),
+            new ExFighterLong(0x7C, "ExFighter7C"),
+            new ExFighterLong(0x7D, "ExFighter7D"),
+            new ExFighterLong(0x7E, "ExFighter7E"),
+            new ExFighterLong(0x7F, "ExFighter7F"),
 
             new ExFighterLong(0xFFFFFFFF, "None")
+        };
+    }
+
+    public class ExFighter
+    {
+        /// <summary>
+        /// The character slot index, as used by common2.pac event match and all-star data.
+        /// See: http://opensa.dantarion.com/wiki/Character_Slots
+        /// </summary>
+        public int ID { get; private set; }
+        /// <summary>
+        /// The fighter name (e.g. "Yoshi").
+        /// </summary>
+        public string Name { get; private set; }
+
+        public ExFighter(int id, string name)
+        {
+            this.ID = id;
+            this.Name = name;
+        }
+
+        public static string getNameFromID(int searchID)
+        {
+            for (int i = 0; i < Fighters.Length; i++)
+                if (Fighters[i].ID == searchID)
+                    return Fighters[i].Name;
+            return null;
+        }
+
+        public override string ToString() { return Name; }
+
+        public readonly static ExFighter[] Fighters = new ExFighter[] {
+            //            ID     Display Name
+			new ExFighter(0x00, "Mario"),
+            new ExFighter(0x01, "Donkey Kong"),
+            new ExFighter(0x02, "Link"),
+            new ExFighter(0x03, "Samus"),
+            new ExFighter(0x04, "Zero Suit Samus"),
+            new ExFighter(0x05, "Yoshi"),
+            new ExFighter(0x06, "Kirby"),
+            new ExFighter(0x07, "Fox"),
+            new ExFighter(0x08, "Pikachu"),
+            new ExFighter(0x09, "Luigi"),
+            new ExFighter(0x0a, "Captain Falcon"),
+            new ExFighter(0x0b, "Ness"),
+            new ExFighter(0x0c, "Bowser"),
+            new ExFighter(0x0d, "Peach"),
+            new ExFighter(0x0e, "Zelda"),
+            new ExFighter(0x0f, "Sheik"),
+            new ExFighter(0x10, "Ice Climbers"),
+            new ExFighter(0x11, "Popo"),
+            new ExFighter(0x12, "Nana"),
+            new ExFighter(0x13, "Marth"),
+            new ExFighter(0x14, "Mr. Game & Watch"),
+            new ExFighter(0x15, "Falco"),
+            new ExFighter(0x16, "Ganondorf"),
+            new ExFighter(0x17, "Wario"),
+            new ExFighter(0x18, "Meta Knight"),
+            new ExFighter(0x19, "Pit"),
+            new ExFighter(0x1a, "Olimar"),
+            new ExFighter(0x1b, "Lucas"),
+            new ExFighter(0x1c, "Diddy Kong"),
+            new ExFighter(0x1d, "Charizard"),
+            new ExFighter(0x1e, "Charizard (independent)"),
+            new ExFighter(0x1f, "Squirtle"),
+            new ExFighter(0x20, "Squirtle (independent)"),
+            new ExFighter(0x21, "Ivysaur"),
+            new ExFighter(0x22, "Ivysaur (independent)"),
+            new ExFighter(0x23, "King Dedede"),
+            new ExFighter(0x24, "Lucario"),
+            new ExFighter(0x25, "Ike"),
+            new ExFighter(0x26, "R.O.B."),
+            new ExFighter(0x27, "Jigglypuff"),
+            new ExFighter(0x28, "Toon Link"),
+            new ExFighter(0x29, "Wolf"),
+            new ExFighter(0x2a, "Snake"),
+            new ExFighter(0x2b, "Sonic"),
+            new ExFighter(0x2c, "Giga Bowser"),
+            new ExFighter(0x2d, "Warioman"),
+            new ExFighter(0x2e, "Red Alloy (don't use in event matches)"),
+            new ExFighter(0x2f, "Blue Alloy (don't use in event matches)"),
+            new ExFighter(0x30, "Yellow Alloy (don't use in event matches)"),
+            new ExFighter(0x31, "Green Alloy (don't use in event matches)"),
+            new ExFighter(0x32, "Roy (PM)"),
+            new ExFighter(0x33, "Mewtwo (PM)"),
+            new ExFighter(0x3F, "ExFighter3F"),
+            new ExFighter(0x40, "ExFighter40"),
+            new ExFighter(0x41, "ExFighter41"),
+            new ExFighter(0x42, "ExFighter42"),
+            new ExFighter(0x43, "ExFighter43"),
+            new ExFighter(0x44, "ExFighter44"),
+            new ExFighter(0x45, "ExFighter45"),
+            new ExFighter(0x46, "ExFighter46"),
+            new ExFighter(0x47, "ExFighter47"),
+            new ExFighter(0x48, "ExFighter48"),
+            new ExFighter(0x49, "ExFighter49"),
+            new ExFighter(0x4A, "ExFighter4A"),
+            new ExFighter(0x4B, "ExFighter4B"),
+            new ExFighter(0x4C, "ExFighter4C"),
+            new ExFighter(0x4D, "ExFighter4D"),
+            new ExFighter(0x4E, "ExFighter4E"),
+            new ExFighter(0x4F, "ExFighter4F"),
+            new ExFighter(0x50, "ExFighter50"),
+            new ExFighter(0x51, "ExFighter51"),
+            new ExFighter(0x52, "ExFighter52"),
+            new ExFighter(0x53, "ExFighter53"),
+            new ExFighter(0x54, "ExFighter54"),
+            new ExFighter(0x55, "ExFighter55"),
+            new ExFighter(0x56, "ExFighter56"),
+            new ExFighter(0x57, "ExFighter57"),
+            new ExFighter(0x58, "ExFighter58"),
+            new ExFighter(0x59, "ExFighter59"),
+            new ExFighter(0x5A, "ExFighter5A"),
+            new ExFighter(0x5B, "ExFighter5B"),
+            new ExFighter(0x5C, "ExFighter5C"),
+            new ExFighter(0x5D, "ExFighter5D"),
+            new ExFighter(0x5E, "ExFighter5E"),
+            new ExFighter(0x5F, "ExFighter5F"),
+            new ExFighter(0x60, "ExFighter60"),
+            new ExFighter(0x61, "ExFighter61"),
+            new ExFighter(0x62, "ExFighter62"),
+            new ExFighter(0x63, "ExFighter63"),
+            new ExFighter(0x64, "ExFighter64"),
+            new ExFighter(0x65, "ExFighter65"),
+            new ExFighter(0x66, "ExFighter66"),
+            new ExFighter(0x67, "ExFighter67"),
+            new ExFighter(0x68, "ExFighter68"),
+            new ExFighter(0x69, "ExFighter69"),
+            new ExFighter(0x6A, "ExFighter6A"),
+            new ExFighter(0x6B, "ExFighter6B"),
+            new ExFighter(0x6C, "ExFighter6C"),
+            new ExFighter(0x6D, "ExFighter6D"),
+            new ExFighter(0x6E, "ExFighter6E"),
+            new ExFighter(0x6F, "ExFighter6F"),
+            new ExFighter(0x70, "ExFighter70"),
+            new ExFighter(0x71, "ExFighter71"),
+            new ExFighter(0x72, "ExFighter72"),
+            new ExFighter(0x73, "ExFighter73"),
+            new ExFighter(0x74, "ExFighter74"),
+            new ExFighter(0x75, "ExFighter75"),
+            new ExFighter(0x76, "ExFighter76"),
+            new ExFighter(0x77, "ExFighter77"),
+            new ExFighter(0x78, "ExFighter78"),
+            new ExFighter(0x79, "ExFighter79"),
+            new ExFighter(0x7A, "ExFighter7A"),
+            new ExFighter(0x7B, "ExFighter7B"),
+            new ExFighter(0x7C, "ExFighter7C"),
+            new ExFighter(0x7D, "ExFighter7D"),
+            new ExFighter(0x7E, "ExFighter7E"),
+            new ExFighter(0x7F, "ExFighter7F"),
+            new ExFighter(0xFF, "None")
+        };
+    }
+
+    public class CSSSlotIDs
+    {
+        /// <summary>
+        /// The character slot index, as used by common2.pac event match and all-star data.
+        /// See: http://opensa.dantarion.com/wiki/Character_Slots
+        /// </summary>
+        public int ID { get; private set; }
+        /// <summary>
+        /// The fighter name (e.g. "Yoshi").
+        /// </summary>
+        public string Name { get; private set; }
+
+        public CSSSlotIDs(int id, string name)
+        {
+            this.ID = id;
+            this.Name = name;
+        }
+
+        public static string getNameFromID(int searchID)
+        {
+            for (int i = 0; i < CSSSlots.Length; i++)
+                if (CSSSlots[i].ID == searchID)
+                    return CSSSlots[i].Name;
+            return null;
+        }
+
+        public override string ToString() { return Name; }
+
+        public readonly static CSSSlotIDs[] CSSSlots = new CSSSlotIDs[] {
+            //             ID     Display Name
+            new CSSSlotIDs(0x00, "Mario"),
+            new CSSSlotIDs(0x01, "Donkey Kong"),
+            new CSSSlotIDs(0x02, "Link"),
+            new CSSSlotIDs(0x03, "Samus"),
+            new CSSSlotIDs(0x04, "Zero Suit Samus"),
+            new CSSSlotIDs(0x05, "Yoshi"),
+            new CSSSlotIDs(0x06, "Kirby"),
+            new CSSSlotIDs(0x07, "Fox"),
+            new CSSSlotIDs(0x08, "Pikachu"),
+            new CSSSlotIDs(0x09, "Luigi"),
+            new CSSSlotIDs(0x0A, "Captain Falcon"),
+            new CSSSlotIDs(0x0B, "Ness"),
+            new CSSSlotIDs(0x0C, "Bowser"),
+            new CSSSlotIDs(0x0D, "Peach"),
+            new CSSSlotIDs(0x0E, "Zelda"),
+            new CSSSlotIDs(0x0F, "Sheik"),
+            new CSSSlotIDs(0x10, "Ice Climbers"),
+            new CSSSlotIDs(0x11, "Marth"),
+            new CSSSlotIDs(0x12, "Mr. Game & Watch"),
+            new CSSSlotIDs(0x13, "Falco"),
+            new CSSSlotIDs(0x14, "Ganondorf"),
+            new CSSSlotIDs(0x15, "Wario"),
+            new CSSSlotIDs(0x16, "Meta Knight"),
+            new CSSSlotIDs(0x17, "Pit"),
+            new CSSSlotIDs(0x18, "Olimar"),
+            new CSSSlotIDs(0x19, "Lucas"),
+            new CSSSlotIDs(0x1A, "Diddy Kong"),
+            new CSSSlotIDs(0x1B, "Pokémon Trainer"),
+            new CSSSlotIDs(0x1C, "Charizard"),
+            new CSSSlotIDs(0x1D, "Squirtle"),
+            new CSSSlotIDs(0x1E, "Ivysaur"),
+            new CSSSlotIDs(0x1F, "King Dedede"),
+            new CSSSlotIDs(0x20, "Lucario"),
+            new CSSSlotIDs(0x21, "Ike"),
+            new CSSSlotIDs(0x22, "R.O.B."),
+            new CSSSlotIDs(0x23, "Jigglypuff"),
+            new CSSSlotIDs(0x24, "Toon Link"),
+            new CSSSlotIDs(0x25, "Wolf"),
+            new CSSSlotIDs(0x26, "Snake"),
+            new CSSSlotIDs(0x27, "Sonic"),
+            new CSSSlotIDs(0x28, "None"),
+            new CSSSlotIDs(0x29, "Random"),
+            new CSSSlotIDs(0x2D, "Roy (PM)"),
+            new CSSSlotIDs(0x2E, "Mewtwo (PM)"),
+            new CSSSlotIDs(0x3F, "ExFighter3F"),
+            new CSSSlotIDs(0x40, "ExFighter40"),
+            new CSSSlotIDs(0x41, "ExFighter41"),
+            new CSSSlotIDs(0x42, "ExFighter42"),
+            new CSSSlotIDs(0x43, "ExFighter43"),
+            new CSSSlotIDs(0x44, "ExFighter44"),
+            new CSSSlotIDs(0x45, "ExFighter45"),
+            new CSSSlotIDs(0x46, "ExFighter46"),
+            new CSSSlotIDs(0x47, "ExFighter47"),
+            new CSSSlotIDs(0x48, "ExFighter48"),
+            new CSSSlotIDs(0x49, "ExFighter49"),
+            new CSSSlotIDs(0x4A, "ExFighter4A"),
+            new CSSSlotIDs(0x4B, "ExFighter4B"),
+            new CSSSlotIDs(0x4C, "ExFighter4C"),
+            new CSSSlotIDs(0x4D, "ExFighter4D"),
+            new CSSSlotIDs(0x4E, "ExFighter4E"),
+            new CSSSlotIDs(0x4F, "ExFighter4F"),
+            new CSSSlotIDs(0x50, "ExFighter50"),
+            new CSSSlotIDs(0x51, "ExFighter51"),
+            new CSSSlotIDs(0x52, "ExFighter52"),
+            new CSSSlotIDs(0x53, "ExFighter53"),
+            new CSSSlotIDs(0x54, "ExFighter54"),
+            new CSSSlotIDs(0x55, "ExFighter55"),
+            new CSSSlotIDs(0x56, "ExFighter56"),
+            new CSSSlotIDs(0x57, "ExFighter57"),
+            new CSSSlotIDs(0x58, "ExFighter58"),
+            new CSSSlotIDs(0x59, "ExFighter59"),
+            new CSSSlotIDs(0x5A, "ExFighter5A"),
+            new CSSSlotIDs(0x5B, "ExFighter5B"),
+            new CSSSlotIDs(0x5C, "ExFighter5C"),
+            new CSSSlotIDs(0x5D, "ExFighter5D"),
+            new CSSSlotIDs(0x5E, "ExFighter5E"),
+            new CSSSlotIDs(0x5F, "ExFighter5F"),
+            new CSSSlotIDs(0x60, "ExFighter60"),
+            new CSSSlotIDs(0x61, "ExFighter61"),
+            new CSSSlotIDs(0x62, "ExFighter62"),
+            new CSSSlotIDs(0x63, "ExFighter63"),
+            new CSSSlotIDs(0x64, "ExFighter64"),
+            new CSSSlotIDs(0x65, "ExFighter65"),
+            new CSSSlotIDs(0x66, "ExFighter66"),
+            new CSSSlotIDs(0x67, "ExFighter67"),
+            new CSSSlotIDs(0x68, "ExFighter68"),
+            new CSSSlotIDs(0x69, "ExFighter69"),
+            new CSSSlotIDs(0x6A, "ExFighter6A"),
+            new CSSSlotIDs(0x6B, "ExFighter6B"),
+            new CSSSlotIDs(0x6C, "ExFighter6C"),
+            new CSSSlotIDs(0x6D, "ExFighter6D"),
+            new CSSSlotIDs(0x6E, "ExFighter6E"),
+            new CSSSlotIDs(0x6F, "ExFighter6F"),
+            new CSSSlotIDs(0x70, "ExFighter70"),
+            new CSSSlotIDs(0x71, "ExFighter71"),
+            new CSSSlotIDs(0x72, "ExFighter72"),
+            new CSSSlotIDs(0x73, "ExFighter73"),
+            new CSSSlotIDs(0x74, "ExFighter74"),
+            new CSSSlotIDs(0x75, "ExFighter75"),
+            new CSSSlotIDs(0x76, "ExFighter76"),
+            new CSSSlotIDs(0x77, "ExFighter77"),
+            new CSSSlotIDs(0x78, "ExFighter78"),
+            new CSSSlotIDs(0x79, "ExFighter79"),
+            new CSSSlotIDs(0x7A, "ExFighter7A"),
+            new CSSSlotIDs(0x7B, "ExFighter7B"),
+            new CSSSlotIDs(0x7C, "ExFighter7C"),
+            new CSSSlotIDs(0x7D, "ExFighter7D"),
+            new CSSSlotIDs(0x7E, "ExFighter7E"),
+            new CSSSlotIDs(0x7F, "ExFighter7F")
         };
     }
 
@@ -364,13 +660,13 @@ namespace System.BrawlEx
         }
     }
 
-    // Should be same as Fighter IDs, but kept as a precaution
+    // Different from fighterIDs as it includes EX48-4A
     public class DropDownListBrawlExSlotIDs : ByteConverter
     {
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(BrawlLib.SSBB.Fighter.Fighters.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+            return new StandardValuesCollection(ExFighter.Fighters.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
         }
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
@@ -392,7 +688,7 @@ namespace System.BrawlEx
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(byte))
             {
-                var fighter = BrawlLib.SSBB.Fighter.Fighters.Where(s => s.ID == (byte)value).FirstOrDefault();
+                var fighter = ExFighter.Fighters.Where(s => s.ID == (byte)value).FirstOrDefault();
                 return "0x" + ((byte)value).ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
             }
             return base.ConvertTo(context, culture, value, destinationType);
@@ -429,6 +725,40 @@ namespace System.BrawlEx
             {
                 var fighter = ExFighterLong.ExFighters.Where(s => s.ID == (uint)value).FirstOrDefault();
                 return "0x" + ((uint)value).ToString("X8") + (fighter == null ? "" : (" - " + fighter.Name));
+            }
+            return base.ConvertTo(context, culture, value, destinationType);
+        }
+    }
+
+    public class DropDownListBrawlExCSSIDs : ByteConverter
+    {
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+        {
+            return new StandardValuesCollection(CSSSlotIDs.CSSSlots.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+        }
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
+        }
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            if (value.GetType() == typeof(string))
+            {
+                string field0 = (value.ToString() ?? "").Split(' ')[0];
+                int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase)
+                    ? 16
+                    : 10;
+                return Convert.ToByte(field0, fromBase);
+            }
+            return base.ConvertFrom(context, culture, value);
+        }
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            if (destinationType == typeof(string) && value.GetType() == typeof(byte))
+            {
+                var fighter = CSSSlotIDs.CSSSlots.Where(s => s.ID == (byte)value).FirstOrDefault();
+                return "0x" + ((byte)value).ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
             }
             return base.ConvertTo(context, culture, value, destinationType);
         }
