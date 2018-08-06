@@ -20,6 +20,10 @@ namespace BrawlBox.NodeWrappers
             _menu = new ContextMenuStrip();
             _menu.Items.Add(new ToolStripMenuItem("Add New Entry (Both Lists)", null, NewEntryAction, Keys.Control | Keys.J));
             _menu.Items.Add(new ToolStripSeparator());
+            _menu.Items.Add(new ToolStripMenuItem("Sync Lists", null,
+                new ToolStripMenuItem("From CSS List to Random List", null, SyncRandomAction),
+                new ToolStripMenuItem("From Random List to CSS List", null, SyncCSSAction)));
+            _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Export", null, ExportAction, Keys.Control | Keys.E));
             _menu.Items.Add(new ToolStripMenuItem("&Replace", null, ReplaceAction, Keys.Control | Keys.R));
             _menu.Items.Add(new ToolStripMenuItem("Res&tore", null, RestoreAction, Keys.Control | Keys.T));
@@ -42,18 +46,21 @@ namespace BrawlBox.NodeWrappers
                     GetInstance<RSTCWrapper>().NewEntry((byte)entryID.NewValue);
         }
         protected static void ClearAction(object sender, EventArgs e) { GetInstance<RSTCWrapper>().Clear(); }
+        protected static void SyncRandomAction(object sender, EventArgs e) { GetInstance<RSTCWrapper>().SyncRandom(); }
+        protected static void SyncCSSAction(object sender, EventArgs e) { GetInstance<RSTCWrapper>().SyncCSS(); }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-            _menu.Items[0].Enabled = _menu.Items[3].Enabled = _menu.Items[4].Enabled = _menu.Items[8].Enabled = true;
+            _menu.Items[0].Enabled = _menu.Items[5].Enabled = _menu.Items[6].Enabled = _menu.Items[10].Enabled = true;
         }
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             RSTCWrapper w = GetInstance<RSTCWrapper>();
             ResourceNode r = w._resource;
             _menu.Items[0].Enabled = (((RSTCNode)r).cssList.Children.Count <= 100 || (((RSTCNode)r).randList.Children.Count <= 100));
-            _menu.Items[3].Enabled = w.Parent != null;
-            _menu.Items[4].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
-            _menu.Items[8].Enabled = (((RSTCNode)r).cssList.Children.Count > 0) || (((RSTCNode)r).randList.Children.Count > 0);
+            _menu.Items[5].Enabled = w.Parent != null;
+            _menu.Items[6].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[10].Enabled = (((RSTCNode)r).cssList.Children.Count > 0) || (((RSTCNode)r).randList.Children.Count > 0);
         }
         #endregion
 
@@ -91,6 +98,36 @@ namespace BrawlBox.NodeWrappers
             w = this.FindResource(((RSTCNode)_resource).randList, false);
             w.EnsureVisible();
             w.Expand();
+        }
+
+        public void SyncRandom()
+        {
+            while (((RSTCNode)_resource).randList.HasChildren)
+                ((RSTCNode)_resource).randList.RemoveChild(((RSTCNode)_resource).randList.Children[0]);
+            foreach(ResourceNode r in ((RSTCNode)_resource).cssList.Children)
+            {
+                // Disallow syncing of 0x28 (None) and 0x29 (Random)
+                if (((RSTCEntryNode)r).FighterID != 0x29 && ((RSTCEntryNode)r).FighterID != 0x28)
+                {
+                    RSTCEntryNode temp = new RSTCEntryNode();
+                    temp.FighterID = ((RSTCEntryNode)r).FighterID;
+                    temp.Name = r.Name;
+                    ((RSTCNode)_resource).randList.AddChild(temp);
+                }
+            }
+        }
+
+        public void SyncCSS()
+        {
+            while (((RSTCNode)_resource).cssList.HasChildren)
+                ((RSTCNode)_resource).cssList.RemoveChild(((RSTCNode)_resource).cssList.Children[0]);
+            foreach (ResourceNode r in ((RSTCNode)_resource).randList.Children)
+            {
+                RSTCEntryNode temp = new RSTCEntryNode();
+                temp.FighterID = ((RSTCEntryNode)r).FighterID;
+                temp.Name = r.Name;
+                ((RSTCNode)_resource).cssList.AddChild(temp);
+            }
         }
 
         public RSTCWrapper() { ContextMenuStrip = _menu; }

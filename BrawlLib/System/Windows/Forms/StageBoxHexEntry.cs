@@ -32,7 +32,7 @@ namespace System.Windows.Forms
                         if (!char.IsDigit(numNewCount.Text[i]))
                             return -1;
                     // Only allow the max number based on the "numBytes" value
-                    int maxValue = ((int)Math.Pow(16, numBytes)) - 1;
+                    long maxValue = ((long)Math.Pow(16, numBytes)) - 1;
                     if (Convert.ToInt64(numNewCount.Value, 10) > maxValue)
                         return -1;
                 } else if(fromBase == 16)
