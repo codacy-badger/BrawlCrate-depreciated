@@ -1,10 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
-using BrawlLib.SSBB.ResourceNodes;
-using System.Collections.Generic;
 using System.Linq;
-using BrawlLib.SSBBTypes;
-using BrawlLib.Wii.Compression;
 
 namespace System.BrawlEx
 {
@@ -588,6 +584,8 @@ namespace System.BrawlEx
                 var icon = FranchiseIcon.Icons.Where(s => s.ID == (byte)value).FirstOrDefault();
                 return "0x" + ((byte)value).ToString("X2") + (icon == null ? "" : (" - " + icon.Name));
             }
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+                return 0;
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
@@ -622,6 +620,8 @@ namespace System.BrawlEx
                 var color = BrawlExColorID.Colors.Where(s => s.ID == (byte)value).FirstOrDefault();
                 return "0x" + ((byte)value).ToString("X2") + (color == null ? "" : (" - " + color.Name));
             }
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+                return 0;
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
@@ -656,6 +656,8 @@ namespace System.BrawlEx
                 var record = RecordBank.Records.Where(s => s.ID == (byte)value).FirstOrDefault();
                 return "0x" + ((byte)value).ToString("X2") + (record == null ? "" : (" - " + record.Name));
             }
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+                return 0;
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
@@ -691,6 +693,8 @@ namespace System.BrawlEx
                 var fighter = ExFighter.Fighters.Where(s => s.ID == (byte)value).FirstOrDefault();
                 return "0x" + ((byte)value).ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
             }
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+                return 0;
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
@@ -726,6 +730,8 @@ namespace System.BrawlEx
                 var fighter = ExFighterLong.ExFighters.Where(s => s.ID == (uint)value).FirstOrDefault();
                 return "0x" + ((uint)value).ToString("X8") + (fighter == null ? "" : (" - " + fighter.Name));
             }
+            else if ((destinationType == typeof(int) || destinationType == typeof(uint)) && value != null && value.GetType() == typeof(string))
+                return 0;
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
@@ -760,6 +766,8 @@ namespace System.BrawlEx
                 var fighter = CSSSlotIDs.CSSSlots.Where(s => s.ID == (byte)value).FirstOrDefault();
                 return "0x" + ((byte)value).ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
             }
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+                return 0;
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }

@@ -502,6 +502,8 @@ namespace System
                 var stage = BrawlLib.SSBB.Stage.Stages.Where(s => s.ID == (int)value).FirstOrDefault();
                 return "0x" + ((int)value).ToString("X2") + (stage == null ? "" : (" - " + stage.Name));
             }
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+                return 0;
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
@@ -535,6 +537,8 @@ namespace System
                 var stage = BrawlLib.SSBB.Stage.RelList.Where(s => s.ID == (int)value).FirstOrDefault();
                 return "0x" + ((int)value).ToString("X2") + (stage == null ? "" : (" - " + stage.Name));
             }
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+                return 0;
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
@@ -568,6 +572,8 @@ namespace System
                 var item = BrawlLib.SSBB.Item.Items.Where(s => s.ID == (int)value).FirstOrDefault();
                 return "0x" + ((int)value).ToString("X2") + (item == null ? "" : (" - " + item.Name));
             }
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+                return 0;
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
@@ -601,6 +607,8 @@ namespace System
                 var fighter = BrawlLib.SSBB.Fighter.Fighters.Where(s => s.ID == (byte)value).FirstOrDefault();
                 return "0x" + ((byte)value).ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
             }
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+                return 0;
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
