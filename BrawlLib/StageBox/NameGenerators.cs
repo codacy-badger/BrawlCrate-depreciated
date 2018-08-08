@@ -14,7 +14,7 @@ namespace BrawlLib.StageBox
     public static class StageNameGenerators
     {
         public static List<string> stageList = new List<string>();
-        public static string listName = "customLists\\StageList.txt";
+        public static string listName = "CustomLists\\StageList.txt";
 
         public static string FromID(int id)
         {
