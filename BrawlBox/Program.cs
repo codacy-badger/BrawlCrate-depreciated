@@ -45,7 +45,8 @@ namespace BrawlBox
             _saveDlg = new SaveFileDialog();
             _folderDlg = new FolderBrowserDialog();
             
-            StageNameGenerators.GenerateStageList();
+            StageNameGenerators.GenerateList();
+            FighterNameGenerators.GenerateList();
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Application.ThreadException += Application_ThreadException;
