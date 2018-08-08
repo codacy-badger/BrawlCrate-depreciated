@@ -14,7 +14,8 @@ namespace BrawlLib.StageBox
     public static class StageNameGenerators
     {
         public static List<string> stageList = new List<string>();
-        public static string listName = "CustomLists\\StageList.txt";
+        public static string directory = "CustomLists";
+        public static string listName = directory + '\\' + "StageList.txt";
 
         public static string FromID(int id)
         {
@@ -48,6 +49,7 @@ namespace BrawlLib.StageBox
 
         public static void GenerateStageList()
         {
+            Directory.CreateDirectory(directory);
             if (!File.Exists(listName))
                 GenerateDefaultStageList();
             stageList = new List<string>(File.ReadAllLines(listName));
