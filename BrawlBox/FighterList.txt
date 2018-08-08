@@ -1,0 +1,7 @@
+Original Name | Actual Name
+
+mario:          Mario
+donkey:         Donkey Kong
+link:           Link
+samus:          Samus
+szerosuit:      Zero Suit Samus

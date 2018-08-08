@@ -7,7 +7,7 @@ using BrawlLib.SSBB.ResourceNodes;
 using System.IO;
 using System.Diagnostics;
 using Microsoft.Win32;
-//using BrawlLib.StageBox;
+using BrawlLib.StageBox;
 
 namespace BrawlBox
 {
@@ -44,6 +44,8 @@ namespace BrawlBox
             _openDlg = new OpenFileDialog();
             _saveDlg = new SaveFileDialog();
             _folderDlg = new FolderBrowserDialog();
+            
+            StageNameGenerators.GenerateStageList();
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Application.ThreadException += Application_ThreadException;

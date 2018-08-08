@@ -1,0 +1,242 @@
+Internal Name | Actual Name
+
+BATTLEFIELD:    Battlefield
+FINAL:          Final Destination (Melee)
+DOLPIC:         Delfino's Secret
+MANSION:        Luigi's Mansion
+MARIOPAST:      Metal Cavern
+KART:           Bowser's Castle
+DONKEY:         Kongo Jungle 64
+JUNGLE:         Rumble Falls
+PIRATES:        Pirate Ship
+NORFAIR:        Norfair
+ORPHEON:        Frigate Orpheon
+CRAYON:         Yoshi's Island (Brawl)
+HALBERD:        Halberd
+STARFOX:        Lylat Cruise
+STADIUM:        Saffron City
+TENGAN:         Spear Pillar
+FZERO:          Port Town Aero Dive
+ICE:            Infinite Glacier
+GW:             Flat Zone 2
+EMBLEM:         Castle Siege
+MADEIN:         Wario Land
+EARTH:          Distant Planet
+PALUTENA:       Skyworld
+FAMICOM:        Fountain of Dreams
+NEWPORK:        Fourside
+VILLAGE:        Smashville
+METALGEAR:      Shadow Moses Island
+GREENHILL:      Green Hill Zone
+PICTCHAT:       PictoChat
+PLANKTON:       Hanenbow
+CONFIGTEST:     Control Configuration Stage
+DXSHRINE:       Temple
+DXYORSTER:      Yoshi's Story
+DXGARDEN:       Jungle Japes
+DXONETT:        Onett
+DXGREENS:       Dream Land 64
+DXPSTADIUM:     Pokémon Stadium 2
+DXRCRUISE:      Peach's Castle 64
+DXCORNERIA:     Corneria
+DXBIGBLUE:      Big Blue
+DXZEBES:        Brinstar
+OLDIN:          Hyrule Castle
+HOMERUN:        Home Run Contest
+EDIT:           Stage Builder
+HEAL:           All-Star Rest Area
+ONLINETRAINING: Training Room
+TARGETLV:       Break the Targets
+CHARAROLL:      Classic Mode Credits
+CUSTOM01:       Custom 01
+CUSTOM02:       Custom 02
+CUSTOM03:       Custom 03
+CUSTOM04:       Custom 04
+CUSTOM05:       Custom 05
+CUSTOM06:       Custom 06
+CUSTOM07:       Custom 07
+CUSTOM08:       Custom 08
+CUSTOM09:       Custom 09
+CUSTOM0A:       Custom 0A
+CUSTOM0B:       Custom 0B
+CUSTOM0C:       Custom 0C
+CUSTOM0D:       Custom 0D
+CUSTOM0E:       Custom 0E
+CUSTOM0F:       Custom 0F
+CUSTOM10:       Custom 10
+CUSTOM11:       Custom 11
+CUSTOM12:       Custom 12
+CUSTOM13:       Custom 13
+CUSTOM14:       Custom 14
+CUSTOM15:       Custom 15
+CUSTOM16:       Custom 16
+CUSTOM17:       Custom 17
+CUSTOM18:       Custom 18
+CUSTOM19:       Custom 19
+CUSTOM1A:       Custom 1A
+CUSTOM1B:       Custom 1B
+CUSTOM1C:       Custom 1C
+CUSTOM1D:       Custom 1D
+CUSTOM1E:       Custom 1E
+CUSTOM1F:       Custom 1F
+CUSTOM20:       Custom 20
+CUSTOM21:       Custom 21
+CUSTOM22:       Custom 22
+CUSTOM23:       Custom 23
+CUSTOM24:       Custom 24
+CUSTOM25:       Custom 25
+CUSTOM26:       Custom 26
+CUSTOM27:       Custom 27
+CUSTOM28:       Custom 28
+CUSTOM29:       Custom 29
+CUSTOM2A:       Custom 2A
+CUSTOM2B:       Custom 2B
+CUSTOM2C:       Custom 2C
+CUSTOM2D:       Custom 2D
+CUSTOM2E:       Custom 2E
+CUSTOM2F:       Custom 2F
+CUSTOM30:       Custom 30
+CUSTOM31:       Custom 31
+CUSTOM32:       Custom 32
+CUSTOM33:       Custom 33
+CUSTOM34:       Custom 34
+CUSTOM35:       Custom 35
+CUSTOM36:       Custom 36
+CUSTOM37:       Custom 37
+CUSTOM38:       Custom 38
+CUSTOM39:       Custom 39
+CUSTOM3A:       Custom 3A
+CUSTOM3B:       Custom 3B
+CUSTOM3C:       Custom 3C
+CUSTOM3D:       Custom 3D
+CUSTOM3E:       Custom 3E
+CUSTOM3F:       Custom 3F
+CUSTOM40:       Custom 40
+CUSTOM41:       Custom 41
+CUSTOM42:       Custom 42
+CUSTOM43:       Custom 43
+CUSTOM44:       Custom 44
+CUSTOM45:       Custom 45
+CUSTOM46:       Custom 46
+CUSTOM47:       Custom 47
+CUSTOM48:       Custom 48
+CUSTOM49:       Custom 49
+CUSTOM4A:       Custom 4A
+CUSTOM4B:       Custom 4B
+CUSTOM4C:       Custom 4C
+CUSTOM4D:       Custom 4D
+CUSTOM4E:       Custom 4E
+CUSTOM4F:       Custom 4F
+CUSTOM50:       Custom 50
+CUSTOM51:       Custom 51
+CUSTOM52:       Custom 52
+CUSTOM53:       Custom 53
+CUSTOM54:       Custom 54
+CUSTOM55:       Custom 55
+CUSTOM56:       Custom 56
+CUSTOM57:       Custom 57
+CUSTOM58:       Custom 58
+CUSTOM59:       Custom 59
+CUSTOM5A:       Custom 5A
+CUSTOM5B:       Custom 5B
+CUSTOM5C:       Custom 5C
+CUSTOM5D:       Custom 5D
+CUSTOM5E:       Custom 5E
+CUSTOM5F:       Custom 5F
+CUSTOM60:       Custom 60
+CUSTOM61:       Custom 61
+CUSTOM62:       Custom 62
+CUSTOM63:       Custom 63
+CUSTOM64:       Custom 64
+CUSTOM65:       Custom 65
+CUSTOM66:       Custom 66
+CUSTOM67:       Custom 67
+CUSTOM68:       Custom 68
+CUSTOM69:       Custom 69
+CUSTOM6A:       Custom 6A
+CUSTOM6B:       Custom 6B
+CUSTOM6C:       Custom 6C
+CUSTOM6D:       Custom 6D
+CUSTOM6E:       Custom 6E
+CUSTOM6F:       Custom 6F
+CUSTOM70:       Custom 70
+CUSTOM71:       Custom 71
+CUSTOM72:       Custom 72
+CUSTOM73:       Custom 73
+CUSTOM74:       Custom 74
+CUSTOM75:       Custom 75
+CUSTOM76:       Custom 76
+CUSTOM77:       Custom 77
+CUSTOM78:       Custom 78
+CUSTOM79:       Custom 79
+CUSTOM7A:       Custom 7A
+CUSTOM7B:       Custom 7B
+CUSTOM7C:       Custom 7C
+CUSTOM7D:       Custom 7D
+CUSTOM7E:       Custom 7E
+CUSTOM7F:       Custom 7F
+CUSTOM80:       Custom 80
+CUSTOM81:       Custom 81
+CUSTOM82:       Custom 82
+CUSTOM83:       Custom 83
+CUSTOM84:       Custom 84
+CUSTOM85:       Custom 85
+CUSTOM86:       Custom 86
+CUSTOM87:       Custom 87
+CUSTOM88:       Custom 88
+CUSTOM89:       Custom 89
+CUSTOM8A:       Custom 8A
+CUSTOM8B:       Custom 8B
+CUSTOM8C:       Custom 8C
+CUSTOM8D:       Custom 8D
+CUSTOM8E:       Custom 8E
+CUSTOM8F:       Custom 8F
+CUSTOM90:       Custom 90
+CUSTOM91:       Custom 91
+CUSTOM92:       Custom 92
+CUSTOM93:       Custom 93
+CUSTOM94:       Custom 94
+CUSTOM95:       Custom 95
+CUSTOM96:       Custom 96
+CUSTOM97:       Custom 97
+CUSTOM98:       Custom 98
+CUSTOM99:       Custom 99
+CUSTOM9A:       Custom 9A
+CUSTOM9B:       Custom 9B
+CUSTOM9C:       Custom 9C
+CUSTOM9D:       Custom 9D
+CUSTOM9E:       Custom 9E
+CUSTOM9F:       Custom 9F
+CUSTOMA0:       Custom A0
+CUSTOMA1:       Custom A1
+CUSTOMA2:       Custom A2
+CUSTOMA3:       Custom A3
+CUSTOMA4:       Custom A4
+CUSTOMA5:       Custom A5
+CUSTOMA6:       Custom A6
+CUSTOMA7:       Custom A7
+CUSTOMA8:       Custom A8
+CUSTOMA9:       Custom A9
+CUSTOMAA:       Custom AA
+CUSTOMAB:       Custom AB
+CUSTOMAC:       Custom AC
+CUSTOMAD:       Custom AD
+CUSTOMAE:       Custom AE
+CUSTOMAF:       Custom AF
+CUSTOMB0:       Custom B0
+CUSTOMB1:       Custom B1
+CUSTOMB2:       Custom B2
+CUSTOMB3:       Custom B3
+CUSTOMB4:       Custom B4
+CUSTOMB5:       Custom B5
+CUSTOMB6:       Custom B6
+CUSTOMB7:       Custom B7
+CUSTOMB8:       Custom B8
+CUSTOMB9:       Custom B9
+CUSTOMBA:       Custom BA
+CUSTOMBB:       Custom BB
+CUSTOMBC:       Custom BC
+CUSTOMBD:       Custom BD
+CUSTOMBE:       Custom BE
+CUSTOMBF:       Custom BF
+CUSTOMC0:       Custom C0

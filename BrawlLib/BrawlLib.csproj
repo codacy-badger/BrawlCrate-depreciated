@@ -291,6 +291,7 @@
     <None Include="SSBB\Types\Wii U\FSAR.cs" />
     <None Include="SSBB\Types\Wii U\FTEX.cs" />
     <None Include="SSBB\Types\Wii U\SARC.cs" />
+    <Compile Include="StageBox\NameGenerators.cs" />
     <Compile Include="System\AttributeInfo.cs" />
     <Compile Include="System\Audio\alAudioBuffer.cs" />
     <Compile Include="System\Audio\alAudioProvider.cs" />
@@ -1201,9 +1202,7 @@
   <ItemGroup>
     <Content Include="OpenTK.dll" />
     <Content Include="System\Windows\Controls\Hex Editor\HexBox.bmp" />
-    <Content Include="BrawlLib.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="BrawlLib.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
