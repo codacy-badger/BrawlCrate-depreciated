@@ -460,7 +460,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FighterList.txt" />
-    <Content Include="Project M Stage List - Move to the main folder if you wish to use it\StageList.txt">
+    <Content Include="Project M 3.6 Stage List - Move to the main folder if you wish to use it\StageList.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\GWAT.png" />

@@ -77,7 +77,7 @@ namespace BrawlLib.SSBB
             this.RelName = relname;
             this.PacBasename = pac_basename;
             this.OriginalName = pac_basename;
-            this.Name = StageNameGenerators.FromPacName(pac_basename);
+            this.Name = StageNameGenerators.FromID(id);
         }
 
         public Stage(byte id, string name, string relname, string pac_basename)
@@ -88,7 +88,7 @@ namespace BrawlLib.SSBB
             this.PacBasename = pac_basename;
             this.OriginalName = name;
             if (this.Name == "")
-                this.Name = StageNameGenerators.FromPacName(pac_basename);
+                this.Name = StageNameGenerators.FromID(id);
         }
 
         public Stage(byte id, string name, string relname, string pac_basename, bool allowCustomNames)
@@ -99,7 +99,7 @@ namespace BrawlLib.SSBB
             this.PacBasename = pac_basename;
             this.OriginalName = name;
             if (name == "" || allowCustomNames)
-                this.Name = StageNameGenerators.FromPacName(pac_basename);
+                this.Name = StageNameGenerators.FromID(id);
             else
                 this.Name = name;
         }
