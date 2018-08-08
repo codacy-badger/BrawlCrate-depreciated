@@ -14,12 +14,12 @@ namespace BrawlLib.StageBox
     public static class StageNameGenerators
     {
         public static List<string> stageList = new List<string>();
-        public static string listName = "StageList.txt";
+        public static string listName = "customLists\\StageList.txt";
 
         public static string FromID(int id)
         {
             foreach (string s in stageList)
-                if (s.StartsWith("0x" + id.ToString("X2")))
+                if (s.ToUpper().StartsWith("0X" + id.ToString("X2").ToUpper()))
                     return s.Substring(24);
             return "Stage0x" + id.ToString("X2");
         }
@@ -34,7 +34,7 @@ namespace BrawlLib.StageBox
                 isExStage = true;
             }
             foreach (string s in stageList)
-                if (s.Substring(8).StartsWith(pacName.ToUpper()) || (isExStage && s.Substring(8).StartsWith("EX" + exID)))
+                if (s.ToUpper().Substring(8).StartsWith(pacName.ToUpper()) || (isExStage && s.ToUpper().Substring(8).StartsWith("EX" + exID)))
                     return s.Substring(24);
             return pacName.ToUpper();
         }
