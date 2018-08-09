@@ -70,6 +70,15 @@ namespace BrawlLib.SSBB
             string input_basename = filename.Substring(3, i - 3);
             return String.Equals(input_basename.ToLower(), PacBasename.ToLower(), StringComparison.InvariantCultureIgnoreCase);
         }
+        
+        public Stage(byte id, bool allowCustomNames)
+        {
+            this.ID = id;
+            if (allowCustomNames)
+                this.Name = StageNameGenerators.FromID(id);
+            else
+                this.Name = "Stage 0x" + id.ToString("X2");
+        }
 
         public Stage(byte id, string relname, string pac_basename)
         {
