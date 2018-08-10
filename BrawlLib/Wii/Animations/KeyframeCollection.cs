@@ -3,6 +3,23 @@ using System.Collections.Generic;
 
 namespace BrawlLib.Wii.Animations
 {
+    public enum KeyFrameMode : int
+    {
+        ScaleX = 0x10,
+        ScaleY = 0x11,
+        ScaleZ = 0x12,
+        RotX = 0x13,
+        RotY = 0x14,
+        RotZ = 0x15,
+        TransX = 0x16,
+        TransY = 0x17,
+        TransZ = 0x18,
+        ScaleXYZ = 0x30,
+        RotXYZ = 0x33,
+        TransXYZ = 0x36,
+        All = 0x90
+    }
+
     public interface IKeyframeSource
     {
         //KeyframeEntry GetKeyframe(int index, int arrayIndex);
@@ -59,8 +76,34 @@ namespace BrawlLib.Wii.Animations
             set { foreach (int i in arrays) _keyArrays[i].SetFrameValue(index, value); }
         }
 
+        public KeyframeEntry SetFrameValue(KeyFrameMode mode, int index, float value)
+        {
+            KeyframeEntry entry = null, root;
+            for (int x = (int)mode & 0xF, y = x + ((int)mode >> 4); x < y; x++)
+            {
+                root = _keyArrays[x]._keyRoot;
+
+                if ((root._prev == root) || (root._prev._index < index))
+                    entry = root;
+                else
+                    for (entry = root._next; (entry != root) && (entry._index <= index); entry = entry._next) ;
+
+                entry = entry._prev;
+                if (entry._index != index)
+                {
+                    _keyArrays[x]._keyCount++;
+                    entry.InsertAfter(entry = new KeyframeEntry(index, value));
+                }
+                else
+                    entry._value = value;
+            }
+            return entry;
+        }
+
         public KeyframeEntry SetFrameValue(int arrayIndex, int frameIndex, float value, bool parsing = false)
         {
+            if (arrayIndex > _keyArrays.Length)
+                Console.WriteLine(arrayIndex + ">" + _keyArrays.Length);
             return _keyArrays[arrayIndex].SetFrameValue(frameIndex, value, parsing);
         }
 
@@ -250,15 +293,28 @@ namespace BrawlLib.Wii.Animations
         /// The Wii emulates linear interpolation using two keyframes across a range with the same tangent
         /// and then two keyframes on the same frame but with different tangents.
         /// </summary>
-        public float Interpolate(float offset, bool forceLinear = false)
+        public float Interpolate(float offset, bool linear = false)
         {
-            return Interpolate(offset, _next._index - _index, _next, forceLinear);
+            if (offset == 0) return _value;
+            int span = _next._index - _index;
+            if (offset == span) return _next._value;
+
+            float diff = _next._value - _value;
+
+            if (linear) return _value + (diff / span * offset);
+
+            float time = (float)offset / span;
+            float inv = time - 1.0f;
+
+            return _value
+                + (offset * inv * ((inv * _tangent) + (time * _next._tangent)))
+                + ((time * time) * (3.0f - 2.0f * time) * diff);
         }
 
         const bool RoundTangent = true;
         const int TangetDecimalPlaces = 3;
 
-        public float GenerateTangent()
+        /*public float GenerateTangent()
         {
             _tangent = 0.0f;
             if (Second != null)
@@ -302,6 +358,21 @@ namespace BrawlLib.Wii.Animations
                 _tangent = (float)Math.Round(_tangent, TangetDecimalPlaces);
 
             return _tangent;
+        }*/
+
+        public float GenerateTangent()
+        {
+            float tan = 0.0f;
+            if (_prev._index != -1)
+                tan += (_value - _prev._value) / (_index - _prev._index);
+            if (_next._index != -1)
+            {
+                tan += (_next._value - _value) / (_next._index - _index);
+                if (_prev._index != -1)
+                    tan *= 0.5f;
+            }
+
+            return _tangent = tan;
         }
 
         public override string ToString()
@@ -398,7 +469,7 @@ namespace BrawlLib.Wii.Animations
             return null;
         }
 
-        public float GetFrameValue(float index, bool returnOutValue = false)
+        /*public float GetFrameValue(float index, bool returnOutValue = false)
         {
             KeyframeEntry entry;
 
@@ -447,6 +518,27 @@ namespace BrawlLib.Wii.Animations
 
             //Frame lies between two keyframes. Interpolate between them
             return entry._prev.Interpolate(index - entry._prev._index);
+        }*/
+
+        public float GetFrameValue(float index, bool linear = false)
+        {
+            KeyframeEntry entry;
+
+            if (index >= _keyRoot._prev._index)
+                return _keyRoot._prev._value;
+            if (index <= _keyRoot._next._index)
+                return _keyRoot._next._value;
+
+            //Find the entry just before the specified index
+            for (entry = _keyRoot._next; //Get the first entry
+                (entry != _keyRoot) && //Make sure it's not the root
+                (entry._index < index);  //Its index must be less than the current index
+                entry = entry._next) //Get the next entry
+                if (entry._index == index) //The index is a keyframe
+                    return entry._value; //Return the value of the keyframe.
+
+            //There was no keyframe... interpolate!
+            return entry._prev.Interpolate(index - entry._prev._index, linear);
         }
 
         public KeyframeEntry SetFrameValue(int index, float value, bool parsing = false)
