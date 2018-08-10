@@ -553,6 +553,69 @@ namespace System.BrawlEx
             new CSSSlotIDs(0x7F, "ExFighter7F")
         };
     }*/
+    
+    public class AIController
+    {
+        public uint ID { get; private set; }
+        public string Name { get; private set; }
+
+        public AIController(uint id, string name)
+        {
+            this.ID = id;
+            this.Name = name;
+        }
+
+        public override string ToString() { return Name; }
+
+        public readonly static AIController[] aIControllers = new AIController[] {
+            //            ID     Display Name     
+			new AIController(0x00, "Mario"),
+            new AIController(0x01, "Donkey Kong"),
+            new AIController(0x02, "Link"),
+            new AIController(0x03, "Samus"),
+            new AIController(0x04, "Yoshi"),
+            new AIController(0x05, "Kirby"),
+            new AIController(0x06, "Fox"),
+            new AIController(0x07, "Pikachu"),
+            new AIController(0x08, "Luigi"),
+            new AIController(0x09, "Captain Falcon"),
+            new AIController(0x0A, "Ness"),
+            new AIController(0x0B, "Bowser"),
+            new AIController(0x0C, "Peach"),
+            new AIController(0x0D, "Zelda"),
+            new AIController(0x0E, "Sheik"),
+            new AIController(0x0F, "Popo"),
+            new AIController(0x10, "Nana"),
+            new AIController(0x11, "Marth"),
+            new AIController(0x12, "Mr. Game & Watch"),
+            new AIController(0x13, "Falco"),
+            new AIController(0x14, "Ganondorf"),
+            new AIController(0x15, "Wario"),
+            new AIController(0x16, "Meta Knight"),
+            new AIController(0x17, "Pit"),
+            new AIController(0x18, "Zero Suit Samus"),
+            new AIController(0x19, "Olimar"),
+            new AIController(0x1A, "Lucas"),
+            new AIController(0x1B, "Diddy Kong"),
+            new AIController(0x1C, "Pokémon Trainer"),
+            new AIController(0x1D, "Charizard"),
+            new AIController(0x1E, "Squirtle"),
+            new AIController(0x1F, "Ivysaur"),
+            new AIController(0x20, "King Dedede"),
+            new AIController(0x21, "Lucario"),
+            new AIController(0x22, "Ike"),
+            new AIController(0x23, "R.O.B."),
+            new AIController(0x25, "Jigglypuff"),
+            new AIController(0x29, "Toon Link"),
+            new AIController(0x2C, "Wolf"),
+            new AIController(0x2E, "Snake"),
+            new AIController(0x2F, "Sonic"),
+            new AIController(0x30, "Giga Bowser"),
+            new AIController(0x31, "Warioman"),
+            new AIController(0x32, "Alloys"),
+            new AIController(0xFFFFFFFF, "None")
+        };
+    }
 
     public class DropDownListBrawlExIconIDs : ByteConverter
     {
@@ -728,6 +791,42 @@ namespace System.BrawlEx
             if (destinationType == typeof(string) && value.GetType() == typeof(uint))
             {
                 var fighter = BrawlLib.StageBox.FighterNameGenerators.fighterIDLongList.Where(s => s.ID == (uint)value).FirstOrDefault();
+                return "0x" + ((uint)value).ToString("X8") + (fighter == null ? "" : (" - " + fighter.Name));
+            }
+            else if ((destinationType == typeof(int) || destinationType == typeof(uint)) && value != null && value.GetType() == typeof(string))
+                return 0;
+            return base.ConvertTo(context, culture, value, destinationType);
+        }
+    }
+    
+    public class DropDownListBrawlExAIControllers : UInt32Converter
+    {
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+        {
+            return new StandardValuesCollection(AIController.aIControllers.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+        }
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
+        }
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            if (value.GetType() == typeof(string))
+            {
+                string field0 = (value.ToString() ?? "").Split(' ')[0];
+                int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase)
+                    ? 16
+                    : 10;
+                return Convert.ToUInt32(field0, fromBase);
+            }
+            return base.ConvertFrom(context, culture, value);
+        }
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            if (destinationType == typeof(string) && value.GetType() == typeof(uint))
+            {
+                var fighter = AIController.aIControllers.Where(s => s.ID == (uint)value).FirstOrDefault();
                 return "0x" + ((uint)value).ToString("X8") + (fighter == null ? "" : (" - " + fighter.Name));
             }
             else if ((destinationType == typeof(int) || destinationType == typeof(uint)) && value != null && value.GetType() == typeof(string))

@@ -159,7 +159,7 @@ namespace BrawlLib.StageBox
         static readonly int idIndex = 8;
         static readonly int internalNameIndex = 16;
         static readonly int nameIndex = 32;
-        static readonly int minimumLength = 33;
+        static readonly int minimumLength = nameIndex + 1;
         static readonly char[] trimChars = { ' ', '\t' };
 
         public static string FromID(int id)
