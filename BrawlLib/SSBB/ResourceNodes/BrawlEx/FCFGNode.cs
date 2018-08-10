@@ -647,15 +647,15 @@ namespace BrawlLib.SSBB.ResourceNodes
                     hdr->_internalNameArray[i] = 0x00;
             }
             
-            _pacNameArray = System.Text.Encoding.UTF8.GetBytes(PacName);
-            _kirbyPacNameArray = System.Text.Encoding.UTF8.GetBytes(KirbyPacName);
-            _moduleNameArray = System.Text.Encoding.UTF8.GetBytes(ModuleName);
-            _internalNameArray = System.Text.Encoding.UTF8.GetBytes(InternalFighterName);
+            _pacNameArray = System.Text.Encoding.UTF8.GetBytes(_pacName);
+            _kirbyPacNameArray = System.Text.Encoding.UTF8.GetBytes(_kirbyPacName);
+            _moduleNameArray = System.Text.Encoding.UTF8.GetBytes(_moduleName);
+            _internalNameArray = System.Text.Encoding.UTF8.GetBytes(_internalName);
 
             for (int i = 0; i < _pacNameArray.Length; i++)
                 hdr->_pacNameArray[i] = _pacNameArray[i];
-            for (int i = 0; i < _moduleNameArray.Length; i++)
-                hdr->_moduleNameArray[i] = _moduleNameArray[i];
+            for (int i = 0; i < _kirbyPacNameArray.Length; i++)
+                hdr->_kirbyPacNameArray[i] = _kirbyPacNameArray[i];
             for (int i = 0; i < _moduleNameArray.Length; i++)
                 hdr->_moduleNameArray[i] = _moduleNameArray[i];
             for (int i = 0; i < _internalNameArray.Length; i++)
@@ -715,11 +715,13 @@ namespace BrawlLib.SSBB.ResourceNodes
                 _internalNameArray[i] = Header->_internalNameArray[i];
 
             _pacName = System.Text.Encoding.UTF8.GetString(_pacNameArray).TrimEnd(new char[] { '\0' });
-            _kirbyPacName = System.Text.Encoding.UTF8.GetString(_kirbyPacNameArray).Substring(0, System.Text.Encoding.UTF8.GetString(_kirbyPacNameArray).IndexOf('\0'));
+            _kirbyPacName = System.Text.Encoding.UTF8.GetString(_kirbyPacNameArray).TrimEnd(new char[] { '\0' });
             _moduleName = System.Text.Encoding.UTF8.GetString(_moduleNameArray).TrimEnd(new char[] { '\0' });
             _internalName = System.Text.Encoding.UTF8.GetString(_internalNameArray).TrimEnd(new char[] { '\0' });
-            _fighterName = _kirbyPacName.Substring(14, (_kirbyPacName.Length - 4) - 14);
-
+            if (_kirbyPacName.ToUpper().LastIndexOf(".PAC") > 0 && _kirbyPacName.Length > 14 && _kirbyPacName.ToUpper().StartsWith("KIRBY/FITKIRBY"))
+                _fighterName = _kirbyPacName.Substring(14, _kirbyPacName.ToUpper().LastIndexOf(".PAC") - 14);
+            else
+                _fighterName = _internalName;
             _jabFlag = Header->_jabFlag;
             _jabCount = Header->_jabCount;
             _hasRapidJab = Header->_hasRapidJab;
