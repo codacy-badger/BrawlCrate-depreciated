@@ -608,6 +608,77 @@ namespace BrawlLib.SSBB.ResourceNodes
             set { _characterLoadFlags = (_characterLoadFlags & ~CharacterLoadFlags.WorkManageFlag) | (value ? CharacterLoadFlags.WorkManageFlag : 0); SignalPropertyChange(); }
         }
 
+        public override int OnCalculateSize(bool force)
+        {
+            return FCFG.Size;
+        }
+
+        public override void OnRebuild(VoidPtr address, int length, bool force)
+        {
+            FCFG* hdr = (FCFG*)address;
+            hdr->_tag = FCFG.Tag1;
+            hdr->_size = _size;
+            hdr->_version = _version;
+            hdr->_editFlag1 = _editFlag1;
+            hdr->_editFlag2 = _editFlag2;
+            hdr->_editFlag3 = _editFlag3;
+            hdr->_editFlag4 = _editFlag4;
+            hdr->_kirbyCopyColorFlags = _kirbyCopyColorFlags;
+            hdr->_entryColorFlags = _entryColorFlags;
+            hdr->_resultColorFlags = _resultColorFlags;
+            hdr->_characterLoadFlags = (byte)_characterLoadFlags;
+            hdr->_finalSmashColorFlags = _finalSmashColorFlags;
+            hdr->_unknown0x15 = _unknown0x15;
+            hdr->_colorFlags = (ushort)_colorFlags;
+            hdr->_entryArticleFlag = _entryArticleFlag;
+            hdr->_soundbank = _soundbank;
+            hdr->_kirbySoundbank = _kirbySoundbank;
+            hdr->_unknown0x24 = _unknown0x24;
+            hdr->_unknown0x28 = _unknown0x28;
+            hdr->_unknown0x2C = _unknown0x2C;
+
+            for(int i = 0; i < 48; i++)
+            {
+                hdr->_pacNameArray[i] = 0x00;
+                hdr->_kirbyPacNameArray[i] = 0x00;
+                if (i < 32)
+                    hdr->_moduleNameArray[i] = 0x00;
+                if (i < 16)
+                    hdr->_internalNameArray[i] = 0x00;
+            }
+            
+            _pacNameArray = System.Text.Encoding.UTF8.GetBytes(PacName);
+            _kirbyPacNameArray = System.Text.Encoding.UTF8.GetBytes(KirbyPacName);
+            _moduleNameArray = System.Text.Encoding.UTF8.GetBytes(ModuleName);
+            _internalNameArray = System.Text.Encoding.UTF8.GetBytes(InternalFighterName);
+
+            for (int i = 0; i < _pacNameArray.Length; i++)
+                hdr->_pacNameArray[i] = _pacNameArray[i];
+            for (int i = 0; i < _moduleNameArray.Length; i++)
+                hdr->_moduleNameArray[i] = _moduleNameArray[i];
+            for (int i = 0; i < _moduleNameArray.Length; i++)
+                hdr->_moduleNameArray[i] = _moduleNameArray[i];
+            for (int i = 0; i < _internalNameArray.Length; i++)
+                hdr->_internalNameArray[i] = _internalNameArray[i];
+
+            hdr->_jabFlag = _jabFlag;
+            hdr->_jabCount = _jabCount;
+            hdr->_hasRapidJab = _hasRapidJab;
+            hdr->_canTilt = _canTilt;
+            hdr->_fSmashCount = _fSmashCount;
+            hdr->_airJumpCount = _airJumpCount;
+            hdr->_canGlide = _canGlide;
+            hdr->_canCrawl = _canCrawl;
+            hdr->_dashAttackIntoCrouch = _dashAttackIntoCrouch;
+            hdr->_canWallJump = _canWallJump;
+            hdr->_canCling = _canCling;
+            hdr->_canZAir = _canZAir;
+            hdr->_u12Flag = _u12Flag;
+            hdr->_u13Flag = _u13Flag;
+            hdr->_textureLoad = _textureLoad;
+            hdr->_aiController = _aiController;
+        }
+
         public override bool OnInitialize()
         {
             _tag = Header->_tag;
@@ -624,9 +695,9 @@ namespace BrawlLib.SSBB.ResourceNodes
             _finalSmashColorFlags = Header->_finalSmashColorFlags;
             _unknown0x15 = Header->_unknown0x15;
             _colorFlags = (CostumeLoadFlags)((ushort)Header->_colorFlags);
-            _entryArticleFlag = (uint)Header->_entryArticleFlag;
-            _soundbank = (uint)Header->_soundbank;
-            _kirbySoundbank = (uint)Header->_kirbySoundbank;
+            _entryArticleFlag = Header->_entryArticleFlag;
+            _soundbank = Header->_soundbank;
+            _kirbySoundbank = Header->_kirbySoundbank;
             _unknown0x24 = Header->_unknown0x24;
             _unknown0x28 = Header->_unknown0x28;
             _unknown0x2C = Header->_unknown0x2C;
