@@ -120,26 +120,26 @@ namespace BrawlLib.Wii.Animations
                 if (code.IsScaleIsotropic)
                 {
                     if (code.IsScaleZFixed)
-                        kf[(int)KeyFrameMode.ScaleXYZ, 0] = *sPtr++;
+                        kf[0, 0, 1, 2] = *sPtr++;
                     else
-                        DecodeCHR0Frames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, KeyFrameMode.ScaleXYZ);
+                        DecodeFrames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, 0, 1, 2);
                 }
                 else
                 {
                     if (code.IsScaleXFixed)
-                        kf[(int)KeyFrameMode.ScaleX, 0] = *sPtr++;
+                        kf[0, 0] = *sPtr++;
                     else
-                        DecodeCHR0Frames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, KeyFrameMode.ScaleX);
+                        DecodeFrames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, 0);
 
                     if (code.IsScaleYFixed)
-                        kf[(int)KeyFrameMode.ScaleY, 0] = *sPtr++;
+                        kf[0, 1] = *sPtr++;
                     else
-                        DecodeCHR0Frames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, KeyFrameMode.ScaleY);
+                        DecodeFrames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, 1);
 
                     if (code.IsScaleZFixed)
-                        kf[(int)KeyFrameMode.ScaleZ, 0] = *sPtr++;
+                        kf[0, 2] = *sPtr++;
                     else
-                        DecodeCHR0Frames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, KeyFrameMode.ScaleZ);
+                        DecodeFrames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, 2);
                 }
             }
 
@@ -149,26 +149,26 @@ namespace BrawlLib.Wii.Animations
                 if (code.IsRotationIsotropic)
                 {
                     if (code.IsRotationZFixed)
-                        kf[(int)KeyFrameMode.RotXYZ, 0] = *sPtr++;
+                        kf[0, 3, 4, 5] = *sPtr++;
                     else
-                        DecodeCHR0Frames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, KeyFrameMode.RotXYZ);
+                        DecodeFrames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, 3, 4, 5);
                 }
                 else
                 {
                     if (code.IsRotationXFixed)
-                        kf[(int)KeyFrameMode.RotX, 0] = *sPtr++;
+                        kf[0, 3] = *sPtr++;
                     else
-                        DecodeCHR0Frames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, KeyFrameMode.RotX);
+                        DecodeFrames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, 3);
 
                     if (code.IsRotationYFixed)
-                        kf[(int)KeyFrameMode.RotY, 0] = *sPtr++;
+                        kf[0, 4] = *sPtr++;
                     else
-                        DecodeCHR0Frames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, KeyFrameMode.RotY);
+                        DecodeFrames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, 4);
 
                     if (code.IsRotationZFixed)
-                        kf[(int)KeyFrameMode.RotZ, 0] = *sPtr++;
+                        kf[0, 5] = *sPtr++;
                     else
-                        DecodeCHR0Frames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, KeyFrameMode.RotZ);
+                        DecodeFrames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, 5);
                 }
             }
 
@@ -178,117 +178,30 @@ namespace BrawlLib.Wii.Animations
                 if (code.IsTranslationIsotropic)
                 {
                     if (code.IsTranslationZFixed)
-                        kf[(int)KeyFrameMode.TransXYZ, 0] = *sPtr++;
+                        kf[0, 6, 7, 8] = *sPtr++;
                     else
-                        DecodeCHR0Frames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, KeyFrameMode.TransXYZ);
+                        DecodeFrames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, 6, 7, 8);
                 }
                 else
                 {
                     if (code.IsTranslationXFixed)
-                        kf[(int)KeyFrameMode.TransX, 0] = *sPtr++;
+                        kf[0, 6] = *sPtr++;
                     else
-                        DecodeCHR0Frames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, KeyFrameMode.TransX);
+                        DecodeFrames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, 6);
 
                     if (code.IsTranslationYFixed)
-                        kf[(int)KeyFrameMode.TransY, 0] = *sPtr++;
+                        kf[0, 7] = *sPtr++;
                     else
-                        DecodeCHR0Frames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, KeyFrameMode.TransY);
+                        DecodeFrames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, 7);
 
                     if (code.IsTranslationZFixed)
-                        kf[(int)KeyFrameMode.TransZ, 0] = *sPtr++;
+                        kf[0, 8] = *sPtr++;
                     else
-                        DecodeCHR0Frames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, KeyFrameMode.TransZ);
+                        DecodeFrames(kf, (VoidPtr)entry + *(buint*)sPtr++, format, 8);
                 }
             }
 
             return kf;
-        }
-        private static void DecodeCHR0Frames(KeyframeCollection kf, void* dataAddr, AnimDataFormat format, KeyFrameMode mode)
-        {
-            int fCount;
-            float vStep, vBase;
-            switch (format)
-            {
-                case AnimDataFormat.I4:
-                    {
-                        I4Header* header = (I4Header*)dataAddr;
-                        fCount = header->_entries;
-                        vStep = header->_step;
-                        vBase = header->_base;
-
-                        I4Entry* entry = header->Data;
-                        for (int i = 0; i < fCount; i++, entry++)
-                            kf.SetFrameValue(mode, entry->FrameIndex, vBase + (entry->Step * vStep))._tangent = entry->Tangent;
-                        break;
-                    }
-                case AnimDataFormat.I6:
-                    {
-                        I6Header* header = (I6Header*)dataAddr;
-                        fCount = header->_numFrames;
-                        vStep = header->_step;
-                        vBase = header->_base;
-
-                        I6Entry* entry = header->Data;
-                        for (int i = 0; i < fCount; i++, entry++)
-                            kf.SetFrameValue(mode, entry->FrameIndex, vBase + (entry->_step * vStep))._tangent = entry->Tangent;
-                        break;
-                    }
-                case AnimDataFormat.I12:
-                    {
-                        I12Header* header = (I12Header*)dataAddr;
-                        fCount = header->_numFrames;
-
-                        I12Entry* entry = header->Data;
-                        for (int i = 0; i < fCount; i++, entry++)
-                            kf.SetFrameValue(mode, (int)entry->_index, entry->_value)._tangent = entry->_tangent;
-                        break;
-                    }
-                case AnimDataFormat.L1:
-                    {
-                        L1Header* header = (L1Header*)dataAddr;
-                        vStep = header->_step;
-                        vBase = header->_base;
-
-                        byte* sPtr = header->Data;
-                        for (int i = 0; i < kf.FrameLimit; i++)
-                            kf[(int)mode, i] = vBase + (*sPtr++ * vStep);
-
-                        KeyframeEntry root = kf._keyArrays[(int)mode & 0xF]._keyRoot;
-                        for (KeyframeEntry entry = root._next; entry != root; entry = entry._next)
-                            entry.GenerateTangent();
-
-                        break;
-                    }
-                case AnimDataFormat.L2:
-                    {
-                        L1Header* header = (L1Header*)dataAddr;
-                        vStep = header->_step;
-                        vBase = header->_base;
-
-                        bushort* sPtr = (bushort*)header->Data;
-                        for (int i = 0; i < kf.FrameLimit; i++)
-                            kf[(int)mode, i] = vBase + (*sPtr++ * vStep);
-
-                        KeyframeEntry root = kf._keyArrays[(int)mode & 0xF]._keyRoot;
-                        for (KeyframeEntry entry = root._next; entry != root; entry = entry._next)
-                            entry.GenerateTangent();
-
-                        break;
-                    }
-                case AnimDataFormat.L4:
-                    {
-                        bfloat* sPtr = (bfloat*)dataAddr;
-
-                        for (int i = 0; i < kf.FrameLimit; i++)
-                            kf[(int)mode, i] = *sPtr++;
-
-                        KeyframeEntry root = kf._keyArrays[(int)mode & 0xF]._keyRoot;
-                        for (KeyframeEntry entry = root._next; entry != root; entry = entry._next)
-                            entry.GenerateTangent();
-
-                        break;
-                    }
-            }
         }
 
         private static void DecodeFrames(KeyframeCollection kf, void* dataAddr, AnimDataFormat format, params int[] arrays)
