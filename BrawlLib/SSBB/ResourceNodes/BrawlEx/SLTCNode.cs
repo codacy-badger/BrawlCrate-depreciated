@@ -28,7 +28,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x26;                   // 0x26 - Seems to always be 0xCC
         public byte _unknown0x27;                   // 0x27 - Seems to always be 0xCC
         public uint _announcerSFX;                  // 0x28 - Announcer voiceline for victory screen
-        public int _unknown0x2C;                    // 0x2C - Appears to always be 0xCCCCCCCC
+        public uint _unknown0x2C;                   // 0x2C - Appears to always be 0xCCCCCCCC
         public float _victoryCamera1;               // 0x30 - Camera Distance
         public float _victoryCamera2;               // 0x34 - Camera Distance
         public float _victoryCamera3;               // 0x38 - Camera Distance
@@ -238,16 +238,16 @@ namespace BrawlLib.SSBB.ResourceNodes
             hdr->_editFlag2 = _editFlag2;
             hdr->_editFlag3 = _editFlag3;
             hdr->_setSlotCharacters = _setSlotCharacters;
-            hdr->_slot1 = (bint)_slot1;
-            hdr->_slot2 = (bint)_slot2;
-            hdr->_slot3 = (bint)_slot3;
-            hdr->_slot4 = (bint)_slot4;
-            hdr->_victoryTheme = (bint)_victoryTheme;
+            hdr->_slot1 = _slot1;
+            hdr->_slot2 = _slot2;
+            hdr->_slot3 = _slot3;
+            hdr->_slot4 = _slot4;
+            hdr->_victoryTheme = _victoryTheme;
             hdr->_recordSlot = _recordSlot;
             hdr->_unknown0x25 = _unknown0x25;
             hdr->_unknown0x26 = _unknown0x26;
             hdr->_unknown0x27 = _unknown0x27;
-            hdr->_announcerSFX = (bint)_announcerSFX;
+            hdr->_announcerSFX = _announcerSFX;
             hdr->_unknown0x2C = _unknown0x2C;
             hdr->_victoryCamera1 = _victoryCamera1;
             hdr->_victoryCamera2 = _victoryCamera2;
@@ -264,16 +264,16 @@ namespace BrawlLib.SSBB.ResourceNodes
             _editFlag2 = Header->_editFlag2;
             _editFlag3 = Header->_editFlag3;
             _setSlotCharacters = Header->_setSlotCharacters;
-            _slot1 = (uint)Header->_slot1;
-            _slot2 = (uint)Header->_slot2;
-            _slot3 = (uint)Header->_slot3;
-            _slot4 = (uint)Header->_slot4;
-            _victoryTheme = (uint)Header->_victoryTheme;
+            _slot1 = Header->_slot1;
+            _slot2 = Header->_slot2;
+            _slot3 = Header->_slot3;
+            _slot4 = Header->_slot4;
+            _victoryTheme = Header->_victoryTheme;
             _recordSlot = Header->_recordSlot;
             _unknown0x25 = Header->_unknown0x25;
             _unknown0x26 = Header->_unknown0x26;
             _unknown0x27 = Header->_unknown0x27;
-            _announcerSFX = (uint)Header->_announcerSFX;
+            _announcerSFX = Header->_announcerSFX;
             _unknown0x2C = Header->_unknown0x2C;
             _victoryCamera1 = Header->_victoryCamera1;
             _victoryCamera2 = Header->_victoryCamera2;

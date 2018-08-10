@@ -177,7 +177,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             hdr->_unknown0x15 = _unknown0x15;
             hdr->_unknown0x16 = _unknown0x16;
             hdr->_unknown0x17 = _unknown0x17;
-            hdr->_announcerSFX = (bint)_announcerSFX;
+            hdr->_announcerSFX = _announcerSFX;
             hdr->_unknown0x1C = _unknown0x1C;
             _victoryNameArray = System.Text.Encoding.UTF8.GetBytes(_victoryName);
             if (_victoryNameArray.Length >= 1)
@@ -328,7 +328,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             _unknown0x15 = Header->_unknown0x15;
             _unknown0x16 = Header->_unknown0x16;
             _unknown0x17 = Header->_unknown0x17;
-            _announcerSFX = (uint)Header->_announcerSFX;
+            _announcerSFX = Header->_announcerSFX;
             _unknown0x1C = Header->_unknown0x1C;
             _victoryNameArray[0] = Header->_victoryNameArray[0];
             _victoryNameArray[1] = Header->_victoryNameArray[1];

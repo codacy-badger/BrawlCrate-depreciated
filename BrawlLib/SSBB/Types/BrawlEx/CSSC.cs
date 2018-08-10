@@ -19,9 +19,9 @@ namespace BrawlLib.SSBBTypes
         public byte _secondaryCharSlot;     // 0x11 - Secondary Character Slot: Only used when set in _editFlag4
         public byte _recordSlot;            // 0x12 - Record Bank
         public byte _cosmeticSlot;          // 0x13 - Only used when set in _editFlag4
-        public bint _wiimoteSFX;            // 0x14
-        public uint _unknown0x18;           // 0x18 - Seemingly padding
-        public bint _status;                // 0x1C - I have no idea what this is
+        public buint _wiimoteSFX;           // 0x14
+        public buint _unknown0x18;          // 0x18 - Seemingly padding
+        public buint _status;               // 0x1C - I have no idea what this is
         public fixed byte _cosmetics[32];   // 0x20 - 32 bytes
         
         public VoidPtr this[int index] { get { return (VoidPtr)((byte*)Address + 0x20 + (index * 2)); } }

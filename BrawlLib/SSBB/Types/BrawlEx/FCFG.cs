@@ -22,10 +22,10 @@ namespace BrawlLib.SSBBTypes
         public byte _characterLoadFlags;            // 0x13 - http://opensa.dantarion.com/wiki/Load_Flags
         public byte _finalSmashColorFlags;          // 0x14
         public byte _unknown0x15;                   // 0x15
-        public bushort _colorFlags;                  // 0x16
-        public bint _entryArticleFlag;              // 0x18
-        public bint _soundbank;                     // 0x1C - Parse as list
-        public bint _kirbySoundbank;                // 0x20
+        public bushort _colorFlags;                 // 0x16
+        public buint _entryArticleFlag;             // 0x18
+        public buint _soundbank;                    // 0x1C - Parse as list
+        public buint _kirbySoundbank;               // 0x20
         public uint _unknown0x24;                   // 0x24
         public uint _unknown0x28;                   // 0x28
         public uint _unknown0x2C;                   // 0x2C
@@ -49,11 +49,11 @@ namespace BrawlLib.SSBBTypes
         public bint _canWallJump;                   // 0xE4 - Whether the fighter can jump off walls
         public bint _canCling;                      // 0xE8 - Whether the fighter can cling to walls
         public bint _canZAir;                       // 0xEC - Whether the fighter can use an aerial tether
-        public bint _u12Flag;                       // 0xF0 - Usage unknown
-        public bint _u13Flag;                       // 0xF4 - Usage unknown
+        public buint _u12Flag;                      // 0xF0 - Usage unknown
+        public buint _u13Flag;                      // 0xF4 - Usage unknown
 
-        public bint _textureLoad;                   // 0xF8 - 0/1/2/3/4/5
-        public bint _aiController;                  // 0xFC
+        public buint _textureLoad;                  // 0xF8 - 0/1/2/3/4/5
+        public buint _aiController;                 // 0xFC
 
         private VoidPtr Address { get { fixed (void* ptr = &this) return ptr; } }
     }

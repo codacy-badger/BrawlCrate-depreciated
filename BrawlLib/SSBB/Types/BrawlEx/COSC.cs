@@ -23,8 +23,8 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x15;                   // 0x15
         public byte _unknown0x16;                   // 0x16
         public byte _unknown0x17;                   // 0x17
-        public bint _announcerSFX;                  // 0x18 - Announcer Call
-        public uint _unknown0x1C;                   // 0x1C
+        public buint _announcerSFX;                 // 0x18 - Announcer Call
+        public buint _unknown0x1C;                  // 0x1C
         public fixed byte _victoryNameArray[32];    // 0x20 - 32 characters
 
         private VoidPtr Address { get { fixed (void* ptr = &this) return ptr; } }
