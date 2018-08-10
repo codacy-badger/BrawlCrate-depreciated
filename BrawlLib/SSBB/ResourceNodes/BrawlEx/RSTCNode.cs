@@ -191,7 +191,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             set
             {
                 _fighterID = value;
-                Name = CSSSlotIDs.getNameFromID(_fighterID);
+                Name = BrawlLib.StageBox.FighterNameGenerators.FromID(_fighterID, BrawlLib.StageBox.FighterNameGenerators.cssSlotIDIndex, "+S");
                 if (Name == null)
                     Name = "ID 0x" + _fighterID.ToString("X2");
                 SignalPropertyChange();
@@ -207,7 +207,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             _fighterID = Header->_fighterID;
             if (_name == null)
-                _name = CSSSlotIDs.getNameFromID(_fighterID);
+                _name = BrawlLib.StageBox.FighterNameGenerators.FromID(_fighterID, BrawlLib.StageBox.FighterNameGenerators.cssSlotIDIndex, "+S");
             if (_name == null)
                 _name = "ID 0x" + _fighterID.ToString("X2");
             return false;

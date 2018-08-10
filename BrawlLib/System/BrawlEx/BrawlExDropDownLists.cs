@@ -127,7 +127,7 @@ namespace System.BrawlEx
         };
     }
 
-    public class ExFighterLong
+    /*public class ExFighterLong
     {
         public uint ID { get; private set; }
         public string Name { get; private set; }
@@ -552,7 +552,7 @@ namespace System.BrawlEx
             new CSSSlotIDs(0x7E, "ExFighter7E"),
             new CSSSlotIDs(0x7F, "ExFighter7F")
         };
-    }
+    }*/
 
     public class DropDownListBrawlExIconIDs : ByteConverter
     {
@@ -668,7 +668,7 @@ namespace System.BrawlEx
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(ExFighter.Fighters.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+            return new StandardValuesCollection(BrawlLib.StageBox.FighterNameGenerators.slotIDList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
         }
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
@@ -690,7 +690,7 @@ namespace System.BrawlEx
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(byte))
             {
-                var fighter = ExFighter.Fighters.Where(s => s.ID == (byte)value).FirstOrDefault();
+                var fighter = BrawlLib.StageBox.FighterNameGenerators.slotIDList.Where(s => s.ID == (byte)value).FirstOrDefault();
                 return "0x" + ((byte)value).ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
             }
             else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
@@ -705,7 +705,7 @@ namespace System.BrawlEx
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(ExFighterLong.ExFighters.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+            return new StandardValuesCollection(BrawlLib.StageBox.FighterNameGenerators.fighterIDLongList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
         }
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
@@ -727,7 +727,7 @@ namespace System.BrawlEx
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(uint))
             {
-                var fighter = ExFighterLong.ExFighters.Where(s => s.ID == (uint)value).FirstOrDefault();
+                var fighter = BrawlLib.StageBox.FighterNameGenerators.fighterIDLongList.Where(s => s.ID == (uint)value).FirstOrDefault();
                 return "0x" + ((uint)value).ToString("X8") + (fighter == null ? "" : (" - " + fighter.Name));
             }
             else if ((destinationType == typeof(int) || destinationType == typeof(uint)) && value != null && value.GetType() == typeof(string))
@@ -741,7 +741,7 @@ namespace System.BrawlEx
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(CSSSlotIDs.CSSSlots.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+            return new StandardValuesCollection(BrawlLib.StageBox.FighterNameGenerators.cssSlotIDList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
         }
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
@@ -763,7 +763,7 @@ namespace System.BrawlEx
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(byte))
             {
-                var fighter = CSSSlotIDs.CSSSlots.Where(s => s.ID == (byte)value).FirstOrDefault();
+                var fighter = BrawlLib.StageBox.FighterNameGenerators.cssSlotIDList.Where(s => s.ID == (byte)value).FirstOrDefault();
                 return "0x" + ((byte)value).ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
             }
             else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))

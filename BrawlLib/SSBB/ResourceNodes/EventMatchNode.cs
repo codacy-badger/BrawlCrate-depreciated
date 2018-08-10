@@ -118,8 +118,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public void UpdateName()
         {
-            var fighter = Fighter.Fighters.Where(s => s.ID == FighterID).FirstOrDefault();
-            Name = (fighter == null ? "" : fighter.Name + " ") + "(0x" + FighterID.ToString("X2") + ")";
+            Name = BrawlLib.StageBox.FighterNameGenerators.FromID(FighterID, BrawlLib.StageBox.FighterNameGenerators.slotIDIndex, "-S");
         }
     }
 

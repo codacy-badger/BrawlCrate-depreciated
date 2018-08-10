@@ -6,13 +6,13 @@ namespace BrawlLib.SSBB
         /// The character slot index, as used by common2.pac event match and all-star data.
         /// See: http://opensa.dantarion.com/wiki/Character_Slots
         /// </summary>
-        public int ID { get; private set; }
+        public uint ID { get; private set; }
         /// <summary>
         /// The fighter name (e.g. "Yoshi").
         /// </summary>
         public string Name { get; private set; }
 
-        public Fighter(int id, string name)
+        public Fighter(uint id, string name)
         {
             this.ID = id;
             this.Name = name;
