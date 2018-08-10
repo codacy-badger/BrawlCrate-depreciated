@@ -100,8 +100,8 @@ namespace BrawlLib.SSBB.ResourceNodes
             UnknownFlag_D = 0x8000
         }
 
-        [Category("\t\tFighter")]
-        [DisplayName("Fighter Name")]
+        [Category("\t\tFighter"), Description("The fighter's file name. Editing this will automatically change the other properties in the fighter group.")]
+        [DisplayName("Fighter File Name")]
         public string FighterName
         {
             get
@@ -116,39 +116,112 @@ namespace BrawlLib.SSBB.ResourceNodes
                         _fighterName = value;
                     else
                         _fighterName = value.Substring(0, 16);
-                    _pacName = PacName;
-                    _kirbyPacName = KirbyPacName;
-                    _moduleName = ModuleName;
-                    _internalName = InternalFighterName;
+                    _pacName = AutoPacName;
+                    _kirbyPacName = AutoKirbyPacName;
+                    _moduleName = AutoModuleName;
+                    _internalName = AutoInternalFighterName;
                     SignalPropertyChange();
                 }
             }
         }
 
-        [Category("\t\tFighter")]
+        public bool _hasInternalName = true;
+        [Browsable(false)]
+        [Category("\t\tFighter"), Description("Whether or not the fighter has an internal name. Never appears to be set to false.")]
+        [DisplayName("Has Internal Name")]
+        public bool HasInternalName
+        {
+            get { return _hasInternalName; }
+            set { _hasInternalName = value; SignalPropertyChange(); }
+        }
+
+        [Category("\t\tFighter"), Description("This is changed automatically when the fighter name is changed (So change that first)")]
+        [DisplayName("Internal Fighter Name")]
+        public string InternalFighterName
+        {
+            get { return _internalName; }
+            set { _internalName = value; SignalPropertyChange(); }
+        }
+
+        public bool _hasPac = true;
+        [Category("\t\tFighter"), Description("Whether or not the fighter has a .pac file. Normally only set to false for unused characters.")]
+        [DisplayName("Has Pac")]
+        public bool HasPac
+        {
+            get { return _hasPac; }
+            set { _hasPac = value; SignalPropertyChange(); }
+        }
+
+        [Category("\t\tFighter"), Description("This is changed automatically when the fighter name is changed (So change that first)")]
         [DisplayName("Pac File Name")]
         public string PacName
+        {
+            get { return _pacName; }
+            set { _pacName = value; SignalPropertyChange(); }
+        }
+
+        public bool _hasKirbyHat = true;
+        [Category("\t\tFighter"), Description("Whether or not the fighter has a Kirby hat. Normally set to false for characters like Giga Bowser, WarioMan, or the Alloys.")]
+        [DisplayName("Has Kirby Hat")]
+        public bool HasKirbyHat
+        {
+            get { return _hasKirbyHat; }
+            set { _hasKirbyHat = value; SignalPropertyChange(); }
+        }
+
+        [Category("\t\tFighter"), Description("This is changed automatically when the fighter name is changed (So change that first)")]
+        [DisplayName("Kirby Pac File Name")]
+        public string KirbyPacName
+        {
+            get { return _kirbyPacName; }
+            set { _kirbyPacName = value; SignalPropertyChange(); }
+        }
+
+        public bool _hasModule = true;
+        [Category("\t\tFighter"), Description("Whether or not the fighter has a .rel file. Normally only set to false for unused characters.")]
+        [DisplayName("Has Module")]
+        public bool HasModule
+        {
+            get { return _hasModule; }
+            set { _hasModule = value; SignalPropertyChange(); }
+        }
+
+        [Category("\t\tFighter"), Description("This is changed automatically when the fighter name is changed (So change that first)")]
+        [DisplayName("Module File Name")]
+        public string ModuleName
+        {
+            get { return _moduleName; }
+            set { _moduleName = value; SignalPropertyChange(); }
+        }
+
+        [Browsable(false)]
+        [Category("\t\tFighter")]
+        [DisplayName("Automatic Pac File Name")]
+        public string AutoPacName
         {
             get { return _fighterName.ToLower() + "/Fit" + _fighterName + ".pac"; }
         }
 
+        [Browsable(false)]
         [Category("\t\tFighter")]
-        [DisplayName("Kirby Pac File Name")]
-        public string KirbyPacName
+        [DisplayName("Automatic Kirby Pac File Name")]
+        public string AutoKirbyPacName
         {
             get { return "kirby/FitKirby" + _fighterName + ".pac"; }
         }
 
+        [Browsable(false)]
         [Category("\t\tFighter")]
-        [DisplayName("Module File Name")]
-        public string ModuleName
+        [DisplayName("Automatic Module File Name")]
+        public string AutoModuleName
         {
             get { return "ft_" + _fighterName.ToLower() + ".rel"; }
         }
 
+        [Browsable(false)]
         [Category("\t\tFighter")]
-        [DisplayName("Internal Fighter Name")]
-        public string InternalFighterName
+        [DisplayName("Automatic Internal Fighter Name")]
+        public string AutoInternalFighterName
         {
             get { return _fighterName.ToUpper(); }
         }
@@ -462,8 +535,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unknown Flag D")]
         public bool UnknownFlagD
         {
-            get { return (_colorFlags & CostumeLoadFlags.UnknownFlag_C) != 0; }
-            set { _colorFlags = (_colorFlags & ~CostumeLoadFlags.UnknownFlag_C) | (value ? CostumeLoadFlags.UnknownFlag_C : 0); SignalPropertyChange(); }
+            get { return (_colorFlags & CostumeLoadFlags.UnknownFlag_D) != 0; }
+            set { _colorFlags = (_colorFlags & ~CostumeLoadFlags.UnknownFlag_D) | (value ? CostumeLoadFlags.UnknownFlag_D : 0); SignalPropertyChange(); }
         }
 
         [Category("\tSound"), Description("Normally set to false for characters whose Final Smash is accompanied by music.")]
@@ -661,6 +734,15 @@ namespace BrawlLib.SSBB.ResourceNodes
             for (int i = 0; i < _internalNameArray.Length; i++)
                 hdr->_internalNameArray[i] = _internalNameArray[i];
 
+            if (!HasPac)
+                hdr->_pacNameArray[_pacName.Length + 1] = 0x78;
+            if (!HasKirbyHat)
+                hdr->_kirbyPacNameArray[_kirbyPacName.Length + 1] = 0x78;
+            if (!HasModule)
+                hdr->_moduleNameArray[_moduleName.Length + 1] = 0x78;
+            if (!HasInternalName)
+                hdr->_internalNameArray[_internalName.Length + 1] = 0x78;
+
             hdr->_jabFlag = _jabFlag;
             hdr->_jabCount = _jabCount;
             hdr->_hasRapidJab = _hasRapidJab;
@@ -714,14 +796,22 @@ namespace BrawlLib.SSBB.ResourceNodes
             for (int i = 0; i < _internalNameArray.Length; i++)
                 _internalNameArray[i] = Header->_internalNameArray[i];
 
-            _pacName = System.Text.Encoding.UTF8.GetString(_pacNameArray).TrimEnd(new char[] { '\0' });
-            _kirbyPacName = System.Text.Encoding.UTF8.GetString(_kirbyPacNameArray).TrimEnd(new char[] { '\0' });
-            _moduleName = System.Text.Encoding.UTF8.GetString(_moduleNameArray).TrimEnd(new char[] { '\0' });
-            _internalName = System.Text.Encoding.UTF8.GetString(_internalNameArray).TrimEnd(new char[] { '\0' });
+            _pacName = System.Text.Encoding.UTF8.GetString(_pacNameArray).Substring(0, System.Text.Encoding.UTF8.GetString(_pacNameArray).IndexOf('\0')).TrimEnd(new char[] { '\0' });
+            _kirbyPacName = System.Text.Encoding.UTF8.GetString(_kirbyPacNameArray).Substring(0, System.Text.Encoding.UTF8.GetString(_kirbyPacNameArray).IndexOf('\0')).TrimEnd(new char[] { '\0' });
+            _moduleName = System.Text.Encoding.UTF8.GetString(_moduleNameArray).Substring(0, System.Text.Encoding.UTF8.GetString(_moduleNameArray).IndexOf('\0')).TrimEnd(new char[] { '\0' });
+            _internalName = System.Text.Encoding.UTF8.GetString(_internalNameArray).Substring(0, System.Text.Encoding.UTF8.GetString(_internalNameArray).IndexOf('\0')).TrimEnd(new char[] { '\0' });
             if (_kirbyPacName.ToUpper().LastIndexOf(".PAC") > 0 && _kirbyPacName.Length > 14 && _kirbyPacName.ToUpper().StartsWith("KIRBY/FITKIRBY"))
                 _fighterName = _kirbyPacName.Substring(14, _kirbyPacName.ToUpper().LastIndexOf(".PAC") - 14);
             else
                 _fighterName = _internalName;
+            if (System.Text.Encoding.UTF8.GetString(_pacNameArray).ToUpper().TrimEnd(new char[] { '\0' }).EndsWith("\0X"))
+                _hasPac = false;
+            if (System.Text.Encoding.UTF8.GetString(_kirbyPacNameArray).ToUpper().TrimEnd(new char[] { '\0' }).EndsWith("\0X"))
+                _hasKirbyHat = false;
+            if (System.Text.Encoding.UTF8.GetString(_moduleNameArray).ToUpper().TrimEnd(new char[] { '\0' }).EndsWith("\0X"))
+                _hasModule = false;
+            if (System.Text.Encoding.UTF8.GetString(_internalNameArray).ToUpper().TrimEnd(new char[] { '\0' }).EndsWith("\0X"))
+                _hasInternalName = false;
             _jabFlag = Header->_jabFlag;
             _jabCount = Header->_jabCount;
             _hasRapidJab = Header->_hasRapidJab;
