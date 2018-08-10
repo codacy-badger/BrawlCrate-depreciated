@@ -37,7 +37,7 @@ namespace BrawlLib.StageBox
                 if (s.Length >= minimumLength && s.ToUpper().Substring(slotIDIndex).StartsWith("0X" + id.ToString("X2").ToUpper()))
                     if (!s.ToUpper().Substring(flagIndex).StartsWith("X"))
                         return s.Substring(nameIndex).Trim(trimChars);
-            return "Stage 0x" + id.ToString("X2");
+            return "Fighter 0x" + id.ToString("X2");
         }
 
         public static string FromID(int id, int idOffset)
@@ -46,7 +46,7 @@ namespace BrawlLib.StageBox
                 if (s.Length >= minimumLength && s.ToUpper().Substring(idOffset).StartsWith("0X" + id.ToString("X2").ToUpper()))
                     if(!s.ToUpper().Substring(flagIndex).StartsWith("X"))
                         return s.Substring(nameIndex).Trim(trimChars);
-            return "Stage 0x" + id.ToString("X2");
+            return "Fighter 0x" + id.ToString("X2");
         }
 
         public static string FromID(int id, int idOffset, string flagToIgnore)
@@ -55,7 +55,7 @@ namespace BrawlLib.StageBox
                 if (s.Length >= minimumLength && s.ToUpper().Substring(idOffset).StartsWith("0X" + id.ToString("X2").ToUpper()))
                     if (!s.ToUpper().Substring(flagIndex).StartsWith("X") && !s.ToUpper().Substring(flagIndex).StartsWith(flagToIgnore))
                         return s.Substring(nameIndex).Trim(trimChars);
-            return "Stage 0x" + id.ToString("X2");
+            return "Fighter 0x" + id.ToString("X2");
         }
 
         public static string FromPacName(string pacName)
