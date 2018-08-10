@@ -771,4 +771,40 @@ namespace System.BrawlEx
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
+
+    public class DropDownListBrawlExCosmeticIDs : ByteConverter
+    {
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+        {
+            return new StandardValuesCollection(BrawlLib.StageBox.FighterNameGenerators.cosmeticIDList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+        }
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
+        }
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            if (value.GetType() == typeof(string))
+            {
+                string field0 = (value.ToString() ?? "").Split(' ')[0];
+                int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase)
+                    ? 16
+                    : 10;
+                return Convert.ToByte(field0, fromBase);
+            }
+            return base.ConvertFrom(context, culture, value);
+        }
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            if (destinationType == typeof(string) && value.GetType() == typeof(byte))
+            {
+                var fighter = BrawlLib.StageBox.FighterNameGenerators.cosmeticIDList.Where(s => s.ID == (byte)value).FirstOrDefault();
+                return "0x" + ((byte)value).ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
+            }
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+                return 0;
+            return base.ConvertTo(context, culture, value, destinationType);
+        }
+    }
 }

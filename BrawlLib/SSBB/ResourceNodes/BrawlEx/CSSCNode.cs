@@ -110,18 +110,19 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         [Category("Cosmetics")]
+        [TypeConverter(typeof(DropDownListBrawlExCosmeticIDs))]
         [DisplayName("Cosmetic Slot")]
-        public string CosmeticSlot
+        public byte CosmeticSlot
         {
             get
             {
-                return "0x" + _cosmeticSlot.ToString("X2");
+                return _cosmeticSlot;
             }
             set
             {
-                string field0 = (value.ToString() ?? "").Split(' ')[0];
-                int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase) ? 16 : 10;
-                _cosmeticSlot = Convert.ToByte(field0, fromBase);
+                _cosmeticSlot = value;
+                foreach(CSSCEntryNode c in Children)
+                    c.regenName();
                 SignalPropertyChange();
             }
         }
@@ -328,8 +329,13 @@ namespace BrawlLib.SSBB.ResourceNodes
             _colorID = Header->_colorID;
             _costumeID = Header->_costumeID;
             if (_name == null)
-                _name = "Fit" + _costumeID.ToString("00") + " - " + BrawlExColorID.Colors[_colorID].Name;
+                _name = "Fit" + BrawlLib.StageBox.FighterNameGenerators.InternalNameFromID(((CSSCNode)Parent)._cosmeticSlot, BrawlLib.StageBox.FighterNameGenerators.cosmeticIDIndex, "+S") + _costumeID.ToString("00") + " - " + BrawlExColorID.Colors[_colorID].Name;
             return false;
+        }
+
+        public void regenName()
+        {
+            Name = "Fit" + BrawlLib.StageBox.FighterNameGenerators.InternalNameFromID(((CSSCNode)Parent)._cosmeticSlot, BrawlLib.StageBox.FighterNameGenerators.cosmeticIDIndex, "+S") + _costumeID.ToString("00") + " - " + BrawlExColorID.Colors[_colorID].Name;
         }
 
         public override void OnRebuild(VoidPtr address, int length, bool force)

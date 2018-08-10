@@ -31,30 +31,27 @@ namespace BrawlLib.StageBox
         public static readonly int minimumLength = 69;
         static readonly char[] trimChars =  { ' ', '\t' };
         
-        public static string FromID(int id)
-        {
-            foreach (string s in fileList)
-                if (s.Length >= minimumLength && s.ToUpper().Substring(slotIDIndex).StartsWith("0X" + id.ToString("X2").ToUpper()))
-                    if (!s.ToUpper().Substring(flagIndex).StartsWith("X"))
-                        return s.Substring(nameIndex).Trim(trimChars);
-            return "Fighter 0x" + id.ToString("X2");
-        }
-
-        public static string FromID(int id, int idOffset)
-        {
-            foreach (string s in fileList)
-                if (s.Length >= minimumLength && s.ToUpper().Substring(idOffset).StartsWith("0X" + id.ToString("X2").ToUpper()))
-                    if(!s.ToUpper().Substring(flagIndex).StartsWith("X"))
-                        return s.Substring(nameIndex).Trim(trimChars);
-            return "Fighter 0x" + id.ToString("X2");
-        }
-
         public static string FromID(int id, int idOffset, string flagToIgnore)
         {
             foreach (string s in fileList)
                 if (s.Length >= minimumLength && s.ToUpper().Substring(idOffset).StartsWith("0X" + id.ToString("X2").ToUpper()))
                     if (!s.ToUpper().Substring(flagIndex).StartsWith("X") && !s.ToUpper().Substring(flagIndex).StartsWith(flagToIgnore))
                         return s.Substring(nameIndex).Trim(trimChars);
+            return "Fighter 0x" + id.ToString("X2");
+        }
+
+        public static string InternalNameFromID(int id, int idOffset, string flagToIgnore)
+        {
+            foreach (string s in fileList)
+                if (s.Length >= minimumLength && s.ToUpper().Substring(idOffset).StartsWith("0X" + id.ToString("X2").ToUpper()))
+                    if (!s.ToUpper().Substring(flagIndex).StartsWith("X") && !s.ToUpper().Substring(flagIndex).StartsWith(flagToIgnore))
+                    {
+                        string intName = s.Substring(internalNameIndex, (nameIndex- internalNameIndex) - 1).Trim(trimChars);
+                        if(intName.Length > 1)
+                            return char.ToUpper(intName.First()) + intName.Substring(1);
+                        if (intName.Length > 0)
+                            return intName.ToUpper();
+                    }
             return "Fighter 0x" + id.ToString("X2");
         }
 
