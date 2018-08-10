@@ -22,12 +22,12 @@ namespace BrawlLib.SSBB.ResourceNodes
         public uint _slot2;                         // 0x14
         public uint _slot3;                         // 0x18
         public uint _slot4;                         // 0x1C
-        public int _victoryTheme;                   // 0x20 - Victory Theme
+        public uint _victoryTheme;                  // 0x20 - Victory Theme
         public byte _recordSlot;                    // 0x24 - Record Bank
         public byte _unknown0x25;                   // 0x25 - Seems to always be 0xCC
         public byte _unknown0x26;                   // 0x26 - Seems to always be 0xCC
         public byte _unknown0x27;                   // 0x27 - Seems to always be 0xCC
-        public int _announcerSFX;                   // 0x28 - Announcer voiceline for victory screen
+        public uint _announcerSFX;                  // 0x28 - Announcer voiceline for victory screen
         public int _unknown0x2C;                    // 0x2C - Appears to always be 0xCCCCCCCC
         public float _victoryCamera1;               // 0x30 - Camera Distance
         public float _victoryCamera2;               // 0x34 - Camera Distance
@@ -148,7 +148,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 string field0 = (value.ToString() ?? "").Split(' ')[0];
                 int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase) ? 16 : 10;
-                _victoryTheme = Convert.ToInt32(field0, fromBase);
+                _victoryTheme = Convert.ToUInt32(field0, fromBase);
                 SignalPropertyChange();
             }
         }
@@ -165,7 +165,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 string field0 = (value.ToString() ?? "").Split(' ')[0];
                 int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase) ? 16 : 10;
-                _announcerSFX = Convert.ToInt32(field0, fromBase);
+                _announcerSFX = Convert.ToUInt32(field0, fromBase);
                 SignalPropertyChange();
             }
         }
@@ -242,12 +242,12 @@ namespace BrawlLib.SSBB.ResourceNodes
             hdr->_slot2 = (bint)_slot2;
             hdr->_slot3 = (bint)_slot3;
             hdr->_slot4 = (bint)_slot4;
-            hdr->_victoryTheme = _victoryTheme;
+            hdr->_victoryTheme = (bint)_victoryTheme;
             hdr->_recordSlot = _recordSlot;
             hdr->_unknown0x25 = _unknown0x25;
             hdr->_unknown0x26 = _unknown0x26;
             hdr->_unknown0x27 = _unknown0x27;
-            hdr->_announcerSFX = _announcerSFX;
+            hdr->_announcerSFX = (bint)_announcerSFX;
             hdr->_unknown0x2C = _unknown0x2C;
             hdr->_victoryCamera1 = _victoryCamera1;
             hdr->_victoryCamera2 = _victoryCamera2;
@@ -268,12 +268,12 @@ namespace BrawlLib.SSBB.ResourceNodes
             _slot2 = (uint)Header->_slot2;
             _slot3 = (uint)Header->_slot3;
             _slot4 = (uint)Header->_slot4;
-            _victoryTheme = Header->_victoryTheme;
+            _victoryTheme = (uint)Header->_victoryTheme;
             _recordSlot = Header->_recordSlot;
             _unknown0x25 = Header->_unknown0x25;
             _unknown0x26 = Header->_unknown0x26;
             _unknown0x27 = Header->_unknown0x27;
-            _announcerSFX = Header->_announcerSFX;
+            _announcerSFX = (uint)Header->_announcerSFX;
             _unknown0x2C = Header->_unknown0x2C;
             _victoryCamera1 = Header->_victoryCamera1;
             _victoryCamera2 = Header->_victoryCamera2;

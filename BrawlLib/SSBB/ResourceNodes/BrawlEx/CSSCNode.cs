@@ -22,9 +22,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _secondaryCharSlot;     // 0x11 - Secondary Character Slot: Only used when set in _editFlag4
         public byte _recordSlot;            // 0x12 - Record Bank
         public byte _cosmeticSlot;          // 0x13 - Only used when set in _editFlag4
-        public int _wiimoteSFX;             // 0x14
+        public uint _wiimoteSFX;             // 0x14
         public uint _unknown0x18;           // 0x18 - Seemingly padding
-        public int _status;                 // 0x1C - I have no idea what this is
+        public uint _status;                 // 0x1C - I have no idea what this is
 
         public byte[] _cosmetics = new byte[32];
 
@@ -139,7 +139,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 string field0 = (value.ToString() ?? "").Split(' ')[0];
                 int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase) ? 16 : 10;
-                _wiimoteSFX = Convert.ToInt32(field0, fromBase);
+                _wiimoteSFX = Convert.ToUInt32(field0, fromBase);
                 SignalPropertyChange();
             }
         }
@@ -155,7 +155,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 string field0 = (value.ToString() ?? "").Split(' ')[0];
                 int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase) ? 16 : 10;
-                _status = Convert.ToInt32(field0, fromBase);
+                _status = Convert.ToUInt32(field0, fromBase);
                 SignalPropertyChange();
             }
         }
@@ -194,9 +194,9 @@ namespace BrawlLib.SSBB.ResourceNodes
             hdr->_secondaryCharSlot = _secondaryCharSlot;
             hdr->_recordSlot = _recordSlot;
             hdr->_cosmeticSlot = _cosmeticSlot;
-            hdr->_wiimoteSFX = _wiimoteSFX;
+            hdr->_wiimoteSFX = (bint)_wiimoteSFX;
             hdr->_unknown0x18 = _unknown0x18;
-            hdr->_status = _status;
+            hdr->_status = (bint)_status;
             uint offset = (uint)(0x20);
             int index = 0;
             for (int i = 0; i < Children.Count; i++)
@@ -233,9 +233,9 @@ namespace BrawlLib.SSBB.ResourceNodes
             _secondaryCharSlot = Header->_secondaryCharSlot;
             _recordSlot = Header->_recordSlot;
             _cosmeticSlot = Header->_cosmeticSlot;
-            _wiimoteSFX = Header->_wiimoteSFX;
+            _wiimoteSFX = (uint)Header->_wiimoteSFX;
             _unknown0x18 = Header->_unknown0x18;
-            _status = Header->_status;
+            _status = (uint)Header->_status;
             _cosmeticSlotSet = ((_editFlag4 & 0x02) != 0);
             _primarySecondarySet = ((_editFlag4 & 0x01) != 0);
             _cosmetics[0] = Header->_cosmetics[0];

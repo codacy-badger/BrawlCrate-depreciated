@@ -26,7 +26,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x15;           // 0x15
         public byte _unknown0x16;           // 0x16
         public byte _unknown0x17;           // 0x17
-        public int _announcerSFX;           // 0x18 - Announcer Call
+        public uint _announcerSFX;          // 0x18 - Announcer Call
         public uint _unknown0x1C;           // 0x1C
         public string _victoryName;         // 0x20 - 32 characters
 
@@ -144,7 +144,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 string field0 = (value.ToString() ?? "").Split(' ')[0];
                 int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase) ? 16 : 10;
-                _announcerSFX = Convert.ToInt32(field0, fromBase);
+                _announcerSFX = Convert.ToUInt32(field0, fromBase);
                 SignalPropertyChange();
             }
         }
@@ -177,7 +177,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             hdr->_unknown0x15 = _unknown0x15;
             hdr->_unknown0x16 = _unknown0x16;
             hdr->_unknown0x17 = _unknown0x17;
-            hdr->_announcerSFX = _announcerSFX;
+            hdr->_announcerSFX = (bint)_announcerSFX;
             hdr->_unknown0x1C = _unknown0x1C;
             _victoryNameArray = System.Text.Encoding.UTF8.GetBytes(_victoryName);
             if (_victoryNameArray.Length >= 1)
@@ -328,7 +328,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             _unknown0x15 = Header->_unknown0x15;
             _unknown0x16 = Header->_unknown0x16;
             _unknown0x17 = Header->_unknown0x17;
-            _announcerSFX = Header->_announcerSFX;
+            _announcerSFX = (uint)Header->_announcerSFX;
             _unknown0x1C = Header->_unknown0x1C;
             _victoryNameArray[0] = Header->_victoryNameArray[0];
             _victoryNameArray[1] = Header->_victoryNameArray[1];
