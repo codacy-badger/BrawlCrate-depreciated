@@ -31,24 +31,24 @@ namespace BrawlLib.SSBBTypes
         public uint _unknown0x2C;                   // 0x2C
         
         // Name stuff. Name should be no more than 16 characters (technical max for filenames is 20 but internal name lowers the limit)
-        public fixed byte _pacNameArray[48];             // 0x30 - 48 characters; Auto generate from name: (name-lower)/Fit(name).pac
-        public fixed byte _kirbyPacNameArray[48];        // 0x60 - 48 characters; Auto generate from name: kirby/FitKirby(name).pac
-        public fixed byte _moduleNameArray[32];          // 0x90 - 32 characters; Auto generate from name: ft_(name-lower).rel
-        public fixed byte _internalNameArray[16];        // 0xB0 - 16 characters; Auto generate from name: (name-upper)
+        public fixed byte _pacNameArray[48];        // 0x30 - 48 characters; Auto generate from name: (name-lower)/Fit(name).pac
+        public fixed byte _kirbyPacNameArray[48];   // 0x60 - 48 characters; Auto generate from name: kirby/FitKirby(name).pac
+        public fixed byte _moduleNameArray[32];     // 0x90 - 32 characters; Auto generate from name: ft_(name-lower).rel
+        public fixed byte _internalNameArray[16];   // 0xB0 - 16 characters; Auto generate from name: (name-upper)
 
         // IC Constants
-        public bint _jabFlag;                       // 0xC0 - Usage unknown
-        public bint _jabCount;                      // 0xC4 - Number of jabs in combo
-        public bint _hasRapidJab;                   // 0xC8 - Whether the fighter has a rapid jab
-        public bint _canTilt;                       // 0xCC - Whether the fighter can angle their forward tilt attack
-        public bint _fSmashCount;                   // 0xD0 - Number of attacks in Fsmash chain
-        public bint _airJumpCount;                  // 0xD4 - Number of mid-air jumps the fighter has
-        public bint _canGlide;                      // 0xD8 - Whether the fighter can glide
-        public bint _canCrawl;                      // 0xDC - Whether the fighter can crawl
-        public bint _dashAttackIntoCrouch;          // 0xE0 - Whether the fighter's dash attack puts them in a crouching position
-        public bint _canWallJump;                   // 0xE4 - Whether the fighter can jump off walls
-        public bint _canCling;                      // 0xE8 - Whether the fighter can cling to walls
-        public bint _canZAir;                       // 0xEC - Whether the fighter can use an aerial tether
+        public buint _jabFlag;                      // 0xC0 - Usage unknown
+        public buint _jabCount;                     // 0xC4 - Number of jabs in combo
+        public buint _hasRapidJab;                  // 0xC8 - Whether the fighter has a rapid jab
+        public buint _canTilt;                      // 0xCC - Whether the fighter can angle their forward tilt attack
+        public buint _fSmashCount;                  // 0xD0 - Number of attacks in Fsmash chain
+        public buint _airJumpCount;                 // 0xD4 - Number of mid-air jumps the fighter has
+        public buint _canGlide;                     // 0xD8 - Whether the fighter can glide
+        public buint _canCrawl;                     // 0xDC - Whether the fighter can crawl
+        public buint _dashAttackIntoCrouch;         // 0xE0 - Whether the fighter's dash attack puts them in a crouching position
+        public buint _canWallJump;                  // 0xE4 - Whether the fighter can jump off walls
+        public buint _canCling;                     // 0xE8 - Whether the fighter can cling to walls
+        public buint _canZAir;                      // 0xEC - Whether the fighter can use an aerial tether
         public buint _u12Flag;                      // 0xF0 - Usage unknown
         public buint _u13Flag;                      // 0xF4 - Usage unknown
 
