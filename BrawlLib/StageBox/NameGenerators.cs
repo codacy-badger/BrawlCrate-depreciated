@@ -17,7 +17,7 @@ namespace BrawlLib.StageBox
         public static List<Fighter> fighterIDLongList = new List<Fighter>();
         public static List<Fighter> cssSlotIDList = new List<Fighter>();
         public static List<Fighter> cosmeticIDList = new List<Fighter>();
-        public static string directory = "CustomLists";
+        public static string directory = AppDomain.CurrentDomain.BaseDirectory + '\\' + "CustomLists";
         public static string listName = directory + '\\' + "FighterList.txt";
 
         // Used to determine offsets
@@ -151,7 +151,7 @@ namespace BrawlLib.StageBox
     {
         public static List<string> fileList = new List<string>();
         public static List<Stage> stageList = new List<Stage>();
-        public static string directory = "CustomLists";
+        public static string directory = AppDomain.CurrentDomain.BaseDirectory + '\\' + "CustomLists";
         public static string listName = directory + '\\' + "StageList.txt";
 
         // Used to determine offsets
