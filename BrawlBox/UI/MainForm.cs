@@ -439,7 +439,7 @@ namespace BrawlBox
                         else
                             newControl = clrControl;
                 }
-                else if (MainForm.Instance.ShowHex)
+                else if (MainForm.Instance.ShowHex && !(node is RELEntryNode || node is RELNode))
                 {
                     if (node.WorkingUncompressed.Length > 0)
                     {
