@@ -288,6 +288,14 @@ namespace BrawlLib.SSBB.ResourceNodes
                 section._dataOffset = dataOffset;
                 section._dataSize = entry._size;
 
+                // Calculate buffer
+                if (i > 0 && dataOffset > 0)
+                {
+                    Console.WriteLine("Test" + i + " Offset: " + section._dataOffset);
+                    section._beginBufferSize = dataOffset - prevOffset;
+                    Console.WriteLine("Test" + i + " Buffer: " + section._beginBufferSize);
+                }
+
                 section.Initialize(this, WorkingUncompressed.Address + dataOffset, dataSize);
 
                 if (dataOffset > 0)
@@ -574,7 +582,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 {
                     int i = s.Index;
 
-                    sections[i]._size = (uint)s._calcSize;
+                    sections[i]._size = (uint)(s._calcSize - s._beginBufferSize);
 
                     //Align sections 4 and 5?
                     //if (i > 3)
@@ -599,7 +607,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                         sections[i]._offset = 0;
 
                         header->_bssSection = 0; //This is always 0 it seems
-                        header->_bssSize = (uint)s._calcSize;
+                        header->_bssSize = (uint)(s._calcSize - s._beginBufferSize);
                     }
                 }
 
@@ -607,6 +615,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 header->_prologSection = (byte)_prologSect;
                 header->_prologOffset = (uint)sections[_prologSect].Offset + (uint)_prologIndex * 4;
+                Console.WriteLine("prolog: 0x" + _prologSect.ToString("X2") + " | 0x" + ((uint)sections[_prologSect].Offset + (uint)_prologIndex * 4).ToString("X"));
             }
             else
             {
@@ -618,6 +627,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 header->_epilogSection = (byte)_epilogSect;
                 header->_epilogOffset = (uint)sections[_epilogSect].Offset + (uint)_epilogIndex * 4;
+                Console.WriteLine("epilog: 0x" + _epilogSect.ToString("X2") + " | 0x" + ((uint)sections[_epilogSect].Offset + (uint)_epilogIndex * 4).ToString("X"));
             }
             else
             {
@@ -629,6 +639,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 header->_unresolvedSection = (byte)_unresSect;
                 header->_unresolvedOffset = (uint)sections[_unresSect].Offset + (uint)_unresIndex * 4;
+                Console.WriteLine("unresolved: 0x" + _unresSect.ToString("X2") + " | 0x" + ((uint)sections[_unresSect].Offset + (uint)_unresIndex * 4).ToString("X"));
             }
             else
             {

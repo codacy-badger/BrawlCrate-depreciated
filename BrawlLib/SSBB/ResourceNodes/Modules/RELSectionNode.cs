@@ -18,11 +18,14 @@ namespace BrawlLib.SSBB.ResourceNodes
         public bool _isCodeSection = false;
         public bool _isBSSSection = false;
         public int _dataOffset = 0;
+        public int _beginBufferSize = 0x00;
         public uint _dataSize;
         public int _dataAlign;
 
         public string DataAlign { get { return "0x" + _dataAlign.ToString("X"); } }
 
+        public string BeginBufferSize { get { return "0x" + _beginBufferSize.ToString("X"); } }
+        
         [Category("REL Section")]
         public bool HasCommands { get { return _manager._commands.Count > 0; } }
         [Category("REL Section"), Browsable(true)]
@@ -63,11 +66,18 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
         public override int OnCalculateSize(bool force)
         {
-            return _dataBuffer.Length;
+            return _dataBuffer.Length + _beginBufferSize;
         }
 
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
+            if (_beginBufferSize > 0)
+            {
+                Console.WriteLine(address.ToString());
+                Memory.Fill(address, (uint)_beginBufferSize, 0x00);
+                address += _beginBufferSize;
+                Console.WriteLine(address.ToString());
+            }
             Memory.Move(address, _dataBuffer.Address, (uint)length);
         }
 
