@@ -48,7 +48,7 @@ namespace BrawlBox.NodeWrappers
         }
         #endregion
 
-        //public override string ExportFilter { get { return FileFilters.CSSC; } }
+        public override string ExportFilter { get { return FileFilters.CSSC; } }
 
         public void NewEntry()
         {

@@ -111,8 +111,15 @@ namespace BrawlLib
         public static string Havok =
             SupportedFilesHandler.GetCompleteFilter("hkx", "xml");
 
-
+        public static string COSC =
+            SupportedFilesHandler.GetCompleteFilter("dat", "bx");
+        public static string CSSC =
+            SupportedFilesHandler.GetCompleteFilter("dat", "bx");
+        public static string FCFG =
+            SupportedFilesHandler.GetCompleteFilter("dat", "bx");
         public static string RSTC =
-            SupportedFilesHandler.GetCompleteFilter(".bx", ".dat");
+            SupportedFilesHandler.GetCompleteFilter("bx", "dat");
+        public static string SLTC =
+            SupportedFilesHandler.GetCompleteFilter("dat", "bx");
     }
 }

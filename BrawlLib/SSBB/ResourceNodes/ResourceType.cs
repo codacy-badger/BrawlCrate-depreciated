@@ -190,8 +190,11 @@
         HavokGroup = 0x8501,
 
         //BrawlEx
-        CSSC = 0x8600,
-        RSTC = 0x8700,
-        RSTCGroup = 0x8701,
+        COSC = 0x8600,
+        CSSC = 0x8700,
+        FCFG = 0x8800,
+        RSTC = 0x8900,
+        RSTCGroup = 0x8901,
+        SLTC = 0x8A00,
     }
 }

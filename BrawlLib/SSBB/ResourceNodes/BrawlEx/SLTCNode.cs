@@ -9,7 +9,7 @@ namespace BrawlLib.SSBB.ResourceNodes
     public unsafe class SLTCNode : ResourceNode
     {
         internal SLTC* Header { get { return (SLTC*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.Unknown; } }
+        public override ResourceType ResourceType { get { return ResourceType.SLTC; } }
 
         public uint _tag;                           // 0x00 - Uneditable; SLTC
         public uint _size;                          // 0x04 - Uneditable; Should be "40"

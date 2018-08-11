@@ -9,7 +9,7 @@ namespace BrawlLib.SSBB.ResourceNodes
     public unsafe class FCFGNode : ResourceNode
     {
         internal FCFG* Header { get { return (FCFG*)WorkingUncompressed.Address; } }
-        //public override ResourceType ResourceType { get { return ResourceType.FCFG; } }
+        public override ResourceType ResourceType { get { return ResourceType.FCFG; } }
 
         public uint _tag;                               // 0x00 - Uneditable; FCFG (Or FITC)
         public uint _size;                              // 0x04 - Uneditable; Should be "100"
