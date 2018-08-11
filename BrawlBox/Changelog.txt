@@ -1,5 +1,5 @@
 ﻿
-StageBox - v0.8 Hotfix 1
+StageBox - v0.9
 Copyright © 2018 soopercool101, MarioDox
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,40 @@ they be held accountable for the manner in which it is used.
  =============================================
 |************ StageBox Change Log ************|
  =============================================
+ 
+ - v0.9 - (8/10/2018)
+ . Fixed BrawlBox bug in which saving an edited module would change offsets due to buffers not being maintained
+ . Added support to read custom stage and fighter lists from a .txt file to populate lists in relevant places
+   - Will be generated whenever the program is opened if they do not exist
+ . Added support to edit BrawlEx configuration files
+   - COSC (Cosmetic Config)
+   - CSSC (CSS Slot Config)
+   - FCFG (Fighter Config)
+     . Fixed issue from BrawlEx Config Utility where certain flags were not properly respected
+     . Improved parsing of Fighter Name compared to BrawlEx Config Utility to ensure that files conform to the style guide of the original files
+   - RSTC (Roster Config)
+   - SLTC (Slot Config)
+ . More Subspace Emissary BLOC parsing
+   - GDOR (Subspace Door)
+     . Updated variables with current knowledge
+   - GDBF (Factory Door)
+     . Parsed and made editable and addable to BLOCs (Same basic format as GDOR)
+   - GWAT (Swimmable Water)
+     . Parsed and made editable and addable to BLOCs
+   - GSND (Sound Effects)
+     . Fixed bugs with adding entries to a new GSND
+   - GEG1 (Enemy Spawns)
+     . Parsed more variables and made them addable to BLOCs
+   - GCAM (Animated Camera)
+     . Parsed and made editable and addable to BLOCs
+   - GITM (Fighter Trophy)
+     . Parsed and made it editable and addable to BLOCs
+ . Interpolition reverted to BrawlBox v0.71, where it correctly maintains some animation quirks present in game that don't appear in-editor for newer versions
+ . Updated icons for users with dark themes
+ . Fixed crash when viewing rel entries when hex viewer is active
+ . Fixed glitch in which closing a file in-editor would not remove the file path from the title bar
+ . Fixed glitch in which returning to the "Find" menu from the Section Editor would not correctly allow you to type in hex values if hex was the last selected option
+ . Fixed crash when pasting hex into find window on the Section Editor
  
  - v0.8 Hotfix 1 - (7/17/2018)
  . Added compatibility mode setting, as stages with corrupted models would have those models broken immediately on open, or wouldn't open at all, due to the model counter from v0.8
