@@ -1,5 +1,5 @@
 ﻿
-StageBox - v0.9
+StageBox - v0.9 Hotfix 1
 Copyright © 2018 soopercool101, MarioDox
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,9 @@ they be held accountable for the manner in which it is used.
  =============================================
 |************ StageBox Change Log ************|
  =============================================
+ 
+ - v0.9 Hotfix 1 - (8/10/2018)
+ . Fixed bug in which opening files directly (open the editor by using open with on a file) would cause a new customlists folder to be generated in the location of the file itself
  
  - v0.9 - (8/10/2018)
  . Fixed BrawlBox bug in which saving an edited module would change offsets due to buffers not being maintained
