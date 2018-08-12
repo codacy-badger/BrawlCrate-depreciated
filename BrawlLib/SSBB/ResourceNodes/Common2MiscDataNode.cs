@@ -165,8 +165,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             bint* stringPointers = dataPointers + 1;
             byte* strings = (byte*)(dataPointers + Children.Count + Children.Count);
             byte* currentString = strings;
+            
+            List<ResourceNode> childrenAlphabetical = Children.OrderBy(o => o.Name).ToList();
 
-            foreach (var child in Children)
+            foreach (var child in childrenAlphabetical)
             {
                 *dataPointers = (int)(dataLocations[child] - baseAddress);
                 dataPointers += 2;
