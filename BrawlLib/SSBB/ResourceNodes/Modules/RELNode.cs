@@ -291,9 +291,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 // Calculate buffer
                 if (i > 0 && dataOffset > 0)
                 {
-                    Console.WriteLine("Test" + i + " Offset: " + section._dataOffset);
                     _sections[i-1]._endBufferSize = dataOffset - prevOffset;
-                    Console.WriteLine("Test" + i + " Buffer: " + _sections[i - 1]._endBufferSize);
                 }
 
                 section.Initialize(this, WorkingUncompressed.Address + dataOffset, dataSize);
