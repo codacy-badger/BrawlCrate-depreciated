@@ -41,7 +41,7 @@ namespace BrawlLib.SSBBTypes
         public byte _flag0x0A;
         public byte _flag0x0B;
         public byte _flag0x0C;
-        public byte _flag0x0D;
+        public byte _connectedenemyid;
         public byte _flag0x0E;
         public byte _flag0x0F;
         public byte _unknown0x10;
@@ -149,7 +149,7 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x7A;
         public byte _unknown0x7B;
         public byte _unknown0x7C;
-        public byte _difficulty;
+        public byte _spawnid;
         public byte _startingaction;
         public byte _flag0x7F;
         public byte _flag0x80;

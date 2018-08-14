@@ -183,6 +183,7 @@
         GWAT = 0x5D36,
         GCAM = 0x5D37,
         GITM = 0x5D38,
+        GIB2 = 0x5D39,
 
         FMDL = 0x6D00,
 
