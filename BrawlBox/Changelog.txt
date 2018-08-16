@@ -1,5 +1,5 @@
 ﻿
-StageBox - v0.9 Hotfix 1
+StageBox - v0.9 Hotfix 2
 Copyright © 2018 soopercool101, MarioDox
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,15 @@ they be held accountable for the manner in which it is used.
  =============================================
 |************ StageBox Change Log ************|
  =============================================
+ 
+ - v0.9 Hotfix 2 - (8/16/2018)
+ . Fixed bug in which PAT0 nodes would not function properly when an ARC is opened
+ . Fixed saving of Common2MiscDataNodes to match Brawl's implementation
+ . Added parsing for GIB2 (Item Boxes) nodes in SSE files
+ . Improved parsing for GEG1 nodes
+   - "DifficultyID" renamed to "SpawnID"
+   - "Flag0x0D" parsed as "Connected Enemy ID"
+ . Added icons for the following SSE files: GCAM, GIB2, GITM
  
  - v0.9 Hotfix 1 - (8/10/2018)
  . Fixed bug in which opening files directly (open the editor by using open with on a file) would cause a new customlists folder to be generated in the location of the file itself
