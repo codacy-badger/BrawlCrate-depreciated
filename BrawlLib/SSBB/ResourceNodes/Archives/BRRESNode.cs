@@ -18,7 +18,15 @@ namespace BrawlLib.SSBB.ResourceNodes
         internal ROOTHeader* RootHeader { get { return Header->First; } }
         internal ResourceGroup* Group { get { return &RootHeader->_master; } }
 
-        public override ResourceType ResourceType { get { return ResourceType.BRES; } }
+        public override ResourceType ResourceType {
+            get
+            {
+                if (IsLoaded)
+                    return ResourceType.BRES;
+                else
+                    return (ResourceType)ResourceTypeDisabled.BRES;
+            }
+        }
 
         [Category("Models")]
         public int NumModels

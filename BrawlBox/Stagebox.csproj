@@ -470,6 +470,22 @@
     <Content Include="CustomLists\Project M 3.6 Stage List - Move to the main folder if you wish to use it\StageList.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\greyscale\ARCOff.png" />
+    <Content Include="Resources\greyscale\CHROff.png" />
+    <Content Include="Resources\greyscale\CollOff.png" />
+    <Content Include="Resources\greyscale\FolderOff.png" />
+    <Content Include="Resources\greyscale\MDL0Off.png" />
+    <Content Include="Resources\greyscale\MSGOff.png" />
+    <Content Include="Resources\greyscale\PATOff.png" />
+    <Content Include="Resources\greyscale\SCLAOff.png" />
+    <Content Include="Resources\greyscale\SCN0Off.png" />
+    <Content Include="Resources\greyscale\SHPOff.png" />
+    <Content Include="Resources\greyscale\SRTOff.png" />
+    <Content Include="Resources\greyscale\STDTOff.png" />
+    <Content Include="Resources\greyscale\STPMOff.png" />
+    <Content Include="Resources\greyscale\TEX0Off.png" />
+    <Content Include="Resources\greyscale\VISOff.png" />
+    <Content Include="Resources\greyscale\_off.png" />
     <Content Include="Resources\GWAT.png" />
     <Content Include="Stagebox.ico" />
     <Content Include="OpenTK.dll" />

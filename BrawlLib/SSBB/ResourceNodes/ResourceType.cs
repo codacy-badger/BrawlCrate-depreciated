@@ -198,4 +198,29 @@
         RSTCGroup = 0x8901,
         SLTC = 0x8A00,
     }
+
+
+    public enum ResourceTypeDisabled : int
+    {
+        Unknown = 0x0000,
+        Container = 0x0101,
+        ARC = 0x0202,
+        BRES = 0x0637,
+        CollisionDef = 0x1314,
+        MSBin = 0x1404,
+        STPM = 0x1520,
+        STDT = 0x5B26,
+        SCLA = 0x6D34,
+        TEX0 = 0x2005,
+        SharedTEX0 = 0x2033,
+        PLT0 = 0x2106,
+        MDL0 = 0x2207,
+        CHR0 = 0x2908,
+        CLR0 = 0x2B09,
+        VIS0 = 0x2E0A,
+        SCN0 = 0x381F,
+        SHP0 = 0x2F0B,
+        SRT0 = 0x310C,
+        PAT0 = 0x341D,
+    }
 }
