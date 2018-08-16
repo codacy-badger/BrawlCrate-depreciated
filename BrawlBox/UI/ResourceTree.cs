@@ -76,6 +76,9 @@ namespace BrawlBox
                         Resources.SCLA,
                         Resources.GDBF,
                         Resources.GWAT,
+                        Resources.GCAM,//55
+                        Resources.GITM,
+                        Resources.GIB2,
                     });
                 }
                 return _imgList;

@@ -470,6 +470,9 @@
     <Content Include="CustomLists\Project M 3.6 Stage List - Move to the main folder if you wish to use it\StageList.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\GCAM.png" />
+    <Content Include="Resources\GIB2.png" />
+    <Content Include="Resources\GITM.png" />
     <Content Include="Resources\GWAT.png" />
     <Content Include="Stagebox.ico" />
     <Content Include="OpenTK.dll" />
