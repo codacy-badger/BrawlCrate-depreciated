@@ -1,5 +1,5 @@
 ﻿
-StageBox - v0.9 Hotfix 2
+StageBox - v0.9 Hotfix 3
 Copyright © 2018 soopercool101, MarioDox
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,9 @@ they be held accountable for the manner in which it is used.
  =============================================
 |************ StageBox Change Log ************|
  =============================================
+ 
+ - v0.9 Hotfix 3 - (8/16/2018)
+ . Fixed bug in which v0.9 Hotfix 2 would crash on 32-bit systems
  
  - v0.9 Hotfix 2 - (8/16/2018)
  . Fixed bug in which PAT0 nodes would not function properly when an ARC is opened
