@@ -136,7 +136,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public uint _header1;
         public uint _header2;
         // Some form of byte flags
-        public byte _flag0x08;
+        public byte _extrahealth;
         public byte _flag0x09;
         public byte _flag0x0A;
         public byte _flag0x0B;
@@ -167,7 +167,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x21;
         public byte _unknown0x22;
         // Some form of byte flag
-        public byte _flag0x23;
+        public byte _startingaction;
         public byte _unknown0x24;
         public byte _unknown0x25;
         public byte _unknown0x26;
@@ -255,7 +255,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x7C;
         // Spawn ID
         public byte _spawnid;
-        public byte _startingaction;
+        public byte _flag0x7E;
         public byte _flag0x7F;
         public byte _flag0x80;
         public byte _flag0x81;
@@ -342,17 +342,17 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         [Browsable(true)]
-        [Category("Special Flags")]
-        [DisplayName("Flag 0x08")]
-        public byte Flag0x08
+        [Category("Enemy Info")]
+        [DisplayName("Additional HP")]
+        public byte ExtraHealth
         {
             get
             {
-                return _flag0x08;
+                return _extrahealth;
             }
             set
             {
-                _flag0x08 = value;
+                _extrahealth = value;
                 SignalPropertyChange();
             }
         }
@@ -470,17 +470,17 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         [Browsable(true)]
-        [Category("Special Flags")]
-        [DisplayName("Flag 0x23")]
-        public byte Flag0x23
+        [Category("Spawn Info")]
+        [DisplayName("Starting Action")]
+        public byte StartingAction
         {
             get
             {
-                return _flag0x23;
+                return _startingaction;
             }
             set
             {
-                _flag0x23 = value;
+                _startingaction = value;
                 SignalPropertyChange();
             }
         }
@@ -518,36 +518,21 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         [Browsable(true)]
-        [Category("Enemy Info")]
-        [DisplayName("Starting Action")]
-        public byte StartingAction
+        [Category("Special Flags")]
+        [DisplayName("Flag 0x7E")]
+        public byte Flag0x7E
         {
             get
             {
-                return _startingaction;
+                return _flag0x7E;
             }
             set
             {
-                _startingaction = value;
+                _flag0x7E = value;
                 SignalPropertyChange();
             }
         }
 
-        [Browsable(true)]
-        [Category("Special Flags")]
-        [DisplayName("Flag 0x7F")]
-        public byte Flag0x7F
-        {
-            get
-            {
-                return _flag0x7F;
-            }
-            set
-            {
-                _flag0x7F = value;
-                SignalPropertyChange();
-            }
-        }
 
         [Browsable(true)]
         [Category("Special Flags")]
@@ -617,7 +602,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             _header1 = Header->_header1;
             _header2 = Header->_header2;
-            _flag0x08 = Header->_flag0x08;
+            _extrahealth = Header->_extrahealth;
             _flag0x09 = Header->_flag0x09;
             _flag0x0A = Header->_flag0x0A;
             _flag0x0B = Header->_flag0x0B;
@@ -644,7 +629,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             _unknown0x20 = Header->_unknown0x20;
             _unknown0x21 = Header->_unknown0x21;
             _unknown0x22 = Header->_unknown0x22;
-            _flag0x23 = Header->_flag0x23;
+            _startingaction = Header->_startingaction;
             _unknown0x24 = Header->_unknown0x24;
             _unknown0x25 = Header->_unknown0x25;
             _unknown0x26 = Header->_unknown0x26;
@@ -729,7 +714,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             _unknown0x7B = Header->_unknown0x7B;
             _unknown0x7C = Header->_unknown0x7C;
             _spawnid = Header->_spawnid;
-            _startingaction = Header->_startingaction;
+            _flag0x7E = Header->_flag0x7E;
             _flag0x7F = Header->_flag0x7F;
             _flag0x80 = Header->_flag0x80;
             _flag0x81 = Header->_flag0x81;
@@ -750,7 +735,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             GEG1Entry* hdr = (GEG1Entry*)address;
             hdr->_header1 = _header1;
             hdr->_header2 = _header2;
-            hdr->_flag0x08 = _flag0x08;
+            hdr->_extrahealth = _extrahealth;
             hdr->_flag0x09 = _flag0x09;
             hdr->_flag0x0A = _flag0x0A;
             hdr->_flag0x0B = _flag0x0B;
@@ -777,7 +762,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             hdr->_unknown0x20 = _unknown0x20;
             hdr->_unknown0x21 = _unknown0x21;
             hdr->_unknown0x22 = _unknown0x22;
-            hdr->_flag0x23 = _flag0x23;
+            hdr->_startingaction = _startingaction;
             hdr->_unknown0x24 = _unknown0x24;
             hdr->_unknown0x25 = _unknown0x25;
             hdr->_unknown0x26 = _unknown0x26;
@@ -862,7 +847,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             hdr->_unknown0x7B = _unknown0x7B;
             hdr->_unknown0x7C = _unknown0x7C;
             hdr->_spawnid = _spawnid;
-            hdr->_startingaction = _startingaction;
+            hdr->_flag0x7E = _flag0x7E;
             hdr->_flag0x7F = _flag0x7F;
             hdr->_flag0x80 = _flag0x80;
             hdr->_flag0x81 = _flag0x81;

@@ -36,7 +36,7 @@ namespace BrawlLib.SSBBTypes
         // Unknown values. I just assumed byte for all of them for now// Headers are known
         public uint _header1;       // 0x00
         public uint _header2;       // 0x04
-        public byte _flag0x08;
+        public byte _extrahealth;
         public byte _flag0x09;
         public byte _flag0x0A;
         public byte _flag0x0B;
@@ -64,7 +64,7 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x20;
         public byte _unknown0x21;
         public byte _unknown0x22;
-        public byte _flag0x23;
+        public byte _startingaction;
         public byte _unknown0x24;
         public byte _unknown0x25;
         public byte _unknown0x26;
@@ -150,7 +150,7 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x7B;
         public byte _unknown0x7C;
         public byte _spawnid;
-        public byte _startingaction;
+        public byte _flag0x7E;
         public byte _flag0x7F;
         public byte _flag0x80;
         public byte _flag0x81;
