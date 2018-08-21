@@ -503,7 +503,7 @@ namespace BrawlBox
 
                 using (WebClient client = new WebClient())
                 {
-                    client.DownloadFile("https://github.com/soopercool101/BrawlCommonFiles/blob/master/Textures/Stages/Shadow/TShadow1.tex0",
+                    client.DownloadFile("https://github.com/soopercool101/BrawlCommonFiles/raw/master/Textures/Stages/Shadow/TShadow1.tex0",
                                         @endLocation);
                 }
             }
@@ -511,18 +511,21 @@ namespace BrawlBox
             if (File.Exists(endLocation))
             {
                 TEX0Node node = NodeFactory.FromFile(null, endLocation) as TEX0Node;
-                ((BRRESNode)_resource).GetOrCreateFolder<TEX0Node>().AddChild(node);
-
-                string palette = Path.ChangeExtension(endLocation, ".plt0");
-                if (File.Exists(palette) && node.HasPalette)
+                if(node != null)
                 {
-                    PLT0Node n = NodeFactory.FromFile(null, palette) as PLT0Node;
-                    ((BRRESNode)_resource).GetOrCreateFolder<PLT0Node>().AddChild(n);
-                }
+                    ((BRRESNode)_resource).GetOrCreateFolder<TEX0Node>().AddChild(node);
 
-                BaseWrapper w = this.FindResource(node, true);
-                w.EnsureVisible();
-                w.TreeView.SelectedNode = w;
+                    string palette = Path.ChangeExtension(endLocation, ".plt0");
+                    if (File.Exists(palette) && node.HasPalette)
+                    {
+                        PLT0Node n = NodeFactory.FromFile(null, palette) as PLT0Node;
+                        ((BRRESNode)_resource).GetOrCreateFolder<PLT0Node>().AddChild(n);
+                    }
+
+                    BaseWrapper w = this.FindResource(node, true);
+                    w.EnsureVisible();
+                    w.TreeView.SelectedNode = w;
+                }
             }
         }
         
@@ -558,34 +561,41 @@ namespace BrawlBox
             if (File.Exists(endLocationFB))
             {
                 TEX0Node node = NodeFactory.FromFile(null, endLocationFB) as TEX0Node;
-                ((BRRESNode)_resource).GetOrCreateFolder<TEX0Node>().AddChild(node);
 
-                string palette = Path.ChangeExtension(endLocationFB, ".plt0");
-                if (File.Exists(palette) && node.HasPalette)
+                if (node != null)
                 {
-                    PLT0Node n = NodeFactory.FromFile(null, palette) as PLT0Node;
-                    ((BRRESNode)_resource).GetOrCreateFolder<PLT0Node>().AddChild(n);
-                }
+                    ((BRRESNode)_resource).GetOrCreateFolder<TEX0Node>().AddChild(node);
 
-                BaseWrapper w = this.FindResource(node, true);
-                w.EnsureVisible();
-                w.TreeView.SelectedNode = w;
+                    string palette = Path.ChangeExtension(endLocationFB, ".plt0");
+                    if (File.Exists(palette) && node.HasPalette)
+                    {
+                        PLT0Node n = NodeFactory.FromFile(null, palette) as PLT0Node;
+                        ((BRRESNode)_resource).GetOrCreateFolder<PLT0Node>().AddChild(n);
+                    }
+
+                    BaseWrapper w = this.FindResource(node, true);
+                    w.EnsureVisible();
+                    w.TreeView.SelectedNode = w;
+                }
             }
             if (File.Exists(endLocationSpyCloak))
             {
                 TEX0Node node = NodeFactory.FromFile(null, endLocationSpyCloak) as TEX0Node;
-                ((BRRESNode)_resource).GetOrCreateFolder<TEX0Node>().AddChild(node);
-
-                string palette = Path.ChangeExtension(endLocationSpyCloak, ".plt0");
-                if (File.Exists(palette) && node.HasPalette)
+                if (node != null)
                 {
-                    PLT0Node n = NodeFactory.FromFile(null, palette) as PLT0Node;
-                    ((BRRESNode)_resource).GetOrCreateFolder<PLT0Node>().AddChild(n);
-                }
+                    ((BRRESNode)_resource).GetOrCreateFolder<TEX0Node>().AddChild(node);
 
-                BaseWrapper w = this.FindResource(node, true);
-                w.EnsureVisible();
-                w.TreeView.SelectedNode = w;
+                    string palette = Path.ChangeExtension(endLocationSpyCloak, ".plt0");
+                    if (File.Exists(palette) && node.HasPalette)
+                    {
+                        PLT0Node n = NodeFactory.FromFile(null, palette) as PLT0Node;
+                        ((BRRESNode)_resource).GetOrCreateFolder<PLT0Node>().AddChild(n);
+                    }
+
+                    BaseWrapper w = this.FindResource(node, true);
+                    w.EnsureVisible();
+                    w.TreeView.SelectedNode = w;
+                }
             }
         }
 
