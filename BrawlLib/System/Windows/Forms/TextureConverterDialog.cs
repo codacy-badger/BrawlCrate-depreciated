@@ -1552,7 +1552,6 @@ namespace System.Windows.Forms
                         newB = 0;
 
                     newColor = Color.FromArgb(Source.GetPixel(j, i).A, newR, newG, newB);
-                    Console.WriteLine("Old Saturation: " + Source.GetPixel(j, i).GetSaturation() + " | New Saturation: " + newColor.GetSaturation());
                     Source.SetPixel(j, i, newColor);
                 }
             }
