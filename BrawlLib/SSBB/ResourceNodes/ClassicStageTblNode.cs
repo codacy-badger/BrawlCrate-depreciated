@@ -181,7 +181,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [TypeConverter(typeof(DropDownListFighterIDs))]
         [Category("Fighter")]
         [DisplayName("Fighter ID")]
-        public byte FighterID { get { return _header._fighterID; } set { _header._fighterID = value; Name = BrawlLib.StageBox.FighterNameGenerators.FromID(_header._fighterID, BrawlLib.StageBox.FighterNameGenerators.slotIDIndex, "-S"); SignalPropertyChange(); } }
+        public byte FighterID { get { return _header._fighterID; } set { _header._fighterID = value; if (value == 0xFF) { Name = "None"; } else { Name = BrawlLib.StageBox.FighterNameGenerators.FromID(_header._fighterID, BrawlLib.StageBox.FighterNameGenerators.slotIDIndex, "-S"); } SignalPropertyChange(); } }
         [Category("Fighter")]
         [DisplayName("Fighter Status")]
         public StatusEnum FighterStatus { get { return (StatusEnum)_header._fighterstatus; } set { _header._fighterstatus = (byte)value; SignalPropertyChange(); } }
@@ -212,6 +212,8 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             if (_name == null)
                 _name = BrawlLib.StageBox.FighterNameGenerators.FromID(_header._fighterID, BrawlLib.StageBox.FighterNameGenerators.slotIDIndex, "-S");
+            if (_header._fighterID == 0xFF)
+                _name = "None";
 
             return true;
         }
