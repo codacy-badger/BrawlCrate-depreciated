@@ -5,6 +5,18 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using BrawlLib;
 using System.Collections.Generic;
+using System.Net;
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Reflection;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Linq;
 
 namespace BrawlBox
 {
@@ -38,7 +50,19 @@ namespace BrawlBox
                 new ToolStripMenuItem("Color Sequence", null, ImportClrAction),
                 new ToolStripMenuItem("Scene Settings", null, ImportScnAction),
                 new ToolStripMenuItem("Folder", null, ImportFolderAction),
-                new ToolStripMenuItem("Animated GIF", null, ImportGIFAction)
+                new ToolStripMenuItem("Animated GIF", null, ImportGIFAction),
+                new ToolStripMenuItem("Common Files (From Internet)", null,
+                    new ToolStripMenuItem("Static (Empty) Model", null, ImportCommonModelStaticAction),
+                    new ToolStripMenuItem("Character Spy Textures", null, ImportCommonTextureSpyAction),
+                    new ToolStripMenuItem("Stage Shadow Texture", null, ImportCommonTextureShadowAction)
+                /*new ToolStripMenuItem("Models", null,
+                    new ToolStripMenuItem("Static (Empty) Model", null, ImportCommonModelStaticAction)
+                    ),
+                new ToolStripMenuItem("Textures", null,
+                    new ToolStripMenuItem("Spy", null, ImportCommonTextureSpyAction),
+                    new ToolStripMenuItem("Stage Shadow", null, ImportCommonTextureShadowAction)
+                )*/
+                )
                 ));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("Preview All Models", null, PreviewAllAction));
@@ -83,7 +107,12 @@ namespace BrawlBox
         protected static void EditAllAction(object sender, EventArgs e) { GetInstance<BRESWrapper>().EditAll(); }
         protected static void PreviewAllAction(object sender, EventArgs e) { GetInstance<BRESWrapper>().PreviewAll(); }
         protected static void ImportGIFAction(object sender, EventArgs e) { GetInstance<BRESWrapper>().ImportGIF(); }
-        
+
+        // Common import files
+        protected static void ImportCommonModelStaticAction(object sender, EventArgs e) { GetInstance<BRESWrapper>().ImportCommonModelStatic(); }
+        protected static void ImportCommonTextureSpyAction(object sender, EventArgs e) { GetInstance<BRESWrapper>().ImportCommonTextureSpy(); }
+        protected static void ImportCommonTextureShadowAction(object sender, EventArgs e) { GetInstance<BRESWrapper>().ImportCommonTextureShadow(); }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
             _menu.Items[9].Enabled = _menu.Items[10].Enabled = _menu.Items[11].Enabled = _menu.Items[13].Enabled = _menu.Items[14].Enabled = _menu.Items[16].Enabled = true;
@@ -427,6 +456,136 @@ namespace BrawlBox
                 case ResourceType.MDL0:
                     models.Add((MDL0Node)node);
                     break;
+            }
+        }
+
+        public static string commonDirectory = AppDomain.CurrentDomain.BaseDirectory + '\\' + "CommonFiles";
+        public void ImportCommonModelStatic()
+        {
+            Directory.CreateDirectory(commonDirectory);
+            Directory.CreateDirectory(commonDirectory + '\\' + "Models");
+            string endLocation = (commonDirectory + '\\' + "Models" + '\\' + "Static.mdl0");
+            if(!File.Exists(endLocation))
+            {
+                // Use TLS 1.2, used by GitHub
+                ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+
+                using (WebClient client = new WebClient())
+                {
+                    client.DownloadFile("https://github.com/soopercool101/BrawlCommonFiles/raw/master/Models/Static/Static.mdl0",
+                                        @endLocation);
+                }
+            }
+
+            if (File.Exists(endLocation))
+            {
+                MDL0Node node = MDL0Node.FromFile(endLocation);
+                if (node != null)
+                {
+                    ((BRRESNode)_resource).GetOrCreateFolder<MDL0Node>().AddChild(node);
+
+                    BaseWrapper w = this.FindResource(node, true);
+                    w.EnsureVisible();
+                    w.TreeView.SelectedNode = w;
+                }
+            }
+        }
+
+        public void ImportCommonTextureShadow()
+        {
+            Directory.CreateDirectory(commonDirectory);
+            Directory.CreateDirectory(commonDirectory + '\\' + "Textures");
+            string endLocation = (commonDirectory + '\\' + "Textures" + '\\' + "TShadow1.tex0");
+            if (!File.Exists(endLocation))
+            {
+                // Use TLS 1.2, used by GitHub
+                ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+
+                using (WebClient client = new WebClient())
+                {
+                    client.DownloadFile("https://github.com/soopercool101/BrawlCommonFiles/blob/master/Textures/Stages/Shadow/TShadow1.tex0",
+                                        @endLocation);
+                }
+            }
+
+            if (File.Exists(endLocation))
+            {
+                TEX0Node node = NodeFactory.FromFile(null, endLocation) as TEX0Node;
+                ((BRRESNode)_resource).GetOrCreateFolder<TEX0Node>().AddChild(node);
+
+                string palette = Path.ChangeExtension(endLocation, ".plt0");
+                if (File.Exists(palette) && node.HasPalette)
+                {
+                    PLT0Node n = NodeFactory.FromFile(null, palette) as PLT0Node;
+                    ((BRRESNode)_resource).GetOrCreateFolder<PLT0Node>().AddChild(n);
+                }
+
+                BaseWrapper w = this.FindResource(node, true);
+                w.EnsureVisible();
+                w.TreeView.SelectedNode = w;
+            }
+        }
+        
+        public void ImportCommonTextureSpy()
+        {
+            Directory.CreateDirectory(commonDirectory);
+            Directory.CreateDirectory(commonDirectory + '\\' + "Textures");
+            string endLocationFB = (commonDirectory + '\\' + "Textures" + '\\' + "FB.tex0");
+            string endLocationSpyCloak = (commonDirectory + '\\' + "Textures" + '\\' + "spycloak00.tex0");
+            if (!File.Exists(endLocationFB))
+            {
+                // Use TLS 1.2, used by GitHub
+                ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+
+                using (WebClient client = new WebClient())
+                {
+                    client.DownloadFile("https://github.com/soopercool101/BrawlCommonFiles/raw/master/Textures/Characters/Spy/FB.tex0",
+                                        @endLocationFB);
+                }
+            }
+            if (!File.Exists(endLocationSpyCloak))
+            {
+                // Use TLS 1.2, used by GitHub
+                ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+
+                using (WebClient client = new WebClient())
+                {
+                    client.DownloadFile("https://github.com/soopercool101/BrawlCommonFiles/raw/master/Textures/Characters/Spy/spycloak00.tex0",
+                                        @endLocationSpyCloak);
+                }
+            }
+
+            if (File.Exists(endLocationFB))
+            {
+                TEX0Node node = NodeFactory.FromFile(null, endLocationFB) as TEX0Node;
+                ((BRRESNode)_resource).GetOrCreateFolder<TEX0Node>().AddChild(node);
+
+                string palette = Path.ChangeExtension(endLocationFB, ".plt0");
+                if (File.Exists(palette) && node.HasPalette)
+                {
+                    PLT0Node n = NodeFactory.FromFile(null, palette) as PLT0Node;
+                    ((BRRESNode)_resource).GetOrCreateFolder<PLT0Node>().AddChild(n);
+                }
+
+                BaseWrapper w = this.FindResource(node, true);
+                w.EnsureVisible();
+                w.TreeView.SelectedNode = w;
+            }
+            if (File.Exists(endLocationSpyCloak))
+            {
+                TEX0Node node = NodeFactory.FromFile(null, endLocationSpyCloak) as TEX0Node;
+                ((BRRESNode)_resource).GetOrCreateFolder<TEX0Node>().AddChild(node);
+
+                string palette = Path.ChangeExtension(endLocationSpyCloak, ".plt0");
+                if (File.Exists(palette) && node.HasPalette)
+                {
+                    PLT0Node n = NodeFactory.FromFile(null, palette) as PLT0Node;
+                    ((BRRESNode)_resource).GetOrCreateFolder<PLT0Node>().AddChild(n);
+                }
+
+                BaseWrapper w = this.FindResource(node, true);
+                w.EnsureVisible();
+                w.TreeView.SelectedNode = w;
             }
         }
 
