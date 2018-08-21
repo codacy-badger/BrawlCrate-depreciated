@@ -10,6 +10,7 @@ using BrawlLib;
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using BrawlLib.HSLColor;
 
 namespace System.Windows.Forms
 {
@@ -74,6 +75,7 @@ namespace System.Windows.Forms
         private CheckBox chkSwapRGB;
         private CheckBox chkSwapAlpha;
         private CheckBox chkSwapAlphaRGB;
+        private Button fitfakebutton;
 
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public FileMap TextureData { get { return _textureData; } }
@@ -830,6 +832,7 @@ namespace System.Windows.Forms
             this.cboPaletteFormat = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.chkSwapAlphaRGB = new System.Windows.Forms.CheckBox();
             this.chkSwapRGB = new System.Windows.Forms.CheckBox();
             this.chkSwapAlpha = new System.Windows.Forms.CheckBox();
             this.chkConstrainProps = new System.Windows.Forms.CheckBox();
@@ -846,7 +849,7 @@ namespace System.Windows.Forms
             this.button1 = new System.Windows.Forms.Button();
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.pictureBox1 = new System.Windows.Forms.GoodPictureBox();
-            this.chkSwapAlphaRGB = new System.Windows.Forms.CheckBox();
+            this.fitfakebutton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numLOD)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -1047,7 +1050,7 @@ namespace System.Windows.Forms
             // btnOkay
             // 
             this.btnOkay.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnOkay.Location = new System.Drawing.Point(8, 157);
+            this.btnOkay.Location = new System.Drawing.Point(8, 191);
             this.btnOkay.Name = "btnOkay";
             this.btnOkay.Size = new System.Drawing.Size(80, 23);
             this.btnOkay.TabIndex = 11;
@@ -1058,7 +1061,7 @@ namespace System.Windows.Forms
             // btnCancel
             // 
             this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnCancel.Location = new System.Drawing.Point(94, 157);
+            this.btnCancel.Location = new System.Drawing.Point(94, 191);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(80, 23);
             this.btnCancel.TabIndex = 12;
@@ -1181,6 +1184,7 @@ namespace System.Windows.Forms
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.fitfakebutton);
             this.groupBox4.Controls.Add(this.chkSwapAlphaRGB);
             this.groupBox4.Controls.Add(this.chkSwapRGB);
             this.groupBox4.Controls.Add(this.chkSwapAlpha);
@@ -1196,14 +1200,25 @@ namespace System.Windows.Forms
             this.groupBox4.Controls.Add(this.btnCancel);
             this.groupBox4.Location = new System.Drawing.Point(3, 309);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(179, 189);
+            this.groupBox4.Size = new System.Drawing.Size(179, 223);
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
+            // 
+            // chkSwapAlphaRGB
+            // 
+            this.chkSwapAlphaRGB.AutoSize = true;
+            this.chkSwapAlphaRGB.Location = new System.Drawing.Point(9, 164);
+            this.chkSwapAlphaRGB.Name = "chkSwapAlphaRGB";
+            this.chkSwapAlphaRGB.Size = new System.Drawing.Size(131, 17);
+            this.chkSwapAlphaRGB.TabIndex = 10;
+            this.chkSwapAlphaRGB.Text = "Swap Alpha with RGB";
+            this.chkSwapAlphaRGB.UseVisualStyleBackColor = true;
+            this.chkSwapAlphaRGB.CheckedChanged += new System.EventHandler(this.chkSwapAlphaRGB_CheckedChanged);
             // 
             // chkSwapRGB
             // 
             this.chkSwapRGB.AutoSize = true;
-            this.chkSwapRGB.Location = new System.Drawing.Point(9, 110);
+            this.chkSwapRGB.Location = new System.Drawing.Point(9, 141);
             this.chkSwapRGB.Name = "chkSwapRGB";
             this.chkSwapRGB.Size = new System.Drawing.Size(79, 17);
             this.chkSwapRGB.TabIndex = 8;
@@ -1214,7 +1229,7 @@ namespace System.Windows.Forms
             // chkSwapAlpha
             // 
             this.chkSwapAlpha.AutoSize = true;
-            this.chkSwapAlpha.Location = new System.Drawing.Point(94, 110);
+            this.chkSwapAlpha.Location = new System.Drawing.Point(94, 141);
             this.chkSwapAlpha.Name = "chkSwapAlpha";
             this.chkSwapAlpha.Size = new System.Drawing.Size(83, 17);
             this.chkSwapAlpha.TabIndex = 9;
@@ -1325,7 +1340,7 @@ namespace System.Windows.Forms
             this.panel1.Location = new System.Drawing.Point(379, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(185, 501);
+            this.panel1.Size = new System.Drawing.Size(185, 535);
             this.panel1.TabIndex = 9;
             // 
             // txtPath
@@ -1398,24 +1413,25 @@ namespace System.Windows.Forms
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Picture = null;
-            this.pictureBox1.Size = new System.Drawing.Size(379, 481);
+            this.pictureBox1.Size = new System.Drawing.Size(379, 515);
             this.pictureBox1.TabIndex = 0;
             // 
-            // chkSwapAlphaRGB
+            // fitfakebutton
             // 
-            this.chkSwapAlphaRGB.AutoSize = true;
-            this.chkSwapAlphaRGB.Location = new System.Drawing.Point(9, 133);
-            this.chkSwapAlphaRGB.Name = "chkSwapAlphaRGB";
-            this.chkSwapAlphaRGB.Size = new System.Drawing.Size(131, 17);
-            this.chkSwapAlphaRGB.TabIndex = 10;
-            this.chkSwapAlphaRGB.Text = "Swap Alpha with RGB";
-            this.chkSwapAlphaRGB.UseVisualStyleBackColor = true;
-            this.chkSwapAlphaRGB.CheckedChanged += new System.EventHandler(this.chkSwapAlphaRGB_CheckedChanged);
+            this.fitfakebutton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fitfakebutton.Location = new System.Drawing.Point(6, 110);
+            this.fitfakebutton.Name = "fitfakebutton";
+            this.fitfakebutton.Size = new System.Drawing.Size(168, 21);
+            this.fitfakebutton.TabIndex = 13;
+            this.fitfakebutton.Text = "Add \"FitFake\" Filter";
+            this.fitfakebutton.UseVisualStyleBackColor = true;
+            this.fitfakebutton.Click += new System.EventHandler(this.fitfakebutton_Click);
             // 
             // TextureConverterDialog
             // 
             this.AcceptButton = this.btnOkay;
-            this.ClientSize = new System.Drawing.Size(564, 501);
+            this.ClientSize = new System.Drawing.Size(564, 535);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -1515,6 +1531,40 @@ namespace System.Windows.Forms
             UpdatePreview();
 
             _updating = false;
+        }
+
+        private void fitfakebutton_Click(object sender, EventArgs e)
+        {
+            fitfakebutton.Enabled = false;
+            for (int i = 0; i < Source.Height; i++)
+            {
+                for(int j = 0; j < Source.Width; j++)
+                {
+                    Color newColor = Color.FromArgb(Source.GetPixel(j, i).A, fitFakeFilter(Source.GetPixel(j, i)));
+                    int newR;
+                    int newG;
+                    int newB;
+                    if ((newR = newColor.R - 50) < 0)
+                        newR = 0;
+                    if ((newG = newColor.G - 50) < 0)
+                        newG = 0;
+                    if ((newB = newColor.B - 50) < 0)
+                        newB = 0;
+
+                    newColor = Color.FromArgb(Source.GetPixel(j, i).A, newR, newG, newB);
+                    Console.WriteLine("Old Saturation: " + Source.GetPixel(j, i).GetSaturation() + " | New Saturation: " + newColor.GetSaturation());
+                    Source.SetPixel(j, i, newColor);
+                }
+            }
+
+            UpdatePreview();
+        }
+
+        private Color fitFakeFilter(Color originalcolor)
+        {
+            HSLColor newHSL = new HSLColor(originalcolor);
+            newHSL.Saturation *= 0.65;
+            return newHSL;
         }
 
         private void chkConstrainProps_CheckedChanged(object sender, EventArgs e)
