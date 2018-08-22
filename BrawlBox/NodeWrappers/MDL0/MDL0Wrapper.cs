@@ -62,6 +62,7 @@ namespace BrawlBox.NodeWrappers
             _menu.Items.Add(new ToolStripMenuItem("&Edit Materials", null,
                 new ToolStripMenuItem("&Characters", null,
                     new ToolStripMenuItem("&Convert To Spy Model", null, SpyConvertAction),
+                    new ToolStripMenuItem("&Convert To Fake Model", null, FakeConvertAction),
                     new ToolStripMenuItem("&Regenerate Metal Materials", null, MetalAction)
                 ),
                 new ToolStripMenuItem("&Stages", null,
@@ -102,6 +103,7 @@ namespace BrawlBox.NodeWrappers
         protected static void CullAllAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().CullMaterials(3); }
         protected static void ShadowConvertAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().ShadowConvert(); }
         protected static void SpyConvertAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SpyConvert(); }
+        protected static void FakeConvertAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().FakeConvert(); }
 
         protected static void TransparencyFixAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().StartTransparencyFix(); }
 
@@ -169,6 +171,11 @@ namespace BrawlBox.NodeWrappers
         public void SpyConvert()
         {
             ((MDL0Node)_resource).ConvertToSpyModel();
+        }
+
+        public void FakeConvert()
+        {
+            ((MDL0Node)_resource).ConvertToFakeModel(true);
         }
 
         public void InvertMaterials()

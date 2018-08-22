@@ -345,7 +345,45 @@ namespace BrawlLib.SSBB.ResourceNodes
             Name = Name + "_Shadow";
         }
 
-        public bool MultiTypeWorks = true;
+        public void ConvertToFakeModel(bool ignoreEyes)
+        {
+            if (_matGroup == null)
+            {
+                return;
+            }
+
+            foreach(MDL0MaterialNode m in _matGroup.Children)
+            {
+                if((!m.Name.Contains("Eye", StringComparison.OrdinalIgnoreCase) && ignoreEyes) && !m.Name.EndsWith("_ExtMtl", StringComparison.OrdinalIgnoreCase))
+                {
+                    m.ConstantColor2 = new GXColorS10(0, 12, 0, 26);
+                }
+            }
+
+            foreach (MDL0ShaderNode s in _shadGroup.Children)
+            {
+                bool improperShader = false;
+                if (s.Materials.Count() <= 0 || s.Children.Count <= 0)
+                    continue;
+                foreach(MDL0MaterialNode m2 in s.Materials)
+                {
+                    if((m2.Name.Contains("eye", StringComparison.OrdinalIgnoreCase) && ignoreEyes) || m2.Name.EndsWith("_ExtMtl", StringComparison.OrdinalIgnoreCase))
+                    {
+                        improperShader = true;
+                    }
+                }
+                if (!improperShader)
+                {
+                    ((MDL0TEVStageNode)s.Children[0]).ConstantColorSelection = TevKColorSel.ConstantColor2_RGB;
+                    ((MDL0TEVStageNode)s.Children[0]).ColorScale = TevScale.MultiplyBy2;
+                }
+
+            }
+
+            Name = Name + "Fake";
+        }
+
+        public bool SpyMultiTypeWorks = true;
         public void ConvertToSpyModel()
         {
             if (_matGroup == null)
@@ -355,7 +393,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             Name = Name + "Spy";
 
-            if (MultiTypeWorks)
+            if (SpyMultiTypeWorks)
             {
                 ConvertToSpyModelMultiType();
                 return;
