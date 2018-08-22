@@ -345,7 +345,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             Name = Name + "_Shadow";
         }
 
-        public void ConvertToFakeModel(bool ignoreEyes)
+        public void ConvertToFakeModel(bool ignoreEyesForMaterials, bool ignoreEyesForShaders)
         {
             if (_matGroup == null)
             {
@@ -354,7 +354,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             foreach(MDL0MaterialNode m in _matGroup.Children)
             {
-                if((!m.Name.Contains("Eye", StringComparison.OrdinalIgnoreCase) && ignoreEyes) && !m.Name.EndsWith("_ExtMtl", StringComparison.OrdinalIgnoreCase))
+                if(!(m.Name.Contains("Eye", StringComparison.OrdinalIgnoreCase) && ignoreEyesForMaterials) && !m.Name.EndsWith("_ExtMtl", StringComparison.OrdinalIgnoreCase))
                 {
                     m.ConstantColor2 = new GXColorS10(0, 12, 0, 26);
                 }
@@ -367,7 +367,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                     continue;
                 foreach(MDL0MaterialNode m2 in s.Materials)
                 {
-                    if((m2.Name.Contains("eye", StringComparison.OrdinalIgnoreCase) && ignoreEyes) || m2.Name.EndsWith("_ExtMtl", StringComparison.OrdinalIgnoreCase))
+                    if((m2.Name.Contains("eye", StringComparison.OrdinalIgnoreCase) && ignoreEyesForShaders) || m2.Name.EndsWith("_ExtMtl", StringComparison.OrdinalIgnoreCase))
                     {
                         improperShader = true;
                     }
@@ -376,6 +376,8 @@ namespace BrawlLib.SSBB.ResourceNodes
                 {
                     ((MDL0TEVStageNode)s.Children[0]).ConstantColorSelection = TevKColorSel.ConstantColor2_RGB;
                     ((MDL0TEVStageNode)s.Children[0]).ColorScale = TevScale.MultiplyBy2;
+                    if (((MDL0TEVStageNode)s.Children[0]).ColorRegister == TevColorRegID.Color1)
+                        ((MDL0TEVStageNode)s.Children[0]).ColorRegister = TevColorRegID.Color2;
                 }
 
             }

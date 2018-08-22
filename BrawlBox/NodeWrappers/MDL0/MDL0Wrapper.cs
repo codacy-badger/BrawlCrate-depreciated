@@ -175,7 +175,7 @@ namespace BrawlBox.NodeWrappers
 
         public void FakeConvert()
         {
-            ((MDL0Node)_resource).ConvertToFakeModel(true);
+            ((MDL0Node)_resource).ConvertToFakeModel(false, false);
         }
 
         public void InvertMaterials()
