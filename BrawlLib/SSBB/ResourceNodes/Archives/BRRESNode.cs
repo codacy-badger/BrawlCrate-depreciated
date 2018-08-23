@@ -747,6 +747,13 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
             if (Type == BRESGroupType.None) GetFileType();
         }
+
+        public void SortChildren()
+        {
+            if (Children.Count <= 0)
+                return;
+            _children = _children.OrderBy(o => o.Name).ToList();
+        }
     }
 
     public unsafe class NW4RAnimationNode : BRESEntryNode

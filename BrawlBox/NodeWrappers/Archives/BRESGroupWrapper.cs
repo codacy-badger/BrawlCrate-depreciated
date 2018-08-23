@@ -16,25 +16,37 @@ namespace BrawlBox
             _menu.Items.Add(new ToolStripMenuItem("Move D&own", null, MoveDownAction, Keys.Control | Keys.Down));
             _menu.Items.Add(new ToolStripMenuItem("Re&name", null, RenameAction, Keys.Control | Keys.N));
             _menu.Items.Add(new ToolStripMenuItem("&Default Name", null, DefaultAction, Keys.Control | Keys.D));
+            _menu.Items.Add(new ToolStripMenuItem("&Sort Items", null, SortAction, Keys.Control | Keys.S));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteAction, Keys.Control | Keys.Delete));
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
         protected static void DefaultAction(object sender, EventArgs e) { GetInstance<BRESGroupWrapper>().Default(); }
+        protected static void SortAction(object sender, EventArgs e) { GetInstance<BRESGroupWrapper>().Sort(); }
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-            _menu.Items[0].Enabled = _menu.Items[1].Enabled = _menu.Items[4].Enabled = true;
+            _menu.Items[0].Enabled = _menu.Items[1].Enabled = _menu.Items[5].Enabled = true;
         }
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             BRESGroupWrapper w = GetInstance<BRESGroupWrapper>();
             _menu.Items[0].Enabled = w.PrevNode != null;
             _menu.Items[1].Enabled = w.NextNode != null;
-            _menu.Items[4].Enabled = w.Parent != null;
+            _menu.Items[5].Enabled = w.Parent != null;
         }
 
         public BRESGroupWrapper() { ContextMenuStrip = _menu; }
+
+        public void Sort()
+        {
+            int index = Index;
+            ResourceNode parent = _resource._parent;
+            Remove();
+            ((BRESGroupNode)_resource).SortChildren();
+            parent.InsertChild(_resource, true, index);
+            _resource.OnMoved();
+        }
 
         public void Default()
         {
