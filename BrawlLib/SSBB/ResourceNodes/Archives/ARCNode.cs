@@ -41,7 +41,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 foreach (ARCEntryNode b in Children)
                     if (b is BRRESNode)
                         count += ((BRRESNode)b).NumModels;
-                    else if (b is ARCNode && ((ARCNode)b).NumTriangles > 0)
+                    else if (b is ARCNode && ((ARCNode)b).NumModels > -1)
                         count += ((ARCNode)b).NumModels;
                 return count;
             }
@@ -60,7 +60,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 foreach (ARCEntryNode b in Children)
                     if (b is BRRESNode)
                         count += ((BRRESNode)b).NumFacepoints;
-                    else if (b is ARCNode && ((ARCNode)b).NumTriangles > 0)
+                    else if (b is ARCNode && ((ARCNode)b).NumModels > -1)
                         count += ((ARCNode)b).NumFacepoints;
                 return count;
             }
@@ -80,7 +80,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 foreach (ARCEntryNode b in Children)
                     if (b is BRRESNode)
                         count += ((BRRESNode)b).NumVertices;
-                    else if (b is ARCNode && ((ARCNode)b).NumTriangles > 0)
+                    else if (b is ARCNode && ((ARCNode)b).NumModels > -1)
                         count += ((ARCNode)b).NumVertices;
                 return count;
             }
@@ -99,7 +99,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 foreach (ARCEntryNode b in Children)
                     if (b is BRRESNode)
                         count += ((BRRESNode)b).NumTriangles;
-                    else if (b is ARCNode && ((ARCNode)b).NumTriangles > 0)
+                    else if (b is ARCNode && ((ARCNode)b).NumModels > -1)
                         count += ((ARCNode)b).NumTriangles;
                 return count;
             }
@@ -118,7 +118,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 foreach (ARCEntryNode b in Children)
                     if (b is BRRESNode)
                         count += ((BRRESNode)b).NumNodes;
-                    else if (b is ARCNode && ((ARCNode)b).NumTriangles > 0)
+                    else if (b is ARCNode && ((ARCNode)b).NumModels > -1)
                         count += ((ARCNode)b).NumNodes;
                 return count;
             }
