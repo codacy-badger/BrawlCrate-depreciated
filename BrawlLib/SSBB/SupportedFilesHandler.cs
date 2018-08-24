@@ -18,7 +18,7 @@ namespace BrawlLib.SSBB
             new SupportedFileInfo(true, "SZS Compressed Archive", "szs"),
             //new SupportedFileInfo(true, "SZP Compressed Archive", "szp"),
 #if DEBUG
-            new SupportedFileInfo(true, "Wii/GC Disc Image", "iso"),
+            //new SupportedFileInfo(true, "Wii/GC Disc Image", "iso"),
 #endif
 
             //NW4R Model Resources
