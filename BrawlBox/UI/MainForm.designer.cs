@@ -447,7 +447,7 @@ namespace BrawlBox
             // mdL0ObjectControl1
             // 
             this.mdL0ObjectControl1.Location = new System.Drawing.Point(139, 56);
-            this.mdL0ObjectControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.mdL0ObjectControl1.Margin = new System.Windows.Forms.Padding(4);
             this.mdL0ObjectControl1.Name = "mdL0ObjectControl1";
             this.mdL0ObjectControl1.Size = new System.Drawing.Size(652, 397);
             this.mdL0ObjectControl1.TabIndex = 21;
@@ -455,7 +455,7 @@ namespace BrawlBox
             // ppcDisassembler1
             // 
             this.ppcDisassembler1.Location = new System.Drawing.Point(0, 0);
-            this.ppcDisassembler1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ppcDisassembler1.Margin = new System.Windows.Forms.Padding(4);
             this.ppcDisassembler1.Name = "ppcDisassembler1";
             this.ppcDisassembler1.Size = new System.Drawing.Size(398, 199);
             this.ppcDisassembler1.TabIndex = 20;
@@ -606,6 +606,7 @@ namespace BrawlBox
             // rsarGroupEditor
             // 
             this.rsarGroupEditor.Location = new System.Drawing.Point(0, 0);
+            this.rsarGroupEditor.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.rsarGroupEditor.Name = "rsarGroupEditor";
             this.rsarGroupEditor.Size = new System.Drawing.Size(98, 47);
             this.rsarGroupEditor.TabIndex = 5;
