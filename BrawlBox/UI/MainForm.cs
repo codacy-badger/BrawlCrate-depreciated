@@ -549,7 +549,16 @@ namespace BrawlBox
         private void eFLSEffectListToolStripMenuItem_Click(object sender, EventArgs e) { Program.New<EFLSNode>(); }
         private void rEFFParticlesToolStripMenuItem_Click(object sender, EventArgs e) { Program.New<REFFNode>(); }
         private void rEFTParticleTexturesToolStripMenuItem_Click(object sender, EventArgs e) { Program.New<REFTNode>(); }
-        
+        private void pm36STGBATTLEFIELD_ToolStripMenuItem_Click(object sender, EventArgs e) { }
+        private void pm36STGDOLPIC_ToolStripMenuItem_Click(object sender, EventArgs e) { }
+        private void pm36STGDXGREENS_ToolStripMenuItem_Click(object sender, EventArgs e) { }
+        private void pm36STGFINAL_ToolStripMenuItem_Click(object sender, EventArgs e) { }
+        private void pm36STGFAMICOM_ToolStripMenuItem_Click(object sender, EventArgs e) { }
+        private void pm36STGGREENHILL_ToolStripMenuItem_Click(object sender, EventArgs e) { }
+        private void pm36STGDXPSTADIUM_ToolStripMenuItem_Click(object sender, EventArgs e) { }
+        private void pm36STGVILLAGE_ToolStripMenuItem_Click(object sender, EventArgs e) { }
+        private void pm36STGMADEIN_ToolStripMenuItem_Click(object sender, EventArgs e) { }
+
         private void saveToolStripMenuItem_Click(object sender, EventArgs e) { Program.Save(); }
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e) { Program.SaveAs(); }
         private void closeToolStripMenuItem_Click(object sender, EventArgs e) { Program.Close(); }
