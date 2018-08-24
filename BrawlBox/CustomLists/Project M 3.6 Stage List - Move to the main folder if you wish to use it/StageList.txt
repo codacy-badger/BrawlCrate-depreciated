@@ -43,11 +43,11 @@ Flags  |ID     |Internal Name  |Stage Name
        |0x32   |DXZEBES        |Brinstar
        |0x33   |OLDIN          |Hyrule Castle
        |0x34   |HOMERUN        |Home-Run Contest
-       |0x35   |EDIT           |Stage Builder
+X      |0x35   |EDIT           |Stage Builder
        |0x36   |HEAL           |All-Star Rest Area
        |0x37   |ONLINETRAINING |Training Room
        |0x38   |TARGETLV       |Break the Targets
-       |0x39   |CHARAROLL      |Classic Mode Credits
+X      |0x39   |CHARAROLL      |Classic Mode Credits
        |0x40   |CUSTOM01       |Custom 01 // Custom Stages. If you don't want to see these in dropdowns, delete the lines or flag them with "X"
        |0x41   |CUSTOM02       |Custom 02
        |0x42   |CUSTOM03       |Custom 03
