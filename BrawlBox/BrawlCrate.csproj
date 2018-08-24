@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BrawlBox</RootNamespace>
-    <AssemblyName>StageBox</AssemblyName>
+    <AssemblyName>BrawlCrate</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <PlatformTarget>x86</PlatformTarget>
     <IsWebBootstrapper>false</IsWebBootstrapper>
