@@ -32,9 +32,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                if (BrawlLib.Properties.Settings.Default.CompatibilityMode || _compression == CompressionType.Differential || _compression == CompressionType.Huffman || _compression == CompressionType.LZ77Huffman || _compression == CompressionType.LZ77RangeCoder || _compression == CompressionType.RunLength || _compression == CompressionType.RunLengthYAY0 || _compression == CompressionType.RunLengthYAZ0)
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
                     return -1;
-                Populate();
+                //Populate();
                 if (_children == null)
                     return 0;
                 int count = 0;
@@ -51,9 +51,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                if (BrawlLib.Properties.Settings.Default.CompatibilityMode || _compression == CompressionType.Differential || _compression == CompressionType.Huffman || _compression == CompressionType.LZ77Huffman || _compression == CompressionType.LZ77RangeCoder || _compression == CompressionType.RunLength || _compression == CompressionType.RunLengthYAY0 || _compression == CompressionType.RunLengthYAZ0)
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
                     return -1;
-                Populate();
+                //Populate();
                 if (_children == null)
                     return 0;
                 int count = 0;
@@ -71,9 +71,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                if (BrawlLib.Properties.Settings.Default.CompatibilityMode || _compression == CompressionType.Differential || _compression == CompressionType.Huffman || _compression == CompressionType.LZ77Huffman || _compression == CompressionType.LZ77RangeCoder || _compression == CompressionType.RunLength || _compression == CompressionType.RunLengthYAY0 || _compression == CompressionType.RunLengthYAZ0)
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
                     return -1;
-                Populate();
+                //Populate();
                 if (_children == null)
                     return 0;
                 int count = 0;
@@ -90,9 +90,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                if (BrawlLib.Properties.Settings.Default.CompatibilityMode || _compression == CompressionType.Differential || _compression == CompressionType.Huffman || _compression == CompressionType.LZ77Huffman || _compression == CompressionType.LZ77RangeCoder || _compression == CompressionType.RunLength || _compression == CompressionType.RunLengthYAY0 || _compression == CompressionType.RunLengthYAZ0)
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
                     return -1;
-                Populate();
+                //Populate();
                 if (_children == null)
                     return 0;
                 int count = 0;
@@ -109,9 +109,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                if (BrawlLib.Properties.Settings.Default.CompatibilityMode || _compression == CompressionType.Differential || _compression == CompressionType.Huffman || _compression == CompressionType.LZ77Huffman || _compression == CompressionType.LZ77RangeCoder || _compression == CompressionType.RunLength || _compression == CompressionType.RunLengthYAY0 || _compression == CompressionType.RunLengthYAZ0)
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
                     return -1;
-                Populate();
+                //Populate();
                 if (_children == null)
                     return 0;
                 int count = 0;
