@@ -27,7 +27,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
                     return -1;
-                Populate();
+                //Populate();
                 if (GetFolder<MDL0Node>() == null)
                     return 0;
                 int count = 0;
@@ -43,7 +43,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
                     return -1;
-                Populate();
+                //Populate();
                 if (GetFolder<MDL0Node>() == null)
                     return 0;
                 int count = 0;
@@ -60,7 +60,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
                     return -1;
-                Populate();
+                //Populate();
                 if (GetFolder<MDL0Node>() == null)
                     return 0;
                 int count = 0;
@@ -76,7 +76,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
                     return -1;
-                Populate();
+                //Populate();
                 if (GetFolder<MDL0Node>() == null)
                     return 0;
                 int count = 0;
@@ -92,7 +92,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
                     return -1;
-                Populate();
+                //Populate();
                 if (GetFolder<MDL0Node>() == null)
                     return 0;
                 int count = 0;
