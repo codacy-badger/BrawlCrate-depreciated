@@ -731,7 +731,7 @@ namespace System.BrawlEx
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(BrawlLib.StageBox.FighterNameGenerators.slotIDList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+            return new StandardValuesCollection(BrawlLib.BrawlCrate.FighterNameGenerators.slotIDList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
         }
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
@@ -753,7 +753,7 @@ namespace System.BrawlEx
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(byte))
             {
-                var fighter = BrawlLib.StageBox.FighterNameGenerators.slotIDList.Where(s => s.ID == (byte)value).FirstOrDefault();
+                var fighter = BrawlLib.BrawlCrate.FighterNameGenerators.slotIDList.Where(s => s.ID == (byte)value).FirstOrDefault();
                 return "0x" + ((byte)value).ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
             }
             else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
@@ -768,7 +768,7 @@ namespace System.BrawlEx
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(BrawlLib.StageBox.FighterNameGenerators.fighterIDLongList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+            return new StandardValuesCollection(BrawlLib.BrawlCrate.FighterNameGenerators.fighterIDLongList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
         }
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
@@ -790,7 +790,7 @@ namespace System.BrawlEx
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(uint))
             {
-                var fighter = BrawlLib.StageBox.FighterNameGenerators.fighterIDLongList.Where(s => s.ID == (uint)value).FirstOrDefault();
+                var fighter = BrawlLib.BrawlCrate.FighterNameGenerators.fighterIDLongList.Where(s => s.ID == (uint)value).FirstOrDefault();
                 return "0x" + ((uint)value).ToString("X8") + (fighter == null ? "" : (" - " + fighter.Name));
             }
             else if ((destinationType == typeof(int) || destinationType == typeof(uint)) && value != null && value.GetType() == typeof(string))
@@ -840,7 +840,7 @@ namespace System.BrawlEx
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(BrawlLib.StageBox.FighterNameGenerators.cssSlotIDList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+            return new StandardValuesCollection(BrawlLib.BrawlCrate.FighterNameGenerators.cssSlotIDList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
         }
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
@@ -862,7 +862,7 @@ namespace System.BrawlEx
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(byte))
             {
-                var fighter = BrawlLib.StageBox.FighterNameGenerators.cssSlotIDList.Where(s => s.ID == (byte)value).FirstOrDefault();
+                var fighter = BrawlLib.BrawlCrate.FighterNameGenerators.cssSlotIDList.Where(s => s.ID == (byte)value).FirstOrDefault();
                 return "0x" + ((byte)value).ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
             }
             else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
@@ -876,7 +876,7 @@ namespace System.BrawlEx
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(BrawlLib.StageBox.FighterNameGenerators.cosmeticIDList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+            return new StandardValuesCollection(BrawlLib.BrawlCrate.FighterNameGenerators.cosmeticIDList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
         }
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
@@ -898,7 +898,7 @@ namespace System.BrawlEx
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(byte))
             {
-                var fighter = BrawlLib.StageBox.FighterNameGenerators.cosmeticIDList.Where(s => s.ID == (byte)value).FirstOrDefault();
+                var fighter = BrawlLib.BrawlCrate.FighterNameGenerators.cosmeticIDList.Where(s => s.ID == (byte)value).FirstOrDefault();
                 return "0x" + ((byte)value).ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
             }
             else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))

@@ -329,13 +329,13 @@ namespace BrawlLib.SSBB.ResourceNodes
             _colorID = Header->_colorID;
             _costumeID = Header->_costumeID;
             if (_name == null)
-                _name = "Fit" + BrawlLib.StageBox.FighterNameGenerators.InternalNameFromID(((CSSCNode)Parent)._cosmeticSlot, BrawlLib.StageBox.FighterNameGenerators.cosmeticIDIndex, "+S") + _costumeID.ToString("00") + " - " + BrawlExColorID.Colors[_colorID].Name;
+                _name = "Fit" + BrawlLib.BrawlCrate.FighterNameGenerators.InternalNameFromID(((CSSCNode)Parent)._cosmeticSlot, BrawlLib.BrawlCrate.FighterNameGenerators.cosmeticIDIndex, "+S") + _costumeID.ToString("00") + " - " + BrawlExColorID.Colors[_colorID].Name;
             return false;
         }
 
         public void regenName()
         {
-            Name = "Fit" + BrawlLib.StageBox.FighterNameGenerators.InternalNameFromID(((CSSCNode)Parent)._cosmeticSlot, BrawlLib.StageBox.FighterNameGenerators.cosmeticIDIndex, "+S") + _costumeID.ToString("00") + " - " + BrawlExColorID.Colors[_colorID].Name;
+            Name = "Fit" + BrawlLib.BrawlCrate.FighterNameGenerators.InternalNameFromID(((CSSCNode)Parent)._cosmeticSlot, BrawlLib.BrawlCrate.FighterNameGenerators.cosmeticIDIndex, "+S") + _costumeID.ToString("00") + " - " + BrawlExColorID.Colors[_colorID].Name;
         }
 
         public override void OnRebuild(VoidPtr address, int length, bool force)

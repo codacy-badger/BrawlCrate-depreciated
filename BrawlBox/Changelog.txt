@@ -1,9 +1,9 @@
 ﻿
-StageBox - v0.9 Hotfix 3
+BrawlCrate - v0.10
 Copyright © 2018 soopercool101, MarioDox
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
-https://github.com/soopercool101/stagebox
+https://github.com/soopercool101/BrawlCrate
 https://discord.gg/s7c8763
 
 This program is provided as-is without any warranty, implied or otherwise.
@@ -12,14 +12,18 @@ regarding its proper and lawful use. The authors/hosts/distributors cannot be
 held responsible for any damage resulting in the use of this program, nor can 
 they be held accountable for the manner in which it is used.
 
- =============================================
-|************ StageBox Change Log ************|
- =============================================
+ ===============================================
+|************ BrawlCrate Change Log ************|
+ ===============================================
  
- - v0.9 Hotfix 3 - (8/16/2018)
+ - BrawlCrate v0.10 - (8/xx/2018)
+ . Updated name and iconography (StageBox -> BrawlBox)
+ . 
+ 
+ - StageBox v0.9 Hotfix 3 - (8/16/2018)
  . Fixed bug in which v0.9 Hotfix 2 would crash on 32-bit systems
  
- - v0.9 Hotfix 2 - (8/16/2018)
+ - StageBox v0.9 Hotfix 2 - (8/16/2018)
  . Fixed bug in which PAT0 nodes would not function properly when an ARC is opened
  . Fixed saving of Common2MiscDataNodes to match Brawl's implementation
  . Added parsing for GIB2 (Item Boxes) nodes in SSE files
@@ -28,10 +32,10 @@ they be held accountable for the manner in which it is used.
    - "Flag0x0D" parsed as "Connected Enemy ID"
  . Added icons for the following SSE files: GCAM, GIB2, GITM
  
- - v0.9 Hotfix 1 - (8/10/2018)
+ - StageBox v0.9 Hotfix 1 - (8/10/2018)
  . Fixed bug in which opening files directly (open the editor by using open with on a file) would cause a new customlists folder to be generated in the location of the file itself
  
- - v0.9 - (8/10/2018)
+ - StageBox v0.9 - (8/10/2018)
  . Fixed BrawlBox bug in which saving an edited module would change offsets due to buffers not being maintained
  . Added support to read custom stage and fighter lists from a .txt file to populate lists in relevant places
    - Will be generated whenever the program is opened if they do not exist
@@ -68,7 +72,7 @@ they be held accountable for the manner in which it is used.
  . Fixed glitch in which returning to the "Find" menu from the Section Editor would not correctly allow you to type in hex values if hex was the last selected option
  . Fixed crash when pasting hex into find window on the Section Editor
  
- - v0.8 Hotfix 1 - (7/17/2018)
+ - StageBox v0.8 Hotfix 1 - (7/17/2018)
  . Added compatibility mode setting, as stages with corrupted models would have those models broken immediately on open, or wouldn't open at all, due to the model counter from v0.8
  . Switched Zelda/Sheik and Samus/ZSS in the fighter list
  . Added Project M's Mewtwo and Roy, as well as BrawlEx IDs to the Fighter List (excluding 48, 49, 4A, which are used elsewhere)
@@ -82,7 +86,7 @@ they be held accountable for the manner in which it is used.
    - Number of stocks
    - Status (Normal/Metal/Invisible)
  
- - v0.8 - (7/15/2018)
+ - StageBox v0.8 - (7/15/2018)
  . Model viewer now defaults to a black background on stages
  . ARC and BRRES files now show a total for models, facepoints, vertices, triangles, and nodes within them
  . Added error handling on regular collision editor to only allow ledges where they make sense
@@ -96,7 +100,7 @@ they be held accountable for the manner in which it is used.
  . Backported Texture Matrices handling from the dev build of BrawlBox
  . Backported Common2 editing functionality from the dev build of BrawlBox
  
- - v0.7 - (7/10/2018)
+ - StageBox v0.7 - (7/10/2018)
  . Issue reporter now also links to the Discord (It's more helpful to me to know more specifics of what causes the crashes)
  . Improved texture renderer to match Brawl's implementation
    - Textures now load from the BRRES containing the model before checking anywhere else in the ARC
@@ -131,7 +135,7 @@ they be held accountable for the manner in which it is used.
  . "Export All" no longer exports palette files unless ".tex0" is selected for the texture output
  . Updater now pulls the description from the GitHub release
  
- - v0.6 - (5/26/2018)
+ - StageBox v0.6 - (5/26/2018)
  . Issue reporter functionality restored. Sends issues to https://github.com/StageBoxBrawl/StageBoxIssues/issues
  . Adds right-click menu functionality to automatically convert a given MDL0 into a stage shadow model
  . Automatic file compressor now works if the parent ARC's name begins with "stg" or "Stg", along with the original "STG"
@@ -149,7 +153,7 @@ they be held accountable for the manner in which it is used.
      . Add "Swap Alpha" functionality
      . Add "Swap Alpha with RGB" functionality
  
- - v0.5 - (5/18/2018)
+ - StageBox v0.5 - (5/18/2018)
  . StageBox can now be associated with any file formats BrawlBox v0.77 could be
  . Texture recommending reverted to BrawlBox v0.77 behavior
  . Added "Duplicate" functionality to the following file formats:
@@ -184,14 +188,14 @@ they be held accountable for the manner in which it is used.
  . Added support to Fill (Expanded) on existing SCLA files for CollEx compatibility
  . Fill and Fill (Expanded) for SCLA now place missing subentries at their proper spot
  
- - v0.4 Hotfix 2 - (5/12/2018)
+ - StageBox v0.4 Hotfix 2 - (5/12/2018)
  . Fixed bug in which the regular collision editor set an Unknown flag instead of the Rotating flag
  
- - v0.4 Hotfix 1 - (5/10/2018)
+ - StageBox v0.4 Hotfix 1 - (5/10/2018)
  . Rearranged collision flags based on usefulness 
  . "Unknown Flag 2" now listed as "Rotating" and is moved to where the other unknown flag was on the regular previewer
  
- - v0.4 - (5/10/2018)
+ - StageBox v0.4 - (5/10/2018)
  . Shows boundaries, spawns/respawns, and item spawn zones by default when viewing ARC files
  . Restore, Replace, and Delete now become properly disabled for SCLA and STPM files
  . Merge option for collisions moved to a more standard location to match "Edit" functionality on MDL0 or CHR0
@@ -206,7 +210,7 @@ they be held accountable for the manner in which it is used.
    - Support for four new theoretical collision flags
    - Support for flagging collision planes as multiple collision types
  
- - v0.3 Hotfix 1 - (5/3/2018)
+ - StageBox v0.3 Hotfix 1 - (5/3/2018)
  . Added "Auto-Name Objects" functionality to MDL0 Objects
  . Added Stage Expansion stages to the stage list, allowing them to be chosen for Event Matches/Classic Mode
  . Fixed previewing when opening MDL0 files directly
@@ -214,7 +218,7 @@ they be held accountable for the manner in which it is used.
  . Fixed SCLAs marking themselves as needing saving whenever they were initialized
  . StageBox is now built as a 32-bit program (matching BrawlBox)
  
- - v0.3 - (4/26/2018)
+ - StageBox v0.3 - (4/26/2018)
  . Fixed glitch in which attempting to encode a texture as CI4 or CI8 from a 64 bit operating system would crash the program
  . Fixed glitch in which incorrect Right-Click menu options were being disabled for Collisions, SCLAs, and MDL0s
  . Added "New" functionality for the following formats
@@ -231,7 +235,7 @@ they be held accountable for the manner in which it is used.
  . Added "Repeat", "Reverse", and "Reverse to Loop" functionality to CHR0 animations
  . Edited BrawlBox updater to work with StageBox
  
- - v0.2 - (4/21/2018)
+ - StageBox v0.2 - (4/21/2018)
  . Added support for Brawl Stage Table types
    - TBCL (Found in Pictochat)
    - TBGC (Found in Smashville)
@@ -258,11 +262,11 @@ they be held accountable for the manner in which it is used.
  . Automatic compressor no longer compresses empty files
  . Texture importing no longer will default to CI4 or CI8
  
- - v0.1 Beta Hotfix 1 - (4/8/2018)
+ - StageBox v0.1 Beta Hotfix 1 - (4/8/2018)
  . ExtendedLZ77 autocompressor now works correctly on release builds
  . ExtendedLZ77 autocompressor now only works on subnodes of ARCs that have names starting with "STG"
  
- - v0.1 Beta - (4/8/2018)
+ - StageBox v0.1 Beta - (4/8/2018)
  . Resources originally saved with LZ77 will be saved as ExtendedLZ77 when the stage is saved (Being saved as LZ77 also marks archives as needing saving)
  . Used spaces instead of CamelCase for data
  . Collision Files are now displayed in-editor as "Collision Data [X]", where "X" is the FileIndex

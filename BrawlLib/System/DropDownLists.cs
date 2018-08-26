@@ -477,7 +477,7 @@ namespace System
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(BrawlLib.StageBox.StageNameGenerators.stageList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+            return new StandardValuesCollection(BrawlLib.BrawlCrate.StageNameGenerators.stageList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
         }
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
@@ -499,7 +499,7 @@ namespace System
         {
             if (destinationType == typeof(string) && value != null && value.GetType() == typeof(int))
             {
-                var stage = BrawlLib.StageBox.StageNameGenerators.stageList.Where(s => s.ID == (int)value).FirstOrDefault();
+                var stage = BrawlLib.BrawlCrate.StageNameGenerators.stageList.Where(s => s.ID == (int)value).FirstOrDefault();
                 return "0x" + ((int)value).ToString("X2") + (stage == null ? "" : (" - " + stage.Name));
             }
             else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
@@ -617,7 +617,7 @@ namespace System
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(BrawlLib.StageBox.FighterNameGenerators.singlePlayerSlotIDList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+            return new StandardValuesCollection(BrawlLib.BrawlCrate.FighterNameGenerators.singlePlayerSlotIDList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
         }
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
@@ -639,7 +639,7 @@ namespace System
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(byte))
             {
-                var fighter = BrawlLib.StageBox.FighterNameGenerators.singlePlayerSlotIDList.Where(s => s.ID == (byte)value).FirstOrDefault();
+                var fighter = BrawlLib.BrawlCrate.FighterNameGenerators.singlePlayerSlotIDList.Where(s => s.ID == (byte)value).FirstOrDefault();
                 return "0x" + ((byte)value).ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
             }
             else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))

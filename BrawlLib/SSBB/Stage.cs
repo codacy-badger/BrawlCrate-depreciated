@@ -1,5 +1,5 @@
 ﻿using System;
-using BrawlLib.StageBox;
+using BrawlLib.BrawlCrate;
 
 namespace BrawlLib.SSBB
 {
