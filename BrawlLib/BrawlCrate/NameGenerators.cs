@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 using BrawlLib.SSBB;
 
-namespace BrawlLib.StageBox
+namespace BrawlLib.BrawlCrate
 {
     public class FighterNameGenerators
     {

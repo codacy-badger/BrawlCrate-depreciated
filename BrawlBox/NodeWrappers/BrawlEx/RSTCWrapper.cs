@@ -74,11 +74,11 @@ namespace BrawlBox.NodeWrappers
             }
             RSTCEntryNode node1 = new RSTCEntryNode();
             node1.FighterID = cssID;
-            node1._name = BrawlLib.StageBox.FighterNameGenerators.FromID(cssID, BrawlLib.StageBox.FighterNameGenerators.cssSlotIDIndex, "+S");
+            node1._name = BrawlLib.BrawlCrate.FighterNameGenerators.FromID(cssID, BrawlLib.BrawlCrate.FighterNameGenerators.cssSlotIDIndex, "+S");
             ((RSTCNode)_resource).cssList.AddChild(node1);
             RSTCEntryNode node2 = new RSTCEntryNode();
             node2.FighterID = cssID;
-            node2._name = BrawlLib.StageBox.FighterNameGenerators.FromID(cssID, BrawlLib.StageBox.FighterNameGenerators.cssSlotIDIndex, "+S");
+            node2._name = BrawlLib.BrawlCrate.FighterNameGenerators.FromID(cssID, BrawlLib.BrawlCrate.FighterNameGenerators.cssSlotIDIndex, "+S");
             ((RSTCNode)_resource).randList.AddChild(node2);
         }
 

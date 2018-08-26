@@ -53,7 +53,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         private EventMatchFighterHeader data;
 
         [TypeConverter(typeof(DropDownListFighterIDs))]
-        public byte FighterID { get { return data._fighterID; } set { data._fighterID = value; Name = BrawlLib.StageBox.FighterNameGenerators.FromID(data._fighterID, BrawlLib.StageBox.FighterNameGenerators.slotIDIndex, "-S"); SignalPropertyChange(); } }
+        public byte FighterID { get { return data._fighterID; } set { data._fighterID = value; Name = BrawlLib.BrawlCrate.FighterNameGenerators.FromID(data._fighterID, BrawlLib.BrawlCrate.FighterNameGenerators.slotIDIndex, "-S"); SignalPropertyChange(); } }
 
         public StatusEnum Status { get { return (StatusEnum)data._status; } set { data._status = (byte)value; SignalPropertyChange(); } }
         //public byte Unknown02  { get { return data._unknown02; }          set { data._unknown02 = value;    SignalPropertyChange(); } }
@@ -118,7 +118,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public void UpdateName()
         {
-            Name = BrawlLib.StageBox.FighterNameGenerators.FromID(FighterID, BrawlLib.StageBox.FighterNameGenerators.slotIDIndex, "-S");
+            Name = BrawlLib.BrawlCrate.FighterNameGenerators.FromID(FighterID, BrawlLib.BrawlCrate.FighterNameGenerators.slotIDIndex, "-S");
         }
     }
 
