@@ -22,14 +22,14 @@ namespace BrawlLib.BrawlCrate
         
         public static uint randnumgen = 0;
 
-        public static string pm36stgfinalDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "STGPM36FINAL.pac";
+        public static string pm36stgfinalDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36FD.pac";
         public static bool PM36STGFINAL()
         {
             Random rand = new Random();
             byte[] buf = new byte[4];
             rand.NextBytes(buf);
             randnumgen = BitConverter.ToUInt32(buf, 0);
-            pm36stgfinalDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "STGPM36FINAL.pac";
+            pm36stgfinalDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36FD.pac";
             DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
             tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             // Use TLS 1.2, used by GitHub
