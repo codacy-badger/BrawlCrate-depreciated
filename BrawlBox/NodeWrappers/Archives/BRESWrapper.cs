@@ -7,17 +7,6 @@ using BrawlLib;
 using System.Collections.Generic;
 using System.Net;
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Net;
-using System.Net.NetworkInformation;
-using System.Reflection;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Linq;
-
 namespace BrawlBox
 {
     [NodeWrapper(ResourceType.BRES)]
