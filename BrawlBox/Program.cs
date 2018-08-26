@@ -90,11 +90,6 @@ namespace BrawlBox
         [STAThread]
         public static void Main(string[] args)
         {
-            try
-            {
-                Generate1to1Stages.clearTmpDir(Generate1to1Stages.tmpDirectory);
-            }
-            catch (System.IO.IOException x) { Console.WriteLine(x.Message); }
             if (args.Length >= 1)
             {
                 if (args[0].Equals("/gct", StringComparison.InvariantCultureIgnoreCase))
@@ -140,7 +135,7 @@ namespace BrawlBox
                     throw x;
                 }
             }
-            finally { Close(true); }
+            finally { Generate1to1Stages.clearTmpDir(Generate1to1Stages.tmpDirectory); Close(true); }
         }
 
         public static void Say(string msg)

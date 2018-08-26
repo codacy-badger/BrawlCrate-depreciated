@@ -46,11 +46,23 @@ namespace BrawlLib.BrawlCrate
         {
             Directory.CreateDirectory(directory);
             DirectoryInfo tmpdir = new DirectoryInfo(directory);
+            bool canDelete = true;
             foreach (DirectoryInfo dir in tmpdir.GetDirectories())
                 clearTmpDir(dir.FullName);
             foreach (FileInfo file in tmpdir.GetFiles())
-                file.Delete();
-            tmpdir.Delete();
+            {
+                try
+                {
+                    file.Delete();
+                }
+                catch (System.IO.IOException x) { canDelete = false; }
+            }
+
+            try
+            {
+                tmpdir.Delete();
+            }
+            catch (System.IO.IOException x) { }
         }
     }
 }
