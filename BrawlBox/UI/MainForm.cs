@@ -552,7 +552,7 @@ namespace BrawlBox
         private void pm36STGBATTLEFIELD_ToolStripMenuItem_Click(object sender, EventArgs e) { }
         private void pm36STGDOLPIC_ToolStripMenuItem_Click(object sender, EventArgs e) { }
         private void pm36STGDXGREENS_ToolStripMenuItem_Click(object sender, EventArgs e) { }
-        private void pm36STGFINAL_ToolStripMenuItem_Click(object sender, EventArgs e) { Program.Close(); if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGFINAL()) { Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgfinalDirectory); } }
+        private void pm36STGFINAL_ToolStripMenuItem_Click(object sender, EventArgs e) { Program.Close(); if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGFINAL()) { Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgfinalDirectory, false); } }
         private void pm36STGFAMICOM_ToolStripMenuItem_Click(object sender, EventArgs e) { }
         private void pm36STGGREENHILL_ToolStripMenuItem_Click(object sender, EventArgs e) { }
         private void pm36STGDXPSTADIUM_ToolStripMenuItem_Click(object sender, EventArgs e) { }
