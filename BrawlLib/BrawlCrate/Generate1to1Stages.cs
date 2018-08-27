@@ -46,7 +46,6 @@ namespace BrawlLib.BrawlCrate
         {
             Directory.CreateDirectory(directory);
             DirectoryInfo tmpdir = new DirectoryInfo(directory);
-            bool canDelete = true;
             foreach (DirectoryInfo dir in tmpdir.GetDirectories())
                 clearTmpDir(dir.FullName);
             foreach (FileInfo file in tmpdir.GetFiles())
@@ -55,7 +54,7 @@ namespace BrawlLib.BrawlCrate
                 {
                     file.Delete();
                 }
-                catch (System.IO.IOException x) { canDelete = false; }
+                catch (System.IO.IOException x) {  }
             }
 
             try
