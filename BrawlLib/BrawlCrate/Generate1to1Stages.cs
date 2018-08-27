@@ -121,6 +121,26 @@ namespace BrawlLib.BrawlCrate
             return File.Exists(pm36stgfamicomDirectory);
         }
 
+        public static string pm36stgmadeinDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36WL.pac";
+        public static bool PM36STGMADEIN()
+        {
+            Random rand = new Random();
+            byte[] buf = new byte[4];
+            rand.NextBytes(buf);
+            randnumgen = BitConverter.ToUInt32(buf, 0);
+            pm36stgmadeinDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36WL.pac";
+            DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
+            tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+            // Use TLS 1.2, used by GitHub
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            using (WebClient client = new WebClient())
+            {
+                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGMADEIN.pac",
+                                    @pm36stgmadeinDirectory);
+            }
+            return File.Exists(pm36stgmadeinDirectory);
+        }
+
         public static void clearTmpDir(string directory)
         {
             Directory.CreateDirectory(directory);
