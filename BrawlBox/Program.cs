@@ -135,7 +135,7 @@ namespace BrawlBox
                     throw x;
                 }
             }
-            finally { Close(true); }
+            finally { Generate1to1Stages.clearTmpDir(Generate1to1Stages.tmpDirectory); Close(true); }
         }
 
         public static void Say(string msg)
@@ -195,6 +195,11 @@ namespace BrawlBox
 
         public static bool Open(string path)
         {
+            return Open(path, true);
+        }
+
+        public static bool Open(string path, bool setRoot)
+        {
             if (String.IsNullOrEmpty(path))
                 return false;
 
@@ -221,6 +226,8 @@ namespace BrawlBox
             #endif
                 if ((_rootNode = NodeFactory.FromFile(null, _rootPath = path)) != null)
                 {
+                    if(!setRoot)
+                        _rootPath = null;
                     MainForm.Instance.Reset();
                     return true;
                 }
