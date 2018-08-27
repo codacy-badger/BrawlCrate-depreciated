@@ -21,6 +21,10 @@ namespace BrawlLib.BrawlCrate
             return tmp;
         }
 
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //                                                              PROJECT M 1:1s                                                      //
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         public static string pm36stgfinalDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36FD.pac";
         public static bool PM36STGFINAL()
         {
@@ -40,7 +44,26 @@ namespace BrawlLib.BrawlCrate
             }
             return File.Exists(pm36stgfinalDirectory);
         }
-
+        
+        public static string pm36stgbattlefieldDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36BF.pac";
+        public static bool PM36STGBATTLEFIELD()
+        {
+            Random rand = new Random();
+            byte[] buf = new byte[4];
+            rand.NextBytes(buf);
+            randnumgen = BitConverter.ToUInt32(buf, 0);
+            pm36stgbattlefieldDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36BF.pac";
+            DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
+            tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+            // Use TLS 1.2, used by GitHub
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            using (WebClient client = new WebClient())
+            {
+                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGBATTLEFIELD.pac",
+                                    @pm36stgbattlefieldDirectory);
+            }
+            return File.Exists(pm36stgbattlefieldDirectory);
+        }
 
         public static string pm36stgvillageDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36SV.pac";
         public static bool PM36STGVILLAGE()
@@ -139,6 +162,70 @@ namespace BrawlLib.BrawlCrate
                                     @pm36stgmadeinDirectory);
             }
             return File.Exists(pm36stgmadeinDirectory);
+        }
+
+        public static string pm36stggreenhillDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36GHZ.pac";
+        public static bool PM36STGGREENHILL()
+        {
+            Random rand = new Random();
+            byte[] buf = new byte[4];
+            rand.NextBytes(buf);
+            randnumgen = BitConverter.ToUInt32(buf, 0);
+            pm36stggreenhillDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36GHZ.pac";
+            DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
+            tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+            // Use TLS 1.2, used by GitHub
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            using (WebClient client = new WebClient())
+            {
+                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGGREENHILL.pac",
+                                    @pm36stggreenhillDirectory);
+            }
+            return File.Exists(pm36stggreenhillDirectory);
+        }
+
+        public static string pm36stgdxpstadiumDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36PS2.pac";
+        public static bool PM36STGDXPSTADIUM()
+        {
+            Random rand = new Random();
+            byte[] buf = new byte[4];
+            rand.NextBytes(buf);
+            randnumgen = BitConverter.ToUInt32(buf, 0);
+            pm36stgdxpstadiumDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36PS2.pac";
+            DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
+            tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+            // Use TLS 1.2, used by GitHub
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            using (WebClient client = new WebClient())
+            {
+                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGDXPSTADIUM.pac",
+                                    @pm36stgdxpstadiumDirectory);
+            }
+            return File.Exists(pm36stgdxpstadiumDirectory);
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //                                                              CUSTOM 1:1s                                                         //
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        public static string skySanctDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36Sky.pac";
+        public static bool STGSKYSANCTUARY()
+        {
+            Random rand = new Random();
+            byte[] buf = new byte[4];
+            rand.NextBytes(buf);
+            randnumgen = BitConverter.ToUInt32(buf, 0);
+            skySanctDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36Sky.pac";
+            DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
+            tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+            // Use TLS 1.2, used by GitHub
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            using (WebClient client = new WebClient())
+            {
+                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Custom/STGSKYSANCTUARY.pac",
+                                    @skySanctDirectory);
+            }
+            return File.Exists(skySanctDirectory);
         }
 
         public static void clearTmpDir(string directory)

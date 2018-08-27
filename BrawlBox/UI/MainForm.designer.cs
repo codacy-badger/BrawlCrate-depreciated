@@ -48,6 +48,7 @@ namespace BrawlBox
             this.effectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stage1to1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.projectM1to1sToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.custom1to1sToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pm36STGBATTLEFIELD_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pm36STGDOLPIC_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pm36STGDXGREENS_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,6 +59,7 @@ namespace BrawlBox
             this.pm36STGVILLAGE_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pm36STGVILLAGE_nv_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pm36STGMADEIN_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.customSkySanctuary_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eFLSEffectListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rEFFParticlesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rEFTParticleTexturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -275,8 +277,9 @@ namespace BrawlBox
             // stage1to1ToolStripMenuItem
             // 
             this.stage1to1ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.projectM1to1sToolStripMenuItem,
             //this.Brawl1to1sToolStripMenuItem,
-            this.projectM1to1sToolStripMenuItem});
+            this.custom1to1sToolStripMenuItem});
             this.stage1to1ToolStripMenuItem.Name = "stage1to1ToolStripMenuItem";
             this.stage1to1ToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.stage1to1ToolStripMenuItem.Text = "Stage 1:1s (Requires Internet!)";
@@ -374,6 +377,21 @@ namespace BrawlBox
             this.pm36STGMADEIN_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.pm36STGMADEIN_ToolStripMenuItem.Text = "Wario Land";
             this.pm36STGMADEIN_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGMADEIN_ToolStripMenuItem_Click);
+            // 
+            // custom1to1sToolStripMenuItem
+            // 
+            this.custom1to1sToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.customSkySanctuary_ToolStripMenuItem});
+            this.custom1to1sToolStripMenuItem.Name = "custom1to1sToolStripMenuItem";
+            this.custom1to1sToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.custom1to1sToolStripMenuItem.Text = "Custom Stages";
+            // 
+            // customSkySanctuary_ToolStripMenuItem
+            // 
+            this.customSkySanctuary_ToolStripMenuItem.Name = "customSkySanctuary_ToolStripMenuItem";
+            this.customSkySanctuary_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.customSkySanctuary_ToolStripMenuItem.Text = "Sky Sanctuary";
+            this.customSkySanctuary_ToolStripMenuItem.Click += new System.EventHandler(this.customSkySanctuary_ToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
@@ -840,6 +858,8 @@ namespace BrawlBox
         private ToolStripMenuItem pm36STGVILLAGE_ToolStripMenuItem;
         private ToolStripMenuItem pm36STGVILLAGE_nv_ToolStripMenuItem;
         private ToolStripMenuItem pm36STGMADEIN_ToolStripMenuItem;
+        private ToolStripMenuItem custom1to1sToolStripMenuItem;
+        private ToolStripMenuItem customSkySanctuary_ToolStripMenuItem;
         private TexCoordControl texCoordControl1;
         private PPCDisassembler ppcDisassembler1;
         private MDL0ObjectControl mdL0ObjectControl1;
