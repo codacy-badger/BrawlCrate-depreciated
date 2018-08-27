@@ -550,13 +550,14 @@ namespace BrawlBox
         private void rEFFParticlesToolStripMenuItem_Click(object sender, EventArgs e) { Program.New<REFFNode>(); }
         private void rEFTParticleTexturesToolStripMenuItem_Click(object sender, EventArgs e) { Program.New<REFTNode>(); }
         private void pm36STGBATTLEFIELD_ToolStripMenuItem_Click(object sender, EventArgs e) { }
-        private void pm36STGDOLPIC_ToolStripMenuItem_Click(object sender, EventArgs e) { }
+        private void pm36STGDOLPIC_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGDOLPIC()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgdolpicDirectory, false); } }
         private void pm36STGDXGREENS_ToolStripMenuItem_Click(object sender, EventArgs e) { }
-        private void pm36STGFINAL_ToolStripMenuItem_Click(object sender, EventArgs e) { Program.Close(); if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGFINAL()) { Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgfinalDirectory, false); } }
-        private void pm36STGFAMICOM_ToolStripMenuItem_Click(object sender, EventArgs e) { }
+        private void pm36STGFINAL_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGFINAL()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgfinalDirectory, false); } }
+        private void pm36STGFAMICOM_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGFAMICOM()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgfamicomDirectory, false); } }
         private void pm36STGGREENHILL_ToolStripMenuItem_Click(object sender, EventArgs e) { }
         private void pm36STGDXPSTADIUM_ToolStripMenuItem_Click(object sender, EventArgs e) { }
-        private void pm36STGVILLAGE_ToolStripMenuItem_Click(object sender, EventArgs e) { }
+        private void pm36STGVILLAGE_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGVILLAGE()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgvillageDirectory, false); } }
+        private void pm36STGVILLAGE_nv_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGVILLAGE_NV()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgvillagenvDirectory, false); } }
         private void pm36STGMADEIN_ToolStripMenuItem_Click(object sender, EventArgs e) { }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e) { Program.Save(); }

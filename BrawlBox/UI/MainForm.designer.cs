@@ -56,6 +56,7 @@ namespace BrawlBox
             this.pm36STGGREENHILL_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pm36STGDXPSTADIUM_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pm36STGVILLAGE_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pm36STGVILLAGE_nv_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pm36STGMADEIN_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eFLSEffectListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rEFFParticlesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -291,6 +292,7 @@ namespace BrawlBox
             this.pm36STGGREENHILL_ToolStripMenuItem,
             this.pm36STGDXPSTADIUM_ToolStripMenuItem,
             this.pm36STGVILLAGE_ToolStripMenuItem,
+            this.pm36STGVILLAGE_nv_ToolStripMenuItem,
             this.pm36STGMADEIN_ToolStripMenuItem});
             this.projectM1to1sToolStripMenuItem.Name = "projectM1to1sToolStripMenuItem";
             this.projectM1to1sToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
@@ -356,8 +358,15 @@ namespace BrawlBox
             // 
             this.pm36STGVILLAGE_ToolStripMenuItem.Name = "pm36STGVILLAGE_ToolStripMenuItem";
             this.pm36STGVILLAGE_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.pm36STGVILLAGE_ToolStripMenuItem.Text = "Smashville";
+            this.pm36STGVILLAGE_ToolStripMenuItem.Text = "Smashville (Villagers)";
             this.pm36STGVILLAGE_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGVILLAGE_ToolStripMenuItem_Click);
+            // 
+            // pm36STGVILLAGE_nv_ToolStripMenuItem
+            // 
+            this.pm36STGVILLAGE_nv_ToolStripMenuItem.Name = "pm36STGVILLAGE_nv_ToolStripMenuItem";
+            this.pm36STGVILLAGE_nv_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.pm36STGVILLAGE_nv_ToolStripMenuItem.Text = "Smashville (No Villagers)";
+            this.pm36STGVILLAGE_nv_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGVILLAGE_nv_ToolStripMenuItem_Click);
             // 
             // pm36STGMADEIN_ToolStripMenuItem
             // 
@@ -829,6 +838,7 @@ namespace BrawlBox
         private ToolStripMenuItem pm36STGGREENHILL_ToolStripMenuItem;
         private ToolStripMenuItem pm36STGDXPSTADIUM_ToolStripMenuItem;
         private ToolStripMenuItem pm36STGVILLAGE_ToolStripMenuItem;
+        private ToolStripMenuItem pm36STGVILLAGE_nv_ToolStripMenuItem;
         private ToolStripMenuItem pm36STGMADEIN_ToolStripMenuItem;
         private TexCoordControl texCoordControl1;
         private PPCDisassembler ppcDisassembler1;
