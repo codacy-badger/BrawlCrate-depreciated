@@ -390,6 +390,9 @@ Y: Only the Y axis is allowed to rotate. Is affected by the parent bone's rotati
         [Category("Bone"), TypeConverter(typeof(Vector3StringConverter))]
         public Vector3 BoxMax { get { return _extents.Max; } set { _extents.Max = value; SignalPropertyChange(); } }
 
+        [Category("Bone")]
+        public BoneFlags Flags { get { return _boneFlags; } set { _boneFlags = (BoneFlags)(int)value; SignalPropertyChange(); } }
+
         //[Category("Kinect Settings"), Browsable(true)]
         //public SkeletonJoint Joint
         //{
