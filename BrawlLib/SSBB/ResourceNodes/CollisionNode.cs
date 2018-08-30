@@ -552,22 +552,22 @@ namespace BrawlLib.SSBB.ResourceNodes
                 switch (_type = value)
                 {
                     case CollisionPlaneType.Floor:
-                        if (PointLeft._x > PointRight._x)
+                        if (PointLeft._x > PointRight._x && !IsRotating)
                             SwapLinks();
                         break;
 
                     case CollisionPlaneType.Ceiling:
-                        if (PointLeft._x < PointRight._x)
+                        if (PointLeft._x < PointRight._x && !IsRotating)
                             SwapLinks();
                         break;
 
                     case CollisionPlaneType.RightWall:
-                        if (PointLeft._y < PointRight._y)
+                        if (PointLeft._y < PointRight._y && !IsRotating)
                             SwapLinks();
                         break;
 
                     case CollisionPlaneType.LeftWall:
-                        if (PointLeft._y > PointRight._y)
+                        if (PointLeft._y > PointRight._y && !IsRotating)
                             SwapLinks();
                         break;
                 }
@@ -739,7 +739,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             return link;
         }
 
-        private void SwapLinks()
+        public void SwapLinks()
         {
             CollisionLink l = _linkLeft; 
             _linkLeft = _linkRight; 

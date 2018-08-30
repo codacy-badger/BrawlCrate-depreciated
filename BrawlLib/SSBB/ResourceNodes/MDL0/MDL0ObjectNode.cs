@@ -208,11 +208,25 @@ namespace BrawlLib.SSBB.ResourceNodes
         #region Colors
 
         public MDL0ColorNode[] _colorSet = new MDL0ColorNode[2];
-        private void SetColors(int id, string value)
+        public void SetColors(int id, string value)
+        {
+            SetColors(id, value, false);
+        }
+
+        public void SetColors(int id, string value, bool skipDialog)
         {
             MDL0ColorNode oldNode = _colorSet[id];
             if (String.IsNullOrEmpty(value))
-                if (oldNode != null && MessageBox.Show(RootNode._mainForm, "Are you sure you want to remove this reference?", "Continue?", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                if (oldNode != null && skipDialog)
+                {
+                    if (oldNode._objects.Contains(this))
+                        oldNode._objects.Remove(this);
+
+                    _colorSet[id] = null;
+                    _elementIndices[id + 2] = -1;
+                    _forceRebuild = true;
+                }
+                else if (oldNode != null && MessageBox.Show(RootNode._mainForm, "Are you sure you want to remove this reference?", "Continue?", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
                     if (oldNode._objects.Contains(this))
                         oldNode._objects.Remove(this);
@@ -229,7 +243,9 @@ namespace BrawlLib.SSBB.ResourceNodes
                 {
                     if (oldNode != null)
                     {
-                        if (newNode.NumEntries < oldNode.NumEntries)
+                        if (newNode.NumEntries < oldNode.NumEntries && skipDialog)
+                            _forceRebuild = true;
+                        else if (newNode.NumEntries < oldNode.NumEntries)
                         {
                             if (MessageBox.Show(null, "This node has less colors than in the originally linked color node.\nAny colors that cannot be found will use the first color instead.\nIs this okay?", "", MessageBoxButtons.YesNo) == DialogResult.No)
                                 return;
@@ -272,11 +288,24 @@ namespace BrawlLib.SSBB.ResourceNodes
         #region UVs
 
         public MDL0UVNode[] _uvSet = new MDL0UVNode[8];
-        private void SetUVs(int id, string value)
+        public void SetUVs(int id, string value)
+        {
+            SetUVs(id, value, false);
+        }
+        public void SetUVs(int id, string value, bool skipDialog)
         {
             MDL0UVNode oldNode = _uvSet[id];
             if (String.IsNullOrEmpty(value))
-                if (oldNode != null && MessageBox.Show(RootNode._mainForm, "Are you sure you want to remove this reference?", "Continue?", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                if(oldNode != null && skipDialog)
+                {
+                    if (oldNode._objects.Contains(this))
+                        oldNode._objects.Remove(this);
+
+                    _uvSet[id] = null;
+                    _elementIndices[id + 4] = -1;
+                    _forceRebuild = true;
+                }
+                else if (oldNode != null && MessageBox.Show(RootNode._mainForm, "Are you sure you want to remove this reference?", "Continue?", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
                     if (oldNode._objects.Contains(this))
                         oldNode._objects.Remove(this);

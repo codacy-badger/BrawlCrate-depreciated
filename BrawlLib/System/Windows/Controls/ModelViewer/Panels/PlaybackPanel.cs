@@ -63,7 +63,7 @@
             0,
             0});
             this.numTotalFrames.Name = "numTotalFrames";
-            this.numTotalFrames.Size = new System.Drawing.Size(52, 22);
+            this.numTotalFrames.Size = new System.Drawing.Size(52, 20);
             this.numTotalFrames.TabIndex = 19;
             this.numTotalFrames.ValueChanged += new System.EventHandler(this.numTotalFrames_ValueChanged);
             // 
@@ -81,7 +81,7 @@
             0,
             0});
             this.numFPS.Name = "numFPS";
-            this.numFPS.Size = new System.Drawing.Size(39, 22);
+            this.numFPS.Size = new System.Drawing.Size(39, 20);
             this.numFPS.TabIndex = 15;
             this.numFPS.Value = new decimal(new int[] {
             60,
@@ -103,9 +103,9 @@
             // 
             this.chkLoop.Location = new System.Drawing.Point(98, 5);
             this.chkLoop.Name = "chkLoop";
-            this.chkLoop.Size = new System.Drawing.Size(81, 20);
+            this.chkLoop.Size = new System.Drawing.Size(97, 20);
             this.chkLoop.TabIndex = 16;
-            this.chkLoop.Text = "Loop";
+            this.chkLoop.Text = "Loop Preview";
             this.chkLoop.UseVisualStyleBackColor = true;
             this.chkLoop.CheckedChanged += new System.EventHandler(this.chkLoop_CheckedChanged);
             // 
@@ -119,7 +119,7 @@
             0,
             0});
             this.numFrameIndex.Name = "numFrameIndex";
-            this.numFrameIndex.Size = new System.Drawing.Size(52, 22);
+            this.numFrameIndex.Size = new System.Drawing.Size(52, 20);
             this.numFrameIndex.TabIndex = 12;
             this.numFrameIndex.ValueChanged += new System.EventHandler(this.numFrameIndex_ValueChanged);
             // 
@@ -206,7 +206,7 @@
             this.lblLoopFrame.ForeColor = System.Drawing.Color.DarkRed;
             this.lblLoopFrame.Location = new System.Drawing.Point(194, 7);
             this.lblLoopFrame.Name = "lblLoopFrame";
-            this.lblLoopFrame.Size = new System.Drawing.Size(84, 17);
+            this.lblLoopFrame.Size = new System.Drawing.Size(63, 13);
             this.lblLoopFrame.TabIndex = 25;
             this.lblLoopFrame.Text = "Loop Frame";
             this.lblLoopFrame.Visible = false;

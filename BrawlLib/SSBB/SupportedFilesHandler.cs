@@ -18,7 +18,7 @@ namespace BrawlLib.SSBB
             new SupportedFileInfo(true, "SZS Compressed Archive", "szs"),
             //new SupportedFileInfo(true, "SZP Compressed Archive", "szp"),
 #if DEBUG
-            new SupportedFileInfo(true, "Wii/GC Disc Image", "iso"),
+            //new SupportedFileInfo(true, "Wii/GC Disc Image", "iso"),
 #endif
 
             //NW4R Model Resources
@@ -134,6 +134,8 @@ namespace BrawlLib.SSBB
             new SupportedFileInfo(false, "Uncompressed PCM", "wav"),
             new SupportedFileInfo(false, "3D Object Mesh", "obj"),
             new SupportedFileInfo(false, "JSON File", "json"),
+            new SupportedFileInfo(true, "BrawlEx Configuration", "dat"),
+            new SupportedFileInfo(true, "BrawlEx Configuration", "bx"),
             new SupportedFileInfo(false, "Raw Data File", "*"),
         };
 

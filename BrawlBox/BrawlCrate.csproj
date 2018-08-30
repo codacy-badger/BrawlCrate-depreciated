@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BrawlBox</RootNamespace>
-    <AssemblyName>StageBox</AssemblyName>
+    <AssemblyName>BrawlCrate</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <PlatformTarget>x86</PlatformTarget>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -88,7 +88,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Stagebox.ico</ApplicationIcon>
+    <ApplicationIcon>BrawlCrate.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>BrawlBox.Program</StartupObject>
@@ -139,7 +139,18 @@
     <None Include="NodeWrappers\BMDWrapper.cs" />
     <None Include="NodeWrappers\RARCWrapper.cs" />
     <None Include="NodeWrappers\FMDLWrapper.cs" />
-    <Compile Include="NodeWrappers\GEG1Wrapper.cs" />
+    <Compile Include="NodeWrappers\BrawlEx\COSCWrapper.cs" />
+    <Compile Include="NodeWrappers\BrawlEx\CSSCWrapper.cs" />
+    <Compile Include="NodeWrappers\BrawlEx\FCFGWrapper.cs" />
+    <Compile Include="NodeWrappers\BrawlEx\RSTCGroupWrapper.cs" />
+    <Compile Include="NodeWrappers\BrawlEx\RSTCWrapper.cs" />
+    <Compile Include="NodeWrappers\BrawlEx\SLTCWrapper.cs" />
+    <Compile Include="NodeWrappers\ClassicStageTblWrapper.cs" />
+    <Compile Include="NodeWrappers\Subspace\GCAMWrapper.cs" />
+    <Compile Include="NodeWrappers\Subspace\GIB2Wrapper.cs" />
+    <Compile Include="NodeWrappers\Subspace\GITMWrapper.cs" />
+    <Compile Include="NodeWrappers\Subspace\GWATWrapper.cs" />
+    <Compile Include="NodeWrappers\Subspace\GEG1Wrapper.cs" />
     <Compile Include="NodeWrappers\SndBgmTitleDataFolderWrapper.cs" />
     <Compile Include="NodeWrappers\Stage Tables\TBCLWrapper.cs" />
     <Compile Include="NodeWrappers\Stage Tables\TBGCWrapper.cs" />
@@ -149,6 +160,7 @@
     <Compile Include="NodeWrappers\Stage Tables\TBGMWrapper.cs" />
     <Compile Include="NodeWrappers\Subspace\ADSJWrapper.cs" />
     <Compile Include="NodeWrappers\Subspace\BLOCWrapper.cs" />
+    <Compile Include="NodeWrappers\Subspace\GDBFWrapper.cs" />
     <Compile Include="NodeWrappers\Subspace\GDORWrapper.cs" />
     <Compile Include="NodeWrappers\Audio\RSARWrapper.cs" />
     <Compile Include="NodeWrappers\Stage Tables\STDTWrapper.cs" />
@@ -451,8 +463,21 @@
     <None Include="Resources\STPM.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BrawlCrate.ico" />
+    <Content Include="CustomLists\AboutCustomLists.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CustomLists\FighterList.txt" />
+    <Content Include="CustomLists\Project M 3.6 Stage List - Move to the main folder if you wish to use it\StageList.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\GCAM.png" />
+    <Content Include="Resources\GIB2.png" />
+    <Content Include="Resources\GITM.png" />
+    <Content Include="Resources\GWAT.png" />
     <Content Include="Stagebox.ico" />
     <Content Include="OpenTK.dll" />
+    <Content Include="CustomLists\StageList.txt" />
     <None Include="Resources\SharedTEX0.png" />
     <None Include="Resources\BGMG.png" />
     <None Include="Resources\REL.png" />
@@ -467,6 +492,7 @@
     <None Include="Resources\GMOV.png" />
     <None Include="Resources\GEG1.png" />
     <None Include="Resources\GDOR.png" />
+    <None Include="Resources\GDBF.png" />
     <None Include="Resources\STDT.png" />
     <None Include="Resources\BLOCEntry.png" />
     <None Include="Resources\BLOC.png" />

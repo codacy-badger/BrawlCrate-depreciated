@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel;
+using System.Runtime.InteropServices;
 using BrawlLib.SSBB.Types;
 using BrawlLib.IO;
 
@@ -47,11 +48,11 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override void OnPopulate()
         {
-            AllstarFighterData* ptr = &((ClassicStageBlock*)WorkingUncompressed.Address)->_opponent1;
+            ClassicFighterData* ptr = &((ClassicStageBlock*)WorkingUncompressed.Address)->_opponent1;
             for (int i = 0; i < 3; i++)
             {
-                DataSource source = new DataSource(ptr, sizeof(AllstarFighterData));
-                new AllstarFighterNode().Initialize(this, source);
+                DataSource source = new DataSource(ptr, sizeof(ClassicFighterData));
+                new ClassicFighterNode().Initialize(this, source);
                 ptr++;
             }
         }
@@ -67,10 +68,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             dataPtr->_stages._stageID4 = data._stageID4;
 
             // Rebuild children using new address
-            AllstarFighterData* ptr = &((ClassicStageBlock*)address)->_opponent1;
+            ClassicFighterData* ptr = &((ClassicStageBlock*)address)->_opponent1;
             for (int i = 0; i < Children.Count; i++)
             {
-                Children[i].Rebuild(ptr, sizeof(AllstarFighterData), true);
+                Children[i].Rebuild(ptr, sizeof(ClassicFighterData), true);
                 ptr++;
             }
         }
@@ -79,6 +80,180 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             // Constant size (260 bytes)
             return sizeof(ClassicStageBlock);
+        }
+    }
+
+    public unsafe class ClassicDifficultyNode : ResourceNode
+    {
+        private ClassicDifficultyData data;
+
+        public enum AiTypeEnum : byte
+        {
+            Normal = 0,
+            Walk = 1,
+            Run = 2,
+            Jump = 3,
+        }
+
+        [Category("Unknown")]
+        [DisplayName("Unknown 00")]
+        public byte Unknown00 { get { return data._unknown00; } set { data._unknown00 = value; SignalPropertyChange(); } }
+        [Category("Fighter")]
+        [DisplayName("Handicap")]
+        public byte Handicap { get { return data._handicap; } set { data._handicap = value; SignalPropertyChange(); } }
+        [Category("Unknown")]
+        [DisplayName("Unknown 02")]
+        public byte Unknown02 { get { return data._unknown02; } set { data._unknown02 = value; SignalPropertyChange(); } }
+        [Category("Unknown")]
+        [DisplayName("Unknown 03")]
+        public byte Unknown03 { get { return data._unknown03; } set { data._unknown03 = value; SignalPropertyChange(); } }
+        [Category("Fighter")]
+        [DisplayName("Offense Ratio")]
+        public short OffenseRatio { get { return data._offenseRatio; } set { data._offenseRatio = value; SignalPropertyChange(); } }
+        [Category("Fighter")]
+        [DisplayName("Defense Ratio")]
+        public short DefenseRatio { get { return data._defenseRatio; } set { data._defenseRatio = value; SignalPropertyChange(); } }
+        [Category("Fighter")]
+        [DisplayName("AI Type")]
+        public AiTypeEnum AIType { get { return (AiTypeEnum)data._aiType; } set { data._aiType = (byte)value; SignalPropertyChange(); } }
+        [Category("Fighter")]
+        [DisplayName("CostumeID")]
+        public byte CostumeID { get { return data._color; } set { data._color = value; SignalPropertyChange(); } }
+        [Category("Fighter")]
+        [DisplayName("Number of Stocks")]
+        public byte Stock { get { return data._stock; } set { data._stock = value; SignalPropertyChange(); } }
+        [Category("Unknown")]
+        [DisplayName("Unknown 0b")]
+        public byte Unknown0b { get { return data._unknown0b; } set { data._unknown0b = value; SignalPropertyChange(); } }
+        [Category("Unknown")]
+        [DisplayName("Unknown 0c")]
+        public short Unknown0c { get { return data._unknown0c; } set { data._unknown0c = value; SignalPropertyChange(); } }
+
+        public override bool OnInitialize()
+        {
+            base.OnInitialize();
+
+            if (WorkingUncompressed.Length != sizeof(ClassicDifficultyData))
+                throw new Exception("Wrong size for ClassicDifficultyNode");
+
+            // Copy the data from the address
+            data = *(ClassicDifficultyData*)WorkingUncompressed.Address;
+
+            return false;
+        }
+        public override void OnRebuild(VoidPtr address, int length, bool force)
+        {
+            // Copy the data back to the address
+            *(ClassicDifficultyData*)address = data;
+        }
+        public override int OnCalculateSize(bool force)
+        {
+            return sizeof(ClassicDifficultyData);
+        }
+    }
+
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    public unsafe struct ClassicTblHeader
+    {
+        public const int Size = 0x50;
+
+        public byte _fighterID;
+        public byte _fighterstatus;
+        public byte _unknown02;
+        public byte _unknown03;
+        public float _fighterscale;
+
+        private VoidPtr Address { get { fixed (void* ptr = &this) return ptr; } }
+    }
+
+    public unsafe class ClassicFighterNode : ResourceNode
+    {
+
+    private ClassicTblHeader _header;
+
+        public enum StatusEnum : byte
+        {
+            Normal = 0,
+            Metal = 1,
+            Invisible = 2,
+        }
+
+        [TypeConverter(typeof(DropDownListFighterIDs))]
+        [Category("Fighter")]
+        [DisplayName("Fighter ID")]
+        public byte FighterID { get { return _header._fighterID; } set { _header._fighterID = value; if (value == 0xFF) { Name = "None"; } else { Name = BrawlLib.BrawlCrate.FighterNameGenerators.FromID(_header._fighterID, BrawlLib.BrawlCrate.FighterNameGenerators.slotIDIndex, "-S"); } SignalPropertyChange(); } }
+        [Category("Fighter")]
+        [DisplayName("Fighter Status")]
+        public StatusEnum FighterStatus { get { return (StatusEnum)_header._fighterstatus; } set { _header._fighterstatus = (byte)value; SignalPropertyChange(); } }
+        [Category("Unknown")]
+        [DisplayName("Unknown 02")]
+        public byte Unknown02 { get { return _header._unknown02; } set { _header._unknown02 = value; SignalPropertyChange(); } }
+        [Category("Unknown")]
+        [DisplayName("Unknown 03")]
+        public byte Unknown03 { get { return _header._unknown03; } set { _header._unknown03 = value; SignalPropertyChange(); } }
+        [Category("Fighter")]
+        [DisplayName("Fighter Scale")]
+        public float FighterScale { get { return _header._fighterscale; } set { _header._fighterscale = value; SignalPropertyChange(); } }
+
+        public override bool OnInitialize()
+        {
+            base.OnInitialize();
+
+            if (WorkingUncompressed.Length != sizeof(ClassicFighterData))
+                throw new Exception("Wrong size for ClassicFighterNode");
+
+            // Copy the data from the address
+            ClassicFighterData* ptr = (ClassicFighterData*)WorkingUncompressed.Address;
+            _header._fighterID = ptr->_fighterID;
+            _header._fighterstatus = ptr->_fighterstatus;
+            _header._unknown02 = ptr->_unknown02;
+            _header._unknown03 = ptr->_unknown03;
+            _header._fighterscale = ptr->_fighterscale;
+
+            if (_name == null)
+                _name = BrawlLib.BrawlCrate.FighterNameGenerators.FromID(_header._fighterID, BrawlLib.BrawlCrate.FighterNameGenerators.slotIDIndex, "-S");
+            if (_header._fighterID == 0xFF)
+                _name = "None";
+
+            return true;
+        }
+
+        public override void OnPopulate()
+        {
+            VoidPtr ptr = WorkingUncompressed.Address + 8;
+            foreach (string s in new string[] { "Easy", "Normal", "Hard", "Very Hard", "Intense" })
+            {
+                DataSource source = new DataSource(ptr, sizeof(ClassicDifficultyData));
+                var node = new ClassicDifficultyNode();
+                node.Initialize(this, source);
+                node.Name = s;
+                node.IsDirty = false;
+                ptr += sizeof(ClassicDifficultyData);
+            }
+        }
+
+        public override void OnRebuild(VoidPtr address, int length, bool force)
+        {
+            // Copy the data back to the address
+            ClassicFighterData* header_ptr = (ClassicFighterData*)address;
+            header_ptr->_fighterID = _header._fighterID;
+            header_ptr->_fighterstatus = _header._fighterstatus;
+            header_ptr->_unknown02 = _header._unknown02;
+            header_ptr->_unknown03 = _header._unknown03;
+            header_ptr->_fighterscale = _header._fighterscale;
+
+            // Rebuild children using new address
+            VoidPtr ptr = address + 8;
+            for (int i = 0; i < Children.Count; i++)
+            {
+                Children[i].Rebuild(ptr, sizeof(ClassicDifficultyData), true);
+                ptr += sizeof(ClassicDifficultyData);
+            }
+        }
+
+        public override int OnCalculateSize(bool force)
+        {
+            return sizeof(ClassicFighterData);
         }
     }
 

@@ -57,6 +57,7 @@ namespace BrawlBox
             _displayPropertyDescription = BrawlBox.Properties.Settings.Default.DisplayPropertyDescriptionWhenAvailable;
             _updatesOnStartup = BrawlBox.Properties.Settings.Default.CheckUpdatesAtStartup;
             _showHex = BrawlBox.Properties.Settings.Default.ShowHex;
+            _compatibilityMode = BrawlLib.Properties.Settings.Default.CompatibilityMode;
 
 #if !DEBUG //Don't need to see this every time a debug build is compiled
             if (CheckUpdatesOnStartup)
@@ -154,6 +155,32 @@ namespace BrawlBox
             }
         }
         bool _showHex;
+
+        public bool CompatibilityMode
+        {
+            get { return _compatibilityMode; }
+            set
+            {
+                _compatibilityMode = value;
+
+                BrawlLib.Properties.Settings.Default.CompatibilityMode = _compatibilityMode;
+                BrawlLib.Properties.Settings.Default.Save();
+            }
+        }
+        bool _compatibilityMode;
+
+        public bool ImportPNGsWithPalettes
+        {
+            get { return _importPNGwPalette; }
+            set
+            {
+                _importPNGwPalette = value;
+
+                BrawlLib.Properties.Settings.Default.ImportPNGsWithPalettes = _importPNGwPalette;
+                BrawlLib.Properties.Settings.Default.Save();
+            }
+        }
+        bool _importPNGwPalette;
 
         private void UpdatePropertyDescriptionBox(GridItem item)
         {
@@ -425,7 +452,7 @@ namespace BrawlBox
                         else
                             newControl = clrControl;
                 }
-                else if (MainForm.Instance.ShowHex)
+                else if (MainForm.Instance.ShowHex && !(node is RELEntryNode || node is RELNode))
                 {
                     if (node.WorkingUncompressed.Length > 0)
                     {
@@ -535,7 +562,21 @@ namespace BrawlBox
         private void eFLSEffectListToolStripMenuItem_Click(object sender, EventArgs e) { Program.New<EFLSNode>(); }
         private void rEFFParticlesToolStripMenuItem_Click(object sender, EventArgs e) { Program.New<REFFNode>(); }
         private void rEFTParticleTexturesToolStripMenuItem_Click(object sender, EventArgs e) { Program.New<REFTNode>(); }
-        
+        // PM 3.6 1:1
+        private void pm36STGBATTLEFIELD_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGBATTLEFIELD()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgbattlefieldDirectory, false); } }
+        private void pm36STGDOLPIC_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGDOLPIC()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgdolpicDirectory, false); } }
+        private void pm36STGDXGREENS_ToolStripMenuItem_Click(object sender, EventArgs e) { }
+        private void pm36STGFINAL_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGFINAL()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgfinalDirectory, false); } }
+        private void pm36STGFAMICOM_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGFAMICOM()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgfamicomDirectory, false); } }
+        private void pm36STGGREENHILL_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGGREENHILL()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stggreenhillDirectory, false); } }
+        private void pm36STGDXPSTADIUM_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGDXPSTADIUM()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgdxpstadiumDirectory, false); } }
+        private void pm36STGVILLAGE_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGVILLAGE()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgvillageDirectory, false); } }
+        private void pm36STGVILLAGE_nv_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGVILLAGE_NV()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgvillagenvDirectory, false); } }
+        private void pm36STGMADEIN_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGMADEIN()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgmadeinDirectory, false); } }
+        // Custom 1:1
+        private void customSkySanctuary_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.STGSKYSANCTUARY()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.skySanctDirectory, false); } }
+
+
         private void saveToolStripMenuItem_Click(object sender, EventArgs e) { Program.Save(); }
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e) { Program.SaveAs(); }
         private void closeToolStripMenuItem_Click(object sender, EventArgs e) { Program.Close(); }

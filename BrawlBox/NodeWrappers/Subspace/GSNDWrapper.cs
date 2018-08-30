@@ -47,6 +47,7 @@ namespace BrawlBox.NodeWrappers
         {
             GSNDEntryNode node = new GSNDEntryNode() { Name = "NewEntry", Trigger = "00000100"};
             _resource.AddChild(node);
+            ((GSNDNode)_resource)._count += 1;
         }
 
         public GSNDWrapper() { ContextMenuStrip = _menu; }

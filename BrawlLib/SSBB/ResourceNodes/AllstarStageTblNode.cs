@@ -53,7 +53,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         private float _unknown04;
 
         [TypeConverter(typeof(DropDownListFighterIDs))]
-        public byte FighterID { get { return _fighterID; } set { _fighterID = value; SignalPropertyChange(); } }
+        public byte FighterID { get { return _fighterID; } set { _fighterID = value; Name = BrawlLib.BrawlCrate.FighterNameGenerators.FromID(_fighterID, BrawlLib.BrawlCrate.FighterNameGenerators.slotIDIndex, "-S"); SignalPropertyChange(); } }
         public float Unknown04 { get { return _unknown04; } set { _unknown04 = value; SignalPropertyChange(); } }
 
         public override bool OnInitialize()
@@ -72,10 +72,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             _unknown04 = ptr->_unknown04;
 
             if (_name == null)
-            {
-                var fighter = Fighter.Fighters.Where(s => s.ID == FighterID).FirstOrDefault();
-                _name = "Fighter: 0x" + FighterID.ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
-            }
+                _name = BrawlLib.BrawlCrate.FighterNameGenerators.FromID(_fighterID, BrawlLib.BrawlCrate.FighterNameGenerators.slotIDIndex, "-S");
 
             return true;
         }

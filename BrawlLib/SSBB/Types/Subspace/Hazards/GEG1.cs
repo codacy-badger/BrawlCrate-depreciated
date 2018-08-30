@@ -36,14 +36,14 @@ namespace BrawlLib.SSBBTypes
         // Unknown values. I just assumed byte for all of them for now// Headers are known
         public uint _header1;       // 0x00
         public uint _header2;       // 0x04
-        public byte _flag0x08;
+        public byte _extrahealth;
         public byte _flag0x09;
         public byte _flag0x0A;
         public byte _flag0x0B;
         public byte _flag0x0C;
-        public byte _flag0x0D;
-        public byte _unknown0x0E;
-        public byte _unknown0x0F;
+        public byte _connectedenemyid;
+        public byte _flag0x0E;
+        public byte _flag0x0F;
         public byte _unknown0x10;
         public byte _unknown0x11;
         public byte _unknown0x12;
@@ -64,7 +64,7 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x20;
         public byte _unknown0x21;
         public byte _unknown0x22;
-        public byte _flag0x23;
+        public byte _startingaction;
         public byte _unknown0x24;
         public byte _unknown0x25;
         public byte _unknown0x26;
@@ -149,13 +149,13 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x7A;
         public byte _unknown0x7B;
         public byte _unknown0x7C;
-        public byte _difficulty;
-        public byte _unknown0x7E;
-        public byte _unknown0x7F;
-        public byte _unknown0x80;
-        public byte _unknown0x81;
-        public byte _unknown0x82;
-        public byte _unknown0x83;
+        public byte _spawnid;
+        public byte _flag0x7E;
+        public byte _flag0x7F;
+        public byte _flag0x80;
+        public byte _flag0x81;
+        public byte _flag0x82;
+        public byte _flag0x83;
 
         private VoidPtr Address { get { fixed (void* ptr = &this)return ptr; } }
         

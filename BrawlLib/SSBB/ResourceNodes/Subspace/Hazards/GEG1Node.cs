@@ -9,10 +9,10 @@ namespace BrawlLib.SSBB.ResourceNodes
         internal GEG1* Header { get { return (GEG1*)WorkingUncompressed.Address; } }
         public override ResourceType ResourceType { get { return ResourceType.GEG1; } }
 
-
+        private int _count;
         [Category("GEG1")]
         [DisplayName("Enemy Count")]
-        public int count { get { return Header->_count; } }
+        public int count { get { return _count; } }
 
         const int _entrySize = 0x84;    // The constant size of a child entry
 
@@ -52,6 +52,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             base.OnInitialize();
             if (_name == null)
                 _name = "GEG1";
+            _count = Header->_count;
             return Header->_count > 0;
         }
 
@@ -135,16 +136,16 @@ namespace BrawlLib.SSBB.ResourceNodes
         public uint _header1;
         public uint _header2;
         // Some form of byte flags
-        public byte _flag0x08;
+        public byte _extrahealth;
         public byte _flag0x09;
         public byte _flag0x0A;
         public byte _flag0x0B;
         // Another byte flag
         public byte _flag0x0C;
         // Another byte flag (Possibly unstable?)
-        public byte _flag0x0D;
-        public byte _unknown0x0E;
-        public byte _unknown0x0F;
+        public byte _connectedenemyid;
+        public byte _flag0x0E;
+        public byte _flag0x0F;
         public byte _unknown0x10;
         public byte _unknown0x11;
         public byte _unknown0x12;
@@ -166,7 +167,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x21;
         public byte _unknown0x22;
         // Some form of byte flag
-        public byte _flag0x23;
+        public byte _startingaction;
         public byte _unknown0x24;
         public byte _unknown0x25;
         public byte _unknown0x26;
@@ -252,14 +253,14 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x7A;
         public byte _unknown0x7B;
         public byte _unknown0x7C;
-        // Difficulty of spawn / Spawn ID
-        public byte _difficulty;
-        public byte _unknown0x7E;
-        public byte _unknown0x7F;
-        public byte _unknown0x80;
-        public byte _unknown0x81;
-        public byte _unknown0x82;
-        public byte _unknown0x83;
+        // Spawn ID
+        public byte _spawnid;
+        public byte _flag0x7E;
+        public byte _flag0x7F;
+        public byte _flag0x80;
+        public byte _flag0x81;
+        public byte _flag0x82;
+        public byte _flag0x83;
 
         [Browsable(true)]
         [Category("Enemy Info")]
@@ -326,32 +327,32 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         [Browsable(true)]
         [Category("Spawn Info")]
-        [DisplayName("Difficulty ID")]
-        public byte DifficultyID
+        [DisplayName("Spawn ID")]
+        public byte SpawnID
         {
             get
             {
-                return _difficulty;
+                return _spawnid;
             }
             set
             {
-                _difficulty = value;
+                _spawnid = value;
                 SignalPropertyChange();
             }
         }
 
         [Browsable(true)]
-        [Category("Special Flags")]
-        [DisplayName("Flag 0x08")]
-        public byte Flag0x08
+        [Category("Enemy Info")]
+        [DisplayName("Additional HP")]
+        public byte ExtraHealth
         {
             get
             {
-                return _flag0x08;
+                return _extrahealth;
             }
             set
             {
-                _flag0x08 = value;
+                _extrahealth = value;
                 SignalPropertyChange();
             }
         }
@@ -421,33 +422,65 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         [Browsable(true)]
-        [Category("Special Flags")]
-        [DisplayName("Flag 0x0D")]
-        public byte Flag0x0D
+        [Category("Spawn Info")]
+        [DisplayName("Connected Enemy ID")]
+        public byte ConnectedEnemyID
         {
             get
             {
-                return _flag0x0D;
+                return _connectedenemyid;
             }
             set
             {
-                _flag0x0D = value;
+                _connectedenemyid = value;
                 SignalPropertyChange();
             }
         }
 
         [Browsable(true)]
         [Category("Special Flags")]
-        [DisplayName("Flag 0x23")]
-        public byte Flag0x23
+        [DisplayName("Flag 0x0E")]
+        public byte Flag0x0E
         {
             get
             {
-                return _flag0x23;
+                return _flag0x0E;
             }
             set
             {
-                _flag0x23 = value;
+                _flag0x0E = value;
+                SignalPropertyChange();
+            }
+        }
+
+        [Browsable(true)]
+        [Category("Special Flags")]
+        [DisplayName("Flag 0x0F")]
+        public byte Flag0x0F
+        {
+            get
+            {
+                return _flag0x0F;
+            }
+            set
+            {
+                _flag0x0F = value;
+                SignalPropertyChange();
+            }
+        }
+
+        [Browsable(true)]
+        [Category("Spawn Info")]
+        [DisplayName("Starting Action")]
+        public byte StartingAction
+        {
+            get
+            {
+                return _startingaction;
+            }
+            set
+            {
+                _startingaction = value;
                 SignalPropertyChange();
             }
         }
@@ -484,19 +517,99 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
+        [Browsable(true)]
+        [Category("Special Flags")]
+        [DisplayName("Flag 0x7E")]
+        public byte Flag0x7E
+        {
+            get
+            {
+                return _flag0x7E;
+            }
+            set
+            {
+                _flag0x7E = value;
+                SignalPropertyChange();
+            }
+        }
+
+
+        [Browsable(true)]
+        [Category("Special Flags")]
+        [DisplayName("Flag 0x80")]
+        public byte Flag0x80
+        {
+            get
+            {
+                return _flag0x80;
+            }
+            set
+            {
+                _flag0x80 = value;
+                SignalPropertyChange();
+            }
+        }
+
+        [Browsable(true)]
+        [Category("Special Flags")]
+        [DisplayName("Flag 0x81")]
+        public byte Flag0x81
+        {
+            get
+            {
+                return _flag0x81;
+            }
+            set
+            {
+                _flag0x81 = value;
+                SignalPropertyChange();
+            }
+        }
+
+        [Browsable(true)]
+        [Category("Special Flags")]
+        [DisplayName("Flag 0x82")]
+        public byte Flag0x82
+        {
+            get
+            {
+                return _flag0x82;
+            }
+            set
+            {
+                _flag0x82 = value;
+                SignalPropertyChange();
+            }
+        }
+
+        [Browsable(true)]
+        [Category("Special Flags")]
+        [DisplayName("Flag 0x83")]
+        public byte Flag0x83
+        {
+            get
+            {
+                return _flag0x83;
+            }
+            set
+            {
+                _flag0x83 = value;
+                SignalPropertyChange();
+            }
+        }
 
         public override bool OnInitialize()
         {
             _header1 = Header->_header1;
             _header2 = Header->_header2;
-            _flag0x08 = Header->_flag0x08;
+            _extrahealth = Header->_extrahealth;
             _flag0x09 = Header->_flag0x09;
             _flag0x0A = Header->_flag0x0A;
             _flag0x0B = Header->_flag0x0B;
             _flag0x0C = Header->_flag0x0C;
-            _flag0x0D = Header->_flag0x0D;
-            _unknown0x0E = Header->_unknown0x0E;
-            _unknown0x0F = Header->_unknown0x0F;
+            _connectedenemyid = Header->_connectedenemyid;
+            _flag0x0E = Header->_flag0x0E;
+            _flag0x0F = Header->_flag0x0F;
             _unknown0x10 = Header->_unknown0x10;
             _unknown0x11 = Header->_unknown0x11;
             _unknown0x12 = Header->_unknown0x12;
@@ -516,7 +629,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             _unknown0x20 = Header->_unknown0x20;
             _unknown0x21 = Header->_unknown0x21;
             _unknown0x22 = Header->_unknown0x22;
-            _flag0x23 = Header->_flag0x23;
+            _startingaction = Header->_startingaction;
             _unknown0x24 = Header->_unknown0x24;
             _unknown0x25 = Header->_unknown0x25;
             _unknown0x26 = Header->_unknown0x26;
@@ -600,13 +713,13 @@ namespace BrawlLib.SSBB.ResourceNodes
             _unknown0x7A = Header->_unknown0x7A;
             _unknown0x7B = Header->_unknown0x7B;
             _unknown0x7C = Header->_unknown0x7C;
-            _difficulty = Header->_difficulty;
-            _unknown0x7E = Header->_unknown0x7E;
-            _unknown0x7F = Header->_unknown0x7F;
-            _unknown0x80 = Header->_unknown0x80;
-            _unknown0x81 = Header->_unknown0x81;
-            _unknown0x82 = Header->_unknown0x82;
-            _unknown0x83 = Header->_unknown0x83;
+            _spawnid = Header->_spawnid;
+            _flag0x7E = Header->_flag0x7E;
+            _flag0x7F = Header->_flag0x7F;
+            _flag0x80 = Header->_flag0x80;
+            _flag0x81 = Header->_flag0x81;
+            _flag0x82 = Header->_flag0x82;
+            _flag0x83 = Header->_flag0x83;
             if (_name == null)
                 _name = EnemyNameList();
             return false;
@@ -622,14 +735,14 @@ namespace BrawlLib.SSBB.ResourceNodes
             GEG1Entry* hdr = (GEG1Entry*)address;
             hdr->_header1 = _header1;
             hdr->_header2 = _header2;
-            hdr->_flag0x08 = _flag0x08;
+            hdr->_extrahealth = _extrahealth;
             hdr->_flag0x09 = _flag0x09;
             hdr->_flag0x0A = _flag0x0A;
             hdr->_flag0x0B = _flag0x0B;
             hdr->_flag0x0C = _flag0x0C;
-            hdr->_flag0x0D = _flag0x0D;
-            hdr->_unknown0x0E = _unknown0x0E;
-            hdr->_unknown0x0F = _unknown0x0F;
+            hdr->_connectedenemyid = _connectedenemyid;
+            hdr->_flag0x0E = _flag0x0E;
+            hdr->_flag0x0F = _flag0x0F;
             hdr->_unknown0x10 = _unknown0x10;
             hdr->_unknown0x11 = _unknown0x11;
             hdr->_unknown0x12 = _unknown0x12;
@@ -649,7 +762,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             hdr->_unknown0x20 = _unknown0x20;
             hdr->_unknown0x21 = _unknown0x21;
             hdr->_unknown0x22 = _unknown0x22;
-            hdr->_flag0x23 = _flag0x23;
+            hdr->_startingaction = _startingaction;
             hdr->_unknown0x24 = _unknown0x24;
             hdr->_unknown0x25 = _unknown0x25;
             hdr->_unknown0x26 = _unknown0x26;
@@ -733,13 +846,13 @@ namespace BrawlLib.SSBB.ResourceNodes
             hdr->_unknown0x7A = _unknown0x7A;
             hdr->_unknown0x7B = _unknown0x7B;
             hdr->_unknown0x7C = _unknown0x7C;
-            hdr->_difficulty = _difficulty;
-            hdr->_unknown0x7E = _unknown0x7E;
-            hdr->_unknown0x7F = _unknown0x7F;
-            hdr->_unknown0x80 = _unknown0x80;
-            hdr->_unknown0x81 = _unknown0x81;
-            hdr->_unknown0x82 = _unknown0x82;
-            hdr->_unknown0x83 = _unknown0x83;
+            hdr->_spawnid = _spawnid;
+            hdr->_flag0x7E = _flag0x7E;
+            hdr->_flag0x7F = _flag0x7F;
+            hdr->_flag0x80 = _flag0x80;
+            hdr->_flag0x81 = _flag0x81;
+            hdr->_flag0x82 = _flag0x82;
+            hdr->_flag0x83 = _flag0x83;
         }
 
         private string EnemyNameList()

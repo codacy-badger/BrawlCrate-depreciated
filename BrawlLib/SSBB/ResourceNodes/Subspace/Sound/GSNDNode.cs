@@ -9,9 +9,10 @@ namespace BrawlLib.SSBB.ResourceNodes
         internal GSND* Header { get { return (GSND*)WorkingUncompressed.Address; } }
         public override ResourceType ResourceType { get { return ResourceType.GSND; } }
 
+        public int _count;
         [Category("GSND")]
         [DisplayName("Entries")]
-        public int count { get { return Header->_count; } }
+        public int Count { get { return _count; } }
         public override void OnPopulate()
         {
             for (int i = 0; i < Header->_count; i++)
@@ -28,6 +29,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             base.OnInitialize();
             if (_name == null)
                 _name = "Sound Effects";
+            _count = Header->_count;
             return Header->_count > 0;
         }
         public override int OnCalculateSize(bool force)

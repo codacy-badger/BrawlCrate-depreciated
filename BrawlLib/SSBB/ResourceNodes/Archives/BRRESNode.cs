@@ -25,7 +25,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                Populate();
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
+                    return -1;
+                //Populate();
                 if (GetFolder<MDL0Node>() == null)
                     return 0;
                 int count = 0;
@@ -39,7 +41,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                Populate();
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
+                    return -1;
+                //Populate();
                 if (GetFolder<MDL0Node>() == null)
                     return 0;
                 int count = 0;
@@ -54,7 +58,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                Populate();
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
+                    return -1;
+                //Populate();
                 if (GetFolder<MDL0Node>() == null)
                     return 0;
                 int count = 0;
@@ -68,7 +74,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                Populate();
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
+                    return -1;
+                //Populate();
                 if (GetFolder<MDL0Node>() == null)
                     return 0;
                 int count = 0;
@@ -82,7 +90,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                Populate();
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
+                    return -1;
+                //Populate();
                 if (GetFolder<MDL0Node>() == null)
                     return 0;
                 int count = 0;
@@ -736,6 +746,13 @@ namespace BrawlLib.SSBB.ResourceNodes
                   new BRESEntryNode().Initialize(this, hdr, hdr->_size);
             }
             if (Type == BRESGroupType.None) GetFileType();
+        }
+
+        public void SortChildren()
+        {
+            if (Children.Count <= 0)
+                return;
+            _children = _children.OrderBy(o => o.Name).ToList();
         }
     }
 

@@ -32,14 +32,16 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                Populate();
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
+                    return -1;
+                //Populate();
                 if (_children == null)
                     return 0;
                 int count = 0;
                 foreach (ARCEntryNode b in Children)
                     if (b is BRRESNode)
                         count += ((BRRESNode)b).NumModels;
-                    else if (b is ARCNode)
+                    else if (b is ARCNode && ((ARCNode)b).NumModels > -1)
                         count += ((ARCNode)b).NumModels;
                 return count;
             }
@@ -49,14 +51,16 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                Populate();
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
+                    return -1;
+                //Populate();
                 if (_children == null)
                     return 0;
                 int count = 0;
                 foreach (ARCEntryNode b in Children)
                     if (b is BRRESNode)
                         count += ((BRRESNode)b).NumFacepoints;
-                    else if (b is ARCNode)
+                    else if (b is ARCNode && ((ARCNode)b).NumModels > -1)
                         count += ((ARCNode)b).NumFacepoints;
                 return count;
             }
@@ -67,14 +71,16 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                Populate();
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
+                    return -1;
+                //Populate();
                 if (_children == null)
                     return 0;
                 int count = 0;
                 foreach (ARCEntryNode b in Children)
                     if (b is BRRESNode)
                         count += ((BRRESNode)b).NumVertices;
-                    else if (b is ARCNode)
+                    else if (b is ARCNode && ((ARCNode)b).NumModels > -1)
                         count += ((ARCNode)b).NumVertices;
                 return count;
             }
@@ -84,14 +90,16 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                Populate();
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
+                    return -1;
+                //Populate();
                 if (_children == null)
                     return 0;
                 int count = 0;
                 foreach (ARCEntryNode b in Children)
                     if (b is BRRESNode)
                         count += ((BRRESNode)b).NumTriangles;
-                    else if (b is ARCNode)
+                    else if (b is ARCNode && ((ARCNode)b).NumModels > -1)
                         count += ((ARCNode)b).NumTriangles;
                 return count;
             }
@@ -101,14 +109,16 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                Populate();
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
+                    return -1;
+                //Populate();
                 if (_children == null)
                     return 0;
                 int count = 0;
                 foreach (ARCEntryNode b in Children)
                     if (b is BRRESNode)
                         count += ((BRRESNode)b).NumNodes;
-                    else if (b is ARCNode)
+                    else if (b is ARCNode && ((ARCNode)b).NumModels > -1)
                         count += ((ARCNode)b).NumNodes;
                 return count;
             }
@@ -186,7 +196,8 @@ namespace BrawlLib.SSBB.ResourceNodes
                     ((BRRESNode)entry).ExportToFolder(outFolder, imageExtension);
         }
 
-        public void ReplaceFromFolder(string inFolder)
+        public void ReplaceFromFolder(string inFolder) { ReplaceFromFolder(inFolder, ".tex0"); }
+        public void ReplaceFromFolder(string inFolder, string imageExtension)
         {
             DirectoryInfo dir = new DirectoryInfo(inFolder);
             DirectoryInfo[] dirs;
@@ -197,13 +208,13 @@ namespace BrawlLib.SSBB.ResourceNodes
                     dirs = dir.GetDirectories(entry.Name);
                     if (dirs.Length > 0)
                     {
-                        ((ARCNode)entry).ReplaceFromFolder(dirs[0].FullName);
+                        ((ARCNode)entry).ReplaceFromFolder(dirs[0].FullName, imageExtension);
                         continue;
                     }
                 }
                 else if (entry is BRRESNode)
                 {
-                    ((BRRESNode)entry).ReplaceFromFolder(inFolder);
+                    ((BRRESNode)entry).ReplaceFromFolder(inFolder, imageExtension);
                     continue;
                 }
             }

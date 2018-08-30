@@ -58,7 +58,8 @@ namespace BrawlBox
                     new ToolStripMenuItem("TBLV", null, ImportTBLVAction),
                     new ToolStripMenuItem("TBRM", null, ImportTBRMAction),
                     new ToolStripMenuItem("TBST", null, ImportTBSTAction)
-                    )
+                    ),
+                new ToolStripMenuItem("Havok Data", null, ImportHavokAction)
                 ));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("Preview All Models", null, PreviewAllAction));
@@ -152,6 +153,7 @@ namespace BrawlBox
         protected static void ImportTBLVAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportTBLV(); }
         protected static void ImportTBRMAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportTBRM(); }
         protected static void ImportTBSTAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportTBST(); }
+        protected static void ImportHavokAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportHavok(); }
 
         protected static void PreviewAllAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().PreviewAll(); }
         protected static void ExportAllAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ExportAll(); }
@@ -374,6 +376,18 @@ namespace BrawlBox
             return node;
         }
 
+        // StageBox create Havok
+        public HavokNode NewHavok(int numEntries)
+        {
+            HavokNode node = new HavokNode() {Name = _resource.FindName("NewHavokData"), FileType = ARCFileType.MiscData };
+            _resource.AddChild(node);
+
+            BaseWrapper w = this.FindResource(node, false);
+            w.EnsureVisible();
+            w.TreeView.SelectedNode = w;
+            return node;
+        }
+
         public void ImportARC()
         {
             string path;
@@ -484,6 +498,14 @@ namespace BrawlBox
             if (Program.OpenFile(FileFilters.TBST, out path) > 0)
                 NewTBST(1).Replace(path);
         }
+
+        // StageBox import HavokData
+        public void ImportHavok()
+        {
+            string path;
+            if (Program.OpenFile(FileFilters.Havok, out path) > 0)
+                NewHavok(1).Replace(path);
+        }
         
         public override void OnExport(string outPath, int filterIndex)
         {
@@ -552,7 +574,7 @@ namespace BrawlBox
             {
                 ExportAllFormatDialog dialog = new ExportAllFormatDialog();
 
-                if (dialog.ShowDialog() == DialogResult.OK) { }
+                if (dialog.ShowDialog() == DialogResult.OK)
                     ((ARCNode)_resource).ExtractToFolder(path, dialog.SelectedExtension);
             }
             else
@@ -564,8 +586,12 @@ namespace BrawlBox
             string path = Program.ChooseFolder();
             if (path == null)
                 return;
+            ExportAllFormatDialog dialog = new ExportAllFormatDialog();
+            dialog.Text = "Replace All";
+            dialog.label1.Text = "Input format for textures:";
 
-            ((ARCNode)_resource).ReplaceFromFolder(path);
+            if (dialog.ShowDialog() == DialogResult.OK)
+                ((ARCNode)_resource).ReplaceFromFolder(path, dialog.SelectedExtension);
         }
     }
 }

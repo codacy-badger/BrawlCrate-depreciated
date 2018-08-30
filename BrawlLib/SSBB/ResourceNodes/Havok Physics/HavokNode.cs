@@ -5,6 +5,7 @@ using BrawlLib.SSBBTypes;
 using System.ComponentModel;
 using System.IO;
 using BrawlLib.IO;
+using BrawlLib.Wii.Compression;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
@@ -20,12 +21,17 @@ namespace BrawlLib.SSBB.ResourceNodes
             return String.Format("HavokData[{0}]", _fileIndex);
         }
 
+        public int _userTag;
         [Category("Havok Physics")]
-        public int UserTag { get { return Header->_userTag; } }
+        public int UserTag { get { return _userTag; } }
+
+        public int _classVersion;
         [Category("Havok Physics")]
-        public int Version { get { return Header->_classVersion; } }
+        public int Version { get { return _classVersion; } }
+
         [Category("Havok Physics")]
         public string VersionString { get { return _versionString; } }
+
         [Category("Havok Physics")]
         public string RootClass { get { return _rootClass; } }
 
@@ -46,7 +52,6 @@ namespace BrawlLib.SSBB.ResourceNodes
         public Dictionary<string, uint> _mainDataSignatures;
         public Dictionary<string, uint> _allSignatures;
         
-        int _userTag;
         int _version;
         public string _versionString;
         public string _rootClass;
@@ -69,6 +74,16 @@ namespace BrawlLib.SSBB.ResourceNodes
             PhysicsOffsetSection* section = Header->OffsetSections;
             sbyte* classNames = (sbyte*)(_buffer.Address + section[Header->_classNameSectionIndex]._dataOffset);
             _rootClass = new String(classNames + Header->_rootClassNameOffset);
+
+            if (Compression == "LZ77RangeCoder")
+            {
+                CompressionType type;
+                if (Enum.TryParse("None", out type))
+                {
+                    _compression = type;
+                    SignalPropertyChange();
+                }
+            }
 
             return true;
         }

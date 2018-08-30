@@ -7,14 +7,14 @@ using BrawlLib.SSBB.ResourceNodes;
 using System.IO;
 using System.Diagnostics;
 using Microsoft.Win32;
-//using BrawlLib.StageBox;
+using BrawlLib.BrawlCrate;
 
 namespace BrawlBox
 {
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "StageBox_v0.7";
+        public static readonly string TagName = "StageBox_v0.9_Hotfix3";
 
         public static readonly string AssemblyTitle;
         public static readonly string AssemblyDescription;
@@ -44,6 +44,9 @@ namespace BrawlBox
             _openDlg = new OpenFileDialog();
             _saveDlg = new SaveFileDialog();
             _folderDlg = new FolderBrowserDialog();
+            
+            StageNameGenerators.GenerateList();
+            FighterNameGenerators.GenerateLists();
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Application.ThreadException += Application_ThreadException;
@@ -132,7 +135,7 @@ namespace BrawlBox
                     throw x;
                 }
             }
-            finally { Close(true); }
+            finally { Generate1to1Stages.clearTmpDir(Generate1to1Stages.tmpDirectory); Close(true); }
         }
 
         public static void Say(string msg)
@@ -186,10 +189,16 @@ namespace BrawlBox
 
             _rootPath = null;
             //HardcodedFiles.DeleteHardcodedFiles();
+            MainForm.Instance.UpdateName();
             return true;
         }
 
         public static bool Open(string path)
+        {
+            return Open(path, true);
+        }
+
+        public static bool Open(string path, bool setRoot)
         {
             if (String.IsNullOrEmpty(path))
                 return false;
@@ -217,6 +226,8 @@ namespace BrawlBox
             #endif
                 if ((_rootNode = NodeFactory.FromFile(null, _rootPath = path)) != null)
                 {
+                    if(!setRoot)
+                        _rootPath = null;
                     MainForm.Instance.Reset();
                     return true;
                 }
@@ -284,6 +295,13 @@ namespace BrawlBox
                 
                 if (_rootPath == null)
                     return SaveAs();
+
+                bool force = Control.ModifierKeys == (Keys.Control | Keys.Shift);
+                if (!force && !_rootNode.IsDirty)
+                {
+                    MessageBox.Show("No changes have been made.");
+                    return false;
+                }
                 
                 if (MainForm.Instance.ShowHex == true)
                 {
@@ -291,13 +309,6 @@ namespace BrawlBox
                     MainForm.Instance.Invalidate();
                     MainForm.Instance.resourceTree_SelectionChanged(MainForm.Instance, EventArgs.Empty);
                     restoreHex = true;
-                }
-
-                bool force = Control.ModifierKeys == (Keys.Control | Keys.Shift);
-                if (!force && !_rootNode.IsDirty)
-                {
-                    MessageBox.Show("No changes have been made.");
-                    return false;
                 }
 
                 _rootNode.Merge(force);

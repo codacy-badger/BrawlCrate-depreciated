@@ -133,6 +133,7 @@
   <ItemGroup>
     <None Include="System\ComponentModel\CustomPropertyDescriptor.cs" />
     <None Include="System\ComponentModel\DelegatePropertyDescriptor.cs" />
+    <Compile Include="BrawlCrate\Generate1to1Stages.cs" />
     <Compile Include="Modeling\Collada\ColladaImportDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -169,9 +170,29 @@
     <None Include="SSBB\ResourceNodes\FMDL\FMDLObjectNode.cs" />
     <None Include="SSBB\ResourceNodes\FMDL\FMDLUniformNode.cs" />
     <None Include="SSBB\ResourceNodes\Graphics\FTEXNode.cs" />
+    <Compile Include="SSBB\ResourceNodes\BrawlEx\COSCNode.cs" />
+    <Compile Include="SSBB\ResourceNodes\BrawlEx\CSSCNode.cs" />
+    <Compile Include="SSBB\ResourceNodes\BrawlEx\FCFGNode.cs" />
+    <Compile Include="SSBB\ResourceNodes\BrawlEx\RSTCNode.cs" />
+    <Compile Include="SSBB\ResourceNodes\BrawlEx\SLTCNode.cs" />
+    <Compile Include="SSBB\ResourceNodes\Subspace\Animation\GCAMNode.cs" />
+    <Compile Include="SSBB\ResourceNodes\Subspace\Hazards\GWATNode.cs" />
     <Compile Include="SSBB\ResourceNodes\Subspace\Hazards\GFG1Node.cs" />
+    <Compile Include="SSBB\ResourceNodes\Subspace\Navigation\GDBFNode.cs" />
+    <Compile Include="SSBB\ResourceNodes\Subspace\Objects\GIB2Node.cs" />
+    <Compile Include="SSBB\ResourceNodes\Subspace\Objects\GITMNode.cs" />
+    <Compile Include="SSBB\Types\BrawlEx\COSC.cs" />
+    <Compile Include="SSBB\Types\BrawlEx\CSSC.cs" />
+    <Compile Include="SSBB\Types\BrawlEx\FCFG.cs" />
+    <Compile Include="SSBB\Types\BrawlEx\RSTC.cs" />
+    <Compile Include="SSBB\Types\BrawlEx\SLTC.cs" />
+    <Compile Include="SSBB\Types\Subspace\Animation\GCAM.cs" />
+    <Compile Include="SSBB\Types\Subspace\Hazards\GWAT.cs" />
     <Compile Include="SSBB\Types\Subspace\Hazards\GFG1.cs" />
-    <Compile Include="StageBox\HardcodedFiles.cs" />
+    <Compile Include="SSBB\Types\Subspace\Navigation\GDBF.cs" />
+    <Compile Include="SSBB\Types\Subspace\Objects\GIB2.cs" />
+    <Compile Include="SSBB\Types\Subspace\Objects\GITM.cs" />
+    <Compile Include="BrawlCrate\HardcodedFiles.cs" />
     <Compile Include="SSBB\ResourceNodes\AllstarStageTblNode.cs" />
     <Compile Include="SSBB\ResourceNodes\EventMatchNode.cs" />
     <Compile Include="SSBB\ResourceNodes\Havok Physics\Meta Nodes\ClassMemberInstanceNode.cs" />
@@ -273,11 +294,13 @@
     <None Include="SSBB\Types\Wii U\FSAR.cs" />
     <None Include="SSBB\Types\Wii U\FTEX.cs" />
     <None Include="SSBB\Types\Wii U\SARC.cs" />
+    <Compile Include="BrawlCrate\NameGenerators.cs" />
     <Compile Include="System\AttributeInfo.cs" />
     <Compile Include="System\Audio\alAudioBuffer.cs" />
     <Compile Include="System\Audio\alAudioProvider.cs" />
     <Compile Include="System\Audio\WaveFormatEx.cs" />
     <Compile Include="System\Audio\WaveFormatTag.cs" />
+    <Compile Include="System\BrawlEx\BrawlExDropDownLists.cs" />
     <Compile Include="System\Drawing\BitmapExtension.cs" />
     <Compile Include="System\Box.cs" />
     <Compile Include="System\UInt64Extension.cs" />
@@ -330,9 +353,7 @@
     <Compile Include="OpenGL\TKContext.cs" />
     <Compile Include="OpenGL\GLCamera.cs" />
     <Compile Include="OpenGL\GLDisplayList.cs" />
-    <Compile Include="OpenGL\GLPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="OpenGL\GLPanel.cs" />
     <Compile Include="OpenGL\GLTexture.cs" />
     <Compile Include="OpenGL\IRenderedObject.cs" />
     <Compile Include="Platform\Win32.DirectSound.cs" />
@@ -652,6 +673,12 @@
     </Compile>
     <Compile Include="System\Windows\Controls\GoodColorControl2.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="System\Windows\Forms\StageBoxHexEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\Windows\Forms\StageBoxHexEntry.Designer.cs">
+      <DependentUpon>StageBoxHexEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="System\Windows\Forms\StageBoxNumericEntry.cs">
       <SubType>Form</SubType>
@@ -1041,6 +1068,9 @@
     <EmbeddedResource Include="System\Windows\Controls\GoodColorControl2.resx">
       <DependentUpon>GoodColorControl2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="System\Windows\Forms\StageBoxHexEntry.resx">
+      <DependentUpon>StageBoxHexEntry.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="System\Windows\Forms\StageBoxNumericEntry.resx">
       <DependentUpon>StageBoxNumericEntry.cs</DependentUpon>
     </EmbeddedResource>
@@ -1175,9 +1205,7 @@
   <ItemGroup>
     <Content Include="OpenTK.dll" />
     <Content Include="System\Windows\Controls\Hex Editor\HexBox.bmp" />
-    <Content Include="BrawlLib.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="BrawlLib.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

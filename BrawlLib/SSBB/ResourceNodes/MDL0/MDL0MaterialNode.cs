@@ -62,6 +62,31 @@ namespace BrawlLib.SSBB.ResourceNodes
             addShadowReference();
         }
 
+        public void GenerateSpyMaterial()
+        {
+            //HardcodedFiles.CreateSpyMaterial();
+            //ReplaceRaw(FileMap.FromFile(SpyMaterial.Name));
+            Name = "Spycloak";
+            
+            LightSetIndex = -1;
+            FogIndex = -1;
+            _tevColorBlock.TevReg1Lo.RB = 255;
+            _tevColorBlock.TevReg1Hi0.RB = 255;
+            _tevColorBlock.TevReg1Hi0.AG = 255;
+            IndirectShaderStages = 1;
+
+            LightChannel1._matColor.Red = 255;
+            LightChannel1._matColor.Blue = 255;
+            LightChannel1._matColor.Green = 255;
+
+            LightChannel0.Color.Enabled = false;
+            LightChannel0.Alpha.Enabled = false;
+
+            CompareBeforeTexture = true;
+            
+            addSpyReferences();
+        }
+
         public void AddShadowDiffuse(bool generateShader, bool updateShader)
         {
             if(Children == null)
@@ -178,6 +203,30 @@ namespace BrawlLib.SSBB.ResourceNodes
             shadowData.Entries = new string[1];
             shadowData.Entries[0] = Children.Count.ToString();
             UserEntries.Add(shadowData);
+        }
+
+        private void addSpyReferences()
+        {
+            MDL0MaterialRefNode fbref = new MDL0MaterialRefNode();
+            MDL0MaterialRefNode spycloakref = new MDL0MaterialRefNode();
+            AddChild(fbref);
+            AddChild(spycloakref);
+            fbref.Name = "FB";
+            spycloakref.Name = "spycloak00";
+            fbref.HasTextureMatrix = spycloakref.HasTextureMatrix = true;
+            fbref.Projection = spycloakref.Projection = TexProjection.STQ;
+            fbref.UWrapMode = spycloakref.UWrapMode = fbref.VWrapMode = spycloakref.VWrapMode = MatWrapMode.Clamp;
+            fbref.SCN0RefCamera = 0;
+            fbref.MapMode = MappingMethod.Projection;
+            spycloakref.Scale = new Vector2(1, (float)0.125);
+            spycloakref.MapMode = MappingMethod.EnvCamera;
+            spycloakref.MinFilter = MatTextureMinFilter.Linear_Mipmap_Linear;
+            fbref.LODBias = -1;
+            spycloakref.LODBias = -4;
+            fbref.InputForm = spycloakref.InputForm = TexInputForm.ABC1;
+            fbref.Coordinates = TexSourceRow.Geometry;
+            spycloakref.Coordinates = TexSourceRow.Normals;
+            spycloakref.Normalize = true;
         }
 
         #region Variables

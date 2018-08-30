@@ -477,6 +477,41 @@ namespace System
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
+            return new StandardValuesCollection(BrawlLib.BrawlCrate.StageNameGenerators.stageList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+        }
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
+        }
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            if (value.GetType() == typeof(string))
+            {
+                string field0 = (value.ToString() ?? "").Split(' ')[0];
+                int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase)
+                    ? 16
+                    : 10;
+                return Convert.ToInt32(field0, fromBase);
+            }
+            return base.ConvertFrom(context, culture, value);
+        }
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            if (destinationType == typeof(string) && value != null && value.GetType() == typeof(int))
+            {
+                var stage = BrawlLib.BrawlCrate.StageNameGenerators.stageList.Where(s => s.ID == (int)value).FirstOrDefault();
+                return "0x" + ((int)value).ToString("X2") + (stage == null ? "" : (" - " + stage.Name));
+            }
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+                return 0;
+            return base.ConvertTo(context, culture, value, destinationType);
+        }
+    }
+    public class DropDownListStageIDs_Hardcoded : Int32Converter
+    {
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+        {
             return new StandardValuesCollection(BrawlLib.SSBB.Stage.Stages.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
         }
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
@@ -502,6 +537,43 @@ namespace System
                 var stage = BrawlLib.SSBB.Stage.Stages.Where(s => s.ID == (int)value).FirstOrDefault();
                 return "0x" + ((int)value).ToString("X2") + (stage == null ? "" : (" - " + stage.Name));
             }
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+                return 0;
+            return base.ConvertTo(context, culture, value, destinationType);
+        }
+    }
+    public class DropDownListStageRelIDs : Int32Converter
+    {
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+        {
+            return new StandardValuesCollection(BrawlLib.SSBB.Stage.RelList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+        }
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
+        }
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            if (value.GetType() == typeof(string))
+            {
+                string field0 = (value.ToString() ?? "").Split(' ')[0];
+                int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase)
+                    ? 16
+                    : 10;
+                return Convert.ToInt32(field0, fromBase);
+            }
+            return base.ConvertFrom(context, culture, value);
+        }
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            if (destinationType == typeof(string) && value != null && value.GetType() == typeof(int))
+            {
+                var stage = BrawlLib.SSBB.Stage.RelList.Where(s => s.ID == (int)value).FirstOrDefault();
+                return "0x" + ((int)value).ToString("X2") + (stage == null ? "" : (" - " + stage.Name));
+            }
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+                return 0;
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
@@ -535,10 +607,48 @@ namespace System
                 var item = BrawlLib.SSBB.Item.Items.Where(s => s.ID == (int)value).FirstOrDefault();
                 return "0x" + ((int)value).ToString("X2") + (item == null ? "" : (" - " + item.Name));
             }
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+                return 0;
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
     public class DropDownListFighterIDs : ByteConverter
+    {
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+        {
+            return new StandardValuesCollection(BrawlLib.BrawlCrate.FighterNameGenerators.singlePlayerSlotIDList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+        }
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
+        }
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            if (value.GetType() == typeof(string))
+            {
+                string field0 = (value.ToString() ?? "").Split(' ')[0];
+                int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase)
+                    ? 16
+                    : 10;
+                return Convert.ToByte(field0, fromBase);
+            }
+            return base.ConvertFrom(context, culture, value);
+        }
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            if (destinationType == typeof(string) && value.GetType() == typeof(byte))
+            {
+                var fighter = BrawlLib.BrawlCrate.FighterNameGenerators.singlePlayerSlotIDList.Where(s => s.ID == (byte)value).FirstOrDefault();
+                return "0x" + ((byte)value).ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
+            }
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+                return 0;
+            return base.ConvertTo(context, culture, value, destinationType);
+        }
+    }
+
+    public class DropDownListFighterIDs_Hardcoded : ByteConverter
     {
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
@@ -568,6 +678,8 @@ namespace System
                 var fighter = BrawlLib.SSBB.Fighter.Fighters.Where(s => s.ID == (byte)value).FirstOrDefault();
                 return "0x" + ((byte)value).ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
             }
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+                return 0;
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }

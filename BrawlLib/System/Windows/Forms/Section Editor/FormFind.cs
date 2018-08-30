@@ -236,7 +236,14 @@ namespace System.Windows.Forms
 			var hex = this._findOptions.Hex != null ? _findOptions.Hex : new byte[0];
 			hexFind.ByteProvider = new DynamicByteProvider(hex);
 			hexFind.ByteProvider.Changed += new EventHandler(ByteProvider_Changed);
-		}
+
+            txtFind.Enabled = rbString.Checked;
+            hexFind.Enabled = !txtFind.Enabled;
+            if (txtFind.Enabled)
+                txtFind.Focus();
+            else
+                hexFind.Focus();
+        }
 
 		private void rb_CheckedChanged(object sender, System.EventArgs e)
 		{

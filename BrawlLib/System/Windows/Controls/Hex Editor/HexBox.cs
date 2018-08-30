@@ -2287,10 +2287,24 @@ namespace Be.Windows.Forms
                 buffer = b.ToArray();
             }
 
-            ((DynamicFileByteProvider)_byteProvider)._supportsInsDel = true;
-            _byteProvider.DeleteBytes(_bytePos, buffer.Length);
-			_byteProvider.InsertBytes(_bytePos, buffer);
-            ((DynamicFileByteProvider)_byteProvider)._supportsInsDel = false;
+            if (_byteProvider is DynamicFileByteProvider)
+            {
+                ((DynamicFileByteProvider)_byteProvider)._supportsInsDel = true;
+                _byteProvider.DeleteBytes(_bytePos, buffer.Length);
+                _byteProvider.InsertBytes(_bytePos, buffer);
+                ((DynamicFileByteProvider)_byteProvider)._supportsInsDel = false;
+            }
+            else if (_byteProvider is DynamicByteProvider)
+            {
+                ((DynamicByteProvider)_byteProvider)._supportsInsDel = true;
+                _byteProvider.DeleteBytes(_bytePos, buffer.Length);
+                _byteProvider.InsertBytes(_bytePos, buffer);
+                ((DynamicByteProvider)_byteProvider)._supportsInsDel = false;
+            }
+            else
+            {
+                return;
+            }
 
 			SetPosition(_bytePos + buffer.Length, 0);
 

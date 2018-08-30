@@ -59,21 +59,27 @@ namespace BrawlBox.NodeWrappers
                 new ToolStripMenuItem("Y-Axis (Translation/Z-Rotation)", null, FlipYAction)
                 //new ToolStripMenuItem("Z-Axis (Translation/Rotation)", null, FlipZAction)
                 ));
-            _menu.Items.Add(new ToolStripMenuItem("&Edit all Materials", null,
-                new ToolStripMenuItem("Invert Materials", null, InvertMaterialsAction),
-                new ToolStripMenuItem("Set all (Cull None)", null, CullNoneAction),
-                new ToolStripMenuItem("Set all (Cull Outside)", null, CullOutsideAction),
-                new ToolStripMenuItem("Set all (Cull Inside)", null, CullInsideAction),
-                new ToolStripMenuItem("Set all (Cull All)", null, CullAllAction)
+            _menu.Items.Add(new ToolStripMenuItem("&Edit Materials", null,
+                new ToolStripMenuItem("&Characters", null,
+                    new ToolStripMenuItem("&Convert To Spy Model", null, SpyConvertAction),
+                    new ToolStripMenuItem("&Regenerate Metal Materials", null, MetalAction)
+                ),
+                new ToolStripMenuItem("&Stages", null,
+                    new ToolStripMenuItem("&Convert To Shadow Model", null, ShadowConvertAction),
+                    new ToolStripMenuItem("&Fix Transparency With Characters", null, TransparencyFixAction)
+                ),
+                new ToolStripMenuItem("&Culling", null,
+                    new ToolStripMenuItem("Invert &Culling", null, InvertMaterialsAction),
+                    new ToolStripMenuItem("Set all (Cull &None)", null, CullNoneAction),
+                    new ToolStripMenuItem("Set all (Cull &Outside)", null, CullOutsideAction),
+                    new ToolStripMenuItem("Set all (Cull &Inside)", null, CullInsideAction),
+                    new ToolStripMenuItem("Set all (Cull &All)", null, CullAllAction)
+                )
                 ));
             _menu.Items.Add(new ToolStripMenuItem("&Reimport Meshes", null, ReimportAction));
             _menu.Items.Add(new ToolStripMenuItem("&Import Existing Object", null, ImportObjectAction));
             _menu.Items.Add(new ToolStripMenuItem("&Optimize Meshes", null, OptimizeAction));
             _menu.Items.Add(new ToolStripMenuItem("&Recalculate Bounding Boxes", null, RecalcBBsOption));
-            _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("&Fix Transparency With Characters", null, TransparencyFixAction));
-            _menu.Items.Add(new ToolStripMenuItem("&Convert To Shadow Model", null, ShadowConvertAction));
-            _menu.Items.Add(new ToolStripMenuItem("&Regenerate Metal Materials", null, MetalAction));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteAction, Keys.Control | Keys.Delete));
             _menu.Opening += MenuOpening;
@@ -95,6 +101,7 @@ namespace BrawlBox.NodeWrappers
         protected static void CullInsideAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().CullMaterials(2); }
         protected static void CullAllAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().CullMaterials(3); }
         protected static void ShadowConvertAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().ShadowConvert(); }
+        protected static void SpyConvertAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SpyConvert(); }
 
         protected static void TransparencyFixAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().StartTransparencyFix(); }
 
@@ -126,12 +133,12 @@ namespace BrawlBox.NodeWrappers
         
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-            _menu.Items[3].Enabled = _menu.Items[4].Enabled = _menu.Items[5].Enabled = _menu.Items[7].Enabled = _menu.Items[8].Enabled = _menu.Items[11].Enabled = _menu.Items[28].Enabled = true;
+            _menu.Items[3].Enabled = _menu.Items[4].Enabled = _menu.Items[5].Enabled = _menu.Items[7].Enabled = _menu.Items[8].Enabled = _menu.Items[11].Enabled = _menu.Items[24].Enabled = true;
         }
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             MDL0Wrapper w = GetInstance<MDL0Wrapper>();
-            _menu.Items[3].Enabled = _menu.Items[5].Enabled = _menu.Items[28].Enabled = w.Parent != null;
+            _menu.Items[3].Enabled = _menu.Items[5].Enabled = _menu.Items[24].Enabled = w.Parent != null;
             _menu.Items[4].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
             _menu.Items[7].Enabled = w.PrevNode != null;
             _menu.Items[8].Enabled = w.NextNode != null;
@@ -157,6 +164,11 @@ namespace BrawlBox.NodeWrappers
         public void ShadowConvert()
         {
             ((MDL0Node)_resource).ConvertToShadowModel();
+        }
+
+        public void SpyConvert()
+        {
+            ((MDL0Node)_resource).ConvertToSpyModel();
         }
 
         public void InvertMaterials()
