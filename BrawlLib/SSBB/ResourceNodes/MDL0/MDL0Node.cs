@@ -345,7 +345,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             Name = Name + "_Shadow";
         }
 
-        public bool MultiTypeWorks = true;
+        public bool MultiTypeWorks = false;
         public void ConvertToSpyModel()
         {
             if (_matGroup == null)
@@ -407,6 +407,20 @@ namespace BrawlLib.SSBB.ResourceNodes
                 }
             }
 
+            // Add the color
+            MDL0GroupNode colorG = _colorGroup;
+            if (colorG == null)
+            {
+                AddChild(colorG = new MDL0GroupNode(MDLResourceType.Colors), true);
+                _colorGroup = colorG;
+                _colorList = colorG.Children;
+            }
+
+            MDL0ColorNode colorNode = new MDL0ColorNode();
+            colorNode.Name = Name + "_BodyM__" + Name + "_Spycloak";
+            colorNode.Colors = new RGBAPixel[] { new RGBAPixel() { A = 255, R = 132, G = 130, B = 132 } };
+            colorG.AddChild(colorNode, true);
+
             mat1.ShaderNode = (MDL0ShaderNode)_shadList[0];
             mat1.Rebuild(true);
 
@@ -448,6 +462,9 @@ namespace BrawlLib.SSBB.ResourceNodes
                 for (int i = 0; i < 8; i++)
                     m.SetUVs(i, null, true);
 
+                m.SetColors(0, colorNode.Name, true);
+                m.SetColors(1, null, true);
+
                 m.TextureMatrix0Enabled = true;
                 m.TextureMatrix1Enabled = true;
                 m.TextureMatrix2Enabled = false;
@@ -466,6 +483,12 @@ namespace BrawlLib.SSBB.ResourceNodes
                 m.TextureMatrix6Identity = false;
                 m.TextureMatrix7Identity = false;
             }
+            // Delete Unused Colors
+            while (ColorGroup.Children.Count > 1)
+            {
+                ColorGroup.RemoveChild(ColorGroup.Children[0]);
+            }
+
 
             // Delete unused materials
             while (MaterialGroup.Children.Count > 2)
