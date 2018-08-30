@@ -169,6 +169,19 @@ namespace BrawlBox
         }
         bool _compatibilityMode;
 
+        public bool ImportPNGsWithPalettes
+        {
+            get { return _importPNGwPalette; }
+            set
+            {
+                _importPNGwPalette = value;
+
+                BrawlLib.Properties.Settings.Default.ImportPNGsWithPalettes = _importPNGwPalette;
+                BrawlLib.Properties.Settings.Default.Save();
+            }
+        }
+        bool _importPNGwPalette;
+
         private void UpdatePropertyDescriptionBox(GridItem item)
         {
             if (!DisplayPropertyDescriptionsWhenAvailable)

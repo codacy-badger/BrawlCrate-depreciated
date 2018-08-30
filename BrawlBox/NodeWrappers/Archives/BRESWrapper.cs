@@ -44,13 +44,13 @@ namespace BrawlBox
                     new ToolStripMenuItem("Static (Empty) Model", null, ImportCommonModelStaticAction),
                     new ToolStripMenuItem("Character Spy Textures", null, ImportCommonTextureSpyAction),
                     new ToolStripMenuItem("Stage Shadow Texture", null, ImportCommonTextureShadowAction)
-                /*new ToolStripMenuItem("Models", null,
-                    new ToolStripMenuItem("Static (Empty) Model", null, ImportCommonModelStaticAction)
-                    ),
-                new ToolStripMenuItem("Textures", null,
-                    new ToolStripMenuItem("Spy", null, ImportCommonTextureSpyAction),
-                    new ToolStripMenuItem("Stage Shadow", null, ImportCommonTextureShadowAction)
-                )*/
+                    /*new ToolStripMenuItem("Models", null,
+                        new ToolStripMenuItem("Static (Empty) Model", null, ImportCommonModelStaticAction)
+                        ),
+                    new ToolStripMenuItem("Textures", null,
+                        new ToolStripMenuItem("Spy", null, ImportCommonTextureSpyAction),
+                        new ToolStripMenuItem("Stage Shadow", null, ImportCommonTextureShadowAction)
+                    )*/
                 )
                 ));
             _menu.Items.Add(new ToolStripSeparator());

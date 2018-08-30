@@ -289,10 +289,10 @@ namespace System.Windows.Forms
         public bool LoadImages(string path)
         {
             txtPath.Text = path;
-            if (path.EndsWith(".tga"))
+            if (path.EndsWith(".tga", StringComparison.OrdinalIgnoreCase))
                 return LoadImages(TGA.FromFile(path));
-            else if (path.EndsWith(".png"))
-                return LoadImagesPreservingPaletteInfo(path);
+            else if (path.EndsWith(".png", StringComparison.OrdinalIgnoreCase) && BrawlLib.Properties.Settings.Default.ImportPNGsWithPalettes)
+                return LoadImagesPreservingPaletteInfo(path); // This implementation causes issues with UI on certain systems
             else
                 return LoadImages((Bitmap)Bitmap.FromFile(path));
         }
@@ -342,10 +342,11 @@ namespace System.Windows.Forms
                 for (int i = 0; i < preservedColors.Count; i++)
                     newPalette.Entries[i] = Color.FromArgb(preservedColors[i].A, preservedColors[i].R, preservedColors[i].G, preservedColors[i].B);
                 bmp.Palette = newPalette;
+                sourceStream.Close();
                 return LoadImages(bmp, pixelData);
             }
-            else
-                return LoadImages((Bitmap)Bitmap.FromFile(path));
+            sourceStream.Close();
+            return LoadImages((Bitmap)Bitmap.FromFile(path));
         }
 
         private Bitmap ImportPalette()
