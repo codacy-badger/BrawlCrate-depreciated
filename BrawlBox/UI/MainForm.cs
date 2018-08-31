@@ -573,6 +573,11 @@ namespace BrawlBox
         private void pm36STGVILLAGE_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGVILLAGE()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgvillageDirectory, false); } }
         private void pm36STGVILLAGE_nv_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGVILLAGE_NV()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgvillagenvDirectory, false); } }
         private void pm36STGMADEIN_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGMADEIN()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgmadeinDirectory, false); } }
+        // vBrawl 1:1
+        private void vBrawlSTGBATTLEFIELD_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.vBrawlSTGBATTLEFIELD()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.vbrawlstgbattlefieldDirectory, false); } }
+        private void vBrawlSTGFINAL_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.vBrawlSTGFINAL()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.vbrawlstgfinalDirectory, false); } }
+        private void vBrawlSTGVILLAGE_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.vBrawlSTGVILLAGE()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.vbrawlstgvillageDirectory, false); } }
+        private void vBrawlSTGVILLAGE_nv_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.vBrawlSTGVILLAGE_NV()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.vbrawlstgvillagenvDirectory, false); } }
         // Custom 1:1
         private void customSkySanctuary_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.STGSKYSANCTUARY()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.skySanctDirectory, false); } }
 

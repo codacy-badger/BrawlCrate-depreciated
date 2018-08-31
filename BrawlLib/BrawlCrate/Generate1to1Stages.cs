@@ -22,6 +22,87 @@ namespace BrawlLib.BrawlCrate
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //                                                              vBrawl 1:1s                                                         //
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        public static string vbrawlstgbattlefieldDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "vbBF.pac";
+        public static bool vBrawlSTGBATTLEFIELD()
+        {
+            Random rand = new Random();
+            byte[] buf = new byte[4];
+            rand.NextBytes(buf);
+            randnumgen = BitConverter.ToUInt32(buf, 0);
+            vbrawlstgbattlefieldDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "vbBF.pac";
+            DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
+            tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+            // Use TLS 1.2, used by GitHub
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            using (WebClient client = new WebClient())
+            {
+                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/vBrawl/STGBATTLEFIELD.pac",
+                                    @vbrawlstgbattlefieldDirectory);
+            }
+            return File.Exists(vbrawlstgbattlefieldDirectory);
+        }
+        public static string vbrawlstgfinalDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "vbFD.pac";
+        public static bool vBrawlSTGFINAL()
+        {
+            Random rand = new Random();
+            byte[] buf = new byte[4];
+            rand.NextBytes(buf);
+            randnumgen = BitConverter.ToUInt32(buf, 0);
+            vbrawlstgfinalDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "vbFD.pac";
+            DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
+            tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+            // Use TLS 1.2, used by GitHub
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            using (WebClient client = new WebClient())
+            {
+                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/vBrawl/STGFINAL.pac",
+                                    @vbrawlstgfinalDirectory);
+            }
+            return File.Exists(vbrawlstgfinalDirectory);
+        }
+        public static string vbrawlstgvillageDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "vbSV.pac";
+        public static bool vBrawlSTGVILLAGE()
+        {
+            Random rand = new Random();
+            byte[] buf = new byte[4];
+            rand.NextBytes(buf);
+            randnumgen = BitConverter.ToUInt32(buf, 0);
+            vbrawlstgvillageDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "vbSV.pac";
+            DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
+            tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+            // Use TLS 1.2, used by GitHub
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            using (WebClient client = new WebClient())
+            {
+                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/vBrawl/STGVILLAGE.pac",
+                                    @vbrawlstgvillageDirectory);
+            }
+            return File.Exists(vbrawlstgvillageDirectory);
+        }
+        public static string vbrawlstgvillagenvDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "vbSVn.pac";
+        public static bool vBrawlSTGVILLAGE_NV()
+        {
+            Random rand = new Random();
+            byte[] buf = new byte[4];
+            rand.NextBytes(buf);
+            randnumgen = BitConverter.ToUInt32(buf, 0);
+            vbrawlstgvillagenvDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "vbSVn.pac";
+            DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
+            tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+            // Use TLS 1.2, used by GitHub
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            using (WebClient client = new WebClient())
+            {
+                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/vBrawl/STGVILLAGE_nv.pac",
+                                    @vbrawlstgvillagenvDirectory);
+            }
+            return File.Exists(vbrawlstgvillagenvDirectory);
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //                                                              PROJECT M 1:1s                                                      //
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

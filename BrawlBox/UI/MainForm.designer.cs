@@ -47,6 +47,7 @@ namespace BrawlBox
             this.bRSTMAudioStreamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.effectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stage1to1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vBrawl1to1sToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.projectM1to1sToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.custom1to1sToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pm36STGBATTLEFIELD_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,6 +60,10 @@ namespace BrawlBox
             this.pm36STGVILLAGE_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pm36STGVILLAGE_nv_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pm36STGMADEIN_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vBrawlSTGBATTLEFIELD_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vBrawlSTGFINAL_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vBrawlSTGVILLAGE_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vBrawlSTGVILLAGE_nv_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customSkySanctuary_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eFLSEffectListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rEFFParticlesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -278,11 +283,50 @@ namespace BrawlBox
             // 
             this.stage1to1ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.projectM1to1sToolStripMenuItem,
-            //this.Brawl1to1sToolStripMenuItem,
+            this.vBrawl1to1sToolStripMenuItem,
             this.custom1to1sToolStripMenuItem});
             this.stage1to1ToolStripMenuItem.Name = "stage1to1ToolStripMenuItem";
             this.stage1to1ToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.stage1to1ToolStripMenuItem.Text = "Stage 1:1s (Requires Internet!)";
+            // 
+            // vBrawl1to1sToolStripMenuItem
+            // 
+            this.vBrawl1to1sToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.vBrawlSTGBATTLEFIELD_ToolStripMenuItem,
+            this.vBrawlSTGFINAL_ToolStripMenuItem,
+            this.vBrawlSTGVILLAGE_ToolStripMenuItem,
+            this.vBrawlSTGVILLAGE_nv_ToolStripMenuItem});
+            this.vBrawl1to1sToolStripMenuItem.Name = "vBrawl1to1sToolStripMenuItem";
+            this.vBrawl1to1sToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.vBrawl1to1sToolStripMenuItem.Text = "Vanilla Brawl";
+            // 
+            // vBrawlSTGBATTLEFIELD_ToolStripMenuItem
+            // 
+            this.vBrawlSTGBATTLEFIELD_ToolStripMenuItem.Name = "vBrawlSTGBATTLEFIELD_ToolStripMenuItem";
+            this.vBrawlSTGBATTLEFIELD_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.vBrawlSTGBATTLEFIELD_ToolStripMenuItem.Text = "Battlefield";
+            this.vBrawlSTGBATTLEFIELD_ToolStripMenuItem.Click += new System.EventHandler(this.vBrawlSTGBATTLEFIELD_ToolStripMenuItem_Click);
+            // 
+            // vBrawlSTGFINAL_ToolStripMenuItem
+            // 
+            this.vBrawlSTGFINAL_ToolStripMenuItem.Name = "vBrawlSTGFINAL_ToolStripMenuItem";
+            this.vBrawlSTGFINAL_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.vBrawlSTGFINAL_ToolStripMenuItem.Text = "Final Destination";
+            this.vBrawlSTGFINAL_ToolStripMenuItem.Click += new System.EventHandler(this.vBrawlSTGFINAL_ToolStripMenuItem_Click);
+            // 
+            // vBrawlSTGVILLAGE_ToolStripMenuItem
+            // 
+            this.vBrawlSTGVILLAGE_ToolStripMenuItem.Name = "vBrawlSTGVILLAGE_ToolStripMenuItem";
+            this.vBrawlSTGVILLAGE_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.vBrawlSTGVILLAGE_ToolStripMenuItem.Text = "Smashville (Villagers)";
+            this.vBrawlSTGVILLAGE_ToolStripMenuItem.Click += new System.EventHandler(this.vBrawlSTGVILLAGE_ToolStripMenuItem_Click);
+            // 
+            // vBrawlSTGVILLAGE_nv_ToolStripMenuItem
+            // 
+            this.vBrawlSTGVILLAGE_nv_ToolStripMenuItem.Name = "vBrawlSTGVILLAGE_nv_ToolStripMenuItem";
+            this.vBrawlSTGVILLAGE_nv_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.vBrawlSTGVILLAGE_nv_ToolStripMenuItem.Text = "Smashville (No Villagers)";
+            this.vBrawlSTGVILLAGE_nv_ToolStripMenuItem.Click += new System.EventHandler(this.vBrawlSTGVILLAGE_nv_ToolStripMenuItem_Click);
             // 
             // projectM1to1sToolStripMenuItem
             // 
@@ -335,13 +379,6 @@ namespace BrawlBox
             this.pm36STGFAMICOM_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.pm36STGFAMICOM_ToolStripMenuItem.Text = "Fountain of Dreams";
             this.pm36STGFAMICOM_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGFAMICOM_ToolStripMenuItem_Click);
-            // 
-            // pm36STGBATTLEFIELD_ToolStripMenuItem
-            // 
-            this.pm36STGBATTLEFIELD_ToolStripMenuItem.Name = "pm36STGBATTLEFIELD_ToolStripMenuItem";
-            this.pm36STGBATTLEFIELD_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.pm36STGBATTLEFIELD_ToolStripMenuItem.Text = "Battlefield";
-            this.pm36STGBATTLEFIELD_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGBATTLEFIELD_ToolStripMenuItem_Click);
             // 
             // pm36STGGREENHILL_ToolStripMenuItem
             // 
@@ -858,6 +895,11 @@ namespace BrawlBox
         private ToolStripMenuItem pm36STGVILLAGE_ToolStripMenuItem;
         private ToolStripMenuItem pm36STGVILLAGE_nv_ToolStripMenuItem;
         private ToolStripMenuItem pm36STGMADEIN_ToolStripMenuItem;
+        private ToolStripMenuItem vBrawl1to1sToolStripMenuItem;
+        private ToolStripMenuItem vBrawlSTGBATTLEFIELD_ToolStripMenuItem;
+        private ToolStripMenuItem vBrawlSTGFINAL_ToolStripMenuItem;
+        private ToolStripMenuItem vBrawlSTGVILLAGE_ToolStripMenuItem;
+        private ToolStripMenuItem vBrawlSTGVILLAGE_nv_ToolStripMenuItem;
         private ToolStripMenuItem custom1to1sToolStripMenuItem;
         private ToolStripMenuItem customSkySanctuary_ToolStripMenuItem;
         private TexCoordControl texCoordControl1;
