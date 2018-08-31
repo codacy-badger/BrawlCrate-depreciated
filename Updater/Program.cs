@@ -49,7 +49,7 @@ namespace Net
             }
             else
             {
-                //Find and close the stagebox application that will be overwritten
+                //Find and close the BrawlCrate application that will be overwritten
                 Process[] px =  Process.GetProcessesByName("BrawlCrate");
                 Process p = px.FirstOrDefault(x => x.MainModule.FileName.StartsWith(AppPath));
                 if (p != null && p != default(Process) && p.CloseMainWindow())
