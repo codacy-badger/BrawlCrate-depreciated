@@ -16,9 +16,38 @@ they be held accountable for the manner in which it is used.
 |************ BrawlCrate Change Log ************|
  ===============================================
  
- - BrawlCrate v0.10 - (8/xx/2018)
- . Updated name and iconography (StageBox -> BrawlBox)
- . 
+ - BrawlCrate v0.10 - (8/30/2018)
+ . Updated name and iconography (StageBox -> BrawlCrate)
+ . Fix instabilities with model counters
+ . Added automatic generation of SpyCloak materials for characters
+ . Loop Previewing now defaults to what the selected animation's loop value is
+ . Restored BoneFlag editing from BrawlBox v0.67b
+ . Added basic sorting functionality to folders (note, simple alphabetical sort. Need to come up with a better algorithm that works with multiple digit numbers)
+ . Added easy imports of commonly used files from https://github.com/soopercool101/BrawlCommonFiles/
+   - Static Model
+   - Stage Shadow Texture
+   - SpyCloak Textures
+ . Added 1:1 stage template imports from https://github.com/soopercool101/Stage-Templates-1to1s/
+   - Project M 3.6
+     . Battlefield
+     . Delfino's Secret
+     . Final Destination
+     . Fountain of Dreams
+     . Green Hill Zone
+     . Pokémon Stadium 2
+     . Smashville (with or without villagers)
+     . Wario Land
+   - Vanilla Brawl
+     . Battlefield
+     . Final Destination
+     . Smashville (with or without villagers)
+   - Custom
+     . Sky Sanctuary Zone
+ . Event Match fighter nodes now properly update name when fighter ID is changed
+ . Classic Mode fighter nodes now initialize to "none" when using ID 0xFF
+ . Additional GEG1 parsing (AdditionalHP and StartingAction)
+ . Fixed bug in which importing a png texture would resize the UI improperly on select systems
+ . Fixed bug in which .tga files would not import correctly unless they had the case-sensitive ".tga" suffix
  
  - StageBox v0.9 Hotfix 3 - (8/16/2018)
  . Fixed bug in which v0.9 Hotfix 2 would crash on 32-bit systems
