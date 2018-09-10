@@ -21,6 +21,9 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public TEX0Node() { _version = 1; }
 
+        // Texture number used for stuff like stocks. Used for sorting purposes.
+        public int texSortNum = -1;
+
         bool _sharesData;
         int _headerLen;
         int _width, _height;

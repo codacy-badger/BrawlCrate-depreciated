@@ -752,7 +752,25 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             if (Children.Count <= 0)
                 return;
+            if (Children[0].Name.StartsWith("InfStc", StringComparison.OrdinalIgnoreCase) && Children[0] is TEX0Node)
+            {
+                InfStcSort();
+                return;
+            }
             _children = _children.OrderBy(o => o.Name).ToList();
+        }
+
+        public void InfStcSort()
+        {
+            foreach(TEX0Node t in Children)
+            {
+                t.texSortNum = Int32.MaxValue;
+                if (t.Name.StartsWith("InfStc.", StringComparison.OrdinalIgnoreCase))
+                    Int32.TryParse(t.Name.Substring(7), out t.texSortNum);
+                else if (t.Name.StartsWith("InfStc", StringComparison.OrdinalIgnoreCase))
+                    Int32.TryParse(t.Name.Substring(6), out t.texSortNum);
+            }
+            _children = _children.OrderBy(o => ((TEX0Node)o).texSortNum).ToList();
         }
     }
 

@@ -42,10 +42,8 @@ namespace BrawlBox
         {
             int index = Index;
             ResourceNode parent = _resource._parent;
-            Remove();
             ((BRESGroupNode)_resource).SortChildren();
-            parent.InsertChild(_resource, true, index);
-            _resource.OnMoved();
+            RefreshView(_resource);
         }
 
         public void Default()
