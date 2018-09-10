@@ -1994,6 +1994,7 @@ namespace System.Windows.Forms
             ClearSelection();
             SelectionModified();
             _modelPanel.Invalidate();
+            TargetNode.SignalPropertyChange();
         }
 
         private void btnMerge_Click(object sender, EventArgs e)
@@ -2017,6 +2018,7 @@ namespace System.Windows.Forms
                         x++;
                 }
                 link.Value = pos / count;
+                TargetNode.SignalPropertyChange();
             }
             _modelPanel.Invalidate();
         }
@@ -2399,6 +2401,7 @@ namespace System.Windows.Forms
             {
                 p.SwapLinks();
             }
+            TargetNode.SignalPropertyChange();
             _modelPanel.Invalidate();
         }
 
