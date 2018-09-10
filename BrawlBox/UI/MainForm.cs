@@ -58,6 +58,7 @@ namespace BrawlBox
             _updatesOnStartup = BrawlBox.Properties.Settings.Default.CheckUpdatesAtStartup;
             _showHex = BrawlBox.Properties.Settings.Default.ShowHex;
             _compatibilityMode = BrawlLib.Properties.Settings.Default.CompatibilityMode;
+            _importPNGwPalette = BrawlLib.Properties.Settings.Default.ImportPNGsWithPalettes;
 
 #if !DEBUG //Don't need to see this every time a debug build is compiled
             if (CheckUpdatesOnStartup)

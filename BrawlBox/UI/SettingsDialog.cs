@@ -105,7 +105,7 @@ namespace BrawlBox
             chkUpdatesOnStartup.Checked = MainForm.Instance.CheckUpdatesOnStartup;
             chkShowPropDesc.Checked = MainForm.Instance.DisplayPropertyDescriptionsWhenAvailable;
             chkShowHex.Checked = MainForm.Instance.ShowHex;
-            chkPNGPalette.Checked = MainForm.Instance.CompatibilityMode;
+            chkPNGPalette.Checked = MainForm.Instance.ImportPNGsWithPalettes;
             _updating = false;
             btnApply.Enabled = false;      
         }
