@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.10
+BrawlCrate - v0.10 Hotfix 1
 Copyright © 2018 soopercool101, MarioDox
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,12 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.10 Hotfix 1 - (9/9/2018)
+ . Added "Replace Camera" option to STPM files
+ . Fixed issue in which "Disable Bones on Play" could not be enabled from the Model Viewer Settings
+ . Fixed issue in which stock textures would sometimes not sort properly
+ . Fixed issue in which the "Sort" implementation for BRESGroups would create a hidden duplicated BRESGroup (visible when saving and reopening)
  
  - BrawlCrate v0.10 - (8/30/2018)
  . Updated name and iconography (StageBox -> BrawlCrate)
