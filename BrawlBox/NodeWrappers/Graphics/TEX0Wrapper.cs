@@ -195,13 +195,11 @@ namespace BrawlBox.NodeWrappers
             if (Parent == null)
                 return;
 
-            if (_resource.Parent is BRESGroupNode && _resource.Parent.Parent != null && _resource.Parent.Parent is BRRESNode && ((BRRESNode)_resource.Parent.Parent).GetFolder<PLT0Node>() != null)
+            if (((TEX0Node)_resource).HasPalette)
             {
-                ResourceNode[] plt0 = ((BRRESNode)_resource.Parent.Parent).GetFolder<PLT0Node>().FindChildrenByName(_resource.Name);
-                if(plt0.Length > 0)
-                    if(MessageBox.Show("Would you like to delete the associated PLT0?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                        for (int i = 0; i < plt0.Length; ++i)
-                            ((BRRESNode)_resource.Parent.Parent).GetFolder<PLT0Node>().RemoveChild(plt0[i]);
+                PLT0Node plt0 = ((TEX0Node)_resource).GetPaletteNode();
+                if (MessageBox.Show("Would you like to delete the associated PLT0?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    plt0.Parent.RemoveChild(plt0);
             }
 
             _resource.Dispose();
