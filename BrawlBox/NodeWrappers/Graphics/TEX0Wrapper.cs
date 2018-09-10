@@ -24,11 +24,12 @@ namespace BrawlBox.NodeWrappers
             _menu.Items.Add(new ToolStripMenuItem("Move D&own", null, MoveDownAction, Keys.Control | Keys.Down));
             _menu.Items.Add(new ToolStripMenuItem("Re&name", null, RenameAction, Keys.Control | Keys.N));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteAction, Keys.Control | Keys.Delete));
+            _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteTEX0Action, Keys.Control | Keys.Delete));
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
         protected static void ReEncodeAction(object sender, EventArgs e) { GetInstance<TEX0Wrapper>().ReEncode(); }
+        protected static void DeleteTEX0Action(object sender, EventArgs e) { GetInstance<TEX0Wrapper>().DeleteTEX0(); }
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
             _menu.Items[3].Enabled = _menu.Items[4].Enabled = _menu.Items[6].Enabled = _menu.Items[7].Enabled = _menu.Items[10].Enabled = true;
@@ -65,6 +66,24 @@ namespace BrawlBox.NodeWrappers
                 dlg.LoadImages((ResourceNode as TEX0Node).GetImage(0));
                 dlg.ShowDialog(MainForm.Instance, ResourceNode as TEX0Node);
             }
+        }
+
+        public void DeleteTEX0()
+        {
+            if (Parent == null)
+                return;
+
+            if (_resource.Parent is BRESGroupNode && _resource.Parent.Parent != null && _resource.Parent.Parent is BRRESNode && ((BRRESNode)_resource.Parent.Parent).GetFolder<PLT0Node>() != null)
+            {
+                ResourceNode[] plt0 = ((BRRESNode)_resource.Parent.Parent).GetFolder<PLT0Node>().FindChildrenByName(_resource.Name);
+                if(plt0.Length > 0)
+                    if(MessageBox.Show("Would you like to delete the associated PLT0?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        for (int i = 0; i < plt0.Length; ++i)
+                            ((BRRESNode)_resource.Parent.Parent).GetFolder<PLT0Node>().RemoveChild(plt0[i]);
+            }
+
+            _resource.Dispose();
+            _resource.Remove();
         }
 
         internal protected override void OnPropertyChanged(ResourceNode node)
