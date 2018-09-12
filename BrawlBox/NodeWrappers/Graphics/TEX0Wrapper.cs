@@ -31,17 +31,20 @@ namespace BrawlBox.NodeWrappers
             _menu.Items.Add(new ToolStripMenuItem("Re&name", null, RenameAction, Keys.Control | Keys.N));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteTEX0Action, Keys.Control | Keys.Delete));
-            _menu.Items[1].Visible = _menu.Items[2].Visible = false;
+            _menu.Items.Add(new ToolStripSeparator());
+            _menu.Items.Add(new ToolStripMenuItem("&Convert Stock System", null, ConvertStockAction));
+            _menu.Items[1].Visible = _menu.Items[2].Visible = _menu.Items[13].Visible = _menu.Items[14].Visible = false;
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
         protected static void ReEncodeAction(object sender, EventArgs e) { GetInstance<TEX0Wrapper>().ReEncode(); }
         protected static void GeneratePAT0Action(object sender, EventArgs e) { GetInstance<TEX0Wrapper>().GeneratePAT0(); }
         protected static void DeleteTEX0Action(object sender, EventArgs e) { GetInstance<TEX0Wrapper>().DeleteTEX0(); }
+        protected static void ConvertStockAction(object sender, EventArgs e) { GetInstance<TEX0Wrapper>().ConvertStocks(); }
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
             _menu.Items[2].Enabled = _menu.Items[5].Enabled = _menu.Items[6].Enabled = _menu.Items[8].Enabled = _menu.Items[9].Enabled = _menu.Items[12].Enabled = true;
-            _menu.Items[1].Visible = _menu.Items[2].Visible = false;
+            _menu.Items[1].Visible = _menu.Items[2].Visible = _menu.Items[13].Visible = _menu.Items[14].Visible = false;
         }
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
@@ -51,6 +54,7 @@ namespace BrawlBox.NodeWrappers
             _menu.Items[6].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
             _menu.Items[8].Enabled = w.PrevNode != null;
             _menu.Items[9].Enabled = w.NextNode != null;
+            _menu.Items[13].Visible = _menu.Items[14].Visible = w._resource.Name.StartsWith("InfStc.");
         }
 
         public TEX0Wrapper() { ContextMenuStrip = _menu; }
@@ -212,6 +216,55 @@ namespace BrawlBox.NodeWrappers
         internal protected override void OnPropertyChanged(ResourceNode node)
         {
             RefreshView(node);
+        }
+
+        public void ConvertStocks()
+        {
+            if (Parent == null)
+                return;
+
+            if (_resource.Parent is BRESGroupNode && _resource.Parent.Parent != null && _resource.Parent.Parent is BRRESNode)
+            {
+                // Check if this is part of a sequence
+                if (Regex.Match(_resource.Name, @"(\.\d+)?$").Success && _resource.Name.LastIndexOf(".") > 0 && _resource.Name.LastIndexOf(".") <= _resource.Name.Length && int.TryParse(_resource.Name.Substring(_resource.Name.LastIndexOf(".") + 1, _resource.Name.Length - (_resource.Name.LastIndexOf(".") + 1)), out int n))
+                {
+                    if (_resource.Name.Substring(_resource.Name.LastIndexOf(".") + 1, _resource.Name.Length - (_resource.Name.LastIndexOf(".") + 1)).Length == 3)
+                    {
+                        ConvertToStock40();
+                        return;
+                    }
+                    else if (_resource.Name.Substring(_resource.Name.LastIndexOf(".") + 1, _resource.Name.Length - (_resource.Name.LastIndexOf(".") + 1)).Length == 4)
+                    {
+                        ConvertToStockDefault();
+                        return;
+                    }
+                }
+            }
+        }
+
+        public void ConvertToStock40()
+        {
+            string matchName = _resource.Name.Substring(0, _resource.Name.LastIndexOf(".")) + ".";
+            List<TEX0Node> texList = new List<TEX0Node>();
+            foreach (TEX0Node tx0 in _resource.Parent.Children)
+            {
+                if (tx0.Name.StartsWith(matchName) && tx0.Name.LastIndexOf(".") > 0 && tx0.Name.LastIndexOf(".") <= tx0.Name.Length && int.TryParse(tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1, tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int x) && x >= 0)
+                {
+                    tx0.texSortNum = ((int)(Math.Floor(((Double)x - 1) / 10.0)) * 40) + (x % 10);
+                    if (x % 10 == 0)
+                        tx0.texSortNum += 10;
+                    if (tx0.HasPalette)
+                    {
+                        tx0.GetPaletteNode().Name = "InfStc." + tx0.texSortNum.ToString("0000");
+                    }
+                    tx0.Name = "InfStc." + tx0.texSortNum.ToString("0000");
+                }
+            }
+        }
+
+        public void ConvertToStockDefault()
+        {
+
         }
     }
 }
