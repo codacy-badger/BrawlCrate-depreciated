@@ -54,10 +54,13 @@ namespace BrawlLib.SSBB.ResourceNodes
                 _isBSSSection = false;
                 InitBuffer(_dataSize, Header);
                 if (Index == 5)
+                {
                     _parser = new ObjectParser(this);
+                    return true;
+                }
             }
 
-            return _parser != null;
+            return false;
         }
         public override void OnPopulate()
         {
