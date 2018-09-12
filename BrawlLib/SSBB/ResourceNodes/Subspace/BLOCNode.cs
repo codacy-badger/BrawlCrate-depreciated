@@ -60,6 +60,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             BLOC* header = (BLOC*)address;
             *header = new BLOC();
+            header->_tag = BLOC.Tag;
             header->_count = Children.Count;
             header->_version = Version;
             header->_extParam = ExtParam;
