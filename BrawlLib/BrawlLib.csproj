@@ -176,6 +176,7 @@
     <Compile Include="SSBB\ResourceNodes\BrawlEx\RSTCNode.cs" />
     <Compile Include="SSBB\ResourceNodes\BrawlEx\SLTCNode.cs" />
     <Compile Include="SSBB\ResourceNodes\Subspace\Animation\GCAMNode.cs" />
+    <Compile Include="SSBB\ResourceNodes\Subspace\GET1Node.cs" />
     <Compile Include="SSBB\ResourceNodes\Subspace\Hazards\GWATNode.cs" />
     <Compile Include="SSBB\ResourceNodes\Subspace\Hazards\GFG1Node.cs" />
     <Compile Include="SSBB\ResourceNodes\Subspace\Navigation\GDBFNode.cs" />
@@ -187,6 +188,7 @@
     <Compile Include="SSBB\Types\BrawlEx\RSTC.cs" />
     <Compile Include="SSBB\Types\BrawlEx\SLTC.cs" />
     <Compile Include="SSBB\Types\Subspace\Animation\GCAM.cs" />
+    <Compile Include="SSBB\Types\Subspace\GET1.cs" />
     <Compile Include="SSBB\Types\Subspace\Hazards\GWAT.cs" />
     <Compile Include="SSBB\Types\Subspace\Hazards\GFG1.cs" />
     <Compile Include="SSBB\Types\Subspace\Navigation\GDBF.cs" />
