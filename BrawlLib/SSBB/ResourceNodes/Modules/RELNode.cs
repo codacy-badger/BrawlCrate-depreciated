@@ -122,6 +122,10 @@ namespace BrawlLib.SSBB.ResourceNodes
         [Category("Relocatable Module")]
         public uint FixSize { get { return _fixSize; } }
 
+        [Category("Relocatable Module")]
+        [DisplayName("Imported Modules")]
+        public string[] ImportedModules { get; private set; }
+
         #region Stage module conversion - designer properties
         [Category("Brawl Stage Module")]
         [TypeConverter(typeof(DropDownListStageRelIDs))]
@@ -250,11 +254,13 @@ namespace BrawlLib.SSBB.ResourceNodes
             _fixSize = Header->_commandOffset;
 
             _imports = new SortedDictionary<uint, List<RELLink>>();
+            ImportedModules = new string[Header->ImportListCount];
             for (int i = 0; i < Header->ImportListCount; i++)
             {
-                RELImportEntry* entry = (RELImportEntry*)&Header->Imports[i];
+                RELImportEntry* entry = &Header->Imports[i];
                 uint id = (uint)entry->_moduleId;
                 _imports.Add(id, new List<RELLink>());
+                ImportedModules[i] = _idNames.ContainsKey(id) ? _idNames[id] : $"Module{id:X}";
 
                 RELLink* link = (RELLink*)(WorkingUncompressed.Address + (uint)entry->_offset);
                 do { _imports[id].Add(*link); }
