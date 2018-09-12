@@ -188,6 +188,8 @@
     <Compile Include="SSBB\Types\BrawlEx\FCFG.cs" />
     <Compile Include="SSBB\Types\BrawlEx\RSTC.cs" />
     <Compile Include="SSBB\Types\BrawlEx\SLTC.cs" />
+    <Compile Include="SSBB\Types\Subspace\GET1.cs" />
+    <Compile Include="SSBB\Types\Subspace\Graphics\GNDV.cs" />
     <Compile Include="SSBB\Types\Subspace\Animation\GCAM.cs" />
     <Compile Include="SSBB\Types\Subspace\Hazards\GWAT.cs" />
     <Compile Include="SSBB\Types\Subspace\Hazards\GFG1.cs" />
