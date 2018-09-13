@@ -412,11 +412,11 @@ namespace BrawlLib.SSBB.ResourceNodes
             // Check if ASL is used
             if (path.Contains("_") && path.Length >= 2 && path[path.Length - 2] == '_')
                 aslIndicator = path.ToCharArray()[path.Length - 1];
-            path = path.Substring(0, path.LastIndexOf('\\'));
             // Check to make sure they meant this as ASL and not as a type indicator
-            if ((aslIndicator == '1' || aslIndicator == '2' || aslIndicator == '3') && path.LastIndexOf('_') == path.IndexOf('_'))
+            if (path.Substring(path.LastIndexOf('\\') + 1).StartsWith("STGTENGAN", StringComparison.OrdinalIgnoreCase) && (aslIndicator == '1' || aslIndicator == '2' || aslIndicator == '3') && path.LastIndexOf('_') == path.IndexOf('_'))
                 if (MessageBox.Show("Would you like to use the detected '" + aslIndicator + "' as the ASL indicator for the three files?", "", MessageBoxButtons.YesNo) == DialogResult.No)
                     aslIndicator = '\0';
+            path = path.Substring(0, path.LastIndexOf('\\'));
             // Export with or without ASL depending on if the file used ASL or not
             if (aslIndicator != '\0')
             {
