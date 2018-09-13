@@ -325,7 +325,6 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             if (Path.HasExtension(path))
                 path = path.Substring(0, path.LastIndexOf('.'));
-            Console.WriteLine(path);
 
             ExportPAC(path + ".pac");
             ExportPCS(path + ".pcs");
