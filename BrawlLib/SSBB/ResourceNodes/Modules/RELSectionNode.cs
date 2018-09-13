@@ -24,7 +24,16 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public string DataAlign { get { return "0x" + _dataAlign.ToString("X"); } }
 
-        public string EndBufferSize { get { return "0x" + _endBufferSize.ToString("X"); } }
+        public string EndBufferSize {
+            get { return "0x" + _endBufferSize.ToString("X"); }
+            set
+            {
+                string field0 = (value.ToString() ?? "").Split(' ')[0];
+                int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase) ? 16 : 10;
+                _endBufferSize = Convert.ToByte(field0, fromBase);
+                SignalPropertyChange();
+            }
+        }
         
         [Category("REL Section")]
         public bool HasCommands { get { return _manager._commands.Count > 0; } }
