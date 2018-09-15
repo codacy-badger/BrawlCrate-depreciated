@@ -16,7 +16,7 @@ namespace System.Windows.Forms
         private ComboBox lstStreams;
         private CustomTrackBar trackBarVolume;
         private Panel panel2;
-        private CheckBox chkLoop;
+        public CheckBox chkLoop;
 
         private void InitializeComponent()
         {
@@ -59,9 +59,9 @@ namespace System.Windows.Forms
             // 
             this.chkLoop.Location = new System.Drawing.Point(114, 5);
             this.chkLoop.Name = "chkLoop";
-            this.chkLoop.Size = new System.Drawing.Size(50, 20);
+            this.chkLoop.Size = new System.Drawing.Size(93, 20);
             this.chkLoop.TabIndex = 3;
-            this.chkLoop.Text = "Loop";
+            this.chkLoop.Text = "Loop Preview";
             this.chkLoop.UseVisualStyleBackColor = true;
             this.chkLoop.CheckedChanged += new System.EventHandler(this.chkLoop_CheckedChanged);
             // 
@@ -100,7 +100,7 @@ namespace System.Windows.Forms
             this.panel2.Controls.Add(this.chkLoop);
             this.panel2.Location = new System.Drawing.Point(116, 61);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(167, 30);
+            this.panel2.Size = new System.Drawing.Size(207, 30);
             this.panel2.TabIndex = 9;
             // 
             // trackBarVolume

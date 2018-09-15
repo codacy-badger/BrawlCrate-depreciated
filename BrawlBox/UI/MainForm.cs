@@ -369,7 +369,11 @@ namespace BrawlBox
                     audioPlaybackPanel1.TargetSource = node as IAudioSource;
                     IAudioStream[] sources = audioPlaybackPanel1.TargetSource.CreateStreams();
                     if (sources != null && sources.Length > 0 && sources[0] != null)
+                    {
                         newControl = audioPlaybackPanel1;
+                        if (node is RSTMNode)
+                            audioPlaybackPanel1.chkLoop.Checked = ((RSTMNode)node).IsLooped;
+                    }
                 }
                 else if (node is IImageSource)
                 {
