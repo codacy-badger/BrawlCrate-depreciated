@@ -172,6 +172,8 @@ namespace BrawlBox.NodeWrappers
         static PAT0TextureEntryWrapper()
         {
             _menu = new ContextMenuStrip();
+            _menu.Items.Add(new ToolStripMenuItem("&Offset frame", null, OffsetAction, Keys.Control | Keys.O));
+            _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Export", null, ExportAction, Keys.Control | Keys.E));
             _menu.Items.Add(new ToolStripMenuItem("&Replace", null, ReplaceAction, Keys.Control | Keys.R));
             _menu.Items.Add(new ToolStripMenuItem("Res&tore", null, RestoreAction, Keys.Control | Keys.T));
@@ -182,18 +184,51 @@ namespace BrawlBox.NodeWrappers
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
+        protected static void OffsetAction(object sender, EventArgs e)
+        {
+            PAT0OffsetControl offsetControl = new PAT0OffsetControl();
+            if (offsetControl.ShowDialog() == DialogResult.OK)
+            {
+                GetInstance<PAT0TextureEntryWrapper>().Offset(offsetControl.NewValue, offsetControl.IncreaseFrames, offsetControl.OffsetOtherTextures);
+            }
+        }
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-            _menu.Items[1].Enabled = _menu.Items[2].Enabled = _menu.Items[6].Enabled = true;
+            _menu.Items[3].Enabled = _menu.Items[4].Enabled = _menu.Items[8].Enabled = true;
         }
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             PAT0TextureEntryWrapper w = GetInstance<PAT0TextureEntryWrapper>();
-            _menu.Items[1].Enabled = _menu.Items[6].Enabled = w.Parent != null;
-            _menu.Items[2].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[3].Enabled = _menu.Items[8].Enabled = w.Parent != null;
+            _menu.Items[4].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
         }
         #endregion
 
         public PAT0TextureEntryWrapper() { ContextMenuStrip = _menu; }
+
+        public void Offset(int offsetValue, bool offsetFrames, bool offsetOtherTextures)
+        {
+            float currentFrame = ((PAT0TextureEntryNode)_resource).FrameIndex;
+            if (offsetFrames)
+                ((PAT0Node)_resource.Parent.Parent.Parent).FrameCount += offsetValue;
+            if (offsetOtherTextures)
+            {
+                OffsetAll(currentFrame, offsetValue);
+                return;
+            }
+            foreach(PAT0TextureEntryNode pte in _resource.Parent.Children)
+                if (pte._frame >= currentFrame)
+                    pte._frame += offsetValue;
+        }
+
+        public void OffsetAll(float currentFrame, int offsetValue)
+        {
+            // Go through every entry in the PAT0 and edit it as necessary
+            foreach(PAT0EntryNode pe in _resource.Parent.Parent.Parent.Children)
+                foreach(PAT0TextureNode pt in pe.Children)
+                    foreach(PAT0TextureEntryNode pte in pt.Children)
+                        if (pte._frame >= currentFrame)
+                            pte._frame += offsetValue;
+        }
     }
 }

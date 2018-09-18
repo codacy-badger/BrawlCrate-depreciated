@@ -684,6 +684,12 @@
     <Compile Include="System\Windows\Forms\StageBoxHexEntry.Designer.cs">
       <DependentUpon>StageBoxHexEntry.cs</DependentUpon>
     </Compile>
+    <Compile Include="System\Windows\Forms\PAT0OffsetControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\Windows\Forms\PAT0OffsetControl.Designer.cs">
+      <DependentUpon>PAT0OffsetControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="System\Windows\Forms\StageBoxNumericEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1074,6 +1080,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="System\Windows\Forms\StageBoxHexEntry.resx">
       <DependentUpon>StageBoxHexEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="System\Windows\Forms\PAT0OffsetControl.resx">
+      <DependentUpon>PAT0OffsetControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="System\Windows\Forms\StageBoxNumericEntry.resx">
       <DependentUpon>StageBoxNumericEntry.cs</DependentUpon>
