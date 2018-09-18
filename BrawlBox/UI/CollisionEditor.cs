@@ -2771,6 +2771,7 @@ namespace System.Windows.Forms
             _selectedObject.LinkedBone = ((MDL0BoneNode)node.Tag);
             txtModel.Text = _selectedObject._modelName = node.Parent.Text;
             TargetNode.SignalPropertyChange();
+            _modelPanel.Invalidate();
         }
 
         private void btnUnlink_Click(object sender, EventArgs e)
@@ -2779,6 +2780,7 @@ namespace System.Windows.Forms
             txtModel.Text = "";
             _selectedObject.LinkedBone = null;
             TargetNode.SignalPropertyChange();
+            _modelPanel.Invalidate();
         }
 
         private void contextMenuStrip2_Opening(object sender, CancelEventArgs e)
