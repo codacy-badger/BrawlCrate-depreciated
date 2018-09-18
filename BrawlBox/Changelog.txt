@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.10 Hotfix 1
+BrawlCrate - v0.11
 Copyright © 2018 soopercool101, MarioDox
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,23 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.11 - (9/18/2018)
+ . Added support to generate a PAT0 by right clicking a texture in "name.#" format
+ . Added support to save ARCs as multi-file stages (STGMARIOPAST, STGMETALGEAR, STGVILLAGE, STGTENGAN)
+ . Add support for GET1 and GNDV editing
+ . REL improvements
+   - Allow adding relocation commands to all selected words
+   - Display imported modules for information purposes
+   - No longer crashes if section[5] contains no valid objects
+   - End buffers for module sections can now be edited (if setting to something that isn't a multiple of 0x4, will warn the user)
+ . Opening a BRSTM now sets the loop preview option to the loop value of the BRSTM
+ . Linking a bone to a collision no longer improperly writes to the raw value of collision links
+ . Linking or unlinking a bone to/from a collision now properly updates the collision viewer window
+ . Merge, Split, and Flip buttons on the collision editor now properly mark the collision node as in need of saving
+ . Deleting a TEX0 now prompts you to choose whether you'd like to delete the associated PLT0 if one exists
+ . Fixed bug in which the "Import PNGs with Palettes" setting does not set properly in the settings
+ . Removed MRGC save option from ARCs (was not set up to do anything at all)
  
  - BrawlCrate v0.10 Hotfix 1 - (9/9/2018)
  . Added "Replace Camera" option to STPM files
