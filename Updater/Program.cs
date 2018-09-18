@@ -18,7 +18,7 @@ namespace Net
 {
     public static class Updater
     {
-        public static readonly string BaseURL = "https://github.com/soopercool101/stagebox/releases/download/";
+        public static readonly string BaseURL = "https://github.com/soopercool101/BrawlCrate/releases/download/";
         public static string AppPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public static async Task UpdateCheck() { await UpdateCheck(false); }
@@ -34,10 +34,10 @@ namespace Net
                 Console.WriteLine(s.Send("www.github.com").Status);
 
             // Initiate the github client.
-            GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("Stagebox"));
+            GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate"));
 
             // get repo, Release, and release assets
-            Repository repo = await github.Repository.Get("soopercool101", "stagebox");
+            Repository repo = await github.Repository.Get("soopercool101", "BrawlCrate");
             Release release = (await github.Release.GetAll(repo.Owner.Login, repo.Name))[0];
             ReleaseAsset Asset = (await github.Release.GetAssets("soopercool101", repo.Name, release.Id))[0];
 
@@ -49,8 +49,8 @@ namespace Net
             }
             else
             {
-                //Find and close the stagebox application that will be overwritten
-                Process[] px =  Process.GetProcessesByName("StageBox");
+                //Find and close the BrawlCrate application that will be overwritten
+                Process[] px =  Process.GetProcessesByName("BrawlCrate");
                 Process p = px.FirstOrDefault(x => x.MainModule.FileName.StartsWith(AppPath));
                 if (p != null && p != default(Process) && p.CloseMainWindow())
                     p.Close();
@@ -82,16 +82,16 @@ namespace Net
         {
             try
             {
-                var github = new GitHubClient(new Octokit.ProductHeaderValue("Stagebox"));
+                var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate"));
                 IReadOnlyList<Release> releases = null;
                 try
                 {
-                    releases = await github.Release.GetAll("soopercool101", "stagebox");
+                    releases = await github.Release.GetAll("soopercool101", "BrawlCrate");
 
                     // Check if this is a known pre-release version
                     bool isPreRelease = releases.Any(r => r.Prerelease
                         && string.Equals(releases[0].TagName, releaseTag, StringComparison.InvariantCulture)
-                        && r.Name.IndexOf("StageBox", StringComparison.InvariantCultureIgnoreCase) >= 0);
+                        && r.Name.IndexOf("BrawlCrate", StringComparison.InvariantCultureIgnoreCase) >= 0);
 
                     // If this is not a known pre-release version, remove all pre-release versions from the list
                     if (!isPreRelease) {
@@ -107,7 +107,7 @@ namespace Net
                 if (releases != null &&
                     releases.Count > 0 &&
                     !String.Equals(releases[0].TagName, releaseTag, StringComparison.InvariantCulture) && //Make sure the most recent version is not this version
-                    releases[0].Name.IndexOf("StageBox", StringComparison.InvariantCultureIgnoreCase) >= 0) //Make sure this is a StageBox release
+                    releases[0].Name.IndexOf("BrawlCrate", StringComparison.InvariantCultureIgnoreCase) >= 0) //Make sure this is a BrawlCrate release
                 {
                     int descriptionOffset = 0;
                     if (releases[0].Body.Substring(releases[0].Body.Length - 109) == "\nAlso check out the Brawl Stage Compendium for info and research on Stage Modding: https://discord.gg/s7c8763")
@@ -156,12 +156,12 @@ namespace Net
                 //I don't really care if this gets compromised, the token has no user settings access so I'll just revoke access to the token and generate a new one.
                 //Have to use a byte array to (hopefully) bypass github's automatic detection of the token as a string.
                 Octokit.Credentials s = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
-                var github = new GitHubClient(new Octokit.ProductHeaderValue("StageBox")) { Credentials = s };
+                var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = s };
                 IReadOnlyList<Release> releases = null;
                 IReadOnlyList<Issue> issues = null;
                 try
                 {
-                    releases = await github.Release.GetAll("soopercool101", "stagebox");
+                    releases = await github.Release.GetAll("soopercool101", "BrawlCrate");
                     issues = await github.Issue.GetForRepository("StageBoxBrawl", "StageBoxIssues");
                 }
                 catch (System.Net.Http.HttpRequestException)

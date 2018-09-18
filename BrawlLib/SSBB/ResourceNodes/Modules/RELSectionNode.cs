@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.IO;
 using BrawlLib.IO;
+using System.Windows.Forms;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
@@ -24,7 +25,18 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public string DataAlign { get { return "0x" + _dataAlign.ToString("X"); } }
 
-        public string EndBufferSize { get { return "0x" + _endBufferSize.ToString("X"); } }
+        public string EndBufferSize {
+            get { return "0x" + _endBufferSize.ToString("X"); }
+            set
+            {
+                string field0 = (value.ToString() ?? "").Split(' ')[0];
+                int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase) ? 16 : 10;
+                if(Convert.ToByte(field0, fromBase) % 4 != 0 && MessageBox.Show("Buffers should generally be multiples of 0x4, are you sure you want to set this? (It may make the module unreadable!)", "", MessageBoxButtons.YesNo) == DialogResult.No)
+                    return;
+                _endBufferSize = Convert.ToByte(field0, fromBase);
+                SignalPropertyChange();
+            }
+        }
         
         [Category("REL Section")]
         public bool HasCommands { get { return _manager._commands.Count > 0; } }
@@ -54,10 +66,13 @@ namespace BrawlLib.SSBB.ResourceNodes
                 _isBSSSection = false;
                 InitBuffer(_dataSize, Header);
                 if (Index == 5)
+                {
                     _parser = new ObjectParser(this);
+                    return true;
+                }
             }
 
-            return _parser != null;
+            return false;
         }
         public override void OnPopulate()
         {

@@ -1947,6 +1947,7 @@ namespace System.Windows.Forms
             ClearSelection();
             SelectionModified();
             _modelPanel.Invalidate();
+            TargetNode.SignalPropertyChange();
         }
 
         private void btnMerge_Click(object sender, EventArgs e)
@@ -1970,6 +1971,7 @@ namespace System.Windows.Forms
                         x++;
                 }
                 link.Value = pos / count;
+                TargetNode.SignalPropertyChange();
             }
             _modelPanel.Invalidate();
         }
@@ -2769,6 +2771,7 @@ namespace System.Windows.Forms
             _selectedObject.LinkedBone = ((MDL0BoneNode)node.Tag);
             txtModel.Text = _selectedObject._modelName = node.Parent.Text;
             TargetNode.SignalPropertyChange();
+            _modelPanel.Invalidate();
         }
 
         private void btnUnlink_Click(object sender, EventArgs e)
@@ -2777,6 +2780,7 @@ namespace System.Windows.Forms
             txtModel.Text = "";
             _selectedObject.LinkedBone = null;
             TargetNode.SignalPropertyChange();
+            _modelPanel.Invalidate();
         }
 
         private void contextMenuStrip2_Opening(object sender, CancelEventArgs e)
@@ -2807,6 +2811,7 @@ namespace System.Windows.Forms
             {
                 p.SwapLinks();
             }
+            TargetNode.SignalPropertyChange();
             _modelPanel.Invalidate();
         }
 

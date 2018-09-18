@@ -178,9 +178,12 @@ namespace BrawlBox
             {
                 return "PAC Archive (*.pac)|*.pac|" +
                     "Compressed PAC Archive (*.pcs)|*.pcs|" +
-                    "Archive Pair (*.pair)|*.pair|" +
-                    "Multiple Resource Group (*.mrg)|*.mrg|" +
-                    "Compressed MRG (*.mrgc)|*.mrgc";
+                    "Archive Pair (*.pac & *.pcs)|*.pair|" +
+                    "Mushroomy Kingdom (STGMARIOPAST_00.pac & STGMARIOPAST_01.pac)|*.mariopast|" +
+                    "Shadow Moses Island (STGMETALGEAR_00, STGMETALGEAR_01.pac, & STGMETALGEAR_02.pac)|*.metalgear|" +
+                    "Smashville (STGVILLAGE_00.pac, STGVILLAGE_01.pac, STGVILLAGE_02.pac, STGVILLAGE_03.pac, & STGVILLAGE_04.pac)|*.village|" +
+                    "Spear Pillar (STGTENGAN_1.pac, STGTENGAN_2.pac, & STGTENGAN_3.pac)|*.tengan|" +
+                    "Multiple Resource Group (*.mrg)|*.mrg";
             }
         }
 
@@ -514,7 +517,11 @@ namespace BrawlBox
                 case 1: ((ARCNode)_resource).Export(outPath); break;
                 case 2: ((ARCNode)_resource).ExportPCS(outPath); break;
                 case 3: ((ARCNode)_resource).ExportPair(outPath); break;
-                case 4: ((ARCNode)_resource).ExportAsMRG(outPath); break;
+                case 4: ((ARCNode)_resource).ExportMarioPast(outPath); break;
+                case 5: ((ARCNode)_resource).ExportMetalGear(outPath); break;
+                case 6: ((ARCNode)_resource).ExportVillage(outPath); break;
+                case 7: ((ARCNode)_resource).ExportTengan(outPath); break;
+                case 8: ((ARCNode)_resource).ExportAsMRG(outPath); break;
             }
         }
 

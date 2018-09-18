@@ -1,9 +1,10 @@
-﻿using System;
+﻿using BrawlLib.IO;
 using BrawlLib.SSBBTypes;
+using BrawlLib.Wii.Compression;
+using System;
 using System.ComponentModel;
 using System.IO;
-using BrawlLib.IO;
-using BrawlLib.Wii.Compression;
+using System.Windows.Forms;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
@@ -252,6 +253,14 @@ namespace BrawlLib.SSBB.ResourceNodes
                 ExportAsMRG(outPath);
             else if (outPath.EndsWith(".pcs", StringComparison.OrdinalIgnoreCase))
                 ExportPCS(outPath);
+            else if (outPath.EndsWith(".mariopast", StringComparison.OrdinalIgnoreCase))
+                ExportMarioPast(outPath);
+            else if (outPath.EndsWith(".metalgear", StringComparison.OrdinalIgnoreCase))
+                ExportMetalGear(outPath);
+            else if (outPath.EndsWith(".village", StringComparison.OrdinalIgnoreCase))
+                ExportVillage(outPath);
+            else if (outPath.EndsWith(".tengan", StringComparison.OrdinalIgnoreCase))
+                ExportTengan(outPath);
             //else if (outPath.EndsWith(".pac", StringComparison.OrdinalIgnoreCase))
             //    ExportPAC(outPath);
             else
@@ -319,6 +328,108 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             ExportPAC(path + ".pac");
             ExportPCS(path + ".pcs");
+        }
+        // STGMARIOPAST uses 00/01
+        public void ExportMarioPast(string path)
+        {
+            if (Path.HasExtension(path))
+                path = path.Substring(0, path.LastIndexOf('.'));
+            char aslIndicator = '\0';
+            // Check if ASL is used
+            if (path.Contains("_") && path.Length >= 2 && path[path.Length - 2] == '_')
+                aslIndicator = path.ToCharArray()[path.Length - 1];
+            path = path.Substring(0, path.LastIndexOf('\\'));
+            // Export with or without ASL depending on if the file used ASL or not
+            if(aslIndicator != '\0')
+            {
+                ExportPAC(path + "\\STGMARIOPAST_00_" + aslIndicator + ".pac");
+                ExportPAC(path + "\\STGMARIOPAST_01_" + aslIndicator + ".pac");
+            }
+            else
+            {
+                ExportPAC(path + "\\STGMARIOPAST_00.pac");
+                ExportPAC(path + "\\STGMARIOPAST_01.pac");
+            }
+        }
+        // STGMETALGEAR uses 00, 01, and 02
+        public void ExportMetalGear(string path)
+        {
+            if (Path.HasExtension(path))
+                path = path.Substring(0, path.LastIndexOf('.'));
+            char aslIndicator = '\0';
+            // Check if ASL is used
+            if (path.Contains("_") && path.Length > 1 && path[path.Length - 2] == '_')
+                aslIndicator = path.ToCharArray()[path.Length - 1];
+            path = path.Substring(0, path.LastIndexOf('\\'));
+            // Export with or without ASL depending on if the file used ASL or not
+            if (aslIndicator != '\0')
+            {
+                ExportPAC(path + "\\STGMETALGEAR_00_" + aslIndicator + ".pac");
+                ExportPAC(path + "\\STGMETALGEAR_01_" + aslIndicator + ".pac");
+                ExportPAC(path + "\\STGMETALGEAR_02_" + aslIndicator + ".pac");
+            }
+            else
+            {
+                ExportPAC(path + "\\STGMETALGEAR_00.pac");
+                ExportPAC(path + "\\STGMETALGEAR_01.pac");
+                ExportPAC(path + "\\STGMETALGEAR_02.pac");
+            }
+        }
+        // STGVILLAGE uses 00, 01, 02, and 03
+        public void ExportVillage(string path)
+        {
+            if (Path.HasExtension(path))
+                path = path.Substring(0, path.LastIndexOf('.'));
+            char aslIndicator = '\0';
+            // Check if ASL is used
+            if (path.Contains("_") && path.Length >= 2 && path[path.Length - 2] == '_')
+                aslIndicator = path.ToCharArray()[path.Length - 1];
+            path = path.Substring(0, path.LastIndexOf('\\'));
+            // Export with or without ASL depending on if the file used ASL or not
+            if (aslIndicator != '\0')
+            {
+                ExportPAC(path + "\\STGVILLAGE_00_" + aslIndicator + ".pac");
+                ExportPAC(path + "\\STGVILLAGE_01_" + aslIndicator + ".pac");
+                ExportPAC(path + "\\STGVILLAGE_02_" + aslIndicator + ".pac");
+                ExportPAC(path + "\\STGVILLAGE_03_" + aslIndicator + ".pac");
+                ExportPAC(path + "\\STGVILLAGE_04_" + aslIndicator + ".pac");
+            }
+            else
+            {
+                ExportPAC(path + "\\STGVILLAGE_00.pac");
+                ExportPAC(path + "\\STGVILLAGE_01.pac");
+                ExportPAC(path + "\\STGVILLAGE_02.pac");
+                ExportPAC(path + "\\STGVILLAGE_03.pac");
+                ExportPAC(path + "\\STGVILLAGE_04.pac");
+            }
+        }
+        // STGTENGAN uses 1, 2, 3
+        public void ExportTengan(string path)
+        {
+            if (Path.HasExtension(path))
+                path = path.Substring(0, path.LastIndexOf('.'));
+            char aslIndicator = '\0';
+            // Check if ASL is used
+            if (path.Contains("_") && path.Length >= 2 && path[path.Length - 2] == '_')
+                aslIndicator = path.ToCharArray()[path.Length - 1];
+            // Check to make sure they meant this as ASL and not as a type indicator
+            if (path.LastIndexOf('\\') < path.Length - 1 && path.Substring(path.LastIndexOf('\\') + 1).StartsWith("STGTENGAN_", StringComparison.OrdinalIgnoreCase) && (aslIndicator == '1' || aslIndicator == '2' || aslIndicator == '3') && path.LastIndexOf('_') == path.IndexOf('_'))
+                if (MessageBox.Show("Would you like to use the detected '" + aslIndicator + "' as the ASL indicator for the three files?", "", MessageBoxButtons.YesNo) == DialogResult.No)
+                    aslIndicator = '\0';
+            path = path.Substring(0, path.LastIndexOf('\\'));
+            // Export with or without ASL depending on if the file used ASL or not
+            if (aslIndicator != '\0')
+            {
+                ExportPAC(path + "\\STGTENGAN_1_" + aslIndicator + ".pac");
+                ExportPAC(path + "\\STGTENGAN_2_" + aslIndicator + ".pac");
+                ExportPAC(path + "\\STGTENGAN_3_" + aslIndicator + ".pac");
+            }
+            else
+            {
+                ExportPAC(path + "\\STGTENGAN_1.pac");
+                ExportPAC(path + "\\STGTENGAN_2.pac");
+                ExportPAC(path + "\\STGTENGAN_3.pac");
+            }
         }
         public void ExportPAC(string outPath)
         {

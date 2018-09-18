@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.10
+BrawlCrate - v0.11
 Copyright © 2018 soopercool101, MarioDox
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -16,9 +16,62 @@ they be held accountable for the manner in which it is used.
 |************ BrawlCrate Change Log ************|
  ===============================================
  
- - BrawlCrate v0.10 - (8/xx/2018)
- . Updated name and iconography (StageBox -> BrawlBox)
- . 
+ - BrawlCrate v0.11 - (9/18/2018)
+ . Added support to generate a PAT0 by right clicking a texture in "name.#" format
+ . Added support to save ARCs as multi-file stages (STGMARIOPAST, STGMETALGEAR, STGVILLAGE, STGTENGAN)
+ . Add support for GET1 and GNDV editing
+ . Add support for Version and ExtParam editing for BLOC files
+ . REL improvements
+   - Allow adding relocation commands to all selected words
+   - Display imported modules for information purposes
+   - No longer crashes if section[5] contains no valid objects
+   - End buffers for module sections can now be edited (if setting to something that isn't a multiple of 0x4, will warn the user)
+ . Opening a BRSTM now sets the loop preview option to the loop value of the BRSTM
+ . Linking a bone to a collision no longer improperly writes to the raw value of collision links
+ . Linking or unlinking a bone to/from a collision now properly updates the collision viewer window
+ . Merge, Split, and Flip buttons on the collision editor now properly mark the collision node as in need of saving
+ . Deleting a TEX0 now prompts you to choose whether you'd like to delete the associated PLT0 if one exists
+ . Fixed bug in which the "Import PNGs with Palettes" setting does not set properly in the settings
+ . Removed MRGC save option from ARCs (was not set up to do anything at all)
+ 
+ - BrawlCrate v0.10 Hotfix 1 - (9/9/2018)
+ . Added "Replace Camera" option to STPM files
+ . Fixed issue in which "Disable Bones on Play" could not be enabled from the Model Viewer Settings
+ . Fixed issue in which stock textures would sometimes not sort properly
+ . Fixed issue in which the "Sort" implementation for BRESGroups would create a hidden duplicated BRESGroup (visible when saving and reopening)
+ 
+ - BrawlCrate v0.10 - (8/30/2018)
+ . Updated name and iconography (StageBox -> BrawlCrate)
+ . Fix instabilities with model counters
+ . Added automatic generation of SpyCloak materials for characters
+ . Loop Previewing now defaults to what the selected animation's loop value is
+ . Restored BoneFlag editing from BrawlBox v0.67b
+ . Added basic sorting functionality to folders (note, simple alphabetical sort. Need to come up with a better algorithm that works with multiple digit numbers)
+ . Added easy imports of commonly used files from https://github.com/soopercool101/BrawlCommonFiles/
+   - Static Model
+   - Stage Shadow Texture
+   - SpyCloak Textures
+ . Added 1:1 stage template imports from https://github.com/soopercool101/Stage-Templates-1to1s/
+   - Project M 3.6
+     . Battlefield
+     . Delfino's Secret
+     . Final Destination
+     . Fountain of Dreams
+     . Green Hill Zone
+     . Pokémon Stadium 2
+     . Smashville (with or without villagers)
+     . Wario Land
+   - Vanilla Brawl
+     . Battlefield
+     . Final Destination
+     . Smashville (with or without villagers)
+   - Custom
+     . Sky Sanctuary Zone
+ . Event Match fighter nodes now properly update name when fighter ID is changed
+ . Classic Mode fighter nodes now initialize to "none" when using ID 0xFF
+ . Additional GEG1 parsing (AdditionalHP and StartingAction)
+ . Fixed bug in which importing a png texture would resize the UI improperly on select systems
+ . Fixed bug in which .tga files would not import correctly unless they had the case-sensitive ".tga" suffix
  
  - StageBox v0.9 Hotfix 3 - (8/16/2018)
  . Fixed bug in which v0.9 Hotfix 2 would crash on 32-bit systems

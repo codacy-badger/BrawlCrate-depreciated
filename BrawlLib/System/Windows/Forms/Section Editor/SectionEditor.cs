@@ -651,12 +651,15 @@ namespace System.Windows.Forms
 
         private void btnNewCmd_Click(object sender, EventArgs e)
         {
-            RelCommand cmd = new RelCommand(
-                (_section.Root as ModuleNode).ID,
-                _section,
-                new RELLink());
+            long amt = hexBox1.SelectionLength;
+            if (hexBox1.SelectionLength == 0)
+                amt = 0x04;
 
-            _manager.SetCommand(SelectedRelocationIndex, cmd);
+            for (int i = 0; i < (amt.RoundUp(4) / 4); i++)
+            {
+                var cmd = new RelCommand((_section.Root as ModuleNode).ID, _section, new RELLink());
+                _manager.SetCommand(SelectedRelocationIndex + i, cmd);
+            }
 
             CommandChanged();
             hexBox1.Focus();
@@ -665,7 +668,14 @@ namespace System.Windows.Forms
 
         private void btnDelCmd_Click(object sender, EventArgs e)
         {
-            _manager.ClearCommand(SelectedRelocationIndex);
+            long amt = hexBox1.SelectionLength;
+            if (hexBox1.SelectionLength == 0)
+                amt = 0x04;
+
+            for (int i = 0; i < (amt.RoundUp(4) / 4); i++)
+            {
+                _manager.ClearCommand(SelectedRelocationIndex + i);
+            }
 
             CommandChanged();
             hexBox1.Focus();
@@ -937,11 +947,6 @@ namespace System.Windows.Forms
             d._supportsInsDel = false;
             FixRelocations(1, offset);
 
-
-
-            //for (int i = (int)index + 1; i < _relocations.Count; i++)
-            //    _relocations[i]._index++;
-
             PosChanged();
         }
 
@@ -949,7 +954,6 @@ namespace System.Windows.Forms
         {
             foreach (ModuleDataNode s in ((ModuleNode)_section.Root).Sections)
             {
-                Dictionary<int, RelCommand> ctmp;
                 foreach (RelCommand command in s._manager._commands.Values)
                 {
                     if (command.TargetSectionID == _section.Index && command._addend >= offset)
@@ -957,13 +961,19 @@ namespace System.Windows.Forms
                 }
                 if (s.Index == _section.Index)
                 {
-                    ctmp = new Dictionary<int, RelCommand>(s._manager._commands);
-                    s._manager._commands.Clear();
+                    var keysToUpdate = new List<KeyValuePair<int, RelCommand>>(_section._manager._commands.Where(x => x.Key >= offset / 4));
 
-                    for (int i = 0; i < ctmp.Count; i++)
-                        s._manager.SetCommand(ctmp.Keys.ToArray()[i] + (ctmp.Keys.ToArray()[i] >= offset / 4 ? amt : 0),
-                            ctmp.Values.ToArray()[i]);
-                    ctmp.Clear();
+                    // Need to clear all commands that need updating before setting
+                    // right next them with their new index or commands seated to
+                    // eachother will be removed after having just been updated.
+                    foreach (var rel in keysToUpdate)
+                    {
+                        _section._manager.ClearCommand(rel.Key);
+                    }
+                    foreach (var rel in keysToUpdate)
+                    {
+                        _section._manager.SetCommand(rel.Key + 1, rel.Value);
+                    }
                 }
             }
         }

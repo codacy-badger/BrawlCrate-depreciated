@@ -209,13 +209,13 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 if (_linkedBone != null)
                 {
-                    foreach (CollisionPlane p in _planes)
+                    /*foreach (CollisionPlane p in _planes)
                     {
                         if (p.LinkLeft != null)
                             p.LinkLeft._rawValue = _linkedBone.Matrix * p.LinkLeft._rawValue;
                         if (p.LinkRight != null)
                             p.LinkRight._rawValue = _linkedBone.Matrix * p.LinkRight._rawValue;
-                    }
+                    }*/
                 }
 
                 if ((_linkedBone = value) != null)
@@ -225,13 +225,13 @@ namespace BrawlLib.SSBB.ResourceNodes
                     _modelName = _linkedBone.Model.Name;
                     _flags[1] = false;
 
-                    foreach (CollisionPlane p in _planes)
+                    /*foreach (CollisionPlane p in _planes)
                     {
                         if (p.LinkLeft != null)
                             p.LinkLeft._rawValue = _linkedBone.InverseMatrix * p.LinkLeft._rawValue;
                         if (p.LinkRight != null)
                             p.LinkRight._rawValue = _linkedBone.InverseMatrix * p.LinkRight._rawValue;
-                    }
+                    }*/
                 }
                 else
                 {
