@@ -20,6 +20,7 @@ they be held accountable for the manner in which it is used.
  . Added support to generate a PAT0 by right clicking a texture in "name.#" format
  . Added support to save ARCs as multi-file stages (STGMARIOPAST, STGMETALGEAR, STGVILLAGE, STGTENGAN)
  . Add support for GET1 and GNDV editing
+ . Add support for Version and ExtParam editing for BLOC files
  . REL improvements
    - Allow adding relocation commands to all selected words
    - Display imported modules for information purposes
