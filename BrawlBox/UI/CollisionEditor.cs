@@ -2704,6 +2704,8 @@ namespace System.Windows.Forms
         {
             if (_updating)
                 return;
+            if (numX.Text == "")
+                return;
             foreach (CollisionLink link in _selectedLinks)
             {
                 if (link._parent == null || link._parent.LinkedBone == null)
@@ -2722,6 +2724,8 @@ namespace System.Windows.Forms
         private void numY_ValueChanged(object sender, EventArgs e)
         {
             if (_updating)
+                return;
+            if (numX.Text == "")
                 return;
             foreach (CollisionLink link in _selectedLinks)
             {
