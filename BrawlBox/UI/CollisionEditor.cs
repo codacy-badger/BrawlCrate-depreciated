@@ -2725,7 +2725,7 @@ namespace System.Windows.Forms
         {
             if (_updating)
                 return;
-            if (numX.Text == "")
+            if (numY.Text == "")
                 return;
             foreach (CollisionLink link in _selectedLinks)
             {
