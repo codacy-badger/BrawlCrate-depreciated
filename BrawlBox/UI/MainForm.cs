@@ -307,6 +307,8 @@ namespace BrawlBox
                 else if (node is IVideo)
                 {
                     videoPlaybackPanel1.TargetSource = node as IVideo;
+                    if (node is PAT0TextureNode)
+                        videoPlaybackPanel1.chkLoop.Checked = ((PAT0Node)node.Parent.Parent).Loop;
                     newControl = videoPlaybackPanel1;
                 }
                 else if (node is MDL0MaterialRefNode)

@@ -14,30 +14,18 @@ namespace System.Windows.Forms
         private Label lblProgress;
         private System.ComponentModel.IContainer components;
         private PreviewPanel previewPanel1;
-        private CheckBox chkLoop;
+        public CheckBox chkLoop;
 
         private void InitializeComponent()
         {
-            this.trackBar1 = new System.Windows.Forms.CustomTrackBar();
             this.btnPlay = new System.Windows.Forms.Button();
             this.btnRewind = new System.Windows.Forms.Button();
             this.chkLoop = new System.Windows.Forms.CheckBox();
             this.lblProgress = new System.Windows.Forms.Label();
             this.previewPanel1 = new System.Windows.Forms.PreviewPanel();
+            this.trackBar1 = new System.Windows.Forms.CustomTrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // trackBar1
-            // 
-            this.trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBar1.Location = new System.Drawing.Point(0, 212);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(378, 45);
-            this.trackBar1.TabIndex = 0;
-            this.trackBar1.TickFrequency = 2;
-            this.trackBar1.UserSeek += new System.EventHandler(this.trackBar1_UserSeek);
-            this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
             // 
             // btnPlay
             // 
@@ -64,11 +52,11 @@ namespace System.Windows.Forms
             // chkLoop
             // 
             this.chkLoop.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.chkLoop.Location = new System.Drawing.Point(54, 263);
+            this.chkLoop.Location = new System.Drawing.Point(27, 263);
             this.chkLoop.Name = "chkLoop";
-            this.chkLoop.Size = new System.Drawing.Size(62, 20);
+            this.chkLoop.Size = new System.Drawing.Size(100, 20);
             this.chkLoop.TabIndex = 3;
-            this.chkLoop.Text = "Loop";
+            this.chkLoop.Text = "Loop Preview";
             this.chkLoop.UseVisualStyleBackColor = true;
             this.chkLoop.CheckedChanged += new System.EventHandler(this.chkLoop_CheckedChanged);
             // 
@@ -95,14 +83,26 @@ namespace System.Windows.Forms
             this.previewPanel1.Size = new System.Drawing.Size(372, 203);
             this.previewPanel1.TabIndex = 5;
             // 
+            // trackBar1
+            // 
+            this.trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBar1.Location = new System.Drawing.Point(0, 212);
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(378, 45);
+            this.trackBar1.TabIndex = 0;
+            this.trackBar1.TickFrequency = 2;
+            this.trackBar1.UserSeek += new System.EventHandler(this.trackBar1_UserSeek);
+            this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
+            // 
             // VideoPlaybackPanel
             // 
             this.Controls.Add(this.previewPanel1);
             this.Controls.Add(this.lblProgress);
-            this.Controls.Add(this.chkLoop);
             this.Controls.Add(this.btnRewind);
             this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.trackBar1);
+            this.Controls.Add(this.chkLoop);
             this.Name = "VideoPlaybackPanel";
             this.Size = new System.Drawing.Size(378, 289);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
