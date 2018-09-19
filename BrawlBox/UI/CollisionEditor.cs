@@ -391,6 +391,7 @@ namespace System.Windows.Forms
             this.deleteToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(137, 82);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // unlinkToolStripMenuItem
             // 
@@ -2865,6 +2866,14 @@ namespace System.Windows.Forms
         {
             if ((modelTree.SelectedNode == null) || !(modelTree.SelectedNode.Tag is MDL0BoneNode))
                 e.Cancel = true;
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+            if (_selectedObject == null)
+                contextMenuStrip1.Items[1].Visible = contextMenuStrip1.Items[2].Visible = contextMenuStrip1.Items[3].Visible = contextMenuStrip1.Items[4].Visible = contextMenuStrip1.Items[5].Visible = contextMenuStrip1.Items[6].Visible = contextMenuStrip1.Items[7].Visible = false;
+            else
+                contextMenuStrip1.Items[1].Visible = contextMenuStrip1.Items[2].Visible = contextMenuStrip1.Items[3].Visible = contextMenuStrip1.Items[4].Visible = contextMenuStrip1.Items[5].Visible = contextMenuStrip1.Items[6].Visible = contextMenuStrip1.Items[7].Visible = true;
         }
 
         private void snapToolStripMenuItem1_Click(object sender, EventArgs e)
