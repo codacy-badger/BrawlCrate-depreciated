@@ -2838,6 +2838,8 @@ namespace System.Windows.Forms
 
         private void btnUnlink_Click(object sender, EventArgs e)
         {
+            if (_selectedObject == null)
+                return;
             txtBone.Text = "";
             txtModel.Text = "";
             _selectedObject.LinkedBone = null;
@@ -2847,6 +2849,8 @@ namespace System.Windows.Forms
 
         private void btnUnlinkNoMove_Click(object sender, EventArgs e)
         {
+            if (_selectedObject == null)
+                return;
             if (_selectedObject._points != null)
                 foreach (CollisionLink l in _selectedObject._points)
                     l._rawValue = l.Value;
