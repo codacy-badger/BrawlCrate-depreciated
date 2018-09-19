@@ -388,7 +388,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public CollisionLink(CollisionObject parent, Vector2 value)
         {
             _parent = parent;
-            _rawValue = value;
+            Value = value;
             _parent._points.Add(this);
         }
 
