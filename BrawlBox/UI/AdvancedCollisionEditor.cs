@@ -1,4 +1,5 @@
-﻿using BrawlLib.SSBB.ResourceNodes;
+﻿using System.Linq;
+using BrawlLib.SSBB.ResourceNodes;
 using System.ComponentModel;
 using BrawlLib.SSBBTypes;
 using BrawlLib.OpenGL;
@@ -1389,16 +1390,19 @@ namespace System.Windows.Forms
             _updating = false;
         }
 
+        private List<IModel> _models = new List<IModel>();
         private void PopulateModelList()
         {
             modelTree.BeginUpdate();
             modelTree.Nodes.Clear();
+            _models.Clear();
 
             if ((_targetNode != null) && (_targetNode._parent != null))
                 foreach (MDL0Node n in _targetNode._parent.FindChildrenByType(null, ResourceType.MDL0))
                 {
                     TreeNode modelNode = new TreeNode(n._name) { Tag = n, Checked = true };
                     modelTree.Nodes.Add(modelNode);
+                    _models.Add(n);
 
                     foreach (MDL0BoneNode bone in n._linker.BoneCache)
                         modelNode.Nodes.Add(new TreeNode(bone._name) { Tag = bone, Checked = true });
@@ -1422,15 +1426,24 @@ namespace System.Windows.Forms
                 {
                     obj._render = true;
                     lstObjects.Items.Add(obj, true);
+                    
+                    MDL0Node model = _models.Where(m => m is MDL0Node && ((ResourceNode)m).Name == obj._modelName).FirstOrDefault() as MDL0Node;
 
-                    if (!obj._flags[1])
+                    if (model != null)
+                    {
+                        MDL0BoneNode bone = model._linker.BoneCache.Where(b => b.Name == obj._boneName).FirstOrDefault() as MDL0BoneNode;
+                        if (bone != null)
+                            obj._linkedBone = bone;
+                    }
+
+                    /*if (!obj._flags[1])
                         foreach (TreeNode n in modelTree.Nodes)
                             foreach (TreeNode b in n.Nodes)
                             {
                                 MDL0BoneNode bone = b.Tag as MDL0BoneNode;
                                 if (bone != null && bone.Name == obj._boneName && bone.BoneIndex == obj._boneIndex)
                                     obj._linkedBone = bone;
-                            }
+                            }*/
                 }
 
             lstObjects.EndUpdate();
