@@ -210,7 +210,7 @@ namespace BrawlBox
 
         public void Delete()
         {
-            if (Parent == null || Form.ActiveForm != MainForm.Instance)
+            if (Parent == null || (MainForm.Instance != null && Form.ActiveForm != null && Form.ActiveForm != MainForm.Instance))
                 return;
 
             _resource.Dispose();
