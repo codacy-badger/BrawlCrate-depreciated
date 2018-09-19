@@ -60,6 +60,8 @@ namespace System.Windows.Forms
         private ToolStripButton btnSameY;
         private ToolStripMenuItem newObjectToolStripMenuItem;
         private ToolStripSeparator toolStripMenuItem2;
+        private ToolStripSeparator toolStripMenuItem3;
+        private ToolStripSeparator assignSeperatorToolStripMenuItem;
         private ToolStripSeparator toolStripMenuItem1;
         private ToolStripMenuItem deleteToolStripMenuItem;
         private TextBox txtModel;
@@ -76,6 +78,9 @@ namespace System.Windows.Forms
         private Button btnUnlink;
         private ContextMenuStrip contextMenuStrip2;
         private ToolStripMenuItem assignToolStripMenuItem;
+        private ToolStripMenuItem assignNoMoveToolStripMenuItem;
+        private ToolStripMenuItem unlinkToolStripMenuItem;
+        private ToolStripMenuItem unlinkNoMoveToolStripMenuItem;
         private ToolStripMenuItem snapToolStripMenuItem1;
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripButton btnResetSnap;
@@ -108,6 +113,10 @@ namespace System.Windows.Forms
             this.modelTree = new System.Windows.Forms.TreeView();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.assignToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.assignNoMoveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.assignSeperatorToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
+            this.unlinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.unlinkNoMoveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.snapToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
             this.chkBones = new System.Windows.Forms.CheckBox();
@@ -117,6 +126,7 @@ namespace System.Windows.Forms
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newObjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.snapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -271,10 +281,17 @@ namespace System.Windows.Forms
             // 
             this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.assignToolStripMenuItem,
+            this.assignNoMoveToolStripMenuItem,
+            this.assignSeperatorToolStripMenuItem,
             this.snapToolStripMenuItem1});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.Size = new System.Drawing.Size(110, 48);
             this.contextMenuStrip2.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip2_Opening);
+            // 
+            // assignSeperatorToolStripMenuItem
+            // 
+            this.assignSeperatorToolStripMenuItem.Name = "assignSeperatorToolStripMenuItem";
+            this.assignSeperatorToolStripMenuItem.Size = new System.Drawing.Size(133, 6);
             // 
             // assignToolStripMenuItem
             // 
@@ -282,6 +299,13 @@ namespace System.Windows.Forms
             this.assignToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.assignToolStripMenuItem.Text = "Assign";
             this.assignToolStripMenuItem.Click += new System.EventHandler(this.btnRelink_Click);
+            // 
+            // assignNoMoveToolStripMenuItem
+            // 
+            this.assignNoMoveToolStripMenuItem.Name = "assignNoMoveToolStripMenuItem";
+            this.assignNoMoveToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.assignNoMoveToolStripMenuItem.Text = "Assign (No relative movement)";
+            this.assignNoMoveToolStripMenuItem.Click += new System.EventHandler(this.btnRelinkNoMove_Click);
             // 
             // snapToolStripMenuItem1
             // 
@@ -358,6 +382,9 @@ namespace System.Windows.Forms
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newObjectToolStripMenuItem,
+            this.toolStripMenuItem3,
+            this.unlinkToolStripMenuItem,
+            this.unlinkNoMoveToolStripMenuItem,
             this.toolStripMenuItem2,
             this.snapToolStripMenuItem,
             this.toolStripMenuItem1,
@@ -365,12 +392,31 @@ namespace System.Windows.Forms
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(137, 82);
             // 
+            // unlinkToolStripMenuItem
+            // 
+            this.unlinkToolStripMenuItem.Name = "unlinkToolStripMenuItem";
+            this.unlinkToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.unlinkToolStripMenuItem.Text = "Unlink";
+            this.unlinkToolStripMenuItem.Click += new System.EventHandler(this.btnUnlink_Click);
+            // 
+            // unlinkNoMoveToolStripMenuItem
+            // 
+            this.unlinkNoMoveToolStripMenuItem.Name = "unlinkNoMoveToolStripMenuItem";
+            this.unlinkNoMoveToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.unlinkNoMoveToolStripMenuItem.Text = "Unlink (No relative movement)";
+            this.unlinkNoMoveToolStripMenuItem.Click += new System.EventHandler(this.btnUnlinkNoMove_Click);
+            // 
             // newObjectToolStripMenuItem
             // 
             this.newObjectToolStripMenuItem.Name = "newObjectToolStripMenuItem";
             this.newObjectToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.newObjectToolStripMenuItem.Text = "New Object";
             this.newObjectToolStripMenuItem.Click += new System.EventHandler(this.newObjectToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(133, 6);
             // 
             // toolStripMenuItem2
             // 
@@ -2774,8 +2820,36 @@ namespace System.Windows.Forms
             _modelPanel.Invalidate();
         }
 
+        private void btnRelinkNoMove_Click(object sender, EventArgs e)
+        {
+            TreeNode node = modelTree.SelectedNode;
+            if ((_selectedObject == null) || (node == null) || !(node.Tag is MDL0BoneNode))
+                return;
+
+            txtBone.Text = _selectedObject._boneName = node.Text;
+            _selectedObject.LinkedBone = ((MDL0BoneNode)node.Tag);
+            txtModel.Text = _selectedObject._modelName = node.Parent.Text;
+            if(_selectedObject._points != null)
+                foreach(CollisionLink l in _selectedObject._points)
+                    l.Value = l._rawValue;
+            TargetNode.SignalPropertyChange();
+            _modelPanel.Invalidate();
+        }
+
         private void btnUnlink_Click(object sender, EventArgs e)
         {
+            txtBone.Text = "";
+            txtModel.Text = "";
+            _selectedObject.LinkedBone = null;
+            TargetNode.SignalPropertyChange();
+            _modelPanel.Invalidate();
+        }
+
+        private void btnUnlinkNoMove_Click(object sender, EventArgs e)
+        {
+            if (_selectedObject._points != null)
+                foreach (CollisionLink l in _selectedObject._points)
+                    l._rawValue = l.Value;
             txtBone.Text = "";
             txtModel.Text = "";
             _selectedObject.LinkedBone = null;
