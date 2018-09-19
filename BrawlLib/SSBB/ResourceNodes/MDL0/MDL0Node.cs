@@ -718,6 +718,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         // Swaps Cull_Inside and Cull_Outside
         public void FlipAllMaterials()
         {
+            if (MaterialList == null)
+                return;
             foreach (MDL0MaterialNode m in MaterialList)
             {
                 m.flipMaterial();
@@ -727,6 +729,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         
         public void SetAllMaterialCulling(int newCullMode)
         {
+            if (MaterialList == null)
+                return;
             foreach (MDL0MaterialNode m in MaterialList)
             {
                 m.CullMode = (CullMode)newCullMode;
