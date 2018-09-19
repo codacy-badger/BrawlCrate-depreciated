@@ -147,5 +147,20 @@ namespace BrawlBox.Properties {
                 this["PixelLighting"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("true")]
+        public bool ContextualLoop
+        {
+            get
+            {
+                return ((bool)(this["ContextualLoop"]));
+            }
+            set
+            {
+                this["ContextualLoop"] = value;
+            }
+        }
     }
 }

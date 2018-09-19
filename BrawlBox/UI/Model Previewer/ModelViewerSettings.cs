@@ -112,6 +112,7 @@ namespace System.Windows.Forms
         private CheckBox chkScaleBones;
         private CheckBox chkHideMainWindow;
         private CheckBox chkPixelLighting;
+        private CheckBox chkContextLoop;
         private ModelEditControl _form;
 
         public ModelViewerSettingsDialog() 
@@ -216,6 +217,7 @@ namespace System.Windows.Forms
             chkTanSHP.Checked = SHP0VertexSetNode._generateTangents;
             chkTanSRT.Checked = SRT0TextureNode._generateTangents;
             chkPixelLighting.Checked = ShaderGenerator.UsePixelLighting;
+            chkContextLoop.Checked = BrawlBox.Properties.Settings.Default.ContextualLoop;
 
             UpdateOrb();
             UpdateLine();
@@ -541,6 +543,7 @@ namespace System.Windows.Forms
             this.btnResetSettings = new System.Windows.Forms.Button();
             this.btnImportSettings = new System.Windows.Forms.Button();
             this.btnExportSettings = new System.Windows.Forms.Button();
+            this.chkContextLoop = new System.Windows.Forms.CheckBox();
             this.grpLighting.SuspendLayout();
             this.grpProjection.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -1462,9 +1465,9 @@ namespace System.Windows.Forms
             this.chkRetrieveCorrAnims.AutoSize = true;
             this.chkRetrieveCorrAnims.Location = new System.Drawing.Point(6, 99);
             this.chkRetrieveCorrAnims.Name = "chkRetrieveCorrAnims";
-            this.chkRetrieveCorrAnims.Size = new System.Drawing.Size(246, 17);
+            this.chkRetrieveCorrAnims.Size = new System.Drawing.Size(240, 17);
             this.chkRetrieveCorrAnims.TabIndex = 40;
-            this.chkRetrieveCorrAnims.Text = "Retreieve animations with corresponding name";
+            this.chkRetrieveCorrAnims.Text = "Retrieve animations with corresponding name";
             this.chkRetrieveCorrAnims.UseVisualStyleBackColor = true;
             this.chkRetrieveCorrAnims.CheckedChanged += new System.EventHandler(this.chkRetrieveCorrAnims_CheckedChanged);
             // 
@@ -1662,6 +1665,7 @@ namespace System.Windows.Forms
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.chkContextLoop);
             this.tabPage3.Controls.Add(this.groupBox1);
             this.tabPage3.Controls.Add(this.chkPrecalcBoxes);
             this.tabPage3.Controls.Add(this.chkDisableBonesOnPlay);
@@ -1810,6 +1814,17 @@ namespace System.Windows.Forms
             this.btnExportSettings.UseVisualStyleBackColor = true;
             this.btnExportSettings.Visible = false;
             this.btnExportSettings.Click += new System.EventHandler(this.btnExportSettings_Click);
+            // 
+            // chkContextLoop
+            // 
+            this.chkContextLoop.AutoSize = true;
+            this.chkContextLoop.Location = new System.Drawing.Point(6, 191);
+            this.chkContextLoop.Name = "chkContextLoop";
+            this.chkContextLoop.Size = new System.Drawing.Size(221, 17);
+            this.chkContextLoop.TabIndex = 50;
+            this.chkContextLoop.Text = "Change loop preview based on animation";
+            this.chkContextLoop.UseVisualStyleBackColor = true;
+            this.chkContextLoop.CheckedChanged += new System.EventHandler(this.chkContextLoop_CheckedChanged);
             // 
             // ModelViewerSettingsDialog
             // 
@@ -2205,6 +2220,15 @@ namespace System.Windows.Forms
         {
             if (!_updating)
                 _form.ModelPanel.CurrentViewport.RenderBonesAsPoints = chkUsePointsAsBones.Checked;
+        }
+
+        private void chkContextLoop_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_updating)
+                return;
+
+            BrawlBox.Properties.Settings.Default.ContextualLoop = chkContextLoop.Checked;
+            BrawlBox.Properties.Settings.Default.Save();
         }
 
         private void chkHideMainWindow_CheckedChanged(object sender, EventArgs e)

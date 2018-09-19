@@ -91,7 +91,7 @@ namespace System.Windows.Forms
 
             averageAllStartEndTangentsToolStripMenuItem.Enabled = node != null && Array.IndexOf(Interpolated, node.GetType()) >= 0;
             //syncStartendTangentsToolStripMenuItem.Enabled = node != null && Array.IndexOf(Interpolated, node.GetType()) >= 0;
-            if(TargetAnimation != null)
+            if(TargetAnimation != null && BrawlBox.Properties.Settings.Default.ContextualLoop)
                 pnlPlayback.chkLoop.Checked = TargetAnimation.Loop;
         }
     }
