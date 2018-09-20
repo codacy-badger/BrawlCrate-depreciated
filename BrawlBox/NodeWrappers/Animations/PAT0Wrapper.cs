@@ -172,7 +172,7 @@ namespace BrawlBox.NodeWrappers
         static PAT0TextureEntryWrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("&Offset frame", null, OffsetAction, Keys.Control | Keys.O));
+            _menu.Items.Add(new ToolStripMenuItem("&Offset frame", null, OffsetAction, Keys.Control | Keys.F));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Export", null, ExportAction, Keys.Control | Keys.E));
             _menu.Items.Add(new ToolStripMenuItem("&Replace", null, ReplaceAction, Keys.Control | Keys.R));
