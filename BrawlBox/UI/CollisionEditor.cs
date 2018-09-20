@@ -1073,7 +1073,7 @@ namespace System.Windows.Forms
             this.btnResetCam.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnResetCam.Name = "btnResetCam";
             this.btnResetCam.Size = new System.Drawing.Size(83, 19);
-            this.btnResetCam.Text = "Reset Camera";
+            this.btnResetCam.Text = "Reset Cam";
             this.btnResetCam.Click += new System.EventHandler(this.btnResetCam_Click);
             // 
             // btnResetSnap
