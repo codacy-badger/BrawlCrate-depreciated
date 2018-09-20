@@ -233,9 +233,6 @@
     <Compile Include="UI\AdvancedCollisionEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\AdvancedCollisionEditor.Designer.cs">
-      <DependentUpon>AdvancedCollisionEditor.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\CollisionEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
