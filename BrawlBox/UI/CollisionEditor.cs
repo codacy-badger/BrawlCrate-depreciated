@@ -1044,6 +1044,8 @@ namespace System.Windows.Forms
             // 
             // btnPerspectiveCam
             // 
+            this.btnPerspectiveCam.Checked = true;
+            this.btnPerspectiveCam.CheckState = System.Windows.Forms.CheckState.Checked;
             this.btnPerspectiveCam.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnPerspectiveCam.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnPerspectiveCam.Name = "btnPerspectiveCam";
@@ -1053,6 +1055,8 @@ namespace System.Windows.Forms
             // 
             // btnOrthographicCam
             // 
+            this.btnOrthographicCam.Checked = false;
+            this.btnOrthographicCam.CheckState = System.Windows.Forms.CheckState.Checked;
             this.btnOrthographicCam.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnOrthographicCam.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnOrthographicCam.Name = "btnOrthographicCam";
@@ -1217,6 +1221,8 @@ namespace System.Windows.Forms
             _updating = true;
             cboMaterial.DataSource = Enum.GetValues(typeof(CollisionPlaneMaterialUnexpanded));
             cboType.DataSource = Enum.GetValues(typeof(CollisionPlaneType));
+            this.btnPerspectiveCam.Checked = true;
+            this.btnOrthographicCam.Checked = false;
             _updating = false;
         }
 
@@ -2036,13 +2042,11 @@ namespace System.Windows.Forms
             MDL0BoneNode CamBone0 = null, CamBone1 = null,
                          DeathBone0 = null, DeathBone1 = null;
 
-            Console.WriteLine("Yee1");
             foreach (MDL0Node m in _models)
             {
                 if ((m.Name.Contains("StgPosition", StringComparison.OrdinalIgnoreCase)) || m.Name.Contains("stagePosition", StringComparison.OrdinalIgnoreCase))
                 {
                     stgPos = m;
-                    Console.WriteLine("Yee2");
                     break;
                 }
             }
@@ -2208,15 +2212,32 @@ namespace System.Windows.Forms
         private void btnResetCam_Click(object sender, EventArgs e) { _modelPanel.ResetCamera(); }
         
         // StageBox Perspective viewer
-        private void btnPerspectiveCam_Click(object sender, EventArgs e) { 
-            _modelPanel.ResetCamera();
-            _modelPanel.CurrentViewport.ViewType = ViewportProjection.Perspective;
+        private void btnPerspectiveCam_Click(object sender, EventArgs e) {
+            if (_updating)
+                return;
+
+            btnPerspectiveCam.Checked = true;
+            btnOrthographicCam.Checked = false;
+            if (_modelPanel.CurrentViewport.ViewType != ViewportProjection.Perspective)
+            {
+                _modelPanel.ResetCamera();
+                _modelPanel.CurrentViewport.ViewType = ViewportProjection.Perspective;
+            }
         }
         
         // StageBox Orthographic viewer
-        private void btnOrthographicCam_Click(object sender, EventArgs e) { 
-            _modelPanel.ResetCamera();
-            _modelPanel.CurrentViewport.ViewType = ViewportProjection.Orthographic;
+        private void btnOrthographicCam_Click(object sender, EventArgs e)
+        {
+            if (_updating)
+                return;
+
+            btnPerspectiveCam.Checked = false;
+            btnOrthographicCam.Checked = true;
+            if(_modelPanel.CurrentViewport.ViewType != ViewportProjection.Orthographic)
+            {
+                _modelPanel.ResetCamera();
+                _modelPanel.CurrentViewport.ViewType = ViewportProjection.Orthographic;
+            }
         }
 
         private void _modelPanel_KeyDown(object sender, KeyEventArgs e)
