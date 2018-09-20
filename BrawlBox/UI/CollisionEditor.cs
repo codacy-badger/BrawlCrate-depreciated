@@ -946,12 +946,10 @@ namespace System.Windows.Forms
             this.btnSameX,
             this.btnSameY,
             this.toolStripSeparator1,
-            
             this.btnPerspectiveCam,
             this.btnOrthographicCam,
-            this.toolStripSeparatorCamera,
-            
             this.btnResetCam,
+            this.toolStripSeparatorCamera,
             this.btnResetSnap,
             this.btnHelp});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
