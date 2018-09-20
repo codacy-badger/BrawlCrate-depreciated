@@ -14,102 +14,102 @@ namespace System.Windows.Forms
     {
         #region Designer
 
-       public ModelPanel _modelPanel;
-        private SplitContainer undoToolStrip;
-        private SplitContainer redoToolStrip;
-        private CheckBox chkAllModels;
-        private Panel pnlPlaneProps;
-        private Label label5;
-        private Label labelType;
-        private ComboBox cboMaterial;
-        private Panel pnlObjProps;
-        private ToolStrip toolStrip1;
-        private ToolStripButton btnSplit;
-        private ToolStripButton btnMerge;
-        private ToolStripButton btnDelete;
-        private ContextMenuStrip contextMenuStrip1;
-        private IContainer components;
-        private ToolStripMenuItem snapToolStripMenuItem;
-        private Panel panel1;
-        private TrackBar trackBar1;
-        private Button btnResetRot;
-        private ToolStripButton btnResetCam;
-        private GroupBox groupBox1;
-        private CheckBox chkFallThrough;
-        private GroupBox groupBox2;
-        private CheckBox chkNoWalljump;
-        private CheckBox chkRightLedge;
-        private CheckBox chkTypeCharacters;
-        private CheckBox chkTypeItems;
-        private CheckBox chkTypePokemonTrainer;
-        private CheckBox chkTypeRotating;
+        public ModelPanel _modelPanel;
+        protected SplitContainer undoToolStrip;
+        protected SplitContainer redoToolStrip;
+        protected CheckBox chkAllModels;
+        protected Panel pnlPlaneProps;
+        protected Label label5;
+        protected Label labelType;
+        protected ComboBox cboMaterial;
+        protected Panel pnlObjProps;
+        protected ToolStrip toolStrip1;
+        protected ToolStripButton btnSplit;
+        protected ToolStripButton btnMerge;
+        protected ToolStripButton btnDelete;
+        protected ContextMenuStrip contextMenuStrip1;
+        protected IContainer components;
+        protected ToolStripMenuItem snapToolStripMenuItem;
+        protected Panel panel1;
+        protected TrackBar trackBar1;
+        protected Button btnResetRot;
+        protected ToolStripButton btnResetCam;
+        protected GroupBox groupBox1;
+        protected CheckBox chkFallThrough;
+        protected GroupBox groupBox2;
+        protected CheckBox chkNoWalljump;
+        protected CheckBox chkRightLedge;
+        protected CheckBox chkTypeCharacters;
+        protected CheckBox chkTypeItems;
+        protected CheckBox chkTypePokemonTrainer;
+        protected CheckBox chkTypeRotating;
         
         // Advanced unknown flags
-        private GroupBox groupBoxUnknownFlags;
-        private CheckBox chkFlagUnknown1;
-        private CheckBox chkFlagUnknown2;
-        private CheckBox chkFlagUnknown3;
-        private CheckBox chkFlagUnknown4;
+        protected GroupBox groupBoxUnknownFlags;
+        protected CheckBox chkFlagUnknown1;
+        protected CheckBox chkFlagUnknown2;
+        protected CheckBox chkFlagUnknown3;
+        protected CheckBox chkFlagUnknown4;
 
-        private Panel pnlPointProps;
-        private NumericInputBox numX;
-        private Label label2;
-        private NumericInputBox numY;
-        private Label label1;
-        private ToolStripSeparator toolStripSeparator1;
-        private ToolStripButton btnSameX;
-        private ToolStripButton btnSameY;
-        private ToolStripMenuItem newObjectToolStripMenuItem;
-        private ToolStripSeparator toolStripMenuItem2;
-        private ToolStripSeparator toolStripMenuItem3;
-        private ToolStripSeparator assignSeperatorToolStripMenuItem;
-        private ToolStripSeparator toolStripMenuItem1;
-        private ToolStripMenuItem deleteToolStripMenuItem;
-        private TextBox txtModel;
-        private Label label3;
-        private Panel panel2;
-        private CheckBox chkPoly;
-        private Button btnRelink;
-        private TextBox txtBone;
-        private Label label4;
-        private CheckBox chkBones;
-        private CheckBox chkLeftLedge;
-        private ComboBox cboType;
-        private TreeView modelTree;
-        private Button btnUnlink;
-        private ContextMenuStrip contextMenuStrip2;
-        private ToolStripMenuItem assignToolStripMenuItem;
-        private ToolStripMenuItem assignNoMoveToolStripMenuItem;
-        private ToolStripMenuItem unlinkToolStripMenuItem;
-        private ToolStripMenuItem unlinkNoMoveToolStripMenuItem;
-        private ToolStripMenuItem snapToolStripMenuItem1;
-        private ToolStripSeparator toolStripSeparator2;
-        private ToolStripButton btnResetSnap;
-        private ToolStripButton btnUndo;
-        private ToolStripButton btnRedo;
-        private ToolStripSeparator toolStripSeparator3;
-        private CheckBox chkObjModule;
-        private CheckBox chkObjUnk;
-        private CheckBox chkObjSSEUnk;
-        private Button btnPlayAnims;
-        private Panel panel4;
-        private Panel panel3;
-        private Button btnPrevFrame;
-        private Button btnNextFrame;
-        private ToolStripButton btnHelp;
-        private CheckedListBox lstObjects;
+        protected Panel pnlPointProps;
+        protected NumericInputBox numX;
+        protected Label label2;
+        protected NumericInputBox numY;
+        protected Label label1;
+        protected ToolStripSeparator toolStripSeparator1;
+        protected ToolStripButton btnSameX;
+        protected ToolStripButton btnSameY;
+        protected ToolStripMenuItem newObjectToolStripMenuItem;
+        protected ToolStripSeparator toolStripMenuItem2;
+        protected ToolStripSeparator toolStripMenuItem3;
+        protected ToolStripSeparator assignSeperatorToolStripMenuItem;
+        protected ToolStripSeparator toolStripMenuItem1;
+        protected ToolStripMenuItem deleteToolStripMenuItem;
+        protected TextBox txtModel;
+        protected Label label3;
+        protected Panel panel2;
+        protected CheckBox chkPoly;
+        protected Button btnRelink;
+        protected TextBox txtBone;
+        protected Label label4;
+        protected CheckBox chkBones;
+        protected CheckBox chkLeftLedge;
+        protected ComboBox cboType;
+        protected TreeView modelTree;
+        protected Button btnUnlink;
+        protected ContextMenuStrip contextMenuStrip2;
+        protected ToolStripMenuItem assignToolStripMenuItem;
+        protected ToolStripMenuItem assignNoMoveToolStripMenuItem;
+        protected ToolStripMenuItem unlinkToolStripMenuItem;
+        protected ToolStripMenuItem unlinkNoMoveToolStripMenuItem;
+        protected ToolStripMenuItem snapToolStripMenuItem1;
+        protected ToolStripSeparator toolStripSeparator2;
+        protected ToolStripButton btnResetSnap;
+        protected ToolStripButton btnUndo;
+        protected ToolStripButton btnRedo;
+        protected ToolStripSeparator toolStripSeparator3;
+        protected CheckBox chkObjModule;
+        protected CheckBox chkObjUnk;
+        protected CheckBox chkObjSSEUnk;
+        protected Button btnPlayAnims;
+        protected Panel panel4;
+        protected Panel panel3;
+        protected Button btnPrevFrame;
+        protected Button btnNextFrame;
+        protected ToolStripButton btnHelp;
+        protected CheckedListBox lstObjects;
         
         // BrawlCrate buttons
-        private ToolStripSeparator toolStripSeparatorCamera;    // Seperator for Camera controls
-        private ToolStripButton btnPerspectiveCam;              // Goes into perspective mode
-        private ToolStripButton btnFlipColl;
-        private ToolStripButton btnOrthographicCam;             // Goes into orthographic mode
-        private ToolStripButton btnBoundaries;
-        private ToolStripButton btnSpawns;
-        private ToolStripButton btnItems;
-        private ToolStripSeparator toolStripSeparatorOverlays;    // Seperator for Overlay controls
+        protected ToolStripSeparator toolStripSeparatorCamera;    // Seperator for Camera controls
+        protected ToolStripButton btnPerspectiveCam;              // Goes into perspective mode
+        protected ToolStripButton btnFlipColl;
+        protected ToolStripButton btnOrthographicCam;             // Goes into orthographic mode
+        protected ToolStripButton btnBoundaries;
+        protected ToolStripButton btnSpawns;
+        protected ToolStripButton btnItems;
+        protected ToolStripSeparator toolStripSeparatorOverlays;    // Seperator for Overlay controls
 
-        private void InitializeComponent()
+        protected void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollisionEditor));
@@ -1216,12 +1216,12 @@ namespace System.Windows.Forms
 
         #endregion
 
-        private const float SelectWidth = 7.0f;
-        private const float PointSelectRadius = 1.5f;
-        private const float SmallIncrement = 0.5f;
-        private const float LargeIncrement = 3.0f;
+        protected const float SelectWidth = 7.0f;
+        protected const float PointSelectRadius = 1.5f;
+        protected const float SmallIncrement = 0.5f;
+        protected const float LargeIncrement = 3.0f;
 
-        private CollisionNode _targetNode;
+        protected CollisionNode _targetNode;
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public CollisionNode TargetNode
         {
@@ -1229,23 +1229,23 @@ namespace System.Windows.Forms
             set { TargetChanged(value); }
         }
 
-        private bool _updating;
-        private CollisionObject _selectedObject;
-        private Matrix _snapMatrix;
+        protected bool _updating;
+        protected CollisionObject _selectedObject;
+        protected Matrix _snapMatrix;
 
-        private bool _hovering;
-        private List<CollisionLink> _selectedLinks = new List<CollisionLink>();
-        private List<CollisionPlane> _selectedPlanes = new List<CollisionPlane>();
+        protected bool _hovering;
+        protected List<CollisionLink> _selectedLinks = new List<CollisionLink>();
+        protected List<CollisionPlane> _selectedPlanes = new List<CollisionPlane>();
 
-        private bool _selecting, _selectInverse;
-        private Vector3 _selectStart, _selectLast, _selectEnd;
-        private bool _creating;
+        protected bool _selecting, _selectInverse;
+        protected Vector3 _selectStart, _selectLast, _selectEnd;
+        protected bool _creating;
 
-        private CollisionState save;
-        private List<CollisionState> undoSaves = new List<CollisionState>();
-        private List<CollisionState> redoSaves = new List<CollisionState>();
-        private int saveIndex = 0;
-        private bool hasMoved = false;
+        protected CollisionState save;
+        protected List<CollisionState> undoSaves = new List<CollisionState>();
+        protected List<CollisionState> redoSaves = new List<CollisionState>();
+        protected int saveIndex = 0;
+        protected bool hasMoved = false;
 
         public CollisionEditor()
         {
@@ -1267,7 +1267,7 @@ namespace System.Windows.Forms
             _updating = false;
         }
 
-        private void TargetChanged(CollisionNode node)
+        protected void TargetChanged(CollisionNode node)
         {
             ClearSelection();
             trackBar1.Value = 0;
@@ -1292,7 +1292,7 @@ namespace System.Windows.Forms
             _modelPanel.ResetCamera();
         }
 
-        private void SelectionModified()
+        protected virtual void SelectionModified()
         {
             _selectedPlanes.Clear();
             foreach (CollisionLink l in _selectedLinks)
@@ -1321,7 +1321,7 @@ namespace System.Windows.Forms
             UpdatePropPanels();
         }
 
-        private void UpdatePropPanels()
+        protected virtual void UpdatePropPanels()
         {
             _updating = true;
             
@@ -1389,8 +1389,8 @@ namespace System.Windows.Forms
             _updating = false;
         }
 
-        private List<IModel> _models = new List<IModel>();
-        private void PopulateModelList()
+        protected List<IModel> _models = new List<IModel>();
+        protected void PopulateModelList()
         {
             modelTree.BeginUpdate();
             modelTree.Nodes.Clear();
@@ -1415,7 +1415,7 @@ namespace System.Windows.Forms
 
         #region Object List
 
-        private void PopulateObjectList()
+        protected void PopulateObjectList()
         {
             lstObjects.BeginUpdate();
             lstObjects.Items.Clear();
@@ -1447,19 +1447,19 @@ namespace System.Windows.Forms
 
             lstObjects.EndUpdate();
         }
-        private void lstObjects_MouseDown(object sender, MouseEventArgs e)
+        protected void lstObjects_MouseDown(object sender, MouseEventArgs e)
         {
             int index = lstObjects.IndexFromPoint(e.Location);
             lstObjects.SelectedIndex = index;
         }
-        private void lstObjects_SelectedValueChanged(object sender, EventArgs e)
+        protected void lstObjects_SelectedValueChanged(object sender, EventArgs e)
         {
             _selectedObject = lstObjects.SelectedItem as CollisionObject;
             ObjectSelected();
         }
-        private void snapToolStripMenuItem_Click(object sender, EventArgs e) { SnapObject(); }
+        protected void snapToolStripMenuItem_Click(object sender, EventArgs e) { SnapObject(); }
 
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        protected void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (_selectedObject == null)
                 return;
@@ -1482,7 +1482,7 @@ namespace System.Windows.Forms
             TargetNode.SignalPropertyChange();
         }
 
-        private void newObjectToolStripMenuItem_Click(object sender, EventArgs e)
+        protected void newObjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _selectedObject = new CollisionObject();
             _targetNode._objects.Add(_selectedObject);
@@ -1491,7 +1491,7 @@ namespace System.Windows.Forms
             //TargetNode.SignalPropertyChange();
         }
 
-        private void ObjectSelected()
+        protected void ObjectSelected()
         {
             pnlPlaneProps.Visible = false;
             pnlPointProps.Visible = false;
@@ -1505,7 +1505,7 @@ namespace System.Windows.Forms
             }
         }
 
-        private void SnapObject()
+        protected void SnapObject()
         {
             if (_selectedObject == null)
                 return;
@@ -1543,7 +1543,7 @@ namespace System.Windows.Forms
             _modelPanel.Invalidate();
         }
 
-        private void lstObjects_ItemCheck(object sender, ItemCheckEventArgs e)
+        protected void lstObjects_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             CollisionObject obj = lstObjects.Items[e.Index] as CollisionObject;
             obj._render = e.NewValue == CheckState.Checked;
@@ -1557,7 +1557,7 @@ namespace System.Windows.Forms
 
         #endregion
 
-        private void ClearSelection()
+        protected void ClearSelection()
         {
             foreach (CollisionLink l in _selectedLinks)
                 l._highlight = false;
@@ -1565,7 +1565,7 @@ namespace System.Windows.Forms
             _selectedPlanes.Clear();
         }
 
-        private void UpdateSelection(bool finish)
+        protected void UpdateSelection(bool finish)
         {
             foreach (CollisionObject obj in _targetNode._objects)
                 foreach (CollisionLink link in obj._points)
@@ -1605,7 +1605,7 @@ namespace System.Windows.Forms
             }
         }
 
-        private void _treeObjects_AfterCheck(object sender, TreeViewEventArgs e)
+        protected void _treeObjects_AfterCheck(object sender, TreeViewEventArgs e)
         {
             if (e.Node.Tag is CollisionObject)
                 (e.Node.Tag as CollisionObject)._render = e.Node.Checked;
@@ -1615,13 +1615,13 @@ namespace System.Windows.Forms
             _modelPanel.Invalidate();
         }
 
-        private void chkAllModels_CheckedChanged(object sender, EventArgs e)
+        protected void chkAllModels_CheckedChanged(object sender, EventArgs e)
         {
             foreach (TreeNode node in modelTree.Nodes)
                 node.Checked = chkAllModels.Checked;
         }
 
-        private void BeginHover(Vector3 point)
+        protected void BeginHover(Vector3 point)
         {
             if (_hovering)
                 return;
@@ -1637,7 +1637,7 @@ namespace System.Windows.Forms
             _hovering = true;
             UpdateTools();
         }
-        private void UpdateHover(int x, int y)
+        protected void UpdateHover(int x, int y)
         {
             if (!_hovering)
                 return;
@@ -1656,7 +1656,7 @@ namespace System.Windows.Forms
 
             UpdatePropPanels();
         }
-        private void CancelHover()
+        protected void CancelHover()
         {
             if (!_hovering)
                 return;
@@ -1689,8 +1689,8 @@ namespace System.Windows.Forms
             _modelPanel.Invalidate();
             UpdatePropPanels();
         }
-        private void FinishHover() { _hovering = false; }
-        private void BeginSelection(Vector3 point, bool inverse)
+        protected void FinishHover() { _hovering = false; }
+        protected void BeginSelection(Vector3 point, bool inverse)
         {
             if (_selecting)
                 return;
@@ -1705,7 +1705,7 @@ namespace System.Windows.Forms
 
             UpdateTools();
         }
-        private void CancelSelection()
+        protected void CancelSelection()
         {
             if (!_selecting)
                 return;
@@ -1715,7 +1715,7 @@ namespace System.Windows.Forms
             UpdateSelection(false);
             _modelPanel.Invalidate();
         }
-        private void FinishSelection()
+        protected void FinishSelection()
         {
             if (!_selecting)
                 return;
@@ -1729,7 +1729,7 @@ namespace System.Windows.Forms
             //Selection Area Selected.
         }
 
-        private void _modelPanel_MouseDown(object sender, MouseEventArgs e)
+        protected void _modelPanel_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -1979,7 +1979,7 @@ namespace System.Windows.Forms
                 BeginSelection(target, subtract);
             }
         }
-        private void _modelPanel_MouseUp(object sender, MouseEventArgs e)
+        protected void _modelPanel_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -1999,7 +1999,7 @@ namespace System.Windows.Forms
             }
         }
 
-        private void _modelPanel_MouseMove(object sender, MouseEventArgs e)
+        protected void _modelPanel_MouseMove(object sender, MouseEventArgs e)
         {
             if (_selecting) //Selection Box
             {
@@ -2018,12 +2018,12 @@ namespace System.Windows.Forms
             UpdateHover(e.X, e.Y);
         }
 
-        private bool PointCollides(Vector3 point)
+        protected bool PointCollides(Vector3 point)
         {
             float f;
             return PointCollides(point, out f);
         }
-        private bool PointCollides(Vector3 point, out float y_result)
+        protected bool PointCollides(Vector3 point, out float y_result)
         {
             y_result = float.MaxValue;
             Vector2 v2 = new Vector2(point._x, point._y);
@@ -2055,12 +2055,12 @@ namespace System.Windows.Forms
             return (Math.Abs(y_result - v2._y) <= 5);
         }
 
-        private void _modelPanel_PreRender(object sender)
+        protected void _modelPanel_PreRender(object sender)
         {
 
         }
 
-        private unsafe void _modelPanel_PostRender(object sender)
+        protected unsafe void _modelPanel_PostRender(object sender)
         {
             //Clear depth buffer so we can hit-detect
             GL.Clear(ClearBufferMask.DepthBufferBit);
@@ -2211,7 +2211,7 @@ namespace System.Windows.Forms
             TKContext.DrawBox(_selectStart, _selectEnd);
         }
 
-        private void btnSplit_Click(object sender, EventArgs e)
+        protected void btnSplit_Click(object sender, EventArgs e)
         {
             ClearUndoBuffer();
             for (int i = _selectedLinks.Count; --i >= 0; )
@@ -2222,7 +2222,7 @@ namespace System.Windows.Forms
             TargetNode.SignalPropertyChange();
         }
 
-        private void btnMerge_Click(object sender, EventArgs e)
+        protected void btnMerge_Click(object sender, EventArgs e)
         {
             ClearUndoBuffer();
 
@@ -2248,12 +2248,12 @@ namespace System.Windows.Forms
             _modelPanel.Invalidate();
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e) { _modelPanel.Invalidate(); }
-        private void btnResetRot_Click(object sender, EventArgs e) { trackBar1.Value = 0; _modelPanel.Invalidate(); }
-        private void btnResetCam_Click(object sender, EventArgs e) { _modelPanel.ResetCamera(); }
+        protected void trackBar1_Scroll(object sender, EventArgs e) { _modelPanel.Invalidate(); }
+        protected void btnResetRot_Click(object sender, EventArgs e) { trackBar1.Value = 0; _modelPanel.Invalidate(); }
+        protected void btnResetCam_Click(object sender, EventArgs e) { _modelPanel.ResetCamera(); }
         
         // StageBox Perspective viewer
-        private void btnPerspectiveCam_Click(object sender, EventArgs e) {
+        protected void btnPerspectiveCam_Click(object sender, EventArgs e) {
             if (_updating)
                 return;
 
@@ -2267,7 +2267,7 @@ namespace System.Windows.Forms
         }
         
         // StageBox Orthographic viewer
-        private void btnOrthographicCam_Click(object sender, EventArgs e)
+        protected void btnOrthographicCam_Click(object sender, EventArgs e)
         {
             if (_updating)
                 return;
@@ -2281,7 +2281,7 @@ namespace System.Windows.Forms
             }
         }
 
-        private void btnSpawns_Click(object sender, EventArgs e)
+        protected void btnSpawns_Click(object sender, EventArgs e)
         {
             if (_updating)
                 return;
@@ -2290,7 +2290,7 @@ namespace System.Windows.Forms
             _modelPanel.Invalidate();
         }
 
-        private void btnItems_Click(object sender, EventArgs e)
+        protected void btnItems_Click(object sender, EventArgs e)
         {
             if (_updating)
                 return;
@@ -2299,7 +2299,7 @@ namespace System.Windows.Forms
             _modelPanel.Invalidate();
         }
 
-        private void btnBoundaries_Click(object sender, EventArgs e)
+        protected void btnBoundaries_Click(object sender, EventArgs e)
         {
             if (_updating)
                 return;
@@ -2308,7 +2308,7 @@ namespace System.Windows.Forms
             _modelPanel.Invalidate();
         }
 
-        private void _modelPanel_KeyDown(object sender, KeyEventArgs e)
+        protected void _modelPanel_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
@@ -2462,14 +2462,14 @@ namespace System.Windows.Forms
 
         #region Plane Properties
 
-        private void cboMaterial_SelectedIndexChanged(object sender, EventArgs e)
+        protected void cboMaterial_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_updating) return;
             foreach (CollisionPlane plane in _selectedPlanes)
                 plane._material = (CollisionPlaneMaterial)((byte)cboMaterial.SelectedItem);
             TargetNode.SignalPropertyChange();
         }
-        private void cboType_SelectedIndexChanged(object sender, EventArgs e)
+        protected void cboType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_updating) return;
             foreach (CollisionPlane plane in _selectedPlanes)
@@ -2497,7 +2497,7 @@ namespace System.Windows.Forms
             TargetNode.SignalPropertyChange();
         }
 
-        private void chkTypeCharacters_CheckedChanged(object sender, EventArgs e)
+        protected void chkTypeCharacters_CheckedChanged(object sender, EventArgs e)
         {
             if (_updating)
                 return;
@@ -2526,7 +2526,7 @@ namespace System.Windows.Forms
             }
         }
 
-        private void chkTypeItems_CheckedChanged(object sender, EventArgs e)
+        protected void chkTypeItems_CheckedChanged(object sender, EventArgs e)
         {
             if (_updating)
                 return;
@@ -2551,7 +2551,7 @@ namespace System.Windows.Forms
             }
         }
 
-        private void chkTypePokemonTrainer_CheckedChanged(object sender, EventArgs e) {
+        protected void chkTypePokemonTrainer_CheckedChanged(object sender, EventArgs e) {
             if (_updating)
                 return;
             TargetNode.SignalPropertyChange();
@@ -2575,7 +2575,7 @@ namespace System.Windows.Forms
             }
         }
 
-        private void chkTypeRotating_CheckedChanged(object sender, EventArgs e)
+        protected void chkTypeRotating_CheckedChanged(object sender, EventArgs e)
         {
             if (_updating)
                 return;
@@ -2631,7 +2631,7 @@ namespace System.Windows.Forms
             _modelPanel.Invalidate();
         }
 
-        private void chkFallThrough_CheckedChanged(object sender, EventArgs e)
+        protected void chkFallThrough_CheckedChanged(object sender, EventArgs e)
         {
             if (_updating)
                 return;
@@ -2684,7 +2684,7 @@ namespace System.Windows.Forms
             }
         }
 
-        private void chkLeftLedge_CheckedChanged(object sender, EventArgs e)
+        protected void chkLeftLedge_CheckedChanged(object sender, EventArgs e)
         {
             if (_updating)
                 return;
@@ -2788,7 +2788,7 @@ namespace System.Windows.Forms
             _modelPanel.Invalidate();
         }
 
-        private void chkRightLedge_CheckedChanged(object sender, EventArgs e)
+        protected void chkRightLedge_CheckedChanged(object sender, EventArgs e)
         {
             if (_updating)
                 return;
@@ -2894,7 +2894,7 @@ namespace System.Windows.Forms
             _modelPanel.Invalidate();
         }
 
-        private void chkNoWalljump_CheckedChanged(object sender, EventArgs e)
+        protected void chkNoWalljump_CheckedChanged(object sender, EventArgs e)
         {
             if (_updating)
                 return;
@@ -2947,16 +2947,16 @@ namespace System.Windows.Forms
             }
         }
 
-        private void chkFlagUnknown1_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsUnknownStageBox = chkFlagUnknown1.Checked; }
-        private void chkFlagUnknown2_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsUnknownFlag1 = chkFlagUnknown2.Checked; }
-        private void chkFlagUnknown3_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsUnknownFlag3 = chkFlagUnknown3.Checked; }
-        private void chkFlagUnknown4_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsUnknownFlag4 = chkFlagUnknown4.Checked; }
+        protected void chkFlagUnknown1_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsUnknownStageBox = chkFlagUnknown1.Checked; }
+        protected void chkFlagUnknown2_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsUnknownFlag1 = chkFlagUnknown2.Checked; }
+        protected void chkFlagUnknown3_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsUnknownFlag3 = chkFlagUnknown3.Checked; }
+        protected void chkFlagUnknown4_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsUnknownFlag4 = chkFlagUnknown4.Checked; }
 
         #endregion
 
         #region Point Properties
 
-        private void numX_ValueChanged(object sender, EventArgs e)
+        protected void numX_ValueChanged(object sender, EventArgs e)
         {
             if (_updating)
                 return;
@@ -2977,7 +2977,7 @@ namespace System.Windows.Forms
             TargetNode.SignalPropertyChange();
         }
 
-        private void numY_ValueChanged(object sender, EventArgs e)
+        protected void numY_ValueChanged(object sender, EventArgs e)
         {
             if (_updating)
                 return;
@@ -3000,7 +3000,7 @@ namespace System.Windows.Forms
 
         #endregion
 
-        private void btnSameX_Click(object sender, EventArgs e)
+        protected void btnSameX_Click(object sender, EventArgs e)
         {
             CreateUndo();
 
@@ -3010,7 +3010,7 @@ namespace System.Windows.Forms
             TargetNode.SignalPropertyChange();
         }
 
-        private void btnSameY_Click(object sender, EventArgs e)
+        protected void btnSameY_Click(object sender, EventArgs e)
         {
             CreateUndo();
 
@@ -3020,7 +3020,7 @@ namespace System.Windows.Forms
             TargetNode.SignalPropertyChange();
         }
 
-        private void chkPoly_CheckStateChanged(object sender, EventArgs e)
+        protected void chkPoly_CheckStateChanged(object sender, EventArgs e)
         {
             _modelPanel.BeginUpdate();
             _modelPanel.RenderPolygons = chkPoly.CheckState == CheckState.Checked;
@@ -3028,12 +3028,12 @@ namespace System.Windows.Forms
             _modelPanel.EndUpdate();
         }
 
-        private void chkBones_CheckedChanged(object sender, EventArgs e)
+        protected void chkBones_CheckedChanged(object sender, EventArgs e)
         {
             _modelPanel.RenderBones = chkBones.Checked;
         }
 
-        private void modelTree_AfterCheck(object sender, TreeViewEventArgs e)
+        protected void modelTree_AfterCheck(object sender, TreeViewEventArgs e)
         {
             if (e.Node.Tag is MDL0Node)
             {
@@ -3053,7 +3053,7 @@ namespace System.Windows.Forms
                 _modelPanel.Invalidate();
         }
 
-        private void modelTree_AfterSelect(object sender, TreeViewEventArgs e)
+        protected void modelTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node != null)
             {
@@ -3067,7 +3067,7 @@ namespace System.Windows.Forms
             }
         }
 
-        private void modelTree_BeforeSelect(object sender, TreeViewCancelEventArgs e)
+        protected void modelTree_BeforeSelect(object sender, TreeViewCancelEventArgs e)
         {
             TreeNode node = modelTree.SelectedNode;
             if (node != null)
@@ -3081,7 +3081,7 @@ namespace System.Windows.Forms
             }
         }
 
-        private void btnRelink_Click(object sender, EventArgs e)
+        protected void btnRelink_Click(object sender, EventArgs e)
         {
             TreeNode node = modelTree.SelectedNode;
             if ((_selectedObject == null) || (node == null) || !(node.Tag is MDL0BoneNode))
@@ -3094,7 +3094,7 @@ namespace System.Windows.Forms
             _modelPanel.Invalidate();
         }
 
-        private void btnRelinkNoMove_Click(object sender, EventArgs e)
+        protected void btnRelinkNoMove_Click(object sender, EventArgs e)
         {
             TreeNode node = modelTree.SelectedNode;
             if ((_selectedObject == null) || (node == null) || !(node.Tag is MDL0BoneNode))
@@ -3110,7 +3110,7 @@ namespace System.Windows.Forms
             _modelPanel.Invalidate();
         }
 
-        private void btnUnlink_Click(object sender, EventArgs e)
+        protected void btnUnlink_Click(object sender, EventArgs e)
         {
             if (_selectedObject == null)
                 return;
@@ -3121,7 +3121,7 @@ namespace System.Windows.Forms
             _modelPanel.Invalidate();
         }
 
-        private void btnUnlinkNoMove_Click(object sender, EventArgs e)
+        protected void btnUnlinkNoMove_Click(object sender, EventArgs e)
         {
             if (_selectedObject == null)
                 return;
@@ -3135,13 +3135,13 @@ namespace System.Windows.Forms
             _modelPanel.Invalidate();
         }
 
-        private void contextMenuStrip2_Opening(object sender, CancelEventArgs e)
+        protected void contextMenuStrip2_Opening(object sender, CancelEventArgs e)
         {
             if ((modelTree.SelectedNode == null) || !(modelTree.SelectedNode.Tag is MDL0BoneNode))
                 e.Cancel = true;
         }
 
-        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        protected void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
             if (_selectedObject == null)
                 contextMenuStrip1.Items[1].Visible = contextMenuStrip1.Items[2].Visible = contextMenuStrip1.Items[3].Visible = contextMenuStrip1.Items[4].Visible = contextMenuStrip1.Items[5].Visible = contextMenuStrip1.Items[6].Visible = contextMenuStrip1.Items[7].Visible = false;
@@ -3149,7 +3149,7 @@ namespace System.Windows.Forms
                 contextMenuStrip1.Items[1].Visible = contextMenuStrip1.Items[2].Visible = contextMenuStrip1.Items[3].Visible = contextMenuStrip1.Items[4].Visible = contextMenuStrip1.Items[5].Visible = contextMenuStrip1.Items[6].Visible = contextMenuStrip1.Items[7].Visible = true;
         }
 
-        private void snapToolStripMenuItem1_Click(object sender, EventArgs e)
+        protected void snapToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             TreeNode node = modelTree.SelectedNode;
             if ((node == null) || !(node.Tag is MDL0BoneNode))
@@ -3159,13 +3159,13 @@ namespace System.Windows.Forms
             _modelPanel.Invalidate();
         }
 
-        private void btnResetSnap_Click(object sender, EventArgs e)
+        protected void btnResetSnap_Click(object sender, EventArgs e)
         {
             _snapMatrix = Matrix.Identity;
             _modelPanel.Invalidate();
         }
         
-        private void btnFlipColl_Click(object sender, EventArgs e)
+        protected void btnFlipColl_Click(object sender, EventArgs e)
         {
             foreach(CollisionPlane p in _selectedPlanes)
             {
@@ -3175,7 +3175,7 @@ namespace System.Windows.Forms
             _modelPanel.Invalidate();
         }
 
-        private void CreateUndo()
+        protected void CreateUndo()
         {
             CheckSaveIndex();
             if (undoSaves.Count > saveIndex)
@@ -3197,7 +3197,7 @@ namespace System.Windows.Forms
             save = null; 
         }
 
-        private void CheckSaveIndex()
+        protected void CheckSaveIndex()
         {
             if (saveIndex < 0)
             { saveIndex = 0; }
@@ -3206,7 +3206,7 @@ namespace System.Windows.Forms
             { undoSaves.RemoveAt(0); saveIndex--; }
         }
 
-        private void ClearUndoBuffer()
+        protected void ClearUndoBuffer()
         {
             saveIndex = 0;
             undoSaves.Clear();
@@ -3214,7 +3214,7 @@ namespace System.Windows.Forms
             btnUndo.Enabled = btnRedo.Enabled = false;
         }
 
-        private void Undo(object sender, EventArgs e)
+        protected void Undo(object sender, EventArgs e)
         {
             _selectedLinks.Clear();
 
@@ -3248,7 +3248,7 @@ namespace System.Windows.Forms
             UpdatePropPanels();
         }
 
-        private void Redo(object sender, EventArgs e)
+        protected void Redo(object sender, EventArgs e)
         {
             _selectedLinks.Clear();
 
@@ -3269,53 +3269,53 @@ namespace System.Windows.Forms
             UpdatePropPanels();
         }
 
-        private void chkObjUnk_CheckedChanged(object sender, EventArgs e)
+        protected void chkObjUnk_CheckedChanged(object sender, EventArgs e)
         {
             if (_selectedObject == null || _updating) return;
             _selectedObject._flags[0] = chkObjUnk.Checked;
             TargetNode.SignalPropertyChange();
         }
 
-        private void chkObjIndep_CheckedChanged(object sender, EventArgs e)
+        protected void chkObjIndep_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void chkObjModule_CheckedChanged(object sender, EventArgs e)
+        protected void chkObjModule_CheckedChanged(object sender, EventArgs e)
         {
             if (_selectedObject == null || _updating) return;
             _selectedObject._flags[2] = chkObjModule.Checked;
             TargetNode.SignalPropertyChange();
         }
 
-        private void chkObjSSEUnk_CheckedChanged(object sender, EventArgs e)
+        protected void chkObjSSEUnk_CheckedChanged(object sender, EventArgs e)
         {
             if (_selectedObject == null || _updating) return;
             _selectedObject._flags[3] = chkObjSSEUnk.Checked;
             TargetNode.SignalPropertyChange();
         }
 
-        private void btnPlayAnims_Click(object sender, EventArgs e)
+        protected void btnPlayAnims_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void btnPrevFrame_Click(object sender, EventArgs e)
+        protected void btnPrevFrame_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void btnNextFrame_Click(object sender, EventArgs e)
+        protected void btnNextFrame_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void btnHelp_Click(object sender, EventArgs e)
+        protected void btnHelp_Click(object sender, EventArgs e)
         {
             new ModelViewerHelp().Show(this, true);
         }
 
-        private void btnTranslateAll_Click(object sender, EventArgs e) {
+        protected void btnTranslateAll_Click(object sender, EventArgs e) {
             if (_selectedLinks.Count == 0) {
                 MessageBox.Show("You must select at least one collision link.");
                 return;
