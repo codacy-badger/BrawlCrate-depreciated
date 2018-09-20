@@ -862,7 +862,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             if (!_render)
                 return;
 
-            float alpha = 0.3f;
+            float alpha = 0.5f;
 
             if (IsCharacters)
                 alpha = 0.8f;
