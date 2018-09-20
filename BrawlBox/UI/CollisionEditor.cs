@@ -99,11 +99,15 @@ namespace System.Windows.Forms
         private ToolStripButton btnHelp;
         private CheckedListBox lstObjects;
         
-        // StageBox edits
+        // BrawlCrate buttons
         private ToolStripSeparator toolStripSeparatorCamera;    // Seperator for Camera controls
         private ToolStripButton btnPerspectiveCam;              // Goes into perspective mode
         private ToolStripButton btnFlipColl;
         private ToolStripButton btnOrthographicCam;             // Goes into orthographic mode
+        private ToolStripButton btnBoundaries;
+        private ToolStripButton btnSpawns;
+        private ToolStripButton btnItems;
+        private ToolStripSeparator toolStripSeparatorOverlays;    // Seperator for Overlay controls
 
         private void InitializeComponent()
         {
@@ -192,7 +196,11 @@ namespace System.Windows.Forms
             this.btnPerspectiveCam = new System.Windows.Forms.ToolStripButton();
             this.btnOrthographicCam = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparatorCamera = new System.Windows.Forms.ToolStripSeparator();
-            
+            this.btnSpawns = new System.Windows.Forms.ToolStripButton();
+            this.btnItems = new System.Windows.Forms.ToolStripButton();
+            this.btnBoundaries = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparatorOverlays = new System.Windows.Forms.ToolStripSeparator();
+
             this.btnResetCam = new System.Windows.Forms.ToolStripButton();
             this.btnResetSnap = new System.Windows.Forms.ToolStripButton();
             this.btnHelp = new System.Windows.Forms.ToolStripButton();
@@ -950,6 +958,10 @@ namespace System.Windows.Forms
             this.btnOrthographicCam,
             this.btnResetCam,
             this.toolStripSeparatorCamera,
+            this.btnSpawns,
+            this.btnItems,
+            this.btnBoundaries,
+            this.toolStripSeparatorOverlays,
             this.btnResetSnap,
             this.btnHelp});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
@@ -1054,7 +1066,7 @@ namespace System.Windows.Forms
             // btnOrthographicCam
             // 
             this.btnOrthographicCam.Checked = false;
-            this.btnOrthographicCam.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.btnOrthographicCam.CheckState = System.Windows.Forms.CheckState.Unchecked;
             this.btnOrthographicCam.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnOrthographicCam.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnOrthographicCam.Name = "btnOrthographicCam";
@@ -1066,6 +1078,39 @@ namespace System.Windows.Forms
             // 
             this.toolStripSeparatorCamera.Name = "toolStripSeparatorCamera";
             this.toolStripSeparatorCamera.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnSpawns
+            // 
+            this.btnSpawns.Checked = false;
+            this.btnSpawns.CheckState = System.Windows.Forms.CheckState.Unchecked;
+            this.btnSpawns.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnSpawns.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSpawns.Name = "btnSpawns";
+            this.btnSpawns.Size = new System.Drawing.Size(83, 19);
+            this.btnSpawns.Text = "Spawns";
+            this.btnSpawns.Click += new System.EventHandler(this.btnSpawns_Click);
+            // 
+            // btnItems
+            // 
+            this.btnItems.Checked = false;
+            this.btnItems.CheckState = System.Windows.Forms.CheckState.Unchecked;
+            this.btnItems.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnItems.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnItems.Name = "btnItems";
+            this.btnItems.Size = new System.Drawing.Size(83, 19);
+            this.btnItems.Text = "Items";
+            this.btnItems.Click += new System.EventHandler(this.btnItems_Click);
+            // 
+            // btnBoundaries
+            // 
+            this.btnBoundaries.Checked = true;
+            this.btnBoundaries.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.btnBoundaries.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnBoundaries.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnBoundaries.Name = "btnBoundaries";
+            this.btnBoundaries.Size = new System.Drawing.Size(83, 19);
+            this.btnBoundaries.Text = "Boundaries";
+            this.btnBoundaries.Click += new System.EventHandler(this.btnBoundaries_Click);
             // 
             // btnResetCam
             // 
@@ -1219,8 +1264,6 @@ namespace System.Windows.Forms
             _updating = true;
             cboMaterial.DataSource = Enum.GetValues(typeof(CollisionPlaneMaterialUnexpanded));
             cboType.DataSource = Enum.GetValues(typeof(CollisionPlaneType));
-            this.btnPerspectiveCam.Checked = true;
-            this.btnOrthographicCam.Checked = false;
             _updating = false;
         }
 
@@ -2056,7 +2099,7 @@ namespace System.Windows.Forms
                     else if (bone.Name == "CamLimit1N") { CamBone1 = bone; }
                     else if (bone.Name == "Dead0N") { DeathBone0 = bone; }
                     else if (bone.Name == "Dead1N") { DeathBone1 = bone; }
-                    else if (bone._name.Contains("Player"))// && chkSpawns.Checked)
+                    else if (bone._name.Contains("Player") && btnSpawns.Checked)
                     {
                         Vector3 position = bone._frameMatrix.GetPoint();
 
@@ -2067,7 +2110,7 @@ namespace System.Windows.Forms
 
                         TKContext.DrawSphere(position, 5.0f, 32);
                     }
-                    else if (bone._name.Contains("Rebirth"))// && chkSpawns.Checked)
+                    else if (bone._name.Contains("Rebirth") && btnSpawns.Checked)
                     {
                         GL.Color4(1.0f, 1.0f, 1.0f, 0.1f);
                         TKContext.DrawSphere(bone._frameMatrix.GetPoint(), 5.0f, 32);
@@ -2077,7 +2120,7 @@ namespace System.Windows.Forms
                 }
 
             //Render item fields if checked
-            if (ItemBones != null)// && chkItems.Checked)
+            if (ItemBones != null && btnItems.Checked)
             {
                 GL.Color4(0.5f, 0.0f, 1.0f, 0.4f);
                 for (int i = 0; i < ItemBones.Count; i += 2)
@@ -2090,7 +2133,7 @@ namespace System.Windows.Forms
             }
 
             //Render boundaries if checked
-            if (CamBone0 != null && CamBone1 != null)// && chkBoundaries.Checked)
+            if (CamBone0 != null && CamBone1 != null && btnBoundaries.Checked)
             {
                 //GL.Clear(ClearBufferMask.DepthBufferBit);
                 GL.Disable(EnableCap.DepthTest);
@@ -2236,6 +2279,33 @@ namespace System.Windows.Forms
                 _modelPanel.ResetCamera();
                 _modelPanel.CurrentViewport.ViewType = ViewportProjection.Orthographic;
             }
+        }
+
+        private void btnSpawns_Click(object sender, EventArgs e)
+        {
+            if (_updating)
+                return;
+
+            btnSpawns.Checked = !btnSpawns.Checked;
+            _modelPanel.Invalidate();
+        }
+
+        private void btnItems_Click(object sender, EventArgs e)
+        {
+            if (_updating)
+                return;
+
+            btnItems.Checked = !btnItems.Checked;
+            _modelPanel.Invalidate();
+        }
+
+        private void btnBoundaries_Click(object sender, EventArgs e)
+        {
+            if (_updating)
+                return;
+
+            btnBoundaries.Checked = !btnBoundaries.Checked;
+            _modelPanel.Invalidate();
         }
 
         private void _modelPanel_KeyDown(object sender, KeyEventArgs e)
