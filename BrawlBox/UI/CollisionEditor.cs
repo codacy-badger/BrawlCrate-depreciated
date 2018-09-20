@@ -443,7 +443,7 @@ namespace System.Windows.Forms
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
-            this.deleteToolStripMenuItem.ShortcutKeys = Keys.Shift | Keys.Delete;
+            this.deleteToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Delete;
             // 
             // panel3
             // 
@@ -1417,10 +1417,20 @@ namespace System.Windows.Forms
             if (_selectedObject == null)
                 return;
 
+            int index = lstObjects.SelectedIndex;
+
             _targetNode._objects.Remove(_selectedObject);
             lstObjects.Items.Remove(_selectedObject);
             _selectedObject = null;
             ClearSelection();
+            if (lstObjects.Items.Count > 0)
+            {
+                if (lstObjects.Items.Count > index)
+                    lstObjects.SelectedIndex = index;
+                else if (index > 0)
+                    lstObjects.SelectedIndex = index - 1;
+                ObjectSelected();
+            }
             _modelPanel.Invalidate();
             TargetNode.SignalPropertyChange();
         }
