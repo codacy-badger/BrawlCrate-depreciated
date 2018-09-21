@@ -219,6 +219,7 @@ namespace System.Windows.Forms
         public AdvancedCollisionEditor()
         {
             InitializeComponent();
+            _errorChecking = false;
             cboMaterial.DataSource = Enum.GetValues(typeof(CollisionPlaneMaterial));
         }
 

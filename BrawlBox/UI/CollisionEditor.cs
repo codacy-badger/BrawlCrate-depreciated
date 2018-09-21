@@ -15,6 +15,7 @@ namespace System.Windows.Forms
         #region Designer
 
         public ModelPanel _modelPanel;
+        protected bool _errorChecking = true;
         protected SplitContainer undoToolStrip;
         protected SplitContainer redoToolStrip;
         protected CheckBox chkAllModels;
@@ -2501,6 +2502,11 @@ namespace System.Windows.Forms
         {
             if (_updating)
                 return;
+            if (!_errorChecking)
+            {
+                chkTypeCharacters_CheckedChanged_NoErrorHandling(sender, e);
+                return;
+            }
             TargetNode.SignalPropertyChange();
             bool selection = chkTypeCharacters.Checked;
             foreach (CollisionPlane p in _selectedPlanes)
@@ -2530,6 +2536,11 @@ namespace System.Windows.Forms
         {
             if (_updating)
                 return;
+            if (!_errorChecking)
+            {
+                chkTypeItems_CheckedChanged_NoErrorHandling(sender, e);
+                return;
+            }
             TargetNode.SignalPropertyChange();
             bool selection = chkTypeItems.Checked;
             foreach (CollisionPlane p in _selectedPlanes)
@@ -2551,9 +2562,15 @@ namespace System.Windows.Forms
             }
         }
 
-        protected void chkTypePokemonTrainer_CheckedChanged(object sender, EventArgs e) {
+        protected void chkTypePokemonTrainer_CheckedChanged(object sender, EventArgs e)
+        {
             if (_updating)
                 return;
+            if (!_errorChecking)
+            {
+                chkTypePokemonTrainer_CheckedChanged_NoErrorHandling(sender, e);
+                return;
+            }
             TargetNode.SignalPropertyChange();
             bool selection = chkTypePokemonTrainer.Checked;
             foreach (CollisionPlane p in _selectedPlanes)
@@ -2579,6 +2596,11 @@ namespace System.Windows.Forms
         {
             if (_updating)
                 return;
+            if (!_errorChecking)
+            {
+                chkTypeRotating_CheckedChanged_NoErrorHandling(sender, e);
+                return;
+            }
             TargetNode.SignalPropertyChange();
             bool selection = chkTypeRotating.Checked;
             CollisionPlaneType firstType = _selectedPlanes[0].Type;
@@ -2635,6 +2657,11 @@ namespace System.Windows.Forms
         {
             if (_updating)
                 return;
+            if (!_errorChecking)
+            {
+                chkFallThrough_CheckedChanged_NoErrorHandling(sender, e);
+                return;
+            }
             TargetNode.SignalPropertyChange();
             bool selection = chkFallThrough.Checked;
             CollisionPlaneType firstType = _selectedPlanes[0].Type;
@@ -2688,6 +2715,11 @@ namespace System.Windows.Forms
         {
             if (_updating)
                 return;
+            if (!_errorChecking)
+            {
+                chkLeftLedge_CheckedChanged_NoErrorHandling(sender, e);
+                return;
+            }
             TargetNode.SignalPropertyChange();
             bool selection = chkLeftLedge.Checked;
             CollisionPlaneType firstType = _selectedPlanes[0].Type;
@@ -2792,6 +2824,11 @@ namespace System.Windows.Forms
         {
             if (_updating)
                 return;
+            if (!_errorChecking)
+            {
+                chkRightLedge_CheckedChanged_NoErrorHandling(sender, e);
+                return;
+            }
             TargetNode.SignalPropertyChange();
             bool selection = chkRightLedge.Checked;
             CollisionPlaneType firstType = _selectedPlanes[0].Type;
@@ -2898,6 +2935,11 @@ namespace System.Windows.Forms
         {
             if (_updating)
                 return;
+            if (!_errorChecking)
+            {
+                chkNoWalljump_CheckedChanged_NoErrorHandling(sender, e);
+                return;
+            }
             TargetNode.SignalPropertyChange();
             bool selection = chkNoWalljump.Checked;
             CollisionPlaneType firstType = _selectedPlanes[0].Type;
@@ -2947,6 +2989,16 @@ namespace System.Windows.Forms
             }
         }
 
+        protected void chkTypeCharacters_CheckedChanged_NoErrorHandling(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsCharacters = chkTypeCharacters.Checked; }
+        protected void chkTypeItems_CheckedChanged_NoErrorHandling(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsItems = chkTypeItems.Checked; }
+        protected void chkTypePokemonTrainer_CheckedChanged_NoErrorHandling(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsPokemonTrainer = chkTypePokemonTrainer.Checked; }
+        protected void chkTypeRotating_CheckedChanged_NoErrorHandling(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsRotating = chkTypeRotating.Checked; }
+        
+        protected void chkFallThrough_CheckedChanged_NoErrorHandling(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsFallThrough = chkFallThrough.Checked; }
+        protected void chkLeftLedge_CheckedChanged_NoErrorHandling(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsLeftLedge = chkLeftLedge.Checked; _modelPanel.Invalidate(); }
+        protected void chkRightLedge_CheckedChanged_NoErrorHandling(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsRightLedge = chkRightLedge.Checked; _modelPanel.Invalidate(); }
+        protected void chkNoWalljump_CheckedChanged_NoErrorHandling(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsNoWalljump = chkNoWalljump.Checked; }
+        
         protected void chkFlagUnknown1_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsUnknownStageBox = chkFlagUnknown1.Checked; }
         protected void chkFlagUnknown2_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsUnknownFlag1 = chkFlagUnknown2.Checked; }
         protected void chkFlagUnknown3_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsUnknownFlag3 = chkFlagUnknown3.Checked; }
