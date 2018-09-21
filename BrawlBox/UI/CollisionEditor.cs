@@ -2530,6 +2530,7 @@ namespace System.Windows.Forms
                     chkLeftLedge.Checked = false;
                 }
             }
+            _modelPanel.Invalidate();
         }
 
         protected void chkTypeItems_CheckedChanged(object sender, EventArgs e)
@@ -2560,6 +2561,7 @@ namespace System.Windows.Forms
                     chkLeftLedge.Checked = false;
                 }
             }
+            _modelPanel.Invalidate();
         }
 
         protected void chkTypePokemonTrainer_CheckedChanged(object sender, EventArgs e)
@@ -2590,6 +2592,7 @@ namespace System.Windows.Forms
                     chkLeftLedge.Checked = false;
                 }
             }
+            _modelPanel.Invalidate();
         }
 
         protected void chkTypeRotating_CheckedChanged(object sender, EventArgs e)
@@ -2989,7 +2992,7 @@ namespace System.Windows.Forms
             }
         }
 
-        protected void chkTypeCharacters_CheckedChanged_NoErrorHandling(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsCharacters = chkTypeCharacters.Checked; }
+        protected void chkTypeCharacters_CheckedChanged_NoErrorHandling(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsCharacters = chkTypeCharacters.Checked; _modelPanel.Invalidate(); }
         protected void chkTypeItems_CheckedChanged_NoErrorHandling(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsItems = chkTypeItems.Checked; }
         protected void chkTypePokemonTrainer_CheckedChanged_NoErrorHandling(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsPokemonTrainer = chkTypePokemonTrainer.Checked; }
         protected void chkTypeRotating_CheckedChanged_NoErrorHandling(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsRotating = chkTypeRotating.Checked; }
