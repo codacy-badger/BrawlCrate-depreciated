@@ -24,12 +24,18 @@ namespace BrawlLib.SSBB.ResourceNodes
         [Browsable(false)]
 #endif
         public virtual int StringId { get { return 0; } }
-
-        public int InfoIndex
+        
+        public string InfoIndex
         {
-            get { return _infoIndex; }
+            get
+            {
+                return "0x" + _infoIndex.ToString("X8");
+            }
             set
             {
+                string field0 = (value.ToString() ?? "").Split(' ')[0];
+                int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase) ? 16 : 10;
+                int intValue = Convert.ToByte(field0, fromBase);
                 int i = 0;
                 Type t = GetType();
                 switch (t.Name)
@@ -42,7 +48,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
                 var list = RSARNode._infoCache[i];
                 int prevIndex = _infoIndex;
-                _infoIndex = value.Clamp(0, list.Count - 1);
+                _infoIndex = intValue.Clamp(0, list.Count - 1);
                 if (_infoIndex == prevIndex)
                     return;
 
@@ -50,8 +56,10 @@ namespace BrawlLib.SSBB.ResourceNodes
                 temp._infoIndex = prevIndex;
                 list[_infoIndex] = this;
                 list[prevIndex] = temp;
+                SignalPropertyChange();
             }
         }
+        
         public int _infoIndex;
         internal VoidPtr Data { get { return (VoidPtr)WorkingUncompressed.Address; } }
 
