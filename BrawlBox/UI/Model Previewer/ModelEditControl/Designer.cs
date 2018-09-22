@@ -139,6 +139,7 @@ namespace System.Windows.Forms
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripComboBox cboToolSelect;
         private ToolStripDropDownButton dropdownOverlays;
+        private ToolStripMenuItem chkAllOverlays;
         private ToolStripMenuItem chkBoundaries;
         private ToolStripMenuItem chkSpawns;
         private ToolStripMenuItem chkItems;
@@ -311,6 +312,7 @@ namespace System.Windows.Forms
             this.chkVertices = new System.Windows.Forms.ToolStripButton();
             this.chkCollisions = new System.Windows.Forms.ToolStripButton();
             this.dropdownOverlays = new System.Windows.Forms.ToolStripDropDownButton();
+            this.chkAllOverlays = new System.Windows.Forms.ToolStripMenuItem();
             this.chkBoundaries = new System.Windows.Forms.ToolStripMenuItem();
             this.chkSpawns = new System.Windows.Forms.ToolStripMenuItem();
             this.chkItems = new System.Windows.Forms.ToolStripMenuItem();
@@ -1562,6 +1564,7 @@ namespace System.Windows.Forms
             // 
             this.dropdownOverlays.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.dropdownOverlays.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.chkAllOverlays,
             this.chkBoundaries,
             this.chkSpawns,
             this.chkItems});
@@ -1569,6 +1572,16 @@ namespace System.Windows.Forms
             this.dropdownOverlays.Name = "dropdownOverlays";
             this.dropdownOverlays.Size = new System.Drawing.Size(79, 23);
             this.dropdownOverlays.Text = "Overlays";
+            // 
+            // chkAllOverlays
+            // 
+            this.chkAllOverlays.Checked = true;
+            this.chkAllOverlays.CheckOnClick = true;
+            this.chkAllOverlays.Name = "chkAllOverlays";
+            this.chkAllOverlays.Size = new System.Drawing.Size(206, 26);
+            this.chkAllOverlays.Text = "All";
+            this.chkAllOverlays.CheckedChanged += new System.EventHandler(this.chkAllOverlays_CheckedChanged);
+            this.chkAllOverlays.ShortcutKeys = Keys.Control | Keys.V;
             // 
             // chkBoundaries
             // 
