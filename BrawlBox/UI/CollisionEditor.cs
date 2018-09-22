@@ -29,7 +29,7 @@ namespace System.Windows.Forms
         protected ToolStripButton btnMerge;
         protected ToolStripButton btnDelete;
         protected ContextMenuStrip contextMenuStrip1;
-        protected IContainer components;
+        private IContainer components;
         protected ToolStripMenuItem snapToolStripMenuItem;
         protected Panel panel1;
         protected TrackBar trackBar1;
@@ -631,62 +631,35 @@ namespace System.Windows.Forms
             // 
             // pnlPlaneProps
             // 
-            this.pnlPlaneProps.Controls.Add(this.groupBoxUnknownFlags);
             this.pnlPlaneProps.Controls.Add(this.groupBox2);
             this.pnlPlaneProps.Controls.Add(this.groupBox1);
+            this.pnlPlaneProps.Controls.Add(this.groupBoxUnknownFlags);
             this.pnlPlaneProps.Controls.Add(this.cboMaterial);
             this.pnlPlaneProps.Controls.Add(this.cboType);
             this.pnlPlaneProps.Controls.Add(this.label5);
             this.pnlPlaneProps.Controls.Add(this.labelType);
             this.pnlPlaneProps.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlPlaneProps.Location = new System.Drawing.Point(0, -199);
+            this.pnlPlaneProps.Location = new System.Drawing.Point(0, 2);
             this.pnlPlaneProps.Name = "pnlPlaneProps";
-            this.pnlPlaneProps.Size = new System.Drawing.Size(209, 114);
+            this.pnlPlaneProps.Size = new System.Drawing.Size(209, 188);
             this.pnlPlaneProps.TabIndex = 0;
             this.pnlPlaneProps.Visible = false;
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox2.Controls.Add(this.chkTypeCharacters);
-            this.groupBox2.Controls.Add(this.chkTypeItems);
-            this.groupBox2.Controls.Add(this.chkTypePokemonTrainer);
-            this.groupBox2.Controls.Add(this.chkTypeRotating);
-            this.groupBox2.Location = new System.Drawing.Point(101, 49);
+            this.groupBox2.Controls.Add(this.chkFlagUnknown1);
+            this.groupBox2.Controls.Add(this.chkFlagUnknown2);
+            this.groupBox2.Controls.Add(this.chkFlagUnknown3);
+            this.groupBox2.Controls.Add(this.chkFlagUnknown4);
+            this.groupBox2.Location = new System.Drawing.Point(104, 102);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox2.Size = new System.Drawing.Size(105, 86);
+            this.groupBox2.Size = new System.Drawing.Size(105, 160);
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
-            // 
-            // cboType
-            // 
-            this.cboType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboType.FormattingEnabled = true;
-            this.cboType.Location = new System.Drawing.Point(66, 4);
-            this.cboType.Name = "cboType";
-            this.cboType.Size = new System.Drawing.Size(139, 21);
-            this.cboType.TabIndex = 5;
-            this.cboType.SelectedIndexChanged += new System.EventHandler(this.cboType_SelectedIndexChanged);
-            // 
-            // groupBoxUnknownFlags
-            // 
-            this.groupBoxUnknownFlags.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBoxUnknownFlags.Controls.Add(this.chkFlagUnknown4);
-            this.groupBoxUnknownFlags.Controls.Add(this.chkFlagUnknown3);
-            this.groupBoxUnknownFlags.Controls.Add(this.chkFlagUnknown2);
-            this.groupBoxUnknownFlags.Controls.Add(this.chkFlagUnknown1);
-            this.groupBoxUnknownFlags.Location = new System.Drawing.Point(0, 135);
-            this.groupBoxUnknownFlags.Margin = new System.Windows.Forms.Padding(0);
-            this.groupBoxUnknownFlags.Name = "groupBoxUnknownFlags";
-            this.groupBoxUnknownFlags.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBoxUnknownFlags.Size = new System.Drawing.Size(205, 59);
-            this.groupBoxUnknownFlags.TabIndex = 14;
-            this.groupBoxUnknownFlags.TabStop = false;
-            this.groupBoxUnknownFlags.Text = "Unknown Flags";
             // 
             // chkFlagUnknown1
             // 
@@ -695,100 +668,57 @@ namespace System.Windows.Forms
             this.chkFlagUnknown1.Name = "chkFlagUnknown1";
             this.chkFlagUnknown1.Size = new System.Drawing.Size(86, 18);
             this.chkFlagUnknown1.TabIndex = 3;
-            this.chkFlagUnknown1.Text = "1";
+            this.chkFlagUnknown1.Text = "Unknown1";
             this.chkFlagUnknown1.UseVisualStyleBackColor = true;
             this.chkFlagUnknown1.CheckedChanged += new System.EventHandler(this.chkFlagUnknown1_CheckedChanged);
             // 
             // chkFlagUnknown2
             // 
-            this.chkFlagUnknown2.Location = new System.Drawing.Point(60, 17);
+            this.chkFlagUnknown2.Location = new System.Drawing.Point(8, 33);
             this.chkFlagUnknown2.Margin = new System.Windows.Forms.Padding(0);
             this.chkFlagUnknown2.Name = "chkFlagUnknown2";
             this.chkFlagUnknown2.Size = new System.Drawing.Size(86, 18);
             this.chkFlagUnknown2.TabIndex = 3;
-            this.chkFlagUnknown2.Text = "2";
+            this.chkFlagUnknown2.Text = "Unknown2";
             this.chkFlagUnknown2.UseVisualStyleBackColor = true;
             this.chkFlagUnknown2.CheckedChanged += new System.EventHandler(this.chkFlagUnknown2_CheckedChanged);
             // 
             // chkFlagUnknown3
             // 
-            this.chkFlagUnknown3.Location = new System.Drawing.Point(112, 17);
+            this.chkFlagUnknown3.Location = new System.Drawing.Point(8, 49);
             this.chkFlagUnknown3.Margin = new System.Windows.Forms.Padding(0);
             this.chkFlagUnknown3.Name = "chkFlagUnknown3";
             this.chkFlagUnknown3.Size = new System.Drawing.Size(86, 18);
             this.chkFlagUnknown3.TabIndex = 3;
-            this.chkFlagUnknown3.Text = "3";
+            this.chkFlagUnknown3.Text = "Unknown3";
             this.chkFlagUnknown3.UseVisualStyleBackColor = true;
             this.chkFlagUnknown3.CheckedChanged += new System.EventHandler(this.chkFlagUnknown3_CheckedChanged);
             // 
             // chkFlagUnknown4
             // 
-            this.chkFlagUnknown4.Location = new System.Drawing.Point(164, 17);
+            this.chkFlagUnknown4.Location = new System.Drawing.Point(8, 67);
             this.chkFlagUnknown4.Margin = new System.Windows.Forms.Padding(0);
             this.chkFlagUnknown4.Name = "chkFlagUnknown4";
             this.chkFlagUnknown4.Size = new System.Drawing.Size(86, 18);
             this.chkFlagUnknown4.TabIndex = 3;
-            this.chkFlagUnknown4.Text = "4";
+            this.chkFlagUnknown4.Text = "Unknown4";
             this.chkFlagUnknown4.UseVisualStyleBackColor = true;
             this.chkFlagUnknown4.CheckedChanged += new System.EventHandler(this.chkFlagUnknown4_CheckedChanged);
             // 
-            // chkTypeCharacters
-            // 
-            this.chkTypeCharacters.Location = new System.Drawing.Point(8, 17);
-            this.chkTypeCharacters.Margin = new System.Windows.Forms.Padding(0);
-            this.chkTypeCharacters.Name = "chkTypeCharacters";
-            this.chkTypeCharacters.Size = new System.Drawing.Size(86, 18);
-            this.chkTypeCharacters.TabIndex = 4;
-            this.chkTypeCharacters.Text = "Characters";
-            this.chkTypeCharacters.UseVisualStyleBackColor = true;
-            this.chkTypeCharacters.CheckedChanged += new System.EventHandler(this.chkTypeCharacters_CheckedChanged);
-            // 
-            // chkTypeItems
-            // 
-            this.chkTypeItems.Location = new System.Drawing.Point(8, 33);
-            this.chkTypeItems.Margin = new System.Windows.Forms.Padding(0);
-            this.chkTypeItems.Name = "chkTypeItems";
-            this.chkTypeItems.Size = new System.Drawing.Size(86, 18);
-            this.chkTypeItems.TabIndex = 3;
-            this.chkTypeItems.Text = "Items";
-            this.chkTypeItems.UseVisualStyleBackColor = true;
-            this.chkTypeItems.CheckedChanged += new System.EventHandler(this.chkTypeItems_CheckedChanged);
-            // 
-            // chkTypePokemonTrainer
-            // 
-            this.chkTypePokemonTrainer.Location = new System.Drawing.Point(8, 49);
-            this.chkTypePokemonTrainer.Margin = new System.Windows.Forms.Padding(0);
-            this.chkTypePokemonTrainer.Name = "chkTypePokemonTrainer";
-            this.chkTypePokemonTrainer.Size = new System.Drawing.Size(86, 18);
-            this.chkTypePokemonTrainer.TabIndex = 3;
-            this.chkTypePokemonTrainer.Text = "PokéTrainer";
-            this.chkTypePokemonTrainer.UseVisualStyleBackColor = true;
-            this.chkTypePokemonTrainer.CheckedChanged += new System.EventHandler(this.chkTypePokemonTrainer_CheckedChanged);
-            // 
-            // chkTypeRotating
-            // 
-            this.chkTypeRotating.Location = new System.Drawing.Point(8, 65);
-            this.chkTypeRotating.Margin = new System.Windows.Forms.Padding(0);
-            this.chkTypeRotating.Name = "chkTypeRotating";
-            this.chkTypeRotating.Size = new System.Drawing.Size(86, 18);
-            this.chkTypeRotating.TabIndex = 4;
-            this.chkTypeRotating.Text = "Rotating";
-            this.chkTypeRotating.UseVisualStyleBackColor = true;
-            this.chkTypeRotating.CheckedChanged += new System.EventHandler(this.chkTypeRotating_CheckedChanged);
-            // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox1.Controls.Add(this.chkLeftLedge);
             this.groupBox1.Controls.Add(this.chkNoWalljump);
             this.groupBox1.Controls.Add(this.chkRightLedge);
+            this.groupBox1.Controls.Add(this.chkTypeRotating);
             this.groupBox1.Controls.Add(this.chkFallThrough);
-            this.groupBox1.Location = new System.Drawing.Point(-3, 49);
+            this.groupBox1.Location = new System.Drawing.Point(0, 102);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(104, 86);
+            this.groupBox1.Size = new System.Drawing.Size(104, 160);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Flags";
@@ -826,6 +756,17 @@ namespace System.Windows.Forms
             this.chkRightLedge.UseVisualStyleBackColor = true;
             this.chkRightLedge.CheckedChanged += new System.EventHandler(this.chkRightLedge_CheckedChanged);
             // 
+            // chkTypeRotating
+            // 
+            this.chkTypeRotating.Location = new System.Drawing.Point(8, 81);
+            this.chkTypeRotating.Margin = new System.Windows.Forms.Padding(0);
+            this.chkTypeRotating.Name = "chkTypeRotating";
+            this.chkTypeRotating.Size = new System.Drawing.Size(86, 18);
+            this.chkTypeRotating.TabIndex = 4;
+            this.chkTypeRotating.Text = "Rotating";
+            this.chkTypeRotating.UseVisualStyleBackColor = true;
+            this.chkTypeRotating.CheckedChanged += new System.EventHandler(this.chkTypeRotating_CheckedChanged);
+            // 
             // chkFallThrough
             // 
             this.chkFallThrough.Location = new System.Drawing.Point(8, 17);
@@ -837,6 +778,55 @@ namespace System.Windows.Forms
             this.chkFallThrough.UseVisualStyleBackColor = true;
             this.chkFallThrough.CheckedChanged += new System.EventHandler(this.chkFallThrough_CheckedChanged);
             // 
+            // groupBoxUnknownFlags
+            // 
+            this.groupBoxUnknownFlags.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBoxUnknownFlags.Controls.Add(this.chkTypePokemonTrainer);
+            this.groupBoxUnknownFlags.Controls.Add(this.chkTypeItems);
+            this.groupBoxUnknownFlags.Controls.Add(this.chkTypeCharacters);
+            this.groupBoxUnknownFlags.Location = new System.Drawing.Point(4, 50);
+            this.groupBoxUnknownFlags.Margin = new System.Windows.Forms.Padding(0);
+            this.groupBoxUnknownFlags.Name = "groupBoxUnknownFlags";
+            this.groupBoxUnknownFlags.Padding = new System.Windows.Forms.Padding(0);
+            this.groupBoxUnknownFlags.Size = new System.Drawing.Size(205, 71);
+            this.groupBoxUnknownFlags.TabIndex = 14;
+            this.groupBoxUnknownFlags.TabStop = false;
+            this.groupBoxUnknownFlags.Text = "Collision Targets";
+            // 
+            // chkTypePokemonTrainer
+            // 
+            this.chkTypePokemonTrainer.Location = new System.Drawing.Point(78, 33);
+            this.chkTypePokemonTrainer.Margin = new System.Windows.Forms.Padding(0);
+            this.chkTypePokemonTrainer.Name = "chkTypePokemonTrainer";
+            this.chkTypePokemonTrainer.Size = new System.Drawing.Size(116, 18);
+            this.chkTypePokemonTrainer.TabIndex = 3;
+            this.chkTypePokemonTrainer.Text = "Pokémon Trainer";
+            this.chkTypePokemonTrainer.UseVisualStyleBackColor = true;
+            this.chkTypePokemonTrainer.CheckedChanged += new System.EventHandler(this.chkTypePokemonTrainer_CheckedChanged);
+            // 
+            // chkTypeItems
+            // 
+            this.chkTypeItems.Location = new System.Drawing.Point(4, 33);
+            this.chkTypeItems.Margin = new System.Windows.Forms.Padding(0);
+            this.chkTypeItems.Name = "chkTypeItems";
+            this.chkTypeItems.Size = new System.Drawing.Size(86, 18);
+            this.chkTypeItems.TabIndex = 3;
+            this.chkTypeItems.Text = "Items";
+            this.chkTypeItems.UseVisualStyleBackColor = true;
+            this.chkTypeItems.CheckedChanged += new System.EventHandler(this.chkTypeItems_CheckedChanged);
+            // 
+            // chkTypeCharacters
+            // 
+            this.chkTypeCharacters.Location = new System.Drawing.Point(4, 17);
+            this.chkTypeCharacters.Margin = new System.Windows.Forms.Padding(0);
+            this.chkTypeCharacters.Name = "chkTypeCharacters";
+            this.chkTypeCharacters.Size = new System.Drawing.Size(194, 18);
+            this.chkTypeCharacters.TabIndex = 4;
+            this.chkTypeCharacters.Text = "Everything";
+            this.chkTypeCharacters.UseVisualStyleBackColor = true;
+            this.chkTypeCharacters.CheckedChanged += new System.EventHandler(this.chkTypeCharacters_CheckedChanged);
+            // 
             // cboMaterial
             // 
             this.cboMaterial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -847,6 +837,16 @@ namespace System.Windows.Forms
             this.cboMaterial.TabIndex = 12;
             this.cboMaterial.SelectedIndexChanged += new System.EventHandler(this.cboMaterial_SelectedIndexChanged);
             // 
+            // cboType
+            // 
+            this.cboType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboType.FormattingEnabled = true;
+            this.cboType.Location = new System.Drawing.Point(66, 4);
+            this.cboType.Name = "cboType";
+            this.cboType.Size = new System.Drawing.Size(139, 21);
+            this.cboType.TabIndex = 5;
+            this.cboType.SelectedIndexChanged += new System.EventHandler(this.cboType_SelectedIndexChanged);
+            // 
             // label5
             // 
             this.label5.Location = new System.Drawing.Point(7, 25);
@@ -855,7 +855,6 @@ namespace System.Windows.Forms
             this.label5.TabIndex = 8;
             this.label5.Text = "Material:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-
             // 
             // labelType
             // 
@@ -1044,7 +1043,7 @@ namespace System.Windows.Forms
             this.btnSameY.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnSameY.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSameY.Name = "btnSameY";
-            this.btnSameY.Size = new System.Drawing.Size(49, 22);
+            this.btnSameY.Size = new System.Drawing.Size(49, 19);
             this.btnSameY.Text = "Align Y";
             this.btnSameY.Click += new System.EventHandler(this.btnSameY_Click);
             // 
@@ -1060,20 +1059,27 @@ namespace System.Windows.Forms
             this.btnPerspectiveCam.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnPerspectiveCam.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnPerspectiveCam.Name = "btnPerspectiveCam";
-            this.btnPerspectiveCam.Size = new System.Drawing.Size(83, 19);
+            this.btnPerspectiveCam.Size = new System.Drawing.Size(71, 19);
             this.btnPerspectiveCam.Text = "Perspective";
             this.btnPerspectiveCam.Click += new System.EventHandler(this.btnPerspectiveCam_Click);
             // 
             // btnOrthographicCam
             // 
-            this.btnOrthographicCam.Checked = false;
-            this.btnOrthographicCam.CheckState = System.Windows.Forms.CheckState.Unchecked;
             this.btnOrthographicCam.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnOrthographicCam.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnOrthographicCam.Name = "btnOrthographicCam";
-            this.btnOrthographicCam.Size = new System.Drawing.Size(83, 19);
+            this.btnOrthographicCam.Size = new System.Drawing.Size(82, 19);
             this.btnOrthographicCam.Text = "Orthographic";
             this.btnOrthographicCam.Click += new System.EventHandler(this.btnOrthographicCam_Click);
+            // 
+            // btnResetCam
+            // 
+            this.btnResetCam.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnResetCam.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnResetCam.Name = "btnResetCam";
+            this.btnResetCam.Size = new System.Drawing.Size(67, 19);
+            this.btnResetCam.Text = "Reset Cam";
+            this.btnResetCam.Click += new System.EventHandler(this.btnResetCam_Click);
             // 
             // toolStripSeparatorCamera
             // 
@@ -1082,23 +1088,19 @@ namespace System.Windows.Forms
             // 
             // btnSpawns
             // 
-            this.btnSpawns.Checked = false;
-            this.btnSpawns.CheckState = System.Windows.Forms.CheckState.Unchecked;
             this.btnSpawns.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnSpawns.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSpawns.Name = "btnSpawns";
-            this.btnSpawns.Size = new System.Drawing.Size(83, 19);
+            this.btnSpawns.Size = new System.Drawing.Size(51, 19);
             this.btnSpawns.Text = "Spawns";
             this.btnSpawns.Click += new System.EventHandler(this.btnSpawns_Click);
             // 
             // btnItems
             // 
-            this.btnItems.Checked = false;
-            this.btnItems.CheckState = System.Windows.Forms.CheckState.Unchecked;
             this.btnItems.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnItems.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnItems.Name = "btnItems";
-            this.btnItems.Size = new System.Drawing.Size(83, 19);
+            this.btnItems.Size = new System.Drawing.Size(40, 19);
             this.btnItems.Text = "Items";
             this.btnItems.Click += new System.EventHandler(this.btnItems_Click);
             // 
@@ -1109,18 +1111,14 @@ namespace System.Windows.Forms
             this.btnBoundaries.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnBoundaries.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnBoundaries.Name = "btnBoundaries";
-            this.btnBoundaries.Size = new System.Drawing.Size(83, 19);
+            this.btnBoundaries.Size = new System.Drawing.Size(70, 19);
             this.btnBoundaries.Text = "Boundaries";
             this.btnBoundaries.Click += new System.EventHandler(this.btnBoundaries_Click);
             // 
-            // btnResetCam
+            // toolStripSeparatorOverlays
             // 
-            this.btnResetCam.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnResetCam.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnResetCam.Name = "btnResetCam";
-            this.btnResetCam.Size = new System.Drawing.Size(83, 19);
-            this.btnResetCam.Text = "Reset Cam";
-            this.btnResetCam.Click += new System.EventHandler(this.btnResetCam_Click);
+            this.toolStripSeparatorOverlays.Name = "toolStripSeparatorOverlays";
+            this.toolStripSeparatorOverlays.Size = new System.Drawing.Size(6, 6);
             // 
             // btnResetSnap
             // 
@@ -1311,7 +1309,7 @@ namespace System.Windows.Forms
             if (_selectedPlanes.Count > 0)
             {
                 pnlPlaneProps.Visible = true;
-                panel3.Height = 175;
+                panel3.Height = 205;
             }
             else if (_selectedLinks.Count == 1)
             {
