@@ -141,7 +141,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 					arr[i]._description = "Default: 0 (could be int or float - be careful)";
 				} else if (((u >> 24) & 0xFF) != 0 && *((bint*)pIn) != -1 && !float.IsNaN(f)) {
 					float abs = Math.Abs(f);
-					if (abs > 0.0000001 && abs < 10000000) {
+					if ((abs > 0.0000001 && abs < 10000000) || float.IsInfinity(abs)) {
 						arr[i]._type = 0;
 						arr[i]._description = "Default (float): " + f + " (" + u.ToString("X8") + ")";
 					} else {
