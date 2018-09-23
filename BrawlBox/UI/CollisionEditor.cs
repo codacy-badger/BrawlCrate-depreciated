@@ -35,9 +35,9 @@ namespace System.Windows.Forms
         protected TrackBar trackBar1;
         protected Button btnResetRot;
         protected ToolStripButton btnResetCam;
-        protected GroupBox groupBox1;
+        protected GroupBox groupBoxFlags1;
         protected CheckBox chkFallThrough;
-        protected GroupBox groupBox2;
+        protected GroupBox groupBoxFlags2;
         protected CheckBox chkNoWalljump;
         protected CheckBox chkRightLedge;
         protected CheckBox chkTypeCharacters;
@@ -46,7 +46,7 @@ namespace System.Windows.Forms
         protected CheckBox chkTypeRotating;
         
         // Advanced unknown flags
-        protected GroupBox groupBoxUnknownFlags;
+        protected GroupBox groupBoxTargets;
         protected CheckBox chkFlagUnknown1;
         protected CheckBox chkFlagUnknown2;
         protected CheckBox chkFlagUnknown3;
@@ -153,20 +153,20 @@ namespace System.Windows.Forms
             this.label1 = new System.Windows.Forms.Label();
             this.numX = new System.Windows.Forms.NumericInputBox();
             this.pnlPlaneProps = new System.Windows.Forms.Panel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBoxFlags2 = new System.Windows.Forms.GroupBox();
             this.cboType = new System.Windows.Forms.ComboBox();
             this.chkTypeItems = new System.Windows.Forms.CheckBox();
             this.chkTypeCharacters = new System.Windows.Forms.CheckBox();
             this.chkTypePokemonTrainer = new System.Windows.Forms.CheckBox();
             this.chkTypeRotating = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxFlags1 = new System.Windows.Forms.GroupBox();
             this.chkLeftLedge = new System.Windows.Forms.CheckBox();
             this.chkNoWalljump = new System.Windows.Forms.CheckBox();
             this.chkRightLedge = new System.Windows.Forms.CheckBox();
             this.chkFallThrough = new System.Windows.Forms.CheckBox();
 
             // Advanced flags
-            this.groupBoxUnknownFlags = new System.Windows.Forms.GroupBox();
+            this.groupBoxTargets = new System.Windows.Forms.GroupBox();
             this.chkFlagUnknown1 = new System.Windows.Forms.CheckBox();
             this.chkFlagUnknown2 = new System.Windows.Forms.CheckBox();
             this.chkFlagUnknown3 = new System.Windows.Forms.CheckBox();
@@ -223,9 +223,9 @@ namespace System.Windows.Forms
             this.pnlObjProps.SuspendLayout();
             this.pnlPointProps.SuspendLayout();
             this.pnlPlaneProps.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBoxUnknownFlags.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxFlags2.SuspendLayout();
+            this.groupBoxTargets.SuspendLayout();
+            this.groupBoxFlags1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -631,9 +631,9 @@ namespace System.Windows.Forms
             // 
             // pnlPlaneProps
             // 
-            this.pnlPlaneProps.Controls.Add(this.groupBox2);
-            this.pnlPlaneProps.Controls.Add(this.groupBox1);
-            this.pnlPlaneProps.Controls.Add(this.groupBoxUnknownFlags);
+            this.pnlPlaneProps.Controls.Add(this.groupBoxFlags2);
+            this.pnlPlaneProps.Controls.Add(this.groupBoxFlags1);
+            this.pnlPlaneProps.Controls.Add(this.groupBoxTargets);
             this.pnlPlaneProps.Controls.Add(this.cboMaterial);
             this.pnlPlaneProps.Controls.Add(this.cboType);
             this.pnlPlaneProps.Controls.Add(this.label5);
@@ -645,21 +645,21 @@ namespace System.Windows.Forms
             this.pnlPlaneProps.TabIndex = 0;
             this.pnlPlaneProps.Visible = false;
             // 
-            // groupBox2
+            // groupBoxFlags2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupBoxFlags2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox2.Controls.Add(this.chkFlagUnknown1);
-            this.groupBox2.Controls.Add(this.chkFlagUnknown2);
-            this.groupBox2.Controls.Add(this.chkFlagUnknown3);
-            this.groupBox2.Controls.Add(this.chkFlagUnknown4);
-            this.groupBox2.Location = new System.Drawing.Point(104, 102);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox2.Size = new System.Drawing.Size(105, 160);
-            this.groupBox2.TabIndex = 14;
-            this.groupBox2.TabStop = false;
+            this.groupBoxFlags2.Controls.Add(this.chkFlagUnknown1);
+            this.groupBoxFlags2.Controls.Add(this.chkFlagUnknown2);
+            this.groupBoxFlags2.Controls.Add(this.chkFlagUnknown3);
+            this.groupBoxFlags2.Controls.Add(this.chkFlagUnknown4);
+            this.groupBoxFlags2.Location = new System.Drawing.Point(104, 102);
+            this.groupBoxFlags2.Margin = new System.Windows.Forms.Padding(0);
+            this.groupBoxFlags2.Name = "groupBoxFlags2";
+            this.groupBoxFlags2.Padding = new System.Windows.Forms.Padding(0);
+            this.groupBoxFlags2.Size = new System.Drawing.Size(105, 160);
+            this.groupBoxFlags2.TabIndex = 14;
+            this.groupBoxFlags2.TabStop = false;
             // 
             // chkFlagUnknown1
             // 
@@ -668,7 +668,7 @@ namespace System.Windows.Forms
             this.chkFlagUnknown1.Name = "chkFlagUnknown1";
             this.chkFlagUnknown1.Size = new System.Drawing.Size(86, 18);
             this.chkFlagUnknown1.TabIndex = 3;
-            this.chkFlagUnknown1.Text = "Unknown1";
+            this.chkFlagUnknown1.Text = "Unknown 1";
             this.chkFlagUnknown1.UseVisualStyleBackColor = true;
             this.chkFlagUnknown1.CheckedChanged += new System.EventHandler(this.chkFlagUnknown1_CheckedChanged);
             // 
@@ -679,7 +679,7 @@ namespace System.Windows.Forms
             this.chkFlagUnknown2.Name = "chkFlagUnknown2";
             this.chkFlagUnknown2.Size = new System.Drawing.Size(86, 18);
             this.chkFlagUnknown2.TabIndex = 3;
-            this.chkFlagUnknown2.Text = "Unknown2";
+            this.chkFlagUnknown2.Text = "Unknown 2";
             this.chkFlagUnknown2.UseVisualStyleBackColor = true;
             this.chkFlagUnknown2.CheckedChanged += new System.EventHandler(this.chkFlagUnknown2_CheckedChanged);
             // 
@@ -690,38 +690,38 @@ namespace System.Windows.Forms
             this.chkFlagUnknown3.Name = "chkFlagUnknown3";
             this.chkFlagUnknown3.Size = new System.Drawing.Size(86, 18);
             this.chkFlagUnknown3.TabIndex = 3;
-            this.chkFlagUnknown3.Text = "Unknown3";
+            this.chkFlagUnknown3.Text = "Unknown 3";
             this.chkFlagUnknown3.UseVisualStyleBackColor = true;
             this.chkFlagUnknown3.CheckedChanged += new System.EventHandler(this.chkFlagUnknown3_CheckedChanged);
             // 
             // chkFlagUnknown4
             // 
-            this.chkFlagUnknown4.Location = new System.Drawing.Point(8, 67);
+            this.chkFlagUnknown4.Location = new System.Drawing.Point(8, 65);
             this.chkFlagUnknown4.Margin = new System.Windows.Forms.Padding(0);
             this.chkFlagUnknown4.Name = "chkFlagUnknown4";
             this.chkFlagUnknown4.Size = new System.Drawing.Size(86, 18);
             this.chkFlagUnknown4.TabIndex = 3;
-            this.chkFlagUnknown4.Text = "Unknown4";
+            this.chkFlagUnknown4.Text = "Unknown 4";
             this.chkFlagUnknown4.UseVisualStyleBackColor = true;
             this.chkFlagUnknown4.CheckedChanged += new System.EventHandler(this.chkFlagUnknown4_CheckedChanged);
             // 
-            // groupBox1
+            // groupBoxFlags1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupBoxFlags1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox1.Controls.Add(this.chkLeftLedge);
-            this.groupBox1.Controls.Add(this.chkNoWalljump);
-            this.groupBox1.Controls.Add(this.chkRightLedge);
-            this.groupBox1.Controls.Add(this.chkTypeRotating);
-            this.groupBox1.Controls.Add(this.chkFallThrough);
-            this.groupBox1.Location = new System.Drawing.Point(0, 102);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(104, 160);
-            this.groupBox1.TabIndex = 13;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Flags";
+            this.groupBoxFlags1.Controls.Add(this.chkLeftLedge);
+            this.groupBoxFlags1.Controls.Add(this.chkNoWalljump);
+            this.groupBoxFlags1.Controls.Add(this.chkRightLedge);
+            this.groupBoxFlags1.Controls.Add(this.chkTypeRotating);
+            this.groupBoxFlags1.Controls.Add(this.chkFallThrough);
+            this.groupBoxFlags1.Location = new System.Drawing.Point(0, 102);
+            this.groupBoxFlags1.Margin = new System.Windows.Forms.Padding(0);
+            this.groupBoxFlags1.Name = "groupBoxFlags1";
+            this.groupBoxFlags1.Padding = new System.Windows.Forms.Padding(0);
+            this.groupBoxFlags1.Size = new System.Drawing.Size(104, 160);
+            this.groupBoxFlags1.TabIndex = 13;
+            this.groupBoxFlags1.TabStop = false;
+            this.groupBoxFlags1.Text = "Flags";
             // 
             // chkLeftLedge
             // 
@@ -778,25 +778,25 @@ namespace System.Windows.Forms
             this.chkFallThrough.UseVisualStyleBackColor = true;
             this.chkFallThrough.CheckedChanged += new System.EventHandler(this.chkFallThrough_CheckedChanged);
             // 
-            // groupBoxUnknownFlags
+            // groupBoxTargets
             // 
-            this.groupBoxUnknownFlags.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupBoxTargets.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBoxUnknownFlags.Controls.Add(this.chkTypePokemonTrainer);
-            this.groupBoxUnknownFlags.Controls.Add(this.chkTypeItems);
-            this.groupBoxUnknownFlags.Controls.Add(this.chkTypeCharacters);
-            this.groupBoxUnknownFlags.Location = new System.Drawing.Point(4, 50);
-            this.groupBoxUnknownFlags.Margin = new System.Windows.Forms.Padding(0);
-            this.groupBoxUnknownFlags.Name = "groupBoxUnknownFlags";
-            this.groupBoxUnknownFlags.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBoxUnknownFlags.Size = new System.Drawing.Size(205, 71);
-            this.groupBoxUnknownFlags.TabIndex = 14;
-            this.groupBoxUnknownFlags.TabStop = false;
-            this.groupBoxUnknownFlags.Text = "Collision Targets";
+            this.groupBoxTargets.Controls.Add(this.chkTypePokemonTrainer);
+            this.groupBoxTargets.Controls.Add(this.chkTypeItems);
+            this.groupBoxTargets.Controls.Add(this.chkTypeCharacters);
+            this.groupBoxTargets.Location = new System.Drawing.Point(0, 50);
+            this.groupBoxTargets.Margin = new System.Windows.Forms.Padding(0);
+            this.groupBoxTargets.Name = "groupBoxTargets";
+            this.groupBoxTargets.Padding = new System.Windows.Forms.Padding(0);
+            this.groupBoxTargets.Size = new System.Drawing.Size(208, 71);
+            this.groupBoxTargets.TabIndex = 14;
+            this.groupBoxTargets.TabStop = false;
+            this.groupBoxTargets.Text = "Collision Targets";
             // 
             // chkTypePokemonTrainer
             // 
-            this.chkTypePokemonTrainer.Location = new System.Drawing.Point(78, 33);
+            this.chkTypePokemonTrainer.Location = new System.Drawing.Point(82, 33);
             this.chkTypePokemonTrainer.Margin = new System.Windows.Forms.Padding(0);
             this.chkTypePokemonTrainer.Name = "chkTypePokemonTrainer";
             this.chkTypePokemonTrainer.Size = new System.Drawing.Size(116, 18);
@@ -807,7 +807,7 @@ namespace System.Windows.Forms
             // 
             // chkTypeItems
             // 
-            this.chkTypeItems.Location = new System.Drawing.Point(4, 33);
+            this.chkTypeItems.Location = new System.Drawing.Point(8, 33);
             this.chkTypeItems.Margin = new System.Windows.Forms.Padding(0);
             this.chkTypeItems.Name = "chkTypeItems";
             this.chkTypeItems.Size = new System.Drawing.Size(86, 18);
@@ -818,7 +818,7 @@ namespace System.Windows.Forms
             // 
             // chkTypeCharacters
             // 
-            this.chkTypeCharacters.Location = new System.Drawing.Point(4, 17);
+            this.chkTypeCharacters.Location = new System.Drawing.Point(8, 17);
             this.chkTypeCharacters.Margin = new System.Windows.Forms.Padding(0);
             this.chkTypeCharacters.Name = "chkTypeCharacters";
             this.chkTypeCharacters.Size = new System.Drawing.Size(194, 18);
@@ -1201,9 +1201,9 @@ namespace System.Windows.Forms
             this.pnlPointProps.ResumeLayout(false);
             this.pnlPointProps.PerformLayout();
             this.pnlPlaneProps.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBoxUnknownFlags.ResumeLayout(false);
+            this.groupBoxFlags2.ResumeLayout(false);
+            this.groupBoxFlags1.ResumeLayout(false);
+            this.groupBoxTargets.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

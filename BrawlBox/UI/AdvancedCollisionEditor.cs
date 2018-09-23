@@ -74,9 +74,9 @@ namespace System.Windows.Forms
             // pnlPlaneProps
             // 
             this.pnlPlaneProps.Controls.Clear();
-            this.pnlPlaneProps.Controls.Add(this.groupBoxUnknownFlags);
-            this.pnlPlaneProps.Controls.Add(this.groupBox2);
-            this.pnlPlaneProps.Controls.Add(this.groupBox1);
+            this.pnlPlaneProps.Controls.Add(this.groupBoxFlags2);
+            this.pnlPlaneProps.Controls.Add(this.groupBoxFlags1);
+            this.pnlPlaneProps.Controls.Add(this.groupBoxTargets);
             this.pnlPlaneProps.Controls.Add(this.cboMaterial);
             this.pnlPlaneProps.Controls.Add(this.label5);
             this.pnlPlaneProps.Controls.Add(this.groupBoxType);
@@ -99,7 +99,7 @@ namespace System.Windows.Forms
             this.groupBoxType.Margin = new System.Windows.Forms.Padding(0);
             this.groupBoxType.Name = "groupBoxType";
             this.groupBoxType.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBoxType.Size = new System.Drawing.Size(217, 59);
+            this.groupBoxType.Size = new System.Drawing.Size(208, 59);
             this.groupBoxType.TabIndex = 14;
             this.groupBoxType.TabStop = false;
             this.groupBoxType.Text = "Type";
@@ -148,62 +148,35 @@ namespace System.Windows.Forms
             this.chkTypeRightWall.UseVisualStyleBackColor = true;
             this.chkTypeRightWall.CheckedChanged += new System.EventHandler(this.chkTypeRightWall_CheckedChanged);
             // 
-            // groupBox1
+            // groupBoxFlags1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.groupBoxFlags1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox1.Location = new System.Drawing.Point(0, 76);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(104, 86);
-            this.groupBox1.TabIndex = 13;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Flags";
+            this.groupBoxFlags1.Location = new System.Drawing.Point(0, 128);
+            this.groupBoxFlags1.Name = "groupBoxFlags1";
             // 
-            // groupBox2
+            // groupBoxFlags2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.groupBoxFlags2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox2.Location = new System.Drawing.Point(104, 76);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox2.Size = new System.Drawing.Size(113, 86);
-            this.groupBox2.TabIndex = 14;
-            this.groupBox2.TabStop = false;
+            this.groupBoxFlags2.Location = new System.Drawing.Point(104, 128);
+            this.groupBoxFlags2.Name = "groupBoxFlags2";
             // 
             // cboMaterial
             // 
             this.cboMaterial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboMaterial.FormattingEnabled = true;
             this.cboMaterial.Location = new System.Drawing.Point(59, 4);
             this.cboMaterial.Name = "cboMaterial";
-            this.cboMaterial.Size = new System.Drawing.Size(146, 21);
-            this.cboMaterial.TabIndex = 12;
-            this.cboMaterial.SelectedIndexChanged += new System.EventHandler(this.cboMaterial_SelectedIndexChanged);
             // 
             // label5
             // 
             this.label5.Location = new System.Drawing.Point(0, 4);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 21);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Material:";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            //
+            // groupBoxTargets
             // 
-            // groupBoxUnknownFlags
-            // 
-            this.groupBoxUnknownFlags.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBoxUnknownFlags.Location = new System.Drawing.Point(0, 160);
-            this.groupBoxUnknownFlags.Margin = new System.Windows.Forms.Padding(0);
-            this.groupBoxUnknownFlags.Name = "groupBoxUnknownFlags";
-            this.groupBoxUnknownFlags.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBoxUnknownFlags.Size = new System.Drawing.Size(217, 59);
-            this.groupBoxUnknownFlags.TabIndex = 14;
-            this.groupBoxUnknownFlags.TabStop = false;
-            this.groupBoxUnknownFlags.Text = "Unknown Flags";
+            this.groupBoxTargets.Location = new System.Drawing.Point(0, 76);
+            this.groupBoxTargets.Name = "groupBoxTargets";
 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         }
@@ -241,7 +214,7 @@ namespace System.Windows.Forms
             if (_selectedPlanes.Count > 0)
             {
                 pnlPlaneProps.Visible = true;
-                panel3.Height = 200;
+                panel3.Height = 230;
             }
             else if (_selectedLinks.Count == 1)
             {

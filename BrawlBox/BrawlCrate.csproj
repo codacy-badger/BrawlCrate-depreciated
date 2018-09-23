@@ -305,6 +305,9 @@
     <EmbeddedResource Include="UI\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\AdvancedCollisionEditor.resx">
+      <DependentUpon>AdvancedCollisionEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\CloneSoundDialog.resx">
       <DependentUpon>CloneSoundDialog.cs</DependentUpon>
     </EmbeddedResource>
