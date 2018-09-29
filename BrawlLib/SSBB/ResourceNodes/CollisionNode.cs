@@ -862,10 +862,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             if (!_render)
                 return;
 
-            float alpha = 0.5f;
+            float alpha = 0.8f;
 
-            if (IsCharacters)
-                alpha = 0.8f;
+            if (!IsCharacters && (IsItems || IsPokemonTrainer))
+                alpha = 0.5f;
 
             Color4 clr = new Color4(1.0f, 0.0f, 1.0f, alpha);
             Vector2 l = _linkLeft.Value;
@@ -905,10 +905,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             GL.Vertex3(r._x, r._y, 10.0f);
             GL.End();
 
-            alpha = 0.5f;
+            alpha = 0.8f;
 
-            if (IsCharacters)
-                alpha = 0.8f;
+            if (!IsCharacters && (IsItems || IsPokemonTrainer))
+                alpha = 0.5f;
 
             if (lev == 1){GL.Color4(0.7f, 0.2f, 0.2f, alpha);}
             else { GL.Color4(0.6f, 0.0f, 0.6f, alpha); }
