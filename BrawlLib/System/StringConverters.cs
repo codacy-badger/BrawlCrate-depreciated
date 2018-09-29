@@ -37,6 +37,17 @@ namespace System
                 float.TryParse(arr[2], out v._z);
                 float.TryParse(arr[3], out v._w);
             }
+            else if (arr.Length == 1)
+            {
+                float i;
+                if (float.TryParse(arr[0], out i))
+                {
+                    v._x = i;
+                    v._y = i;
+                    v._z = i;
+                    v._w = i;
+                }
+            }
 
             return v;
         }
@@ -63,6 +74,15 @@ namespace System
                 float.TryParse(arr[1], out v._y);
                 float.TryParse(arr[2], out v._z);
             }
+            else if(arr.Length == 1)
+            {
+                float i;
+                if (float.TryParse(arr[0], out i)) {
+                    v._x = i;
+                    v._y = i;
+                    v._z = i;
+                }
+            }
 
             return v;
         }
@@ -87,6 +107,15 @@ namespace System
             {
                 float.TryParse(arr[0], out v._x);
                 float.TryParse(arr[1], out v._y);
+            }
+            else if (arr.Length == 1)
+            {
+                float i;
+                if (float.TryParse(arr[0], out i))
+                {
+                    v._x = i;
+                    v._y = i;
+                }
             }
 
             return v;
