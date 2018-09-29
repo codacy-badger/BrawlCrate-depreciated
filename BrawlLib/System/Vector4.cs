@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
+using System.Globalization;
 
 namespace System
 {
@@ -66,7 +67,12 @@ namespace System
             return new Vector4(_x * scale, _y * scale, _z * scale, _w);
         }
 
-        public override string ToString() { return String.Format("({0},{1},{2},{3})", _x, _y, _z, _w); }
+        public override string ToString()
+        {
+            if (CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.Contains(","))
+                return String.Format("({0} {1} {2} {3})", _x, _y, _z, _w);
+            return String.Format("({0},{1},{2},{3})", _x, _y, _z, _w);
+        }
 
         public override bool Equals(object obj)
         {

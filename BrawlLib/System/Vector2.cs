@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using System.Drawing;
+using System.Globalization;
 
 namespace System
 {
@@ -65,6 +66,8 @@ namespace System
 
         public override string ToString()
         {
+            if (CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.Contains(","))
+                return String.Format("({0} {1})", _x, _y);
             return String.Format("({0},{1})", _x, _y);
         }
 

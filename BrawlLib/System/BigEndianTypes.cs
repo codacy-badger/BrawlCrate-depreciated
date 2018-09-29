@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using System.Globalization;
 
 namespace System
 {
@@ -162,7 +163,12 @@ namespace System
 
         public BVec2(float x, float y) { _x = x; _y = y; }
 
-        public override string ToString() { return String.Format("({0}, {1})", (float)_x, (float)_y); }
+        public override string ToString()
+        {
+            if (CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.Contains(","))
+                return String.Format("({0} {1})", (float)_x, (float)_y);
+            return String.Format("({0}, {1})", (float)_x, (float)_y);
+        }
 
         public static implicit operator Vector2(BVec2 v) { return new Vector2(v._x, v._y); }
         public static implicit operator BVec2(Vector2 v) { return new BVec2(v._x, v._y); }
@@ -177,7 +183,12 @@ namespace System
 
         public BVec3(float x, float y, float z) { _x = x; _y = y; _z = z; }
 
-        public override string ToString() { return String.Format("({0}, {1}, {2})", (float)_x, (float)_y, (float)_z); }
+        public override string ToString()
+        {
+            if (CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.Contains(","))
+                return String.Format("({0} {1} {2})", (float)_x, (float)_y, (float)_z);
+            return String.Format("({0}, {1}, {2})", (float)_x, (float)_y, (float)_z);
+        }
 
         public static implicit operator Vector3(BVec3 v) { return new Vector3(v._x, v._y, v._z); }
         public static implicit operator BVec3(Vector3 v) { return new BVec3(v._x, v._y, v._z); }
@@ -196,7 +207,12 @@ namespace System
 
         public BVec4(float x, float y, float z, float w) { _x = x; _y = y; _z = z; _w = w; }
 
-        public override string ToString() { return String.Format("({0}, {1}, {2}, {3})", (float)_x, (float)_y, (float)_z, (float)_w); }
+        public override string ToString()
+        {
+            if (CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.Contains(","))
+                return String.Format("({0} {1} {2} {3})", (float)_x, (float)_y, (float)_z, (float)_w);
+            return String.Format("({0}, {1}, {2}, {3})", (float)_x, (float)_y, (float)_z, (float)_w);
+        }
 
         public static implicit operator Vector4(BVec4 v) { return new Vector4(v._x, v._y, v._z, v._w); }
         public static implicit operator BVec4(Vector4 v) { return new BVec4(v._x, v._y, v._z, v._w); }
@@ -222,6 +238,8 @@ namespace System
 
         public override string ToString()
         {
+            if (CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.Contains(","))
+                return String.Format("({0} {1} {2} {3})({4} {5} {6} {7})({8} {9} {10} {11})", this[0], this[1], this[2], this[3], this[4], this[5], this[6], this[7], this[8], this[9], this[10], this[11]);
             return String.Format("({0},{1},{2},{3})({4},{5},{6},{7})({8},{9},{10},{11})", this[0], this[1], this[2], this[3], this[4], this[5], this[6], this[7], this[8], this[9], this[10], this[11]);
         }
 
@@ -316,7 +334,10 @@ namespace System
 
         public override string ToString()
         {
+            if (CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.Contains(","))
+                return String.Format("({0} {1} {2} {3})({4} {5} {6} {7})({8} {9} {10} {11})({12} {13} {14} {15})", this[0], this[1], this[2], this[3], this[4], this[5], this[6], this[7], this[8], this[9], this[10], this[11], this[12], this[13], this[14], this[15]);
             return String.Format("({0},{1},{2},{3})({4},{5},{6},{7})({8},{9},{10},{11})({12},{13},{14},{15})", this[0], this[1], this[2], this[3], this[4], this[5], this[6], this[7], this[8], this[9], this[10], this[11], this[12], this[13], this[14], this[15]);
+
         }
 
         public static implicit operator Matrix(bMatrix bm)
