@@ -3013,7 +3013,7 @@ namespace System.Windows.Forms
         {
             if (_updating)
                 return;
-            if (numX.Text == "")
+            if (numX.Text == "" && _errorChecking)
                 return;
             foreach (CollisionLink link in _selectedLinks)
             {
@@ -3034,7 +3034,7 @@ namespace System.Windows.Forms
         {
             if (_updating)
                 return;
-            if (numY.Text == "")
+            if (numY.Text == "" && _errorChecking)
                 return;
             foreach (CollisionLink link in _selectedLinks)
             {
