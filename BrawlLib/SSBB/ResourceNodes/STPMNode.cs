@@ -204,7 +204,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [Category("STPM Values")]
         public float IceClimbersFinalScaleY { get { return _values.GetFloat(46); } set { _values.SetFloat(46, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
-        public float PalutenaSize { get { return _values.GetFloat(47); } set { _values.SetFloat(47, value); SignalPropertyChange(); } }
+        public float PitFinalPalutenaScale { get { return _values.GetFloat(47); } set { _values.SetFloat(47, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
         public float Value49 { get { return _values.GetFloat(48); } set { _values.SetFloat(48, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
