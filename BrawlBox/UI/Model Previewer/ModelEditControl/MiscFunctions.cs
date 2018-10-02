@@ -422,6 +422,19 @@ namespace System.Windows.Forms
             }
             return false;
         }
+        private bool HotkeyOverlays()
+        {
+            if (ModelPanel.Focused)
+            {
+                chkAllOverlays.Checked = !chkAllOverlays.Checked;
+                chkItems.Checked = chkAllOverlays.Checked;
+                chkSpawns.Checked = chkAllOverlays.Checked;
+                chkBoundaries.Checked = chkAllOverlays.Checked;
+                ModelPanel.Invalidate();
+                return true;
+            }
+            return false;
+        }
 
         public override void InitHotkeyList()
         {
@@ -440,6 +453,7 @@ namespace System.Windows.Forms
                 new HotKeyInfo(Keys.T, false, false, false, HotkeyTranslateTool),
                 new HotKeyInfo(Keys.D0, false, false, false, HotkeyVertexEditor),
                 new HotKeyInfo(Keys.D9, false, false, false, HotkeyWeightEditor),
+                new HotKeyInfo(Keys.D5, false, false, false, HotkeyOverlays),
             };
             _hotkeyList.AddRange(temp);
         }

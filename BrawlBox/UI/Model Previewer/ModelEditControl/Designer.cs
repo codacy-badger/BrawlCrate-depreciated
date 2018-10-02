@@ -1581,7 +1581,7 @@ namespace System.Windows.Forms
             this.chkAllOverlays.Size = new System.Drawing.Size(206, 26);
             this.chkAllOverlays.Text = "All";
             this.chkAllOverlays.CheckedChanged += new System.EventHandler(this.chkAllOverlays_CheckedChanged);
-            this.chkAllOverlays.ShortcutKeys = Keys.Control | Keys.V;
+            this.btnVertexEditor.ShortcutKeyDisplayString = "5 Key";
             // 
             // chkBoundaries
             // 
