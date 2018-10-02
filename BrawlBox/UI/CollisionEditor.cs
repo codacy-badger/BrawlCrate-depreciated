@@ -1284,7 +1284,7 @@ namespace System.Windows.Forms
             {
                 lstObjects.SelectedIndex = 0;
                 _selectedObject = lstObjects.Items[0] as CollisionObject;
-                SnapObject();
+                //SnapObject();
             }
             ObjectSelected();
 
