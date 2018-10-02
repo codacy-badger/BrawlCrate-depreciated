@@ -333,6 +333,8 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             foreach (CollisionPlane p in _planes)
                 p.DrawPlanes(p);
+            foreach (CollisionLink l in _points)
+                l.Render(true);
         }
 
         public override string ToString()
@@ -510,6 +512,38 @@ namespace BrawlLib.SSBB.ResourceNodes
             _members.Remove(plane);
             if (_members.Count == 0)
                 _parent._points.Remove(this);
+        }
+
+        public void Render(bool newMethod)
+        {
+            if (!newMethod)
+            {
+                Render();
+                return;
+            }
+            Color4 clr = new Color4(1.0f, 1.0f, 1.0f, 1.0f);
+            float mult = 1.0f;
+            foreach(CollisionPlane p in _members)
+            {
+                if((p.LinkLeft == this && p.IsLeftLedge) || (p.LinkRight == this && p.IsRightLedge))
+                {
+                    clr = new Color4(1.0f, 0.0f, 1.0f, 1.0f);
+                    mult = 3.0f;
+                    break;
+                }
+            }
+            if (_highlight)
+                GL.Color4(1.0f, 1.0f, 0.0f, 1.0f);
+            else
+                GL.Color4(clr);
+
+            Vector2 v = Value;
+
+            GL.Disable(EnableCap.CullFace);
+            TKContext.DrawBox(
+                new Vector3(v._x - mult * BoxRadius, v._y - mult * BoxRadius, LineWidth),
+                new Vector3(v._x + mult * BoxRadius, v._y + mult * BoxRadius, -LineWidth));
+            GL.Enable(EnableCap.CullFace);
         }
 
         public void Render() { Render(1.0f); }
@@ -935,14 +969,14 @@ namespace BrawlLib.SSBB.ResourceNodes
             GL.Vertex3(r._x, r._y, -10.0f);
             GL.End();
 
-            if (p.IsRightLedge && p.IsLeftLedge) { _linkLeft.Render(clr, 3.0f); _linkRight.Render(clr, 3.0f); }
+            /*if (p.IsRightLedge && p.IsLeftLedge) { _linkLeft.Render(clr, 3.0f); _linkRight.Render(clr, 3.0f); }
             else if (p.IsLeftLedge && !p.IsRightLedge) {  _linkLeft.Render(clr, 3.0f); _linkRight.Render(); }
             else if (p.IsRightLedge && !p.IsLeftLedge) { _linkLeft.Render(); _linkRight.Render(clr, 3.0f); }
             else
             {
                 _linkLeft.Render();
                 _linkRight.Render();
-            }
+            }*/
         }
     }
 }
