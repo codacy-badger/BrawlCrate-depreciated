@@ -523,9 +523,11 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             Vector2 v = Value;
 
+            GL.Disable(EnableCap.CullFace);
             TKContext.DrawBox(
                 new Vector3(v._x - mult * BoxRadius, v._y - mult * BoxRadius,  LineWidth),
                 new Vector3(v._x + mult * BoxRadius, v._y + mult * BoxRadius, -LineWidth));
+            GL.Enable(EnableCap.CullFace);
         }
     }
 
@@ -867,7 +869,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             if (!IsCharacters && (IsItems || IsPokemonTrainer))
                 alpha = 0.5f;
 
-            Color4 clr = new Color4(1.0f, 0.0f, 1.0f, alpha);
+            Color4 clr = new Color4(1.0f, 0.0f, 1.0f, 1.0f);
             Vector2 l = _linkLeft.Value;
             Vector2 r = _linkRight.Value;
 
