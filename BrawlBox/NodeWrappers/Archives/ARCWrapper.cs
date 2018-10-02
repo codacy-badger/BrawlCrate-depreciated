@@ -561,6 +561,7 @@ namespace BrawlBox
             if (path == null)
                 return;
 
+            bool hasModels = false;
             bool hasTextures = false;
             foreach (ARCEntryNode b in _resource.Children)
             {
@@ -569,23 +570,37 @@ namespace BrawlBox
                     foreach (BRESGroupNode e in b.Children)
                     {
                         if (e.Type == BRESGroupNode.BRESGroupType.Textures)
-                        {
                             hasTextures = true;
+                        else if (e.Type == BRESGroupNode.BRESGroupType.Models)
+                            hasModels = true;
+                        if (hasModels && hasTextures)
                             break;
-                        }
                     }
                 }
             }
-            
+
+            string extensionTEX0 = ".tex0";
+            string extensionMDL0 = ".mdl0";
+
             if (hasTextures)
             {
                 ExportAllFormatDialog dialog = new ExportAllFormatDialog();
 
                 if (dialog.ShowDialog() == DialogResult.OK)
-                    ((ARCNode)_resource).ExtractToFolder(path, dialog.SelectedExtension);
+                    extensionTEX0 = dialog.SelectedExtension;
+                else
+                    return;
             }
-            else
-                ((ARCNode)_resource).ExtractToFolder(path);
+            if (hasModels)
+            {
+                ExportAllFormatDialog dialog = new ExportAllFormatDialog(true);
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                    extensionMDL0 = dialog.SelectedExtension;
+                else
+                    return;
+            }
+            ((ARCNode)_resource).ExtractToFolder(path, extensionTEX0, extensionMDL0);
         }
 
         public void ReplaceAll()
