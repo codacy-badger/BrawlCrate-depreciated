@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.11
+BrawlCrate - v0.12
 Copyright © 2018 soopercool101, MarioDox
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -16,6 +16,41 @@ they be held accountable for the manner in which it is used.
 |************ BrawlCrate Change Log ************|
  ===============================================
  
+ - BrawlCrate v0.12 - (10/2/2018)
+ . Added support to offset a particular frame on a PAT0, moving frames after it
+ . Inputting a single number into a Vector will now fill all values for the vector with the inputted value
+ . Contextual loop checking is now a setting in the model viewer settings
+ . Added toggle (5 key) to turn on/off all overlays in the model viewer
+ . Export all now asks for Model format if there are any models
+ . Collision Editor improvements
+   - Collision planes which are not interactable by characters are now rendered as more transparent than those which are
+   - No longer automatically snaps to the first group of collision objects upon opening a Collision Data
+   - Collision Targets now have their own separate category. The flags have been rearranged to compensate for this change
+   - Camera view buttons now properly display as toggles
+   - Reset Camera button is now accessible from the default window size
+   - Added toggles for the StagePosition overlays (Boundaries is on by default)
+   - Improved CollisionLink rendering (now will only render each one once and will render all sides)
+   - Control+Delete now deletes the currently selected CollisionObject, and deleting a CollisionObject now selects the next one.
+   - Fixed bug in which opening the collision editors before previewing the models would not properly move bone-mapped collision objects
+   - NaN inputs are no longer allowed in the non-advanced collision editor
+   - Right clicking in the collision objects sidebar when there are no selected objects no longer shows irrelevant functions
+   - Advanced collision editor has been redone as a derived class from the default one, which lowers filesize and ensures both implementations more closely match
+ . Improved Stage Parameter parsing
+   - Value42 -> OlimarFinalCamAngle
+   - Value43 -> IceClimbersFinalPosX
+   - Value44 -> IceClimbersFinalPosY
+   - Value45 -> IceClimbersFinalPosZ
+   - Value46 -> IceClimbersFinalScaleX
+   - Value47 -> IceClimbersFinalScaleY
+   - Value48 -> PitFinalPalutenaScale
+ . Can no longer delete nodes using Control+Delete when the main window is not active
+ . InfoIndex for RSAR is now parsed as hex rather than decimal
+ . Languages which use "," as a decimal separator can now properly edit vectors and matrices
+ . PLT0 animation preview now checks the preview loop properly
+ . Mass material edits no longer crash when used on models with no materials
+ . Setting to import PNGs with Palettes is now on by default (this allows for Color Smash)
+ . STDT will now properly autodetect values of +/-Infinity as floats
+
  - BrawlCrate v0.11 - (9/18/2018)
  . Added support to generate a PAT0 by right clicking a texture in "name.#" format
  . Added support to save ARCs as multi-file stages (STGMARIOPAST, STGMETALGEAR, STGVILLAGE, STGTENGAN)
