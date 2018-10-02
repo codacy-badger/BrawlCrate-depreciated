@@ -18,6 +18,7 @@ they be held accountable for the manner in which it is used.
  
  - BrawlCrate v0.12 - (10/2/2018)
  . Added support to offset a particular frame on a PAT0, moving frames after it
+ . PAT0 animation preview now checks the preview loop contextually
  . Inputting a single number into a Vector will now fill all values for the vector with the inputted value
  . Contextual loop checking is now a setting in the model viewer settings
  . Added toggle (5 key) to turn on/off all overlays in the model viewer
@@ -46,10 +47,10 @@ they be held accountable for the manner in which it is used.
  . Can no longer delete nodes using Control+Delete when the main window is not active
  . InfoIndex for RSAR is now parsed as hex rather than decimal
  . Languages which use "," as a decimal separator can now properly edit vectors and matrices
- . PLT0 animation preview now checks the preview loop properly
  . Mass material edits no longer crash when used on models with no materials
  . Setting to import PNGs with Palettes is now on by default (this allows for Color Smash)
  . STDT will now properly autodetect values of +/-Infinity as floats
+ . Fixed bug in which rendering a gif would always change the loop preview for the animation to off
 
  - BrawlCrate v0.11 - (9/18/2018)
  . Added support to generate a PAT0 by right clicking a texture in "name.#" format

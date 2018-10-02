@@ -195,7 +195,7 @@ namespace BrawlBox.NodeWrappers
 
         public void DeleteTEX0()
         {
-            if (Parent == null)
+            if (Parent == null || (MainForm.Instance != null && Form.ActiveForm != null && Form.ActiveForm != MainForm.Instance))
                 return;
 
             if (((TEX0Node)_resource).HasPalette)
