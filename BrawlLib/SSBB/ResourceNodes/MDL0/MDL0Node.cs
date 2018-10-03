@@ -831,6 +831,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             for (int x = 0; x < _matList.Count; x++)
             {
                 MDL0MaterialNode n = (MDL0MaterialNode)_matList[x];
+                Generate:
                 if (!n.IsMetal && n.MetalMaterial == null)
                 {
                     MDL0MaterialNode node = new MDL0MaterialNode()
@@ -897,6 +898,11 @@ namespace BrawlLib.SSBB.ResourceNodes
                     node._normMapRefLight2 =
                     node._normMapRefLight3 =
                     node._normMapRefLight4 = -1;
+                }
+                else if(!n.IsMetal && n.MetalMaterial != null && n.MetalMaterial.Children.Count > 0 && n.MetalMaterial.Children[0].Name != metalTextureName)
+                {
+                    _matList.Remove(n.MetalMaterial);
+                    goto Generate;
                 }
             }
             foreach (MDL0MaterialNode node in _matList)
