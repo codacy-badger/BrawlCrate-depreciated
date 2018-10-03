@@ -678,6 +678,9 @@
     <Compile Include="System\Windows\Controls\GoodColorControl2.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="System\Windows\Forms\StringInputDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="System\Windows\Forms\StageBoxHexEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1077,6 +1080,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="System\Windows\Controls\GoodColorControl2.resx">
       <DependentUpon>GoodColorControl2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="System\Windows\Forms\StringInputDialog.resx">
+      <DependentUpon>StringInputDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="System\Windows\Forms\StageBoxHexEntry.resx">
       <DependentUpon>StageBoxHexEntry.cs</DependentUpon>

@@ -62,7 +62,8 @@ namespace BrawlBox.NodeWrappers
             _menu.Items.Add(new ToolStripMenuItem("&Edit Materials", null,
                 new ToolStripMenuItem("&Characters", null,
                     new ToolStripMenuItem("&Convert To Spy Model", null, SpyConvertAction),
-                    new ToolStripMenuItem("&Regenerate Metal Materials", null, MetalAction)
+                    new ToolStripMenuItem("&Regenerate Metal Materials", null, MetalAction),
+                    new ToolStripMenuItem("Regenerate Custom Metal Materials", null, CustomMetalAction)
                 ),
                 new ToolStripMenuItem("&Stages", null,
                     new ToolStripMenuItem("&Convert To Shadow Model", null, ShadowConvertAction),
@@ -110,8 +111,9 @@ namespace BrawlBox.NodeWrappers
         protected static void PreviewAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().Preview(); }
         protected static void ImportObjectAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().ImportObject(); }
         protected static void RecalcBBsOption(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().RecalcBoundingBoxes(); }
-        protected static void MetalAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().AutoMetal(); }
-        
+        protected static void MetalAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().AutoMetal("metal00"); }
+        protected static void CustomMetalAction(object sender, EventArgs e) { StringInputDialog input = new StringInputDialog("Texture Name", "metal00"); input.ShowDialog(); if (input.DialogResult == DialogResult.OK) { GetInstance<MDL0Wrapper>().AutoMetal(input.resultString); } }
+
         protected static void NewShaderAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NewShader(); }
         protected static void NewMaterialAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NewMaterial(); }
 
@@ -656,10 +658,10 @@ namespace BrawlBox.NodeWrappers
                 b.EnsureVisible();
         }
 
-        public void AutoMetal()
+        public void AutoMetal(string metalTextureName)
         {
             if (MessageBox.Show(null, "Are you sure you want to regenerate metal materials for Brawl?\nAll existing metal materials and shaders will be reset.", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                ((MDL0Node)_resource).GenerateMetalMaterials();
+                ((MDL0Node)_resource).GenerateMetalMaterials(metalTextureName);
         }
 
         public void NameVertex()

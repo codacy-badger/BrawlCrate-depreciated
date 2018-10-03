@@ -816,6 +816,12 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public void GenerateMetalMaterials()
         {
+            GenerateMetalMaterials("metal00");
+        }
+
+        public void GenerateMetalMaterials(String metalTextureName)
+        {
+            Console.WriteLine(metalTextureName);
             if (_children == null)
                 Populate();
 
@@ -839,7 +845,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                     {
                         MDL0MaterialRefNode mr = new MDL0MaterialRefNode();
                         node.AddChild(mr);
-                        mr.Texture = "metal00";
+                        mr.Texture = metalTextureName;
 
                         if (i == n.Children.Count || ((MDL0MaterialRefNode)n.Children[i]).HasTextureMatrix)
                         {
