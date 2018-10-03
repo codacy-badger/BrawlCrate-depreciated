@@ -12,7 +12,7 @@ namespace System
             if(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.Contains(","))
                 return new char[] { '(', ')', ' ' };
             return new char[] { ',', '(', ')', ' ' };
-}
+		}
     }
 
     public class Vector4StringConverter : TypeConverter
