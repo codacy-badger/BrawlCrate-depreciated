@@ -1199,7 +1199,7 @@ Initial Release (2/19/2015):
 |*********** Requirements ***********|
  ====================================
  
-* StageBox: Microsoft .Net Framework v4.5.1
+* BrawlCrate: Microsoft .Net Framework v4.5.1
 	http://www.microsoft.com/en-us/download/details.aspx?id=40779 (Offline installer)
 	http://www.microsoft.com/en-us/download/details.aspx?id=40773 (Web installer)
 
