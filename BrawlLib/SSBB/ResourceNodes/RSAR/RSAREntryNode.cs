@@ -59,6 +59,40 @@ namespace BrawlLib.SSBB.ResourceNodes
                 SignalPropertyChange();
             }
         }
+
+        public static int _soundbankCalc = 331;
+        [Category("JOJI Soundbank Expansion")]
+        [DisplayName("SawndID (For Calculation Purposes Only)")]
+        public int SoundbankCalc
+        {
+            get
+            {
+                return _soundbankCalc;
+            }
+            set
+            {
+                if (value < 331 || value > 586)
+                    return;
+                _soundbankCalc = value;
+            }
+        }
+
+        [Category("JOJI Soundbank Expansion")]
+        public string ExpandedInfoIndex
+        {
+            get
+            {
+                int a5mult = 0;
+                if (_soundbankCalc > 331 && _soundbankCalc < 587)
+                    a5mult = _soundbankCalc - 331;
+                if (_infoIndex >= 0xA34 && _infoIndex <= 0xA62)
+                    return "0x" + (_infoIndex + 0x35CC + (0xA5 * a5mult)).ToString("X8");
+                else if (_infoIndex >= 0x18D8 && _infoIndex <= 0x194D)
+                    return "0x" + (_infoIndex + 0x2757 + (0xA5 * a5mult)).ToString("X8");
+                else
+                    return "N/A";
+            }
+        }
         
         public int _infoIndex;
         internal VoidPtr Data { get { return (VoidPtr)WorkingUncompressed.Address; } }
