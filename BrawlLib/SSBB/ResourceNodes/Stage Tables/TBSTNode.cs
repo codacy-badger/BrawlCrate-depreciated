@@ -166,19 +166,19 @@ namespace BrawlLib.SSBB.ResourceNodes
             ReadConfig();
             ResourceNode root = this;
             while (root.Parent != null) root = root.Parent;
-            var q = from f in TBSTFormats
-                    where 0x10 + f.NumEntries * 4 == WorkingUncompressed.Length
+            var q = from f in TBCLFormats
+                    where 0x14 + f.NumEntries * 4 == WorkingUncompressed.Length
                     select f;
 
             bool any_match_name = q.Any(f => String.Equals(
                 Path.GetFileNameWithoutExtension(f.Filename),
-                root.Name.Replace("STG", ""),
+                root.Name.Replace("STG", "") + "[" + FileIndex + "]",
                 StringComparison.InvariantCultureIgnoreCase));
             if (!any_match_name) q = q.Concat(new AttributeInterpretation[] { GenerateDefaultInterpretation() });
 
             q = q.OrderBy(f => !String.Equals(
                 Path.GetFileNameWithoutExtension(f.Filename),
-                root.Name.Replace("STG", ""),
+                root.Name.Replace("STG", "") + "[" + FileIndex + "]",
                 StringComparison.InvariantCultureIgnoreCase));
 
             return q;
@@ -206,7 +206,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 if (*pIn == 0)
                 {
                     arr[i]._type = 0;
-                    arr[i]._description = "Default: 0 (could be int or float - be careful)";
+                    arr[i]._description = "Default: 0 (Could be int or float - be careful)";
                 }
                 else if ((((u >> 24) & 0xFF) != 0 && *((bint*)pIn) != -1 && !float.IsNaN(f)) || (p.R == 0 && p.G == 50 && p.B == 0))
                 {
@@ -214,7 +214,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                     if ((abs > 0.0000001 && abs < 10000000) || float.IsInfinity(abs))
                     {
                         arr[i]._type = 0;
-                        arr[i]._description = "Default (float): " + f + " (0x" + u.ToString("X8") + ")";
+                        arr[i]._description = "Default (Float): " + f + " (0x" + u.ToString("X8") + ")";
                     }
                     else if ((p.R % 5 == 0 || p.R % 3 == 0) && (p.B % 5 == 0 || p.B % 3 == 0) &&
                              (p.G % 5 == 0 || p.G % 3 == 0) && (p.A == 0 || p.A == 255))
@@ -226,48 +226,54 @@ namespace BrawlLib.SSBB.ResourceNodes
                     else
                     {
                         arr[i]._type = 4;
-                        arr[i]._description = "Default (unknown type): " + "(0x" + u.ToString("X8") + ")";
+                        arr[i]._description = "Default (Unknown Type): " + "(0x" + u.ToString("X8") + ")";
                         arr[i]._name = "~" + arr[i]._name;
                     }
                 }
                 else
                 {
                     arr[i]._type = 1;
-                    arr[i]._description = "Default (int): " + u + " (0x" + u.ToString("X8") + ")";
+                    arr[i]._description = "Default (Integer): " + u + " (0x" + u.ToString("X8") + ")";
                     arr[i]._name = "*" + arr[i]._name;
                 }
                 index += 4;
                 pIn++;
             }
 
-            string filename = "TBST/" + root.Name.Replace("STG", "") + ".txt";
+            string temp = "";
+            if (root != this)
+                temp = "[" + FileIndex + "]";
+            string filename = AppDomain.CurrentDomain.BaseDirectory + "\\StageDocumentation" + "\\TBCL\\" + root.Name.Replace("STG", "") + temp + ".txt";
             return new AttributeInterpretation(arr, filename);
         }
 
-        private static List<AttributeInterpretation> TBSTFormats = new List<AttributeInterpretation>();
+        private static List<AttributeInterpretation> TBCLFormats = new List<AttributeInterpretation>();
         private static HashSet<string> configpaths_read = new HashSet<string>();
 
         private static void ReadConfig()
         {
-            if (Directory.Exists("TBST"))
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\StageDocumentation"))
             {
-                foreach (string path in Directory.EnumerateFiles("TBST", "*.txt"))
+                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\StageDocumentation" + "\\TBCL"))
                 {
-                    if (configpaths_read.Contains(path)) continue;
-                    configpaths_read.Add(path);
-                    try
+                    foreach (string path in Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory + "\\StageDocumentation" + "\\TBCL", "*.txt"))
                     {
-                        TBSTFormats.Add(new AttributeInterpretation(path));
-                    }
-                    catch (FormatException ex)
-                    {
-                        if (Properties.Settings.Default.HideMDL0Errors)
+                        if (configpaths_read.Contains(path)) continue;
+                        configpaths_read.Add(path);
+                        try
                         {
-                            Console.Error.WriteLine(ex.Message);
+                            TBCLFormats.Add(new AttributeInterpretation(path));
                         }
-                        else
+                        catch (FormatException ex)
                         {
-                            MessageBox.Show(ex.Message);
+                            if (Properties.Settings.Default.HideMDL0Errors)
+                            {
+                                Console.Error.WriteLine(ex.Message);
+                            }
+                            else
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
                         }
                     }
                 }

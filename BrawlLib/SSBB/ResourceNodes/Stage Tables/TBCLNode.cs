@@ -149,29 +149,30 @@ namespace BrawlLib.SSBB.ResourceNodes
             return "0x" + ((int)((bint*)AttributeAddress)[index]).ToString("X8");
         }
 
-        public IEnumerable<AttributeInterpretation> GetPossibleInterpretations() {
-			ReadConfig();
-			ResourceNode root = this;
-			while (root.Parent != null) root = root.Parent;
-			var q = from f in TBCLFormats
-					where 0x14 + f.NumEntries * 4 == WorkingUncompressed.Length
-					select f;
+        public IEnumerable<AttributeInterpretation> GetPossibleInterpretations()
+        {
+            ReadConfig();
+            ResourceNode root = this;
+            while (root.Parent != null) root = root.Parent;
+            var q = from f in TBCLFormats
+                    where 0x14 + f.NumEntries * 4 == WorkingUncompressed.Length
+                    select f;
 
-			bool any_match_name = q.Any(f => String.Equals(
-				Path.GetFileNameWithoutExtension(f.Filename),
-				root.Name.Replace("STG", ""),
-				StringComparison.InvariantCultureIgnoreCase));
-			if (!any_match_name) q = q.Concat(new AttributeInterpretation[] { GenerateDefaultInterpretation() });
+            bool any_match_name = q.Any(f => String.Equals(
+                Path.GetFileNameWithoutExtension(f.Filename),
+                root.Name.Replace("STG", "") + "[" + FileIndex + "]",
+                StringComparison.InvariantCultureIgnoreCase));
+            if (!any_match_name) q = q.Concat(new AttributeInterpretation[] { GenerateDefaultInterpretation() });
 
-			q = q.OrderBy(f => !String.Equals(
-				Path.GetFileNameWithoutExtension(f.Filename),
-				root.Name.Replace("STG", ""),
-				StringComparison.InvariantCultureIgnoreCase));
+            q = q.OrderBy(f => !String.Equals(
+                Path.GetFileNameWithoutExtension(f.Filename),
+                root.Name.Replace("STG", "") + "[" + FileIndex + "]",
+                StringComparison.InvariantCultureIgnoreCase));
 
-			return q;
-		}
+            return q;
+        }
 
-		private AttributeInterpretation GenerateDefaultInterpretation()
+        private AttributeInterpretation GenerateDefaultInterpretation()
         {
             AttributeInfo[] arr = new AttributeInfo[NumEntries];
             buint* pIn = (buint*)AttributeAddress;
@@ -193,7 +194,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 if (*pIn == 0)
                 {
                     arr[i]._type = 0;
-                    arr[i]._description = "Default: 0 (could be int or float - be careful)";
+                    arr[i]._description = "Default: 0 (Could be int or float - be careful)";
                 }
                 else if ((((u >> 24) & 0xFF) != 0 && *((bint*)pIn) != -1 && !float.IsNaN(f)) || (p.R == 0 && p.G == 50 && p.B == 0))
                 {
@@ -201,7 +202,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                     if ((abs > 0.0000001 && abs < 10000000) || float.IsInfinity(abs))
                     {
                         arr[i]._type = 0;
-                        arr[i]._description = "Default (float): " + f + " (0x" + u.ToString("X8") + ")";
+                        arr[i]._description = "Default (Float): " + f + " (0x" + u.ToString("X8") + ")";
                     }
                     else if ((p.R % 5 == 0 || p.R % 3 == 0) && (p.B % 5 == 0 || p.B % 3 == 0) &&
                              (p.G % 5 == 0 || p.G % 3 == 0) && (p.A == 0 || p.A == 255))
@@ -213,43 +214,58 @@ namespace BrawlLib.SSBB.ResourceNodes
                     else
                     {
                         arr[i]._type = 4;
-                        arr[i]._description = "Default (unknown type): " + "(0x" + u.ToString("X8") + ")";
+                        arr[i]._description = "Default (Unknown Type): " + "(0x" + u.ToString("X8") + ")";
                         arr[i]._name = "~" + arr[i]._name;
                     }
                 }
                 else
                 {
                     arr[i]._type = 1;
-                    arr[i]._description = "Default (int): " + u + " (0x" + u.ToString("X8") + ")";
+                    arr[i]._description = "Default (Integer): " + u + " (0x" + u.ToString("X8") + ")";
                     arr[i]._name = "*" + arr[i]._name;
                 }
                 index += 4;
                 pIn++;
             }
 
-            string filename = "TBCL/" + root.Name.Replace("STG", "") + ".txt";
-			return new AttributeInterpretation(arr, filename);
-		}
+            string temp = "";
+            if (root != this)
+                temp = "[" + FileIndex + "]";
+            string filename = AppDomain.CurrentDomain.BaseDirectory + "\\StageDocumentation" + "\\TBCL\\" + root.Name.Replace("STG", "") + temp + ".txt";
+            return new AttributeInterpretation(arr, filename);
+        }
 
-		private static List<AttributeInterpretation> TBCLFormats = new List<AttributeInterpretation>();
-		private static HashSet<string> configpaths_read = new HashSet<string>();
+        private static List<AttributeInterpretation> TBCLFormats = new List<AttributeInterpretation>();
+        private static HashSet<string> configpaths_read = new HashSet<string>();
 
-		private static void ReadConfig() {
-			if (Directory.Exists("TBCL")) {
-				foreach (string path in Directory.EnumerateFiles("TBCL", "*.txt")) {
-					if (configpaths_read.Contains(path)) continue;
-					configpaths_read.Add(path);
-					try {
-						TBCLFormats.Add(new AttributeInterpretation(path));
-					} catch (FormatException ex) {
-						if (Properties.Settings.Default.HideMDL0Errors) {
-							Console.Error.WriteLine(ex.Message);
-						} else {
-							MessageBox.Show(ex.Message);
-						}
-					}
-				}
-			}
-		}
+        private static void ReadConfig()
+        {
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\StageDocumentation"))
+            {
+                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\StageDocumentation" + "\\TBCL"))
+                {
+                    foreach (string path in Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory + "\\StageDocumentation" + "\\TBCL", "*.txt"))
+                    {
+                        if (configpaths_read.Contains(path)) continue;
+                        configpaths_read.Add(path);
+                        try
+                        {
+                            TBCLFormats.Add(new AttributeInterpretation(path));
+                        }
+                        catch (FormatException ex)
+                        {
+                            if (Properties.Settings.Default.HideMDL0Errors)
+                            {
+                                Console.Error.WriteLine(ex.Message);
+                            }
+                            else
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
