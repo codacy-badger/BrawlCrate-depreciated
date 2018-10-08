@@ -109,4 +109,3 @@ Default (Float): 0.6 (0x3F19999A)
 0x080
 Default (Float): 60 (0x42700000)
 0
-

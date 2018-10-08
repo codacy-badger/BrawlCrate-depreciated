@@ -19,7 +19,7 @@ DK End Minimum Timer
 0
 
 DK End Maximum Timer
-(Float) Maximum frame timer before DK leaves (Setting this and 0x024 to 0 will cause him to instantly leave soon as he appears (also doesn’t allow time for springs to spawn)
+(Float) Maximum frame timer before DK leaves (Setting this and 0x024 to 0 will cause him to instantly leave soon as he appears (and also doesn’t allow time for springs to spawn))
 0
 
 0x02C
