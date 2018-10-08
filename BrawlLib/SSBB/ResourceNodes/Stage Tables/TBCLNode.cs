@@ -196,7 +196,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                     arr[i]._type = 0;
                     arr[i]._description = "Default: 0 (Could be int or float - be careful)";
                 }
-                else if ((((u >> 24) & 0xFF) != 0 && *((bint*)pIn) != -1 && !float.IsNaN(f)) || (p.R == 0 && p.G == 50 && p.B == 0))
+                else if ((((u >> 24) & 0xFF) != 0 && *((bint*)pIn) != -1 && !float.IsNaN(f)))// || (p.R == 0 && p.G == 50 && p.B == 0))
                 {
                     float abs = Math.Abs(f);
                     if ((abs > 0.0000001 && abs < 10000000) || float.IsInfinity(abs))
@@ -204,13 +204,13 @@ namespace BrawlLib.SSBB.ResourceNodes
                         arr[i]._type = 0;
                         arr[i]._description = "Default (Float): " + f + " (0x" + u.ToString("X8") + ")";
                     }
-                    else if ((p.R % 5 == 0 || p.R % 3 == 0) && (p.B % 5 == 0 || p.B % 3 == 0) &&
+                    /*else if ((p.R % 5 == 0 || p.R % 3 == 0) && (p.B % 5 == 0 || p.B % 3 == 0) &&
                              (p.G % 5 == 0 || p.G % 3 == 0) && (p.A == 0 || p.A == 255))
                     {
                         arr[i]._type = 3;
                         arr[i]._description = "Default (Color): " + p + " (0x" + u.ToString("X8") + ")";
                         arr[i]._name = arr[i]._name;
-                    }
+                    }*/
                     else
                     {
                         arr[i]._type = 4;
