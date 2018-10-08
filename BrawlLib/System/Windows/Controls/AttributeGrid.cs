@@ -2,6 +2,7 @@
 using BrawlLib.SSBB.ResourceNodes;
 using System.Data;
 using BrawlLib.Imaging;
+using System.Drawing;
 
 namespace System.Windows.Forms
 {
@@ -16,6 +17,8 @@ namespace System.Windows.Forms
             this.description = new System.Windows.Forms.RichTextBox();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblColor = new System.Windows.Forms.Label();
+            this.lblCNoA = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.rdoUnknown = new System.Windows.Forms.RadioButton();
             this.rdoDegrees = new System.Windows.Forms.RadioButton();
@@ -92,6 +95,8 @@ namespace System.Windows.Forms
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblColor);
+            this.panel1.Controls.Add(this.lblCNoA);
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Controls.Add(this.description);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -99,6 +104,28 @@ namespace System.Windows.Forms
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(479, 102);
             this.panel1.TabIndex = 8;
+            // 
+            // lblColor
+            // 
+            this.lblColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblColor.Location = new System.Drawing.Point(394, 60);
+            this.lblColor.Name = "lblColor";
+            this.lblColor.Size = new System.Drawing.Size(41, 14);
+            this.lblColor.TabIndex = 10;
+            this.lblColor.Visible = false;
+            this.lblColor.Click += new System.EventHandler(this.lblColor_Click);
+            // 
+            // lblCNoA
+            // 
+            this.lblCNoA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCNoA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblCNoA.Location = new System.Drawing.Point(434, 60);
+            this.lblCNoA.Name = "lblCNoA";
+            this.lblCNoA.Size = new System.Drawing.Size(41, 14);
+            this.lblCNoA.TabIndex = 11;
+            this.lblCNoA.Visible = false;
+            this.lblCNoA.Click += new System.EventHandler(this.lblColor_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -223,6 +250,7 @@ namespace System.Windows.Forms
         public AttributeGrid()
         {
             InitializeComponent();
+            _dlgColor = new GoodColorDialog();
         }
 
         private DataGridView dtgrdAttributes;
@@ -236,6 +264,8 @@ namespace System.Windows.Forms
         private RadioButton rdoColor;
         private RadioButton rdoUnknown;
         private RadioButton rdoDegrees;
+        private Label lblColor;
+        private Label lblCNoA;
 
         public event EventHandler CellEdited;
         public event EventHandler DictionaryChanged;
@@ -263,6 +293,8 @@ namespace System.Windows.Forms
         DataTable attributes = new DataTable();
         public unsafe void TargetChanged()
         {
+            lblColor.Visible = false;
+            lblCNoA.Visible = false;
             if (TargetNode == null)
                 return;
 
@@ -279,13 +311,18 @@ namespace System.Windows.Forms
                 RefreshRow(i);
         }
 
-        private void RefreshRow(int i) {
+        private void RefreshRow(int i)
+        {
             if (AttributeArray.Length <= i || AttributeArray[i]._type == 2)
                 attributes.Rows[i][1] = (float)((bfloat*)TargetNode.AttributeAddress)[i] * Maths._rad2degf;
             else if (AttributeArray[i]._type == 1)
                 attributes.Rows[i][1] = (int)((bint*)TargetNode.AttributeAddress)[i];
             else if (AttributeArray[i]._type == 3)
+            {
                 attributes.Rows[i][1] = ((RGBAPixel*)TargetNode.AttributeAddress)[i];
+                lblColor.BackColor = (Color)(((RGBAPixel*)TargetNode.AttributeAddress)[i]);
+                lblCNoA.BackColor = Color.FromArgb((((RGBAPixel*)TargetNode.AttributeAddress)[i]).R, (((RGBAPixel*)TargetNode.AttributeAddress)[i]).G, (((RGBAPixel*)TargetNode.AttributeAddress)[i]).B);
+            }
             else if (AttributeArray[i]._type == 4)
                 attributes.Rows[i][1] = "0x" + ((int)((bint*)TargetNode.AttributeAddress)[i]).ToString("X8");
             else
@@ -316,6 +353,8 @@ namespace System.Windows.Forms
             }
 
             byte* buffer = (byte*)TargetNode.AttributeAddress;
+            lblColor.Visible = false;
+            lblCNoA.Visible = false;
 
             if (AttributeArray[index]._type == 4) // Hex
             {
@@ -334,6 +373,8 @@ namespace System.Windows.Forms
             }
             else if (AttributeArray[index]._type == 3) // color
             {
+                lblColor.Visible = true;
+                lblCNoA.Visible = true;
                 RGBAPixel p = new RGBAPixel();
 
                 string s = value.ToString();
@@ -352,6 +393,8 @@ namespace System.Windows.Forms
                         ((RGBAPixel*)buffer)[index] = p;
                         TargetNode.SignalPropertyChange();
                     }
+                    lblColor.BackColor = (Color)p;
+                    lblCNoA.BackColor = Color.FromArgb(p.R, p.G, p.B);
                 }
             }
             else if (AttributeArray[index]._type == 2) //degrees
@@ -405,6 +448,8 @@ namespace System.Windows.Forms
 
         private void dtgrdAttributes_CurrentCellChanged(object sender, EventArgs e)
         {
+            lblColor.Visible = false;
+            lblCNoA.Visible = false;
             if (dtgrdAttributes.CurrentCell == null) return;
             int index = dtgrdAttributes.CurrentCell.RowIndex;
 
@@ -418,6 +463,14 @@ namespace System.Windows.Forms
                 : AttributeArray[index]._type == 2 ? rdoDegrees
                 : AttributeArray[index]._type == 4 ? rdoUnknown
                 : rdoFloat).Checked = true;
+
+            if(AttributeArray[index]._type == 3)
+            {
+                lblColor.Visible = true;
+                lblCNoA.Visible = true;
+                lblColor.BackColor = (Color)(((RGBAPixel*)TargetNode.AttributeAddress)[index]);
+                lblCNoA.BackColor = Color.FromArgb((((RGBAPixel*)TargetNode.AttributeAddress)[index]).R, (((RGBAPixel*)TargetNode.AttributeAddress)[index]).G, (((RGBAPixel*)TargetNode.AttributeAddress)[index]).B);
+            }
         }
 
         private bool _updating = false;
@@ -436,6 +489,8 @@ namespace System.Windows.Forms
 
         private void radioButtonsChanged(object sender, EventArgs e)
         {
+            lblColor.Visible = false;
+            lblCNoA.Visible = false;
             if (dtgrdAttributes.CurrentCell == null)
                 return;
             int index = dtgrdAttributes.CurrentCell.RowIndex;
@@ -451,6 +506,25 @@ namespace System.Windows.Forms
 				if (DictionaryChanged != null) DictionaryChanged.Invoke(this, EventArgs.Empty);
 				RefreshRow(index);
 			}
+            if(ntype == 3)
+            {
+                lblColor.Visible = true;
+                lblCNoA.Visible = true;
+            }
+        }
+
+        private GoodColorDialog _dlgColor;
+        private void lblColor_Click(object sender, EventArgs e)
+        {
+            if (!lblColor.Visible)
+                return;
+            int index = dtgrdAttributes.CurrentCell.RowIndex;
+            _dlgColor.Color = (Color)(((RGBAPixel*)TargetNode.AttributeAddress)[index]);
+            if (_dlgColor.ShowDialog(this) == DialogResult.OK)
+            {
+                ((RGBAPixel*)TargetNode.AttributeAddress)[index] = (ARGBPixel)_dlgColor.Color;
+                RefreshRow(index);
+            }
         }
     }
 
