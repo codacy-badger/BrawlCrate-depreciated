@@ -1,0 +1,107 @@
+0x014
+Default (Float): 0.5 (0x3F000000)
+0
+
+0x018
+Default (Float): 600 (0x44160000)
+0
+
+0x01C
+Default (Float): 20 (0x41A00000)
+0
+
+Lava Floor Speed
+(Float) The speed at which the lava floor rises and falls
+0
+
+0x024
+Default (Float): 1 (0x3F800000)
+0
+
+0x028
+Default (Float): 0.015 (0x3C75C28F)
+0
+
+Lava Wall Velocity (Inverse)
+(Float) Lower value increases speed and distance they travel
+0
+
+0x030
+Default: 0 (Could be int or float - be careful)
+0
+
+0x034
+Default (Float): 6 (0x40C00000)
+0
+
+Lava Wall Pause Minimum Timer
+(Float) The minimum number of frames the lava wall will stay out for
+0
+
+Lava Wall Pause Maximum Timer
+(Float) The maximum number of frames the lava wall will stay out for
+0
+
+0x040
+Default (Float): 0.2 (0x3E4CCCCD)
+0
+
+0x044
+Default (Float): 0.4 (0x3ECCCCCD)
+0
+
+0x048
+Default (Float): 0.1 (0x3DCCCCCD)
+0
+
+0x04C
+Default (Float): 0.05 (0x3D4CCCCD)
+0
+
+0x050
+Default (Float): 30 (0x41F00000)
+0
+
+0x054
+Default (Float): 150 (0x43160000)
+0
+
+0x058
+Default (Float): 20 (0x41A00000)
+0
+
+0x05C
+Default (Float): 10 (0x41200000)
+0
+
+0x060
+Default (Float): 400 (0x43C80000)
+0
+
+0x064
+Default (Float): 410 (0x43CD0000)
+0
+
+0x068
+Default (Float): 5 (0x40A00000)
+0
+
+0x06C
+Default (Float): 10 (0x41200000)
+0
+
+0x070
+Default (Float): 60 (0x42700000)
+0
+
+0x074
+Default (Float): 0.3 (0x3E99999A)
+0
+
+0x078
+Default (Float): 120 (0x42F00000)
+0
+
+0x07C
+Default (Float): 180 (0x43340000)
+0

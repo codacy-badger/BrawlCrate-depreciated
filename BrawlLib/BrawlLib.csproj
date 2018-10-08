@@ -1222,6 +1222,21 @@
     <Folder Include="WiiU\Models\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="InternalDocumentation\STDT\DXGARDEN[20].txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="InternalDocumentation\STDT\DXONETT[20].txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="InternalDocumentation\STDT\HOMERUN[20].txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="InternalDocumentation\STDT\NORFAIR[20].txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="InternalDocumentation\STDT\TENGAN[20].txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="OpenTK.dll" />
     <Content Include="InternalDocumentation\STDT\DONKEY[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

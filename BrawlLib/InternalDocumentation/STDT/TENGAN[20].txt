@@ -1,0 +1,279 @@
+Platform Speed
+(Float) Changing to 0 freezes the two moving platforms
+0
+
+0x018
+Default (Float): 0.3 (0x3E99999A) Speculation: related to the moving platforms
+0
+
+0x01C
+Default (Float): 0.25 (0x3E800000) Speculation: related to the moving platforms
+0
+
+0x020
+Default (Float): 60 (0x42700000)
+0
+
+0x024
+Default (Float): 240 (0x43700000)
+0
+
+0x028
+Default (Float): 0.08 (0x3DA3D70A)
+0
+
+Floor Rebuild Minimum Timer
+(Float) The minimum number of frames before the floor is rebuilt when broken
+0
+
+Floor Rebuild Maximum Timer
+(Float) The maximum number of frames before the floor is rebuilt when broken
+0
+
+0x034
+Default (Float): 120 (0x42F00000)
+0
+
+0x038
+Default (Float): 1200 (0x44960000)
+0
+
+0x03C
+Default (Float): 3600 (0x45610000)
+0
+
+0x040
+Default (Float): 0.2 (0x3E4CCCCD)
+0
+
+0x044
+Default (Float): 0.2 (0x3E4CCCCD)
+0
+
+0x048
+Default (Float): 0.01 (0x3C23D70A)
+0
+
+Pokémon (Re)Spawn Minimum Timer
+(Float) The minimum number of frames before Dialga, Palkia, or Cresselia will appear or reappear when not on stage
+0
+
+Pokémon (Re)Spawn Maximum Timer
+(Float) The maximum number of frames before Dialga, Palkia, or Cresselia will appear or reappear when not on stage
+0
+
+Pokémon On-Stage Minimum Timer
+(Float) The minimum number of frames that Dialga, Palkia, or Cresselia will stay on-stage after spawning
+0
+
+Pokémon On-Stage Maximum Timer
+(Float) The maximum number of frames that Dialga, Palkia, or Cresselia will stay on-stage after spawning
+0
+
+0x05C
+Default (Float): 5400 (0x45A8C000)
+0
+
+0x060
+Default (Float): 10800 (0x4628C000)
+0
+
+0x064
+Default (Float): 0.2 (0x3E4CCCCD)
+0
+
+0x068
+Default (Float): 0.2 (0x3E4CCCCD)
+0
+
+0x06C
+Default (Float): 0.4 (0x3ECCCCCD)
+0
+
+0x070
+Default (Float): 0.4 (0x3ECCCCCD)
+0
+
+0x074
+Default (Float): 60 (0x42700000)
+0
+
+0x078
+Default (Float): 180 (0x43340000)
+0
+
+0x07C
+Default (Float): 300 (0x43960000)
+0
+
+0x080
+Default (Float): 600 (0x44160000)
+0
+
+Camera Minimum Tilt
+Default (Float): 10 (0x41200000)
+0
+
+Camera Maximum Tilt
+Default (Float): 30 (0x41F00000)
+0
+
+Camera Tilt Reduction Speed
+(Float) Reduces the tilt every frame (?) by this value. Higher values returns to normal quicker
+0
+
+0x090
+Default (Float): 180 (0x43340000)
+0
+
+0x094
+Default (Float): 30 (0x41F00000)
+0
+
+0x098
+Default (Float): 90 (0x42B40000)
+0
+
+0x09C
+Default (Float): 10 (0x41200000)
+0
+
+0x0A0
+Default (Float): 30 (0x41F00000)
+0
+
+0x0A4
+Default (Float): 90 (0x42B40000)
+0
+
+0x0A8
+Default (Float): 90 (0x42B40000)
+0
+
+Dialga Hazard Variable 1
+(Float) Setting to -1 disables all of Dialga's hazards. Possibly a percent chance of a hazard activating when checked?
+0
+
+Dialga Stage Break Frequency
+(Float) How often Dialga will break the stage. Setting to 0 will disable he hazard
+0
+
+Dialga Laser Beam Frequency (1)
+(Float) How often Dialga fires lasers. Setting both of these to 0 will disable the hazard
+0
+
+Dialga Laser Beam Frequency (2)
+(Float) How often Dialga fires lasers. Setting both of these to 0 will disable the hazard
+0
+
+Dialga Time Slow Frequency
+(Float) How often Dialga slows the flow of time. Setting this to 0 disables this hazard
+0
+
+Dialga Stage Attack Frequency
+(Float) How often Dialga goes into the foreground to attack fighters. Setting to 0 disables this hazard
+0
+
+0x0C4
+Default (Float): 0.5 (0x3F000000)
+0
+
+0x0C8
+Default (Float): 0.3 (0x3E99999A)
+0
+
+0x0CC
+Default (Float): 0.2 (0x3E4CCCCD)
+0
+
+Dialga Time Slow Minimum Timer
+(Float) The minimum number of frames Dialga will slow down time for
+0
+
+Dialga Time Slow Maximum Timer
+(Float) The maximum number of frames Dialga will slow down time for
+0
+
+0x0D8
+Default (Float): 420 (0x43D20000)
+0
+
+0x0DC
+Default (Float): 420 (0x43D20000)
+0
+
+Palkia Hazard Variable 1
+(Float) Setting to -1 disables all of Palkia's hazards. Possibly a percent chance of a hazard activating when checked?
+0
+
+Palkia Stage Break Frequency
+(Float) How often Palkia will break the stage. Setting to 0 will disable he hazard
+0
+
+Palkia Laser Beam Frequency (1)
+(Float) How often Palkia fires lasers. Setting both of these to 0 will disable the hazard
+0
+
+Palkia Laser Beam Frequency (2)
+(Float) How often Palkia fires lasers. Setting both of these to 0 will disable the hazard
+0
+
+Palkia Gravity Shift Frequency
+(Float) How often Palkia manipulates gravity. Setting to 0 will disable the hazard
+0
+
+Palkia Vertical Camera Flip Frequency
+(Float) How often Palkia will flip the camera vertically. Setting to 0 will disable the hazard
+0
+
+Palkia Horizontal Camera Flip Frequency
+(Float) How often Palkia will flip the camera horizontally. Setting to 0 will disable the hazard
+0
+
+0x0FC
+Default (Float): 420 (0x43D20000)
+0
+
+0x100
+Default (Float): 600 (0x44160000)
+0
+
+0x104
+Default (Float): 420 (0x43D20000)
+0
+
+0x108
+Default (Float): 600 (0x44160000)
+0
+
+0x10C
+Default (Float): 420 (0x43D20000)
+0
+
+0x110
+Default (Float): 600 (0x44160000)
+0
+
+0x114
+Default (Float): 0.3 (0x3E99999A)
+0
+
+0x118
+Default (Float): 0.1 (0x3DCCCCCD)
+0
+
+0x11C
+Default (Float): 0.3 (0x3E99999A)
+0
+
+0x120
+Default (Float): 15 (0x41700000)
+0
+
+0x124
+Default (Float): 4 (0x40800000)
+0
+
+0x128
+Default (Float): 4 (0x40800000)
+0
