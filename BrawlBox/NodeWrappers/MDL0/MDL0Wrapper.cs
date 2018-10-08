@@ -62,8 +62,8 @@ namespace BrawlBox.NodeWrappers
             _menu.Items.Add(new ToolStripMenuItem("&Edit Materials", null,
                 new ToolStripMenuItem("&Characters", null,
                     new ToolStripMenuItem("&Convert To Spy Model", null, SpyConvertAction),
-                    new ToolStripMenuItem("&Regenerate Metal Materials", null, MetalAction),
-                    new ToolStripMenuItem("Regenerate Custom Metal Materials", null, CustomMetalAction)
+                    new ToolStripMenuItem("(&Re)generate Metal Materials", null, MetalAction),
+                    new ToolStripMenuItem("(Re)generate Custom Metal Materials", null, CustomMetalAction)
                 ),
                 new ToolStripMenuItem("&Stages", null,
                     new ToolStripMenuItem("&Convert To Shadow Model", null, ShadowConvertAction),
