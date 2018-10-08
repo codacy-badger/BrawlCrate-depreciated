@@ -165,11 +165,11 @@ namespace System.Windows.Forms
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.rdoUnknown, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.rdoDegrees, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.rdoColor, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.rdoInt, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.rdoFloat, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.rdoInt, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.rdoColor, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.rdoDegrees, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.rdoUnknown, 4, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 77);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -293,8 +293,8 @@ namespace System.Windows.Forms
         private RadioButton rdoFloat;
         private RadioButton rdoInt;
         private RadioButton rdoColor;
-        private RadioButton rdoUnknown;
         private RadioButton rdoDegrees;
+        private RadioButton rdoUnknown;
         private Label lblColor;
         private Label lblCNoA;
         private Button btnInf;
