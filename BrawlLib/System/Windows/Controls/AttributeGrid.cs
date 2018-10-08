@@ -17,6 +17,8 @@ namespace System.Windows.Forms
             this.description = new System.Windows.Forms.RichTextBox();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnInf = new System.Windows.Forms.Button();
+            this.btnMinusInf = new System.Windows.Forms.Button();
             this.lblColor = new System.Windows.Forms.Label();
             this.lblCNoA = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -95,6 +97,8 @@ namespace System.Windows.Forms
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnInf);
+            this.panel1.Controls.Add(this.btnMinusInf);
             this.panel1.Controls.Add(this.lblColor);
             this.panel1.Controls.Add(this.lblCNoA);
             this.panel1.Controls.Add(this.tableLayoutPanel1);
@@ -104,6 +108,32 @@ namespace System.Windows.Forms
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(479, 102);
             this.panel1.TabIndex = 8;
+            // 
+            // btnInf
+            // 
+            this.btnInf.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnInf.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnInf.Location = new System.Drawing.Point(440, 44);
+            this.btnInf.Name = "btnInf";
+            this.btnInf.Size = new System.Drawing.Size(30, 30);
+            this.btnInf.TabIndex = 13;
+            this.btnInf.Text = "∞";
+            this.btnInf.UseVisualStyleBackColor = true;
+            this.btnInf.Visible = false;
+            this.btnInf.Click += new System.EventHandler(this.btnInf_Click);
+            // 
+            // btnMinusInf
+            // 
+            this.btnMinusInf.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMinusInf.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMinusInf.Location = new System.Drawing.Point(406, 44);
+            this.btnMinusInf.Name = "btnMinusInf";
+            this.btnMinusInf.Size = new System.Drawing.Size(30, 30);
+            this.btnMinusInf.TabIndex = 12;
+            this.btnMinusInf.Text = "-∞";
+            this.btnMinusInf.UseVisualStyleBackColor = true;
+            this.btnMinusInf.Visible = false;
+            this.btnMinusInf.Click += new System.EventHandler(this.btnMinusInf_Click);
             // 
             // lblColor
             // 
@@ -145,6 +175,7 @@ namespace System.Windows.Forms
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(479, 25);
             this.tableLayoutPanel1.TabIndex = 9;
             // 
@@ -266,6 +297,8 @@ namespace System.Windows.Forms
         private RadioButton rdoDegrees;
         private Label lblColor;
         private Label lblCNoA;
+        private Button btnInf;
+        private Button btnMinusInf;
 
         public event EventHandler CellEdited;
         public event EventHandler DictionaryChanged;
@@ -295,6 +328,8 @@ namespace System.Windows.Forms
         {
             lblColor.Visible = false;
             lblCNoA.Visible = false;
+            btnInf.Visible = btnMinusInf.Visible = false;
+            
             if (TargetNode == null)
                 return;
 
@@ -355,6 +390,7 @@ namespace System.Windows.Forms
             byte* buffer = (byte*)TargetNode.AttributeAddress;
             lblColor.Visible = false;
             lblCNoA.Visible = false;
+            btnInf.Visible = btnMinusInf.Visible = false;
 
             if (AttributeArray[index]._type == 4) // Hex
             {
@@ -427,6 +463,7 @@ namespace System.Windows.Forms
             }
             else //float/radians
             {
+                btnInf.Visible = btnMinusInf.Visible = true;
                 float val;
                 if (!float.TryParse(value, out val))
                     value = ((float)(((bfloat*)buffer)[index])).ToString();
@@ -450,6 +487,7 @@ namespace System.Windows.Forms
         {
             lblColor.Visible = false;
             lblCNoA.Visible = false;
+            btnInf.Visible = btnMinusInf.Visible = false;
             if (dtgrdAttributes.CurrentCell == null) return;
             int index = dtgrdAttributes.CurrentCell.RowIndex;
 
@@ -470,7 +508,8 @@ namespace System.Windows.Forms
                 lblCNoA.Visible = true;
                 lblColor.BackColor = (Color)(((RGBAPixel*)TargetNode.AttributeAddress)[index]);
                 lblCNoA.BackColor = Color.FromArgb((((RGBAPixel*)TargetNode.AttributeAddress)[index]).R, (((RGBAPixel*)TargetNode.AttributeAddress)[index]).G, (((RGBAPixel*)TargetNode.AttributeAddress)[index]).B);
-            }
+            } else if(AttributeArray[index]._type == 0)
+                btnInf.Visible = btnMinusInf.Visible = true;
         }
 
         private bool _updating = false;
@@ -491,6 +530,7 @@ namespace System.Windows.Forms
         {
             lblColor.Visible = false;
             lblCNoA.Visible = false;
+            btnInf.Visible = btnMinusInf.Visible = false;
             if (dtgrdAttributes.CurrentCell == null)
                 return;
             int index = dtgrdAttributes.CurrentCell.RowIndex;
@@ -510,7 +550,8 @@ namespace System.Windows.Forms
             {
                 lblColor.Visible = true;
                 lblCNoA.Visible = true;
-            }
+            } else if (ntype == 0)
+                btnInf.Visible = btnMinusInf.Visible = true;
         }
 
         private GoodColorDialog _dlgColor;
@@ -523,6 +564,30 @@ namespace System.Windows.Forms
             if (_dlgColor.ShowDialog(this) == DialogResult.OK)
             {
                 ((RGBAPixel*)TargetNode.AttributeAddress)[index] = (ARGBPixel)_dlgColor.Color;
+                RefreshRow(index);
+            }
+        }
+
+        private void btnMinusInf_Click(object sender, EventArgs e)
+        {
+            if (!btnMinusInf.Visible)
+                return;
+            int index = dtgrdAttributes.CurrentCell.RowIndex;
+            if(AttributeArray[index]._type == 0)
+            {
+                ((bfloat*)TargetNode.AttributeAddress)[index] = float.NegativeInfinity;
+                RefreshRow(index);
+            }
+        }
+
+        private void btnInf_Click(object sender, EventArgs e)
+        {
+            if (!btnInf.Visible)
+                return;
+            int index = dtgrdAttributes.CurrentCell.RowIndex;
+            if (AttributeArray[index]._type == 0)
+            {
+                ((bfloat*)TargetNode.AttributeAddress)[index] = float.PositiveInfinity;
                 RefreshRow(index);
             }
         }
