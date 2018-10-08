@@ -1223,13 +1223,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="OpenTK.dll" />
-    <Content Include="StageDocumentation\STDT\DONKEY[20].txt">
+    <Content Include="InternalDocumentation\STDT\DONKEY[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="StageDocumentation\STDT\DXGREENS[20].txt">
+    <Content Include="InternalDocumentation\STDT\DXGREENS[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="StageDocumentation\STDT\STADIUM[20].txt">
+    <Content Include="InternalDocumentation\STDT\STADIUM[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="System\Windows\Controls\Hex Editor\HexBox.bmp" />

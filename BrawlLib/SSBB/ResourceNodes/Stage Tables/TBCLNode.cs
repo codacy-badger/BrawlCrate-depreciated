@@ -231,7 +231,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             string temp = "";
             if (root != this)
                 temp = "[" + FileIndex + "]";
-            string filename = AppDomain.CurrentDomain.BaseDirectory + "\\StageDocumentation" + "\\TBCL\\" + root.Name.Replace("STG", "") + temp + ".txt";
+            string filename = AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\TBCL\\" + root.Name.Replace("STG", "") + temp + ".txt";
             return new AttributeInterpretation(arr, filename);
         }
 
@@ -240,11 +240,11 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         private static void ReadConfig()
         {
-            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\StageDocumentation"))
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation"))
             {
-                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\StageDocumentation" + "\\TBCL"))
+                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\TBCL"))
                 {
-                    foreach (string path in Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory + "\\StageDocumentation" + "\\TBCL", "*.txt"))
+                    foreach (string path in Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\TBCL", "*.txt"))
                     {
                         if (configpaths_read.Contains(path)) continue;
                         configpaths_read.Add(path);
