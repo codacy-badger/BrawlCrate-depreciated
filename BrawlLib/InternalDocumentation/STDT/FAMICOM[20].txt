@@ -62,11 +62,11 @@ Default (Float): 480 (0x43F00000)
 Default (Float): 150 (0x43160000)
 0
 
-Enemy Level 2 Multiplier
+Enemy Level 2 Speed Multiplier
 (Float) Multiplied by the base speed when an enemy reaches Level 2
 0
 
-Enemy Level 3 Multiplier
+Enemy Level 3 Speed Multiplier
 (Float) Multiplied by the base speed when an enemy reaches Level 3
 0
 
