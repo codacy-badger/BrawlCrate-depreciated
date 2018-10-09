@@ -7,7 +7,7 @@ using System.ComponentModel;
 namespace BrawlBox
 {
     //Contains generic members inherited by all sub-classed nodes
-    class GenericWrapper : BaseWrapper
+    public class GenericWrapper : BaseWrapper
     {
         #region Menu
 

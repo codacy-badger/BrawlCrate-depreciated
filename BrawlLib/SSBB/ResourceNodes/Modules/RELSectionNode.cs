@@ -19,7 +19,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public bool _isCodeSection = false;
         public bool _isBSSSection = false;
         public int _dataOffset = 0;
-        public int _endBufferSize = 0x00;
+        public int _endBufferSize = 0x0;
         public uint _dataSize;
         public int _dataAlign;
 
@@ -66,13 +66,10 @@ namespace BrawlLib.SSBB.ResourceNodes
                 _isBSSSection = false;
                 InitBuffer(_dataSize, Header);
                 if (Index == 5)
-                {
                     _parser = new ObjectParser(this);
-                    return true;
-                }
             }
 
-            return false;
+            return _parser != null;
         }
         public override void OnPopulate()
         {
@@ -88,10 +85,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             Memory.Move(address, _dataBuffer.Address, (uint)length);
             address += _dataBuffer.Length;
-            if (_endBufferSize > 0)
-            {
+            if(_endBufferSize > 0)
                 Memory.Fill(address, (uint)_endBufferSize, 0x00);
-            }
         }
 
         public override void Dispose()

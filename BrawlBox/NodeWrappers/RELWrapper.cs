@@ -7,7 +7,7 @@ using BrawlLib;
 namespace BrawlBox.NodeWrappers
 {
     [NodeWrapper(ResourceType.REL)]
-    class RELWrapper : GenericWrapper
+    public class RELWrapper : GenericWrapper
     {
         #region Menu
         private static ContextMenuStrip _menu;
@@ -69,76 +69,65 @@ namespace BrawlBox.NodeWrappers
         public void Constructor()
         {
             RELNode r = _resource as RELNode;
-            if (r._prologSect != -1)
-            {
-                ModuleDataNode s = r._sections[r._prologSect];
+
+                ModuleDataNode s = r.Sections[r._prologSection];
 
                 foreach (SectionEditor l in SectionEditor._openedSections)
                     if (l._section == s)
                     {
                         l.Focus();
-                        l.Position = r._prologIndex * 4;
+                        l.Position = r._prologOffset;
                         l.hexBox1.Focus();
                         return;
                     }
 
                 SectionEditor e = new SectionEditor(s as ModuleSectionNode);
                 e.Show();
-                e.Position = r._prologIndex * 4;
+                e.Position = r._prologOffset;
                 e.hexBox1.Focus();
-            }
-            else
-                MessageBox.Show("This module has no constructor function.");
         }
 
         public void Destructor()
         {
             RELNode r = _resource as RELNode;
-            if (r._epilogSect != -1)
-            {
-                ModuleDataNode s = r._sections[r._epilogSect];
+
+                ModuleDataNode s = r.Sections[r._epilogSection];
 
                 foreach (SectionEditor l in SectionEditor._openedSections)
                     if (l._section == s)
                     {
                         l.Focus();
-                        l.Position = r._epilogIndex * 4;
+                        l.Position = r._epilogOffset;
                         l.hexBox1.Focus();
                         return;
                     }
 
                 SectionEditor e = new SectionEditor(s as ModuleSectionNode);
                 e.Show();
-                e.Position = r._epilogIndex * 4;
+                e.Position = r._epilogOffset;
                 e.hexBox1.Focus();
-            }
-            else
-                MessageBox.Show("This module has no destructor function.");
+
         }
 
         public void Unresolved()
         {
             RELNode r = _resource as RELNode;
-            if (r._unresSect != -1)
-            {
-                ModuleDataNode s = r._sections[r._unresSect];
+
+                ModuleDataNode s = r.Sections[r._unresolvedSection];
 
                 foreach (SectionEditor l in SectionEditor._openedSections)
                     if (l._section == s)
                     {
                         l.Focus();
-                        l.Position = r._unresIndex * 4;
+                        l.Position = r._unresolvedOffset;
                         l.hexBox1.Focus();
                         return;
                     }
 
                 SectionEditor e = new SectionEditor(s as ModuleSectionNode);
                 e.Show();
-                e.Position = r._unresIndex * 4;
+                e.Position = r._unresolvedOffset;
                 e.hexBox1.Focus();
-            }
-            else
-                MessageBox.Show("This module has no unresolved function.");
         }
 
         public override string ExportFilter { get { return FileFilters.REL; } }
@@ -204,7 +193,7 @@ namespace BrawlBox.NodeWrappers
     }
 
     [NodeWrapper(ResourceType.RELMethod)]
-    class RELMethodWrapper : GenericWrapper
+    public class RELMethodWrapper : GenericWrapper
     {
         #region Menu
         private static ContextMenuStrip _menu;
@@ -272,14 +261,14 @@ namespace BrawlBox.NodeWrappers
     }
 
     [NodeWrapper(ResourceType.RELExternalMethod)]
-    class RELExternalMethodWrapper : GenericWrapper
+    public class RELExternalMethodWrapper : GenericWrapper
     {
         public RELExternalMethodWrapper() { BackColor = System.Drawing.Color.FromArgb(255, 255, 180, 180); }
 
     }
 
     [NodeWrapper(ResourceType.RELInheritance)]
-    class RELInheritanceWrapper : GenericWrapper
+    public class RELInheritanceWrapper : GenericWrapper
     {
         #region Menu
         private static ContextMenuStrip _menu;
