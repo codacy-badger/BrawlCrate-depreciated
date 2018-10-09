@@ -1228,13 +1228,22 @@
     <Content Include="InternalDocumentation\STDT\DXONETT[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="InternalDocumentation\STDT\FAMICOM[20].txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="InternalDocumentation\STDT\HOMERUN[20].txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="InternalDocumentation\STDT\MARIOPAST[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="InternalDocumentation\STDT\NORFAIR[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="InternalDocumentation\STDT\TENGAN[20].txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="InternalDocumentation\STDT\VILLAGE[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="OpenTK.dll" />

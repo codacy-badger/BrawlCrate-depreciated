@@ -1,0 +1,99 @@
+0x014
+Default (Float): 10 (0x41200000)
+0
+
+0x018
+Default (Float): 45 (0x42340000)
+0
+
+0x01C
+Default (Float): 90 (0x42B40000)
+0
+
+POW Block Respawn Timer
+(Float) The number of frames before a POW Block will respawn after being completely used
+0
+
+POW Block Knockback
+(Float) Increases how high the POW Block will cause grounded players to jump
+0
+
+Enemy Initial Timer
+(Float) Number of frames it takes to spawn the first enemy
+0
+
+0x02C
+Default (Float): 420 (0x43D20000)
+0
+
+0x030
+Default (Float): 720 (0x44340000)
+0
+
+Shellcreeper Spawn Rate
+(Float) Controls the spawn rate for Shellcreepers (appears to be relative to the Sidestepper Spawn Rate)
+0
+
+Sidestepper Spawn Rate
+(Float) Controls the spawn rate for Sidesteppers (appears to be relative to the Shellcreeper Spawn Rate)
+0
+
+~0x03C
+Default (Unknown Type): (0x04000000)
+4
+
+Shellcreeper Base Speed
+(Float) The speed at which Shellcreepers move at Level 1 (and multiplied for Levels 2 and 3). Setting to negative causes them to move backwards (which causes them to despawn when they go offscreen)
+0
+
+Sidestepper Base Speed
+(Float) The speed at which Sidesteppers move at Level 1 (and multiplied for Levels 2 and 3). Setting to negative causes them to move backwards (which causes them to despawn when they go offscreen)
+0
+
+Enemy Fall Speed
+(Float) The speed at which enemies fall. Setting too high will make them fall through floors
+0
+
+0x04C
+Default (Float): 480 (0x43F00000)
+0
+
+0x050
+Default (Float): 150 (0x43160000)
+0
+
+Enemy Level 2 Multiplier
+(Float) Multiplied by the base speed when an enemy reaches Level 2
+0
+
+Enemy Level 3 Multiplier
+(Float) Multiplied by the base speed when an enemy reaches Level 3
+0
+
+Enemy Loop Speed
+(Float) The number of frames that the enemies take to loop back to a top pipe after entering a bottom one
+0
+
+0x060
+Default (Float): 900 (0x44610000)
+0
+
+0x064
+Default (Float): 1200 (0x44960000)
+0
+
+0x068
+Default (Float): 2400 (0x45160000)
+0
+
+0x06C
+Default (Float): 1.2 (0x3F99999A)
+0
+
+0x070
+Default (Float): 2400 (0x45160000)
+0
+
+0x074
+Default (Float): 0.1 (0x3DCCCCCD)
+0
