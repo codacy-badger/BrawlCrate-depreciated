@@ -329,7 +329,8 @@ namespace System.Windows.Forms
             lblColor.Visible = false;
             lblCNoA.Visible = false;
             btnInf.Visible = btnMinusInf.Visible = false;
-            
+            rdoColor.Enabled = rdoDegrees.Enabled = rdoFloat.Enabled = rdoInt.Enabled = rdoUnknown.Enabled = true;
+
             if (TargetNode == null)
                 return;
 
@@ -344,6 +345,9 @@ namespace System.Windows.Forms
             //Add attributes to the attribute table.
             for (int i = 0; i < TargetNode.NumEntries; i++)
                 RefreshRow(i);
+
+            if(AttributeArray.Length <= 0)
+                rdoColor.Enabled = rdoDegrees.Enabled = rdoFloat.Enabled = rdoInt.Enabled = rdoUnknown.Enabled = false;
         }
 
         private void RefreshRow(int i)
@@ -488,12 +492,10 @@ namespace System.Windows.Forms
             lblColor.Visible = false;
             lblCNoA.Visible = false;
             btnInf.Visible = btnMinusInf.Visible = false;
-            rdoColor.Enabled = rdoDegrees.Enabled = rdoFloat.Enabled = rdoInt.Enabled = rdoUnknown.Enabled = true;
             if (dtgrdAttributes.CurrentCell == null) return;
             if(AttributeArray.Length <= 0)
             {
                 description.Text = "";
-                rdoColor.Enabled = rdoDegrees.Enabled = rdoFloat.Enabled = rdoInt.Enabled = rdoUnknown.Enabled = false;
                 return;
             }
             int index = dtgrdAttributes.CurrentCell.RowIndex;
@@ -522,7 +524,7 @@ namespace System.Windows.Forms
         private bool _updating = false;
         private void description_TextChanged(object sender, EventArgs e)
         {
-            if (_updating)
+            if (_updating || AttributeArray.Length == 0)
                 return;
 
             int index = dtgrdAttributes.CurrentCell.RowIndex;
