@@ -155,7 +155,7 @@ Dialga Hazard Variable 1
 0
 
 Dialga Stage Break Frequency
-(Float) How often Dialga will break the stage. Setting to 0 will disable he hazard
+(Float) How often Dialga will break the stage. Setting to 0 will disable the hazard
 0
 
 Dialga Laser Beam Frequency (1)
@@ -167,11 +167,11 @@ Dialga Laser Beam Frequency (2)
 0
 
 Dialga Time Slow Frequency
-(Float) How often Dialga slows the flow of time. Setting this to 0 disables this hazard
+(Float) How often Dialga slows the flow of time. Setting to 0 will disable the hazard
 0
 
 Dialga Stage Attack Frequency
-(Float) How often Dialga goes into the foreground to attack fighters. Setting to 0 disables this hazard
+(Float) How often Dialga goes into the foreground to attack fighters. Setting to 0 will disable the hazard
 0
 
 0x0C4
@@ -207,7 +207,7 @@ Palkia Hazard Variable 1
 0
 
 Palkia Stage Break Frequency
-(Float) How often Palkia will break the stage. Setting to 0 will disable he hazard
+(Float) How often Palkia will break the stage. Setting to 0 will disable the hazard
 0
 
 Palkia Laser Beam Frequency (1)
