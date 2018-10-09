@@ -211,8 +211,8 @@ namespace BrawlLib.SSBB.ResourceNodes
                 if (HasChanged)
                     return true;
                 if (_children != null)
-                    foreach (ResourceNode n in _children)
-                        if (n.HasChanged || n.IsBranch || n.IsDirty)
+                    for(int i = 0; i < _children.Count; i++)
+                        if (_children[i].HasChanged || _children[i].IsBranch || _children[i].IsDirty)
                             return true;
                 return false;
             }
