@@ -262,7 +262,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                         configpaths_read.Add(path);
                         try
                         {
-                            TBCLFormats.Add(new AttributeInterpretation(path));
+                            TBCLFormats.Add(new AttributeInterpretation(path, 0x10));
                         }
                         catch (FormatException ex)
                         {

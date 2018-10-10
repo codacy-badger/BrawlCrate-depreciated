@@ -30,11 +30,10 @@ namespace System
             this.Filename = saveToFile;
         }
 
-        public AttributeInterpretation(string filename) {
+        public AttributeInterpretation(string filename, int index) {
             this.Filename = filename;
 
             List<AttributeInfo> list = new List<AttributeInfo>();
-            int index = 0x14;
             if (filename != null && File.Exists(filename)) {
                 using (var sr = new StreamReader(filename)) {
                     for (int i = 0; !sr.EndOfStream /*&& i < NumEntries*/; i++) {
