@@ -39,7 +39,16 @@ namespace System
                     for (int i = 0; !sr.EndOfStream /*&& i < NumEntries*/; i++) {
                         AttributeInfo attr = new AttributeInfo();
                         attr._name = sr.ReadLine();
-                        attr._description = sr.ReadLine();
+                        attr._description = "";
+                        string temp = sr.ReadLine();
+                        while(!temp.Equals("\t/EndDescription"))
+                        {
+                            attr._description += temp;
+                            attr._description += '\n';
+                            temp = sr.ReadLine();
+                        }
+                        if (attr._description.EndsWith("\n"))
+                            attr._description = attr._description.Substring(0, attr._description.Length - 1);
                         string num = sr.ReadLine();
                         try {
                             attr._type = int.Parse(num);
@@ -78,6 +87,7 @@ namespace System
                     AttributeInfo attr = Array[i];
                     sw.WriteLine(attr._name);
                     sw.WriteLine(attr._description);
+                    sw.WriteLine("\t/EndDescription");
                     if(i == Array.Length - 1)
                     {
                         sw.Write(attr._type);
