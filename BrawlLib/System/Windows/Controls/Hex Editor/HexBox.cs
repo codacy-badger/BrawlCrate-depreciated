@@ -28,6 +28,8 @@ namespace Be.Windows.Forms
         public SolidBrush BlueBrush = new SolidBrush(Color.Blue);
         public SolidBrush GreenBrush = new SolidBrush(Color.Green);
 
+        public List<string> annotationDescriptions = new List<string>();
+
 		#region IKeyInterpreter interface
 		/// <summary>
 		/// Defines a user input handler such as for mouse and keyboard input
@@ -2638,22 +2640,28 @@ namespace Be.Windows.Forms
         void PaintByte(byte b, long offset, bool isSelectedByte, bool isKeyInterpreterActive, Graphics g, Brush foreBrush, Brush backBrush, Point gridPoint)
         {
             if (isSelectedByte && isKeyInterpreterActive)
-                PaintHexStringSelected(g, b, SelectionForeBrush, SelectionBackBrush, gridPoint);
+                PaintHexStringSelected(g, b, offset, SelectionForeBrush, SelectionBackBrush, gridPoint);
             else if (backBrush != null)
-                PaintHexStringSelected(g, b, foreBrush, backBrush, gridPoint);
+                PaintHexStringSelected(g, b, offset, foreBrush, backBrush, gridPoint);
             else
-                PaintHexString(g, b, foreBrush, gridPoint);
+                PaintHexString(g, b, offset, foreBrush, gridPoint);
         }
 
-		void PaintHexString(Graphics g, byte b, Brush brush, Point gridPoint)
+		void PaintHexString(Graphics g, byte b, long offset, Brush brush, Point gridPoint)
 		{
 			PointF bytePointF = GetBytePointF(gridPoint);
 
 			string sB = ConvertByteToHex(b);
+            Font tempFont = Font;
+            if (annotationDescriptions.Count >= ByteProvider.Length/4)
+            {
+                if (!annotationDescriptions[(int)(offset / 4)].StartsWith("Default: 0x"))
+                    tempFont = new Font(Font, FontStyle.Underline);
+            }
 
-			g.DrawString(sB.Substring(0, 1), Font, brush, bytePointF, _stringFormat);
+			g.DrawString(sB.Substring(0, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + (sB.Substring(0, 1) == "A" ? 2 : 0)), _stringFormat);
 			bytePointF.X += _charSize.Width;
-			g.DrawString(sB.Substring(1, 1), Font, brush, bytePointF, _stringFormat);
+			g.DrawString(sB.Substring(1, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + (sB.Substring(1, 1) == "A" ? 2 : 0)), _stringFormat);
 		}
 
 		void PaintColumnInfo(Graphics g, byte b, Brush brush, int col)
@@ -2667,7 +2675,7 @@ namespace Be.Windows.Forms
 			g.DrawString(sB.Substring(1, 1), Font, brush, headerPointF, _stringFormat);
 		}
 
-		void PaintHexStringSelected(Graphics g, byte b, Brush brush, Brush brushBack, Point gridPoint)
+		void PaintHexStringSelected(Graphics g, byte b, long offset, Brush brush, Brush brushBack, Point gridPoint)
 		{
 			string sB = b.ToString(_hexStringFormat, System.Threading.Thread.CurrentThread.CurrentCulture);
 			if (sB.Length == 1)
@@ -2679,11 +2687,17 @@ namespace Be.Windows.Forms
             bool isFirstLineChar = (gridPoint.X == 0);
 			float bcWidth = (isLastLineChar) ? _charSize.Width * 2.3f : _charSize.Width * 3;
             float t = isFirstLineChar ? 0 : 3;
+            Font tempFont = Font;
+            if (annotationDescriptions.Count >= ByteProvider.Length / 4)
+            {
+                if (!annotationDescriptions[(int)(offset / 4)].StartsWith("Default: 0x"))
+                    tempFont = new Font(Font, FontStyle.Underline);
+            }
 
             g.FillRectangle(brushBack, bytePointF.X - t, bytePointF.Y, bcWidth, _charSize.Height);
-			g.DrawString(sB.Substring(0, 1), Font, brush, bytePointF, _stringFormat);
+			g.DrawString(sB.Substring(0, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + (sB.Substring(0, 1) == "A" ? 2 : 0)), _stringFormat);
 			bytePointF.X += _charSize.Width;
-			g.DrawString(sB.Substring(1, 1), Font, brush, bytePointF, _stringFormat);
+			g.DrawString(sB.Substring(1, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + (sB.Substring(1, 1) == "A" ? 2 : 0)), _stringFormat);
 		}
 
 		void PaintHexAndStringView(Graphics g, long startByte, long endByte)

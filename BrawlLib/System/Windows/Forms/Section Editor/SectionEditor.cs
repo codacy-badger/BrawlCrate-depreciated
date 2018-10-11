@@ -151,6 +151,7 @@ namespace System.Windows.Forms
                 annotationTitle.Text = annotationTitles[0];
                 annotationDescription.Text = annotationDescriptions[0];
             }
+            hexBox1.annotationDescriptions = annotationDescriptions;
         }
 
         private void LoadAnnotationsFromFile(string filename)
@@ -202,6 +203,7 @@ namespace System.Windows.Forms
                 annotationTitle.Text = annotationTitles[0];
                 annotationDescription.Text = annotationDescriptions[0];
             }
+            hexBox1.annotationDescriptions = annotationDescriptions;
         }
 
         private void SetByteProvider()
@@ -1198,6 +1200,8 @@ namespace System.Windows.Forms
                 return;
             if (annotationDescriptions.Count > annotationIndex)
                 annotationDescriptions[annotationIndex] = annotationDescription.Text;
+            hexBox1.annotationDescriptions = annotationDescriptions;
+            hexBox1.Invalidate();
         }
 
         private void btnSaveAnnotation_Click(object sender, EventArgs e)
