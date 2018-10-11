@@ -1,0 +1,194 @@
+st_dxpstadium Section [4]: 0x00000000
+Default: 0x00000000
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000004
+Stage Size
+
+(Float) Affects the scale of the transfomations.
+See: https://i.imgur.com/3qO7M.png and https://i.imgur.com/bfxT9.png
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000008
+Default: 0x3EE66666
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x0000000C
+Default: 0x41900000
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000010
+Default: 0x41700000
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000014
+Default: 0x3F000000
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000018
+Default: 0x40900000
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x0000001C
+Default: 0x3FCCCCCD
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000020
+Default: 0x43480000
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000024
+Normal Form Timer
+
+(Float) Frame timer for how long the stage stays on the normal transformation
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000028
+Info Screen Timer
+
+(Float) How many frames before info screen shows up
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x0000002C
+Info Screen Duration Timer
+
+(Float) How many frames the info screen stays out for
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000030
+Default: 0x44E10000
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000034
+Default: 0x44160000
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000038
+Default: 0x43FA0000
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x0000003C
+Default: 0x43960000
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000040
+Default: 0xC2500000
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000044
+Default: 0x40C00000
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000048
+Default: 0x4225999A
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x0000004C
+Default: 0x41200000
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000050
+Default: 0x439B0000
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000054
+Stage Rising/Falling Speed
+
+Affects the speed at which transformations transform
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000058
+Default: 0x38D1B717
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x0000005C
+Default: 0x42700000
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000060
+Default: 0x3F19999A
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000064
+Default: 0x3F666666
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000068
+Default: 0x42480000
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x0000006C
+Default: 0x00000000
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000070
+Default: 0x00000078
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000074
+Default: 0x00780078
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000078
+Default: 0x00780078
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x0000007C
+Default: 0x0078003C
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000080
+Default: 0x007800FF
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000084
+Default: 0x00FF00FF
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000088
+Default: 0x00FF00FF
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x0000008C
+Default: 0x00FF0078
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000090
+Default: 0x00780078
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000094
+Default: 0x00780078
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x00000098
+Default: 0x43300000
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x0000009C
+Default: 0x00000000
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x000000A0
+Default: 0x40800000
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x000000A4
+Default: 0x3ACCCCCD
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x000000A8
+Default: 0x3B088889
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x000000AC
+Default: 0x3DA3D70A
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x000000B0
+Default: 0x3FAAAAAB
+	/EndDescription
+
+st_dxpstadium Section [4]: 0x000000B4
+Default: 0x3FC92492
+	/EndDescription
