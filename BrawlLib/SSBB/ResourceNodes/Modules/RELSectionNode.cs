@@ -52,9 +52,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             if (_name == null)
                 if (_dataSize > 0)
-                    _name = String.Format("[{0}] Section ", Index);
+                    _name = String.Format("Section [{0}]", Index);
                 else
-                    _name = String.Format("[{0}] null", Index);
+                    _name = String.Format("null [{0}]", Index);
 
             if (_dataOffset == 0 && WorkingUncompressed.Length != 0)
             {

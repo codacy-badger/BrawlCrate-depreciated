@@ -17,6 +17,9 @@ namespace System.Windows.Forms
 
         public static List<SectionEditor> _openedSections = new List<SectionEditor>();
 
+        private List<string> annotationTitles = new List<string>();
+        private List<string> annotationDescriptions = new List<string>();
+
         public SectionEditor(ModuleSectionNode section)
         {
             _startIndex = int.MaxValue;
@@ -56,6 +59,8 @@ namespace System.Windows.Forms
 
             panel5.Enabled = true;
         }
+
+
 
         void ppcOpCodeEditControl1_OnBranchFollowed()
         {
@@ -98,9 +103,105 @@ namespace System.Windows.Forms
         private void Init()
         {
             SetByteProvider();
+            LoadAnnotations();
             //UpdateFileSizeStatus();
 
             //ppcDisassembler1.TargetNode = _section;
+        }
+
+        private void LoadAnnotations()
+        {
+            annotationIndex = 0;
+            annotationTitles.Clear();
+            annotationDescription.Clear();
+            if (_section == null || _section.Root == null || hexBox1.ByteProvider == null || hexBox1.ByteProvider.Length < 4)
+            {
+                chkAnnotations.Checked = false;
+                return;
+            }
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation"))
+            {
+                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module"))
+                {
+                    if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module\\" + _section.Root.Name))
+                    {
+                        if(File.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module\\" + _section.Root.Name + '\\' + _section.Name + ".txt"))
+                        {
+                            LoadAnnotationsFromFile(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module\\" + _section.Root.Name + '\\' + _section.Name + ".txt");
+                            return;
+                        }
+                    }
+                }
+            }
+            for (int i = 0; i * 4 < hexBox1.ByteProvider.Length; i++)
+            {
+                annotationTitles.Add(_section.Root.Name + " " + _section.Name + ": 0x" + (i * 4).ToString("X8"));
+                byte[] bytes = new byte[]
+                {
+                    hexBox1.ByteProvider.ReadByte((((long)i) * 4) + 3),
+                    hexBox1.ByteProvider.ReadByte((((long)i) * 4) + 2),
+                    hexBox1.ByteProvider.ReadByte((((long)i) * 4) + 1),
+                    hexBox1.ByteProvider.ReadByte((((long)i) * 4) + 0),
+                };
+                annotationDescriptions.Add("Default: 0x" + bytes[3].ToString("X2") + bytes[2].ToString("X2") + bytes[1].ToString("X2") + bytes[0].ToString("X2"));
+            }
+
+            if(annotationTitles.Count > 0)
+            {
+                annotationTitle.Text = annotationTitles[0];
+                annotationDescription.Text = annotationDescriptions[0];
+            }
+        }
+
+        private void LoadAnnotationsFromFile(string filename)
+        {
+            int index = 0;
+            if (filename != null && File.Exists(filename))
+            {
+                using (var sr = new StreamReader(filename))
+                {
+                    while(!sr.EndOfStream && index < hexBox1.ByteProvider.Length)
+                    {
+                        annotationTitles.Add(sr.ReadLine());
+                        string temp = sr.ReadLine();
+                        if (temp.Equals("\t/EndDescription", StringComparison.CurrentCultureIgnoreCase))
+                            annotationDescriptions.Add("No Description Available.");
+                        else
+                            annotationDescriptions.Add("");
+                        while(!temp.Equals("\t/EndDescription", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            annotationDescriptions[annotationDescriptions.Count - 1] += temp;
+                            annotationDescriptions[annotationDescriptions.Count - 1] += '\n';
+                            temp = sr.ReadLine();
+                        }
+                        if(annotationDescriptions[annotationDescriptions.Count - 1].EndsWith("\n"))
+                            annotationDescriptions[annotationDescriptions.Count - 1] = annotationDescriptions[annotationDescriptions.Count - 1].Substring(0, annotationDescriptions[annotationDescriptions.Count - 1].Length - 1);
+
+                        sr.ReadLine();
+                        index++;
+                    }
+                    sr.Close();
+                }
+            }
+
+            for (int i = annotationTitles.Count; i * 4 < hexBox1.ByteProvider.Length; i++)
+            {
+                annotationTitles.Add(_section.Root.Name + " " + _section.Name + ": 0x" + (i * 4).ToString("X8"));
+                byte[] bytes = new byte[]
+                {
+                    hexBox1.ByteProvider.ReadByte((((long)i) * 4) + 3),
+                    hexBox1.ByteProvider.ReadByte((((long)i) * 4) + 2),
+                    hexBox1.ByteProvider.ReadByte((((long)i) * 4) + 1),
+                    hexBox1.ByteProvider.ReadByte((((long)i) * 4) + 0),
+                };
+                annotationDescriptions.Add("Default: 0x" + bytes[3].ToString("X2") + bytes[2].ToString("X2") + bytes[1].ToString("X2") + bytes[0].ToString("X2"));
+            }
+
+            if (annotationTitles.Count > 0)
+            {
+                annotationTitle.Text = annotationTitles[0];
+                annotationDescription.Text = annotationDescriptions[0];
+            }
         }
 
         private void SetByteProvider()
@@ -196,6 +297,7 @@ namespace System.Windows.Forms
             //PosChanged();
         }
 
+        private int annotationIndex = 0;
         void PosChanged()
         {
             this.toolStripStatusLabel.Text = string.Format("Ln {0}    Col {1}",
@@ -214,6 +316,12 @@ namespace System.Windows.Forms
             grpValue.Text = "Value @ 0x" + t.ToString("X");
             if (t + 3 < hexBox1.ByteProvider.Length)
             {
+                if (t/4 < annotationTitles.Count)
+                {
+                    annotationTitle.Text = annotationTitles[((int)(t/4))];
+                    annotationDescription.Text = annotationDescriptions[((int)(t / 4))];
+                    annotationIndex = (int)(t / 4);
+                }
                 grpValue.Enabled = !_section._isBSSSection;
                 byte[] bytes = new byte[]
                 {
@@ -1071,6 +1179,62 @@ namespace System.Windows.Forms
                     if (_manager._unresolvedIndex != -1)
                         _manager._unresolvedIndex = -1;
                     _manager._unresolvedIndex = SelectedRelocationIndex;
+                }
+            }
+        }
+
+        private void chkAnnotations_CheckedChanged(object sender, EventArgs e)
+        {
+            this.annotationDescription.Visible = this.annotationTitle.Visible = this.btnSaveAnnotation.Visible = chkAnnotations.Checked;
+            if (chkAnnotations.Checked)
+                hexBox1.Dock = DockStyle.Top;
+            else
+                hexBox1.Dock = DockStyle.Fill;
+        }
+
+        private void description_TextChanged(object sender, EventArgs e)
+        {
+            if (_updating)
+                return;
+            if (annotationDescriptions.Count > annotationIndex)
+                annotationDescriptions[annotationIndex] = annotationDescription.Text;
+        }
+
+        private void btnSaveAnnotation_Click(object sender, EventArgs e)
+        {
+            if (_updating || annotationDescriptions.Count <= 0)
+                return;
+            SaveAnnotation();
+        }
+
+        public void SaveAnnotation()
+        {
+            Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation");
+            Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module");
+            Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module\\" + _section.Root.Name);
+            string Filename = AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module\\" + _section.Root.Name + '\\' + _section.Name + ".txt";
+            string dir = Path.GetDirectoryName(Filename);
+            if (File.Exists(Filename))
+            {
+                if (DialogResult.Yes != MessageBox.Show("Overwrite " + Filename + "?", "Overwrite",
+                    MessageBoxButtons.YesNo)) return;
+            }
+            using (var sw = new StreamWriter(Filename))
+            {
+                //foreach (AttributeInfo attr in Array) {
+                for (int i = 0; i < annotationTitles.Count && i < annotationDescriptions.Count; i++)
+                {
+                    sw.WriteLine(annotationTitles[i]);
+                    sw.WriteLine(annotationDescriptions[i]);
+                    if (i == annotationTitles.Count - 1)
+                    {
+                        sw.Write("\t/EndDescription");
+                    }
+                    else
+                    {
+                        sw.WriteLine("\t/EndDescription");
+                        sw.WriteLine();
+                    }
                 }
             }
         }
