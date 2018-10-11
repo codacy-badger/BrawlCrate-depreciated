@@ -4,12 +4,14 @@ Platform Speed
 0
 
 0x018
-Default (Float): 0.3 (0x3E99999A) Speculation: related to the moving platforms
+Default (Float): 0.3 (0x3E99999A)
+*Speculation: related to the moving platforms
 	/EndDescription
 0
 
 0x01C
-Default (Float): 0.25 (0x3E800000) Speculation: related to the moving platforms
+Default (Float): 0.25 (0x3E800000)
+*Speculation: related to the moving platforms
 	/EndDescription
 0
 
