@@ -19,6 +19,7 @@ namespace System.Windows.Forms
 
         private List<string> annotationTitles = new List<string>();
         private List<string> annotationDescriptions = new List<string>();
+        private List<string> annotationUnderlineValues = new List<string>();
 
         public SectionEditor(ModuleSectionNode section)
         {
@@ -144,6 +145,7 @@ namespace System.Windows.Forms
                     hexBox1.ByteProvider.ReadByte((((long)i) * 4) + 0),
                 };
                 annotationDescriptions.Add("Default: 0x" + bytes[3].ToString("X2") + bytes[2].ToString("X2") + bytes[1].ToString("X2") + bytes[0].ToString("X2"));
+                annotationUnderlineValues.Add("1111    // Flags for which bytes are underlined");
             }
 
             if(annotationTitles.Count > 0)
@@ -152,6 +154,7 @@ namespace System.Windows.Forms
                 annotationDescription.Text = annotationDescriptions[0];
             }
             hexBox1.annotationDescriptions = annotationDescriptions;
+            hexBox1.annotationUnderlines = annotationUnderlineValues;
         }
 
         private void LoadAnnotationsFromFile(string filename)
@@ -177,7 +180,7 @@ namespace System.Windows.Forms
                         }
                         if(annotationDescriptions[annotationDescriptions.Count - 1].EndsWith("\n"))
                             annotationDescriptions[annotationDescriptions.Count - 1] = annotationDescriptions[annotationDescriptions.Count - 1].Substring(0, annotationDescriptions[annotationDescriptions.Count - 1].Length - 1);
-
+                        annotationUnderlineValues.Add(sr.ReadLine());
                         sr.ReadLine();
                         index++;
                     }
@@ -196,6 +199,7 @@ namespace System.Windows.Forms
                     hexBox1.ByteProvider.ReadByte((((long)i) * 4) + 0),
                 };
                 annotationDescriptions.Add("Default: 0x" + bytes[3].ToString("X2") + bytes[2].ToString("X2") + bytes[1].ToString("X2") + bytes[0].ToString("X2"));
+                annotationUnderlineValues.Add("1111    // Flags for which bytes are underlined");
             }
 
             if (annotationTitles.Count > 0)
@@ -204,6 +208,7 @@ namespace System.Windows.Forms
                 annotationDescription.Text = annotationDescriptions[0];
             }
             hexBox1.annotationDescriptions = annotationDescriptions;
+            hexBox1.annotationUnderlines = annotationUnderlineValues;
         }
 
         private void SetByteProvider()
@@ -1201,6 +1206,7 @@ namespace System.Windows.Forms
             if (annotationDescriptions.Count > annotationIndex)
                 annotationDescriptions[annotationIndex] = annotationDescription.Text;
             hexBox1.annotationDescriptions = annotationDescriptions;
+            hexBox1.annotationUnderlines = annotationUnderlineValues;
             hexBox1.Invalidate();
         }
 
@@ -1230,13 +1236,14 @@ namespace System.Windows.Forms
                 {
                     sw.WriteLine(annotationTitles[i]);
                     sw.WriteLine(annotationDescriptions[i]);
+                    sw.WriteLine("\t/EndDescription");
                     if (i == annotationTitles.Count - 1)
                     {
-                        sw.Write("\t/EndDescription");
+                        sw.Write(annotationUnderlineValues[i]);
                     }
                     else
                     {
-                        sw.WriteLine("\t/EndDescription");
+                        sw.WriteLine(annotationUnderlineValues[i]);
                         sw.WriteLine();
                     }
                 }

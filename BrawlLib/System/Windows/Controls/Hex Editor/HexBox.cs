@@ -29,6 +29,7 @@ namespace Be.Windows.Forms
         public SolidBrush GreenBrush = new SolidBrush(Color.Green);
 
         public List<string> annotationDescriptions = new List<string>();
+        public List<string> annotationUnderlines = new List<string>();
 
 		#region IKeyInterpreter interface
 		/// <summary>
@@ -2653,15 +2654,14 @@ namespace Be.Windows.Forms
 
 			string sB = ConvertByteToHex(b);
             Font tempFont = Font;
-            if (annotationDescriptions.Count >= ByteProvider.Length/4)
-            {
-                if (!annotationDescriptions[(int)(offset / 4)].StartsWith("Default: 0x"))
-                    tempFont = new Font(Font, FontStyle.Underline);
-            }
 
-			g.DrawString(sB.Substring(0, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + (sB.Substring(0, 1) == "A" ? 2 : 0)), _stringFormat);
+            if (annotationDescriptions.Count >= ByteProvider.Length / 4)
+                if (!annotationDescriptions[(int)(offset / 4)].StartsWith("Default: 0x") && annotationUnderlines[(int)(offset / 4)].Substring((int)(offset % 4)).StartsWith("1"))
+                    tempFont = new Font(Font, FontStyle.Underline);
+
+            g.DrawString(sB.Substring(0, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + (sB.Substring(0, 1) == "A" ? 2 : 0)), _stringFormat);
 			bytePointF.X += _charSize.Width;
-			g.DrawString(sB.Substring(1, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + (sB.Substring(1, 1) == "A" ? 2 : 0)), _stringFormat);
+            g.DrawString(sB.Substring(1, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + (sB.Substring(1, 1) == "A" ? 2 : 0)), _stringFormat);
 		}
 
 		void PaintColumnInfo(Graphics g, byte b, Brush brush, int col)
@@ -2689,10 +2689,8 @@ namespace Be.Windows.Forms
             float t = isFirstLineChar ? 0 : 3;
             Font tempFont = Font;
             if (annotationDescriptions.Count >= ByteProvider.Length / 4)
-            {
-                if (!annotationDescriptions[(int)(offset / 4)].StartsWith("Default: 0x"))
+                if (!annotationDescriptions[(int)(offset / 4)].StartsWith("Default: 0x") && annotationUnderlines[(int)(offset / 4)].Substring((int)(offset % 4)).StartsWith("1"))
                     tempFont = new Font(Font, FontStyle.Underline);
-            }
 
             g.FillRectangle(brushBack, bytePointF.X - t, bytePointF.Y, bcWidth, _charSize.Height);
 			g.DrawString(sB.Substring(0, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + (sB.Substring(0, 1) == "A" ? 2 : 0)), _stringFormat);
