@@ -330,57 +330,103 @@ namespace System.Windows.Forms
                     annotationIndex = (int)(t / 4);
                 }
                 grpValue.Enabled = !_section._isBSSSection;
-                byte[] bytes = new byte[]
+                if (rdo4byte.Checked)
                 {
-                    //Read in little endian
-                    hexBox1.ByteProvider.ReadByte(t + 3),
-                    hexBox1.ByteProvider.ReadByte(t + 2),
-                    hexBox1.ByteProvider.ReadByte(t + 1),
-                    hexBox1.ByteProvider.ReadByte(t + 0),
-                };
-
-                //Reverse byte order to big endian
-                txtByte1.Text = bytes[3].ToString("X2");
-                txtByte2.Text = bytes[2].ToString("X2");
-                txtByte3.Text = bytes[1].ToString("X2");
-                txtByte4.Text = bytes[0].ToString("X2");
-
-                //BitConverter converts from little endian
-                float f = BitConverter.ToSingle(bytes, 0);
-                float z;
-                if (float.TryParse(txtFloat.Text, out z))
-                {
-                    if (z != f)
-                        txtFloat.Text = f.ToString();
-                }
-                else
-                    txtFloat.Text = f.ToString();
-
-                int i = BitConverter.ToInt32(bytes, 0);
-                int w;
-                if (int.TryParse(txtInt.Text, out w))
-                {
-                    if (w != i)
+                    byte[] bytes = new byte[]
                     {
-                        txtInt.Text = i.ToString();
-                        //if (_section.HasCode && ppcDisassembler1.Visible)
-                        //    ppcDisassembler1.UpdateRow(SelectedRelocationIndex - _startIndex);
+                        //Read in little endian
+                        hexBox1.ByteProvider.ReadByte(t + 3),
+                        hexBox1.ByteProvider.ReadByte(t + 2),
+                        hexBox1.ByteProvider.ReadByte(t + 1),
+                        hexBox1.ByteProvider.ReadByte(t + 0),
+                    };
+
+                    //Reverse byte order to big endian
+                    txtByte1.Text = bytes[3].ToString("X2");
+                    txtByte2.Text = bytes[2].ToString("X2");
+                    txtByte3.Text = bytes[1].ToString("X2");
+                    txtByte4.Text = bytes[0].ToString("X2");
+
+                    //BitConverter converts from little endian
+                    float f = BitConverter.ToSingle(bytes, 0);
+                    float z;
+                    if (float.TryParse(txtFloat.Text, out z))
+                    {
+                        if (z != f)
+                            txtFloat.Text = f.ToString();
                     }
+                    else
+                        txtFloat.Text = f.ToString();
+
+                    int i = BitConverter.ToInt32(bytes, 0);
+                    int w;
+                    if (int.TryParse(txtInt.Text, out w))
+                    {
+                        if (w != i)
+                        {
+                            txtInt.Text = i.ToString();
+                            //if (_section.HasCode && ppcDisassembler1.Visible)
+                            //    ppcDisassembler1.UpdateRow(SelectedRelocationIndex - _startIndex);
+                        }
+                    }
+                    else
+                        txtInt.Text = i.ToString();
+
+                    string bin = ((Bin32)(uint)i).ToString();
+                    string[] bins = bin.Split(' ');
+
+                    txtBin1.Text = bins[0];
+                    txtBin2.Text = bins[1];
+                    txtBin3.Text = bins[2];
+                    txtBin4.Text = bins[3];
+                    txtBin5.Text = bins[4];
+                    txtBin6.Text = bins[5];
+                    txtBin7.Text = bins[6];
+                    txtBin8.Text = bins[7];
                 }
                 else
-                    txtInt.Text = i.ToString();
+                {
+                    t = offset.RoundDown(2);
+                    byte[] bytes = new byte[]
+                    {
+                        //Read in little endian
+                        hexBox1.ByteProvider.ReadByte(t + 1),
+                        hexBox1.ByteProvider.ReadByte(t + 0),
+                    };
+                    //Reverse byte order to big endian
+                    txtByte1.Text = bytes[1].ToString("X2");
+                    txtByte2.Text = bytes[0].ToString("X2");
+                    txtByte3.Text = "";
+                    txtByte4.Text = "";
 
-                string bin = ((Bin32)(uint)i).ToString();
-                string[] bins = bin.Split(' ');
+                    txtFloat.Text = "";
 
-                txtBin1.Text = bins[0];
-                txtBin2.Text = bins[1];
-                txtBin3.Text = bins[2];
-                txtBin4.Text = bins[3];
-                txtBin5.Text = bins[4];
-                txtBin6.Text = bins[5];
-                txtBin7.Text = bins[6];
-                txtBin8.Text = bins[7];
+                    int i = BitConverter.ToInt16(bytes, 0);
+                    int w;
+                    if (int.TryParse(txtInt.Text, out w))
+                    {
+                        if (w != i)
+                        {
+                            txtInt.Text = i.ToString();
+                            //if (_section.HasCode && ppcDisassembler1.Visible)
+                            //    ppcDisassembler1.UpdateRow(SelectedRelocationIndex - _startIndex);
+                        }
+                    }
+                    else
+                        txtInt.Text = i.ToString();
+
+                    string bin = ((Bin16)(uint)i).ToString();
+                    string[] bins = bin.Split(' ');
+
+                    txtBin1.Text = bins[0];
+                    txtBin2.Text = bins[1];
+                    txtBin3.Text = bins[2];
+                    txtBin4.Text = bins[3];
+                    txtBin5.Text = "";
+                    txtBin6.Text = "";
+                    txtBin7.Text = "";
+                    txtBin8.Text = "";
+                }
             }
             else
                 grpValue.Enabled = false;
@@ -1248,6 +1294,15 @@ namespace System.Windows.Forms
                     }
                 }
             }
+        }
+
+        private void byteCount_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_updating)
+                return;
+            txtBin5.Enabled = txtBin6.Enabled = txtBin7.Enabled = txtBin8.Enabled = rdo4byte.Checked;
+            txtFloat.Enabled = (!chkCodeSection.Checked && rdo4byte.Checked);
+            PosChanged();
         }
 
         public RelocationTarget GetBranchOffsetRelocation()
