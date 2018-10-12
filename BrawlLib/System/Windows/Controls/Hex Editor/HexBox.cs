@@ -2655,7 +2655,7 @@ namespace Be.Windows.Forms
 			string sB = ConvertByteToHex(b);
             Font tempFont = Font;
 
-            if (annotationDescriptions != null && annotationDescriptions.Count >= ByteProvider.Length / 4 && annotationDescriptions.Count >= (int)(offset / 4))
+            if (annotationDescriptions != null && annotationDescriptions.Count > ByteProvider.Length / 4 && annotationDescriptions.Count > (int)(offset / 4))
                 if (!annotationDescriptions[(int)(offset / 4)].StartsWith("Default: 0x") && annotationUnderlines[(int)(offset / 4)].Substring((int)(offset % 4)).StartsWith("1"))
                     tempFont = new Font(Font, FontStyle.Bold | FontStyle.Italic | FontStyle.Underline);
 
@@ -2689,7 +2689,7 @@ namespace Be.Windows.Forms
             float t = isFirstLineChar ? 0 : 3;
             Font tempFont = Font;
 
-            if (annotationDescriptions != null && annotationDescriptions.Count >= ByteProvider.Length / 4 && annotationDescriptions.Count >= (int)(offset / 4))
+            if (annotationDescriptions != null && annotationDescriptions.Count > ByteProvider.Length / 4 && annotationDescriptions.Count > (int)(offset / 4))
                 if (!annotationDescriptions[(int)(offset / 4)].StartsWith("Default: 0x") && annotationUnderlines[(int)(offset / 4)].Substring((int)(offset % 4)).StartsWith("1"))
                     tempFont = new Font(Font, FontStyle.Bold | FontStyle.Italic);
 
