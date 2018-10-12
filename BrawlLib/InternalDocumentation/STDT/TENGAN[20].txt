@@ -65,18 +65,18 @@ Default (Float): 0.2 (0x3E4CCCCD)
 	/EndDescription
 0
 
-0x048
-Default (Float): 0.01 (0x3C23D70A)
+Cresselia Spawn Chance
+(Float) The chance that Cresselia will spawn when the spawn check timer reaches 0
 	/EndDescription
 0
 
-Pokémon (Re)Spawn Minimum Timer
-(Float) The minimum number of frames before Dialga, Palkia, or Cresselia will appear or reappear when not on stage
+Pokémon (Re)Spawn Check Timer
+(Float) The number of frames before Dialga, Palkia, or Cresselia will perform a check to appear or reappear when not on stage
 	/EndDescription
 0
 
-Pokémon (Re)Spawn Maximum Timer
-(Float) The maximum number of frames before Dialga, Palkia, or Cresselia will appear or reappear when not on stage
+Pokémon Attack Check Delay
+(Float) The number of frames between when Dialga, Palkia, or Cresselia check whether or not they attack
 	/EndDescription
 0
 
