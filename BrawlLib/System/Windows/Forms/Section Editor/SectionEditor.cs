@@ -750,7 +750,7 @@ namespace System.Windows.Forms
         {
             pnlHexEditor.Dock = chkCodeSection.Checked ? DockStyle.Right : DockStyle.Fill;
             pnlFunctions.Visible = ppcDisassembler1.Visible = splitter2.Visible = chkCodeSection.Checked;
-            txtFloat.Enabled = txtInt.Enabled = !chkCodeSection.Checked;
+            //txtFloat.Enabled = txtInt.Enabled = !chkCodeSection.Checked;
 
             if (chkCodeSection.Checked)
             {
@@ -950,16 +950,102 @@ namespace System.Windows.Forms
                 return;
 
             int i;
-            if (int.TryParse(txtInt.Text, out i))
+            short s;
+            long l;
+            if(rdo4byte.Checked)
             {
-                long t = Position.RoundDown(4);
-                byte* b = (byte*)&i;
-                hexBox1.ByteProvider.WriteByte(t + 3, b[0]);
-                hexBox1.ByteProvider.WriteByte(t + 2, b[1]);
-                hexBox1.ByteProvider.WriteByte(t + 1, b[2]);
-                hexBox1.ByteProvider.WriteByte(t + 0, b[3]);
-                hexBox1.Invalidate();
-                PosChanged();
+                if (int.TryParse(txtInt.Text, out i))
+                {
+                    long t = Position.RoundDown(4);
+                    byte* b = (byte*)&i;
+                    hexBox1.ByteProvider.WriteByte(t + 3, b[0]);
+                    hexBox1.ByteProvider.WriteByte(t + 2, b[1]);
+                    hexBox1.ByteProvider.WriteByte(t + 1, b[2]);
+                    hexBox1.ByteProvider.WriteByte(t + 0, b[3]);
+                    hexBox1.Invalidate();
+                    PosChanged();
+                } else if (long.TryParse(txtInt.Text, out l))
+                {
+                    if(l > int.MaxValue)
+                    {
+                        i = int.MaxValue;
+                        long t = Position.RoundDown(4);
+                        byte* b = (byte*)&i;
+                        hexBox1.ByteProvider.WriteByte(t + 3, b[0]);
+                        hexBox1.ByteProvider.WriteByte(t + 2, b[1]);
+                        hexBox1.ByteProvider.WriteByte(t + 1, b[2]);
+                        hexBox1.ByteProvider.WriteByte(t + 0, b[3]);
+                        hexBox1.Invalidate();
+                        PosChanged();
+                    } else if(l < int.MinValue)
+                    {
+                        i = int.MinValue;
+                        long t = Position.RoundDown(4);
+                        byte* b = (byte*)&i;
+                        hexBox1.ByteProvider.WriteByte(t + 3, b[0]);
+                        hexBox1.ByteProvider.WriteByte(t + 2, b[1]);
+                        hexBox1.ByteProvider.WriteByte(t + 1, b[2]);
+                        hexBox1.ByteProvider.WriteByte(t + 0, b[3]);
+                        hexBox1.Invalidate();
+                        PosChanged();
+                    }
+                } else if(txtInt.Text == "")
+                {
+                    i = 0;
+                    long t = Position.RoundDown(4);
+                    byte* b = (byte*)&i;
+                    hexBox1.ByteProvider.WriteByte(t + 3, b[0]);
+                    hexBox1.ByteProvider.WriteByte(t + 2, b[1]);
+                    hexBox1.ByteProvider.WriteByte(t + 1, b[2]);
+                    hexBox1.ByteProvider.WriteByte(t + 0, b[3]);
+                    hexBox1.Invalidate();
+                    PosChanged();
+                }
+            }
+            else
+            {
+                if (short.TryParse(txtInt.Text, out s))
+                {
+                    long t = Position.RoundDown(2);
+                    byte* b = (byte*)&s;
+                    hexBox1.ByteProvider.WriteByte(t + 1, b[0]);
+                    hexBox1.ByteProvider.WriteByte(t + 0, b[1]);
+                    hexBox1.Invalidate();
+                    PosChanged();
+                }
+                else if (long.TryParse(txtInt.Text, out l))
+                {
+                    if (l > short.MaxValue)
+                    {
+                        s = short.MaxValue;
+                        long t = Position.RoundDown(2);
+                        byte* b = (byte*)&s;
+                        hexBox1.ByteProvider.WriteByte(t + 1, b[0]);
+                        hexBox1.ByteProvider.WriteByte(t + 0, b[1]);
+                        hexBox1.Invalidate();
+                        PosChanged();
+                    }
+                    else if (l < short.MinValue)
+                    {
+                        s = short.MinValue;
+                        long t = Position.RoundDown(2);
+                        byte* b = (byte*)&s;
+                        hexBox1.ByteProvider.WriteByte(t + 1, b[0]);
+                        hexBox1.ByteProvider.WriteByte(t + 0, b[1]);
+                        hexBox1.Invalidate();
+                        PosChanged();
+                    }
+                }
+                else if (txtInt.Text == "")
+                {
+                    s = 0;
+                    long t = Position.RoundDown(2);
+                    byte* b = (byte*)&s;
+                    hexBox1.ByteProvider.WriteByte(t + 1, b[0]);
+                    hexBox1.ByteProvider.WriteByte(t + 0, b[1]);
+                    hexBox1.Invalidate();
+                    PosChanged();
+                }
             }
         }
 
@@ -1301,7 +1387,7 @@ namespace System.Windows.Forms
             if (_updating)
                 return;
             txtBin5.Enabled = txtBin6.Enabled = txtBin7.Enabled = txtBin8.Enabled = rdo4byte.Checked;
-            txtFloat.Enabled = (!chkCodeSection.Checked && rdo4byte.Checked);
+            txtFloat.Enabled = rdo4byte.Checked;//= (!chkCodeSection.Checked && rdo4byte.Checked);
             PosChanged();
         }
 

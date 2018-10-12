@@ -939,7 +939,7 @@
             // txtInt
             // 
             this.txtInt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtInt.Enabled = false;
+            this.txtInt.Enabled = true;
             this.txtInt.Location = new System.Drawing.Point(52, 58);
             this.txtInt.Name = "txtInt";
             this.txtInt.Size = new System.Drawing.Size(111, 20);
@@ -949,7 +949,7 @@
             // txtFloat
             // 
             this.txtFloat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFloat.Enabled = false;
+            this.txtFloat.Enabled = true;
             this.txtFloat.Location = new System.Drawing.Point(52, 39);
             this.txtFloat.Name = "txtFloat";
             this.txtFloat.Size = new System.Drawing.Size(111, 20);
