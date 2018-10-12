@@ -75,7 +75,7 @@ Pokémon (Re)Spawn Check Timer
 	/EndDescription
 0
 
-Pokémon Attack Check Delay
+Pokémon Attack Check Timer
 (Float) The number of frames between when Dialga, Palkia, or Cresselia check whether or not they attack
 	/EndDescription
 0
