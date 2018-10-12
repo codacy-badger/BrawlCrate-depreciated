@@ -2051,7 +2051,7 @@ namespace Be.Windows.Forms
         /// -2 if Find was aborted.</returns>
         public long FindPrev(FindOptions options)
         {
-            var startIndex = SelectionStart;
+            var startIndex = SelectionStart - 1;
             int match = 0;
 
             byte[] buffer1 = null;
