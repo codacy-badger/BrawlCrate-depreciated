@@ -1390,7 +1390,7 @@ namespace Be.Windows.Forms
             this._vScrollBar.Cursor = Cursors.Default;
 
 			this._builtInContextMenu = new BuiltInContextMenu(this);
-
+            
 			BackColor = Color.White;
 			Font = new Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
 			_stringFormat = new StringFormat(StringFormat.GenericTypographic);
@@ -1996,7 +1996,10 @@ namespace Be.Windows.Forms
                     //throw new ArgumentException("Hex can not be null when Type is Hex");
                 }
 				buffer1 = options.Hex;
-			}
+			} else if (options.Type == FindType.Annotations)
+            {
+                return FindNextAnnotations(options);
+            }
 
 			int buffer1Length = buffer1.Length;
 
@@ -2078,6 +2081,9 @@ namespace Be.Windows.Forms
                     //throw new ArgumentException("Hex can not be null when Type is Hex");
                 }
                 buffer1 = options.Hex;
+            } else if(options.Type == FindType.Annotations)
+            {
+                return FindPrevAnnotations(options);
             }
 
             int buffer1Length = buffer1.Length;
@@ -2121,10 +2127,88 @@ namespace Be.Windows.Forms
             return -1;
         }
 
-		/// <summary>
-		/// Aborts a working Find method.
-		/// </summary>
-		public void AbortFind()
+        public long FindNextAnnotations(FindOptions options)
+        {
+            var startIndex = SelectionStart + SelectionLength;
+            int match = 0;
+            _abortFind = false;
+
+            for (long pos = startIndex.RoundUp(4); pos < _byteProvider.Length; pos += 4)
+            {
+                if (_abortFind)
+                    return -2;
+
+                if (pos % 1000 == 0) // for performance reasons: DoEvents only 1 times per 1000 loops
+                    Application.DoEvents();
+
+                if (annotationDescriptions.Count > pos / 4)
+                {
+                    if (options.MatchCase)
+                    {
+                        if (annotationDescriptions[(int)(pos / 4)].Contains(System.Text.Encoding.Default.GetString(options.FindBuffer)))
+                        {
+                            Select(pos, 8);
+                            ScrollByteIntoView(pos + _selectionLength);
+                            ScrollByteIntoView(pos);
+                            return pos;
+                        }
+                    }
+                    else if (annotationDescriptions[(int)(pos / 4)].Contains(System.Text.Encoding.Default.GetString(options.FindBuffer), StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        Select(pos, 4);
+                        ScrollByteIntoView(pos + _selectionLength);
+                        ScrollByteIntoView(pos);
+                        return pos;
+                    }
+                }
+            }
+
+            return -1;
+        }
+
+        public long FindPrevAnnotations(FindOptions options)
+        {
+            var startIndex = SelectionStart;
+            int match = 0;
+            _abortFind = false;
+
+            for (long pos = startIndex.RoundDown(4) - 4; pos > 0; pos -= 4)
+            {
+                if (_abortFind)
+                    return -2;
+
+                if (pos % 1000 == 0) // for performance reasons: DoEvents only 1 times per 1000 loops
+                    Application.DoEvents();
+
+                if (annotationDescriptions.Count > pos / 4)
+                {
+                    if (options.MatchCase)
+                    {
+                        if (annotationDescriptions[(int)(pos / 4)].Contains(System.Text.Encoding.Default.GetString(options.FindBuffer)))
+                        {
+                            Select(pos, 8);
+                            ScrollByteIntoView(pos + _selectionLength);
+                            ScrollByteIntoView(pos);
+                            return pos;
+                        }
+                    }
+                    else if (annotationDescriptions[(int)(pos / 4)].Contains(System.Text.Encoding.Default.GetString(options.FindBuffer), StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        Select(pos, 4);
+                        ScrollByteIntoView(pos + _selectionLength);
+                        ScrollByteIntoView(pos);
+                        return pos;
+                    }
+                }
+            }
+
+            return -1;
+        }
+
+        /// <summary>
+        /// Aborts a working Find method.
+        /// </summary>
+        public void AbortFind()
 		{
 			_abortFind = true;
 		}
@@ -2655,7 +2739,7 @@ namespace Be.Windows.Forms
 			string sB = ConvertByteToHex(b);
             Font tempFont = Font;
 
-            if (annotationDescriptions != null && annotationDescriptions.Count > ByteProvider.Length / 4 && annotationDescriptions.Count > (int)(offset / 4))
+            if (annotationDescriptions != null && annotationDescriptions.Count > (int)(offset / 4))
                 if (!annotationDescriptions[(int)(offset / 4)].StartsWith("Default: 0x") && annotationUnderlines[(int)(offset / 4)].Substring((int)(offset % 4)).StartsWith("1"))
                     tempFont = new Font(Font, FontStyle.Bold | FontStyle.Italic | FontStyle.Underline);
 
@@ -2689,7 +2773,7 @@ namespace Be.Windows.Forms
             float t = isFirstLineChar ? 0 : 3;
             Font tempFont = Font;
 
-            if (annotationDescriptions != null && annotationDescriptions.Count > ByteProvider.Length / 4 && annotationDescriptions.Count > (int)(offset / 4))
+            if (annotationDescriptions != null && annotationDescriptions.Count > (int)(offset / 4))
                 if (!annotationDescriptions[(int)(offset / 4)].StartsWith("Default: 0x") && annotationUnderlines[(int)(offset / 4)].Substring((int)(offset % 4)).StartsWith("1"))
                     tempFont = new Font(Font, FontStyle.Bold | FontStyle.Italic);
 

@@ -14,13 +14,17 @@ namespace Be.Windows.Forms
 		/// <summary>
 		/// Used for Hex Find operations
 		/// </summary>
-		Hex 
-	}
+		Hex,
+        /// <summary>
+        /// Used for Annotation Searching operations
+        /// </summary>
+        Annotations
+    }
 
-	/// <summary>
-	/// Defines all state information nee
-	/// </summary>
-	public class FindOptions
+    /// <summary>
+    /// Defines all state information nee
+    /// </summary>
+    public class FindOptions
 	{
 		/// <summary>
 		/// Gets or sets whether the Find options are valid
