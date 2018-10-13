@@ -573,6 +573,7 @@ namespace System.Windows.Forms
             if (_dlgColor.ShowDialog(this) == DialogResult.OK)
             {
                 ((RGBAPixel*)TargetNode.AttributeAddress)[index] = (ARGBPixel)_dlgColor.Color;
+                TargetNode.SignalPropertyChange();
                 RefreshRow(index);
             }
         }
@@ -585,6 +586,7 @@ namespace System.Windows.Forms
             if(AttributeArray[index]._type == 0)
             {
                 ((bfloat*)TargetNode.AttributeAddress)[index] = float.NegativeInfinity;
+                TargetNode.SignalPropertyChange();
                 RefreshRow(index);
             }
         }
@@ -597,6 +599,7 @@ namespace System.Windows.Forms
             if (AttributeArray[index]._type == 0)
             {
                 ((bfloat*)TargetNode.AttributeAddress)[index] = float.PositiveInfinity;
+                TargetNode.SignalPropertyChange();
                 RefreshRow(index);
             }
         }
