@@ -1,0 +1,306 @@
+~0x014
+Default (Unknown Type): (0x06080A00)
+	/EndDescription
+4
+
+0x018
+Default (Float): 240 (0x43700000)
+	/EndDescription
+0
+
+0x01C
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+0x020
+Default (Float): 180 (0x43340000)
+	/EndDescription
+0
+
+0x024
+Default (Float): 180 (0x43340000)
+	/EndDescription
+0
+
+Leaves: Damage angle
+(Float) How much angle is increased/decreased when the leaves are damaged. Doesn't affect the leaf on the left.
+
+	/EndDescription
+0
+
+Leaves: Maximum angle (Top)
+(Float) The maximum angle the leaves can reach upwards. Doesn't affect the leaf on the left.
+	/EndDescription
+0
+
+Leaves: Maximum angle (Bottom)
+(Float) The maximum angle the leaves can reach downwards. Doesn't affect the leaf on the left.
+	/EndDescription
+0
+
+Leaves: Restore frames
+(Float) How many frames have to pass after damage to make the leaf restore. Doesn't affect the leaf on the left.
+	/EndDescription
+0
+
+Leaves: Restore angle
+(Float) How much angle is increased/decreased when the leaves restore over time. Doesn't affect the leaf on the left.
+	/EndDescription
+0
+
+0x03C
+Default (Float): 600 (0x44160000)
+	/EndDescription
+0
+
+Left Leaf: Initial angle
+(Float) The angle the left leaf spawns at.
+	/EndDescription
+0
+
+0x044
+Default (Color): R:65 G:240 B:0 A:0 (0x41F00000)
+	/EndDescription
+0
+
+0x048
+Default (Color): R:65 G:240 B:0 A:0 (0x41F00000)
+	/EndDescription
+0
+
+Left Leaf: Damage angle
+(Float) How much angle is increased/decreased when the left leaf is damaged.
+
+	/EndDescription
+0
+
+Left Leaf: Maximum angle (Top)
+(Float) The maximum angle the left leaf can reach upwards.
+	/EndDescription
+0
+
+Left Leaf: Maximum angle (Bottom)
+(Float) The maximum angle the left leaf can reach downwards.
+	/EndDescription
+0
+
+Left Leaf: Restore frames
+(Float) How many frames have to pass after damage to make the left leaf restore.
+	/EndDescription
+0
+
+Left Leaf: Restore angle
+(Float) How much angle is increased/decreased when the left leaf restores over time.
+	/EndDescription
+0
+
+Plankton: Initial speed
+(Float) How much speed the plankton gain when they spawn.
+	/EndDescription
+0
+
+Plankton: Gravity
+(Float) How much downwards force the planktons get every frame.
+	/EndDescription
+0
+
+Plankton: Gravity in water
+(Float) How much downwards force the planktons get every frame while they're in water.
+	/EndDescription
+0
+
+Plankton: Spawn delay (order 1)
+(Float) How many frames have to pass for a plankton to spawn. Only affects the first order.
+	/EndDescription
+0
+
+*0x070
+Default (Integer): 8172032 (0x007CB200)
+	/EndDescription
+1
+
+Plankton: Initial order percentage
+(Float) The chance that the initial order is the first order (from 0 to 1000).
+	/EndDescription
+0
+
+Plankton: Order percentage
+(Float) The chance that the second order is repeated after the second order (from 0 to 30).
+	/EndDescription
+0
+
+Plankton: Something related to the order
+(Integer) Unknown: changing the value will force the first order and never change.
+	/EndDescription
+1
+
+~0x080
+Default (Unknown Type): (0x05080800)
+	/EndDescription
+1
+
+0x084
+Default (Float): 3,75 (0x40700000)
+	/EndDescription
+0
+
+0x088
+Default (Float): 1,9 (0x3FF33333)
+	/EndDescription
+0
+
+0x08C
+Default (Float): 0,75 (0x3F400000)
+	/EndDescription
+0
+
+*0x090
+Default (Integer): 1060864 (0x00103000)
+	/EndDescription
+1
+
+*0x094
+Default (Integer): 1060864 (0x00103000)
+	/EndDescription
+1
+
+*0x098
+Default (Integer): 1060864 (0x00103000)
+	/EndDescription
+1
+
+*0x09C
+Default (Integer): 1060864 (0x00103000)
+	/EndDescription
+1
+
+*0x0A0
+Default (Integer): 1060864 (0x00103000)
+	/EndDescription
+1
+
+*0x0A4
+Default (Integer): 2633728 (0x00283000)
+	/EndDescription
+1
+
+*0x0A8
+Default (Integer): 3153920 (0x00302000)
+	/EndDescription
+1
+
+*0x0AC
+Default (Integer): 4788992 (0x00491300)
+	/EndDescription
+1
+
+*0x0B0
+Default (Integer): 6489600 (0x00630600)
+	/EndDescription
+1
+
+*0x0B4
+Default (Integer): 6489600 (0x00630600)
+	/EndDescription
+1
+
+*0x0B8
+Default (Integer): 6489600 (0x00630600)
+	/EndDescription
+1
+
+~0x0BC
+Default (Unknown Type): (0x01630000)
+	/EndDescription
+4
+
+~0x0C0
+Default (Unknown Type): (0x08630000)
+	/EndDescription
+4
+
+~0x0C4
+Default (Unknown Type): (0x08630000)
+	/EndDescription
+4
+
+~0x0C8
+Default (Unknown Type): (0x08630000)
+	/EndDescription
+3
+
+*0x0CC
+Default (Integer): 8895488 (0x0087BC00)
+	/EndDescription
+1
+
+*0x0D0
+Default (Integer): 9025280 (0x0089B700)
+	/EndDescription
+1
+
+~0x0D4
+Default (Unknown Type): (0x1E87B200)
+	/EndDescription
+4
+
+*0x0D8
+Default (Integer): 10402816 (0x009EBC00)
+	/EndDescription
+1
+
+0x0DC
+Default (Color): R:39 G:155 B:198 A:0 (0x279BC600)
+	/EndDescription
+3
+
+*0x0E0
+Default (Integer): 12368896 (0x00BCBC00)
+	/EndDescription
+1
+
+*0x0E4
+Default (Integer): 11703552 (0x00B29500)
+	/EndDescription
+1
+
+*0x0E8
+Default (Integer): 10379264 (0x009E6000)
+	/EndDescription
+1
+
+*0x0EC
+Default (Integer): 10698496 (0x00A33F00)
+	/EndDescription
+1
+
+*0x0F0
+Default (Integer): 9321216 (0x008E3B00)
+	/EndDescription
+1
+
+*0x0F4
+Default (Integer): 8664576 (0x00843600)
+	/EndDescription
+1
+
+*0x0F8
+Default (Integer): 8333312 (0x007F2800)
+	/EndDescription
+1
+
+*0x0FC
+Default (Integer): 7805184 (0x00771900)
+	/EndDescription
+1
+
+*0x100
+Default (Integer): 7801344 (0x00770A00)
+	/EndDescription
+1
+
+~0x104
+Default (Unknown Type): (0x0A770000)
+	/EndDescription
+4
