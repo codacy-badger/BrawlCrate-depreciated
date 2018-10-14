@@ -5,6 +5,8 @@ Default (Float): 0.3 (0x3E99999A)
 
 Scrolling Speed
 (Float) The speed at which the stage scrolls. May mess up the background flag and castle
+
+Default (Float): 0.91 (0x3F68F5C3)
 	/EndDescription
 0
 
@@ -15,6 +17,8 @@ Default (Float): 0.74 (0x3F3D70A4)
 
 Brick Block HP
 (Float) The amount of damage necessary to break a brick block
+
+Default (Float): 6 (0x40C00000)
 	/EndDescription
 0
 

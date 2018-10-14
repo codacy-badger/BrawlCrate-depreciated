@@ -30,16 +30,22 @@ Default (Float): 0.1 (0x3DCCCCCD)
 
 Balloon Spawn Timer
 (Float) The initial timer before a balloon spawns
+
+Default (Float): 1800 (0x44E10000)
 	/EndDescription
 0
 
 Balloon Respawn Minimum Timer
 (Float) The minimum number of frames before the balloon can respawn
+
+Default (Float): 600 (0x44160000)
 	/EndDescription
 0
 
 Balloon Respawn Maximum Timer
 (Float) The maximum number of frames before the balloon will respawn
+
+Default (Float): 1200 (0x44960000)
 	/EndDescription
 0
 

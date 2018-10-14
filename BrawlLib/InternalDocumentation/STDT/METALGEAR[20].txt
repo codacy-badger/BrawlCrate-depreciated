@@ -20,11 +20,15 @@ Default (Float): 0.1 (0x3DCCCCCD)
 
 Upper Tower HP
 (Float) The damage required to break the upper layer of either tower
+
+Default (Float): 50 (0x42480000)
 	/EndDescription
 0
 
 Lower Tower HP
 (Float) The damage required to break the lower layer of either tower (upper layer must be broken beforehand)
+
+Default (Float): 65 (0x42820000)
 	/EndDescription
 0
 
@@ -60,6 +64,8 @@ Default (Float): 0.5 (0x3F000000)
 
 Tower Respawn Timer
 (Float) The number of frames that the tower will take before rebuilding itself after having both layers broken
+
+Default (Float): 2220 (0x450AC000)
 	/EndDescription
 0
 

@@ -1240,6 +1240,9 @@
     <Content Include="InternalDocumentation\STDT\MARIOPAST[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="InternalDocumentation\STDT\METALGEAR[20].txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="InternalDocumentation\STDT\NORFAIR[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

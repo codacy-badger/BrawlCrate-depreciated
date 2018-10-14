@@ -15,6 +15,8 @@ Default (Float): 20 (0x41A00000)
 
 Lava Floor Speed
 (Float) The speed at which the lava floor rises and falls
+
+Default (Float): 0.01 (0x3C23D70A)
 	/EndDescription
 0
 
@@ -30,11 +32,15 @@ Default (Float): 0.015 (0x3C75C28F)
 
 Lava Wall Velocity (Inverse)
 (Float) Lower value increases speed and distance they travel
+
+Default (Float): 0.5 (0x3F000000)
 	/EndDescription
 0
 
 0x030
 Default: 0 (Could be int or float - be careful)
+
+Default (Float): 0 (0x00000000)
 	/EndDescription
 0
 
@@ -45,11 +51,15 @@ Default (Float): 6 (0x40C00000)
 
 Lava Wall Pause Minimum Timer
 (Float) The minimum number of frames the lava wall will stay out for
+
+Default (Float): 90 (0x42B40000)
 	/EndDescription
 0
 
 Lava Wall Pause Maximum Timer
 (Float) The maximum number of frames the lava wall will stay out for
+
+Default (Float): 180 (0x43340000)
 	/EndDescription
 0
 

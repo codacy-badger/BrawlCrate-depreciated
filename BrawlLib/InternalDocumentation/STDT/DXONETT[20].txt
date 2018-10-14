@@ -45,6 +45,8 @@ Default (Float): 2 (0x40000000)
 
 Car Timer
 (Float) The number of frames before cars appear. (Setting to infinity disables the hazard. Setting too low can cause crashes)
+
+Default (Float): 300 (0x43960000)
 	/EndDescription
 0
 
