@@ -8,7 +8,8 @@ namespace System
         public string _name;
         public string _description;
         public int _type;
-
+        public string _value;
+        public string _hexValue;
         //0 == float/radians
         //1 == int
         //2 == float radians to degrees
@@ -87,6 +88,24 @@ namespace System
                     AttributeInfo attr = Array[i];
                     sw.WriteLine(attr._name);
                     sw.WriteLine(attr._description);
+                    if(!attr._description.Contains("Default "))
+                    {
+                        sw.WriteLine();
+                        sw.Write("Default ");
+                        if (attr._type == 0)
+                            sw.Write("(Float): ");
+                        else if (attr._type == 1)
+                            sw.Write("(Integer): ");
+                        else if (attr._type == 2)
+                            sw.Write("(Degrees): ");
+                        else if (attr._type == 3)
+                            sw.Write("(Color): ");
+                        else if (attr._type == 4)
+                            sw.Write("(Unknown Type): ");
+                        if (attr._type != 4)
+                            sw.Write(attr._value);
+                        sw.WriteLine(" (" + attr._hexValue + ")");
+                    }
                     sw.WriteLine("\t/EndDescription");
                     if(i == Array.Length - 1)
                     {

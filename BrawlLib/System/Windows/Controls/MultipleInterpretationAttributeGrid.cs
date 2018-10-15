@@ -29,9 +29,17 @@ namespace System.Windows.Forms
 			foreach (Control c in new Control[] { chooser, save, p }) {
 				c.Margin = new Padding(0);
 			}
-		}
+        }
 
-		void save_Click(object sender, EventArgs e) {
+		unsafe void save_Click(object sender, EventArgs e) {
+            int i = 0;
+            foreach(AttributeInfo a in AttributeArray)
+            {
+                a._value = attributes.Rows[i][1].ToString();
+                a._hexValue = "0x" + ((int)((bint*)TargetNode.AttributeAddress)[i]).ToString("X8");
+                i++;
+            }
+                
 			AttributeInterpretation item = (AttributeInterpretation)chooser.SelectedItem;
 			if (item != null) {
 				item.Save();

@@ -323,7 +323,7 @@ namespace System.Windows.Forms
             dtgrdAttributes.DataSource = attributes;
         }
 
-        DataTable attributes = new DataTable();
+        public DataTable attributes = new DataTable();
         public unsafe void TargetChanged()
         {
             lblColor.Visible = false;
