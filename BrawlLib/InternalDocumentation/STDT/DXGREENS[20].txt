@@ -1,12 +1,12 @@
 Block Spawn Minimum Timer
-(Float) Minimum frame count before a bomb can spawn
+(Float) Minimum frame count before a block can spawn
 
 Default (Float): 30 (0x41F00000)
 	/EndDescription
 0
 
 Block Spawn Maximum Timer
-(Float) Maximum frame count before a bomb will spawn
+(Float) Maximum frame count before a block will spawn
 
 Default (Float): 300 (0x43960000)
 	/EndDescription
