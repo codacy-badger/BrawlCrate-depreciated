@@ -2822,12 +2822,12 @@ namespace Be.Windows.Forms
                     {
                         Point gridPoint = GetGridBytePoint(counter);
                         PointF byteStringPointF = GetByteStringPointF(gridPoint);
-                        if (byteCount >= 4)
-                            GetBrushes(index, ref foreBrush, ref backBrush, true);
+                        /*if (byteCount >= 4)
+                            GetBrushes(index, ref foreBrush, ref backBrush, true);*/
 
                         if (half && u > 1)
                             backBrush = CommandBrush;
-                        if(byteCount < 4)
+                        if(byteCount != 0)
                         {
                             if(_bytePos/byteCount == (offset / byteCount))
                                 GetBrushes(index, ref foreBrush, ref backBrush, true);
