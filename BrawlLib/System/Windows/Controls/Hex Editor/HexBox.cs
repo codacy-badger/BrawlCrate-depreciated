@@ -2669,7 +2669,7 @@ namespace Be.Windows.Forms
 			}
 		}
 
-        RelCommand GetBrushes(int index, ref Brush foreColor, ref Brush backColor)
+        RelCommand GetBrushes(int index, ref Brush foreColor, ref Brush backColor, bool allowSelection)
         {
             //bool specialFunc = false; //_prolog || _epilog || _unresolved
 
@@ -2696,7 +2696,7 @@ namespace Be.Windows.Forms
             bool cmd = command != null && !command.IsHalf;
 
             backColor =
-                _sectionEditor.SelectedRelocationIndex == index ? SelectedBrush :
+                (_sectionEditor.SelectedRelocationIndex == index && allowSelection) ? SelectedBrush :
                 cmd ? CommandBrush :
                 null;
 
@@ -2775,14 +2775,15 @@ namespace Be.Windows.Forms
 
             if (annotationDescriptions != null && annotationDescriptions.Count > (int)(offset / 4))
                 if (!annotationDescriptions[(int)(offset / 4)].StartsWith("Default: 0x") && annotationUnderlines[(int)(offset / 4)].Substring((int)(offset % 4)).StartsWith("1"))
-                    tempFont = new Font(Font, FontStyle.Bold | FontStyle.Italic);
-
+                    tempFont = new Font(Font, FontStyle.Bold | FontStyle.Italic | FontStyle.Underline);
+            
             g.FillRectangle(brushBack, bytePointF.X - t, bytePointF.Y, bcWidth, _charSize.Height);
             g.DrawString(sB.Substring(0, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + (((sB.Substring(0, 1) == "A") || (tempFont.Italic && !(sB.Substring(0, 1) == "1" || sB.Substring(0, 1) == "4")) ? 2 : 0))), _stringFormat);
             bytePointF.X += _charSize.Width;
             g.DrawString(sB.Substring(1, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + (((sB.Substring(1, 1) == "A") || (tempFont.Italic && !(sB.Substring(1, 1) == "1" || sB.Substring(1, 1) == "4")) ? 2 : 0))), _stringFormat);
         }
 
+        public int byteCount = 4;
         void PaintHexAndStringView(Graphics g, long startByte, long endByte)
 		{
 			Brush foreBrush = GetDefaultForeColor();
@@ -2813,7 +2814,7 @@ namespace Be.Windows.Forms
                         ((uint)_byteProvider.ReadByte(x + 3) << 0);
 
                     RelCommand cmd = null;
-                    if (_sectionEditor != null && (cmd = GetBrushes(index, ref foreBrush, ref backBrush)) != null)
+                    if (_sectionEditor != null && (cmd = GetBrushes(index, ref foreBrush, ref backBrush, false)) != null)
                         word = cmd.Apply(word, 0);
 
                     bool half = cmd != null && cmd.IsHalf;
@@ -2821,9 +2822,18 @@ namespace Be.Windows.Forms
                     {
                         Point gridPoint = GetGridBytePoint(counter);
                         PointF byteStringPointF = GetByteStringPointF(gridPoint);
+                        if (byteCount == 4)
+                            GetBrushes(index, ref foreBrush, ref backBrush, true);
 
                         if (half && u > 1)
                             backBrush = CommandBrush;
+                        if(byteCount == 2)
+                        {
+                            if(_bytePos/2 == (offset / 2))
+                                GetBrushes(index, ref foreBrush, ref backBrush, true);
+                            else if(!(half && u > 1))
+                                GetBrushes(index, ref foreBrush, ref backBrush, false);
+                        }
 
                         byte b = _byteProvider.ReadByte(x + u);
                         if (cmd != null && _sectionEditor.displayInitialized.Checked)

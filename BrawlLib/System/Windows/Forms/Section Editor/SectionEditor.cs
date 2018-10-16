@@ -1390,6 +1390,7 @@ namespace System.Windows.Forms
                 return;
             txtBin5.Enabled = txtBin6.Enabled = txtBin7.Enabled = txtBin8.Enabled = rdo4byte.Checked;
             txtFloat.Enabled = rdo4byte.Checked;//= (!chkCodeSection.Checked && rdo4byte.Checked);
+            hexBox1.byteCount = rdo4byte.Checked ? 4 : 2;
             PosChanged();
         }
 
