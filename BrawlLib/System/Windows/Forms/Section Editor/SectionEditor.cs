@@ -312,6 +312,7 @@ namespace System.Windows.Forms
 
             long offset = hexBox1.SelectionStart;
             long t = offset.RoundDown(4);
+            long t2 = offset.RoundDown(rdo4byte.Checked ? 4 : 2);
 
             _updating = true;
 
@@ -320,7 +321,7 @@ namespace System.Windows.Forms
             else
                 SelectedRelocationIndex = -1;
 
-            grpValue.Text = "Value @ 0x" + t.ToString("X");
+            grpValue.Text = "Value @ 0x" + t2.ToString("X");
             if (t + 3 < hexBox1.ByteProvider.Length)
             {
                 if (t/4 < annotationTitles.Count)
