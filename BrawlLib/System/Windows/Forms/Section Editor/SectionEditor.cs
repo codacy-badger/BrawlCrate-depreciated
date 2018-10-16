@@ -312,7 +312,7 @@ namespace System.Windows.Forms
 
             long offset = hexBox1.SelectionStart;
             long t = offset.RoundDown(4);
-            long t2 = offset.RoundDown(rdo4byte.Checked ? 4 : 2);
+            long t2 = offset.RoundDown(rdo4byte.Checked ? 4 : (rdo2byte.Checked ? 2 : 1));
 
             _updating = true;
 
@@ -385,7 +385,7 @@ namespace System.Windows.Forms
                     txtBin7.Text = bins[6];
                     txtBin8.Text = bins[7];
                 }
-                else
+                else if (rdo2byte.Checked)
                 {
                     t = offset.RoundDown(2);
                     byte[] bytes = new byte[]
@@ -423,6 +423,46 @@ namespace System.Windows.Forms
                     txtBin2.Text = bins[1];
                     txtBin3.Text = bins[2];
                     txtBin4.Text = bins[3];
+                    txtBin5.Text = "";
+                    txtBin6.Text = "";
+                    txtBin7.Text = "";
+                    txtBin8.Text = "";
+                }
+                else if (rdo1byte.Checked)
+                {
+                    t = offset;
+                    byte[] bytes = new byte[]
+                    {
+                        hexBox1.ByteProvider.ReadByte(t)
+                    };
+                    txtByte1.Text = bytes[0].ToString("X2");
+                    txtByte2.Text = "";
+                    txtByte3.Text = "";
+                    txtByte4.Text = "";
+
+                    txtFloat.Text = "";
+
+                    byte i = bytes[0];
+                    int w;
+                    if (int.TryParse(txtInt.Text, out w))
+                    {
+                        if (w != i)
+                        {
+                            txtInt.Text = i.ToString();
+                            //if (_section.HasCode && ppcDisassembler1.Visible)
+                            //    ppcDisassembler1.UpdateRow(SelectedRelocationIndex - _startIndex);
+                        }
+                    }
+                    else
+                        txtInt.Text = i.ToString();
+
+                    string bin = ((Bin8)(uint)i).ToString();
+                    string[] bins = bin.Split(' ');
+
+                    txtBin1.Text = bins[0];
+                    txtBin2.Text = bins[1];
+                    txtBin3.Text = "";
+                    txtBin4.Text = "";
                     txtBin5.Text = "";
                     txtBin6.Text = "";
                     txtBin7.Text = "";
@@ -952,6 +992,7 @@ namespace System.Windows.Forms
 
             int i;
             short s;
+            byte tempB;
             long l;
             if(rdo4byte.Checked)
             {
@@ -1003,7 +1044,7 @@ namespace System.Windows.Forms
                     PosChanged();
                 }
             }
-            else
+            else if(rdo2byte.Checked)
             {
                 if (short.TryParse(txtInt.Text, out s))
                 {
@@ -1048,6 +1089,47 @@ namespace System.Windows.Forms
                     PosChanged();
                 }
             }
+            else
+            {
+                if (byte.TryParse(txtInt.Text, out tempB))
+                {
+                    long t = Position;
+                    byte* b = (byte*)&tempB;
+                    hexBox1.ByteProvider.WriteByte(t, b[0]);
+                    hexBox1.Invalidate();
+                    PosChanged();
+                }
+                else if (long.TryParse(txtInt.Text, out l))
+                {
+                    if (l > byte.MaxValue)
+                    {
+                        tempB = byte.MaxValue;
+                        long t = Position;
+                        byte* b = (byte*)&tempB;
+                        hexBox1.ByteProvider.WriteByte(t, b[0]);
+                        hexBox1.Invalidate();
+                        PosChanged();
+                    }
+                    else if (l < short.MinValue)
+                    {
+                        tempB = byte.MinValue;
+                        long t = Position;
+                        byte* b = (byte*)&tempB;
+                        hexBox1.ByteProvider.WriteByte(t, b[0]);
+                        hexBox1.Invalidate();
+                        PosChanged();
+                    }
+                }
+                else if (txtInt.Text == "")
+                {
+                    tempB = 0;
+                    long t = Position;
+                    byte* b = (byte*)&tempB;
+                    hexBox1.ByteProvider.WriteByte(t, b[0]);
+                    hexBox1.Invalidate();
+                    PosChanged();
+                }
+            }
         }
 
         private void txtBin1_TextChanged(object sender, EventArgs e)
@@ -1062,28 +1144,68 @@ namespace System.Windows.Forms
             foreach (char s in text)
                 if (s != '0' && s != '1')
                     return;
+            if (rdo4byte.Checked)
+            {
+                Bin32 b = Bin32.FromString(txtBin1.Text + " " + txtBin2.Text + " " + txtBin3.Text + " " + txtBin4.Text + " " + txtBin5.Text + " " + txtBin6.Text + " " + txtBin7.Text + " " + txtBin8.Text);
+                long t = Position.RoundDown(4);
 
-            Bin32 b = Bin32.FromString(txtBin1.Text + " " + txtBin2.Text + " " + txtBin3.Text + " " + txtBin4.Text + " " + txtBin5.Text + " " + txtBin6.Text + " " + txtBin7.Text + " " + txtBin8.Text);
-            long t = Position.RoundDown(4);
+                byte
+                    b1 = (byte)((b >> 00) & 0xFF),
+                    b2 = (byte)((b >> 08) & 0xFF),
+                    b3 = (byte)((b >> 16) & 0xFF),
+                    b4 = (byte)((b >> 24) & 0xFF);
 
-            byte
-                b1 = (byte)((b >> 00) & 0xFF),
-                b2 = (byte)((b >> 08) & 0xFF),
-                b3 = (byte)((b >> 16) & 0xFF),
-                b4 = (byte)((b >> 24) & 0xFF);
+                txtByte1.Text = b1.ToString();
+                txtByte2.Text = b2.ToString();
+                txtByte3.Text = b3.ToString();
+                txtByte4.Text = b4.ToString();
 
-            txtByte1.Text = b1.ToString();
-            txtByte2.Text = b2.ToString();
-            txtByte3.Text = b3.ToString();
-            txtByte4.Text = b4.ToString();
+                hexBox1.ByteProvider.WriteByte(t + 3, b1);
+                hexBox1.ByteProvider.WriteByte(t + 2, b2);
+                hexBox1.ByteProvider.WriteByte(t + 1, b3);
+                hexBox1.ByteProvider.WriteByte(t + 0, b4);
 
-            hexBox1.ByteProvider.WriteByte(t + 3, b1);
-            hexBox1.ByteProvider.WriteByte(t + 2, b2);
-            hexBox1.ByteProvider.WriteByte(t + 1, b3);
-            hexBox1.ByteProvider.WriteByte(t + 0, b4);
+                hexBox1.Invalidate();
+                PosChanged();
+            }
+            else if (rdo2byte.Checked)
+            {
+                Bin16 b = Bin16.FromString(txtBin1.Text + " " + txtBin2.Text + " " + txtBin3.Text + " " + txtBin4.Text);
+                long t = Position.RoundDown(2);
 
-            hexBox1.Invalidate();
-            PosChanged();
+                byte
+                    b1 = (byte)((b >> 00) & 0xFF),
+                    b2 = (byte)((b >> 08) & 0xFF);
+
+                txtByte1.Text = b1.ToString();
+                txtByte2.Text = b2.ToString();
+                txtByte3.Text = "";
+                txtByte4.Text = "";
+
+                hexBox1.ByteProvider.WriteByte(t + 1, b1);
+                hexBox1.ByteProvider.WriteByte(t + 0, b2);
+
+                hexBox1.Invalidate();
+                PosChanged();
+            }
+            else
+            {
+                Bin8 b = Bin8.FromString(txtBin1.Text + " " + txtBin2.Text);
+                long t = Position;
+
+                byte
+                    b1 = (byte)((b >> 00) & 0xFF);
+
+                txtByte1.Text = b1.ToString();
+                txtByte2.Text = "";
+                txtByte3.Text = "";
+                txtByte4.Text = "";
+
+                hexBox1.ByteProvider.WriteByte(t, b1);
+
+                hexBox1.Invalidate();
+                PosChanged();
+            }
         }
 
         public bool _relocationsChanged = false;
@@ -1389,9 +1511,10 @@ namespace System.Windows.Forms
         {
             if (_updating)
                 return;
+            txtBin3.Enabled = txtBin4.Enabled = !rdo1byte.Checked;
             txtBin5.Enabled = txtBin6.Enabled = txtBin7.Enabled = txtBin8.Enabled = rdo4byte.Checked;
             txtFloat.Enabled = rdo4byte.Checked;//= (!chkCodeSection.Checked && rdo4byte.Checked);
-            hexBox1.byteCount = rdo4byte.Checked ? 4 : 2;
+            hexBox1.byteCount = rdo4byte.Checked ? 4 : (rdo2byte.Checked ? 2 : 1);
             PosChanged();
         }
 

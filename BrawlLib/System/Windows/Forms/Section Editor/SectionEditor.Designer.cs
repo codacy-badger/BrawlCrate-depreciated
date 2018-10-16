@@ -72,11 +72,13 @@
             this.displayStringsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chkAnnotations = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlLeft = new System.Windows.Forms.Panel();
+            this.ppcDisassembler1 = new System.Windows.Forms.PPCDisassembler();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.pnlHexEditor = new System.Windows.Forms.Panel();
             this.btnSaveAnnotation = new System.Windows.Forms.Button();
             this.annotationTitle = new System.Windows.Forms.RichTextBox();
             this.annotationDescription = new System.Windows.Forms.RichTextBox();
+            this.hexBox1 = new Be.Windows.Forms.HexBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.selectedBytesToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -106,8 +108,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.splitter3 = new System.Windows.Forms.Splitter();
-            this.ppcDisassembler1 = new System.Windows.Forms.PPCDisassembler();
-            this.hexBox1 = new Be.Windows.Forms.HexBox();
+            this.rdo1byte = new System.Windows.Forms.RadioButton();
             this.grpSettings.SuspendLayout();
             this.grpRelocInfo.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -552,6 +553,14 @@
             this.pnlLeft.Size = new System.Drawing.Size(780, 642);
             this.pnlLeft.TabIndex = 5;
             // 
+            // ppcDisassembler1
+            // 
+            this.ppcDisassembler1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ppcDisassembler1.Location = new System.Drawing.Point(0, 0);
+            this.ppcDisassembler1.Name = "ppcDisassembler1";
+            this.ppcDisassembler1.Size = new System.Drawing.Size(277, 642);
+            this.ppcDisassembler1.TabIndex = 11;
+            // 
             // splitter2
             // 
             this.splitter2.Dock = System.Windows.Forms.DockStyle.Right;
@@ -617,6 +626,45 @@
             this.annotationDescription.TabIndex = 11;
             this.annotationDescription.Text = "No Description Available.";
             this.annotationDescription.TextChanged += new System.EventHandler(this.description_TextChanged);
+            // 
+            // hexBox1
+            // 
+            this.hexBox1.BlrColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(100)))));
+            this.hexBox1.BranchOffsetColor = System.Drawing.Color.Plum;
+            // 
+            // 
+            // 
+            this.hexBox1.BuiltInContextMenu.CopyMenuItemText = "Copy";
+            this.hexBox1.BuiltInContextMenu.CutMenuItemText = "Cut";
+            this.hexBox1.BuiltInContextMenu.PasteMenuItemText = "Paste";
+            this.hexBox1.BuiltInContextMenu.SelectAllMenuItemText = "Select All";
+            this.hexBox1.ColumnDividerColor = System.Drawing.Color.Gray;
+            this.hexBox1.ColumnInfoVisible = true;
+            this.hexBox1.CommandColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(255)))), ((int)(((byte)(200)))));
+            this.hexBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.hexBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.hexBox1.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hexBox1.GroupSeparatorVisible = true;
+            this.hexBox1.InfoForeColor = System.Drawing.Color.Blue;
+            this.hexBox1.LineInfoVisible = true;
+            this.hexBox1.LinkedBranchColor = System.Drawing.Color.Orange;
+            this.hexBox1.Location = new System.Drawing.Point(0, 24);
+            this.hexBox1.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
+            this.hexBox1.Name = "hexBox1";
+            this.hexBox1.SectionEditor = null;
+            this.hexBox1.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.hexBox1.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
+            this.hexBox1.Size = new System.Drawing.Size(500, 446);
+            this.hexBox1.StringViewVisible = true;
+            this.hexBox1.TabIndex = 3;
+            this.hexBox1.UseFixedBytesPerLine = true;
+            this.hexBox1.VScrollBarVisible = true;
+            this.hexBox1.SelectionStartChanged += new System.EventHandler(this.hexBox1_SelectionStartChanged);
+            this.hexBox1.SelectionLengthChanged += new System.EventHandler(this.hexBox1_SelectionLengthChanged);
+            this.hexBox1.CurrentLineChanged += new System.EventHandler(this.hexBox1_CurrentLineChanged);
+            this.hexBox1.CurrentPositionInLineChanged += new System.EventHandler(this.hexBox1_CurrentPositionInLineChanged);
+            this.hexBox1.Copied += new System.EventHandler(this.hexBox1_Copied);
+            this.hexBox1.CopiedHex += new System.EventHandler(this.hexBox1_CopiedHex);
             // 
             // statusStrip
             // 
@@ -686,6 +734,7 @@
             // 
             // grpValue
             // 
+            this.grpValue.Controls.Add(this.rdo1byte);
             this.grpValue.Controls.Add(this.rdo2byte);
             this.grpValue.Controls.Add(this.rdo4byte);
             this.grpValue.Controls.Add(this.txtByte4);
@@ -717,7 +766,7 @@
             // 
             this.rdo2byte.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rdo2byte.AutoSize = true;
-            this.rdo2byte.Location = new System.Drawing.Point(95, 16);
+            this.rdo2byte.Location = new System.Drawing.Point(60, 16);
             this.rdo2byte.Name = "rdo2byte";
             this.rdo2byte.Size = new System.Drawing.Size(55, 17);
             this.rdo2byte.TabIndex = 17;
@@ -730,7 +779,7 @@
             // 
             this.rdo4byte.AutoSize = true;
             this.rdo4byte.Checked = true;
-            this.rdo4byte.Location = new System.Drawing.Point(20, 16);
+            this.rdo4byte.Location = new System.Drawing.Point(7, 16);
             this.rdo4byte.Name = "rdo4byte";
             this.rdo4byte.Size = new System.Drawing.Size(55, 17);
             this.rdo4byte.TabIndex = 15;
@@ -936,52 +985,18 @@
             this.splitter3.TabIndex = 11;
             this.splitter3.TabStop = false;
             // 
-            // ppcDisassembler1
+            // rdo1byte
             // 
-            this.ppcDisassembler1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ppcDisassembler1.Location = new System.Drawing.Point(0, 0);
-            this.ppcDisassembler1.Name = "ppcDisassembler1";
-            this.ppcDisassembler1.Size = new System.Drawing.Size(277, 642);
-            this.ppcDisassembler1.TabIndex = 11;
-            // 
-            // hexBox1
-            // 
-            this.hexBox1.BlrColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(100)))));
-            this.hexBox1.BranchOffsetColor = System.Drawing.Color.Plum;
-            // 
-            // 
-            // 
-            this.hexBox1.BuiltInContextMenu.CopyMenuItemText = "Copy";
-            this.hexBox1.BuiltInContextMenu.CutMenuItemText = "Cut";
-            this.hexBox1.BuiltInContextMenu.PasteMenuItemText = "Paste";
-            this.hexBox1.BuiltInContextMenu.SelectAllMenuItemText = "Select All";
-            this.hexBox1.ColumnDividerColor = System.Drawing.Color.Gray;
-            this.hexBox1.ColumnInfoVisible = true;
-            this.hexBox1.CommandColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(255)))), ((int)(((byte)(200)))));
-            this.hexBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.hexBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.hexBox1.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hexBox1.GroupSeparatorVisible = true;
-            this.hexBox1.InfoForeColor = System.Drawing.Color.Blue;
-            this.hexBox1.LineInfoVisible = true;
-            this.hexBox1.LinkedBranchColor = System.Drawing.Color.Orange;
-            this.hexBox1.Location = new System.Drawing.Point(0, 24);
-            this.hexBox1.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
-            this.hexBox1.Name = "hexBox1";
-            this.hexBox1.SectionEditor = null;
-            this.hexBox1.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.hexBox1.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
-            this.hexBox1.Size = new System.Drawing.Size(500, 446);
-            this.hexBox1.StringViewVisible = true;
-            this.hexBox1.TabIndex = 3;
-            this.hexBox1.UseFixedBytesPerLine = true;
-            this.hexBox1.VScrollBarVisible = true;
-            this.hexBox1.SelectionStartChanged += new System.EventHandler(this.hexBox1_SelectionStartChanged);
-            this.hexBox1.SelectionLengthChanged += new System.EventHandler(this.hexBox1_SelectionLengthChanged);
-            this.hexBox1.CurrentLineChanged += new System.EventHandler(this.hexBox1_CurrentLineChanged);
-            this.hexBox1.CurrentPositionInLineChanged += new System.EventHandler(this.hexBox1_CurrentPositionInLineChanged);
-            this.hexBox1.Copied += new System.EventHandler(this.hexBox1_Copied);
-            this.hexBox1.CopiedHex += new System.EventHandler(this.hexBox1_CopiedHex);
+            this.rdo1byte.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rdo1byte.AutoSize = true;
+            this.rdo1byte.Location = new System.Drawing.Point(113, 16);
+            this.rdo1byte.Name = "rdo1byte";
+            this.rdo1byte.Size = new System.Drawing.Size(55, 17);
+            this.rdo1byte.TabIndex = 18;
+            this.rdo1byte.TabStop = true;
+            this.rdo1byte.Text = "1 Byte";
+            this.rdo1byte.UseVisualStyleBackColor = true;
+            this.rdo1byte.CheckedChanged += new System.EventHandler(this.byteCount_CheckedChanged);
             // 
             // SectionEditor
             // 
@@ -1106,5 +1121,6 @@
         private Button btnSaveAnnotation;
         private RadioButton rdo4byte;
         private RadioButton rdo2byte;
+        private RadioButton rdo1byte;
     }
 }
