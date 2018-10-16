@@ -1110,7 +1110,7 @@ namespace System.Windows.Forms
                         hexBox1.Invalidate();
                         PosChanged();
                     }
-                    else if (l < short.MinValue)
+                    else if (l < byte.MinValue)
                     {
                         tempB = byte.MinValue;
                         long t = Position;
