@@ -1449,7 +1449,7 @@ namespace System.Windows.Forms
         {
             this.annotationDescription.Visible = this.annotationTitle.Visible = this.btnSaveAnnotation.Visible = chkAnnotations.Checked;
             hexBox1.Width = pnlHexEditor.Width;
-            hexBox1.Height = pnlHexEditor.Height - (this.btnSaveAnnotation.Height + this.annotationTitle.Height + this.annotationDescription.Height + this.menuStrip1.Height + this.statusStrip.Height);
+            hexBox1.Height = pnlHexEditor.Height - (this.btnSaveAnnotation.Height + this.annotationTitle.Height + this.annotationDescription.Height + this.statusStrip.Height);
             if (chkAnnotations.Checked)
                 hexBox1.Dock = DockStyle.Top;
             else

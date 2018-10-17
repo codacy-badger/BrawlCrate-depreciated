@@ -88,6 +88,7 @@
             this.insertValue = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlRight = new System.Windows.Forms.Panel();
             this.grpValue = new System.Windows.Forms.GroupBox();
+            this.rdo1byte = new System.Windows.Forms.RadioButton();
             this.rdo2byte = new System.Windows.Forms.RadioButton();
             this.rdo4byte = new System.Windows.Forms.RadioButton();
             this.txtByte4 = new System.Windows.Forms.TextBox();
@@ -108,7 +109,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.splitter3 = new System.Windows.Forms.Splitter();
-            this.rdo1byte = new System.Windows.Forms.RadioButton();
             this.grpSettings.SuspendLayout();
             this.grpRelocInfo.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -763,6 +763,19 @@
             this.grpValue.TabStop = false;
             this.grpValue.Text = "Value";
             // 
+            // rdo1byte
+            // 
+            this.rdo1byte.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rdo1byte.AutoSize = true;
+            this.rdo1byte.Location = new System.Drawing.Point(113, 16);
+            this.rdo1byte.Name = "rdo1byte";
+            this.rdo1byte.Size = new System.Drawing.Size(55, 17);
+            this.rdo1byte.TabIndex = 18;
+            this.rdo1byte.TabStop = true;
+            this.rdo1byte.Text = "1 Byte";
+            this.rdo1byte.UseVisualStyleBackColor = true;
+            this.rdo1byte.CheckedChanged += new System.EventHandler(this.byteCount_CheckedChanged);
+            // 
             // rdo2byte
             // 
             this.rdo2byte.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -985,19 +998,6 @@
             this.splitter3.Size = new System.Drawing.Size(3, 642);
             this.splitter3.TabIndex = 11;
             this.splitter3.TabStop = false;
-            // 
-            // rdo1byte
-            // 
-            this.rdo1byte.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.rdo1byte.AutoSize = true;
-            this.rdo1byte.Location = new System.Drawing.Point(113, 16);
-            this.rdo1byte.Name = "rdo1byte";
-            this.rdo1byte.Size = new System.Drawing.Size(55, 17);
-            this.rdo1byte.TabIndex = 18;
-            this.rdo1byte.TabStop = true;
-            this.rdo1byte.Text = "1 Byte";
-            this.rdo1byte.UseVisualStyleBackColor = true;
-            this.rdo1byte.CheckedChanged += new System.EventHandler(this.byteCount_CheckedChanged);
             // 
             // SectionEditor
             // 
