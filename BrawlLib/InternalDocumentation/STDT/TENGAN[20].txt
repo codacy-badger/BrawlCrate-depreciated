@@ -1,4 +1,4 @@
-Platform Speed
+Platform Move Chance
 (Float) Changing to 0 freezes the two moving platforms
 
 Default (Float): 0.01 (0x3C23D70A)
@@ -17,18 +17,19 @@ Default (Float): 0.25 (0x3E800000)
 	/EndDescription
 0
 
-0x020
+Platform Pause Minimum Timer
 Default (Float): 60 (0x42700000)
 	/EndDescription
 0
 
-0x024
+Platform Pause Maximum Timer
 Default (Float): 240 (0x43700000)
 	/EndDescription
 0
 
 0x028
 Default (Float): 0.08 (0x3DA3D70A)
+*Speculation: Floor rebuild chance?
 	/EndDescription
 0
 
@@ -146,12 +147,16 @@ Default (Float): 180 (0x43340000)
 	/EndDescription
 0
 
-0x07C
+Lake Guardians Minimum Frames
+(Float) The minimum number of frames the lake guardians/emotion trio (Azelf, Uxie, and Mespirit) will remain on stage after spawning.
+
 Default (Float): 300 (0x43960000)
 	/EndDescription
 0
 
-0x080
+Lake Guardians Maximum Frames
+(Float) The maximum number of frames the lake guardians/emotion trio (Azelf, Uxie, and Mespirit) will remain on stage after spawning.
+
 Default (Float): 600 (0x44160000)
 	/EndDescription
 0
@@ -338,32 +343,44 @@ Default (Float): 0.1 (0x3DCCCCCD)
 	/EndDescription
 0
 
-0x0FC
+Palkia Gravity Shift Minimum Timer
+(Float) The minimum number of frames Palkia will manipulate gravity for.
+
 Default (Float): 420 (0x43D20000)
 	/EndDescription
 0
 
-0x100
+Palkia Gravity Shift Maximum Timer
+(Float) The maximum number of frames Palkia will manipulate gravity for.
+
 Default (Float): 600 (0x44160000)
 	/EndDescription
 0
 
-0x104
+Palkia Vertical Camera Flip Minimum Timer
+(Float) The minimum number of frames Palkia will flip the camera vertically for.
+
 Default (Float): 420 (0x43D20000)
 	/EndDescription
 0
 
-0x108
+Palkia Vertical Camera Flip Maximum Timer
+(Float) The maximum number of frames Palkia will flip the camera vertically for.
+
 Default (Float): 600 (0x44160000)
 	/EndDescription
 0
 
-0x10C
+Palkia Horizontal Camera Flip Minimum Timer
+(Float) The minimum number of frames Palkia will flip the camera horizontally for.
+
 Default (Float): 420 (0x43D20000)
 	/EndDescription
 0
 
-0x110
+Palkia Horizontal Camera Flip Maximum Timer
+(Float) The maximum number of frames Palkia will flip the camera horizontally for.
+
 Default (Float): 600 (0x44160000)
 	/EndDescription
 0
