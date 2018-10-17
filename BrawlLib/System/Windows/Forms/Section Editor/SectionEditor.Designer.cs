@@ -1184,9 +1184,9 @@
         public RichTextBox annotationDescription;
         public RichTextBox annotationTitle;
         private Button btnSaveAnnotation;
-        private RadioButton rdo4byte;
-        private RadioButton rdo2byte;
-        private RadioButton rdo1byte;
+        public RadioButton rdo4byte;
+        public RadioButton rdo2byte;
+        public RadioButton rdo1byte;
         private CheckBox btn4underline;
         private CheckBox btn1underline;
         private CheckBox btn2underline;

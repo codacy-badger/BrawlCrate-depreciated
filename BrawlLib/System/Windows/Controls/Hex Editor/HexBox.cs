@@ -2147,7 +2147,59 @@ namespace Be.Windows.Forms
                     {
                         if (annotationDescriptions[(int)(pos / 4)].Contains(System.Text.Encoding.Default.GetString(options.FindBuffer)))
                         {
-                            Select(pos, 8);
+                            int posOffset = 0;
+                            int byteCount = 4;
+                            if (SectionEditor != null)
+                            {
+                                if (annotationUnderlines[(int)(pos / 4)].StartsWith("0000") || annotationUnderlines[(int)(pos / 4)].StartsWith("1111"))
+                                {
+                                    // Do Nothing
+                                }
+                                else
+                                {
+                                    bool firstFound = false;
+                                    int numBytes = 0;
+                                    numBytes += annotationUnderlines[(int)(pos / 4)].StartsWith("1") ? 1 : 0;
+                                    if (numBytes > 0 && !firstFound)
+                                        firstFound = true;
+                                    numBytes += annotationUnderlines[(int)(pos / 4)].Substring(1).StartsWith("1") ? 1 : 0;
+                                    if (numBytes > 0 && !firstFound)
+                                    {
+                                        firstFound = true;
+                                        posOffset = 1;
+                                    }
+                                    numBytes += annotationUnderlines[(int)(pos / 4)].Substring(2).StartsWith("1") ? 1 : 0;
+                                    if (numBytes > 0 && !firstFound)
+                                    {
+                                        firstFound = true;
+                                        posOffset = 2;
+                                    }
+                                    numBytes += annotationUnderlines[(int)(pos / 4)].Substring(3).StartsWith("1") ? 1 : 0;
+                                    if (numBytes > 0 && !firstFound)
+                                    {
+                                        firstFound = true;
+                                        posOffset = 3;
+                                    }
+                                    byteCount -= posOffset;
+                                    if (numBytes == 2 && annotationUnderlines[(int)(pos / 4)].Substring(0, 4).Contains("11"))
+                                    {
+                                        SectionEditor.rdo2byte.Checked = true;
+                                        byteCount = 2;
+                                    }
+                                    else if (numBytes == 1)
+                                    {
+                                        SectionEditor.rdo1byte.Checked = true;
+                                        byteCount = 1;
+                                    }
+                                    else
+                                    {
+                                        SectionEditor.rdo4byte.Checked = true;
+                                        posOffset = 0;
+                                        byteCount = 4;
+                                    }
+                                }
+                            }
+                            Select(pos + posOffset, byteCount);
                             ScrollByteIntoView(pos + _selectionLength);
                             ScrollByteIntoView(pos);
                             return pos;
@@ -2155,7 +2207,59 @@ namespace Be.Windows.Forms
                     }
                     else if (annotationDescriptions[(int)(pos / 4)].Contains(System.Text.Encoding.Default.GetString(options.FindBuffer), StringComparison.CurrentCultureIgnoreCase))
                     {
-                        Select(pos, 4);
+                        int posOffset = 0;
+                        int byteCount = 4;
+                        if (SectionEditor != null)
+                        {
+                            if(annotationUnderlines[(int)(pos/4)].StartsWith("0000") || annotationUnderlines[(int)(pos / 4)].StartsWith("1111"))
+                            {
+                                // Do Nothing
+                            }
+                            else
+                            {
+                                bool firstFound = false;
+                                int numBytes = 0;
+                                numBytes += annotationUnderlines[(int)(pos / 4)].StartsWith("1") ? 1 : 0;
+                                if (numBytes > 0 && !firstFound)
+                                    firstFound = true;
+                                numBytes += annotationUnderlines[(int)(pos / 4)].Substring(1).StartsWith("1") ? 1 : 0;
+                                if (numBytes > 0 && !firstFound)
+                                {
+                                    firstFound = true;
+                                    posOffset = 1;
+                                }
+                                numBytes += annotationUnderlines[(int)(pos / 4)].Substring(2).StartsWith("1") ? 1 : 0;
+                                if (numBytes > 0 && !firstFound)
+                                {
+                                    firstFound = true;
+                                    posOffset = 2;
+                                }
+                                numBytes += annotationUnderlines[(int)(pos / 4)].Substring(3).StartsWith("1") ? 1 : 0;
+                                if (numBytes > 0 && !firstFound)
+                                {
+                                    firstFound = true;
+                                    posOffset = 3;
+                                }
+                                byteCount -= posOffset;
+                                if (numBytes == 2 && annotationUnderlines[(int)(pos / 4)].Substring(0, 4).Contains("11"))
+                                {
+                                    SectionEditor.rdo2byte.Checked = true;
+                                    byteCount = 2;
+                                }
+                                else if (numBytes == 1)
+                                {
+                                    SectionEditor.rdo1byte.Checked = true;
+                                    byteCount = 1;
+                                }
+                                else
+                                {
+                                    SectionEditor.rdo4byte.Checked = true;
+                                    posOffset = 0;
+                                    byteCount = 4;
+                                }
+                            }
+                        }
+                        Select(pos + posOffset, byteCount);
                         ScrollByteIntoView(pos + _selectionLength);
                         ScrollByteIntoView(pos);
                         return pos;
@@ -2186,7 +2290,59 @@ namespace Be.Windows.Forms
                     {
                         if (annotationDescriptions[(int)(pos / 4)].Contains(System.Text.Encoding.Default.GetString(options.FindBuffer)))
                         {
-                            Select(pos, 8);
+                            int posOffset = 0;
+                            int byteCount = 4;
+                            if (SectionEditor != null)
+                            {
+                                if (annotationUnderlines[(int)(pos / 4)].StartsWith("0000") || annotationUnderlines[(int)(pos / 4)].StartsWith("1111"))
+                                {
+                                    // Do Nothing
+                                }
+                                else
+                                {
+                                    bool firstFound = false;
+                                    int numBytes = 0;
+                                    numBytes += annotationUnderlines[(int)(pos / 4)].StartsWith("1") ? 1 : 0;
+                                    if (numBytes > 0 && !firstFound)
+                                        firstFound = true;
+                                    numBytes += annotationUnderlines[(int)(pos / 4)].Substring(1).StartsWith("1") ? 1 : 0;
+                                    if (numBytes > 0 && !firstFound)
+                                    {
+                                        firstFound = true;
+                                        posOffset = 1;
+                                    }
+                                    numBytes += annotationUnderlines[(int)(pos / 4)].Substring(2).StartsWith("1") ? 1 : 0;
+                                    if (numBytes > 0 && !firstFound)
+                                    {
+                                        firstFound = true;
+                                        posOffset = 2;
+                                    }
+                                    numBytes += annotationUnderlines[(int)(pos / 4)].Substring(3).StartsWith("1") ? 1 : 0;
+                                    if (numBytes > 0 && !firstFound)
+                                    {
+                                        firstFound = true;
+                                        posOffset = 3;
+                                    }
+                                    byteCount -= posOffset;
+                                    if (numBytes == 2 && annotationUnderlines[(int)(pos / 4)].Substring(0, 4).Contains("11"))
+                                    {
+                                        SectionEditor.rdo2byte.Checked = true;
+                                        byteCount = 2;
+                                    }
+                                    else if (numBytes == 1)
+                                    {
+                                        SectionEditor.rdo1byte.Checked = true;
+                                        byteCount = 1;
+                                    }
+                                    else
+                                    {
+                                        SectionEditor.rdo4byte.Checked = true;
+                                        posOffset = 0;
+                                        byteCount = 4;
+                                    }
+                                }
+                            }
+                            Select(pos + posOffset, byteCount);
                             ScrollByteIntoView(pos + _selectionLength);
                             ScrollByteIntoView(pos);
                             return pos;
@@ -2194,7 +2350,59 @@ namespace Be.Windows.Forms
                     }
                     else if (annotationDescriptions[(int)(pos / 4)].Contains(System.Text.Encoding.Default.GetString(options.FindBuffer), StringComparison.CurrentCultureIgnoreCase))
                     {
-                        Select(pos, 4);
+                        int posOffset = 0;
+                        int byteCount = 4;
+                        if (SectionEditor != null)
+                        {
+                            if (annotationUnderlines[(int)(pos / 4)].StartsWith("0000") || annotationUnderlines[(int)(pos / 4)].StartsWith("1111"))
+                            {
+                                // Do Nothing
+                            }
+                            else
+                            {
+                                bool firstFound = false;
+                                int numBytes = 0;
+                                numBytes += annotationUnderlines[(int)(pos / 4)].StartsWith("1") ? 1 : 0;
+                                if (numBytes > 0 && !firstFound)
+                                    firstFound = true;
+                                numBytes += annotationUnderlines[(int)(pos / 4)].Substring(1).StartsWith("1") ? 1 : 0;
+                                if (numBytes > 0 && !firstFound)
+                                {
+                                    firstFound = true;
+                                    posOffset = 1;
+                                }
+                                numBytes += annotationUnderlines[(int)(pos / 4)].Substring(2).StartsWith("1") ? 1 : 0;
+                                if (numBytes > 0 && !firstFound)
+                                {
+                                    firstFound = true;
+                                    posOffset = 2;
+                                }
+                                numBytes += annotationUnderlines[(int)(pos / 4)].Substring(3).StartsWith("1") ? 1 : 0;
+                                if (numBytes > 0 && !firstFound)
+                                {
+                                    firstFound = true;
+                                    posOffset = 3;
+                                }
+                                byteCount -= posOffset;
+                                if (numBytes == 2 && annotationUnderlines[(int)(pos / 4)].Substring(0, 4).Contains("11"))
+                                {
+                                    SectionEditor.rdo2byte.Checked = true;
+                                    byteCount = 2;
+                                }
+                                else if (numBytes == 1)
+                                {
+                                    SectionEditor.rdo1byte.Checked = true;
+                                    byteCount = 1;
+                                }
+                                else
+                                {
+                                    SectionEditor.rdo4byte.Checked = true;
+                                    posOffset = 0;
+                                    byteCount = 4;
+                                }
+                            }
+                        }
+                        Select(pos + posOffset, byteCount);
                         ScrollByteIntoView(pos + _selectionLength);
                         ScrollByteIntoView(pos);
                         return pos;
