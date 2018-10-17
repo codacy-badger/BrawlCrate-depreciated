@@ -134,6 +134,12 @@ namespace System.Windows.Forms
                     }
                 }
             }
+            bool updateStatusChanged = false;
+            if (!_updating)
+            {
+                _updating = true;
+                updateStatusChanged = true;
+            }
             for (int i = 0; i * 4 < hexBox1.ByteProvider.Length; i++)
             {
                 annotationTitles.Add(_section.Root.Name + " " + _section.Name + ": 0x" + (i * 4).ToString("X8"));
@@ -152,13 +158,27 @@ namespace System.Windows.Forms
             {
                 annotationTitle.Text = annotationTitles[0];
                 annotationDescription.Text = annotationDescriptions[0];
+                btn1underline.Checked = annotationUnderlineValues[0].StartsWith("1");
+                btn2underline.Checked = annotationUnderlineValues[0].Substring(1).StartsWith("1");
+                btn3underline.Checked = annotationUnderlineValues[0].Substring(2).StartsWith("1");
+                btn4underline.Checked = annotationUnderlineValues[0].Substring(3).StartsWith("1");
             }
             hexBox1.annotationDescriptions = annotationDescriptions;
             hexBox1.annotationUnderlines = annotationUnderlineValues;
+
+            if (updateStatusChanged)
+                _updating = false;
         }
 
         private void LoadAnnotationsFromFile(string filename)
         {
+            bool updateStatusChanged = false;
+            if (!_updating)
+            {
+                _updating = true;
+                updateStatusChanged = true;
+            }
+
             int index = 0;
             if (filename != null && File.Exists(filename))
             {
@@ -206,9 +226,16 @@ namespace System.Windows.Forms
             {
                 annotationTitle.Text = annotationTitles[0];
                 annotationDescription.Text = annotationDescriptions[0];
+                btn1underline.Checked = annotationUnderlineValues[0].StartsWith("1");
+                btn2underline.Checked = annotationUnderlineValues[0].Substring(1).StartsWith("1");
+                btn3underline.Checked = annotationUnderlineValues[0].Substring(2).StartsWith("1");
+                btn4underline.Checked = annotationUnderlineValues[0].Substring(3).StartsWith("1");
             }
             hexBox1.annotationDescriptions = annotationDescriptions;
             hexBox1.annotationUnderlines = annotationUnderlineValues;
+
+            if (updateStatusChanged)
+                _updating = false;
         }
 
         private void SetByteProvider()
