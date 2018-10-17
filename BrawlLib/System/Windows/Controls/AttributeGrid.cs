@@ -85,6 +85,7 @@ namespace System.Windows.Forms
             this.description.TabIndex = 6;
             this.description.Text = "No Description Available.";
             this.description.TextChanged += new System.EventHandler(this.description_TextChanged);
+            this.description.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.description_LinkClicked);
             // 
             // splitter1
             // 
@@ -533,6 +534,10 @@ namespace System.Windows.Forms
                 AttributeArray[index]._description = description.Text;
                 if (DictionaryChanged != null) DictionaryChanged.Invoke(this, EventArgs.Empty);
             }
+        }
+        private void description_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("explorer.exe", e.LinkText);
         }
 
         private void radioButtonsChanged(object sender, EventArgs e)

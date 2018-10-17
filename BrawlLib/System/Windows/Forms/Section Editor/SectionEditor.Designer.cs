@@ -683,6 +683,7 @@
             this.annotationDescription.Text = "No Description Available.";
             this.annotationDescription.TextChanged += new System.EventHandler(this.description_TextChanged);
             this.annotationDescription.MouseDown += new System.Windows.Forms.MouseEventHandler(this.annotationDescription_MouseDown);
+            this.annotationDescription.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.annotationDescription_LinkClicked);
             // 
             // statusStrip
             // 

@@ -1498,6 +1498,11 @@ namespace System.Windows.Forms
             hexBox1.Invalidate();
         }
 
+        private void annotationDescription_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("explorer.exe", e.LinkText);
+        }
+
         private void btnSaveAnnotation_Click(object sender, EventArgs e)
         {
             if (_updating || annotationDescriptions.Count <= 0)
