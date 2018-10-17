@@ -72,13 +72,15 @@
             this.displayStringsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chkAnnotations = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlLeft = new System.Windows.Forms.Panel();
-            this.ppcDisassembler1 = new System.Windows.Forms.PPCDisassembler();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.pnlHexEditor = new System.Windows.Forms.Panel();
+            this.btn1underline = new System.Windows.Forms.CheckBox();
+            this.btn2underline = new System.Windows.Forms.CheckBox();
+            this.btn3underline = new System.Windows.Forms.CheckBox();
+            this.btn4underline = new System.Windows.Forms.CheckBox();
             this.btnSaveAnnotation = new System.Windows.Forms.Button();
             this.annotationTitle = new System.Windows.Forms.RichTextBox();
             this.annotationDescription = new System.Windows.Forms.RichTextBox();
-            this.hexBox1 = new Be.Windows.Forms.HexBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.selectedBytesToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -109,6 +111,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.splitter3 = new System.Windows.Forms.Splitter();
+            this.ppcDisassembler1 = new System.Windows.Forms.PPCDisassembler();
+            this.hexBox1 = new Be.Windows.Forms.HexBox();
             this.grpSettings.SuspendLayout();
             this.grpRelocInfo.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -553,14 +557,6 @@
             this.pnlLeft.Size = new System.Drawing.Size(780, 642);
             this.pnlLeft.TabIndex = 5;
             // 
-            // ppcDisassembler1
-            // 
-            this.ppcDisassembler1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ppcDisassembler1.Location = new System.Drawing.Point(0, 0);
-            this.ppcDisassembler1.Name = "ppcDisassembler1";
-            this.ppcDisassembler1.Size = new System.Drawing.Size(277, 642);
-            this.ppcDisassembler1.TabIndex = 11;
-            // 
             // splitter2
             // 
             this.splitter2.Dock = System.Windows.Forms.DockStyle.Right;
@@ -572,6 +568,10 @@
             // 
             // pnlHexEditor
             // 
+            this.pnlHexEditor.Controls.Add(this.btn1underline);
+            this.pnlHexEditor.Controls.Add(this.btn2underline);
+            this.pnlHexEditor.Controls.Add(this.btn3underline);
+            this.pnlHexEditor.Controls.Add(this.btn4underline);
             this.pnlHexEditor.Controls.Add(this.btnSaveAnnotation);
             this.pnlHexEditor.Controls.Add(this.annotationTitle);
             this.pnlHexEditor.Controls.Add(this.annotationDescription);
@@ -583,6 +583,62 @@
             this.pnlHexEditor.Name = "pnlHexEditor";
             this.pnlHexEditor.Size = new System.Drawing.Size(500, 642);
             this.pnlHexEditor.TabIndex = 11;
+            // 
+            // btn1underline
+            // 
+            this.btn1underline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn1underline.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btn1underline.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn1underline.Location = new System.Drawing.Point(310, 470);
+            this.btn1underline.Name = "btn1underline";
+            this.btn1underline.Size = new System.Drawing.Size(24, 23);
+            this.btn1underline.TabIndex = 18;
+            this.btn1underline.Text = "1";
+            this.btn1underline.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btn1underline.UseVisualStyleBackColor = true;
+            this.btn1underline.CheckedChanged += new System.EventHandler(this.btnUnderline_CheckedChanged);
+            // 
+            // btn2underline
+            // 
+            this.btn2underline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn2underline.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btn2underline.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn2underline.Location = new System.Drawing.Point(335, 470);
+            this.btn2underline.Name = "btn2underline";
+            this.btn2underline.Size = new System.Drawing.Size(24, 23);
+            this.btn2underline.TabIndex = 17;
+            this.btn2underline.Text = "2";
+            this.btn2underline.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btn2underline.UseVisualStyleBackColor = true;
+            this.btn2underline.CheckedChanged += new System.EventHandler(this.btnUnderline_CheckedChanged);
+            // 
+            // btn3underline
+            // 
+            this.btn3underline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn3underline.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btn3underline.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn3underline.Location = new System.Drawing.Point(360, 470);
+            this.btn3underline.Name = "btn3underline";
+            this.btn3underline.Size = new System.Drawing.Size(24, 23);
+            this.btn3underline.TabIndex = 16;
+            this.btn3underline.Text = "3";
+            this.btn3underline.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btn3underline.UseVisualStyleBackColor = true;
+            this.btn3underline.CheckedChanged += new System.EventHandler(this.btnUnderline_CheckedChanged);
+            // 
+            // btn4underline
+            // 
+            this.btn4underline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn4underline.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btn4underline.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn4underline.Location = new System.Drawing.Point(385, 470);
+            this.btn4underline.Name = "btn4underline";
+            this.btn4underline.Size = new System.Drawing.Size(24, 23);
+            this.btn4underline.TabIndex = 15;
+            this.btn4underline.Text = "4";
+            this.btn4underline.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btn4underline.UseVisualStyleBackColor = true;
+            this.btn4underline.CheckedChanged += new System.EventHandler(this.btnUnderline_CheckedChanged);
             // 
             // btnSaveAnnotation
             // 
@@ -627,45 +683,6 @@
             this.annotationDescription.Text = "No Description Available.";
             this.annotationDescription.TextChanged += new System.EventHandler(this.description_TextChanged);
             this.annotationDescription.MouseDown += new System.Windows.Forms.MouseEventHandler(this.annotationDescription_MouseDown);
-            // 
-            // hexBox1
-            // 
-            this.hexBox1.BlrColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(100)))));
-            this.hexBox1.BranchOffsetColor = System.Drawing.Color.Plum;
-            // 
-            // 
-            // 
-            this.hexBox1.BuiltInContextMenu.CopyMenuItemText = "Copy";
-            this.hexBox1.BuiltInContextMenu.CutMenuItemText = "Cut";
-            this.hexBox1.BuiltInContextMenu.PasteMenuItemText = "Paste";
-            this.hexBox1.BuiltInContextMenu.SelectAllMenuItemText = "Select All";
-            this.hexBox1.ColumnDividerColor = System.Drawing.Color.Gray;
-            this.hexBox1.ColumnInfoVisible = true;
-            this.hexBox1.CommandColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(255)))), ((int)(((byte)(200)))));
-            this.hexBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.hexBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.hexBox1.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hexBox1.GroupSeparatorVisible = true;
-            this.hexBox1.InfoForeColor = System.Drawing.Color.Blue;
-            this.hexBox1.LineInfoVisible = true;
-            this.hexBox1.LinkedBranchColor = System.Drawing.Color.Orange;
-            this.hexBox1.Location = new System.Drawing.Point(0, 24);
-            this.hexBox1.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
-            this.hexBox1.Name = "hexBox1";
-            this.hexBox1.SectionEditor = null;
-            this.hexBox1.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.hexBox1.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
-            this.hexBox1.Size = new System.Drawing.Size(500, 446);
-            this.hexBox1.StringViewVisible = true;
-            this.hexBox1.TabIndex = 3;
-            this.hexBox1.UseFixedBytesPerLine = true;
-            this.hexBox1.VScrollBarVisible = true;
-            this.hexBox1.SelectionStartChanged += new System.EventHandler(this.hexBox1_SelectionStartChanged);
-            this.hexBox1.SelectionLengthChanged += new System.EventHandler(this.hexBox1_SelectionLengthChanged);
-            this.hexBox1.CurrentLineChanged += new System.EventHandler(this.hexBox1_CurrentLineChanged);
-            this.hexBox1.CurrentPositionInLineChanged += new System.EventHandler(this.hexBox1_CurrentPositionInLineChanged);
-            this.hexBox1.Copied += new System.EventHandler(this.hexBox1_Copied);
-            this.hexBox1.CopiedHex += new System.EventHandler(this.hexBox1_CopiedHex);
             // 
             // statusStrip
             // 
@@ -999,6 +1016,53 @@
             this.splitter3.TabIndex = 11;
             this.splitter3.TabStop = false;
             // 
+            // ppcDisassembler1
+            // 
+            this.ppcDisassembler1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ppcDisassembler1.Location = new System.Drawing.Point(0, 0);
+            this.ppcDisassembler1.Name = "ppcDisassembler1";
+            this.ppcDisassembler1.Size = new System.Drawing.Size(277, 642);
+            this.ppcDisassembler1.TabIndex = 11;
+            // 
+            // hexBox1
+            // 
+            this.hexBox1.BlrColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(100)))));
+            this.hexBox1.BranchOffsetColor = System.Drawing.Color.Plum;
+            // 
+            // 
+            // 
+            this.hexBox1.BuiltInContextMenu.CopyMenuItemText = "Copy";
+            this.hexBox1.BuiltInContextMenu.CutMenuItemText = "Cut";
+            this.hexBox1.BuiltInContextMenu.PasteMenuItemText = "Paste";
+            this.hexBox1.BuiltInContextMenu.SelectAllMenuItemText = "Select All";
+            this.hexBox1.ColumnDividerColor = System.Drawing.Color.Gray;
+            this.hexBox1.ColumnInfoVisible = true;
+            this.hexBox1.CommandColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(255)))), ((int)(((byte)(200)))));
+            this.hexBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.hexBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.hexBox1.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hexBox1.GroupSeparatorVisible = true;
+            this.hexBox1.InfoForeColor = System.Drawing.Color.Blue;
+            this.hexBox1.LineInfoVisible = true;
+            this.hexBox1.LinkedBranchColor = System.Drawing.Color.Orange;
+            this.hexBox1.Location = new System.Drawing.Point(0, 24);
+            this.hexBox1.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
+            this.hexBox1.Name = "hexBox1";
+            this.hexBox1.SectionEditor = null;
+            this.hexBox1.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.hexBox1.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
+            this.hexBox1.Size = new System.Drawing.Size(500, 446);
+            this.hexBox1.StringViewVisible = true;
+            this.hexBox1.TabIndex = 3;
+            this.hexBox1.UseFixedBytesPerLine = true;
+            this.hexBox1.VScrollBarVisible = true;
+            this.hexBox1.SelectionStartChanged += new System.EventHandler(this.hexBox1_SelectionStartChanged);
+            this.hexBox1.SelectionLengthChanged += new System.EventHandler(this.hexBox1_SelectionLengthChanged);
+            this.hexBox1.CurrentLineChanged += new System.EventHandler(this.hexBox1_CurrentLineChanged);
+            this.hexBox1.CurrentPositionInLineChanged += new System.EventHandler(this.hexBox1_CurrentPositionInLineChanged);
+            this.hexBox1.Copied += new System.EventHandler(this.hexBox1_Copied);
+            this.hexBox1.CopiedHex += new System.EventHandler(this.hexBox1_CopiedHex);
+            // 
             // SectionEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1123,5 +1187,9 @@
         private RadioButton rdo4byte;
         private RadioButton rdo2byte;
         private RadioButton rdo1byte;
+        private CheckBox btn4underline;
+        private CheckBox btn1underline;
+        private CheckBox btn2underline;
+        private CheckBox btn3underline;
     }
 }

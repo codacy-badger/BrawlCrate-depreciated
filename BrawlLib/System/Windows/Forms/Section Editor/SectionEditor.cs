@@ -328,6 +328,10 @@ namespace System.Windows.Forms
                 {
                     annotationTitle.Text = annotationTitles[((int)(t/4))];
                     annotationDescription.Text = annotationDescriptions[((int)(t / 4))];
+                    btn1underline.Checked = annotationUnderlineValues[((int)(t / 4))].StartsWith("1");
+                    btn2underline.Checked = annotationUnderlineValues[((int)(t / 4))].Substring(1).StartsWith("1");
+                    btn3underline.Checked = annotationUnderlineValues[((int)(t / 4))].Substring(2).StartsWith("1");
+                    btn4underline.Checked = annotationUnderlineValues[((int)(t / 4))].Substring(3).StartsWith("1");
                     annotationIndex = (int)(t / 4);
                 }
                 grpValue.Enabled = !_section._isBSSSection;
@@ -1447,7 +1451,7 @@ namespace System.Windows.Forms
 
         private void chkAnnotations_CheckedChanged(object sender, EventArgs e)
         {
-            this.annotationDescription.Visible = this.annotationTitle.Visible = this.btnSaveAnnotation.Visible = chkAnnotations.Checked;
+            this.btn1underline.Visible = this.btn2underline.Visible = this.btn3underline.Visible = this.btn4underline.Visible = this.annotationDescription.Visible = this.annotationTitle.Visible = this.btnSaveAnnotation.Visible = chkAnnotations.Checked;
             hexBox1.Width = pnlHexEditor.Width;
             hexBox1.Height = pnlHexEditor.Height - (this.btnSaveAnnotation.Height + this.annotationTitle.Height + this.annotationDescription.Height + this.statusStrip.Height);
             if (chkAnnotations.Checked)
@@ -1562,6 +1566,23 @@ namespace System.Windows.Forms
         void CopyAction(object sender, EventArgs e)
         {
             Clipboard.SetText(annotationDescription.SelectedText);
+        }
+
+        private void btnUnderline_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_updating)
+                return;
+            if (annotationDescriptions.Count > annotationIndex)
+            {
+                annotationUnderlineValues[annotationIndex] = "";
+                annotationUnderlineValues[annotationIndex] += (btn1underline.Checked ? 1 : 0);
+                annotationUnderlineValues[annotationIndex] += (btn2underline.Checked ? 1 : 0);
+                annotationUnderlineValues[annotationIndex] += (btn3underline.Checked ? 1 : 0);
+                annotationUnderlineValues[annotationIndex] += (btn4underline.Checked ? 1 : 0);
+                annotationUnderlineValues[annotationIndex] += "    // Flags for which bytes are underlined";
+            }
+            hexBox1.annotationUnderlines = annotationUnderlineValues;
+            hexBox1.Invalidate();
         }
 
         void PasteAction(object sender, EventArgs e)
