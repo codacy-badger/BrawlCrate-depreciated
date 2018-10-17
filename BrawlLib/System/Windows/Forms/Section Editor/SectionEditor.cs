@@ -1547,6 +1547,7 @@ namespace System.Windows.Forms
         {
             if (_updating)
                 return;
+            label4.Text = rdo4byte.Checked ? "Integer:" : (rdo2byte.Checked ? "Short:" : "Byte:");
             txtBin3.Enabled = txtBin4.Enabled = !rdo1byte.Checked;
             txtBin5.Enabled = txtBin6.Enabled = txtBin7.Enabled = txtBin8.Enabled = rdo4byte.Checked;
             txtFloat.Enabled = rdo4byte.Checked;//= (!chkCodeSection.Checked && rdo4byte.Checked);
