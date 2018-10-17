@@ -626,6 +626,7 @@
             this.annotationDescription.TabIndex = 11;
             this.annotationDescription.Text = "No Description Available.";
             this.annotationDescription.TextChanged += new System.EventHandler(this.description_TextChanged);
+            this.annotationDescription.MouseDown += new System.Windows.Forms.MouseEventHandler(this.annotationDescription_MouseDown);
             // 
             // hexBox1
             // 
