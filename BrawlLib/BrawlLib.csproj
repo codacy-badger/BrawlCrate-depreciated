@@ -1246,6 +1246,9 @@
     <Content Include="InternalDocumentation\STDT\NORFAIR[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="InternalDocumentation\STDT\PICTCHAT[4].txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="InternalDocumentation\STDT\PLANKTON[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
