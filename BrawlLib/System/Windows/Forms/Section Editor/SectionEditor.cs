@@ -1597,6 +1597,10 @@ namespace System.Windows.Forms
 
         private void btnUnderline_CheckedChanged(object sender, EventArgs e)
         {
+            btn1underline.Font = new Font(btn1underline.Font, btn1underline.Checked ? Drawing.FontStyle.Underline : Drawing.FontStyle.Regular);
+            btn2underline.Font = new Font(btn2underline.Font, btn2underline.Checked ? Drawing.FontStyle.Underline : Drawing.FontStyle.Regular);
+            btn3underline.Font = new Font(btn3underline.Font, btn3underline.Checked ? Drawing.FontStyle.Underline : Drawing.FontStyle.Regular);
+            btn4underline.Font = new Font(btn4underline.Font, btn4underline.Checked ? Drawing.FontStyle.Underline : Drawing.FontStyle.Regular);
             if (_updating)
                 return;
             if (annotationDescriptions.Count > annotationIndex)
