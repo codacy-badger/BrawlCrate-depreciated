@@ -1225,6 +1225,9 @@
     <Content Include="InternalDocumentation\Module\st_dxpstadium\Section [4].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="InternalDocumentation\STDT\CRAYON[20].txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="InternalDocumentation\STDT\DXGARDEN[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
