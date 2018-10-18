@@ -54819,7 +54819,7 @@ Default: 0x38C10078
 st_donkey Section [1]: 0x0000AB2C
 Fireball Damage
 
-The damage dealt by the fireball hazards.
+The amount of damage the Fireball hazards deal to the players.
 To edit, select the italicized values and use the menu on the right in 2-Byte mode. The short value will be your damage.
 
 Default (Short): 10 (0x000A)
@@ -54834,7 +54834,7 @@ Default: 0xD0A10078
 st_donkey Section [1]: 0x0000AB34
 Fireball Knockback Angle
 
-The angle at which the Fireball hazard sends the players.
+The angle at which the Fireball hazards send the players.
 To edit, select the italicized values and use the menu on the right in 2-Byte mode. The short value will be your knockback angle.
 
 Resource on Knockback Angles: https://cdn.discordapp.com/attachments/309574190556774402/372782979644129282/unknown-2.png
@@ -54846,7 +54846,7 @@ Default (Short): 20 (0x0014)
 st_donkey Section [1]: 0x0000AB38
 Fireball Knockback Growth
 
-The knockback growth from the DK hazard.
+The knockback growth from the Fireball hazards.
 To edit, select the italicized values and use the menu on the right in 2-Byte mode. The short value will be your knockback growth.
 
 Default (Short): 28 (0x001C)
@@ -54866,7 +54866,7 @@ Default: 0x39200000
 st_donkey Section [1]: 0x0000AB44
 Fireball Base Knockback
 
-The base knockback from the DK hazard.
+The base knockback from the Fireball hazards.
 To edit, select the italicized values and use the menu on the right in 2-Byte mode. The short value will be your base knockback.
 
 Default (Short): 90 (0x005A)
