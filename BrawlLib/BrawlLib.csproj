@@ -1222,6 +1222,9 @@
     <Folder Include="WiiU\Models\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="InternalDocumentation\Module\st_donkey\Section [1].txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="InternalDocumentation\Module\st_dxpstadium\Section [4].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
