@@ -1246,7 +1246,13 @@
     <Content Include="InternalDocumentation\STDT\GREENHILL[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="InternalDocumentation\STDT\HALBERD[20].txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="InternalDocumentation\STDT\HOMERUN[20].txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="InternalDocumentation\STDT\MANSION[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="InternalDocumentation\STDT\MARIOPAST[20].txt">
@@ -1256,6 +1262,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="InternalDocumentation\STDT\NORFAIR[20].txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="InternalDocumentation\STDT\PALUTENA[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="InternalDocumentation\STDT\PICTCHAT[4].txt">
