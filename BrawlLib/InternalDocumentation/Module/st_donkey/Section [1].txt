@@ -24594,9 +24594,16 @@ Default: 0x3BE00001
 1111    // Flags for which bytes are underlined
 
 st_donkey Section [1]: 0x00004CDC
-Default: 0x39600002
+Donkey Kong Sound Effect
+
+The sound made by the DK hazard on a successful hit.
+To edit, select the italicized values and use the menu on the right in 1-Byte mode. The byte value will be your hitbox sound effect.
+
+See this table for a list of proper values: http://opensa.dantarion.com/wiki/Hitbox_Flags_(Brawl)#Bits_19-23_.28Sound.29
+
+Default (Byte): 2 (Kick) (0x02)
 	/EndDescription
-1111    // Flags for which bytes are underlined
+0001    // Flags for which bytes are underlined
 
 st_donkey Section [1]: 0x00004CE0
 Default: 0x3800003C
