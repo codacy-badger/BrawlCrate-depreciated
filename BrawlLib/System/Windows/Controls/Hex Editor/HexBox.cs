@@ -2951,9 +2951,9 @@ namespace Be.Windows.Forms
                 if (!annotationDescriptions[(int)(offset / 4)].StartsWith("Default: 0x") && annotationUnderlines[(int)(offset / 4)].Substring((int)(offset % 4)).StartsWith("1"))
                     tempFont = new Font(Font, FontStyle.Bold | FontStyle.Italic | FontStyle.Underline);
 
-            g.DrawString(sB.Substring(0, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + (((sB.Substring(0, 1) == "A") || (tempFont.Italic && !(sB.Substring(0, 1) == "1" || sB.Substring(0, 1) == "4")) ? 2 : 0))), _stringFormat);
+            g.DrawString(sB.Substring(0, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + (System.Environment.OSVersion.ToString() == "Microsoft Windows NT 6.2.9200.0" ? (((sB.Substring(0, 1) == "A") || (tempFont.Italic && !(sB.Substring(0, 1) == "1" || sB.Substring(0, 1) == "4")) ? 2 : 0)) : 0)), _stringFormat);
             bytePointF.X += _charSize.Width;
-            g.DrawString(sB.Substring(1, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + (((sB.Substring(1, 1) == "A") || (tempFont.Italic && !(sB.Substring(1, 1) == "1" || sB.Substring(1, 1) == "4")) ? 2 : 0))), _stringFormat);
+            g.DrawString(sB.Substring(1, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + (System.Environment.OSVersion.ToString() == "Microsoft Windows NT 6.2.9200.0" ? (((sB.Substring(1, 1) == "A") || (tempFont.Italic && !(sB.Substring(1, 1) == "1" || sB.Substring(1, 1) == "4")) ? 2 : 0)) : 0)), _stringFormat);
         }
 
         void PaintColumnInfo(Graphics g, byte b, Brush brush, int col)
@@ -2986,9 +2986,9 @@ namespace Be.Windows.Forms
                     tempFont = new Font(Font, FontStyle.Bold | FontStyle.Italic | FontStyle.Underline);
             
             g.FillRectangle(brushBack, bytePointF.X - t, bytePointF.Y, bcWidth, _charSize.Height);
-            g.DrawString(sB.Substring(0, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + (((sB.Substring(0, 1) == "A") || (tempFont.Italic && !(sB.Substring(0, 1) == "1" || sB.Substring(0, 1) == "4")) ? 2 : 0))), _stringFormat);
+            g.DrawString(sB.Substring(0, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + (System.Environment.OSVersion.ToString() == "Microsoft Windows NT 6.2.9200.0" ? (((sB.Substring(0, 1) == "A") || (tempFont.Italic && !(sB.Substring(0, 1) == "1" || sB.Substring(0, 1) == "4")) ? 2 : 0)) : 0)), _stringFormat);
             bytePointF.X += _charSize.Width;
-            g.DrawString(sB.Substring(1, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + (((sB.Substring(1, 1) == "A") || (tempFont.Italic && !(sB.Substring(1, 1) == "1" || sB.Substring(1, 1) == "4")) ? 2 : 0))), _stringFormat);
+            g.DrawString(sB.Substring(1, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + (System.Environment.OSVersion.ToString() == "Microsoft Windows NT 6.2.9200.0" ? (((sB.Substring(1, 1) == "A") || (tempFont.Italic && !(sB.Substring(1, 1) == "1" || sB.Substring(1, 1) == "4")) ? 2 : 0)) : 0)), _stringFormat);
         }
 
         public int byteCount = 4;
