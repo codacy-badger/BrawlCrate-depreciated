@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.13
+BrawlCrate - v0.13 Hotfix 1
 Copyright © 2018 soopercool101, MarioDox
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,9 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.13 Hotfix 1 - (10/18/2018)
+ . Greatly improved save/load of module annotations to use less diskspace
  
  - BrawlCrate v0.13 - (10/18/2018)
  . Added "Custom Metal Generator", which allows usage of a custom texture
@@ -43,6 +46,7 @@ they be held accountable for the manner in which it is used.
    - STGTENGAN
    - STGVILLAGE
  . Added JOJI Soundbank Expansion Calculator in-editor for RSAR files
+ . Added 1 and 2 byte edit modes to the Section Editor
  . Saving Stage Table txt files now goes in /InternalDocumentation/ folder before being placed in their respective subfolders
  . Stage Tables can now be parsed as Colors or in pure hexadecimal
  . Stage Table values that are floats now display buttons to set as +/-Infinity without having to copy/paste
