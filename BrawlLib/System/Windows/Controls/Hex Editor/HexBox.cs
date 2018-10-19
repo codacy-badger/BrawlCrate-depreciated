@@ -2181,7 +2181,7 @@ namespace Be.Windows.Forms
                                         posOffset = 3;
                                     }
                                     byteCount -= posOffset;
-                                    if (numBytes == 2 && annotationUnderlines[(int)(pos / 4)].Substring(0, 4).Contains("11"))
+                                    if (numBytes == 2 && annotationUnderlines[(int)(pos / 4)].Substring(0, 4).Contains("11") && !annotationUnderlines[(int)(pos / 4)].StartsWith("011"))
                                     {
                                         SectionEditor.rdo2byte.Checked = true;
                                         byteCount = 2;
