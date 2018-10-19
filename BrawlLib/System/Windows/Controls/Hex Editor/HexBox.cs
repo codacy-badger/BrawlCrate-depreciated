@@ -2151,9 +2151,9 @@ namespace Be.Windows.Forms
                             int byteCount = 4;
                             if (SectionEditor != null)
                             {
-                                if (annotationUnderlines[(int)(pos / 4)].StartsWith("0000") || annotationUnderlines[(int)(pos / 4)].StartsWith("1111"))
+                                if (annotationUnderlines[(int)(pos / 4)].StartsWith("0000") || annotationUnderlines[(int)(pos / 4)].StartsWith("1111") || annotationUnderlines[(int)(pos / 4)].StartsWith("011"))
                                 {
-                                    // Do Nothing
+                                    SectionEditor.rdo4byte.Checked = true;
                                 }
                                 else
                                 {
@@ -2181,7 +2181,7 @@ namespace Be.Windows.Forms
                                         posOffset = 3;
                                     }
                                     byteCount -= posOffset;
-                                    if (numBytes == 2 && annotationUnderlines[(int)(pos / 4)].Substring(0, 4).Contains("11") && !annotationUnderlines[(int)(pos / 4)].StartsWith("011"))
+                                    if (numBytes == 2 && annotationUnderlines[(int)(pos / 4)].Substring(0, 4).Contains("11"))
                                     {
                                         SectionEditor.rdo2byte.Checked = true;
                                         byteCount = 2;
@@ -2211,9 +2211,9 @@ namespace Be.Windows.Forms
                         int byteCount = 4;
                         if (SectionEditor != null)
                         {
-                            if(annotationUnderlines[(int)(pos/4)].StartsWith("0000") || annotationUnderlines[(int)(pos / 4)].StartsWith("1111"))
+                            if (annotationUnderlines[(int)(pos / 4)].StartsWith("0000") || annotationUnderlines[(int)(pos / 4)].StartsWith("1111") || annotationUnderlines[(int)(pos / 4)].StartsWith("011"))
                             {
-                                // Do Nothing
+                                SectionEditor.rdo4byte.Checked = true;
                             }
                             else
                             {
@@ -2294,9 +2294,9 @@ namespace Be.Windows.Forms
                             int byteCount = 4;
                             if (SectionEditor != null)
                             {
-                                if (annotationUnderlines[(int)(pos / 4)].StartsWith("0000") || annotationUnderlines[(int)(pos / 4)].StartsWith("1111"))
+                                if (annotationUnderlines[(int)(pos / 4)].StartsWith("0000") || annotationUnderlines[(int)(pos / 4)].StartsWith("1111") || annotationUnderlines[(int)(pos / 4)].StartsWith("011"))
                                 {
-                                    // Do Nothing
+                                    SectionEditor.rdo4byte.Checked = true;
                                 }
                                 else
                                 {
@@ -2354,9 +2354,9 @@ namespace Be.Windows.Forms
                         int byteCount = 4;
                         if (SectionEditor != null)
                         {
-                            if (annotationUnderlines[(int)(pos / 4)].StartsWith("0000") || annotationUnderlines[(int)(pos / 4)].StartsWith("1111"))
+                            if (annotationUnderlines[(int)(pos / 4)].StartsWith("0000") || annotationUnderlines[(int)(pos / 4)].StartsWith("1111") || annotationUnderlines[(int)(pos / 4)].StartsWith("011"))
                             {
-                                // Do Nothing
+                                SectionEditor.rdo4byte.Checked = true;
                             }
                             else
                             {
