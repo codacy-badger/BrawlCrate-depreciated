@@ -42,8 +42,10 @@ they be held accountable for the manner in which it is used.
    - STGSTADIUM
    - STGTENGAN
    - STGVILLAGE
+ . Added JOJI Soundbank Expansion Calculator in-editor for RSAR files
  . Saving Stage Table txt files now goes in /InternalDocumentation/ folder before being placed in their respective subfolders
  . Stage Tables can now be parsed as Colors or in pure hexadecimal
+ . Stage Table values that are floats now display buttons to set as +/-Infinity without having to copy/paste
  . Improved Stage Table auto-detection
  . Improved Stage Table description format to allow for multi-line descriptions
  . Allow clicking of links from Stage Table descriptions
