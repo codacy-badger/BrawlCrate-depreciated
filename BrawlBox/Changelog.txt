@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.13 Hotfix 1
+BrawlCrate - v0.13 Hotfix 2
 Copyright © 2018 soopercool101, MarioDox
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,10 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.13 Hotfix 2 - (10/18/2018)
+ . Fix display bug for hex viewers on older versions of Windows
+ . Improve byte selection when searching by annotations
  
  - BrawlCrate v0.13 Hotfix 1 - (10/18/2018)
  . Greatly improved save/load of module annotations to use less diskspace

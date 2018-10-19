@@ -14,7 +14,7 @@ namespace BrawlBox
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.13_Hotfix1";
+        public static readonly string TagName = "BrawlCrate_v0.13_Hotfix2";
 
         public static readonly string AssemblyTitle;
         public static readonly string AssemblyDescription;
