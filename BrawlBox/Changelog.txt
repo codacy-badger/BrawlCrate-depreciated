@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.12
+BrawlCrate - v0.13
 Copyright © 2018 soopercool101, MarioDox
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,38 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.13 - (10/18/2018)
+ . Added "Custom Metal Generator", which allows usage of a custom texture
+ . Added Module Annotation System
+   - Modules can now be labelled in-editor and saved to or loaded from txt files
+   - Includes default annotations for STGDONKEY Section[1] and [4], STGDXPSTADIUM Section[4], and STGTARGET Section [4]
+ . Added default STDT documentation for the following vBrawl stages:
+   - STGCRAYON
+   - STGDOLPIC
+   - STGDONKEY
+   - STGDXGARDEN
+   - STGDXGREENS
+   - STGDXONETT
+   - STGFAMICOM
+   - STGGREENHILL
+   - STGHALBERD
+   - STGHOMERUN
+   - STGMANSION
+   - STGMARIOPAST
+   - STGMETALGEAR
+   - STGNORFAIR
+   - STGPALUTENA
+   - STGPICTCHAT
+   - STGPLANKTON
+   - STGSTADIUM
+   - STGTENGAN
+   - STGVILLAGE
+ . Saving Stage Table txt files now goes in /InternalDocumentation/ folder before being placed in their respective subfolders
+ . Stage Tables can now be parsed as Colors or in pure hexadecimal
+ . Improved Stage Table auto-detection
+ . Improved Stage Table description format to allow for multi-line descriptions
+ . Allow clicking of links from Stage Table descriptions
  
  - BrawlCrate v0.12 - (10/2/2018)
  . Added support to offset a particular frame on a PAT0, moving frames after it
