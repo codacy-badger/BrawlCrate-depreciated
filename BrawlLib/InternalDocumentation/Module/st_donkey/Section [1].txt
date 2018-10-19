@@ -54755,7 +54755,7 @@ To edit, select the italicized value and use the menu on the right in 1-Byte mod
 
 See this table for a list of proper values: http://opensa.dantarion.com/wiki/Hitbox_Flags_(Brawl)#Bits_28-32_.28Effect.29
 
-Default (Byte): 5 (Fire) (0x05)
+Default (Byte): 5 (Flame) (0x05)
 	/EndDescription
 0001    // Flags for which bytes are underlined
 
@@ -54777,7 +54777,7 @@ To edit, select the italicized values and use the menu on the right in 1-Byte mo
 
 See this table for a list of proper values: http://opensa.dantarion.com/wiki/Hitbox_Flags_(Brawl)#Bits_19-23_.28Sound.29
 
-Default (Byte): 8 (Fire) (0x08)
+Default (Byte): 8 (Burn) (0x08)
 	/EndDescription
 0001    // Flags for which bytes are underlined
 

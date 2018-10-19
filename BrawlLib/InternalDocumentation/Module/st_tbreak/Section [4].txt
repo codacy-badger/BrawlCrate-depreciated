@@ -1,0 +1,232 @@
+st_tbreak Section [4]: 0x00000000
+Spikes Collision Damage
+
+The amount of damage the spike hazard collisions deal to the players.
+
+Default (Float): 10 (0x41200000)
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000004
+Default: 0x00000000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000008
+Default: 0x00000000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x0000000C
+Default: 0x00000000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000010
+Default: 0x00000000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000014
+Default: 0x00000169
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000018
+Spikes Collision Knockback Growth
+
+The knockback growth from the spikes hazard collisions.
+
+Default (Integer): 50 (0x00000032)
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x0000001C
+Default: 0x00000000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000020
+Spikes Collision Base Knockback
+
+The base knockback from the spikes hazard collisions.
+
+Default (Integer): 100 (0x00000064)
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000024
+Default: 0x00000000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000028
+Spikes Collision Hitbox Effect
+
+The hitbox type used by the spikes hazard collisions.
+
+See this table for a list of proper values: http://opensa.dantarion.com/wiki/Hitbox_Flags_(Brawl)#Bits_28-32_.28Effect.29
+
+Default (Integer): 2 (Slash) (0x00000002)
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x0000002C
+Default: 0x00000101
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000030
+Default: 0x00000000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000034
+Default: 0x00000000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000038
+Default: 0x00000000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x0000003C
+Default: 0x0000000F
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000040
+Default: 0x00000001
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000044
+Spikes Collision Sound Effect
+
+The sound made by the spike hazard collisions on a successful hit.
+
+See this table for a list of proper values: http://opensa.dantarion.com/wiki/Hitbox_Flags_(Brawl)#Bits_19-23_.28Sound.29
+
+Default (Integer): 3 (Slash) (0x00000003)
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000048
+Default: 0x00000000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x0000004C
+Default: 0x00000000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000050
+Default: 0x00000000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000054
+Default: 0x0000000A
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000058
+Default: 0x00000000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x0000005C
+Default: 0x00000001
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000060
+Default: 0xFFFFFFFF
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000064
+Default: 0x00000000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000068
+Target Z-Value
+
+The location of each target on the z-axis.
+
+Default (Float): -10 (0xC1200000)
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x0000006C
+Default: 0x41A00000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000070
+Default: 0xBF800000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000074
+Default: 0x40ACCCCD
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000078
+Default: 0x40400000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x0000007C
+Default: 0x41200000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000080
+Default: 0x40A00000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000084
+Default: 0x41F00000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000088
+Default: 0x42700000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x0000008C
+Default: 0x3F800000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000090
+Default: 0x43250000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000094
+Default: 0x40C00000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x00000098
+Default: 0x3F000000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x0000009C
+Default: 0x00000000
+	/EndDescription
+1111    // Flags for which bytes are underlined
+
+st_tbreak Section [4]: 0x000000A0
+Default: 0x00000000
+	/EndDescription
+1111    // Flags for which bytes are underlined
