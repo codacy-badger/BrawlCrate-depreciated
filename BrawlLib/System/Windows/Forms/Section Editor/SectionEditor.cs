@@ -182,11 +182,28 @@ namespace System.Windows.Forms
             int index = 0;
             if (filename != null && File.Exists(filename))
             {
+                string titleHeader = _section.Root.Name + " " + _section.Name + ": 0x";
                 using (var sr = new StreamReader(filename))
                 {
                     while(!sr.EndOfStream && index < hexBox1.ByteProvider.Length)
                     {
-                        annotationTitles.Add(sr.ReadLine());
+                        string newTitle = sr.ReadLine();
+                        if (int.TryParse(newTitle.Substring(titleHeader.Length), System.Globalization.NumberStyles.HexNumber, CultureInfo.InvariantCulture, out int nextIndex))
+                            while(index < nextIndex / 4)
+                            {
+                                annotationTitles.Add(_section.Root.Name + " " + _section.Name + ": 0x" + (index * 4).ToString("X8"));
+                                byte[] bytes = new byte[]
+                                {
+                                    hexBox1.ByteProvider.ReadByte((((long)index) * 4) + 3),
+                                    hexBox1.ByteProvider.ReadByte((((long)index) * 4) + 2),
+                                    hexBox1.ByteProvider.ReadByte((((long)index) * 4) + 1),
+                                    hexBox1.ByteProvider.ReadByte((((long)index) * 4) + 0),
+                                };
+                                annotationDescriptions.Add("Default: 0x" + bytes[3].ToString("X2") + bytes[2].ToString("X2") + bytes[1].ToString("X2") + bytes[0].ToString("X2"));
+                                annotationUnderlineValues.Add("1111    // Flags for which bytes are underlined");
+                                index++;
+                            }
+                        annotationTitles.Add(newTitle);
                         string temp = sr.ReadLine();
                         if (temp.Equals("\t/EndDescription", StringComparison.CurrentCultureIgnoreCase))
                             annotationDescriptions.Add("No Description Available.");
@@ -1524,20 +1541,22 @@ namespace System.Windows.Forms
             }
             using (var sw = new StreamWriter(Filename))
             {
+                bool firstLine = true;
                 //foreach (AttributeInfo attr in Array) {
                 for (int i = 0; i < annotationTitles.Count && i < annotationDescriptions.Count; i++)
                 {
-                    sw.WriteLine(annotationTitles[i]);
-                    sw.WriteLine(annotationDescriptions[i]);
-                    sw.WriteLine("\t/EndDescription");
-                    if (i == annotationTitles.Count - 1)
+                    if(!annotationDescriptions[i].StartsWith("Default: 0x") && annotationDescriptions[i].Length != 20)
                     {
+                        if(!firstLine)
+                        {
+                            sw.WriteLine();
+                            sw.WriteLine();
+                        }
+                        firstLine = false;
+                        sw.WriteLine(annotationTitles[i]);
+                        sw.WriteLine(annotationDescriptions[i]);
+                        sw.WriteLine("\t/EndDescription");
                         sw.Write(annotationUnderlineValues[i]);
-                    }
-                    else
-                    {
-                        sw.WriteLine(annotationUnderlineValues[i]);
-                        sw.WriteLine();
                     }
                 }
             }
