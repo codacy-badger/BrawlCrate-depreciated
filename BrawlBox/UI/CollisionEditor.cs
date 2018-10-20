@@ -2329,8 +2329,12 @@ namespace System.Windows.Forms
                         plane.Delete();
                     TargetNode.SignalPropertyChange();
                 }
-                else if (_selectedLinks.Count == 1)
-                    _selectedLinks[0].Pop();
+                else if (_selectedLinks.Count > 0)
+                {
+                    for(int i = 0; i < _selectedLinks.Count; i++)
+                        _selectedLinks[i].Pop();
+                    TargetNode.SignalPropertyChange();
+                }
 
                 ClearSelection();
                 SelectionModified();
