@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace BrawlBox
 {
@@ -53,6 +54,23 @@ namespace BrawlBox
         {
             InitializeComponent();
             Text = Program.AssemblyTitle;
+
+            foreach (var _Assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                foreach (var _Type in _Assembly.GetTypes())
+                {
+                    if (_Type.Name == "Settings" && typeof(SettingsBase).IsAssignableFrom(_Type))
+                    {
+                        var settings = (ApplicationSettingsBase)_Type.GetProperty("Default").GetValue(null, null);
+                        if (settings != null)
+                        {
+                            settings.Upgrade();
+                            settings.Reload();
+                            settings.Save();
+                        }
+                    }
+                }
+            }
 
             _displayPropertyDescription = BrawlBox.Properties.Settings.Default.DisplayPropertyDescriptionWhenAvailable;
             _updatesOnStartup = BrawlBox.Properties.Settings.Default.CheckUpdatesAtStartup;
