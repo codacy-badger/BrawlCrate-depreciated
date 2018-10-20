@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.13 Hotfix 2
+BrawlCrate - v0.13 Hotfix 3
 Copyright © 2018 soopercool101, MarioDox
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,16 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.13 Hotfix 3 - (10/18/2018)
+ . Added module annotations for:
+   - Brinstar Section [1]
+   - Rainbow Cruise Section [4]
+   - Spear Pillar Section [1]
+   - Target Test Section [1]
+ . Fixed bug in which Module Section [5] no longer properly parsed objects
+ . Fixed bug in which if multiple collision links not directly connected by a plane could not be properly deleted
+ . Fixed bug in which deleting collision links would not flag a CollisionNode as needing saving
  
  - BrawlCrate v0.13 Hotfix 2 - (10/18/2018)
  . Fix display bug for hex viewers on older versions of Windows
