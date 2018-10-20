@@ -25,6 +25,8 @@ they be held accountable for the manner in which it is used.
  . Fixed bug in which Module Section [5] no longer properly parsed objects
  . Fixed bug in which if multiple collision links not directly connected by a plane could not be properly deleted
  . Fixed bug in which deleting collision links would not flag a CollisionNode as needing saving
+ . Settings are now saved using the "BrawlCrate" namespace rather than "BrawlBox"
+ . Settings will now be transferred to newer versions (starting now)
  
  - BrawlCrate v0.13 Hotfix 2 - (10/18/2018)
  . Fix display bug for hex viewers on older versions of Windows
