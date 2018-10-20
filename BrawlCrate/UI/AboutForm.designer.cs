@@ -1,4 +1,4 @@
-﻿namespace BrawlBox
+﻿namespace BrawlCrate
 {
     partial class AboutForm
     {

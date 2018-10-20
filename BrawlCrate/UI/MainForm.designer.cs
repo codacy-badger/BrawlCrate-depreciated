@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-namespace BrawlBox
+namespace BrawlCrate
 {
     partial class MainForm
     {
@@ -34,7 +34,7 @@ namespace BrawlBox
             BrawlLib.OpenGL.GLCamera glCamera1 = new BrawlLib.OpenGL.GLCamera();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.resourceTree = new BrawlBox.ResourceTree();
+            this.resourceTree = new BrawlCrate.ResourceTree();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();

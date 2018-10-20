@@ -4,7 +4,7 @@ using BrawlLib.SSBB.ResourceNodes;
 using System.Windows.Forms;
 using System.ComponentModel;
 
-namespace BrawlBox.NodeWrappers
+namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.MDL0Shader)]
     class MDL0ShaderWrapper : GenericWrapper

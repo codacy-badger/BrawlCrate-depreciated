@@ -5,7 +5,7 @@ using System.ComponentModel;
 using BrawlLib;
 using System.Collections.Generic;
 
-namespace BrawlBox
+namespace BrawlCrate
 {
     [NodeWrapper(ResourceType.U8Folder)]
     class U8FolderWrapper : GenericWrapper

@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using BrawlLib.Wii.Animations;
 
-namespace BrawlBox.NodeWrappers
+namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.SCN0)]
     class SCN0Wrapper : GenericWrapper

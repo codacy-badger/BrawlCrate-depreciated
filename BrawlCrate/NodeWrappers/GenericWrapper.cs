@@ -4,7 +4,7 @@ using BrawlLib.SSBB.ResourceNodes;
 using System.IO;
 using System.ComponentModel;
 
-namespace BrawlBox
+namespace BrawlCrate
 {
     //Contains generic members inherited by all sub-classed nodes
     public class GenericWrapper : BaseWrapper

@@ -8,7 +8,7 @@
     <ProjectGuid>{0B8588FD-74EE-4A7D-A397-91EA3F6A2C77}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BrawlBox</RootNamespace>
+    <RootNamespace>BrawlCrate</RootNamespace>
     <AssemblyName>BrawlCrate</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <PlatformTarget>x86</PlatformTarget>
@@ -91,7 +91,7 @@
     <ApplicationIcon>BrawlCrate.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>BrawlBox.Program</StartupObject>
+    <StartupObject>BrawlCrate.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>

@@ -7,7 +7,7 @@ using BrawlLib.SSBB.ResourceNodes;
 using System.Drawing;
 using BrawlLib.Imaging;
 
-namespace BrawlBox
+namespace BrawlCrate
 {
     class ModelForm : Form
     {
@@ -93,7 +93,7 @@ namespace BrawlBox
 
         public unsafe void ReadSettings()
         {
-            BrawlBox.Properties.Settings settings = BrawlBox.Properties.Settings.Default;
+            BrawlCrate.Properties.Settings settings = BrawlCrate.Properties.Settings.Default;
             bool isStage = false;
             if (MainForm.Instance.RootNode is ARCWrapper)
                 if (((ARCNode)((ARCWrapper)MainForm.Instance.RootNode).ResourceNode).IsStage)
@@ -136,7 +136,7 @@ namespace BrawlBox
             modelEditControl1._openedFiles.Add(Program.RootNode);
 
             MainForm.Instance.Visible = 
-                !BrawlBox.Properties.Settings.Default.ViewerSettings.HideMainWindow;
+                !BrawlCrate.Properties.Settings.Default.ViewerSettings.HideMainWindow;
 
             if (_models.Count != 0)
             {
@@ -184,7 +184,7 @@ namespace BrawlBox
         protected override void OnClosed(EventArgs e)
         {
             MainForm.Instance.Visible = 
-                BrawlBox.Properties.Settings.Default.ViewerSettings.HideMainWindow ? 
+                BrawlCrate.Properties.Settings.Default.ViewerSettings.HideMainWindow ? 
                 ModelEditControl.Instances.Count == 0 : true;
 
             MainForm.Instance.modelPanel1.Capture();

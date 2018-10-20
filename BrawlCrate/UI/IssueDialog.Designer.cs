@@ -73,7 +73,7 @@
             this.label1.Padding = new System.Windows.Forms.Padding(5);
             this.label1.Size = new System.Drawing.Size(304, 56);
             this.label1.TabIndex = 1;
-            this.label1.Text = "BrawlBox has thrown an error. You have the option to submit a bug report for revi" +
+            this.label1.Text = "BrawlCrate has thrown an error. You have the option to submit a bug report for revi" +
     "ew and try to save your work before the application attempts to continue executi" +
     "on. ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

@@ -2,7 +2,7 @@
 using System.Drawing;
 using BrawlLib.Imaging;
 using BrawlLib.OpenGL;
-using BrawlBox;
+using BrawlCrate;
 using BrawlLib.Wii.Graphics;
 
 namespace System.Windows.Forms
@@ -217,7 +217,7 @@ namespace System.Windows.Forms
             chkTanSHP.Checked = SHP0VertexSetNode._generateTangents;
             chkTanSRT.Checked = SRT0TextureNode._generateTangents;
             chkPixelLighting.Checked = ShaderGenerator.UsePixelLighting;
-            chkContextLoop.Checked = BrawlBox.Properties.Settings.Default.ContextualLoop;
+            chkContextLoop.Checked = BrawlCrate.Properties.Settings.Default.ContextualLoop;
 
             UpdateOrb();
             UpdateLine();
@@ -2101,8 +2101,8 @@ namespace System.Windows.Forms
             if (MessageBox.Show(this, "Are you sure you want to reset all settings to default?", "Reset?", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) != Forms.DialogResult.OK)
                 return;
 
-            BrawlBox.Properties.Settings.Default.ViewerSettings = null;
-            BrawlBox.Properties.Settings.Default.ViewerSettingsSet = false;
+            BrawlCrate.Properties.Settings.Default.ViewerSettings = null;
+            BrawlCrate.Properties.Settings.Default.ViewerSettingsSet = false;
             _form.SetDefaultSettings();
             UpdateAll();
         }
@@ -2110,7 +2110,7 @@ namespace System.Windows.Forms
         private void btnImportSettings_Click(object sender, EventArgs e)
         {
             OpenFileDialog od = new OpenFileDialog();
-            od.Filter = "Brawlbox Settings (*.settings)|*.settings";
+            od.Filter = "BrawlCrate Settings (*.settings)|*.settings";
             od.FileName = Application.StartupPath;
             if (od.ShowDialog() == DialogResult.OK)
             {
@@ -2123,7 +2123,7 @@ namespace System.Windows.Forms
         private void btnExportSettings_Click(object sender, EventArgs e)
         {
             SaveFileDialog sd = new SaveFileDialog();
-            sd.Filter = "Brawlbox Settings (*.settings)|*.settings";
+            sd.Filter = "BrawlCrate Settings (*.settings)|*.settings";
             sd.FileName = Application.StartupPath;
             if (sd.ShowDialog() == DialogResult.OK)
             {
@@ -2227,8 +2227,8 @@ namespace System.Windows.Forms
             if (_updating)
                 return;
 
-            BrawlBox.Properties.Settings.Default.ContextualLoop = chkContextLoop.Checked;
-            BrawlBox.Properties.Settings.Default.Save();
+            BrawlCrate.Properties.Settings.Default.ContextualLoop = chkContextLoop.Checked;
+            BrawlCrate.Properties.Settings.Default.Save();
         }
 
         private void chkHideMainWindow_CheckedChanged(object sender, EventArgs e)
@@ -2247,10 +2247,10 @@ namespace System.Windows.Forms
             if (_updating)
                 return;
 
-            BrawlBox.Properties.Settings.Default.PixelLighting = 
+            BrawlCrate.Properties.Settings.Default.PixelLighting = 
                 ShaderGenerator.UsePixelLighting = chkPixelLighting.Checked;
             _form.ModelPanel.Invalidate();
-            BrawlBox.Properties.Settings.Default.Save();
+            BrawlCrate.Properties.Settings.Default.Save();
         }
     }
 }

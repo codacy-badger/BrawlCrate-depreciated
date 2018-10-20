@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using BrawlLib;
 
-namespace BrawlBox.NodeWrappers
+namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.REFT)]
     class REFTWrapper : GenericWrapper

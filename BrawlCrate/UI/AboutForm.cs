@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace BrawlBox
+namespace BrawlCrate
 {
     public partial class AboutForm : Form
     {

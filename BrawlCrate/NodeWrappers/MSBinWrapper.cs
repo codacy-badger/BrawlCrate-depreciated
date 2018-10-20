@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using System.ComponentModel;
 
 
-namespace BrawlBox.NodeWrappers
+namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.MSBin)]
     class MSBinWrapper : GenericWrapper

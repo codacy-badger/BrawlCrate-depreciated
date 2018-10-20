@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using System.IO;
 using BrawlLib.SSBB;
 using System.Collections.Generic;
-namespace BrawlBox
+namespace BrawlCrate
 {
     class SettingsDialog : Form
     {

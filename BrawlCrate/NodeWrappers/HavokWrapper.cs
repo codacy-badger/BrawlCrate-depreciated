@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.IO;
 using BrawlLib.IO;
 
-namespace BrawlBox.NodeWrappers
+namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.Havok)]
     class HavokWrapper : GenericWrapper

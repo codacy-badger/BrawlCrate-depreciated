@@ -623,9 +623,9 @@ namespace BrawlLib.Modeling
             public float WeightPrecision { get { return _weightPrecision; } set { _weightPrecision = value.Clamp(0.0000001f, 0.999999f); } }
             [Category("Model"), Description("Sets the model version number, which affects how some parts of the model are written. Only versions 8, 9, 10 and 11 are supported.")]
             public int ModelVersion { get { return _modelVersion; } set { _modelVersion = value.Clamp(8, 11); } }
-            //[Category("Model"), TypeConverter(typeof(Vector3StringConverter)), Description("Rotates the entire model before importing. This can be used to fix a model's up axis, as BrawlBox uses Y-up while some other 3D programs use Z-up.")]
+            //[Category("Model"), TypeConverter(typeof(Vector3StringConverter)), Description("Rotates the entire model before importing. This can be used to fix a model's up axis, as BrawlCrate uses Y-up while some other 3D programs use Z-up.")]
             //public Vector3 ModifyRotation { get { return _modifyRotation; } set { _modifyRotation = value; } }
-            //[Category("Model"), TypeConverter(typeof(Vector3StringConverter)), Description("Scales the entire model before importing. This can be used to fix a model's units, as BrawlBox uses centimeters while other 3D programs uses units such as meters or inches.")]
+            //[Category("Model"), TypeConverter(typeof(Vector3StringConverter)), Description("Scales the entire model before importing. This can be used to fix a model's units, as BrawlCrate uses centimeters while other 3D programs uses units such as meters or inches.")]
             //public Vector3 ModifyScale { get { return _modifyScale; } set { _modifyScale = value; } }
             
             [Category("Materials"), Description("The default texture wrap for material texture references.")]

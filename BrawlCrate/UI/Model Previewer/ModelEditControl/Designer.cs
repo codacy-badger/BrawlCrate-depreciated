@@ -1,7 +1,7 @@
 ﻿using BrawlLib.OpenGL;
 using BrawlLib.SSBB.ResourceNodes;
 using System.Collections.Generic;
-using BrawlBox;
+using BrawlCrate;
 
 namespace System.Windows.Forms
 {

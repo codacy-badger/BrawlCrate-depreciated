@@ -4,7 +4,7 @@ using BrawlLib;
 using System.Windows.Forms;
 using System.ComponentModel;
 
-namespace BrawlBox
+namespace BrawlCrate
 {
     [NodeWrapper(ResourceType.CLR0)]
     class CLR0Wrapper : GenericWrapper

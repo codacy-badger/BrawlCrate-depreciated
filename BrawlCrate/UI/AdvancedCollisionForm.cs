@@ -1,5 +1,5 @@
 ﻿using BrawlLib.SSBB.ResourceNodes;
-using BrawlBox;
+using BrawlCrate;
 
 namespace System.Windows.Forms
 {

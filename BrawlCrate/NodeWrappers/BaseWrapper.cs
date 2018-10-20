@@ -4,7 +4,7 @@ using BrawlLib.SSBB.ResourceNodes;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace BrawlBox
+namespace BrawlCrate
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
     sealed class NodeWrapperAttribute : Attribute

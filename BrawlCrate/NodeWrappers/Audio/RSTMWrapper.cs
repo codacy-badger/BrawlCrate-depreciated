@@ -1,7 +1,7 @@
 ﻿using BrawlLib.SSBB.ResourceNodes;
 using BrawlLib;
 
-namespace BrawlBox.NodeWrappers
+namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.RSTM)]
     class RSTMWrapper : GenericWrapper

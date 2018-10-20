@@ -1,7 +1,7 @@
 ﻿using BrawlLib;
 using BrawlLib.SSBB.ResourceNodes;
 
-namespace BrawlBox.NodeWrappers
+namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.TBGM)]
     class TBGMWrapper : STDTWrapper

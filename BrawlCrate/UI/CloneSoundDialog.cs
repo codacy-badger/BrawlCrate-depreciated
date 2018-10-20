@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using BrawlLib.SSBB.ResourceNodes;
 
-namespace BrawlBox
+namespace BrawlCrate
 {
     class CloneSoundDialog : Form
     {
@@ -22,7 +22,7 @@ namespace BrawlBox
             this.txtName = new System.Windows.Forms.TextBox();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.treeResource = new BrawlBox.ResourceTree();
+            this.treeResource = new BrawlCrate.ResourceTree();
             this.SuspendLayout();
             // 
             // label1

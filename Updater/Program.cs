@@ -266,12 +266,12 @@ namespace Net
                         Task t = Updater.UpdateCheck(true);
                         t.Wait();
                         break;
-                    case "-bu": //brawlbox update call
+                    case "-bu": //BrawlCrate update call
                         somethingDone = true;
                         Task t2 = Updater.CheckUpdates(args[1], args[2] != "0");
                         t2.Wait();
                         break;
-                    case "-bi": //brawlbox issue call
+                    case "-bi": //BrawlCrate issue call
                         somethingDone = true;
                         Task t3 = BugSquish.CreateIssue(args[1], args[2], args[3], args[4], args[5]);
                         t3.Wait();

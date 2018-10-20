@@ -4,7 +4,7 @@ using BrawlLib.SSBB.ResourceNodes;
 using System.Windows.Forms;
 using System.ComponentModel;
 
-namespace BrawlBox.NodeWrappers
+namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.GEG1)]
     class GEG1Wrapper : GenericWrapper

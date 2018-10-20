@@ -10,7 +10,7 @@
 
 using System;
 using System.Collections.Generic;
-namespace BrawlBox.Properties {
+namespace BrawlCrate.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

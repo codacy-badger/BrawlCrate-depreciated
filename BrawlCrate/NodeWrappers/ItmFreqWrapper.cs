@@ -6,7 +6,7 @@ using System.ComponentModel;
 using BrawlLib.IO;
 using BrawlLib.SSBBTypes;
 
-namespace BrawlBox.NodeWrappers
+namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.NoEdit)]
     class ItmFreqWrapper : GenericWrapper

@@ -1,4 +1,4 @@
-﻿using BrawlBox.Properties;
+﻿using BrawlCrate.Properties;
 using BrawlLib.Imaging;
 using BrawlLib.Modeling;
 using BrawlLib.OpenGL;
@@ -13,7 +13,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Configuration;
 
-namespace BrawlBox
+namespace BrawlCrate
 {
     public partial class MainForm : Form
     {
@@ -55,16 +55,16 @@ namespace BrawlBox
             InitializeComponent();
             Text = Program.AssemblyTitle;
 
-            if (BrawlBox.Properties.Settings.Default.UpdateSettings)
+            if (BrawlCrate.Properties.Settings.Default.UpdateSettings)
             {
-                BrawlBox.Properties.Settings.Default.Upgrade();
-                BrawlBox.Properties.Settings.Default.UpdateSettings = false;
-                BrawlBox.Properties.Settings.Default.Save();
+                BrawlCrate.Properties.Settings.Default.Upgrade();
+                BrawlCrate.Properties.Settings.Default.UpdateSettings = false;
+                BrawlCrate.Properties.Settings.Default.Save();
             }
 
-            _displayPropertyDescription = BrawlBox.Properties.Settings.Default.DisplayPropertyDescriptionWhenAvailable;
-            _updatesOnStartup = BrawlBox.Properties.Settings.Default.CheckUpdatesAtStartup;
-            _showHex = BrawlBox.Properties.Settings.Default.ShowHex;
+            _displayPropertyDescription = BrawlCrate.Properties.Settings.Default.DisplayPropertyDescriptionWhenAvailable;
+            _updatesOnStartup = BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup;
+            _showHex = BrawlCrate.Properties.Settings.Default.ShowHex;
             _compatibilityMode = BrawlLib.Properties.Settings.Default.CompatibilityMode;
             _importPNGwPalette = BrawlLib.Properties.Settings.Default.ImportPNGsWithPalettes;
 
@@ -132,8 +132,8 @@ namespace BrawlBox
             {
                 _displayPropertyDescription = value;
 
-                BrawlBox.Properties.Settings.Default.DisplayPropertyDescriptionWhenAvailable = _displayPropertyDescription;
-                BrawlBox.Properties.Settings.Default.Save();
+                BrawlCrate.Properties.Settings.Default.DisplayPropertyDescriptionWhenAvailable = _displayPropertyDescription;
+                BrawlCrate.Properties.Settings.Default.Save();
                 UpdatePropertyDescriptionBox(propertyGrid1.SelectedGridItem);
             }
         }
@@ -146,8 +146,8 @@ namespace BrawlBox
             {
                 _updatesOnStartup = value;
 
-                BrawlBox.Properties.Settings.Default.CheckUpdatesAtStartup = _updatesOnStartup;
-                BrawlBox.Properties.Settings.Default.Save();
+                BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = _updatesOnStartup;
+                BrawlCrate.Properties.Settings.Default.Save();
             }
         }
         bool _updatesOnStartup;
@@ -159,8 +159,8 @@ namespace BrawlBox
             {
                 _showHex = value;
 
-                BrawlBox.Properties.Settings.Default.ShowHex = _showHex;
-                BrawlBox.Properties.Settings.Default.Save();
+                BrawlCrate.Properties.Settings.Default.ShowHex = _showHex;
+                BrawlCrate.Properties.Settings.Default.Save();
             }
         }
         bool _showHex;

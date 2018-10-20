@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using BrawlLib;
 using System.ComponentModel;
 
-namespace BrawlBox.NodeWrappers
+namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.MDL0Object)]
     class MDL0PolygonWrapper : GenericWrapper

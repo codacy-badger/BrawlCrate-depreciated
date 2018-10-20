@@ -7,7 +7,7 @@ using BrawlLib.SSBBTypes;
 using BrawlLib;
 using BrawlLib.Modeling;
 
-namespace BrawlBox
+namespace BrawlCrate
 {
     [NodeWrapper(ResourceType.ARC)]
     class ARCWrapper : GenericWrapper

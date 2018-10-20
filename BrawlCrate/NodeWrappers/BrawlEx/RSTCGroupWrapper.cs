@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using System.BrawlEx;
 
-namespace BrawlBox.NodeWrappers
+namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.RSTCGroup)]
     class RSTCGroupWrapper : GenericWrapper

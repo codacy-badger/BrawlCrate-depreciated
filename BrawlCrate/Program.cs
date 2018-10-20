@@ -9,7 +9,7 @@ using System.Diagnostics;
 using Microsoft.Win32;
 using BrawlLib.BrawlCrate;
 
-namespace BrawlBox
+namespace BrawlCrate
 {
     static class Program
     {

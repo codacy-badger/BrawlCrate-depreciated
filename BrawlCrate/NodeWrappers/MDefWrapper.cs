@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Collections.Generic;
 
-namespace BrawlBox.NodeWrappers
+namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.MDef)]
     class MDefWrapper : GenericWrapper

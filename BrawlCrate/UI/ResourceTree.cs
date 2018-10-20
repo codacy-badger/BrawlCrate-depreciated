@@ -3,10 +3,10 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using BrawlLib.SSBB.ResourceNodes;
 using System.Drawing;
-using BrawlBox.Properties;
+using BrawlCrate.Properties;
 using System.Runtime.InteropServices;
 
-namespace BrawlBox
+namespace BrawlCrate
 {
     public class ResourceTree : TreeView
     {

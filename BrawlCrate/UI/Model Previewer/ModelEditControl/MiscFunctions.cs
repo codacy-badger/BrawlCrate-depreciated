@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using BrawlLib.Wii.Graphics;
-using BrawlBox;
+using BrawlCrate;
 
 namespace System.Windows.Forms
 {
@@ -501,9 +501,9 @@ namespace System.Windows.Forms
         #region Settings
         public override void SaveSettings()
         {
-            BrawlBox.Properties.Settings.Default.ViewerSettings = CollectSettings();
-            BrawlBox.Properties.Settings.Default.ViewerSettingsSet = true;
-            BrawlBox.Properties.Settings.Default.Save();
+            BrawlCrate.Properties.Settings.Default.ViewerSettings = CollectSettings();
+            BrawlCrate.Properties.Settings.Default.ViewerSettingsSet = true;
+            BrawlCrate.Properties.Settings.Default.Save();
         }
         public ModelEditorSettings CollectSettings()
         {

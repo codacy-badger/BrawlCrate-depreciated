@@ -7,7 +7,7 @@ using BrawlLib.Imaging;
 using BrawlLib.Wii.Models;
 using BrawlLib.SSBB;
 
-namespace BrawlBox.NodeWrappers
+namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.MDL0)]
     class MDL0Wrapper : GenericWrapper

@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Diagnostics;
 
-namespace BrawlBox.NodeWrappers
+namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.RSARSound)]
     class RSARSoundWrapper : GenericWrapper
