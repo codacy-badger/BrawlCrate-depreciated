@@ -162,5 +162,21 @@ namespace BrawlBox.Properties {
                 this["ContextualLoop"] = value;
             }
         }
+
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("true")]
+        public bool UpdateSettings
+        {
+            get
+            {
+                return ((bool)(this["UpdateSettings"]));
+            }
+            set
+            {
+                this["UpdateSettings"] = value;
+            }
+        }
     }
 }
