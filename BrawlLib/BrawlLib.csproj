@@ -1222,6 +1222,14 @@
     <Folder Include="WiiU\Models\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CustomLists\AboutCustomLists.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CustomLists\FighterList.txt" />
+    <Content Include="CustomLists\Project M 3.6 Stage List - Move to the main folder if you wish to use it\StageList.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CustomLists\StageList.txt" />
     <Content Include="InternalDocumentation\Module\st_donkey\Section [1].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -464,20 +464,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BrawlCrate.ico" />
-    <Content Include="CustomLists\AboutCustomLists.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="CustomLists\FighterList.txt" />
-    <Content Include="CustomLists\Project M 3.6 Stage List - Move to the main folder if you wish to use it\StageList.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\GCAM.png" />
     <Content Include="Resources\GIB2.png" />
     <Content Include="Resources\GITM.png" />
     <Content Include="Resources\GWAT.png" />
     <Content Include="Stagebox.ico" />
     <Content Include="OpenTK.dll" />
-    <Content Include="CustomLists\StageList.txt" />
     <None Include="Resources\SharedTEX0.png" />
     <None Include="Resources\BGMG.png" />
     <None Include="Resources\REL.png" />
