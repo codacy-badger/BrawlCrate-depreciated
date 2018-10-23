@@ -86,11 +86,6 @@ namespace System.Windows.Forms
                         pos1 = new Vector3(ItemBones[i]._frameMatrix.GetPoint()._x, ItemBones[i]._frameMatrix.GetPoint()._y + 1.5f, 1.0f);
                         pos2 = new Vector3(ItemBones[i + 1]._frameMatrix.GetPoint()._x, ItemBones[i + 1]._frameMatrix.GetPoint()._y - 1.5f, 1.0f);
                     }
-                    else if(ItemBones[i]._frameMatrix.GetPoint()._x == ItemBones[i + 1]._frameMatrix.GetPoint()._x)
-                    {
-                        pos1 = new Vector3(ItemBones[i]._frameMatrix.GetPoint()._x, ItemBones[i]._frameMatrix.GetPoint()._y, 1.0f);
-                        pos2 = new Vector3(ItemBones[i + 1]._frameMatrix.GetPoint()._x, ItemBones[i + 1]._frameMatrix.GetPoint()._y, 1.0f);
-                    }
                     else
                     {
                         pos1 = new Vector3(ItemBones[i]._frameMatrix.GetPoint()._x, ItemBones[i]._frameMatrix.GetPoint()._y, 1.0f);

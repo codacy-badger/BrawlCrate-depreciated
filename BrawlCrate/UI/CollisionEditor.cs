@@ -2075,6 +2075,7 @@ namespace System.Windows.Forms
                         ((IModel)o).RenderBones(_modelPanel.CurrentViewport);
 
             #region RenderOverlays
+            GL.Disable(EnableCap.DepthTest);
             List<MDL0BoneNode> ItemBones = new List<MDL0BoneNode>();
 
             MDL0Node stgPos = null;
@@ -2122,7 +2123,6 @@ namespace System.Windows.Forms
             if (ItemBones != null && btnItems.Checked)
             {
                 GL.Color4(0.5f, 0.0f, 1.0f, 0.4f);
-
                 for (int i = 0; i < ItemBones.Count; i += 2)
                 {
                     Vector3 pos1, pos2;
