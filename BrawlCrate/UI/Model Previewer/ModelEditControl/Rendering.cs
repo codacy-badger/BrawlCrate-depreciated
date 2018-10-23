@@ -80,10 +80,28 @@ namespace System.Windows.Forms
                 GL.Color4(0.5f, 0.0f, 1.0f, 0.4f);
                 for (int i = 0; i < ItemBones.Count; i += 2)
                 {
-                    Vector3 pos1 = new Vector3(ItemBones[i]._frameMatrix.GetPoint()._x, ItemBones[i]._frameMatrix.GetPoint()._y + 3.0f, 1.0f);
-                    Vector3 pos2 = new Vector3(ItemBones[i + 1]._frameMatrix.GetPoint()._x, ItemBones[i + 1]._frameMatrix.GetPoint()._y - 3.0f, 1.0f);
-
-                    TKContext.DrawBox(pos1, pos2);
+                    Vector3 pos1, pos2;
+                    if(ItemBones[i]._frameMatrix.GetPoint()._y == ItemBones[i + 1]._frameMatrix.GetPoint()._y)
+                    {
+                        pos1 = new Vector3(ItemBones[i]._frameMatrix.GetPoint()._x, ItemBones[i]._frameMatrix.GetPoint()._y + 1.5f, 1.0f);
+                        pos2 = new Vector3(ItemBones[i + 1]._frameMatrix.GetPoint()._x, ItemBones[i + 1]._frameMatrix.GetPoint()._y - 1.5f, 1.0f);
+                    }
+                    else if(ItemBones[i]._frameMatrix.GetPoint()._x == ItemBones[i + 1]._frameMatrix.GetPoint()._x)
+                    {
+                        pos1 = new Vector3(ItemBones[i]._frameMatrix.GetPoint()._x, ItemBones[i]._frameMatrix.GetPoint()._y, 1.0f);
+                        pos2 = new Vector3(ItemBones[i + 1]._frameMatrix.GetPoint()._x, ItemBones[i + 1]._frameMatrix.GetPoint()._y, 1.0f);
+                    }
+                    else
+                    {
+                        pos1 = new Vector3(ItemBones[i]._frameMatrix.GetPoint()._x, ItemBones[i]._frameMatrix.GetPoint()._y, 1.0f);
+                        pos2 = new Vector3(ItemBones[i + 1]._frameMatrix.GetPoint()._x, ItemBones[i + 1]._frameMatrix.GetPoint()._y, 1.0f);
+                    }
+                        
+                    
+                    if (pos1._x != pos2._x)
+                        TKContext.DrawBox(pos1, pos2);
+                    else
+                        TKContext.DrawSphere(new Vector3(ItemBones[i]._frameMatrix.GetPoint()._x, ItemBones[i]._frameMatrix.GetPoint()._y, pos1._z), 3.0f, 32);
                 }
             }
 
