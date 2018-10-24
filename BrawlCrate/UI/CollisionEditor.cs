@@ -1254,6 +1254,7 @@ namespace System.Windows.Forms
             this.transformToolStripMenuItem.Name = "transformToolStripMenuItem";
             this.transformToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.transformToolStripMenuItem.Text = "Transform";
+            this.transformToolStripMenuItem.Click += new System.EventHandler(this.transformToolStripMenuItem_Click);
             // 
             // alignXToolStripMenuItem
             // 
@@ -3176,6 +3177,49 @@ namespace System.Windows.Forms
         }
 
         #endregion
+
+        protected void transformToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TransformEditor transform = new TransformEditor();
+            if (transform.ShowDialog() == DialogResult.OK)
+            {
+                CreateUndo();
+
+                if (_selectedPlanes.Count > 0)
+                {
+                    FrameState _centerState = new FrameState(new Vector3(1, 1, 1), new Vector3(0, 0, 0), new Vector3(0, 0, 0));
+                    /*if(transform._transform.ScalingType == xyTransform.ScaleType.FromCenterOfCollisions)
+                    {
+                        Vector2 v2avg = new Vector2(0, 0);
+                        int i = 0;
+                        foreach(CollisionLink l in _selectedLinks)
+                        {
+                            v2avg += l._rawValue;
+                            i++;
+                        }
+                        float newX = (v2avg._x / i) * -1;// * (v2avg._x >= 1 ? -1 : 1);
+                        float newY = (v2avg._y / i) * -1;// * (v2avg._y >= 1 ? -1 : 1);
+                        Console.WriteLine(new Vector2(newX, newY));
+                        _centerState = new FrameState(new Vector3(1, 1, 1), new Vector3(0, 0, 0), new Vector3(newX, newY, 0));
+                    }*/
+                    Vector3 v3trans = new Vector3(transform._transform.Translation._x, transform._transform.Translation._y, 0);
+                    Vector3 v3rot = new Vector3(0, 0, transform._transform.Rotation);
+                    Vector3 v3scale = new Vector3(transform._transform.Scale._x, transform._transform.Scale._y, 1);
+                    FrameState _frameState = new FrameState(v3scale, v3rot, v3trans);
+                    foreach (CollisionLink l in _selectedLinks)
+                    {
+                        l._rawValue = (_centerState._transform * _frameState._transform) * l._rawValue;
+                    }
+                } else
+                {
+                    foreach(CollisionLink l in _selectedLinks)
+                    {
+                        l._rawValue += transform._transform.Translation;
+                    }
+                }
+                _modelPanel.Invalidate();
+            }
+        }
 
         protected void btnSameX_Click(object sender, EventArgs e)
         {

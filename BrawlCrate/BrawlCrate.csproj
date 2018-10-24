@@ -136,6 +136,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UI\TransformEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\TransformEditor.Designer.cs">
+      <DependentUpon>TransformEditor.cs</DependentUpon>
+    </Compile>
     <None Include="app.config" />
     <None Include="NodeWrappers\BMDWrapper.cs" />
     <None Include="NodeWrappers\RARCWrapper.cs" />
@@ -346,6 +352,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TransformEditor.resx">
+      <DependentUpon>TransformEditor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
