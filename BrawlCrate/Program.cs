@@ -326,7 +326,7 @@ namespace BrawlCrate
 
                 #if !DEBUG
                 }
-                catch (Exception x) { Say(x.Message); }
+                catch (Exception x) { Say(x.Message); _rootNode.SignalPropertyChange(); }
                 #endif
             }
             return false;
