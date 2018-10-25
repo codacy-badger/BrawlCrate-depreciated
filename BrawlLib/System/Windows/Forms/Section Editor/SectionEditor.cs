@@ -61,7 +61,11 @@ namespace System.Windows.Forms
             panel5.Enabled = true;
         }
 
-
+        protected override void OnClientSizeChanged(EventArgs e)
+        {
+            hexBox1.Height = pnlHexEditor.Height - (this.btnSaveAnnotation.Height + this.annotationTitle.Height + this.annotationDescription.Height + this.statusStrip.Height);
+            base.OnClientSizeChanged(e);
+        }
 
         void ppcOpCodeEditControl1_OnBranchFollowed()
         {
