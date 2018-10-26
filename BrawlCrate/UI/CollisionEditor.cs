@@ -3394,6 +3394,7 @@ namespace System.Windows.Forms
         {
             mergeToolStripMenuItem.Visible = alignXToolStripMenuItem.Visible = alignYToolStripMenuItem.Visible = (_selectedLinks != null && _selectedLinks.Count > 1);
             moveToNewObjectToolStripMenuItem.Visible = flipToolStripMenuItem.Visible = (_selectedPlanes != null && _selectedPlanes.Count > 0);
+            moveToNewObjectToolStripMenuItem.Visible = false;
             //contextMenuStrip3.Items[0].Visible = contextMenuStrip3.Items[1].Visible = contextMenuStrip3.Items[2].Visible = contextMenuStrip3.Items[3].Visible = contextMenuStrip3.Items[4].Visible = contextMenuStrip3.Items[6].Visible = contextMenuStrip3.Items[7].Visible = (_selectedPlanes != null && _selectedPlanes.Count > 0);
         }
 
