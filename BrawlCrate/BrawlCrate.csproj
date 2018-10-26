@@ -548,8 +548,9 @@
     <PostBuildEvent Condition=" '$(OS)' != 'Unix' ">%25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(ConfigurationName)\Updater.exe" "$(TargetDir)" /Y /I</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
+    <PreBuildEvent>if $(ConfigurationName) == Release (
+  RD /S /Q "$(TargetDir)"
+)</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>cd $(TargetDir)
