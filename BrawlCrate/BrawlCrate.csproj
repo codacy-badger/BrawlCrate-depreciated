@@ -564,6 +564,9 @@
   <PropertyGroup>
     <PreBuildEvent>if $(ConfigurationName) == Release (
   RD /S /Q "$(TargetDir)"
+)
+if $(ConfigurationName) == Documentation (
+  RD /S /Q "$(TargetDir)"
 )</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
