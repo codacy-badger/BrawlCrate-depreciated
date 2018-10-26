@@ -123,6 +123,7 @@ namespace Net
                             t.Wait();
                         }
                     }
+                    return;
                 }
                 else if (manual && !checkDocumentation)
                     MessageBox.Show("No updates found.");

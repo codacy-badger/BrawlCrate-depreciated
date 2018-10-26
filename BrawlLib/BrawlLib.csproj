@@ -1289,6 +1289,9 @@
     <Content Include="InternalDocumentation\STDT\DOLPIC[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="InternalDocumentation\STDT\DXBIGBLUE[20].txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="InternalDocumentation\STDT\DXGARDEN[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
