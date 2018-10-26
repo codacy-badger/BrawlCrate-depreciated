@@ -16,6 +16,9 @@ they be held accountable for the manner in which it is used.
 |************ BrawlCrate Change Log ************|
  ===============================================
  
+ - BrawlCrate v0.14 Hotfix 1 - (10/26/2018)
+ . No longer requires user input (excluding admin access) when updating
+ 
  - BrawlCrate v0.14 - (10/26/2018)
  . Added Right-Click menu to model preview window on Collision Editor
  . Added support for receiving documentation updates (can be turned off in the settings)
