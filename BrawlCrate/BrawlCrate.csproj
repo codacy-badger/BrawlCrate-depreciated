@@ -526,7 +526,13 @@
 del Octokit.dll
 del updater.exe
 %25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Octokit.dll" "$(TargetDir)" /Y /I
-%25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Updater.exe" "$(TargetDir)" /Y /I</PostBuildEvent>
+%25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Updater.exe" "$(TargetDir)" /Y /I
+if $(ConfigurationName) == Release (
+  del BrawlCrate.exe.config
+  del BrawlCrate.pdb
+  del BrawlLib.pdb
+  "C:\Program Files\7-Zip\7z.exe" a $(TargetName).v0.XX.exe -mmt -mx5 -sfx
+)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
