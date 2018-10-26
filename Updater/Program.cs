@@ -162,7 +162,8 @@ namespace Net
                         // If this is not a known pre-release version, return as documentation updates are only sent via pre-release
                         if (!isPreRelease)
                         {
-                            MessageBox.Show("No updates found.");
+                            if(manual)
+                                MessageBox.Show("No updates found.");
                             return;
                         }
                     }
