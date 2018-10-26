@@ -1,7 +1,6 @@
-Platform Move Chance
-(Float) Changing to 0 freezes the two moving platforms
-
+0x014
 Default (Float): 0.01 (0x3C23D70A)
+*Speculation: related to the moving platforms (Changing to 0 freezes the platforms)
 	/EndDescription
 0
 
@@ -11,25 +10,30 @@ Default (Float): 0.3 (0x3E99999A)
 	/EndDescription
 0
 
-0x01C
+Platform Pause Chance
+(Float) The chance that the platforms will pause when reaching the end of their animation
+
 Default (Float): 0.25 (0x3E800000)
-*Speculation: related to the moving platforms
 	/EndDescription
 0
 
 Platform Pause Minimum Timer
+(Float) The minimum number of frames that the platforms will pause for
+
 Default (Float): 60 (0x42700000)
 	/EndDescription
 0
 
 Platform Pause Maximum Timer
+(Float) The maximum number of frames that the platforms will pause for
+
 Default (Float): 240 (0x43700000)
 	/EndDescription
 0
 
 0x028
 Default (Float): 0.08 (0x3DA3D70A)
-*Speculation: Floor rebuild chance?
+*Speculation: related to the moving platforms
 	/EndDescription
 0
 
@@ -72,22 +76,20 @@ Default (Float): 0.2 (0x3E4CCCCD)
 	/EndDescription
 0
 
-Cresselia Spawn Chance
-(Float) The chance that Cresselia will spawn when the spawn check timer reaches 0
-
+0x048
 Default (Float): 0.01 (0x3C23D70A)
 	/EndDescription
 0
 
-Pokémon (Re)Spawn Check Timer
-(Float) The number of frames before Dialga, Palkia, or Cresselia will perform a check to appear or reappear when not on stage
+Pokémon Action Minimum Timer
+(Float) The minimum number of frames before Dialga, Palkia, or Cresselia will perform an action such as attack or appear/reappear when not on stage
 
 Default (Float): 900 (0x44610000)
 	/EndDescription
 0
 
-Pokémon Attack Check Timer
-(Float) The number of frames between when Dialga, Palkia, or Cresselia check whether or not they attack
+Pokémon Action Maximum Timer
+(Float) The maximum number of frames before Dialga, Palkia, or Cresselia will perform an action such as attack or appear/reappear when not on stage
 
 Default (Float): 1200 (0x44960000)
 	/EndDescription
@@ -107,72 +109,92 @@ Default (Float): 7200 (0x45E10000)
 	/EndDescription
 0
 
-0x05C
+Lake Guardians Minimum Timer
+(Float) The minimum number of frames before one the lake guardians/emotion trio (Azelf, Uxie, and Mespirit) will appear
+
 Default (Float): 5400 (0x45A8C000)
 	/EndDescription
 0
 
-0x060
+Lake Guardians Maximum Timer
+(Float) The maximum number of frames before one the lake guardians/emotion trio (Azelf, Uxie, and Mespirit) will appear
+
 Default (Float): 10800 (0x4628C000)
 	/EndDescription
 0
 
-0x064
+No Lake Guardian Chance
+(Float) The chance that no lake guardian will appear
+
 Default (Float): 0.2 (0x3E4CCCCD)
 	/EndDescription
 0
 
-0x068
+Mesprit Spawn Chance
+(Float) The chance that Mesprit will be the lake guardian to appear
+
 Default (Float): 0.2 (0x3E4CCCCD)
 	/EndDescription
 0
 
-0x06C
+Uxie Spawn Chance
+(Float) The chance that Uxie will be the lake guardian to appear
+
 Default (Float): 0.4 (0x3ECCCCCD)
 	/EndDescription
 0
 
-0x070
+Azelf Spawn Chance
+(Float) The chance that Azelf will be the lake guardian to appear
+
 Default (Float): 0.4 (0x3ECCCCCD)
 	/EndDescription
 0
 
-0x074
+Mesprit Minimum Frames
+(Float) The minimum number of frames that Mespirit will remain on stage before flying away
+
 Default (Float): 60 (0x42700000)
 	/EndDescription
 0
 
-0x078
+Mesprit Maximum Frames
+(Float) The maximum number of frames that Mespirit will remain on stage before flying away
+
 Default (Float): 180 (0x43340000)
 	/EndDescription
 0
 
-Lake Guardians Minimum Frames
-(Float) The minimum number of frames the lake guardians/emotion trio (Azelf, Uxie, and Mespirit) will remain on stage after spawning.
+Azelf and Uxie Minimum Frames
+(Float) The minimum number of frames that Azelf or Uxie will remain on stage after spawning
 
 Default (Float): 300 (0x43960000)
 	/EndDescription
 0
 
-Lake Guardians Maximum Frames
-(Float) The maximum number of frames the lake guardians/emotion trio (Azelf, Uxie, and Mespirit) will remain on stage after spawning.
+Azelf and Uxie Maximum Frames
+(Float) The maximum number of frames that Azelf or Uxie will remain on stage after spawning
 
 Default (Float): 600 (0x44160000)
 	/EndDescription
 0
 
 Camera Minimum Tilt
+(Float) The minimum angle that the camera can be tilted during Dialga or Palkia's stage tilt hazard
+
 Default (Float): 10 (0x41200000)
 	/EndDescription
 0
 
 Camera Maximum Tilt
+(Float) The maximum angle that the camera can be tilted during Dialga or Palkia's stage tilt hazard
+
 Default (Float): 30 (0x41F00000)
 	/EndDescription
 0
 
 Camera Tilt Reduction Speed
-(Float) Reduces the tilt every frame (?) by this value. Higher values returns to normal quicker
+(Float) Reduces the tilt every frame (?) by this value. Higher values return the stage to normal quicker
 
 Default (Float): 0.02 (0x3CA3D70A)
 	/EndDescription
