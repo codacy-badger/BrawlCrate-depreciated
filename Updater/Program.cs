@@ -78,7 +78,7 @@ namespace Net
             }
         }
 
-        public static async Task CheckUpdates(string releaseTag, bool manual = true)
+        public static async Task CheckUpdates(string releaseTag, bool manual = true, bool checkDocumentation = false)
         {
             try
             {
@@ -124,8 +124,71 @@ namespace Net
                         }
                     }
                 }
-                else if (manual)
+                else if (manual && !checkDocumentation)
                     MessageBox.Show("No updates found.");
+                if (checkDocumentation)
+                {
+                    string docVer = null;
+                    try
+                    {
+                        if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "InternalDocumentation"))
+                        {
+                            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "InternalDocumentation" + '\\' + "version.txt"))
+                            {
+                                docVer = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "InternalDocumentation" + '\\' + "version.txt")[0];
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("ERROR: Documentation Version could not be found.");
+                        return;
+                    }
+                    if(docVer == null)
+                    {
+                        MessageBox.Show("Documentation Version could not be found.");
+                        return;
+                    }
+
+                    try
+                    {
+                        releases = await github.Release.GetAll("soopercool101", "BrawlCrate");
+
+                        // Check if this is a known pre-release version
+                        bool isPreRelease = releases.Any(r => r.Prerelease
+                            && !string.Equals(releases[0].TagName, docVer, StringComparison.InvariantCulture)
+                            && r.Name.IndexOf("Documentation", StringComparison.InvariantCultureIgnoreCase) >= 0);
+
+                        // If this is not a known pre-release version, return as documentation updates are only sent via pre-release
+                        if (!isPreRelease)
+                        {
+                            MessageBox.Show("No updates found.");
+                            return;
+                        }
+                    }
+                    catch (System.Net.Http.HttpRequestException)
+                    {
+                        if (manual)
+                            MessageBox.Show("Unable to connect to the internet.");
+                        return;
+                    }
+
+                    if (releases != null &&
+                        releases.Count > 0 &&
+                        !String.Equals(releases[0].TagName, docVer, StringComparison.InvariantCulture) && //Make sure the most recent version is not this version
+                        releases[0].Name.IndexOf("Documentation", StringComparison.InvariantCultureIgnoreCase) >= 0) //Make sure this is a Documentation release
+                    {
+                        int descriptionOffset = 0;
+                        if (releases[0].Body.Substring(releases[0].Body.Length - 109) == "\nAlso check out the Brawl Stage Compendium for info and research on Stage Modding: https://discord.gg/s7c8763")
+                            descriptionOffset = 110;
+                        DialogResult UpdateResult = MessageBox.Show(releases[0].Name + " is available!\n\nThis documentation release includes:\n\n" + releases[0].Body.Substring(0, releases[0].Body.Length - descriptionOffset) + "\n\nUpdate now?", "Update", MessageBoxButtons.YesNo);
+                        if (UpdateResult == DialogResult.Yes)
+                        {
+                            Task t = UpdateCheck(true);
+                            t.Wait();
+                        }
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -269,7 +332,7 @@ namespace Net
                         break;
                     case "-bu": //BrawlCrate update call
                         somethingDone = true;
-                        Task t2 = Updater.CheckUpdates(args[1], args[2] != "0");
+                        Task t2 = Updater.CheckUpdates(args[1], args[2] != "0", args[3] != "0");
                         t2.Wait();
                         break;
                     case "-bi": //BrawlCrate issue call

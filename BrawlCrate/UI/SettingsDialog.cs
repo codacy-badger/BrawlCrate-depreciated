@@ -28,6 +28,7 @@ namespace BrawlCrate
         private CheckBox chkUpdatesOnStartup;
         private CheckBox chkShowHex;
         private CheckBox chkPNGPalette;
+        private CheckBox chkDocUpdates;
         private CheckBox chkShowPropDesc;
 
         public SettingsDialog()
@@ -103,6 +104,7 @@ namespace BrawlCrate
 
             _updating = true;
             chkUpdatesOnStartup.Checked = MainForm.Instance.CheckUpdatesOnStartup;
+            chkDocUpdates.Checked = MainForm.Instance.GetDocumentationUpdates;
             chkShowPropDesc.Checked = MainForm.Instance.DisplayPropertyDescriptionsWhenAvailable;
             chkShowHex.Checked = MainForm.Instance.ShowHex;
             chkPNGPalette.Checked = MainForm.Instance.ImportPNGsWithPalettes;
@@ -186,6 +188,7 @@ namespace BrawlCrate
             this.chkUpdatesOnStartup = new System.Windows.Forms.CheckBox();
             this.chkShowHex = new System.Windows.Forms.CheckBox();
             this.chkPNGPalette = new System.Windows.Forms.CheckBox();
+            this.chkDocUpdates = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -198,7 +201,7 @@ namespace BrawlCrate
             this.groupBox1.Controls.Add(this.listView1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(329, 348);
+            this.groupBox1.Size = new System.Drawing.Size(329, 406);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File Associations";
@@ -300,7 +303,7 @@ namespace BrawlCrate
             this.listView1.Location = new System.Drawing.Point(3, 37);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(323, 305);
+            this.listView1.Size = new System.Drawing.Size(323, 363);
             this.listView1.TabIndex = 6;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -314,7 +317,7 @@ namespace BrawlCrate
             // btnOkay
             // 
             this.btnOkay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOkay.Location = new System.Drawing.Point(91, 463);
+            this.btnOkay.Location = new System.Drawing.Point(91, 541);
             this.btnOkay.Name = "btnOkay";
             this.btnOkay.Size = new System.Drawing.Size(75, 23);
             this.btnOkay.TabIndex = 1;
@@ -325,7 +328,7 @@ namespace BrawlCrate
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(172, 463);
+            this.btnCancel.Location = new System.Drawing.Point(172, 541);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 2;
@@ -336,7 +339,7 @@ namespace BrawlCrate
             // btnApply
             // 
             this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnApply.Location = new System.Drawing.Point(253, 463);
+            this.btnApply.Location = new System.Drawing.Point(253, 541);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(75, 23);
             this.btnApply.TabIndex = 3;
@@ -348,7 +351,7 @@ namespace BrawlCrate
             // 
             this.chkShowPropDesc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkShowPropDesc.AutoSize = true;
-            this.chkShowPropDesc.Location = new System.Drawing.Point(86, 393);
+            this.chkShowPropDesc.Location = new System.Drawing.Point(86, 470);
             this.chkShowPropDesc.Name = "chkShowPropDesc";
             this.chkShowPropDesc.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chkShowPropDesc.Size = new System.Drawing.Size(242, 17);
@@ -361,7 +364,7 @@ namespace BrawlCrate
             // 
             this.chkUpdatesOnStartup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkUpdatesOnStartup.AutoSize = true;
-            this.chkUpdatesOnStartup.Location = new System.Drawing.Point(165, 370);
+            this.chkUpdatesOnStartup.Location = new System.Drawing.Point(165, 424);
             this.chkUpdatesOnStartup.Name = "chkUpdatesOnStartup";
             this.chkUpdatesOnStartup.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chkUpdatesOnStartup.Size = new System.Drawing.Size(163, 17);
@@ -374,7 +377,7 @@ namespace BrawlCrate
             // 
             this.chkShowHex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkShowHex.AutoSize = true;
-            this.chkShowHex.Location = new System.Drawing.Point(95, 416);
+            this.chkShowHex.Location = new System.Drawing.Point(95, 493);
             this.chkShowHex.Name = "chkShowHex";
             this.chkShowHex.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chkShowHex.Size = new System.Drawing.Size(233, 17);
@@ -387,18 +390,32 @@ namespace BrawlCrate
             // 
             this.chkPNGPalette.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkPNGPalette.AutoSize = true;
-            this.chkPNGPalette.Location = new System.Drawing.Point(11, 439);
+            this.chkPNGPalette.Location = new System.Drawing.Point(129, 516);
             this.chkPNGPalette.Name = "chkPNGPalette";
             this.chkPNGPalette.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.chkPNGPalette.Size = new System.Drawing.Size(317, 17);
+            this.chkPNGPalette.Size = new System.Drawing.Size(199, 17);
             this.chkPNGPalette.TabIndex = 10;
             this.chkPNGPalette.Text = "Import Indexed8 PNGs With Palettes";
             this.chkPNGPalette.UseVisualStyleBackColor = true;
             this.chkPNGPalette.CheckedChanged += new System.EventHandler(this.chkPNGPalette_CheckedChanged);
             // 
+            // chkDocUpdates
+            // 
+            this.chkDocUpdates.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkDocUpdates.AutoSize = true;
+            this.chkDocUpdates.Location = new System.Drawing.Point(148, 447);
+            this.chkDocUpdates.Name = "chkDocUpdates";
+            this.chkDocUpdates.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.chkDocUpdates.Size = new System.Drawing.Size(180, 17);
+            this.chkDocUpdates.TabIndex = 11;
+            this.chkDocUpdates.Text = "Receive documentation updates";
+            this.chkDocUpdates.UseVisualStyleBackColor = true;
+            this.chkDocUpdates.CheckedChanged += new System.EventHandler(this.chkDocUpdates_CheckedChanged);
+            // 
             // SettingsDialog
             // 
-            this.ClientSize = new System.Drawing.Size(353, 498);
+            this.ClientSize = new System.Drawing.Size(353, 576);
+            this.Controls.Add(this.chkDocUpdates);
             this.Controls.Add(this.chkPNGPalette);
             this.Controls.Add(this.chkShowHex);
             this.Controls.Add(this.chkUpdatesOnStartup);
@@ -456,6 +473,12 @@ namespace BrawlCrate
         {
             if (!_updating)
                 MainForm.Instance.ImportPNGsWithPalettes = chkPNGPalette.Checked;
+        }
+
+        private void chkDocUpdates_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!_updating)
+                MainForm.Instance.GetDocumentationUpdates = chkDocUpdates.Checked;
         }
     }
 }

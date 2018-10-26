@@ -78,6 +78,7 @@ namespace BrawlCrate
 
             _displayPropertyDescription = BrawlCrate.Properties.Settings.Default.DisplayPropertyDescriptionWhenAvailable;
             _updatesOnStartup = BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup;
+            _docUpdates = BrawlCrate.Properties.Settings.Default.GetDocumentationUpdates;
             _showHex = BrawlCrate.Properties.Settings.Default.ShowHex;
             _compatibilityMode = BrawlLib.Properties.Settings.Default.CompatibilityMode;
             _importPNGwPalette = BrawlLib.Properties.Settings.Default.ImportPNGsWithPalettes;
@@ -120,8 +121,8 @@ namespace BrawlCrate
                     {
                         FileName = path,
                         WindowStyle = ProcessWindowStyle.Hidden,
-                        Arguments = String.Format("-bu {0} {1}",
-                        Program.TagName, manual ? "1" : "0"),
+                        Arguments = String.Format("-bu {0} {1} {2}",
+                        Program.TagName, manual ? "1" : "0", _docUpdates ? "1" : "0"),
                     });
                 }
                 else
@@ -165,6 +166,19 @@ namespace BrawlCrate
             }
         }
         bool _updatesOnStartup;
+
+        public bool GetDocumentationUpdates
+        {
+            get { return _docUpdates; }
+            set
+            {
+                _docUpdates = value;
+
+                BrawlCrate.Properties.Settings.Default.GetDocumentationUpdates = _docUpdates;
+                BrawlCrate.Properties.Settings.Default.Save();
+            }
+        }
+        bool _docUpdates;
 
         public bool ShowHex
         {

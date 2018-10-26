@@ -553,13 +553,13 @@
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>cd $(TargetDir)
-if $(ConfigurationName) == Release (
+del Octokit.dll
+del updater.exe
+%25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Octokit.dll" "$(TargetDir)" /Y /I
+%25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Updater.exe" "$(TargetDir)" /Y /I
+if $(ConfigurationName) == Documentation (
   del Octokit.dll
   del updater.exe
-  %25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Octokit.dll" "$(TargetDir)" /Y /I
-  %25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Updater.exe" "$(TargetDir)" /Y /I
-)
-if $(ConfigurationName) == Documentation (
   del BrawlLib.dll
   del OpenTK.dll
   del BrawlCrate.exe

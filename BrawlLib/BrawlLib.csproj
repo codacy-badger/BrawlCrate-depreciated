@@ -1334,6 +1334,9 @@
     <Content Include="InternalDocumentation\STDT\VILLAGE[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="InternalDocumentation\version.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="OpenTK.dll" />
     <Content Include="InternalDocumentation\STDT\DONKEY[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
