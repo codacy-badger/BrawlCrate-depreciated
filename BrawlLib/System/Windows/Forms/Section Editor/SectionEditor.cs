@@ -1549,7 +1549,7 @@ namespace System.Windows.Forms
                 //foreach (AttributeInfo attr in Array) {
                 for (int i = 0; i < annotationTitles.Count && i < annotationDescriptions.Count; i++)
                 {
-                    if(!annotationDescriptions[i].StartsWith("Default: 0x") && annotationDescriptions[i].Length != 20)
+                    if(!annotationDescriptions[i].StartsWith("Default: 0x") || annotationDescriptions[i].Length != 19)
                     {
                         if(!firstLine)
                         {
