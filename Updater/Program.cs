@@ -22,7 +22,7 @@ namespace Net
         public static string AppPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public static async Task UpdateCheck() { await UpdateCheck(false); }
-        public static async Task UpdateCheck(bool Overwrite)
+        public static async Task UpdateCheck(bool Overwrite, bool Documentation = false)
         {
             if (AppPath.EndsWith("lib", StringComparison.CurrentCultureIgnoreCase)) {
                 AppPath = AppPath.Substring(0, AppPath.Length - 4);
@@ -47,7 +47,7 @@ namespace Net
                 Directory.CreateDirectory(AppPath + "/" + release.TagName);
                 AppPath += "/" + release.TagName;
             }
-            else
+            else if(!Documentation)
             {
                 //Find and close the BrawlCrate application that will be overwritten
                 Process[] px =  Process.GetProcessesByName("BrawlCrate");
@@ -111,7 +111,7 @@ namespace Net
                     releases[0].Name.IndexOf("BrawlCrate", StringComparison.InvariantCultureIgnoreCase) >= 0) //Make sure this is a BrawlCrate release
                 {
                     int descriptionOffset = 0;
-                    if (releases[0].Body.Substring(releases[0].Body.Length - 109) == "\nAlso check out the Brawl Stage Compendium for info and research on Stage Modding: https://discord.gg/s7c8763")
+                    if (releases[0].Body.Length > 110 && releases[0].Body.Substring(releases[0].Body.Length - 109) == "\nAlso check out the Brawl Stage Compendium for info and research on Stage Modding: https://discord.gg/s7c8763")
                         descriptionOffset = 110;
                     DialogResult UpdateResult = MessageBox.Show(releases[0].Name + " is available!\n\nThis release:\n\n" + releases[0].Body.Substring(0, releases[0].Body.Length - descriptionOffset) + "\n\nUpdate now?", "Update", MessageBoxButtons.YesNo);
                     if (UpdateResult == DialogResult.Yes)
@@ -149,7 +149,6 @@ namespace Net
                         MessageBox.Show("Documentation Version could not be found.");
                         return;
                     }
-
                     try
                     {
                         releases = await github.Release.GetAll("soopercool101", "BrawlCrate");
@@ -179,12 +178,10 @@ namespace Net
                         releases[0].Name.IndexOf("Documentation", StringComparison.InvariantCultureIgnoreCase) >= 0) //Make sure this is a Documentation release
                     {
                         int descriptionOffset = 0;
-                        if (releases[0].Body.Substring(releases[0].Body.Length - 109) == "\nAlso check out the Brawl Stage Compendium for info and research on Stage Modding: https://discord.gg/s7c8763")
-                            descriptionOffset = 110;
                         DialogResult UpdateResult = MessageBox.Show(releases[0].Name + " is available!\n\nThis documentation release includes:\n\n" + releases[0].Body.Substring(0, releases[0].Body.Length - descriptionOffset) + "\n\nUpdate now?", "Update", MessageBoxButtons.YesNo);
                         if (UpdateResult == DialogResult.Yes)
                         {
-                            Task t = UpdateCheck(true);
+                            Task t = UpdateCheck(true, true);
                             t.Wait();
                         }
                     }
@@ -226,6 +223,17 @@ namespace Net
                 try
                 {
                     releases = await github.Release.GetAll("soopercool101", "BrawlCrate");
+
+                    // Check if this is a known pre-release version
+                    bool isPreRelease = releases.Any(r => r.Prerelease
+                        && r.Name.IndexOf("BrawlCrate", StringComparison.InvariantCultureIgnoreCase) >= 0);
+
+                    // If this is not a known pre-release version, remove all pre-release versions from the list
+                    if (!isPreRelease)
+                    {
+                        releases = releases.Where(r => !r.Prerelease).ToList();
+                    }
+
                     issues = await github.Issue.GetForRepository("StageBoxBrawl", "StageBoxIssues");
                 }
                 catch (System.Net.Http.HttpRequestException)
