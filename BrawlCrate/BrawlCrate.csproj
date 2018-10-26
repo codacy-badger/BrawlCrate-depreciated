@@ -531,7 +531,7 @@ if $(ConfigurationName) == Release (
   del BrawlCrate.exe.config
   del BrawlCrate.pdb
   del BrawlLib.pdb
-  "C:\Program Files\7-Zip\7z.exe" a $(TargetName).v0.XX.exe -mmt -mx5 -sfx
+  "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName).v0.XX.exe
 )</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
