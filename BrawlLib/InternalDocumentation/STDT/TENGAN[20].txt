@@ -200,17 +200,23 @@ Default (Float): 0.02 (0x3CA3D70A)
 	/EndDescription
 0
 
-0x090
+Stage Break Rumble Duration
+(Float) How many frames the screen will shake for when Dialga or Palkia breaks the floor. Setting this too high can result in a chain of additional stage breaks
+
 Default (Float): 180 (0x43340000)
 	/EndDescription
 0
 
-0x094
+Stage Break Minimum Delay
+(Float) The minimum number of frames between Dialga or Palkia roaring and the floor breaking when the stage break hazard is activated
+
 Default (Float): 30 (0x41F00000)
 	/EndDescription
 0
 
-0x098
+Stage Break Maximum Delay
+(Float) The maximum number of frames between Dialga or Palkia roaring and the floor breaking when the stage break hazard is activated
+
 Default (Float): 90 (0x42B40000)
 	/EndDescription
 0
