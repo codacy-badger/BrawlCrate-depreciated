@@ -16,6 +16,19 @@ they be held accountable for the manner in which it is used.
 |************ BrawlCrate Change Log ************|
  ===============================================
  
+ - BrawlCrate v0.14 - (10/26/2018)
+ . Added Right-Click menu to model preview window on Collision Editor
+ . Added support for receiving documentation updates (can be turned off in the settings)
+ . Added Big Blue STDT documentation
+ . Improved STDT documentation on Spear Pillar
+ . Improved rendering for item spawn zones, including support for single-point item spawns
+ . Fixed issue in which the "Delete" button in the collision editor would never activate
+ . Fixed issue where under certain condititions module annotations would not save when they should
+ . Fixed issue where if a save was unsuccessful, the program would not allow saving again unless something was changed.
+ . Fixed issue where resizing the section editor window while annotations are shown would not resize the hex view window
+ . Fixed issue in which updates with shorter patch notes would not get properly retrieved by the updater
+ . No longer shows "Unable to connect to internet" message on startup if updater fails to connect
+ 
  - BrawlCrate v0.13 Hotfix 3 - (10/18/2018)
  . Added module annotations for:
    - Brinstar Section [1]
