@@ -100,7 +100,8 @@ namespace Net
                 }
                 catch (System.Net.Http.HttpRequestException)
                 {
-                    MessageBox.Show("Unable to connect to the internet.");
+                    if(manual)
+                        MessageBox.Show("Unable to connect to the internet.");
                     return;
                 }
 
