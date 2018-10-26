@@ -74,7 +74,10 @@ namespace Net
                 Console.Clear();
                 Console.WriteLine("Starting install");
 
-                Process update = Process.Start(AppPath + "/Update.exe", "-d\"" + AppPath + "\"");
+                Process update = Process.Start(AppPath + "/Update.exe", "-o\"" + AppPath + "\"" + " -y");
+                update.WaitForExit();
+                if(!Documentation)
+                    Process.Start(AppPath + "/BrawlCrate.exe");
             }
         }
 

@@ -586,13 +586,13 @@ if $(ConfigurationName) == Documentation (
   del BrawlCrate.pdb
   del BrawlLib.pdb
   RD /S /Q "$(TargetDir)CustomLists\"
-  "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a Documentation.v@(VersionNumber).exe
+  "C:\Program Files\7-Zip\7z.exe" -sfx a Documentation.v@(VersionNumber).exe
 )
 if $(ConfigurationName) == Release (
   del BrawlCrate.exe.config
   del BrawlCrate.pdb
   del BrawlLib.pdb
-  "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName).v@(VersionNumber).exe
+  "C:\Program Files\7-Zip\7z.exe" -sfx a $(TargetName).v@(VersionNumber).exe
 )</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
