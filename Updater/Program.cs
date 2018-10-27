@@ -87,16 +87,8 @@ namespace Net
                 try
                 {
                     releases = await github.Release.GetAll("soopercool101", "BrawlCrate");
-
-                    // Check if this is a known pre-release version
-                    bool isPreRelease = releases.Any(r => r.Prerelease
-                        && string.Equals(releases[0].TagName, releaseTag, StringComparison.InvariantCulture)
-                        && r.Name.IndexOf("BrawlCrate", StringComparison.InvariantCultureIgnoreCase) >= 0);
-
-                    // If this is not a known pre-release version, remove all pre-release versions from the list
-                    if (!isPreRelease) {
-                        releases = releases.Where(r => !r.Prerelease).ToList();
-                    }
+                    // Only get pre-release versions, as they are the pipeline documentation updates will be sent with
+                    releases = releases.Where(r => r.Prerelease).ToList();
                 }
                 catch (System.Net.Http.HttpRequestException)
                 {
