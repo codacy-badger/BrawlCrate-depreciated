@@ -90,6 +90,11 @@ namespace BrawlCrate
         [STAThread]
         public static void Main(string[] args)
         {
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.exe"))
+                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.exe");
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.bat"))
+                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.bat");
+
             if (args.Length >= 1)
             {
                 if (args[0].Equals("/gct", StringComparison.InvariantCultureIgnoreCase))
@@ -121,7 +126,13 @@ namespace BrawlCrate
                     else
                         Say(String.Format("Error: Unable to find node or path '{0}'!", args[1]));
                 }
-                
+
+#if !DEBUG //Don't need to see this every time a debug build is compiled
+                if (MainForm.Instance.CheckUpdatesOnStartup)
+                    MainForm.Instance.CheckUpdates(false);
+#else
+                Text += " DEBUG";
+#endif
                 Application.Run(MainForm.Instance);
             }
             catch (FileNotFoundException x)

@@ -83,12 +83,6 @@ namespace BrawlCrate
             _compatibilityMode = BrawlLib.Properties.Settings.Default.CompatibilityMode;
             _importPNGwPalette = BrawlLib.Properties.Settings.Default.ImportPNGsWithPalettes;
 
-#if !DEBUG //Don't need to see this every time a debug build is compiled
-            if (CheckUpdatesOnStartup)
-                CheckUpdates(false);
-#else
-            Text += " DEBUG";
-#endif
             soundPackControl1._grid = propertyGrid1;
             soundPackControl1.lstSets.SmallImageList = ResourceTree.Images;
             foreach (Control c in splitContainer2.Panel2.Controls)
@@ -110,7 +104,7 @@ namespace BrawlCrate
         private delegate bool DelegateOpenFile(String s);
         private DelegateOpenFile m_DelegateOpenFile;
 
-        private void CheckUpdates(bool manual = true)
+        public void CheckUpdates(bool manual = true)
         {
             try
             {
@@ -121,8 +115,8 @@ namespace BrawlCrate
                     {
                         FileName = path,
                         WindowStyle = ProcessWindowStyle.Hidden,
-                        Arguments = String.Format("-bu {0} {1} {2}",
-                        Program.TagName, manual ? "1" : "0", _docUpdates ? "1" : "0"),
+                        Arguments = String.Format("-bu {0} {1} {2} {3}",
+                        Program.TagName, manual ? "1" : "0", _docUpdates ? "1" : "0", Program.RootPath == null ? "<null>" : Program.RootPath),
                     });
                 }
                 else

@@ -22,7 +22,7 @@ namespace Net
         public static string AppPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public static async Task UpdateCheck() { await UpdateCheck(false); }
-        public static async Task UpdateCheck(bool Overwrite, bool Documentation = false)
+        public static async Task UpdateCheck(bool Overwrite, string openFile = null, bool Documentation = false)
         {
             if (AppPath.EndsWith("lib", StringComparison.CurrentCultureIgnoreCase)) {
                 AppPath = AppPath.Substring(0, AppPath.Length - 4);
@@ -53,7 +53,10 @@ namespace Net
                 Process[] px =  Process.GetProcessesByName("BrawlCrate");
                 Process p = px.FirstOrDefault(x => x.MainModule.FileName.StartsWith(AppPath));
                 if (p != null && p != default(Process) && p.CloseMainWindow())
+                {
+                    p.WaitForExit();
                     p.Close();
+                }
             }
 
             using (WebClient client = new WebClient())
@@ -74,11 +77,28 @@ namespace Net
                 Console.Clear();
                 Console.WriteLine("Starting install");
 
-                Process update = Process.Start(AppPath + "/Update.exe", "-o\"" + AppPath + "\"" + " -y");
+                // Case 1: Wine (Batch files won't work, use old methodology) or documentation update
+                if (Process.GetProcessesByName("winlogon").Count<Process>() == 0 || Documentation || !Overwrite)
+                {
+                    Process update = Process.Start(AppPath + "/Update.exe", "-o\"" + AppPath + "\"" + " -y");
+                    return;
+                }
+                // Case 2: Windows (use a batch file to ensure a consistent experience)
+                if (File.Exists(AppPath + "/Update.bat"))
+                    File.Delete(AppPath + "/Update.bat");
+                using (var sw = new StreamWriter(AppPath + "/Update.bat"))
+                {
+                    sw.WriteLine("CD " + AppPath);
+                    sw.WriteLine("START /wait Update.exe -y");
+                    sw.Write("START BrawlCrate.exe");
+                    if (openFile != null && openFile != "<null>")
+                        sw.Write(" " + openFile);
+                }
+                Process updateBat = Process.Start(AppPath + "/Update.bat");
             }
         }
 
-        public static async Task CheckUpdates(string releaseTag, bool manual = true, bool checkDocumentation = false)
+        public static async Task CheckUpdates(string releaseTag, string openFile, bool manual = true, bool checkDocumentation = false)
         {
             try
             {
@@ -119,7 +139,7 @@ namespace Net
                         DialogResult OverwriteResult = MessageBox.Show("Overwrite current installation?", "", MessageBoxButtons.YesNoCancel);
                         if (OverwriteResult != DialogResult.Cancel)
                         {
-                            Task t = UpdateCheck(OverwriteResult == DialogResult.Yes);
+                            Task t = UpdateCheck(OverwriteResult == DialogResult.Yes, openFile);
                             t.Wait();
                         }
                     }
@@ -172,7 +192,7 @@ namespace Net
                         DialogResult UpdateResult = MessageBox.Show(releases[0].Name + " is available!\n\nThis documentation release includes:\n\n" + releases[0].Body.Substring(0, releases[0].Body.Length - descriptionOffset) + "\n\nUpdate now?", "Update", MessageBoxButtons.YesNo);
                         if (UpdateResult == DialogResult.Yes)
                         {
-                            Task t = UpdateCheck(true, true);
+                            Task t = UpdateCheck(true, openFile, true);
                             t.Wait();
                         }
                     }
@@ -333,7 +353,7 @@ namespace Net
                         break;
                     case "-bu": //BrawlCrate update call
                         somethingDone = true;
-                        Task t2 = Updater.CheckUpdates(args[1], args[2] != "0", args[3] != "0");
+                        Task t2 = Updater.CheckUpdates(args[1], args[4], args[2] != "0", args[3] != "0");
                         t2.Wait();
                         break;
                     case "-bi": //BrawlCrate issue call
