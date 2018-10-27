@@ -16,6 +16,12 @@ they be held accountable for the manner in which it is used.
 |************ BrawlCrate Change Log ************|
  ===============================================
  
+ - BrawlCrate v0.14 Hotfix 2 - (10/26/2018)
+ . Updater now reopens the program after installation
+ . "Update.exe" is now deleted when the program opens to conserve space
+ . Fixes bug in which not choosing whether or not to save fast enough would break the update sequence
+ . Fixes bug in which pre-release version check for module documentation would in rare cases not work
+ 
  - BrawlCrate v0.14 Hotfix 1 - (10/26/2018)
  . No longer requires user input (excluding admin access) when updating
  
