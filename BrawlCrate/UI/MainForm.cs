@@ -83,9 +83,6 @@ namespace BrawlCrate
             _compatibilityMode = BrawlLib.Properties.Settings.Default.CompatibilityMode;
             _importPNGwPalette = BrawlLib.Properties.Settings.Default.ImportPNGsWithPalettes;
 
-#if DEBUG
-            Text += " DEBUG";
-#endif
             soundPackControl1._grid = propertyGrid1;
             soundPackControl1.lstSets.SmallImageList = ResourceTree.Images;
             foreach (Control c in splitContainer2.Panel2.Controls)
@@ -271,10 +268,6 @@ namespace BrawlCrate
                 Text = String.Format("{0} - {1}", Program.AssemblyTitle, Program.RootPath);
             else
                 Text = Program.AssemblyTitle;
-
-#if DEBUG
-            Text += " DEBUG";
-#endif
         }
 
         public void TargetResource(ResourceNode n)

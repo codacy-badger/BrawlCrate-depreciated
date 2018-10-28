@@ -4,7 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
+#if !DEBUG
 [assembly: AssemblyTitle("BrawlCrate v0.14")]
+#else
+[assembly: AssemblyTitle("BrawlCrate v0.15 (Beta)")]
+#endif
 [assembly: AssemblyDescription("This program is provided as-is without any warranty, implied or otherwise." +
 " By using this program, the end user agrees to take full responsibility regarding its proper and lawful use." +
 " The authors/hosts/distributors cannot be held responsible for any damage resulting in the use of this program," +
