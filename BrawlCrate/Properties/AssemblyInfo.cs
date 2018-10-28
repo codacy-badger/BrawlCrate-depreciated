@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 #if !DEBUG
 [assembly: AssemblyTitle("BrawlCrate v0.14")]
 #else
-[assembly: AssemblyTitle("BrawlCrate v0.15 (Beta)")]
+[assembly: AssemblyTitle("BrawlCrate v0.15 (BETA)")]
 #endif
 [assembly: AssemblyDescription("This program is provided as-is without any warranty, implied or otherwise." +
 " By using this program, the end user agrees to take full responsibility regarding its proper and lawful use." +
