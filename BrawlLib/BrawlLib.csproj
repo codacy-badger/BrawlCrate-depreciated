@@ -1274,6 +1274,9 @@
     <Content Include="InternalDocumentation\Module\st_dxzebes\Section [1].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="InternalDocumentation\Module\st_famicom\Section [1].txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="InternalDocumentation\Module\st_tbreak\Section [1].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

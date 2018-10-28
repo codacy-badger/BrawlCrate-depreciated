@@ -48,7 +48,7 @@ Donkey Kong Base Knockback
 The base knockback from the DK hazard.
 To edit, select the italicized values and use the menu on the right in 2-Byte mode. The short value will be your base knockback.
 
-Default (Short): 78
+Default (Short): 78 (0x004E)
 	/EndDescription
 0011    // Flags for which bytes are underlined
 
