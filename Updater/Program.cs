@@ -130,7 +130,7 @@ namespace Net
                     // Check if this is a known pre-release version
                     bool isPreRelease = releases.Any(r => r.Prerelease
                         && string.Equals(releases[0].TagName, releaseTag, StringComparison.InvariantCulture)
-                        && r.Name.IndexOf("BrawlCrate", StringComparison.InvariantCultureIgnoreCase) >= 0);
+                        && r.Name.IndexOf("BrawlCrate v", StringComparison.InvariantCultureIgnoreCase) >= 0);
 
                     // If this is not a known pre-release version, remove all pre-release versions from the list
                     if (!isPreRelease) {
@@ -147,7 +147,7 @@ namespace Net
                 if (releases != null &&
                     releases.Count > 0 &&
                     !String.Equals(releases[0].TagName, releaseTag, StringComparison.InvariantCulture) && //Make sure the most recent version is not this version
-                    releases[0].Name.IndexOf("BrawlCrate", StringComparison.InvariantCultureIgnoreCase) >= 0) //Make sure this is a BrawlCrate release
+                    releases[0].Name.IndexOf("BrawlCrate v", StringComparison.InvariantCultureIgnoreCase) >= 0) //Make sure this is a BrawlCrate release
                 {
                     int descriptionOffset = 0;
                     if (releases[0].Body.Length > 110 && releases[0].Body.Substring(releases[0].Body.Length - 109) == "\nAlso check out the Brawl Stage Compendium for info and research on Stage Modding: https://discord.gg/s7c8763")
