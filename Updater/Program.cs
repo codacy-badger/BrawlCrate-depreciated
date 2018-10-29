@@ -208,7 +208,7 @@ namespace Net
                         releases[0].Name.IndexOf("Documentation", StringComparison.InvariantCultureIgnoreCase) >= 0) //Make sure this is a Documentation release
                     {
                         int descriptionOffset = 0;
-                        DialogResult UpdateResult = MessageBox.Show(releases[0].Name + " is available!\n\nThis documentation release includes:\n\n" + releases[0].Body.Substring(0, releases[0].Body.Length - descriptionOffset) + "\n\nUpdate now?", "Update", MessageBoxButtons.YesNo);
+                        DialogResult UpdateResult = MessageBox.Show(releases[0].Name + " is available!\n\nThis documentation release:\n\n" + releases[0].Body.Substring(0, releases[0].Body.Length - descriptionOffset) + "\n\nUpdate now?", "Update", MessageBoxButtons.YesNo);
                         if (UpdateResult == DialogResult.Yes)
                         {
                             Task t = UpdateCheck(true, openFile, true);
