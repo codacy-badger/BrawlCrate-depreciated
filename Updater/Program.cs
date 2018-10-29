@@ -85,13 +85,20 @@ namespace Net
                 // Case 1: Wine (Batch files won't work, use old methodology) or documentation update
                 if (Process.GetProcessesByName("winlogon").Count<Process>() == 0 || Documentation || !Overwrite)
                 {
-                    Process update = Process.Start(AppPath + "/temp.exe", "-o\"" + AppPath + "\"" + " -y");
-                    if (Documentation)
+                    try
                     {
-                        update.WaitForExit();
-                        if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe"))
-                            File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe");
-                        MessageBox.Show("Documentation was successfully updated.");
+                        Process update = Process.Start(AppPath + "/temp.exe", "-o\"" + AppPath + "\"" + " -y");
+                        if (Documentation)
+                        {
+                            update.WaitForExit();
+                            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe"))
+                                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe");
+                            MessageBox.Show("Documentation was successfully updated.");
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("Error: " + e.Message);
                     }
                     return;
                 }
