@@ -76,7 +76,7 @@ namespace Net
                 string URL = html.Substring(html.IndexOf(BaseURL)).TrimEnd(new char[] { '}', '"' });
 
                 Console.WriteLine("\nDownloading");
-                client.DownloadFile(URL, AppPath + "/Update.exe");
+                client.DownloadFile(URL, AppPath + "/temp.exe");
                 Console.WriteLine("\nSuccess!");
 
                 Console.Clear();
@@ -85,7 +85,14 @@ namespace Net
                 // Case 1: Wine (Batch files won't work, use old methodology) or documentation update
                 if (Process.GetProcessesByName("winlogon").Count<Process>() == 0 || Documentation || !Overwrite)
                 {
-                    Process update = Process.Start(AppPath + "/Update.exe", "-o\"" + AppPath + "\"" + " -y");
+                    Process update = Process.Start(AppPath + "/temp.exe", "-o\"" + AppPath + "\"" + " -y");
+                    if (Documentation)
+                    {
+                        update.WaitForExit();
+                        if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe"))
+                            File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe");
+                        MessageBox.Show("Documentation was successfully updated.");
+                    }
                     return;
                 }
                 // Case 2: Windows (use a batch file to ensure a consistent experience)
@@ -94,7 +101,7 @@ namespace Net
                 using (var sw = new StreamWriter(AppPath + "/Update.bat"))
                 {
                     sw.WriteLine("CD " + AppPath);
-                    sw.WriteLine("START /wait Update.exe -y");
+                    sw.WriteLine("START /wait temp.exe -y");
                     sw.Write("START BrawlCrate.exe");
                     if (openFile != null && openFile != "<null>")
                         sw.Write(" " + openFile);
