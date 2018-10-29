@@ -38,7 +38,12 @@ namespace Net
 
             // get repo, Release, and release assets
             Repository repo = await github.Repository.Get("soopercool101", "BrawlCrate");
-            Release release = (await github.Release.GetAll(repo.Owner.Login, repo.Name))[0];
+            IReadOnlyList<Release> releases = await github.Release.GetAll("soopercool101", "BrawlCrate");
+            if (!Documentation)
+                releases = releases.Where(r => !r.Prerelease).ToList();
+            else
+                releases = releases.Where(r => r.Prerelease).ToList();
+            Release release = releases[0];
             ReleaseAsset Asset = (await github.Release.GetAssets("soopercool101", repo.Name, release.Id))[0];
 
             // Check if we were passed in the overwrite paramter, and if not create a new folder to extract in.
