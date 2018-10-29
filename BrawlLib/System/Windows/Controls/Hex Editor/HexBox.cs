@@ -2948,7 +2948,7 @@ namespace Be.Windows.Forms
             Font tempFont = Font;
 
             if (annotationDescriptions != null && annotationDescriptions.Count > (int)(offset / 4))
-                if (!annotationDescriptions[(int)(offset / 4)].StartsWith("Default: 0x") && annotationUnderlines[(int)(offset / 4)].Substring((int)(offset % 4)).StartsWith("1"))
+                if (!annotationDescriptions[(int)(offset / 4)].StartsWith("Default: 0x") && annotationUnderlines[(int)(offset / 4)].Substring((int)(offset % 4)).StartsWith("1") && annotationDescriptions[(int)(offset / 4)].Length > 0)
                     tempFont = new Font(Font, FontStyle.Bold | FontStyle.Italic | FontStyle.Underline);
 
             g.DrawString(sB.Substring(0, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + (System.Environment.OSVersion.ToString() == "Microsoft Windows NT 6.2.9200.0" ? (((sB.Substring(0, 1) == "A") || (tempFont.Italic && !(sB.Substring(0, 1) == "1" || sB.Substring(0, 1) == "4")) ? 2 : 0)) : 0)), _stringFormat);
@@ -2982,7 +2982,7 @@ namespace Be.Windows.Forms
             Font tempFont = Font;
 
             if (annotationDescriptions != null && annotationDescriptions.Count > (int)(offset / 4))
-                if (!annotationDescriptions[(int)(offset / 4)].StartsWith("Default: 0x") && annotationUnderlines[(int)(offset / 4)].Substring((int)(offset % 4)).StartsWith("1"))
+                if (!annotationDescriptions[(int)(offset / 4)].StartsWith("Default: 0x") && annotationUnderlines[(int)(offset / 4)].Substring((int)(offset % 4)).StartsWith("1") && annotationDescriptions[(int)(offset / 4)].Length > 0)
                     tempFont = new Font(Font, FontStyle.Bold | FontStyle.Italic | FontStyle.Underline);
             
             g.FillRectangle(brushBack, bytePointF.X - t, bytePointF.Y, bcWidth, _charSize.Height);
