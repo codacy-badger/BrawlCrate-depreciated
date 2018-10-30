@@ -104,19 +104,19 @@ namespace BrawlCrate
         private delegate bool DelegateOpenFile(String s);
         private DelegateOpenFile m_DelegateOpenFile;
 
-        public void CheckUpdates(bool manual = true)
+        public void CheckUpdates(bool manual = true, bool automatic = false)
         {
             try
             {
                 string path;
                 if (Program.CanRunGithubApp(manual, out path))
                 {
-                    Process.Start(new ProcessStartInfo()
+                    Process git = Process.Start(new ProcessStartInfo()
                     {
                         FileName = path,
                         WindowStyle = ProcessWindowStyle.Hidden,
-                        Arguments = String.Format("-bu {0} {1} {2} {3}",
-                        Program.TagName, manual ? "1" : "0", _docUpdates ? "1" : "0", Program.RootPath == null ? "<null>" : Program.RootPath),
+                        Arguments = String.Format("-bu {0} {1} {2} {3} {4}",
+                        Program.TagName, manual ? "1" : "0", _docUpdates ? "1" : "0", automatic ? "1" : "0", Program.RootPath == null ? "<null>" : Program.RootPath),
                     });
                 }
                 else

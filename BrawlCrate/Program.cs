@@ -131,7 +131,7 @@ namespace BrawlCrate
 
 #if !DEBUG //Don't need to see this every time a debug build is compiled
                 if (MainForm.Instance.CheckUpdatesOnStartup)
-                    MainForm.Instance.CheckUpdates(false);
+                    MainForm.Instance.CheckUpdates(false, false);
 #endif
                 Application.Run(MainForm.Instance);
             }

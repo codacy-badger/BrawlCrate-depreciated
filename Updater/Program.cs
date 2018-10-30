@@ -22,7 +22,7 @@ namespace Net
         public static string AppPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public static async Task UpdateCheck() { await UpdateCheck(false); }
-        public static async Task UpdateCheck(bool Overwrite, string openFile = null, bool Documentation = false)
+        public static async Task UpdateCheck(bool Overwrite, string openFile = null, bool Documentation = false, bool Automatic = false)
         {
             if (AppPath.EndsWith("lib", StringComparison.CurrentCultureIgnoreCase)) {
                 AppPath = AppPath.Substring(0, AppPath.Length - 4);
@@ -57,7 +57,11 @@ namespace Net
                 //Find and close the BrawlCrate application that will be overwritten
                 Process[] px =  Process.GetProcessesByName("BrawlCrate");
                 Process p = px.FirstOrDefault(x => x.MainModule.FileName.StartsWith(AppPath));
-                if (p != null && p != default(Process) && p.CloseMainWindow())
+                if(p != null && p != default(Process) && Automatic)
+                {
+                    p.Kill();
+                }
+                else if (p != null && p != default(Process) && p.CloseMainWindow())
                 {
                     p.WaitForExit();
                     p.Close();
@@ -117,7 +121,7 @@ namespace Net
             }
         }
 
-        public static async Task CheckUpdates(string releaseTag, string openFile, bool manual = true, bool checkDocumentation = false)
+        public static async Task CheckUpdates(string releaseTag, string openFile, bool manual = true, bool checkDocumentation = false, bool automatic = false)
         {
             try
             {
@@ -152,6 +156,12 @@ namespace Net
                     int descriptionOffset = 0;
                     if (releases[0].Body.Length > 110 && releases[0].Body.Substring(releases[0].Body.Length - 109) == "\nAlso check out the Brawl Stage Compendium for info and research on Stage Modding: https://discord.gg/s7c8763")
                         descriptionOffset = 110;
+                    if (automatic)
+                    {
+                        Task t = UpdateCheck(true, openFile, false, true);
+                        t.Wait();
+                        return;
+                    }
                     DialogResult UpdateResult = MessageBox.Show(releases[0].Name + " is available!\n\nThis release:\n\n" + releases[0].Body.Substring(0, releases[0].Body.Length - descriptionOffset) + "\n\nUpdate now?", "Update", MessageBoxButtons.YesNo);
                     if (UpdateResult == DialogResult.Yes)
                     {
@@ -217,6 +227,12 @@ namespace Net
                         releases[0].Name.IndexOf("Documentation", StringComparison.InvariantCultureIgnoreCase) >= 0) //Make sure this is a Documentation release
                     {
                         int descriptionOffset = 0;
+                        if (automatic)
+                        {
+                            Task t = UpdateCheck(true, openFile, true, true);
+                            t.Wait();
+                            return;
+                        }
                         DialogResult UpdateResult = MessageBox.Show(releases[0].Name + " is available!\n\nThis documentation release:\n\n" + releases[0].Body.Substring(0, releases[0].Body.Length - descriptionOffset) + "\n\nUpdate now?", "Update", MessageBoxButtons.YesNo);
                         if (UpdateResult == DialogResult.Yes)
                         {
@@ -381,7 +397,7 @@ namespace Net
                         break;
                     case "-bu": //BrawlCrate update call
                         somethingDone = true;
-                        Task t2 = Updater.CheckUpdates(args[1], args[4], args[2] != "0", args[3] != "0");
+                        Task t2 = Updater.CheckUpdates(args[1], args[5], args[2] != "0", args[3] != "0", args[4] != "0");
                         t2.Wait();
                         break;
                     case "-bi": //BrawlCrate issue call
