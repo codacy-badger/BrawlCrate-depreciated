@@ -117,6 +117,21 @@ namespace BrawlCrate.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("true")]
+        public bool UpdateAutomatically
+        {
+            get
+            {
+                return ((bool)(this["UpdateAutomatically"]));
+            }
+            set
+            {
+                this["UpdateAutomatically"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("true")]
         public bool GetDocumentationUpdates
         {
             get

@@ -74,8 +74,14 @@ namespace BrawlCrate
                     }
                 }
                 BrawlCrate.Properties.Settings.Default.UpdateSettings = false;
+                // Show changelog if this is the first time opening this release, and the message wasn't seen 
+                if(BrawlCrate.Properties.Settings.Default.UpdateAutomatically)
+                {
+                    MessageBox.Show(Program.UpdateMessage);
+                }
             }
 
+            _autoUpdate = BrawlCrate.Properties.Settings.Default.UpdateAutomatically;
             _displayPropertyDescription = BrawlCrate.Properties.Settings.Default.DisplayPropertyDescriptionWhenAvailable;
             _updatesOnStartup = BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup;
             _docUpdates = BrawlCrate.Properties.Settings.Default.GetDocumentationUpdates;
@@ -129,7 +135,7 @@ namespace BrawlCrate
             }
         }
 
-        public void CheckUpdates(bool manual = true, bool automatic = false)
+        public void CheckUpdates(bool manual = true)
         {
             try
             {
@@ -140,7 +146,7 @@ namespace BrawlCrate
                         MessageBox.Show("Could not connect to internet");
                     return;
                 }
-
+                bool automatic = !manual && _autoUpdate;
                 if (Program.CanRunGithubApp(manual, out path))
                 {
                     Process git = Process.Start(new ProcessStartInfo()
@@ -207,6 +213,20 @@ namespace BrawlCrate
             }
         }
         bool _docUpdates;
+
+        public bool UpdateAutomatically
+
+        {
+            get { return _autoUpdate; }
+            set
+            {
+                _autoUpdate = value;
+
+                BrawlCrate.Properties.Settings.Default.UpdateAutomatically = _autoUpdate;
+                BrawlCrate.Properties.Settings.Default.Save();
+            }
+        }
+        bool _autoUpdate;
 
         public bool ShowHex
         {

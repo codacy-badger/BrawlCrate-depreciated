@@ -15,6 +15,10 @@ namespace BrawlCrate
     {
         //Make sure this matches the tag name of the release on github exactly
         public static readonly string TagName = "BrawlCrate_v0.14_Hotfix3";
+        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.15! This release:\n" +
+            "\n- Makes updates happen automatically (can be disabled in the settings)" +
+            "\n- Adds more stuff" +
+            "\n\nFull changelog can be found in the installation folder";
 
         public static readonly string AssemblyTitle;
         public static readonly string AssemblyDescription;
@@ -131,7 +135,7 @@ namespace BrawlCrate
 
 #if !DEBUG //Don't need to see this every time a debug build is compiled
                 if (MainForm.Instance.CheckUpdatesOnStartup)
-                    MainForm.Instance.CheckUpdates(false, false);
+                    MainForm.Instance.CheckUpdates(false);
 #endif
                 Application.Run(MainForm.Instance);
             }
