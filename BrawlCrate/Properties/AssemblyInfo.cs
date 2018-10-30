@@ -41,9 +41,5 @@ Super Smash Bros. Brawl © 2008 Nintendo and HAL Laboratory")]
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-#if DEBUG
 [assembly: AssemblyVersion("0.14.*")]
-#else
-[assembly: AssemblyVersion("0.14.3.0")]
-#endif
 [assembly: AssemblyFileVersion("0.14.3.0")]
