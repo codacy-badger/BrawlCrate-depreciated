@@ -104,11 +104,43 @@ namespace BrawlCrate
         private delegate bool DelegateOpenFile(String s);
         private DelegateOpenFile m_DelegateOpenFile;
 
+        public static bool CheckForInternetConnection()
+        {
+            try
+            {
+                try
+                {
+                    using (var client = new System.Net.WebClient())
+                    using (client.OpenRead("http://clients3.google.com/generate_204"))
+                    {
+                        using (System.Net.NetworkInformation.Ping s = new System.Net.NetworkInformation.Ping())
+                            return s.Send("www.github.com").Status == System.Net.NetworkInformation.IPStatus.Success;
+                    }
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return false;
+            }
+        }
+
         public void CheckUpdates(bool manual = true, bool automatic = false)
         {
             try
             {
                 string path;
+                if(!CheckForInternetConnection())
+                {
+                    if (manual)
+                        MessageBox.Show("Could not connect to internet");
+                    return;
+                }
+
                 if (Program.CanRunGithubApp(manual, out path))
                 {
                     Process git = Process.Start(new ProcessStartInfo()
@@ -118,6 +150,8 @@ namespace BrawlCrate
                         Arguments = String.Format("-bu {0} {1} {2} {3} {4}",
                         Program.TagName, manual ? "1" : "0", _docUpdates ? "1" : "0", automatic ? "1" : "0", Program.RootPath == null ? "<null>" : Program.RootPath),
                     });
+                    if (automatic)
+                        git.WaitForExit();
                 }
                 else
                 {
