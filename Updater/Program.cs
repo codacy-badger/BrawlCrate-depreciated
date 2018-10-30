@@ -192,6 +192,15 @@ namespace Net
                     try
                     {
                         releases = await github.Release.GetAll("soopercool101", "BrawlCrate");
+
+                        // Ensure that the latest update is, in fact, a documentation update
+                        if (!releases[0].Prerelease && !releases[0].Name.Contains("Documentation"))
+                        {
+                            if(manual)
+                                MessageBox.Show("No updates found.");
+                            return;
+                        }
+
                         // Only get pre-release versions, as they are the pipeline documentation updates will be sent with
                         releases = releases.Where(r => r.Prerelease).ToList();
                     }
