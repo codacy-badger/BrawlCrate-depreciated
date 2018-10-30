@@ -97,7 +97,7 @@ namespace Net
                             update.WaitForExit();
                             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe"))
                                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe");
-                            MessageBox.Show("Documentation was successfully updated.");
+                            MessageBox.Show("Documentation was successfully updated to " + releases[0].Name + ".");
                         }
                     }
                     catch (Exception e)
