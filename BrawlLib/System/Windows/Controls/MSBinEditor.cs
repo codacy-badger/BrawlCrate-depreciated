@@ -74,11 +74,11 @@ namespace System.Windows.Forms
                 return;
 
             string s = "";
-            int index = listBox1.Items.Count;
+            int index = listBox1.SelectedIndex < 0 ? listBox1.Items.Count : listBox1.SelectedIndex + 1;
 
-            _node._strings.Add(s);
+            _node._strings.Insert(index, s);
             _node.SignalPropertyChange();
-            listBox1.Items.Add(s);
+            listBox1.Items.Insert(index, s);
             listBox1.SelectedIndex = index;
         }
         private void btnRemove_Click(object sender, EventArgs e)
