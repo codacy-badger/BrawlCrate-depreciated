@@ -74,11 +74,13 @@ namespace BrawlCrate
                     }
                 }
                 BrawlCrate.Properties.Settings.Default.UpdateSettings = false;
+#if !DEBUG
                 // Show changelog if this is the first time opening this release, and the message wasn't seen 
                 if(BrawlCrate.Properties.Settings.Default.UpdateAutomatically)
                 {
                     MessageBox.Show(Program.UpdateMessage);
                 }
+#endif
             }
 
             _autoUpdate = BrawlCrate.Properties.Settings.Default.UpdateAutomatically;
