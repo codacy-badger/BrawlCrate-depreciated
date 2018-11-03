@@ -111,7 +111,7 @@ namespace Net
                     File.Delete(AppPath + "/Update.bat");
                 using (var sw = new StreamWriter(AppPath + "/Update.bat"))
                 {
-                    sw.WriteLine("CD " + AppPath);
+                    sw.WriteLine("CD /d " + AppPath);
                     sw.WriteLine("START /wait temp.exe -y");
                     sw.Write("START BrawlCrate.exe");
                     if (openFile != null && openFile != "<null>")
