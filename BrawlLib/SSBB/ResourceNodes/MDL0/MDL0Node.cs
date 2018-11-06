@@ -700,6 +700,24 @@ namespace BrawlLib.SSBB.ResourceNodes
             
         }
 
+        public void StripModel()
+        {
+            if (_objGroup == null)
+                Populate();
+            while (_objGroup != null && _objGroup.HasChildren)
+                ((MDL0ObjectNode)(_objGroup.Children[0])).Remove(true);
+            while (_matGroup != null && _matGroup.HasChildren)
+                _matGroup.Children[0].Remove();
+            while (_shadGroup != null && _shadGroup.HasChildren)
+                _shadGroup.Children[0].Remove();
+            while (_uvGroup != null && _uvGroup.HasChildren)
+                _uvGroup.Children[0].Remove();
+            while (_normGroup != null && _normGroup.HasChildren)
+                _normGroup.Children[0].Remove();
+            while (_vertGroup != null && _vertGroup.HasChildren)
+                _vertGroup.Children[0].Remove();
+        }
+
         public MDL0BoneNode FindBoneByIndex(int givenIndex)
         {
             // Generate bones if the model hasn't been seen yet

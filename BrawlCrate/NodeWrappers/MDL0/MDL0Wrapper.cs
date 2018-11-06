@@ -83,6 +83,7 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items.Add(new ToolStripMenuItem("&Recalculate Bounding Boxes", null, RecalcBBsOption));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteAction, Keys.Control | Keys.Delete));
+            _menu.Items.Add(new ToolStripMenuItem("Delete All But Bones", null, StripAction, Keys.Control | Keys.Shift | Keys.Delete));
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
@@ -133,6 +134,8 @@ namespace BrawlCrate.NodeWrappers
         protected static void ImportColorAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().ImportColor(); }
         protected static void ImportUVAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().ImportUV(); }
         
+        protected static void StripAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().StripModel(); }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
             _menu.Items[3].Enabled = _menu.Items[4].Enabled = _menu.Items[5].Enabled = _menu.Items[7].Enabled = _menu.Items[8].Enabled = _menu.Items[11].Enabled = _menu.Items[24].Enabled = true;
@@ -902,6 +905,13 @@ namespace BrawlCrate.NodeWrappers
             MDL0Node model = _resource as MDL0Node;
             if (model != null)
                 model.CalculateBoundingBoxes();
+        }
+
+        private void StripModel()
+        {
+            MDL0Node model = _resource as MDL0Node;
+            if (model != null)
+                model.StripModel();
         }
     }
 }

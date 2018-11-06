@@ -1518,19 +1518,24 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override void Remove()
         {
+            Remove(false);
+        }
+
+        public void Remove(bool force)
+        {
             Remove(
-                _vertexNode != null && _vertexNode._objects.Count == 1 && MessageBox.Show("Do you want to remove this object's vertex node?", "", MessageBoxButtons.YesNo) == DialogResult.Yes,
-                _normalNode != null && _normalNode._objects.Count == 1 && MessageBox.Show("Do you want to remove this object's normal node?", "", MessageBoxButtons.YesNo) == DialogResult.Yes,
-                _colorSet[0] != null && _colorSet[0]._objects.Count == 1 && MessageBox.Show("Do you want to remove this object's color node 1?", "", MessageBoxButtons.YesNo) == DialogResult.Yes,
-                _colorSet[1] != null && _colorSet[1]._objects.Count == 1 && MessageBox.Show("Do you want to remove this object's color node 2?", "", MessageBoxButtons.YesNo) == DialogResult.Yes,
-                _uvSet[0] != null && _uvSet[0]._objects.Count == 1 && MessageBox.Show("Do you want to remove this object's uv node 1?", "", MessageBoxButtons.YesNo) == DialogResult.Yes,
-                _uvSet[1] != null && _uvSet[1]._objects.Count == 1 && MessageBox.Show("Do you want to remove this object's uv node 2?", "", MessageBoxButtons.YesNo) == DialogResult.Yes,
-                _uvSet[2] != null && _uvSet[2]._objects.Count == 1 && MessageBox.Show("Do you want to remove this object's uv node 3?", "", MessageBoxButtons.YesNo) == DialogResult.Yes,
-                _uvSet[3] != null && _uvSet[3]._objects.Count == 1 && MessageBox.Show("Do you want to remove this object's uv node 4?", "", MessageBoxButtons.YesNo) == DialogResult.Yes,
-                _uvSet[4] != null && _uvSet[4]._objects.Count == 1 && MessageBox.Show("Do you want to remove this object's uv node 5?", "", MessageBoxButtons.YesNo) == DialogResult.Yes,
-                _uvSet[5] != null && _uvSet[5]._objects.Count == 1 && MessageBox.Show("Do you want to remove this object's uv node 6?", "", MessageBoxButtons.YesNo) == DialogResult.Yes,
-                _uvSet[6] != null && _uvSet[6]._objects.Count == 1 && MessageBox.Show("Do you want to remove this object's uv node 7?", "", MessageBoxButtons.YesNo) == DialogResult.Yes,
-                _uvSet[7] != null && _uvSet[7]._objects.Count == 1 && MessageBox.Show("Do you want to remove this object's uv node 8?", "", MessageBoxButtons.YesNo) == DialogResult.Yes);
+                _vertexNode != null && _vertexNode._objects.Count == 1 && (force || MessageBox.Show("Do you want to remove this object's vertex node?", "", MessageBoxButtons.YesNo) == DialogResult.Yes),
+                _normalNode != null && _normalNode._objects.Count == 1 && (force || MessageBox.Show("Do you want to remove this object's normal node?", "", MessageBoxButtons.YesNo) == DialogResult.Yes),
+                _colorSet[0] != null && _colorSet[0]._objects.Count == 1 && (force || MessageBox.Show("Do you want to remove this object's color node 1?", "", MessageBoxButtons.YesNo) == DialogResult.Yes),
+                _colorSet[1] != null && _colorSet[1]._objects.Count == 1 && (force || MessageBox.Show("Do you want to remove this object's color node 2?", "", MessageBoxButtons.YesNo) == DialogResult.Yes),
+                _uvSet[0] != null && _uvSet[0]._objects.Count == 1 && (force || MessageBox.Show("Do you want to remove this object's uv node 1?", "", MessageBoxButtons.YesNo) == DialogResult.Yes),
+                _uvSet[1] != null && _uvSet[1]._objects.Count == 1 && (force || MessageBox.Show("Do you want to remove this object's uv node 2?", "", MessageBoxButtons.YesNo) == DialogResult.Yes),
+                _uvSet[2] != null && _uvSet[2]._objects.Count == 1 && (force || MessageBox.Show("Do you want to remove this object's uv node 3?", "", MessageBoxButtons.YesNo) == DialogResult.Yes),
+                _uvSet[3] != null && _uvSet[3]._objects.Count == 1 && (force || MessageBox.Show("Do you want to remove this object's uv node 4?", "", MessageBoxButtons.YesNo) == DialogResult.Yes),
+                _uvSet[4] != null && _uvSet[4]._objects.Count == 1 && (force || MessageBox.Show("Do you want to remove this object's uv node 5?", "", MessageBoxButtons.YesNo) == DialogResult.Yes),
+                _uvSet[5] != null && _uvSet[5]._objects.Count == 1 && (force || MessageBox.Show("Do you want to remove this object's uv node 6?", "", MessageBoxButtons.YesNo) == DialogResult.Yes),
+                _uvSet[6] != null && _uvSet[6]._objects.Count == 1 && (force || MessageBox.Show("Do you want to remove this object's uv node 7?", "", MessageBoxButtons.YesNo) == DialogResult.Yes),
+                _uvSet[7] != null && _uvSet[7]._objects.Count == 1 && (force || MessageBox.Show("Do you want to remove this object's uv node 8?", "", MessageBoxButtons.YesNo) == DialogResult.Yes));
         }
 
         #endregion
