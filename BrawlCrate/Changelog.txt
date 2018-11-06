@@ -1,6 +1,6 @@
 ﻿
 BrawlCrate - v0.13 Hotfix 3
-Copyright © 2018 soopercool101, MarioDox
+Copyright © 2018 soopercool101, MarioDox, Syvkal
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
 https://github.com/soopercool101/BrawlCrate
