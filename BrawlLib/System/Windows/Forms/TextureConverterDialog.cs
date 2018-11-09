@@ -291,7 +291,7 @@ namespace System.Windows.Forms
             txtPath.Text = path;
             if (path.EndsWith(".tga", StringComparison.OrdinalIgnoreCase))
                 return LoadImages(TGA.FromFile(path));
-            else if (path.EndsWith(".png", StringComparison.OrdinalIgnoreCase) && BrawlLib.Properties.Settings.Default.ImportPNGsWithPalettes)
+            else if (path.EndsWith(".png", StringComparison.OrdinalIgnoreCase))
                 return LoadImagesPreservingPaletteInfo(path); // This implementation causes issues with UI on certain systems
             else
                 return LoadImages((Bitmap)Bitmap.FromFile(path));
