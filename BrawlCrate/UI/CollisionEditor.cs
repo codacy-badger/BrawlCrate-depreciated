@@ -1822,7 +1822,7 @@ namespace System.Windows.Forms
             //Selection Area Selected.
         }
 
-        Point _RCstart, _RCend;
+        System.Drawing.Point _RCstart, _RCend;
         protected void _modelPanel_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)

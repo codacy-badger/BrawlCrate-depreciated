@@ -22,6 +22,9 @@ BrawlLib Copyright © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie && Sam
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("84b5ec46-630b-4225-beec-6082c28f85e6")]
 
+// This prevents resizes on monitors with different DPIs
+[assembly: System.Windows.Media.DisableDpiAwareness]
+
 // Version information for an assembly consists of the following four values:
 //
 //      Major Version
