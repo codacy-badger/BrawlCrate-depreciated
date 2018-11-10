@@ -134,6 +134,11 @@ namespace Net
                     }
                 }
             }
+            catch (Exception e)
+            {
+                MessageBox.Show("ERROR: Documentation Version could not be found.");
+                return;
+            }
             try
             {
                 var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate"));
@@ -192,11 +197,6 @@ namespace Net
                     MessageBox.Show("No updates found.");
                 if (checkDocumentation)
                 {
-                    catch (Exception e)
-                    {
-                        MessageBox.Show("ERROR: Documentation Version could not be found.");
-                        return;
-                    }
                     if(docVer == null)
                     {
                         MessageBox.Show("Documentation Version could not be found.");
