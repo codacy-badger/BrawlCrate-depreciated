@@ -17,6 +17,8 @@ namespace BrawlCrate
 {
     public partial class MainForm : Form
     {
+        public bool firstBoot = false;
+
         public bool renderPreviews = true;
 
         private static MainForm _instance;
@@ -53,6 +55,7 @@ namespace BrawlCrate
         public MainForm()
         {
             InitializeComponent();
+            firstBoot = false;
             Text = Program.AssemblyTitle;
 
             if (BrawlCrate.Properties.Settings.Default.UpdateSettings)
@@ -73,11 +76,15 @@ namespace BrawlCrate
                         }
                     }
                 }
-                BrawlCrate.Properties.Settings.Default.UpdateSettings = false;
                 // Set update properties to true all sneaky-like
                 BrawlCrate.Properties.Settings.Default.GetDocumentationUpdates = true;
                 BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
                 BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
+                // This is the first time booting this update
+                firstBoot = true;
+                // Ensure settings only get updated once
+                BrawlCrate.Properties.Settings.Default.UpdateSettings = false;
+                BrawlCrate.Properties.Settings.Default.Save();
             }
 
             _autoUpdate = BrawlCrate.Properties.Settings.Default.UpdateAutomatically;

@@ -140,7 +140,7 @@ namespace BrawlCrate
                 if (MainForm.Instance.CheckUpdatesOnStartup)
                     MainForm.Instance.CheckUpdates(false);
                 // Show changelog if this is the first time opening this release, and the message wasn't seen 
-                if (BrawlCrate.Properties.Settings.Default.UpdateAutomatically)
+                if (BrawlCrate.Properties.Settings.Default.UpdateAutomatically && MainForm.Instance.firstBoot)
                 {
                     MessageBox.Show(Program.UpdateMessage);
                 }
