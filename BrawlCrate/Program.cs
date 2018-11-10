@@ -14,11 +14,14 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.14_Hotfix3";
+        public static readonly string TagName = "BrawlCrate_v0.15";
         public static readonly string UpdateMessage = "Updated to BrawlCrate v0.15! This release:\n" +
-            "\n- Makes updates happen automatically (can be disabled in the settings)" +
-            "\n- Adds more stuff" +
-            "\n\nFull changelog can be found in the installation folder";
+            "\n- Allows updates to happen automatically (can be disabled in the settings)" +
+            "\n- Improves editor tools for MSBin/MSG nodes" +
+            "\n- Improves Export All functionality" +
+            "\n- Adds option to strip a model down to bones (Ctrl+Shift+Delete)" +
+            "\n- Fixes bug in which certain systems would get window resizes when importing PNGs" +
+            "\n\nFull changelog can be found in the installation folder:\n" + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
         public static readonly string AssemblyTitle;
         public static readonly string AssemblyDescription;
@@ -136,6 +139,11 @@ namespace BrawlCrate
 #if !DEBUG //Don't need to see this every time a debug build is compiled
                 if (MainForm.Instance.CheckUpdatesOnStartup)
                     MainForm.Instance.CheckUpdates(false);
+                // Show changelog if this is the first time opening this release, and the message wasn't seen 
+                if (BrawlCrate.Properties.Settings.Default.UpdateAutomatically)
+                {
+                    MessageBox.Show(Program.UpdateMessage);
+                }
 #endif
                 Application.Run(MainForm.Instance);
             }

@@ -4,10 +4,10 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("BrawlCrateLib v0.14.3")]
+[assembly: AssemblyTitle("BrawlCrateLib v0.15")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("BrawlCrate")]
 [assembly: AssemblyProduct("BrawlCrateLib")]
 [assembly: AssemblyCopyright(@"Copyright © 2018 soopercool101, MarioDox
 BrawlLib Copyright © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie && Sammi Husky")]
@@ -35,5 +35,5 @@ BrawlLib Copyright © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie && Sam
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.14.*")]
-[assembly: AssemblyFileVersion("0.14.3.0")]
+[assembly: AssemblyVersion("0.15.*")]
+[assembly: AssemblyFileVersion("0.15.0.0")]

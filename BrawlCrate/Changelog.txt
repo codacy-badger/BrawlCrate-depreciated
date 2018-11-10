@@ -16,6 +16,22 @@ they be held accountable for the manner in which it is used.
 |************ BrawlCrate Change Log ************|
  ===============================================
  
+ - BrawlCrate v0.15 - (11/9/2018)
+ . Now includes option to install updates automatically, displaying a changelog whenever an update is first opened.
+ . Improved editor tools for MSBin/MSG files
+   - Adding a line now inserts it after the selected line
+   - Lines can now be moved up and down
+ . "Save As" now uses Ctrl+Shift+S as a shortcut, rather than Ctrl+A
+ . Export All now puts BRRES's in subfolders to minimize overwrites (Now works for Smashville, for instance)
+ . Added option to strip a model down to its bones (useful for skeleton stage creation)
+ . Fixed DPI bug when importing PNGs with palettes on certain systems
+ . Removed option to disable palette imports for PNGs (No longer necessary now that the implementation is bug-free)
+ . Fixed bug in which BrawlCrate could only properly be updated on the C:/ drive
+ . Fixed bug where newer installations of Windows 10 would incorrectly display hex values
+ . Documentation "version.txt" now includes a documentation changelog
+ . Fixed Export All for U8 and U8 folders to no longer crash and to match the current implementation
+ . Fixed bug in which Export All would crash if any Null-named nodes are present
+ 
  - BrawlCrate v0.14 Hotfix 3 - (10/29/2018)
  . Updater no longer requires admin approval (unless of course you installed BrawlCrate somewhere that needs admin privileges to write to)
  . Fixes bug in which documentation updates were being downloaded even when the program said it was going to download the actual update

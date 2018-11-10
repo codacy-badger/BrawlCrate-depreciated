@@ -74,13 +74,10 @@ namespace BrawlCrate
                     }
                 }
                 BrawlCrate.Properties.Settings.Default.UpdateSettings = false;
-#if !DEBUG
-                // Show changelog if this is the first time opening this release, and the message wasn't seen 
-                if(BrawlCrate.Properties.Settings.Default.UpdateAutomatically)
-                {
-                    MessageBox.Show(Program.UpdateMessage);
-                }
-#endif
+                // Set update properties to true all sneaky-like
+                BrawlCrate.Properties.Settings.Default.GetDocumentationUpdates = true;
+                BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
+                BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
             }
 
             _autoUpdate = BrawlCrate.Properties.Settings.Default.UpdateAutomatically;
@@ -88,6 +85,8 @@ namespace BrawlCrate
             _updatesOnStartup = BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup;
             _docUpdates = BrawlCrate.Properties.Settings.Default.GetDocumentationUpdates;
             _showHex = BrawlCrate.Properties.Settings.Default.ShowHex;
+
+            // Currently depreciated settings
             _compatibilityMode = BrawlLib.Properties.Settings.Default.CompatibilityMode;
             _importPNGwPalette = BrawlLib.Properties.Settings.Default.ImportPNGsWithPalettes;
 

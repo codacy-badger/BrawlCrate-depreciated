@@ -5,16 +5,16 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 #if !DEBUG
-[assembly: AssemblyTitle("BrawlCrate v0.14")]
+[assembly: AssemblyTitle("BrawlCrate v0.15")]
 #else
-[assembly: AssemblyTitle("BrawlCrate v0.15 (BETA)")]
+[assembly: AssemblyTitle("BrawlCrate v0.16 (BETA)")]
 #endif
 [assembly: AssemblyDescription("This program is provided as-is without any warranty, implied or otherwise." +
 " By using this program, the end user agrees to take full responsibility regarding its proper and lawful use." +
 " The authors/hosts/distributors cannot be held responsible for any damage resulting in the use of this program," +
 " nor can they be held accountable for the manner in which it is used.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("BrawlCrate")]
 [assembly: AssemblyProduct("BrawlCrate")]
 [assembly: AssemblyCopyright(@"Copyright © 2018 soopercool101, MarioDox
 BrawlBox © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie && Sammi Husky
@@ -45,8 +45,8 @@ Super Smash Bros. Brawl © 2008 Nintendo and HAL Laboratory")]
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 #if DEBUG
-[assembly: AssemblyVersion("0.14.*")]
+[assembly: AssemblyVersion("0.15.*")]
 #else
-[assembly: AssemblyVersion("0.14.3.0")]
+[assembly: AssemblyVersion("0.15.0.0")]
 #endif
-[assembly: AssemblyFileVersion("0.14.3.0")]
+[assembly: AssemblyFileVersion("0.15.0.0")]
