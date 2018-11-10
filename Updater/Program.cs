@@ -123,6 +123,17 @@ namespace Net
 
         public static async Task CheckUpdates(string releaseTag, string openFile, bool manual = true, bool checkDocumentation = false, bool automatic = false)
         {
+            string docVer = null;
+            try
+            {
+                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "InternalDocumentation"))
+                {
+                    if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "InternalDocumentation" + '\\' + "version.txt"))
+                    {
+                        docVer = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "InternalDocumentation" + '\\' + "version.txt")[0];
+                    }
+                }
+            }
             try
             {
                 var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate"));
@@ -130,6 +141,9 @@ namespace Net
                 try
                 {
                     releases = await github.Release.GetAll("soopercool101", "BrawlCrate");
+
+                    if (releases[0].TagName == releaseTag || releases[0].TagName == docVer)
+                        return;
 
                     // Check if this is a known pre-release version
                     bool isPreRelease = releases.Any(r => r.Prerelease
@@ -178,17 +192,6 @@ namespace Net
                     MessageBox.Show("No updates found.");
                 if (checkDocumentation)
                 {
-                    string docVer = null;
-                    try
-                    {
-                        if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "InternalDocumentation"))
-                        {
-                            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "InternalDocumentation" + '\\' + "version.txt"))
-                            {
-                                docVer = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "InternalDocumentation" + '\\' + "version.txt")[0];
-                            }
-                        }
-                    }
                     catch (Exception e)
                     {
                         MessageBox.Show("ERROR: Documentation Version could not be found.");
