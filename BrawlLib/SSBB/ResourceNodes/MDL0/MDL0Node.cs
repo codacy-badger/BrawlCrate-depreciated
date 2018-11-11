@@ -716,6 +716,10 @@ namespace BrawlLib.SSBB.ResourceNodes
                 _normGroup.Children[0].Remove();
             while (_vertGroup != null && _vertGroup.HasChildren)
                 _vertGroup.Children[0].Remove();
+            while (_colorGroup != null && _colorGroup.HasChildren)
+                _colorGroup.Children[0].Remove();
+            while (_pltGroup != null && _pltGroup.HasChildren)
+                _pltGroup.Children[0].Remove();
         }
 
         public MDL0BoneNode FindBoneByIndex(int givenIndex)

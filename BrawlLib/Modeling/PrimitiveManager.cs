@@ -1859,12 +1859,14 @@ namespace BrawlLib.Modeling
             obj.SignalPropertyChange();
 
             MDL0VertexNode node;
-            if (obj._vertexNode != null)
+            if (obj._vertexNode != null && obj.Model.VertexGroup != null)
             {
                 if (obj._vertexNode._objects.Count == 1 && !forceNewNode)
                     node = obj._vertexNode;
                 else
                 {
+                    if (obj.Model.VertexGroup == null)
+                        return;
                     node = new MDL0VertexNode();
                     obj.Model.VertexGroup.AddChild(node);
                     node.Name = node.FindName("Regenerated");
@@ -1915,12 +1917,14 @@ namespace BrawlLib.Modeling
             obj.SignalPropertyChange();
 
             MDL0NormalNode node;
-            if (obj._normalNode != null)
+            if (obj._normalNode != null && obj.Model.NormalGroup != null)
             {
                 if (obj._normalNode._objects.Count == 1 && !forceNewNode)
                     node = obj._normalNode;
                 else
                 {
+                    if (obj.Model.NormalGroup == null)
+                        return;
                     node = new MDL0NormalNode();
                     obj.Model.NormalGroup.AddChild(node);
                     node.Name = node.FindName("Regenerated");
