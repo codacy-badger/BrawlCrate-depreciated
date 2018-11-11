@@ -152,18 +152,13 @@ namespace BrawlLib.Modeling
                                                 foreach (EffectNewParam p in eff._newParams)
                                                 {
                                                     List<string> pathsAdded = new List<string>();
-                                                    Console.WriteLine("Stage 1: " + path);
                                                     if (p._sampler2D != null || p._sid == l._texture)
                                                     {
                                                         path = p._sampler2D._url;
-                                                        Console.WriteLine("\tStage 2: " + path);
                                                         if (!String.IsNullOrEmpty(p._sampler2D._source))
                                                             foreach (EffectNewParam p2 in eff._newParams)
                                                                 if (p2._sid == p._sampler2D._source)
-                                                                {
                                                                     path = p2._path;
-                                                                    Console.WriteLine("\t\tStage 3: " + path);
-                                                                }
                                                         switch (p._sampler2D._wrapS)
                                                         {
                                                             case "CLAMP":
@@ -224,10 +219,6 @@ namespace BrawlLib.Modeling
                                                                 imgEntries.Add(img);
                                                                 break;
                                                             }
-                                                    }
-                                                    else
-                                                    {
-                                                        Console.WriteLine(p._sid);
                                                     }
                                                 }
                                             }
