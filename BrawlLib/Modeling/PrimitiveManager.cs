@@ -1859,16 +1859,21 @@ namespace BrawlLib.Modeling
             obj.SignalPropertyChange();
 
             MDL0VertexNode node;
-            if (obj._vertexNode != null && obj.Model.VertexGroup != null)
+            if (obj._vertexNode != null)
             {
                 if (obj._vertexNode._objects.Count == 1 && !forceNewNode)
                     node = obj._vertexNode;
                 else
                 {
-                    if (obj.Model.VertexGroup == null)
-                        return;
                     node = new MDL0VertexNode();
-                    obj.Model.VertexGroup.AddChild(node);
+                    MDL0Node m = obj.Model;
+                    if (m.VertexGroup == null)
+                    {
+                        MDL0GroupNode g = new MDL0GroupNode(MDLResourceType.Vertices);
+                        m.LinkGroup(g);
+                        g.Parent = m;
+                    }
+                    m.VertexGroup.AddChild(node);
                     node.Name = node.FindName("Regenerated");
                     if (obj._vertexNode._objects.Contains(obj))
                         obj._vertexNode._objects.Remove(obj);
@@ -1917,16 +1922,21 @@ namespace BrawlLib.Modeling
             obj.SignalPropertyChange();
 
             MDL0NormalNode node;
-            if (obj._normalNode != null && obj.Model.NormalGroup != null)
+            if (obj._normalNode != null)
             {
                 if (obj._normalNode._objects.Count == 1 && !forceNewNode)
                     node = obj._normalNode;
                 else
                 {
-                    if (obj.Model.NormalGroup == null)
-                        return;
                     node = new MDL0NormalNode();
-                    obj.Model.NormalGroup.AddChild(node);
+                    MDL0Node m = obj.Model;
+                    if (m.NormalGroup == null)
+                    {
+                        MDL0GroupNode g = new MDL0GroupNode(MDLResourceType.Normals);
+                        m.LinkGroup(g);
+                        g.Parent = m;
+                    }
+                    m.NormalGroup.AddChild(node);
                     node.Name = node.FindName("Regenerated");
                     if (obj._normalNode._objects.Contains(obj))
                         obj._normalNode._objects.Remove(obj);
