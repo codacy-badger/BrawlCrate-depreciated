@@ -129,15 +129,14 @@ namespace BrawlLib.Modeling
                     }
 
                     Error = "There was a problem extracting materials.";
-
-                    int uwrap = 1;
-                    int vwrap = 1;
-                    int minfilter = 1;
-                    int magfilter = 1;
-
+                    
                     //Extract materials
                     foreach (MaterialEntry mat in shell._materials)
                     {
+                        List<int> uwrap = new List<int>();
+                        List<int> vwrap = new List<int>();
+                        List<int> minfilter = new List<int>();
+                        List<int> magfilter = new List<int>();
                         List<ImageEntry> imgEntries = new List<ImageEntry>();
 
                         //Find effect
@@ -151,7 +150,6 @@ namespace BrawlLib.Modeling
                                                 string path = l._texture;
                                                 foreach (EffectNewParam p in eff._newParams)
                                                 {
-                                                    List<string> pathsAdded = new List<string>();
                                                     if (p._sampler2D != null || p._sid == l._texture)
                                                     {
                                                         path = p._sampler2D._url;
@@ -162,55 +160,79 @@ namespace BrawlLib.Modeling
                                                         switch (p._sampler2D._wrapS)
                                                         {
                                                             case "CLAMP":
-                                                                uwrap = 0;
+                                                                uwrap.Add(0);
                                                                 break;
                                                             case "WRAP":
-                                                                uwrap = 1;
+                                                                uwrap.Add(1);
                                                                 break;
                                                             case "MIRROR":
-                                                                uwrap = 2;
+                                                                uwrap.Add(2);
+                                                                break;
+                                                            default:
+                                                                uwrap.Add(0);
                                                                 break;
                                                         }
                                                         switch (p._sampler2D._wrapT)
                                                         {
                                                             case "CLAMP":
-                                                                vwrap = 0;
+                                                                vwrap.Add(0);
                                                                 break;
                                                             case "WRAP":
-                                                                vwrap = 1;
+                                                                vwrap.Add(1);
                                                                 break;
                                                             case "MIRROR":
-                                                                vwrap = 2;
+                                                                vwrap.Add(2);
+                                                                break;
+                                                            default:
+                                                                vwrap.Add(0);
                                                                 break;
                                                         }
                                                         switch (p._sampler2D._minFilter)
                                                         {
                                                             case "NEAREST":
-                                                                minfilter = 0;
+                                                                minfilter.Add(0);
                                                                 break;
                                                             case "LINEAR":
-                                                                minfilter = 1;
+                                                                minfilter.Add(1);
                                                                 break;
                                                             case "NEAREST_MIPMAP_NEAREST":
-                                                                minfilter = 2;
+                                                                minfilter.Add(2);
                                                                 break;
                                                             case "LINEAR_MIPMAP_NEAREST":
-                                                                minfilter = 3;
+                                                                minfilter.Add(3);
                                                                 break;
                                                             case "NEAREST_MIPMAP_LINEAR":
-                                                                minfilter = 4;
+                                                                minfilter.Add(4);
                                                                 break;
                                                             case "LINEAR_MIPMAP_LINEAR":
-                                                                minfilter = 5;
+                                                                minfilter.Add(5);
+                                                                break;
+                                                            default:
+                                                                minfilter.Add(0);
                                                                 break;
                                                         }
                                                         switch (p._sampler2D._magFilter)
                                                         {
                                                             case "NEAREST":
-                                                                magfilter = 0;
+                                                                magfilter.Add(0);
                                                                 break;
                                                             case "LINEAR":
-                                                                magfilter = 1;
+                                                                magfilter.Add(1);
+                                                                break;
+                                                            case "NEAREST_MIPMAP_NEAREST":
+                                                                magfilter.Add(2);
+                                                                break;
+                                                            case "LINEAR_MIPMAP_NEAREST":
+                                                                magfilter.Add(3);
+                                                                break;
+                                                            case "NEAREST_MIPMAP_LINEAR":
+                                                                magfilter.Add(4);
+                                                                break;
+                                                            case "LINEAR_MIPMAP_LINEAR":
+                                                                magfilter.Add(5);
+                                                                break;
+                                                            default:
+                                                                magfilter.Add(0);
                                                                 break;
                                                         }
                                                         foreach (ImageEntry img in shell._images)
@@ -237,6 +259,7 @@ namespace BrawlLib.Modeling
                                 mat._node = matNode;
                                 matNode._cull = _importOptions._culling;
 
+                                int i = 0;
                                 foreach (ImageEntry img in imgEntries)
                                 {
                                     MDL0MaterialRefNode mr = new MDL0MaterialRefNode();
@@ -244,10 +267,11 @@ namespace BrawlLib.Modeling
                                     mr._name = mr._texture.Name;
                                     matNode._children.Add(mr);
                                     mr._parent = matNode;
-                                    mr._minFltr = minfilter;
-                                    mr._magFltr = magfilter;
-                                    mr._uWrap = uwrap;
-                                    mr._vWrap = vwrap;
+                                    mr._minFltr = minfilter[i];
+                                    mr._magFltr = magfilter[i];
+                                    mr._uWrap = uwrap[i];
+                                    mr._vWrap = vwrap[i];
+                                    i++;
                                 }
                                 break;
                         }
