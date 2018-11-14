@@ -103,6 +103,8 @@ namespace BrawlCrate
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe");
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.bat"))
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.bat");
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "StageBox.exe"))
+                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "StageBox.exe");
 
             if (args.Length >= 1)
             {
