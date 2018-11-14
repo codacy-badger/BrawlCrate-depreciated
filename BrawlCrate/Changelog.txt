@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.13 Hotfix 3
+BrawlCrate - v0.16
 Copyright © 2018 soopercool101, MarioDox, Syvkal
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -16,7 +16,16 @@ they be held accountable for the manner in which it is used.
 |************ BrawlCrate Change Log ************|
  ===============================================
  
- - BrawlCrate v0.15 - (11/9/2018)
+ - BrawlCrate v0.16 - (11/14/2018)
+ . Improved Collada import/export
+   - Now respects multiple subentries for materials
+   - Now respects wrapping and filtering for material entries
+ . Issues now get reported to https://github.com/BrawlCrate/BrawlCrateIssues/issues
+ . Fixes bugs in which open models would crashed when stripped
+ . Fixes bugs in which older MDL0 with messed-up normals would crash when exporting to dae
+ . Slightly improve updater speed and lower GitHub API calls made by it (making it and the issue reporter more reliable)
+ 
+ - BrawlCrate v0.15 - (11/10/2018)
  . Now includes option to install updates automatically, displaying a changelog whenever an update is first opened.
  . Improved editor tools for MSBin/MSG files
    - Adding a line now inserts it after the selected line

@@ -14,13 +14,12 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.15";
-        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.15! This release:\n" +
-            "\n- Allows updates to happen automatically (can be disabled in the settings)" +
-            "\n- Improves editor tools for MSBin/MSG nodes" +
-            "\n- Improves Export All functionality" +
-            "\n- Adds option to strip a model down to bones (Ctrl+Shift+Delete)" +
-            "\n- Fixes bug in which certain systems would get window resizes when importing PNGs" +
+        public static readonly string TagName = "BrawlCrate_v0.16";
+        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.16! This release:\n" +
+            "\n- Improves DAE import/export" +
+            "\n- Moves issue reporter to https://github.com/BrawlCrate/BrawlCrateIssues/issues" +
+            "\n- Fixes bug in which models with open subfolders would crash when stripped to bones" +
+            "\n- Improves updater speed" +
             "\n\nFull changelog can be found in the installation folder:\n" + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
         public static readonly string AssemblyTitle;
