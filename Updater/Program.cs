@@ -147,6 +147,8 @@ namespace Net
                 IReadOnlyList<Release> releases = null;
                 try
                 {
+                    releases = AllReleases.ToList();
+
                     if (releases[0].TagName == releaseTag || releases[0].TagName == docVer)
                         return;
                     
@@ -205,7 +207,7 @@ namespace Net
                         }
 
                         // Only get pre-release versions, as they are the pipeline documentation updates will be sent with
-                        releases = releases.Where(r => r.Prerelease).ToList();
+                        releases = AllReleases.Where(r => r.Prerelease).ToList();
                     }
                     catch (System.Net.Http.HttpRequestException)
                     {
@@ -406,7 +408,7 @@ namespace Net
             else if (args.Length == 0)
             {
                 somethingDone = true;
-                Task t = Updater.UpdateCheck();
+                Task t = Updater.UpdateCheck(true);
                 t.Wait();
             }
 
