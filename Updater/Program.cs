@@ -189,7 +189,10 @@ namespace Net
                     return;
                 }
                 else if (manual && !checkDocumentation)
+                {
                     MessageBox.Show("No updates found.");
+                    return;
+                }
                 if (checkDocumentation)
                 {
                     if(docVer == null)
