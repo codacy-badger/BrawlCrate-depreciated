@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="txtDescription.Text" xml:space="preserve">
-    <value>Explain what you were doing that caused the bug. This will be posted publicly at https://github.com/StageBoxBrawl/StageBoxIssues/issues, so do not put any personal information here. It may be beneficial to you to sign your report with a username unless you wish to stay anonymous. It is also very helpful to report the issue on our Discord at https://discord.gg/s7c8763</value>
+    <value>Explain in detail what you were doing that caused the bug, reproducable steps or links to files that were worked on is appreciated. This will be posted publicly at https://github.com/BrawlCrate/BrawlCrateIssues/issues, so do not put any personal information here. It may be beneficial to you to sign your report with a username unless you wish to stay anonymous. It is also very helpful to report the issue on our Discord at https://discord.gg/s7c8763</value>
   </data>
   <metadata name="ctxFile.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
