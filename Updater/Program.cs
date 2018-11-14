@@ -149,16 +149,9 @@ namespace Net
 
                     if (releases[0].TagName == releaseTag || releases[0].TagName == docVer)
                         return;
-
-                    // Check if this is a known pre-release version
-                    bool isPreRelease = releases.Any(r => r.Prerelease
-                        && string.Equals(releases[0].TagName, releaseTag, StringComparison.InvariantCulture)
-                        && r.Name.IndexOf("BrawlCrate v", StringComparison.InvariantCultureIgnoreCase) >= 0);
-
-                    // If this is not a known pre-release version, remove all pre-release versions from the list
-                    if (!isPreRelease) {
-                        releases = releases.Where(r => !r.Prerelease).ToList();
-                    }
+                    
+                    // Remove all pre-release versions from the list (Prerelease versions are exclusively documentation updates)
+                    releases = releases.Where(r => !r.Prerelease).ToList();
                 }
                 catch (System.Net.Http.HttpRequestException)
                 {
@@ -198,10 +191,7 @@ namespace Net
                 if (checkDocumentation)
                 {
                     if(docVer == null)
-                    {
-                        MessageBox.Show("Documentation Version could not be found.");
-                        return;
-                    }
+                        MessageBox.Show("Documentation Version could not be found. Will download the latest documentation.");
                     try
                     {
                         releases = await github.Release.GetAll("soopercool101", "BrawlCrate");
