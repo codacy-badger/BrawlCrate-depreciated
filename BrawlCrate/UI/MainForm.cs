@@ -76,10 +76,6 @@ namespace BrawlCrate
                         }
                     }
                 }
-                // Set update properties to true all sneaky-like
-                BrawlCrate.Properties.Settings.Default.GetDocumentationUpdates = true;
-                BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
-                BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
                 // This is the first time booting this update
                 firstBoot = true;
                 // Ensure settings only get updated once
