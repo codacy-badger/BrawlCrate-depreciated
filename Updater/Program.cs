@@ -142,16 +142,16 @@ namespace Net
             try
             {
                 var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate"));
+                IReadOnlyList<Release> AllReleases = null;
+                AllReleases = await github.Release.GetAll("soopercool101", "BrawlCrate");
                 IReadOnlyList<Release> releases = null;
                 try
                 {
-                    releases = await github.Release.GetAll("soopercool101", "BrawlCrate");
-
                     if (releases[0].TagName == releaseTag || releases[0].TagName == docVer)
                         return;
                     
                     // Remove all pre-release versions from the list (Prerelease versions are exclusively documentation updates)
-                    releases = releases.Where(r => !r.Prerelease).ToList();
+                    releases = AllReleases.Where(r => !r.Prerelease).ToList();
                 }
                 catch (System.Net.Http.HttpRequestException)
                 {
@@ -194,7 +194,7 @@ namespace Net
                         MessageBox.Show("Documentation Version could not be found. Will download the latest documentation.");
                     try
                     {
-                        releases = await github.Release.GetAll("soopercool101", "BrawlCrate");
+                        releases = AllReleases.ToList();
 
                         // Ensure that the latest update is, in fact, a documentation update
                         if (!releases[0].Prerelease && !releases[0].Name.Contains("Documentation"))
@@ -236,6 +236,12 @@ namespace Net
                     else if (manual)
                         MessageBox.Show("No updates found.");
                 }
+            }
+            catch (System.Net.Http.HttpRequestException)
+            {
+                if (manual)
+                    MessageBox.Show("Unable to connect to the internet.");
+                return;
             }
             catch (Exception e)
             {
