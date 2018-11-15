@@ -47,6 +47,6 @@ Super Smash Bros. Brawl © 2008 Nintendo and HAL Laboratory")]
 #if DEBUG
 [assembly: AssemblyVersion("0.16.*")]
 #else
-[assembly: AssemblyVersion("0.16.0.0")]
+[assembly: AssemblyVersion("0.16.1.0")]
 #endif
-[assembly: AssemblyFileVersion("0.16.0.0")]
+[assembly: AssemblyFileVersion("0.16.1.0")]

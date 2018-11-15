@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.16
+BrawlCrate - v0.16 Hotfix 1
 Copyright © 2018 soopercool101, MarioDox, Syvkal
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,9 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.16 Hotfix 1 - (11/15/2018)
+ . Fix various updater bugs present in the last patch
  
  - BrawlCrate v0.16 - (11/14/2018)
  . Improved Collada import/export
