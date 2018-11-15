@@ -8,6 +8,7 @@ using System.IO;
 using System.Diagnostics;
 using Microsoft.Win32;
 using BrawlLib.BrawlCrate;
+using System.Threading.Tasks;
 
 namespace BrawlCrate
 {
@@ -144,7 +145,10 @@ namespace BrawlCrate
                 // Show changelog if this is the first time opening this release, and the message wasn't seen 
                 if (BrawlCrate.Properties.Settings.Default.UpdateAutomatically && MainForm.Instance.firstBoot)
                 {
-                    MessageBox.Show(Program.UpdateMessage);
+                    Task.Factory.StartNew(() =>
+                    {
+                        MessageBox.Show(Program.UpdateMessage);
+                    });
                 }
 #endif
                 Application.Run(MainForm.Instance);
