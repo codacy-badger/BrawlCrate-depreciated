@@ -370,7 +370,7 @@ namespace Net
 
     class Program
     {
-        const string Usage = @"Usage: -r = Overwrite files in directory";
+        const string Usage = @"Usage: -n = New Folder";
 
         static void Main(string[] args)
         {
@@ -394,6 +394,11 @@ namespace Net
                     case "-r": //overwrite
                         somethingDone = true;
                         Task t = Updater.UpdateCheck(true);
+                        t.Wait();
+                        break;
+                    case "-n": // Update in new folder
+                        somethingDone = true;
+                        Task t = Updater.UpdateCheck(false);
                         t.Wait();
                         break;
                     case "-bu": //BrawlCrate update call
