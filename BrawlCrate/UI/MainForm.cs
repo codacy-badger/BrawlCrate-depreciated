@@ -459,6 +459,15 @@ namespace BrawlCrate
                         newControl = audioPlaybackPanel1;
                         if (node is RSTMNode)
                             audioPlaybackPanel1.chkLoop.Checked = ((RSTMNode)node).IsLooped;
+                    } else if (MainForm.Instance.ShowHex)
+                    {
+                        hexBox1.ByteProvider = new Be.Windows.Forms.DynamicFileByteProvider(new UnmanagedMemoryStream(
+                                (byte*)node.WorkingUncompressed.Address,
+                                node.WorkingUncompressed.Length,
+                                node.WorkingUncompressed.Length,
+                                FileAccess.ReadWrite))
+                        { _supportsInsDel = false };
+                        newControl = hexBox1;
                     }
                 }
                 else if (node is IImageSource)
