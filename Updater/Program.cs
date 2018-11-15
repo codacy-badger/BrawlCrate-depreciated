@@ -158,6 +158,13 @@ namespace Net
                     
                     // Remove all pre-release versions from the list (Prerelease versions are exclusively documentation updates)
                     releases = AllReleases.Where(r => !r.Prerelease).ToList();
+					
+					if (releases[0].TagName == releaseTag && !checkDocumentation)
+                    {
+                        if(manual)
+                            MessageBox.Show("No updates found.");
+                        return;
+                    }
                 }
                 catch (System.Net.Http.HttpRequestException)
                 {
