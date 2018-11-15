@@ -398,8 +398,8 @@ namespace Net
                         break;
                     case "-n": // Update in new folder
                         somethingDone = true;
-                        Task t = Updater.UpdateCheck(false);
-                        t.Wait();
+                        Task t1 = Updater.UpdateCheck(false);
+                        t1.Wait();
                         break;
                     case "-bu": //BrawlCrate update call
                         somethingDone = true;
