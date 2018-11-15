@@ -150,7 +150,11 @@ namespace Net
                     releases = AllReleases.ToList();
 
                     if (releases[0].TagName == releaseTag || releases[0].TagName == docVer)
+                    {
+                        if(manual)
+                            MessageBox.Show("No updates found.");
                         return;
+                    }
                     
                     // Remove all pre-release versions from the list (Prerelease versions are exclusively documentation updates)
                     releases = AllReleases.Where(r => !r.Prerelease).ToList();
