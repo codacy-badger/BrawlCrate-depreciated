@@ -1144,7 +1144,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                     AlphaTest(material);
                 else
                 {
-                    material.UseProgram(this, Control.ModifierKeys == Keys.Alt);
+                    material.UseProgram(this);
                     Blend(material);
                 }
 
