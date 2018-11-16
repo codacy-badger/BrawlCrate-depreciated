@@ -33,12 +33,6 @@ namespace Net
             using (Ping s = new Ping())
                 Console.WriteLine(s.Send("www.github.com").Status);
 
-            Task splashTask = Task.Factory.StartNew(() =>
-            {
-                SplashForm splash = new SplashForm();
-                splash.Show();
-            });
-
             // Initiate the github client.
             GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate"));
 
@@ -124,8 +118,6 @@ namespace Net
                     if (openFile != null && openFile != "<null>")
                         sw.Write(" " + openFile);
                 }
-                splashTask.Wait(0);
-                splashTask.Dispose();
                 Process updateBat = Process.Start(AppPath + "/Update.bat");
             }
         }
