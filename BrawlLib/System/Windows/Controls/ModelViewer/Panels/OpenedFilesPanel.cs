@@ -51,7 +51,7 @@ namespace System.Windows.Forms
                 return;
             }
 
-            string s = Path.GetFileName(listBox1.SelectedItem.ToString());
+            string s = Path.GetFileName(listBox1.SelectedItem.ToString() == "<null>" ? "null" : listBox1.SelectedItem.ToString());
             label1.Text = String.Format("{0} - Has {1}changed", s, SelectedFile.IsDirty ? "" : "not ");
         }
 
