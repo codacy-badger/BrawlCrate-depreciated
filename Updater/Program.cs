@@ -119,6 +119,7 @@ namespace Net
                 {
                     sw.WriteLine("CD /d " + AppPath);
                     sw.WriteLine("START /wait temp.exe -y");
+                    sw.WriteLine("del temp.exe /s /f /q");
                     sw.Write("START BrawlCrate.exe");
                     if (openFile != null && openFile != "<null>")
                         sw.Write(" " + openFile);
