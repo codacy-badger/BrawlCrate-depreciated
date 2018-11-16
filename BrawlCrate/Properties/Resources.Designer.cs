@@ -153,6 +153,16 @@ namespace BrawlCrate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap BrawlCrateLogo {
+            get {
+                object obj = ResourceManager.GetObject("BrawlCrateLogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap BRES {
             get {
                 object obj = ResourceManager.GetObject("BRES", resourceCulture);
@@ -273,9 +283,9 @@ namespace BrawlCrate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap GDOR {
+        public static System.Drawing.Bitmap GCAM {
             get {
-                object obj = ResourceManager.GetObject("GDOR", resourceCulture);
+                object obj = ResourceManager.GetObject("GCAM", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -293,9 +303,9 @@ namespace BrawlCrate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap GWAT {
+        public static System.Drawing.Bitmap GDOR {
             get {
-                object obj = ResourceManager.GetObject("GWAT", resourceCulture);
+                object obj = ResourceManager.GetObject("GDOR", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -313,16 +323,6 @@ namespace BrawlCrate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap GITM {
-            get {
-                object obj = ResourceManager.GetObject("GITM", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap GIB2 {
             get {
                 object obj = ResourceManager.GetObject("GIB2", resourceCulture);
@@ -333,9 +333,9 @@ namespace BrawlCrate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap GCAM {
+        public static System.Drawing.Bitmap GITM {
             get {
-                object obj = ResourceManager.GetObject("GCAM", resourceCulture);
+                object obj = ResourceManager.GetObject("GITM", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -376,6 +376,16 @@ namespace BrawlCrate.Properties {
         public static System.Drawing.Bitmap GSND {
             get {
                 object obj = ResourceManager.GetObject("GSND", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap GWAT {
+            get {
+                object obj = ResourceManager.GetObject("GWAT", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

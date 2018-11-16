@@ -98,6 +98,8 @@ namespace BrawlCrate
         [STAThread]
         public static void Main(string[] args)
         {
+            SplashForm s = new SplashForm();
+            s.Show();
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.exe"))
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.exe");
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe"))
@@ -151,6 +153,7 @@ namespace BrawlCrate
                     });
                 }
 #endif
+                s.Close();
                 Application.Run(MainForm.Instance);
             }
             catch (FileNotFoundException x)
