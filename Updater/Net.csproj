@@ -141,11 +141,11 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UI\DLProgressTracker.cs" />
-    <Compile Include="UI\ProgressWindow.cs">
+    <Compile Include="UI\DLProgressWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ProgressWindow.designer.cs">
-      <DependentUpon>ProgressWindow.cs</DependentUpon>
+    <Compile Include="UI\DLProgressWindow.designer.cs">
+      <DependentUpon>DLProgressWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -153,8 +153,8 @@
     <Content Include="Octokit.dll" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UI\ProgressWindow.resx">
-      <DependentUpon>ProgressWindow.cs</DependentUpon>
+    <EmbeddedResource Include="UI\DLProgressWindow.resx">
+      <DependentUpon>DLProgressWindow.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

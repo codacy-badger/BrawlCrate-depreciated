@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System.ComponentModel;
+using System.Threading;
+using System.Net;
 
 namespace System.Windows.Forms
 {
@@ -7,22 +9,32 @@ namespace System.Windows.Forms
         private bool _canCancel = false, _cancelled = false;
         public bool CanCancel { get { return _canCancel; } set { btnCancel.Visible = btnCancel.Enabled = _canCancel = value; } }
         public string Caption { get { return label1.Text; } set { label1.Text = value; } }
-
+        public static bool started = false;
+        public static bool finished = false;
+        public string Version;
         public DLProgressWindow() { InitializeComponent(); }
-        public DLProgressWindow(Form owner, string title, string caption, bool canCancel) : this()
+        //private Control controlOwner;
+        public DLProgressWindow(Control owner, string version, string appPath, string dlLink) : this()
         {
-            Owner = owner;
-            Text = title; 
-            Caption = caption;
-            CanCancel = canCancel; 
-        }
-        private Control controlOwner;
-        public DLProgressWindow(Control owner, string title, string caption, bool canCancel) : this()
-        {
-            controlOwner = owner;
-            Text = title;
-            Caption = caption;
-            CanCancel = canCancel;
+            //controlOwner = owner;
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
+            Version = version;
+            Text = "Downloading Update";
+            Caption = "Downloading " + Version + ": ";
+            CanCancel = false;
+            started = false;
+            finished = false;
+            MinValue = 0;
+            progressBar1.MinValue = 0;
+            CurrentValue = 0;
+            MaxValue = 1;
+            //MessageBox.Show(version + '\n' + appPath + '\n' + dlLink);
+            startDownload(appPath, dlLink);
+            Thread.Sleep(50);
+            Update(0);
+            Show();
+            while (!finished)
+                Update(0);
         }
 
         private void btnCancel_Click(object sender, EventArgs e) { Cancel(); }
@@ -48,7 +60,9 @@ namespace System.Windows.Forms
         }
         public void Update(float value)
         {
-            progressBar1.CurrentValue = value;
+            progressBar1.CurrentValue = CurrentValue;
+            progressBar1.MaxValue = MaxValue;
+            Caption = "Downloading " + Version + ": " + (CurrentValue / 1048576.0).ToString("0.##") + "MB of " + (MaxValue / 1048576.0).ToString("0.##") + "MB";
             Application.DoEvents();
             Thread.Sleep(0);
         }
@@ -56,13 +70,56 @@ namespace System.Windows.Forms
         {
             if (Owner != null)
                 Owner.Enabled = true;
-
-            Close();
+            
+        }
+        private void startDownload(string AppPath, string dlLink)
+        {
+            Thread thread = new Thread(() =>
+            {
+                try
+                {
+                    using (WebClient client = new WebClient())
+                    {
+                        client.Headers.Add("User-Agent: Other");
+                        client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                        client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                        client.DownloadFileAsync(new Uri(dlLink), (AppPath + "\\temp.exe"));
+                        Application.DoEvents();
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("ERROR: " + e);
+                }
+            });
+            thread.Start();
+        }
+        private bool lockUpdate = false;
+        void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            this.BeginInvoke((MethodInvoker)delegate
+            {
+                if (MaxValue == 1)
+                {
+                    MaxValue = float.Parse(e.TotalBytesToReceive.ToString());
+                    started = true;
+                }
+                CurrentValue = float.Parse(e.BytesReceived.ToString());
+            });
+        }
+        void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            this.BeginInvoke((MethodInvoker)delegate
+            {
+                Caption = "Completed";
+                Thread.Sleep(10);
+                finished = true;
+            });
         }
         public void Cancel() { _cancelled = true; }
-        public float MinValue { get { return progressBar1.MinValue; } set { progressBar1.MinValue = value; } }
-        public float MaxValue { get { return progressBar1.MaxValue; } set { progressBar1.MaxValue = value; } }
-        public float CurrentValue { get { return progressBar1.CurrentValue; } set { progressBar1.CurrentValue = value; } }
+        public static float MinValue = 0;
+        public static float MaxValue = 1;
+        public static float CurrentValue = 0;
         public bool Cancelled { get { return _cancelled; } set { _cancelled = true; } }
     }
 }

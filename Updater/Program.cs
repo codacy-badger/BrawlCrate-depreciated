@@ -79,12 +79,21 @@ namespace Net
                 // The browser download link to the self extracting archive, hosted on github
                 string URL = html.Substring(html.IndexOf(BaseURL)).TrimEnd(new char[] { '}', '"' });
 
-                Console.WriteLine("\nDownloading");
-                client.DownloadFile(URL, AppPath + "/temp.exe");
-                Console.WriteLine("\nSuccess!");
+                //client.DownloadFile(URL, AppPath + "/temp.exe");
+                DLProgressWindow.finished = false;
+                DLProgressWindow dlTrack = new DLProgressWindow(null, releases[0].Name, AppPath, URL);
+                while (!DLProgressWindow.finished)
+                {
+                    // do nothing
+                }
+                dlTrack.Close();
+                dlTrack.Dispose();
+                if(!File.Exists(AppPath + "/temp.exe"))
+                {
+                    MessageBox.Show("Error downloading update");
+                    return;
+                }
 
-                Console.Clear();
-                Console.WriteLine("Starting install");
 
                 // Case 1: Wine (Batch files won't work, use old methodology) or documentation update
                 if (Process.GetProcessesByName("winlogon").Count<Process>() == 0 || Documentation || !Overwrite)

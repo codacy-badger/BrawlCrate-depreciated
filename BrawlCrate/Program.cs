@@ -15,7 +15,7 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.16Hotfix1";
+        public static readonly string TagName = "BrawlCrate_v0.17";
         public static readonly string UpdateMessage = "Updated to BrawlCrate v0.16 Hotfix 1! This release:\n" +
             "\n- Improves DAE import/export" +
             "\n- Moves issue reporter to https://github.com/BrawlCrate/BrawlCrateIssues/issues" +
