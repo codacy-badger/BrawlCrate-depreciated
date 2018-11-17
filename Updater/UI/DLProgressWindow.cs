@@ -33,6 +33,7 @@ namespace System.Windows.Forms
             Thread.Sleep(50);
             Update(0);
             Show();
+            Focus();
             while (!finished)
                 Update(0);
         }
@@ -62,7 +63,8 @@ namespace System.Windows.Forms
         {
             progressBar1.CurrentValue = CurrentValue;
             progressBar1.MaxValue = MaxValue;
-            Caption = "Downloading " + Version + ": " + (CurrentValue / 1048576.0).ToString("0.##") + "MB of " + (MaxValue / 1048576.0).ToString("0.##") + "MB";
+            if (!Caption.Equals("Download Completed"))
+                Caption = "Downloading " + Version + ": " + (CurrentValue / 1048576.0).ToString("0.##") + "MB of " + (MaxValue / 1048576.0).ToString("0.##") + "MB";
             Application.DoEvents();
             Thread.Sleep(0);
         }
@@ -111,7 +113,7 @@ namespace System.Windows.Forms
         {
             this.BeginInvoke((MethodInvoker)delegate
             {
-                Caption = "Completed";
+                Caption = "Download Completed";
                 Thread.Sleep(10);
                 finished = true;
             });

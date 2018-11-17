@@ -100,6 +100,7 @@ namespace BrawlCrate
         {
             SplashForm s = new SplashForm();
             s.Show();
+            s.Focus();
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.exe"))
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.exe");
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe"))
