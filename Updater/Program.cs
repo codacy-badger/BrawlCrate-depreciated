@@ -55,9 +55,29 @@ namespace Net
             else if(!Documentation)
             {
                 //Find and close the BrawlCrate application that will be overwritten
-                Process[] px =  Process.GetProcessesByName("BrawlCrate");
-                Process p = px.FirstOrDefault(x => x.MainModule.FileName.StartsWith(AppPath));
-                if(p != null && p != default(Process) && Automatic)
+                TRY_AGAIN:
+                Process[] px = Process.GetProcessesByName("BrawlCrate");
+                Process[] pToClose = px.Where(x => x.MainModule.FileName.Equals(AppPath + "\\BrawlCrate.exe")).ToArray();
+                Process p = px.FirstOrDefault(x => x.MainModule.FileName.Equals(AppPath + "\\BrawlCrate.exe"));
+                if (p != null && p != default(Process) && px != null && pToClose != null && pToClose.Length > 1)
+                {
+                    DialogResult continueUpdate = MessageBox.Show("Update cannot proceed unless all open windows of " + AppPath + "\\BrawlCrate.exe are closed. Would you like to force close all open BrawlCrate windows at this time?\n\nSelect \"Yes\" if you would like to force close all open BrawlCrate windows\nSelect \"No\" after closing all windows manually if you would like to proceed without force closing\nSelect \"Cancel\" if you would like to wait to update until another time", "Updating to " + release.Name, MessageBoxButtons.YesNoCancel);
+                    if (continueUpdate == DialogResult.Yes)
+                    {
+                        foreach (Process pNext in pToClose)
+                            p.Kill();
+                        goto TRY_AGAIN;
+                    }
+                    else if (continueUpdate == DialogResult.No)
+                    {
+                        goto TRY_AGAIN;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                else if (p != null && p != default(Process) && Automatic)
                 {
                     p.Kill();
                 }
