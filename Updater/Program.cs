@@ -33,26 +33,7 @@ namespace Net
             using (Ping s = new Ping())
                 Console.WriteLine(s.Send("www.github.com").Status);
 
-            // Initiate the github client.
-            GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate"));
-
-            // get repo, Release, and release assets
-            Repository repo = await github.Repository.Get("soopercool101", "BrawlCrate");
-            IReadOnlyList<Release> releases = await github.Release.GetAll("soopercool101", "BrawlCrate");
-            if (!Documentation)
-                releases = releases.Where(r => !r.Prerelease).ToList();
-            else
-                releases = releases.Where(r => r.Prerelease).ToList();
-            Release release = releases[0];
-            ReleaseAsset Asset = (await github.Release.GetAssets("soopercool101", repo.Name, release.Id))[0];
-
-            // Check if we were passed in the overwrite paramter, and if not create a new folder to extract in.
-            if (!Overwrite)
-            {
-                Directory.CreateDirectory(AppPath + "/" + release.TagName);
-                AppPath += "/" + release.TagName;
-            }
-            else if(!Documentation)
+            if (Overwrite && !Documentation)
             {
                 //Find and close the BrawlCrate application that will be overwritten
                 TRY_AGAIN:
@@ -61,7 +42,7 @@ namespace Net
                 Process p = px.FirstOrDefault(x => x.MainModule.FileName.Equals(AppPath + "\\BrawlCrate.exe"));
                 if (p != null && p != default(Process) && px != null && pToClose != null && pToClose.Length > 1)
                 {
-                    DialogResult continueUpdate = MessageBox.Show("Update cannot proceed unless all open windows of " + AppPath + "\\BrawlCrate.exe are closed. Would you like to force close all open BrawlCrate windows at this time?\n\nSelect \"Yes\" if you would like to force close all open BrawlCrate windows\nSelect \"No\" after closing all windows manually if you would like to proceed without force closing\nSelect \"Cancel\" if you would like to wait to update until another time", "Updating to " + release.Name, MessageBoxButtons.YesNoCancel);
+                    DialogResult continueUpdate = MessageBox.Show("Update cannot proceed unless all open windows of " + AppPath + "\\BrawlCrate.exe are closed. Would you like to force close all open BrawlCrate windows at this time?\n\nSelect \"Yes\" if you would like to force close all open BrawlCrate windows\nSelect \"No\" after closing all windows manually if you would like to proceed without force closing\nSelect \"Cancel\" if you would like to wait to update until another time", "BrawlCrate Updater", MessageBoxButtons.YesNoCancel);
                     if (continueUpdate == DialogResult.Yes)
                     {
                         foreach (Process pNext in pToClose)
@@ -86,6 +67,26 @@ namespace Net
                     p.WaitForExit();
                     p.Close();
                 }
+            }
+
+            // Initiate the github client.
+            GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate"));
+
+            // get repo, Release, and release assets
+            Repository repo = await github.Repository.Get("soopercool101", "BrawlCrate");
+            IReadOnlyList<Release> releases = await github.Release.GetAll("soopercool101", "BrawlCrate");
+            if (!Documentation)
+                releases = releases.Where(r => !r.Prerelease).ToList();
+            else
+                releases = releases.Where(r => r.Prerelease).ToList();
+            Release release = releases[0];
+            ReleaseAsset Asset = (await github.Release.GetAssets("soopercool101", repo.Name, release.Id))[0];
+
+            // Check if we were passed in the overwrite paramter, and if not create a new folder to extract in.
+            if (!Overwrite)
+            {
+                Directory.CreateDirectory(AppPath + "/" + release.TagName);
+                AppPath += "/" + release.TagName;
             }
 
             using (WebClient client = new WebClient())
