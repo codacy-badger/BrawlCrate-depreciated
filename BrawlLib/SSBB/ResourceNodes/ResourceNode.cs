@@ -618,7 +618,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                     Export(stream);
 #if !DEBUG
             }
-            catch { MessageBox.Show("Unable to open file for write access."); }
+            catch { MessageBox.Show("Unable to open file for write access."); SignalPropertyChange(); }
 #endif
         }
 
@@ -642,7 +642,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 using (FileStream stream = new FileStream(outPath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None, 8, FileOptions.SequentialScan))
                     ExportUncompressed(stream);
             }
-            catch { MessageBox.Show("Unable to open file for write access."); }
+            catch { MessageBox.Show("Unable to open file for write access."); SignalPropertyChange(); }
         }
         public void ExportUncompressed(FileStream outStream)
         {

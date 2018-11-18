@@ -345,8 +345,8 @@ namespace BrawlCrate
                 }
 
                 _rootNode.Merge(force);
-                _rootNode.Export(_rootPath);
                 _rootNode.IsDirty = false;
+                _rootNode.Export(_rootPath);
 
                 if (restoreHex)
                 {
@@ -468,12 +468,12 @@ namespace BrawlCrate
                     }
 
                     GenericWrapper w = MainForm.Instance.RootNode as GenericWrapper;
+                    w.ResourceNode.IsDirty = false;
                     string path = w.Export();
                     if (path != null)
                     {
                         _rootPath = path;
                         MainForm.Instance.UpdateName();
-                        w.ResourceNode.IsDirty = false;
 
                         if (restoreHex)
                         {
@@ -483,9 +483,14 @@ namespace BrawlCrate
                         }
                         return true;
                     }
+                    else
+                    {
+                        w.ResourceNode.IsDirty = true;
+                        return false;
+                    }
                 #if !DEBUG
                 }
-                catch (Exception x) { Say(x.Message); }
+                catch (Exception x) { Say(x.Message); _rootNode.SignalPropertyChange(); }
                 //finally { }
                 #endif
             }
