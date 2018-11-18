@@ -168,7 +168,17 @@ namespace BrawlCrate
                     throw x;
                 }
             }
-            finally { Generate1to1Stages.clearTmpDir(Generate1to1Stages.tmpDirectory); Close(true); }
+            finally {
+                try
+                {
+                    Generate1to1Stages.clearTmpDir(Generate1to1Stages.tmpDirectory);
+                }
+                catch
+                {
+
+                }
+                Close(true);
+            }
         }
 
         public static void Say(string msg)
