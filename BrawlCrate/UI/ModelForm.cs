@@ -99,6 +99,12 @@ namespace BrawlCrate
                 if (((ARCNode)((ARCWrapper)MainForm.Instance.RootNode).ResourceNode).IsStage)
                     isStage = true;
 
+            bool isCharacter = false;
+            if (MainForm.Instance.RootNode is ARCWrapper)
+                if (((ARCNode)((ARCWrapper)MainForm.Instance.RootNode).ResourceNode).IsCharacter)
+                    isCharacter = true;
+            modelEditControl1.RenderFloor = isCharacter;
+            modelEditControl1.ModelPanel.RenderFloor = isCharacter;
             ModelEditorSettings viewerSettings = settings.ViewerSettingsSet ? settings.ViewerSettings : ModelEditorSettings.Default(isStage);
 
             if(settings.ViewerSettingsSet)
