@@ -609,8 +609,7 @@
     <PostBuildEvent Condition=" '$(OS)' != 'Unix' ">%25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(ConfigurationName)\Updater.exe" "$(TargetDir)" /Y /I</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>del $(SolutionDir)NightlyBuild\$(TargetName)Nightly.exe
-if $(ConfigurationName) == Release (
+    <PreBuildEvent>if $(ConfigurationName) == Release (
   RD /S /Q "$(TargetDir)"
 )
 if $(ConfigurationName) == Documentation (
@@ -621,30 +620,30 @@ if $(ConfigurationName) == Documentation (
     <PostBuildEvent>cd $(TargetDir)
 del Octokit.dll
 del updater.exe
-del OpenTK.pdb
-del OpenTK.xml
 %25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Octokit.dll" "$(TargetDir)" /Y /I
 %25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Updater.exe" "$(TargetDir)" /Y /I
 if $(ConfigurationName) == Documentation (
   del BrawlCrate.exe.config
   del BrawlCrate.pdb
   del BrawlLib.pdb
-  "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName)Nightly.exe
-  %25windir%25\system32\xcopy "$(TargetDir)$(TargetName)Nightly.exe" "$(SolutionDir)NightlyBuild\" /Y /I
-  del $(TargetName)Nightly.exe
   del Octokit.dll
   del updater.exe
   del BrawlLib.dll
   del OpenTK.dll
+  del OpenTK.pdb
+  del OpenTK.xml
   del BrawlCrate.exe
   del Changelog.txt
   RD /S /Q "$(TargetDir)CustomLists\"
   "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a Documentation.v@(VersionNumber).exe
 )
 if $(ConfigurationName) == Release (
+  del $(SolutionDir)NightlyBuild\$(TargetName)Nightly.exe
   del BrawlCrate.exe.config
   del BrawlCrate.pdb
   del BrawlLib.pdb
+  del OpenTK.pdb
+  del OpenTK.xml
   "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName)Nightly.exe
   %25windir%25\system32\xcopy "$(TargetDir)$(TargetName)Nightly.exe" "$(SolutionDir)NightlyBuild\" /Y /I
   del $(TargetName)Nightly.exe
