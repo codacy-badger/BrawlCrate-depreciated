@@ -42,7 +42,10 @@ namespace Net
                 Process p = px.FirstOrDefault(x => x.MainModule.FileName.Equals(AppPath + "\\BrawlCrate.exe"));
                 if (p != null && p != default(Process) && px != null && pToClose != null && pToClose.Length > 1)
                 {
-                    DialogResult continueUpdate = MessageBox.Show("Update cannot proceed unless all open windows of " + AppPath + "\\BrawlCrate.exe are closed. Would you like to force close all open BrawlCrate windows at this time?\n\nSelect \"Yes\" if you would like to force close all open BrawlCrate windows\nSelect \"No\" after closing all windows manually if you would like to proceed without force closing\nSelect \"Cancel\" if you would like to wait to update until another time", "BrawlCrate Updater", MessageBoxButtons.YesNoCancel);
+                    DialogResult continueUpdate = MessageBox.Show("Update cannot proceed unless all open windows of " + AppPath + "\\BrawlCrate.exe are closed. Would you like to force close all open BrawlCrate windows at this time?\n\n" +
+                        "Select \"Yes\" if you would like to force close all open BrawlCrate windows\n" +
+                        "Select \"No\" after closing all windows manually if you would like to proceed without force closing\n" +
+                        "Select \"Cancel\" if you would like to wait to update until another time", "BrawlCrate Updater", MessageBoxButtons.YesNoCancel);
                     if (continueUpdate == DialogResult.Yes)
                     {
                         foreach (Process pNext in pToClose)
