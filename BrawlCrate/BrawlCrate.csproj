@@ -152,6 +152,39 @@
     <Prefer32Bit>true</Prefer32Bit>
     <DefineConstants>DEBUG</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Prerelease|x86'">
+    <OutputPath>bin\Prerelease\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Prerelease|AnyCPU'">
+    <OutputPath>bin\Prerelease\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Prerelease|x64'">
+    <OutputPath>bin\x64\Prerelease\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="OpenTK, Version=3.0.1.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenTK.3.0.1\lib\net20\OpenTK.dll</HintPath>
@@ -579,6 +612,10 @@
     <PreBuildEvent>if $(ConfigurationName) == Release (
   RD /S /Q "$(TargetDir)"
 )
+if $(ConfigurationName) == Prerelease (
+  del C:\git\BrawlCrateNightly\BrawlCrateNightly.exe
+  RD /S /Q "$(TargetDir)"
+)
 if $(ConfigurationName) == Documentation (
   RD /S /Q "$(TargetDir)"
 )</PreBuildEvent>
@@ -609,6 +646,13 @@ if $(ConfigurationName) == Release (
   del BrawlCrate.pdb
   del BrawlLib.pdb
   "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName).v@(VersionNumber).exe
+)
+if $(ConfigurationName) == Prerelease (
+  del BrawlCrate.exe.config
+  del BrawlCrate.pdb
+  del BrawlLib.pdb
+  "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName)Nightly.exe
+  %25windir%25\system32\xcopy "$(TargetDir)$(TargetName)Nightly.exe" "C:\git\BrawlCrateNightly\" /Y /I
 )</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
