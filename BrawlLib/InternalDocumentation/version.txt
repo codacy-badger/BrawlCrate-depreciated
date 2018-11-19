@@ -1,10 +1,13 @@
-﻿Documentation_v0.14.3
+﻿Documentation_v0.17.0
 
  =============================================================
 |************ BrawlCrate Documentation Change Log ************|
  =============================================================
  
- Current BrawlCrate Documentation contributors: soopercool101, Syvkal
+ Current BrawlCrate Documentation contributors: soopercool101, Syvkal, MarioDox
+ 
+ - Documentation v0.17.0 - (11/19/2018)
+ . Added module annotations for Hanenbow Section [1]
  
  - Documentation v0.14.3 - (10/28/2018)
  . Added module annotations for Mario Bros. Section [1]
