@@ -100,7 +100,7 @@ namespace System.Windows.Forms
             if (String.IsNullOrEmpty(txtDescription.Text))
             {
                 txtDescription.ForeColor = Color.Gray;
-                txtDescription.Text = "Explain in detail what you were doing that caused the bug, reproducable steps or links to files that were worked on is appreciated. This will be posted publicly at https://github.com/BrawlCrate/BrawlCrateIssues/issues, so do not put any personal information here. It may be beneficial to you to sign your report with a username unless you wish to stay anonymous. It is also very helpful to report the issue on our Discord at https://discord.gg/s7c8763";
+                txtDescription.Text = "Explain in detail what you were doing that caused the bug. Reproducable steps and/or links to files that were worked on will make the bug much easier to fix. This will be posted publicly at https://github.com/BrawlCrate/BrawlCrateIssues/issues, so do not put any personal information here. It may be beneficial to you to sign your report with a username unless you wish to stay anonymous. It is also very helpful to report the issue on our Discord at https://discord.gg/s7c8763";
             }
         }
 
