@@ -185,6 +185,36 @@
   <PropertyGroup>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'TestRelease|x86'">
+    <OutputPath>bin\TestRelease\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'TestRelease|AnyCPU'">
+    <OutputPath>bin\TestRelease\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'TestRelease|x64'">
+    <OutputPath>bin\x64\TestRelease\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="OpenTK, Version=3.0.1.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenTK.3.0.1\lib\net20\OpenTK.dll</HintPath>
@@ -612,6 +642,9 @@
     <PreBuildEvent>if $(ConfigurationName) == Release (
   RD /S /Q "$(TargetDir)"
 )
+if $(ConfigurationName) == TestRelease (
+  RD /S /Q "$(TargetDir)"
+)
 if $(ConfigurationName) == Documentation (
   RD /S /Q "$(TargetDir)"
 )</PreBuildEvent>
@@ -636,6 +669,16 @@ if $(ConfigurationName) == Documentation (
   del Changelog.txt
   RD /S /Q "$(TargetDir)CustomLists\"
   "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a Documentation.v@(VersionNumber).exe
+)
+if $(ConfigurationName) == TestRelease (
+  del $(SolutionDir)NightlyBuild\$(TargetName)Nightly.exe
+  del BrawlCrate.exe.config
+  del BrawlCrate.pdb
+  del BrawlLib.pdb
+  del OpenTK.pdb
+  del OpenTK.xml
+  "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName)Nightly.exe
+  %25windir%25\system32\xcopy "$(TargetDir)$(TargetName)Nightly.exe" "$(SolutionDir)NightlyBuild\" /Y /I
 )
 if $(ConfigurationName) == Release (
   del $(SolutionDir)NightlyBuild\$(TargetName)Nightly.exe
