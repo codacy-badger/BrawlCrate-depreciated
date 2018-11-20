@@ -496,7 +496,13 @@ namespace Net
                         MessageBox.Show("Error downloading update");
                         return;
                     }
-
+                    DirectoryInfo nightlyDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Nightly");
+                    nightlyDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                    string Filename = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Nightly" + '\\' + "New";
+                    string oldName = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Nightly" + '\\' + "Old";
+                    if (File.Exists(Filename))
+                        File.Move(Filename, oldName);
+                    await WriteNightlyTime();
                     // Case 1: Wine (Batch files won't work, use old methodology)
                     if (Process.GetProcessesByName("winlogon").Count<Process>() == 0)
                     {
