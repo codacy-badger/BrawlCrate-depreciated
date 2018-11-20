@@ -59,7 +59,7 @@ namespace Net
                         DialogResult continueUpdate = MessageBox.Show("Update cannot proceed unless all open windows of " + AppPath + "\\BrawlCrate.exe are closed. Would you like to force close all open BrawlCrate windows at this time?\n\n" +
                             "Select \"Yes\" if you would like to force close all open BrawlCrate windows\n" +
                             "Select \"No\" after closing all windows manually if you would like to proceed without force closing\n" +
-                            "Select \"Cancel\" if you would like to wait to update until another time", "BrawlCrate Updater", MessageBoxButtons.YesNoCancel);
+                            "Select \"Cancel\" if you would like to wait to update until another time", releases[0].Name + " Update", MessageBoxButtons.YesNoCancel);
                         if (continueUpdate == DialogResult.Yes)
                         {
                             foreach (Process pNext in pToClose)
