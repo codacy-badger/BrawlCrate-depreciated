@@ -302,6 +302,225 @@ namespace Net
                     MessageBox.Show(e.Message);
             }
         }
+
+        public static async Task ForceDownloadRelease(string openFile)
+        {
+            try
+            {
+                if (AppPath.EndsWith("lib", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    AppPath = AppPath.Substring(0, AppPath.Length - 4);
+                }
+
+                // check to see if the user is online, and that github is up and running.
+                Console.WriteLine("Checking connection to server.");
+                using (Ping s = new Ping())
+                    Console.WriteLine(s.Send("www.github.com").Status);
+
+                // Initiate the github client.
+                GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate"));
+
+                // get Release
+                IReadOnlyList<Release> releases = await github.Repository.Release.GetAll("soopercool101", "BrawlCrate");
+                releases = releases.Where(r => !r.Prerelease).ToList();
+                Release release = releases[0];
+                // Get Release Assets
+                ReleaseAsset Asset = (await github.Repository.Release.GetAllAssets("soopercool101", "BrawlCrate", release.Id))[0];
+                if (Asset == null)
+                    return;
+
+                //Find and close the BrawlCrate application that will be overwritten
+                TRY_AGAIN:
+                Process[] px = Process.GetProcessesByName("BrawlCrate");
+                Process[] pToClose = px.Where(x => x.MainModule.FileName.Equals(AppPath + "\\BrawlCrate.exe")).ToArray();
+                Process p = px.FirstOrDefault(x => x.MainModule.FileName.Equals(AppPath + "\\BrawlCrate.exe"));
+                if (p != null && p != default(Process) && px != null && pToClose != null && pToClose.Length > 1)
+                {
+                    DialogResult continueUpdate = MessageBox.Show("Update cannot proceed unless all open windows of " + AppPath + "\\BrawlCrate.exe are closed. Would you like to force close all open BrawlCrate windows at this time?\n\n" +
+                        "Select \"Yes\" if you would like to force close all open BrawlCrate windows\n" +
+                        "Select \"No\" after closing all windows manually if you would like to proceed without force closing\n" +
+                        "Select \"Cancel\" if you would like to wait to update until another time", releases[0].Name + " Update", MessageBoxButtons.YesNoCancel);
+                    if (continueUpdate == DialogResult.Yes)
+                    {
+                        foreach (Process pNext in pToClose)
+                            p.Kill();
+                        goto TRY_AGAIN;
+                    }
+                    else if (continueUpdate == DialogResult.No)
+                    {
+                        goto TRY_AGAIN;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                else if (p != null && p != default(Process))
+                {
+                    p.Kill();
+                }
+
+                using (WebClient client = new WebClient())
+                {
+                    // Add the user agent header, otherwise we will get access denied.
+                    client.Headers.Add("User-Agent: Other");
+
+                    // Full asset streamed into a single string
+                    string html = client.DownloadString(Asset.Url);
+
+                    // The browser download link to the self extracting archive, hosted on github
+                    string URL = html.Substring(html.IndexOf(BaseURL)).TrimEnd(new char[] { '}', '"' });
+
+                    //client.DownloadFile(URL, AppPath + "/temp.exe");
+                    DLProgressWindow.finished = false;
+                    DLProgressWindow dlTrack = new DLProgressWindow(null, releases[0].Name, AppPath, URL);
+                    while (!DLProgressWindow.finished)
+                    {
+                        // do nothing
+                    }
+                    dlTrack.Close();
+                    dlTrack.Dispose();
+                    if (!File.Exists(AppPath + "/temp.exe"))
+                    {
+                        MessageBox.Show("Error downloading update");
+                        return;
+                    }
+                    
+                    // Case 1: Wine (Batch files won't work, use old methodology)
+                    if (Process.GetProcessesByName("winlogon").Count<Process>() == 0)
+                    {
+                        try
+                        {
+                            Process update = Process.Start(AppPath + "/temp.exe", "-o\"" + AppPath + "\"" + " -y");
+                        }
+                        catch (Exception e)
+                        {
+                            MessageBox.Show("Error: " + e.Message);
+                        }
+                        return;
+                    }
+                    // Case 2: Windows (use a batch file to ensure a consistent experience)
+                    if (File.Exists(AppPath + "/Update.bat"))
+                        File.Delete(AppPath + "/Update.bat");
+                    using (var sw = new StreamWriter(AppPath + "/Update.bat"))
+                    {
+                        sw.WriteLine("CD /d " + AppPath);
+                        sw.WriteLine("START /wait temp.exe -y");
+                        sw.WriteLine("del temp.exe /s /f /q");
+                        sw.Write("START BrawlCrate.exe " + openFile != null ? openFile : "<null>" + " -Stable");
+                    }
+                    Process updateBat = Process.Start(AppPath + "/Update.bat");
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return;
+            }
+        }
+
+        public static async Task ForceDownloadNightly(string commitID = null, string openFile = null)
+        {
+            try
+            {
+                if (AppPath.EndsWith("lib", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    AppPath = AppPath.Substring(0, AppPath.Length - 4);
+                }
+
+                // check to see if the user is online, and that github is up and running.
+                Console.WriteLine("Checking connection to server.");
+                using (Ping s = new Ping())
+                    Console.WriteLine(s.Send("www.github.com").Status);
+
+                //Find and close the BrawlCrate application that will be overwritten
+                TRY_AGAIN:
+                Process[] px = Process.GetProcessesByName("BrawlCrate");
+                Process[] pToClose = px.Where(x => x.MainModule.FileName.Equals(AppPath + "\\BrawlCrate.exe")).ToArray();
+                Process p = px.FirstOrDefault(x => x.MainModule.FileName.Equals(AppPath + "\\BrawlCrate.exe"));
+                if (p != null && p != default(Process) && px != null && pToClose != null && pToClose.Length > 1)
+                {
+                    DialogResult continueUpdate = MessageBox.Show("Update cannot proceed unless all open windows of " + AppPath + "\\BrawlCrate.exe are closed. Would you like to force close all open BrawlCrate windows at this time?\n\n" +
+                        "Select \"Yes\" if you would like to force close all open BrawlCrate windows\n" +
+                        "Select \"No\" after closing all windows manually if you would like to proceed without force closing\n" +
+                        "Select \"Cancel\" if you would like to wait to update until another time", "Nightly Update", MessageBoxButtons.YesNoCancel);
+                    if (continueUpdate == DialogResult.Yes)
+                    {
+                        foreach (Process pNext in pToClose)
+                            p.Kill();
+                        goto TRY_AGAIN;
+                    }
+                    else if (continueUpdate == DialogResult.No)
+                    {
+                        goto TRY_AGAIN;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                else if (p != null && p != default(Process))
+                {
+                    p.Kill();
+                }
+
+                using (WebClient client = new WebClient())
+                {
+                    // Add the user agent header, otherwise we will get access denied.
+                    client.Headers.Add("User-Agent: Other");
+
+                    // The browser download link to the self extracting archive, hosted on github
+                    string URL = "https://github.com/soopercool101/BrawlCrate/raw/brawlcrate-master/NightlyBuild/BrawlCrateNightly.exe";
+
+                    //client.DownloadFile(URL, AppPath + "/temp.exe");
+                    DLProgressWindow.finished = false;
+                    DLProgressWindow dlTrack = new DLProgressWindow(null, commitID == null ? "BrawlCrate Nightly Build" : commitID, AppPath, URL);
+                    while (!DLProgressWindow.finished)
+                    {
+                        // do nothing
+                    }
+                    dlTrack.Close();
+                    dlTrack.Dispose();
+                    if (!File.Exists(AppPath + "/temp.exe"))
+                    {
+                        MessageBox.Show("Error downloading update");
+                        return;
+                    }
+
+                    // Case 1: Wine (Batch files won't work, use old methodology)
+                    if (Process.GetProcessesByName("winlogon").Count<Process>() == 0)
+                    {
+                        try
+                        {
+                            Process update = Process.Start(AppPath + "/temp.exe", "-o\"" + AppPath + "\"" + " -y");
+                        }
+                        catch (Exception e)
+                        {
+                            MessageBox.Show("Error: " + e.Message);
+                        }
+                        return;
+                    }
+                    // Case 2: Windows (use a batch file to ensure a consistent experience)
+                    if (File.Exists(AppPath + "/Update.bat"))
+                        File.Delete(AppPath + "/Update.bat");
+                    using (var sw = new StreamWriter(AppPath + "/Update.bat"))
+                    {
+                        sw.WriteLine("CD /d " + AppPath);
+                        sw.WriteLine("START /wait temp.exe -y");
+                        sw.WriteLine("del temp.exe /s /f /q");
+                        sw.Write("START BrawlCrate.exe " + openFile != null ? openFile : "<null>" + " -Nightly");
+                    }
+                    Process updateBat = Process.Start(AppPath + "/Update.bat");
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return;
+            }
+        }
+
+        //public static async Task ForceDownloadDocumentation() { }
     }
 
     public static class BugSquish
