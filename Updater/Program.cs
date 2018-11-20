@@ -429,7 +429,7 @@ namespace Net
             }
         }
 
-        public static async Task CheckNightlyUpdate(bool manual, string openFile)
+        public static async Task CheckNightlyUpdate(string openFile, bool manual = true)
         {
             try
             {
