@@ -1,7 +1,7 @@
 BrawlLib / BrawlCrate
 ==========
 
-BrawlCrate is a BrawlBox v0.77 fork developed by soopercool101 and MarioDox.
+BrawlCrate is a BrawlBox v0.77 fork and alternative.
 
 BrawlBox and BrawlLib were developed initially by Kryal
 (http://code.google.com/p/brawltools/source/list), then by BlackJax96
