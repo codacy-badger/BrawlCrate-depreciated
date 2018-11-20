@@ -454,7 +454,7 @@ namespace Net
                         MessageBox.Show("No updates found.");
                     return;
                 }
-                await ForceDownloadNightly(openFile, result.Sha.ToString());
+                await ForceDownloadNightly(openFile, result.Sha.ToString().Substring(0, 7));
             }
             catch (Exception e)
             {
