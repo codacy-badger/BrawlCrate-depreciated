@@ -179,6 +179,7 @@ namespace Net
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 MessageBox.Show("ERROR: Documentation Version could not be found.");
                 return;
             }

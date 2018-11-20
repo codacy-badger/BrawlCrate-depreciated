@@ -96,7 +96,7 @@ namespace System.Windows.Forms
             });
             thread.Start();
         }
-        private bool lockUpdate = false;
+
         void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             this.BeginInvoke((MethodInvoker)delegate
