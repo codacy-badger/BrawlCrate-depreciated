@@ -520,7 +520,7 @@ namespace Net
 
                     //client.DownloadFile(URL, AppPath + "/temp.exe");
                     DLProgressWindow.finished = false;
-                    DLProgressWindow dlTrack = new DLProgressWindow(null, commitID == null ? "BrawlCrate Nightly Build" : commitID, AppPath, URL);
+                    DLProgressWindow dlTrack = new DLProgressWindow(null, commitID == null ? "BrawlCrate Nightly Build" : "BrawlCrate Nightly #" + commitID, AppPath, URL);
                     while (!DLProgressWindow.finished)
                     {
                         // do nothing
