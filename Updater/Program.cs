@@ -40,7 +40,6 @@ namespace Net
                 GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate"));
 
                 // get repo, Release, and release assets
-                Repository repo = await github.Repository.Get("soopercool101", "BrawlCrate");
                 IReadOnlyList<Release> releases = await github.Repository.Release.GetAll("soopercool101", "BrawlCrate");
                 if (!Documentation)
                     releases = releases.Where(r => !r.Prerelease).ToList();
@@ -87,7 +86,7 @@ namespace Net
                 }
 
                 Release release = releases[0];
-                ReleaseAsset Asset = (await github.Repository.Release.GetAllAssets("soopercool101", repo.Name, release.Id))[0];
+                ReleaseAsset Asset = (await github.Repository.Release.GetAllAssets("soopercool101", "BrawlCrate", release.Id))[0];
 
                 // Check if we were passed in the overwrite paramter, and if not create a new folder to extract in.
                 if (!Overwrite)
