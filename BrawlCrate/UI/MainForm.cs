@@ -17,8 +17,6 @@ namespace BrawlCrate
 {
     public partial class MainForm : Form
     {
-        public bool firstBoot = false;
-
         public bool renderPreviews = true;
 
         private static MainForm _instance;
@@ -55,33 +53,7 @@ namespace BrawlCrate
         public MainForm()
         {
             InitializeComponent();
-            firstBoot = false;
             Text = Program.AssemblyTitle;
-
-            if (BrawlCrate.Properties.Settings.Default.UpdateSettings)
-            {
-                foreach (var _Assembly in AppDomain.CurrentDomain.GetAssemblies())
-                {
-                    foreach (var _Type in _Assembly.GetTypes())
-                    {
-                        if (_Type.Name == "Settings" && typeof(SettingsBase).IsAssignableFrom(_Type))
-                        {
-                            var settings = (ApplicationSettingsBase)_Type.GetProperty("Default").GetValue(null, null);
-                            if (settings != null)
-                            {
-                                settings.Upgrade();
-                                settings.Reload();
-                                settings.Save();
-                            }
-                        }
-                    }
-                }
-                // This is the first time booting this update
-                firstBoot = true;
-                // Ensure settings only get updated once
-                BrawlCrate.Properties.Settings.Default.UpdateSettings = false;
-                BrawlCrate.Properties.Settings.Default.Save();
-            }
 
             _autoUpdate = BrawlCrate.Properties.Settings.Default.UpdateAutomatically;
             _displayPropertyDescription = BrawlCrate.Properties.Settings.Default.DisplayPropertyDescriptionWhenAvailable;

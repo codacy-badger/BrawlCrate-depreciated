@@ -109,6 +109,31 @@ namespace BrawlCrate
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.bat");
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "StageBox.exe"))
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "StageBox.exe");
+            bool firstBoot = false;
+            if (BrawlCrate.Properties.Settings.Default.UpdateSettings)
+            {
+                foreach (var _Assembly in AppDomain.CurrentDomain.GetAssemblies())
+                {
+                    foreach (var _Type in _Assembly.GetTypes())
+                    {
+                        if (_Type.Name == "Settings" && typeof(SettingsBase).IsAssignableFrom(_Type))
+                        {
+                            var settings = (ApplicationSettingsBase)_Type.GetProperty("Default").GetValue(null, null);
+                            if (settings != null)
+                            {
+                                settings.Upgrade();
+                                settings.Reload();
+                                settings.Save();
+                            }
+                        }
+                    }
+                }
+                // This is the first time booting this update
+                firstBoot = true;
+                // Ensure settings only get updated once
+                BrawlCrate.Properties.Settings.Default.UpdateSettings = false;
+                BrawlCrate.Properties.Settings.Default.Save();
+            }
 
             if (args.Length >= 1)
             {
@@ -146,7 +171,7 @@ namespace BrawlCrate
                 if (MainForm.Instance.CheckUpdatesOnStartup)
                     MainForm.Instance.CheckUpdates(false);
                 // Show changelog if this is the first time opening this release, and the message wasn't seen 
-                if (BrawlCrate.Properties.Settings.Default.UpdateAutomatically && MainForm.Instance.firstBoot)
+                if (BrawlCrate.Properties.Settings.Default.UpdateAutomatically && firstBoot)
                 {
                     Task.Factory.StartNew(() =>
                     {
