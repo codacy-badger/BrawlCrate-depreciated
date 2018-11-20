@@ -181,19 +181,10 @@ namespace Net
                 IReadOnlyList<Release> releases = null;
                 try
                 {
-                    releases = AllReleases.ToList();
-
-                    if (releases[0].TagName == releaseTag || releases[0].TagName == docVer)
-                    {
-                        if(manual)
-                            MessageBox.Show("No updates found.");
-                        return;
-                    }
-                    
                     // Remove all pre-release versions from the list (Prerelease versions are exclusively documentation updates)
                     releases = AllReleases.Where(r => !r.Prerelease).ToList();
 					
-					if (releases[0].TagName == releaseTag && !checkDocumentation)
+					if (releases[0].TagName == releaseTag && (!checkDocumentation || AllReleases[0].TagName == docVer))
                     {
                         if(manual)
                             MessageBox.Show("No updates found.");
