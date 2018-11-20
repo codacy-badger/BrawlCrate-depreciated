@@ -18,12 +18,20 @@ namespace Net
 {
     public static class Updater
     {
+        static byte[] _rawData =
+        {
+            0x34, 0x35, 0x31, 0x30, 0x34, 0x31, 0x62, 0x38, 0x65, 0x39, 0x32, 0x64, 0x37, 0x32, 0x66, 0x62, 0x63, 0x36,
+            0x38, 0x62, 0x63, 0x66, 0x61, 0x39, 0x36, 0x61, 0x32, 0x65, 0x30, 0x36, 0x64, 0x62, 0x61, 0x33, 0x62, 0x36,
+            0x39, 0x32, 0x66, 0x63, 0x20
+        };
+
         public static readonly string BaseURL = "https://github.com/soopercool101/BrawlCrate/releases/download/";
         public static string AppPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public static async Task UpdateCheck() { await UpdateCheck(false); }
         public static async Task UpdateCheck(bool Overwrite, string openFile = null, bool Documentation = false, bool Automatic = false)
         {
+            Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
             try
             {
                 if (AppPath.EndsWith("lib", StringComparison.CurrentCultureIgnoreCase))
@@ -37,7 +45,7 @@ namespace Net
                     Console.WriteLine(s.Send("www.github.com").Status);
 
                 // Initiate the github client.
-                GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate"));
+                GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
 
                 // get Release
                 IReadOnlyList<Release> releases = await github.Repository.Release.GetAll("soopercool101", "BrawlCrate");
@@ -168,6 +176,7 @@ namespace Net
 
         public static async Task CheckUpdates(string releaseTag, string openFile, bool manual = true, bool checkDocumentation = false, bool automatic = false)
         {
+            Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
             string docVer = null;
             try
             {
@@ -187,7 +196,7 @@ namespace Net
             }
             try
             {
-                var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate"));
+                var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
                 IReadOnlyList<Release> AllReleases = null;
                 AllReleases = await github.Repository.Release.GetAll("soopercool101", "BrawlCrate");
                 IReadOnlyList<Release> releases = null;
@@ -305,6 +314,7 @@ namespace Net
 
         public static async Task ForceDownloadRelease(string openFile)
         {
+            Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
             try
             {
                 if (AppPath.EndsWith("lib", StringComparison.CurrentCultureIgnoreCase))
@@ -318,7 +328,7 @@ namespace Net
                     Console.WriteLine(s.Send("www.github.com").Status);
 
                 // Initiate the github client.
-                GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate"));
+                GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
 
                 // get Release
                 IReadOnlyList<Release> releases = await github.Repository.Release.GetAll("soopercool101", "BrawlCrate");
@@ -527,7 +537,8 @@ namespace Net
         {
             try
             {
-                var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate"));
+                Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
+                var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
                 var branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", "brawlcrate-master");
                 var result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
                 var commitDate = result.Commit.Author.Date;
@@ -571,8 +582,8 @@ namespace Net
         {
             try
             {
-                Octokit.Credentials s = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
-                var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = s };
+                Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
+                var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
                 IReadOnlyList<Release> releases = null;
                 IReadOnlyList<Issue> issues = null;
                 try
