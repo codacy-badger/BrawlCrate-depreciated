@@ -419,7 +419,7 @@ namespace Net
             }
         }
 
-        public static async Task ForceDownloadNightly(string commitID = null, string openFile = null)
+        public static async Task ForceDownloadNightly(string openFile, string commitID = null)
         {
             try
             {
@@ -521,6 +521,36 @@ namespace Net
         }
 
         //public static async Task ForceDownloadDocumentation() { }
+
+        // Used when building for releases
+        public static async Task WriteNightlyTime()
+        {
+            try
+            {
+                var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate"));
+                var branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", "brawlcrate-master");
+                var result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
+                var commitDate = result.Commit.Author.Date;
+                commitDate = commitDate.ToUniversalTime();
+                DirectoryInfo nightlyDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Nightly");
+                nightlyDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                string Filename = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Nightly" + '\\' + "New";
+                if (File.Exists(Filename))
+                {
+                    File.Delete(Filename);
+                }
+
+                using (var sw = new StreamWriter(Filename))
+                {
+                    sw.Write(commitDate.ToString("O"));
+                }
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return;
+            }
+        }
     }
 
     public static class BugSquish
@@ -677,6 +707,11 @@ namespace Net
                         somethingDone = true;
                         Task t3 = BugSquish.CreateIssue(args[1], args[2], args[3], args[4], args[5]);
                         t3.Wait();
+                        break;
+                    case "-bcommitTime": //Called on build to ensure time is saved
+                        somethingDone = true;
+                        Task t4 = Updater.WriteNightlyTime();
+                        t4.Wait();
                         break;
                 }
             }
