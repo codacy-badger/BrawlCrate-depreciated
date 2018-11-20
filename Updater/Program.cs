@@ -429,6 +429,42 @@ namespace Net
             }
         }
 
+        public static async Task CheckNightlyUpdate(bool manual, string openFile)
+        {
+            try
+            {
+                string oldDate = "";
+                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Nightly"))
+                {
+                    if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Nightly" + '\\' + "new"))
+                    {
+                        oldDate = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Nightly" + '\\' + "new")[0];
+                    }
+                }
+
+                Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
+                var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
+                var branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", "brawlcrate-master");
+                var result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
+                var commitDate = result.Commit.Author.Date;
+                string newDate = commitDate.ToUniversalTime().ToString("O");
+                if (oldDate.Equals(newDate, StringComparison.OrdinalIgnoreCase))
+                {
+                    if (manual)
+                        MessageBox.Show("No updates found.");
+                    return;
+                }
+                await ForceDownloadNightly(openFile, result.Sha.ToString());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                MessageBox.Show("ERROR: Current nightly version could not be found. Updating to the latest commit");
+                await ForceDownloadNightly(openFile);
+                return;
+            }
+        }
+
         public static async Task ForceDownloadNightly(string openFile, string commitID = null)
         {
             try
