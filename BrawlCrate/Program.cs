@@ -153,6 +153,7 @@ namespace BrawlCrate
                         {
                             // Set Canary build active
                             BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
+                            BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
                             BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
                             BrawlCrate.Properties.Settings.Default.Save();
                         }
@@ -178,6 +179,7 @@ namespace BrawlCrate
                     {
                         // Set Canary build active
                         BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
+                        BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
                         BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
                         BrawlCrate.Properties.Settings.Default.Save();
                     }
@@ -194,6 +196,7 @@ namespace BrawlCrate
                     {
                         // Set Canary build active
                         BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
+                        BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
                         BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
                         BrawlCrate.Properties.Settings.Default.Save();
                     }

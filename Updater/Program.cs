@@ -756,6 +756,11 @@ namespace Net
                         Task t2 = Updater.CheckUpdates(args[1], args[5], args[2] != "0", args[3] != "0", args[4] != "0");
                         t2.Wait();
                         break;
+                    case "-buc": //BrawlCrate Canary update call
+                        somethingDone = true;
+                        Task t2c = Updater.CheckCanaryUpdate(args[2], args[1] != "0");
+                        t2c.Wait();
+                        break;
                     case "-bi": //BrawlCrate issue call
                         somethingDone = true;
                         Task t3 = BugSquish.CreateIssue(args[1], args[2], args[3], args[4], args[5]);
@@ -765,6 +770,16 @@ namespace Net
                         somethingDone = true;
                         Task t4 = Updater.WriteCanaryTime();
                         t4.Wait();
+                        break;
+                    case "-dlCanary": // Force download the latest Canary build
+                        somethingDone = true;
+                        Task t5 = Updater.ForceDownloadCanary(args[1]);
+                        t5.Wait();
+                        break;
+                    case "-dlStable": // Force download the latest Stable build
+                        somethingDone = true;
+                        Task t6 = Updater.ForceDownloadRelease(args[1]);
+                        t6.Wait();
                         break;
                 }
             }

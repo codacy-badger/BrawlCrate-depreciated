@@ -53,7 +53,6 @@ namespace BrawlCrate
         public MainForm()
         {
             InitializeComponent();
-            Text = Program.AssemblyTitle;
 
             _autoUpdate = BrawlCrate.Properties.Settings.Default.UpdateAutomatically;
             _displayPropertyDescription = BrawlCrate.Properties.Settings.Default.DisplayPropertyDescriptionWhenAvailable;
@@ -61,6 +60,7 @@ namespace BrawlCrate
             _docUpdates = BrawlCrate.Properties.Settings.Default.GetDocumentationUpdates;
             _showHex = BrawlCrate.Properties.Settings.Default.ShowHex;
             _canary = BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds;
+            Text = _canary ? "BrawlCrate Canary" : Program.AssemblyTitle;
             // Currently depreciated settings
             _compatibilityMode = BrawlLib.Properties.Settings.Default.CompatibilityMode;
             _importPNGwPalette = BrawlLib.Properties.Settings.Default.ImportPNGsWithPalettes;
@@ -122,18 +122,92 @@ namespace BrawlCrate
                         MessageBox.Show("Could not connect to internet");
                     return;
                 }
-                bool automatic = !manual && _autoUpdate;
+                bool automatic = (!manual && _autoUpdate) || (!manual && _canary);
                 if (Program.CanRunGithubApp(manual, out path))
+                {
+                    if (!_canary)
+                    {
+                        Process git = Process.Start(new ProcessStartInfo()
+                        {
+                            FileName = path,
+                            WindowStyle = ProcessWindowStyle.Hidden,
+                            Arguments = String.Format("-bu {0} {1} {2} {3} {4}",
+                            Program.TagName, manual ? "1" : "0", _docUpdates ? "1" : "0", automatic ? "1" : "0", Program.RootPath == null ? "<null>" : Program.RootPath),
+                        });
+                        if (automatic)
+                            git.WaitForExit();
+                    }
+                    else
+                    {
+                        Process git = Process.Start(new ProcessStartInfo()
+                        {
+                            FileName = path,
+                            WindowStyle = ProcessWindowStyle.Hidden,
+                            Arguments = String.Format("-buc {0} {1}", Program.RootPath == null ? "<null>" : Program.RootPath, manual ? "1" : "0"),
+                        });
+                        if (automatic)
+                            git.WaitForExit();
+                    }
+                }
+                else
+                {
+                    if (manual)
+                        MessageBox.Show(".NET version 4.5 is required to run the updater.");
+                    checkForUpdatesToolStripMenuItem.Enabled =
+                    checkForUpdatesToolStripMenuItem.Visible = false;
+                }
+            }
+            catch (Exception e)
+            {
+                if (manual)
+                    MessageBox.Show(e.Message);
+            }
+        }
+
+        public void ForceDownloadCanary(bool manual = true)
+        {
+            try
+            {
+                string path;
+                if (Program.CanRunGithubApp(true, out path))
                 {
                     Process git = Process.Start(new ProcessStartInfo()
                     {
                         FileName = path,
                         WindowStyle = ProcessWindowStyle.Hidden,
-                        Arguments = String.Format("-bu {0} {1} {2} {3} {4}",
-                        Program.TagName, manual ? "1" : "0", _docUpdates ? "1" : "0", automatic ? "1" : "0", Program.RootPath == null ? "<null>" : Program.RootPath),
+                        Arguments = String.Format("-dlCanary {0}", Program.RootPath == null ? "<null>" : Program.RootPath),
                     });
-                    if (automatic)
-                        git.WaitForExit();
+                    git.WaitForExit();
+                }
+                else
+                {
+                    if (manual)
+                        MessageBox.Show(".NET version 4.5 is required to run the updater.");
+                    checkForUpdatesToolStripMenuItem.Enabled =
+                    checkForUpdatesToolStripMenuItem.Visible = false;
+                }
+            }
+            catch (Exception e)
+            {
+                if (manual)
+                    MessageBox.Show(e.Message);
+            }
+        }
+
+        public void ForceDownloadStable(bool manual = true)
+        {
+            try
+            {
+                string path;
+                if (Program.CanRunGithubApp(true, out path))
+                {
+                    Process git = Process.Start(new ProcessStartInfo()
+                    {
+                        FileName = path,
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        Arguments = String.Format("-dlStable {0}", Program.RootPath == null ? "<null>" : Program.RootPath),
+                    });
+                    git.WaitForExit();
                 }
                 else
                 {
@@ -234,7 +308,11 @@ namespace BrawlCrate
             }
         }
         bool _compatibilityMode;
-        
+
+        public bool Canary
+        {
+            get { return _canary; }
+        }
         bool _canary;
         
         public bool ImportPNGsWithPalettes

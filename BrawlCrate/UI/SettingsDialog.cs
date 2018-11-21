@@ -29,6 +29,7 @@ namespace BrawlCrate
         private CheckBox chkShowHex;
         private CheckBox chkDocUpdates;
         private CheckBox chkAutoUpdate;
+        private CheckBox chkCanary;
         private CheckBox chkShowPropDesc;
 
         public SettingsDialog()
@@ -104,10 +105,15 @@ namespace BrawlCrate
 
             _updating = true;
             chkAutoUpdate.Checked = MainForm.Instance.UpdateAutomatically;
+            chkAutoUpdate.Enabled = !MainForm.Instance.Canary;
             chkUpdatesOnStartup.Checked = MainForm.Instance.CheckUpdatesOnStartup;
+            chkUpdatesOnStartup.Enabled = !MainForm.Instance.Canary;
             chkDocUpdates.Checked = MainForm.Instance.GetDocumentationUpdates;
+            chkDocUpdates.Enabled = !MainForm.Instance.Canary;
+            chkCanary.Checked = MainForm.Instance.Canary;
             chkShowPropDesc.Checked = MainForm.Instance.DisplayPropertyDescriptionsWhenAvailable;
             chkShowHex.Checked = MainForm.Instance.ShowHex;
+
             _updating = false;
             btnApply.Enabled = false;      
         }
@@ -189,6 +195,7 @@ namespace BrawlCrate
             this.chkShowHex = new System.Windows.Forms.CheckBox();
             this.chkDocUpdates = new System.Windows.Forms.CheckBox();
             this.chkAutoUpdate = new System.Windows.Forms.CheckBox();
+            this.chkCanary = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -201,7 +208,7 @@ namespace BrawlCrate
             this.groupBox1.Controls.Add(this.listView1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(329, 348);
+            this.groupBox1.Size = new System.Drawing.Size(329, 389);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File Associations";
@@ -303,7 +310,7 @@ namespace BrawlCrate
             this.listView1.Location = new System.Drawing.Point(3, 37);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(323, 305);
+            this.listView1.Size = new System.Drawing.Size(323, 346);
             this.listView1.TabIndex = 6;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -317,7 +324,7 @@ namespace BrawlCrate
             // btnOkay
             // 
             this.btnOkay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOkay.Location = new System.Drawing.Point(91, 484);
+            this.btnOkay.Location = new System.Drawing.Point(91, 545);
             this.btnOkay.Name = "btnOkay";
             this.btnOkay.Size = new System.Drawing.Size(75, 23);
             this.btnOkay.TabIndex = 1;
@@ -328,7 +335,7 @@ namespace BrawlCrate
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(172, 484);
+            this.btnCancel.Location = new System.Drawing.Point(172, 545);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 2;
@@ -339,7 +346,7 @@ namespace BrawlCrate
             // btnApply
             // 
             this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnApply.Location = new System.Drawing.Point(253, 484);
+            this.btnApply.Location = new System.Drawing.Point(253, 545);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(75, 23);
             this.btnApply.TabIndex = 3;
@@ -351,7 +358,7 @@ namespace BrawlCrate
             // 
             this.chkShowPropDesc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkShowPropDesc.AutoSize = true;
-            this.chkShowPropDesc.Location = new System.Drawing.Point(86, 435);
+            this.chkShowPropDesc.Location = new System.Drawing.Point(86, 499);
             this.chkShowPropDesc.Name = "chkShowPropDesc";
             this.chkShowPropDesc.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chkShowPropDesc.Size = new System.Drawing.Size(242, 17);
@@ -364,7 +371,7 @@ namespace BrawlCrate
             // 
             this.chkUpdatesOnStartup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkUpdatesOnStartup.AutoSize = true;
-            this.chkUpdatesOnStartup.Location = new System.Drawing.Point(165, 366);
+            this.chkUpdatesOnStartup.Location = new System.Drawing.Point(165, 407);
             this.chkUpdatesOnStartup.Name = "chkUpdatesOnStartup";
             this.chkUpdatesOnStartup.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chkUpdatesOnStartup.Size = new System.Drawing.Size(163, 17);
@@ -377,7 +384,7 @@ namespace BrawlCrate
             // 
             this.chkShowHex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkShowHex.AutoSize = true;
-            this.chkShowHex.Location = new System.Drawing.Point(95, 458);
+            this.chkShowHex.Location = new System.Drawing.Point(95, 522);
             this.chkShowHex.Name = "chkShowHex";
             this.chkShowHex.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chkShowHex.Size = new System.Drawing.Size(233, 17);
@@ -390,7 +397,7 @@ namespace BrawlCrate
             // 
             this.chkDocUpdates.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkDocUpdates.AutoSize = true;
-            this.chkDocUpdates.Location = new System.Drawing.Point(148, 412);
+            this.chkDocUpdates.Location = new System.Drawing.Point(148, 453);
             this.chkDocUpdates.Name = "chkDocUpdates";
             this.chkDocUpdates.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chkDocUpdates.Size = new System.Drawing.Size(180, 17);
@@ -403,7 +410,7 @@ namespace BrawlCrate
             // 
             this.chkAutoUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkAutoUpdate.AutoSize = true;
-            this.chkAutoUpdate.Location = new System.Drawing.Point(164, 389);
+            this.chkAutoUpdate.Location = new System.Drawing.Point(164, 430);
             this.chkAutoUpdate.Name = "chkAutoUpdate";
             this.chkAutoUpdate.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chkAutoUpdate.Size = new System.Drawing.Size(164, 17);
@@ -412,9 +419,23 @@ namespace BrawlCrate
             this.chkAutoUpdate.UseVisualStyleBackColor = true;
             this.chkAutoUpdate.CheckedChanged += new System.EventHandler(this.chkAutoUpdate_CheckedChanged);
             // 
+            // chkCanary
+            // 
+            this.chkCanary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkCanary.AutoSize = true;
+            this.chkCanary.Location = new System.Drawing.Point(131, 476);
+            this.chkCanary.Name = "chkCanary";
+            this.chkCanary.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.chkCanary.Size = new System.Drawing.Size(197, 17);
+            this.chkCanary.TabIndex = 13;
+            this.chkCanary.Text = "Receive BrawlCrate Canary updates";
+            this.chkCanary.UseVisualStyleBackColor = true;
+            this.chkCanary.CheckedChanged += new System.EventHandler(this.chkCanary_CheckedChanged);
+            // 
             // SettingsDialog
             // 
-            this.ClientSize = new System.Drawing.Size(353, 519);
+            this.ClientSize = new System.Drawing.Size(353, 580);
+            this.Controls.Add(this.chkCanary);
             this.Controls.Add(this.chkAutoUpdate);
             this.Controls.Add(this.chkDocUpdates);
             this.Controls.Add(this.chkShowHex);
@@ -479,6 +500,37 @@ namespace BrawlCrate
         {
             if (!_updating)
                 MainForm.Instance.UpdateAutomatically = chkAutoUpdate.Checked;
+        }
+
+        private void chkCanary_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_updating)
+                return;
+            _updating = true;
+            if (!MainForm.Instance.Canary)
+            {
+                DialogResult dc = MessageBox.Show("Are you sure you'd like to receive BrawlCrate canary updates? " +
+                    "These updates will happen more often and include features as they are developed, but will come at the cost of stability. " +
+                    "If you do take this track, it is highly recommended to join our discord server: https://discord.gg/s7c8763 \n\n" +
+                    "If you select yes, the update will begin immediately, so make sure your work is saved.", "BrawlCrate Canary Updater", MessageBoxButtons.YesNo);
+                if(dc == DialogResult.Yes)
+                {
+                    MainForm.Instance.ForceDownloadCanary();
+                }
+            }
+            else
+            {
+                DialogResult dc = MessageBox.Show("Are you sure you'd like to return to the stable build? " +
+                    "Please note that there may be issues saving settings between the old version and the next update. " +
+                    "If you a bug caused you to move off this build, please report it on our discord server: https://discord.gg/s7c8763 \n\n" +
+                    "If you select yes, the downgrade will begin immediately, so make sure your work is saved.", "BrawlCrate Canary Updater", MessageBoxButtons.YesNo);
+                if (dc == DialogResult.Yes)
+                {
+                    MainForm.Instance.ForceDownloadStable();
+                }
+            }
+            chkCanary.Checked = MainForm.Instance.Canary;
+            _updating = false;
         }
     }
 }
