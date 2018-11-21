@@ -417,7 +417,7 @@ namespace Net
                         sw.WriteLine("CD /d " + AppPath);
                         sw.WriteLine("START /wait temp.exe -y");
                         sw.WriteLine("del temp.exe /s /f /q");
-                        sw.Write("START BrawlCrate.exe " + (openFile != null ? openFile : "<null>") + " -Stable");
+                        sw.Write("START BrawlCrate.exe " + (openFile != null ? openFile : "null") + " -Stable");
                     }
                     Process updateBat = Process.Start(AppPath + "/Update.bat");
                 }
@@ -560,7 +560,7 @@ namespace Net
                         sw.WriteLine("CD /d " + AppPath);
                         sw.WriteLine("START /wait temp.exe -y");
                         sw.WriteLine("del temp.exe /s /f /q");
-                        sw.Write("START BrawlCrate.exe " + (openFile != null ? openFile : "<null>") + " -Canary");
+                        sw.Write("START BrawlCrate.exe " + (openFile != null ? openFile : "null") + " -Canary");
                     }
                     Process updateBat = Process.Start(AppPath + "/Update.bat");
                 }

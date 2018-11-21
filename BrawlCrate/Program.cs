@@ -206,7 +206,7 @@ namespace BrawlCrate
                         BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
                         BrawlCrate.Properties.Settings.Default.Save();
                     }
-                    else if (args[0] != "<null>")
+                    else if (args[0] != "null")
                         Open(args[0]);
                 }
                 if(args.Length >= 2 && args[1] != "-Canary" && args[1] != "-Stable")
