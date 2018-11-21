@@ -147,6 +147,22 @@ namespace BrawlCrate
                 }
                 else if (args[0].EndsWith(".gct", StringComparison.InvariantCultureIgnoreCase))
                 {
+                    if (args.Length >= 2)
+                    {
+                        if (args[1] == "-Canary")
+                        {
+                            // Set Canary build active
+                            BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
+                            BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
+                            BrawlCrate.Properties.Settings.Default.Save();
+                        }
+                        else if (args[1] == "-Stable")
+                        {
+                            // Set Stable build active
+                            BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
+                            BrawlCrate.Properties.Settings.Default.Save();
+                        }
+                    }
                     GCTEditor editor = new GCTEditor();
                     editor.TargetNode = GCTEditor.LoadGCT(args[0]);
                     Application.Run(editor);
@@ -156,10 +172,41 @@ namespace BrawlCrate
 
             try
             {
-                if (args.Length >= 1)
-                    Open(args[0]);
-
                 if (args.Length >= 2)
+                {
+                    if (args[1] == "-Canary")
+                    {
+                        // Set Canary build active
+                        BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
+                        BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
+                        BrawlCrate.Properties.Settings.Default.Save();
+                    }
+                    else if (args[1] == "-Stable")
+                    {
+                        // Set Stable build active
+                        BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
+                        BrawlCrate.Properties.Settings.Default.Save();
+                    }
+                }
+                if (args.Length >= 1)
+                {
+                    if (args[0] == "-Canary")
+                    {
+                        // Set Canary build active
+                        BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
+                        BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
+                        BrawlCrate.Properties.Settings.Default.Save();
+                    }
+                    else if (args[0] == "-Stable")
+                    {
+                        // Set Stable build active
+                        BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
+                        BrawlCrate.Properties.Settings.Default.Save();
+                    }
+                    else if (args[0] != "<null>")
+                        Open(args[0]);
+                }
+                if(args.Length >= 2 && args[1] != "-Canary" && args[1] != "-Stable")
                 {
                     ResourceNode target = ResourceNode.FindNode(RootNode, args[1], true);
                     if (target != null)
@@ -172,7 +219,11 @@ namespace BrawlCrate
                 if (MainForm.Instance.CheckUpdatesOnStartup)
                     MainForm.Instance.CheckUpdates(false);
                 // Show changelog if this is the first time opening this release, and the message wasn't seen 
-                if (BrawlCrate.Properties.Settings.Default.UpdateAutomatically && firstBoot)
+                if (BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds && firstBoot)
+                {
+                    MainForm.Instance.ShowCanaryChangelog();
+                }
+                else if (BrawlCrate.Properties.Settings.Default.UpdateAutomatically && firstBoot)
                 {
                     Task.Factory.StartNew(() =>
                     {

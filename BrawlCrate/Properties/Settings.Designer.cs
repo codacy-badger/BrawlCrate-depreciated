@@ -146,6 +146,21 @@ namespace BrawlCrate.Properties {
 
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("false")]
+        public bool DownloadCanaryBuilds
+        {
+            get
+            {
+                return ((bool)(this["DownloadCanaryBuilds"]));
+            }
+            set
+            {
+                this["DownloadCanaryBuilds"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
 #if DEBUG
         [global::System.Configuration.DefaultSettingValueAttribute("true")]
 #else

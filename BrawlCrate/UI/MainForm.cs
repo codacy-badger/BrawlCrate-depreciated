@@ -60,7 +60,7 @@ namespace BrawlCrate
             _updatesOnStartup = BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup;
             _docUpdates = BrawlCrate.Properties.Settings.Default.GetDocumentationUpdates;
             _showHex = BrawlCrate.Properties.Settings.Default.ShowHex;
-
+            _canary = BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds;
             // Currently depreciated settings
             _compatibilityMode = BrawlLib.Properties.Settings.Default.CompatibilityMode;
             _importPNGwPalette = BrawlLib.Properties.Settings.Default.ImportPNGsWithPalettes;
@@ -150,6 +150,11 @@ namespace BrawlCrate
             }
         }
 
+        public void ShowCanaryChangelog()
+        {
+            // Call changelog showing functionality
+        }
+
         public bool DisplayPropertyDescriptionsWhenAvailable
         {
             get { return _displayPropertyDescription; }
@@ -229,7 +234,9 @@ namespace BrawlCrate
             }
         }
         bool _compatibilityMode;
-
+        
+        bool _canary;
+        
         public bool ImportPNGsWithPalettes
         {
             get { return _importPNGwPalette; }

@@ -516,7 +516,7 @@ namespace Net
                     client.Headers.Add("User-Agent: Other");
 
                     // The browser download link to the self extracting archive, hosted on github
-                    string URL = "https://github.com/soopercool101/BrawlCrate/raw/brawlcrate-master/CanaryBuild/BrawlCrateCanary.exe";
+                    string URL = "https://github.com/soopercool101/BrawlCrate/raw/brawlcrate-master/CanaryBuild/Canary";
 
                     //client.DownloadFile(URL, AppPath + "/temp.exe");
                     DLProgressWindow.finished = false;
