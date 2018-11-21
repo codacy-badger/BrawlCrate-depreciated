@@ -50,6 +50,8 @@ namespace BrawlCrate
             _interpolationForm = null;
         }
 
+        public string commitIDshort = "";
+        public string commitIDlong = "";
         public MainForm()
         {
             InitializeComponent();
@@ -60,18 +62,18 @@ namespace BrawlCrate
             _docUpdates = BrawlCrate.Properties.Settings.Default.GetDocumentationUpdates;
             _showHex = BrawlCrate.Properties.Settings.Default.ShowHex;
             _canary = BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds;
-            string commitID = "";
             if (_canary)
             {
                 if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary"))
                 {
                     if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "new"))
                     {
-                        commitID = " #" + File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "new")[1];
+                        commitIDshort = " #" + File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "new")[1];
+                        commitIDlong = " #" + File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "new")[2];
                     }
                 }
             }
-            Text = _canary ? "BrawlCrate Canary" + commitID: Program.AssemblyTitle;
+            Text = _canary ? "BrawlCrate Canary" + commitIDlong : Program.AssemblyTitle;
             // Currently depreciated settings
             _compatibilityMode = BrawlLib.Properties.Settings.Default.CompatibilityMode;
             _importPNGwPalette = BrawlLib.Properties.Settings.Default.ImportPNGsWithPalettes;
@@ -391,9 +393,9 @@ namespace BrawlCrate
         public void UpdateName()
         {
             if (Program.RootPath != null)
-                Text = String.Format("{0} - {1}", Program.AssemblyTitle, Program.RootPath);
+                Text = String.Format("{0} - {1}", _canary ? "BrawlCrate Canary" + commitIDshort : Program.AssemblyTitle, Program.RootPath);
             else
-                Text = Program.AssemblyTitle;
+                Text = _canary ? "BrawlCrate Canary" + commitIDlong : Program.AssemblyTitle;
         }
 
         public void TargetResource(ResourceNode n)

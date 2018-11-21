@@ -434,13 +434,7 @@ namespace Net
             try
             {
                 string oldDate = "";
-                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary"))
-                {
-                    if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "new"))
-                    {
-                        oldDate = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "new")[0];
-                    }
-                }
+                oldDate = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "new")[0];
 
                 Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
                 var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
@@ -604,7 +598,8 @@ namespace Net
                 using (var sw = new StreamWriter(Filename))
                 {
                     sw.WriteLine(commitDate.ToString("O"));
-                    sw.Write(result.Sha.ToString().Substring(0, 7));
+                    sw.WriteLine(result.Sha.ToString().Substring(0, 7));
+                    sw.Write(result.Sha.ToString());
                 }
             }
             catch(Exception e)
