@@ -671,25 +671,27 @@ if $(ConfigurationName) == Documentation (
   "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a Documentation.v@(VersionNumber).exe
 )
 if $(ConfigurationName) == TestRelease (
-  del $(SolutionDir)NightlyBuild\$(TargetName)Nightly.exe
+  del $(SolutionDir)CanaryBuild\$(TargetName)Canary
   del BrawlCrate.exe.config
   del BrawlCrate.pdb
   del BrawlLib.pdb
   del OpenTK.pdb
   del OpenTK.xml
-  "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName)Nightly.exe
-  %25windir%25\system32\xcopy "$(TargetDir)$(TargetName)Nightly.exe" "$(SolutionDir)NightlyBuild\" /Y /I
+  "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName)Canary.exe
+  rename "$(TargetName)Canary.exe" "Canary"
+  %25windir%25\system32\xcopy "$(TargetDir)Canary" "$(SolutionDir)CanaryBuild\" /Y /I
 )
 if $(ConfigurationName) == Release (
-  del $(SolutionDir)NightlyBuild\$(TargetName)Nightly.exe
+  del $(SolutionDir)CanaryBuild\$(TargetName)Canary
   del BrawlCrate.exe.config
   del BrawlCrate.pdb
   del BrawlLib.pdb
   del OpenTK.pdb
   del OpenTK.xml
-  "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName)Nightly.exe
-  %25windir%25\system32\xcopy "$(TargetDir)$(TargetName)Nightly.exe" "$(SolutionDir)NightlyBuild\" /Y /I
-  del $(TargetName)Nightly.exe
+  "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName)Canary.exe
+  rename "$(TargetName)Canary.exe" "Canary"
+  %25windir%25\system32\xcopy "$(TargetDir)Canary" "$(SolutionDir)CanaryBuild\" /Y /I
+  del Canary
   "Updater.exe" -bcommitTime
   "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName).v@(VersionNumber).exe
 )</PostBuildEvent>

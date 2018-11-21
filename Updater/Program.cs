@@ -429,16 +429,16 @@ namespace Net
             }
         }
 
-        public static async Task CheckNightlyUpdate(string openFile, bool manual = true)
+        public static async Task CheckCanaryUpdate(string openFile, bool manual = true)
         {
             try
             {
                 string oldDate = "";
-                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Nightly"))
+                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary"))
                 {
-                    if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Nightly" + '\\' + "new"))
+                    if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "new"))
                     {
-                        oldDate = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Nightly" + '\\' + "new")[0];
+                        oldDate = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "new")[0];
                     }
                 }
 
@@ -454,18 +454,18 @@ namespace Net
                         MessageBox.Show("No updates found.");
                     return;
                 }
-                await ForceDownloadNightly(openFile, result.Sha.ToString().Substring(0, 7));
+                await ForceDownloadCanary(openFile, result.Sha.ToString().Substring(0, 7));
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                MessageBox.Show("ERROR: Current nightly version could not be found. Updating to the latest commit");
-                await ForceDownloadNightly(openFile);
+                MessageBox.Show("ERROR: Current Canary version could not be found. Updating to the latest commit");
+                await ForceDownloadCanary(openFile);
                 return;
             }
         }
 
-        public static async Task ForceDownloadNightly(string openFile, string commitID = null)
+        public static async Task ForceDownloadCanary(string openFile, string commitID = null)
         {
             try
             {
@@ -489,7 +489,7 @@ namespace Net
                     DialogResult continueUpdate = MessageBox.Show("Update cannot proceed unless all open windows of " + AppPath + "\\BrawlCrate.exe are closed. Would you like to force close all open BrawlCrate windows at this time?\n\n" +
                         "Select \"Yes\" if you would like to force close all open BrawlCrate windows\n" +
                         "Select \"No\" after closing all windows manually if you would like to proceed without force closing\n" +
-                        "Select \"Cancel\" if you would like to wait to update until another time", "Nightly Update", MessageBoxButtons.YesNoCancel);
+                        "Select \"Cancel\" if you would like to wait to update until another time", "Canary Update", MessageBoxButtons.YesNoCancel);
                     if (continueUpdate == DialogResult.Yes)
                     {
                         foreach (Process pNext in pToClose)
@@ -516,11 +516,11 @@ namespace Net
                     client.Headers.Add("User-Agent: Other");
 
                     // The browser download link to the self extracting archive, hosted on github
-                    string URL = "https://github.com/soopercool101/BrawlCrate/raw/brawlcrate-master/NightlyBuild/BrawlCrateNightly.exe";
+                    string URL = "https://github.com/soopercool101/BrawlCrate/raw/brawlcrate-master/CanaryBuild/BrawlCrateCanary.exe";
 
                     //client.DownloadFile(URL, AppPath + "/temp.exe");
                     DLProgressWindow.finished = false;
-                    DLProgressWindow dlTrack = new DLProgressWindow(null, commitID == null ? "BrawlCrate Nightly Build" : "BrawlCrate Nightly #" + commitID, AppPath, URL);
+                    DLProgressWindow dlTrack = new DLProgressWindow(null, commitID == null ? "BrawlCrate Canary Build" : "BrawlCrate Canary #" + commitID, AppPath, URL);
                     while (!DLProgressWindow.finished)
                     {
                         // do nothing
@@ -532,13 +532,13 @@ namespace Net
                         MessageBox.Show("Error downloading update");
                         return;
                     }
-                    DirectoryInfo nightlyDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Nightly");
-                    nightlyDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-                    string Filename = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Nightly" + '\\' + "New";
-                    string oldName = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Nightly" + '\\' + "Old";
+                    DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
+                    CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                    string Filename = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New";
+                    string oldName = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old";
                     if (File.Exists(Filename))
                         File.Move(Filename, oldName);
-                    await WriteNightlyTime();
+                    await WriteCanaryTime();
                     // Case 1: Wine (Batch files won't work, use old methodology)
                     if (Process.GetProcessesByName("winlogon").Count<Process>() == 0)
                     {
@@ -560,7 +560,7 @@ namespace Net
                         sw.WriteLine("CD /d " + AppPath);
                         sw.WriteLine("START /wait temp.exe -y");
                         sw.WriteLine("del temp.exe /s /f /q");
-                        sw.Write("START BrawlCrate.exe " + openFile != null ? openFile : "<null>" + " -Nightly");
+                        sw.Write("START BrawlCrate.exe " + openFile != null ? openFile : "<null>" + " -Canary");
                     }
                     Process updateBat = Process.Start(AppPath + "/Update.bat");
                 }
@@ -575,7 +575,7 @@ namespace Net
         //public static async Task ForceDownloadDocumentation() { }
 
         // Used when building for releases
-        public static async Task WriteNightlyTime()
+        public static async Task WriteCanaryTime()
         {
             try
             {
@@ -585,9 +585,9 @@ namespace Net
                 var result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
                 var commitDate = result.Commit.Author.Date;
                 commitDate = commitDate.ToUniversalTime();
-                DirectoryInfo nightlyDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Nightly");
-                nightlyDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-                string Filename = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Nightly" + '\\' + "New";
+                DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
+                CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                string Filename = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New";
                 if (File.Exists(Filename))
                 {
                     File.Delete(Filename);
@@ -763,7 +763,7 @@ namespace Net
                         break;
                     case "-bcommitTime": //Called on build to ensure time is saved
                         somethingDone = true;
-                        Task t4 = Updater.WriteNightlyTime();
+                        Task t4 = Updater.WriteCanaryTime();
                         t4.Wait();
                         break;
                 }
