@@ -102,14 +102,6 @@ namespace BrawlCrate
             SplashForm s = new SplashForm();
             s.Show();
             s.Focus();
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.exe"))
-                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.exe");
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe"))
-                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe");
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.bat"))
-                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.bat");
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "StageBox.exe"))
-                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "StageBox.exe");
             bool firstBoot = false;
             if (BrawlCrate.Properties.Settings.Default.UpdateSettings)
             {
@@ -135,13 +127,26 @@ namespace BrawlCrate
                 BrawlCrate.Properties.Settings.Default.UpdateSettings = false;
                 BrawlCrate.Properties.Settings.Default.Save();
             }
+            if (!BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds)
+            {
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.exe"))
+                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.exe");
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe"))
+                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe");
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.bat"))
+                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.bat");
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "StageBox.exe"))
+                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "StageBox.exe");
+            }
 
             if (args.Length >= 1)
             {
                 if (args[0].Equals("/gct", StringComparison.InvariantCultureIgnoreCase))
                 {
                     GCTEditor editor = new GCTEditor();
-                    if (args.Length >= 2) editor.TargetNode = GCTEditor.LoadGCT(args[1]);
+                    if (args.Length >= 2)
+                        editor.TargetNode = GCTEditor.LoadGCT(args[1]);
+                    s.Close();
                     Application.Run(editor);
                     return;
                 }
@@ -166,6 +171,7 @@ namespace BrawlCrate
                     }
                     GCTEditor editor = new GCTEditor();
                     editor.TargetNode = GCTEditor.LoadGCT(args[0]);
+                    s.Close();
                     Application.Run(editor);
                     return;
                 }
