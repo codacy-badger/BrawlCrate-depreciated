@@ -509,7 +509,15 @@ namespace Net
                 {
                     p.Kill();
                 }
-
+                if(commitID == null)
+                {
+                    Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
+                    var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
+                    var branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", "brawlcrate-master");
+                    var result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
+                    commitID = result.Sha.ToString().Substring(0, 7);
+                }
+                
                 using (WebClient client = new WebClient())
                 {
                     // Add the user agent header, otherwise we will get access denied.
