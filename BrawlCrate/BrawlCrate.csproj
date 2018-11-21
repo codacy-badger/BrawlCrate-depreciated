@@ -671,7 +671,7 @@ if $(ConfigurationName) == Documentation (
   "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a Documentation.v@(VersionNumber).exe
 )
 if $(ConfigurationName) == TestRelease (
-  del $(SolutionDir)CanaryBuild\$(TargetName)Canary
+  del $(SolutionDir)CanaryBuild\Canary
   del BrawlCrate.exe.config
   del BrawlCrate.pdb
   del BrawlLib.pdb
@@ -682,7 +682,7 @@ if $(ConfigurationName) == TestRelease (
   %25windir%25\system32\xcopy "$(TargetDir)Canary" "$(SolutionDir)CanaryBuild\" /Y /I
 )
 if $(ConfigurationName) == Release (
-  del $(SolutionDir)CanaryBuild\$(TargetName)Canary
+  del $(SolutionDir)CanaryBuild\Canary
   del BrawlCrate.exe.config
   del BrawlCrate.pdb
   del BrawlLib.pdb
