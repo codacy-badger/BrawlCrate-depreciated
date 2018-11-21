@@ -60,7 +60,18 @@ namespace BrawlCrate
             _docUpdates = BrawlCrate.Properties.Settings.Default.GetDocumentationUpdates;
             _showHex = BrawlCrate.Properties.Settings.Default.ShowHex;
             _canary = BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds;
-            Text = _canary ? "BrawlCrate Canary" : Program.AssemblyTitle;
+            string commitID = "";
+            if (_canary)
+            {
+                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary"))
+                {
+                    if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "new"))
+                    {
+                        commitID = " #" + File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "new")[1];
+                    }
+                }
+            }
+            Text = _canary ? "BrawlCrate Canary" + commitID: Program.AssemblyTitle;
             // Currently depreciated settings
             _compatibilityMode = BrawlLib.Properties.Settings.Default.CompatibilityMode;
             _importPNGwPalette = BrawlLib.Properties.Settings.Default.ImportPNGsWithPalettes;

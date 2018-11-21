@@ -603,7 +603,8 @@ namespace Net
 
                 using (var sw = new StreamWriter(Filename))
                 {
-                    sw.Write(commitDate.ToString("O"));
+                    sw.WriteLine(commitDate.ToString("O"));
+                    sw.Write(result.Sha.ToString().Substring(0, 7));
                 }
             }
             catch(Exception e)
