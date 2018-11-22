@@ -662,11 +662,9 @@ namespace Net
                     changelog += c.Commit.Message;
                     i++;
                 }
-                MessageBox.Show(changelog);
-                /*CanaryChangelogViewer logWindow = new CanaryChangelogViewer(newSha.Substring(0, 7), changelog);
-                logWindow.Finished = false;
-                logWindow.Show();
-                while (!logWindow.Finished) { }*/
+                //MessageBox.Show(changelog);
+                CanaryChangelogViewer logWindow = new CanaryChangelogViewer(newSha.Substring(0, 7), changelog);
+                logWindow.ShowDialog();
                 DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
                 CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
                 string Filename = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old";

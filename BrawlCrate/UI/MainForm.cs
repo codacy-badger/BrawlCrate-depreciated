@@ -249,7 +249,7 @@ namespace BrawlCrate
                     {
                         FileName = path,
                         WindowStyle = ProcessWindowStyle.Hidden,
-                        Arguments = String.Format("-canaryChangelog"),
+                        Arguments = String.Format("-canarylog"),
                     });
                     git.WaitForExit();
                 }

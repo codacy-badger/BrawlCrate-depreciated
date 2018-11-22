@@ -1,36 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace System.Windows.Forms
+﻿namespace System.Windows.Forms
 {
     public partial class CanaryChangelogViewer : Form
     {
-        public bool Finished = false;
         public CanaryChangelogViewer(string commitID, string changelog)
         {
-            Finished = false;
             InitializeComponent();
-            Text = "BrawlCrate Canary Changelog #" + commitID;
-            richTextBox1.Text = changelog;
-            richTextBox1.Enabled = false;
+            Text = "Canary Changelog #" + commitID;
+            richTextBox1.Text = "Here's what's changed since your last update. Full changelog can be found on Github or Discord\n\n";
+            richTextBox1.Text += changelog;
+            richTextBox1.ReadOnly = true;
         }
 
         private void CanaryChangelogViewer_Load(object sender, EventArgs e)
         {
-
-        }
-
-        protected override void OnClosed(EventArgs e)
-        {
-            Finished = true;
-            base.OnClosed(e);
+            richTextBox1.ReadOnly = true;
         }
     }
 }
