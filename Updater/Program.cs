@@ -428,7 +428,6 @@ namespace Net
                 return;
             }
         }
-
         public static async Task CheckCanaryUpdate(string openFile, bool manual = true)
         {
             try
@@ -640,6 +639,48 @@ namespace Net
             Console.WriteLine("Checking connection to server.");
             using (Ping s = new Ping())
                 Console.WriteLine(s.Send("www.github.com").Status);
+
+            try
+            {
+                Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
+                var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
+                var branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", "brawlcrate-master");
+                ApiOptions options = new ApiOptions();
+                options.PageSize = 100;
+                options.PageCount = 1;
+                var commits = await github.Repository.Commit.GetAll("soopercool101", "BrawlCrate", options);
+                
+                int i = 0;
+                foreach(GitHubCommit c in commits)
+                {
+                    //var c = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
+                    if (c.Sha == oldSha || i > 101)
+                        break;
+                    if (i != 0)
+                        changelog += "\n\n";
+                    changelog += "#" + c.Sha.Substring(0, 7) + " by " + c.Author.Login + "\n";
+                    changelog += c.Commit.Message;
+                    i++;
+                }
+                MessageBox.Show(changelog);
+                /*CanaryChangelogViewer logWindow = new CanaryChangelogViewer(newSha.Substring(0, 7), changelog);
+                logWindow.Finished = false;
+                logWindow.Show();
+                while (!logWindow.Finished) { }*/
+                DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
+                CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                string Filename = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old";
+                if (File.Exists(Filename))
+                {
+                    File.Delete(Filename);
+                }
+                
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Canary Changelog could not be shown:\n" + e.Message);
+                return;
+            }
         }
     }
 

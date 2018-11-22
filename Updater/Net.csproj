@@ -196,6 +196,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
+    <Compile Include="UI\CanaryChangelogViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\CanaryChangelogViewer.Designer.cs">
+      <DependentUpon>CanaryChangelogViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\DLProgressBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -209,6 +215,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="UI\CanaryChangelogViewer.resx">
+      <DependentUpon>CanaryChangelogViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\DLProgressWindow.resx">
       <DependentUpon>DLProgressWindow.cs</DependentUpon>
     </EmbeddedResource>
