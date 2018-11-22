@@ -881,7 +881,7 @@ namespace System
                 }
                 else
                 {
-
+                    camNode = new SCN0CameraNode();
                 }
 
                 Matrix cM, cMInv;
