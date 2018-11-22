@@ -50,7 +50,7 @@ namespace System.Windows.Forms
             if (Program.CanRunGithubApp(true, out path))
             {
                 string args = String.Format("-bi {0} \"{1}\" \"{2}\" \"{3}\" \"{4}\"", 
-                    Program.TagName,
+                    MainForm.Instance.Canary ? "BrawlCrateCanary#" + MainForm.Instance.commitIDlong.Substring(2) : Program.TagName,
                     _exception.Message.Replace("\"", "\\\""),
                     _exception.StackTrace.Replace("\"", "\\\""),
                     txtTitle.Text.Replace("\"", "\\\""),

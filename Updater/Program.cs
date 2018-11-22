@@ -703,87 +703,81 @@ namespace Net
                 var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
                 IReadOnlyList<Release> releases = null;
                 IReadOnlyList<Issue> issues = null;
-                try
+                if (!TagName.StartsWith("BrawlCrateCanary#", StringComparison.OrdinalIgnoreCase))
                 {
-                    releases = await github.Repository.Release.GetAll("soopercool101", "BrawlCrate");
-
-                    // Check if this is a known pre-release version
-                    bool isPreRelease = releases.Any(r => r.Prerelease
-                        && r.Name.IndexOf("BrawlCrate", StringComparison.InvariantCultureIgnoreCase) >= 0);
-
-                    // If this is not a known pre-release version, remove all pre-release versions from the list
-                    if (!isPreRelease)
+                    try
                     {
+                        releases = await github.Repository.Release.GetAll("soopercool101", "BrawlCrate");
+
+                        // If this is not a known pre-release version, remove all pre-release versions from the list
                         releases = releases.Where(r => !r.Prerelease).ToList();
+
+                        issues = await github.Issue.GetAllForRepository("BrawlCrate", "BrawlCrateIssues");
                     }
-
-                    issues = await github.Issue.GetAllForRepository("BrawlCrate", "BrawlCrateIssues");
-                }
-                catch (System.Net.Http.HttpRequestException)
-                {
-                    MessageBox.Show("Unable to connect to the internet.");
-                    return;
-                }
-
-                if (releases != null && releases.Count > 0 && releases[0].TagName != TagName)
-                {
-                    //This build's version tag does not match the latest release's tag on the repository.
-                    //This bug may have been fixed by now. Tell the user to update to be allowed to submit bug reports.
-
-                    DialogResult UpdateResult = MessageBox.Show(releases[0].Name + " is available!\nYou cannot submit bug reports using an older version of the program.\nUpdate now?", "An update is available", MessageBoxButtons.YesNo);
-                    if (UpdateResult == DialogResult.Yes)
+                    catch (System.Net.Http.HttpRequestException)
                     {
-                        DialogResult OverwriteResult = MessageBox.Show("Overwrite current installation?", "", MessageBoxButtons.YesNoCancel);
-                        if (OverwriteResult != DialogResult.Cancel)
-                        {
-                            Task t = Updater.UpdateCheck(OverwriteResult == DialogResult.Yes);
-                            t.Wait();
-                        }
+                        MessageBox.Show("Unable to connect to the internet.");
+                        return;
                     }
-                }
-                else
-                {
-                    bool found = false;
-                    if (issues != null && !String.IsNullOrEmpty(StackTrace))
-                        foreach (Issue i in issues)
-                            if (i.State == ItemState.Open)
+
+                    if (releases != null && releases.Count > 0 && releases[0].TagName != TagName)
+                    {
+                        //This build's version tag does not match the latest release's tag on the repository.
+                        //This bug may have been fixed by now. Tell the user to update to be allowed to submit bug reports.
+
+                        DialogResult UpdateResult = MessageBox.Show(releases[0].Name + " is available!\nYou cannot submit bug reports using an older version of the program.\nUpdate now?", "An update is available", MessageBoxButtons.YesNo);
+                        if (UpdateResult == DialogResult.Yes)
+                        {
+                            DialogResult OverwriteResult = MessageBox.Show("Overwrite current installation?", "", MessageBoxButtons.YesNoCancel);
+                            if (OverwriteResult != DialogResult.Cancel)
                             {
-                                string desc = i.Body;
-                                if (desc.Contains(StackTrace) && 
-                                    desc.Contains(ExceptionMessage) && 
-                                    desc.Contains(TagName))
-                                {
-                                    found = true;
-                                    IssueUpdate update = i.ToUpdate();
-
-                                    update.Body =
-                                        Title +
-                                        Environment.NewLine +
-                                        Description +
-                                        Environment.NewLine +
-                                        Environment.NewLine +
-                                        i.Body;
-
-                                    Issue x = await github.Issue.Update("BrawlCrate", "BrawlCrateIssues", i.Number, update);
-                                }
+                                Task t = Updater.UpdateCheck(OverwriteResult == DialogResult.Yes);
+                                t.Wait();
                             }
-                    
-                    if (!found)
-                    {
-                        NewIssue issue = new NewIssue(Title)
-                        {
-                            Body =
-                            Description +
-                            Environment.NewLine +
-                            Environment.NewLine +
-                            TagName +
-                            Environment.NewLine +
-                            ExceptionMessage +
-                            Environment.NewLine +
-                            StackTrace
-                        };
-                        Issue x = await github.Issue.Create("BrawlCrate", "BrawlCrateIssues", issue);
+                        }
+                        return;
                     }
+                }
+                bool found = false;
+                if (issues != null && !String.IsNullOrEmpty(StackTrace))
+                    foreach (Issue i in issues)
+                        if (i.State == ItemState.Open)
+                        {
+                            string desc = i.Body;
+                            if (desc.Contains(StackTrace) && 
+                                desc.Contains(ExceptionMessage) && 
+                                desc.Contains(TagName))
+                            {
+                                found = true;
+                                IssueUpdate update = i.ToUpdate();
+
+                                update.Body =
+                                    Title +
+                                    Environment.NewLine +
+                                    Description +
+                                    Environment.NewLine +
+                                    Environment.NewLine +
+                                    i.Body;
+
+                                Issue x = await github.Issue.Update("BrawlCrate", "BrawlCrateIssues", i.Number, update);
+                            }
+                        }
+                    
+                if (!found)
+                {
+                    NewIssue issue = new NewIssue(Title)
+                    {
+                        Body =
+                        Description +
+                        Environment.NewLine +
+                        Environment.NewLine +
+                        TagName +
+                        Environment.NewLine +
+                        ExceptionMessage +
+                        Environment.NewLine +
+                        StackTrace
+                    };
+                    Issue x = await github.Issue.Create("BrawlCrate", "BrawlCrateIssues", issue);
                 }
             }
             catch
