@@ -543,7 +543,7 @@ namespace Net
                     {
                         if (!File.Exists(oldName))
                             File.Move(Filename, oldName);
-                        else
+                        if(File.Exists(Filename))
                             File.Delete(Filename);
                     }
                     await WriteCanaryTime();
@@ -817,6 +817,11 @@ namespace Net
                         somethingDone = true;
                         Task t6 = Updater.ForceDownloadRelease(args[1]);
                         t6.Wait();
+                        break;
+                    case "-canarylog": // Force download the latest Stable build
+                        somethingDone = true;
+                        Task t7 = Updater.ShowCanaryChangelog();
+                        t7.Wait();
                         break;
                 }
             }
