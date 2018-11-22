@@ -661,7 +661,7 @@ namespace Net
                     changelog += c.Commit.Message;
                     i++;
                 }
-                MessageBox.Show("Canary Update Successful. Displaying Changelog."); // For some reason, without this, the changelog window never shows.
+                MessageBox.Show("Canary succsesfully updated from #" + oldSha.Substring(0, 7) + " to #" + newSha.Substring(0, 7)); // For some reason, without this, the changelog window never shows.
                 //MessageBox.Show(changelog);
                 CanaryChangelogViewer logWindow = new CanaryChangelogViewer(newSha.Substring(0, 7), changelog);
                 logWindow.ShowDialog();
