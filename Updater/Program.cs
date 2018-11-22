@@ -639,22 +639,21 @@ namespace Net
             Console.WriteLine("Checking connection to server.");
             using (Ping s = new Ping())
                 Console.WriteLine(s.Send("www.github.com").Status);
-
+            
             try
             {
                 Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
                 var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
                 var branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", "brawlcrate-master");
                 ApiOptions options = new ApiOptions();
-                options.PageSize = 100;
+                options.PageSize = 101;
                 options.PageCount = 1;
                 var commits = await github.Repository.Commit.GetAll("soopercool101", "BrawlCrate", options);
-                
                 int i = 0;
                 foreach(GitHubCommit c in commits)
                 {
                     //var c = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
-                    if (c.Sha == oldSha || i > 101)
+                    if (c.Sha == oldSha || i > 100)
                         break;
                     if (i != 0)
                         changelog += "\n\n";
@@ -662,6 +661,7 @@ namespace Net
                     changelog += c.Commit.Message;
                     i++;
                 }
+                MessageBox.Show("Canary Update Successful. Displaying Changelog."); // For some reason, without this, the changelog window never shows.
                 //MessageBox.Show(changelog);
                 CanaryChangelogViewer logWindow = new CanaryChangelogViewer(newSha.Substring(0, 7), changelog);
                 logWindow.ShowDialog();

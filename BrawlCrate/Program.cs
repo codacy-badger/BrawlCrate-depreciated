@@ -235,9 +235,10 @@ namespace BrawlCrate
                 if (MainForm.Instance.CheckUpdatesOnStartup)
                     MainForm.Instance.CheckUpdates(false);
                 // Show changelog if this is the first time opening this release, and the message wasn't seen 
-                if (BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds && firstBoot)
+                if (BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds)
                 {
-                    MainForm.Instance.ShowCanaryChangelog();
+                    if(Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old"))
+                        MainForm.Instance.ShowCanaryChangelog();
                 }
                 else if (BrawlCrate.Properties.Settings.Default.UpdateAutomatically && firstBoot)
                 {

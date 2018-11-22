@@ -49,6 +49,7 @@
             this.Controls.Add(this.richTextBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CanaryChangelogViewer";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CanaryChangelogViewer";
             this.Load += new System.EventHandler(this.CanaryChangelogViewer_Load);
             this.ResumeLayout(false);

@@ -15,5 +15,11 @@
         {
             richTextBox1.ReadOnly = true;
         }
+
+        protected override void OnShown(EventArgs e)
+        {
+            Focus();
+            base.OnShown(e);
+        }
     }
 }

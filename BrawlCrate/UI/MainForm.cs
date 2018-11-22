@@ -182,6 +182,12 @@ namespace BrawlCrate
             try
             {
                 string path;
+                if (!CheckForInternetConnection())
+                {
+                    if (manual)
+                        MessageBox.Show("Could not connect to internet");
+                    return;
+                }
                 if (Program.CanRunGithubApp(true, out path))
                 {
                     Process git = Process.Start(new ProcessStartInfo()
@@ -212,6 +218,12 @@ namespace BrawlCrate
             try
             {
                 string path;
+                if (!CheckForInternetConnection())
+                {
+                    if (manual)
+                        MessageBox.Show("Could not connect to internet");
+                    return;
+                }
                 if (Program.CanRunGithubApp(true, out path))
                 {
                     Process git = Process.Start(new ProcessStartInfo()
@@ -243,6 +255,11 @@ namespace BrawlCrate
             try
             {
                 string path;
+                if (!CheckForInternetConnection())
+                {
+                    MessageBox.Show("Could not connect to internet");
+                    return;
+                }
                 if (Program.CanRunGithubApp(true, out path))
                 {
                     Process git = Process.Start(new ProcessStartInfo()
