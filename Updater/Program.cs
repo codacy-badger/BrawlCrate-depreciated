@@ -473,6 +473,15 @@ namespace Net
                 using (Ping s = new Ping())
                     Console.WriteLine(s.Send("www.github.com").Status);
 
+                if (commitID == null)
+                {
+                    Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
+                    var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
+                    var branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", "brawlcrate-master");
+                    var result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
+                    commitID = result.Sha.ToString().Substring(0, 7);
+                }
+
                 //Find and close the BrawlCrate application that will be overwritten
                 TRY_AGAIN:
                 Process[] px = Process.GetProcessesByName("BrawlCrate");
@@ -483,7 +492,7 @@ namespace Net
                     DialogResult continueUpdate = MessageBox.Show("Update cannot proceed unless all open windows of " + AppPath + "\\BrawlCrate.exe are closed. Would you like to force close all open BrawlCrate windows at this time?\n\n" +
                         "Select \"Yes\" if you would like to force close all open BrawlCrate windows\n" +
                         "Select \"No\" after closing all windows manually if you would like to proceed without force closing\n" +
-                        "Select \"Cancel\" if you would like to wait to update until another time", "Canary Update", MessageBoxButtons.YesNoCancel);
+                        "Select \"Cancel\" if you would like to wait to update until another time", "Canary Update #" + commitID, MessageBoxButtons.YesNoCancel);
                     if (continueUpdate == DialogResult.Yes)
                     {
                         foreach (Process pNext in pToClose)
@@ -502,14 +511,6 @@ namespace Net
                 else if (p != null && p != default(Process))
                 {
                     p.Kill();
-                }
-                if(commitID == null)
-                {
-                    Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
-                    var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
-                    var branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", "brawlcrate-master");
-                    var result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
-                    commitID = result.Sha.ToString().Substring(0, 7);
                 }
                 
                 using (WebClient client = new WebClient())
@@ -539,7 +540,12 @@ namespace Net
                     string Filename = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New";
                     string oldName = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old";
                     if (File.Exists(Filename))
-                        File.Move(Filename, oldName);
+                    {
+                        if (!File.Exists(oldName))
+                            File.Move(Filename, oldName);
+                        else
+                            File.Delete(Filename);
+                    }
                     await WriteCanaryTime();
                     // Case 1: Wine (Batch files won't work, use old methodology)
                     if (Process.GetProcessesByName("winlogon").Count<Process>() == 0)
@@ -607,6 +613,33 @@ namespace Net
                 MessageBox.Show(e.Message);
                 return;
             }
+        }
+
+        public static async Task ShowCanaryChangelog()
+        {
+            string changelog = "";
+            string newSha = "";
+            string oldSha = "";
+            try
+            {
+                newSha = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "new")[2];
+                oldSha = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "old")[2];
+            }
+            catch
+            {
+                MessageBox.Show("Canary changelog could not be shown. Make sure to never disturb the \"Canary\" folder in the installation folder.");
+                return;
+            }
+            if(newSha == oldSha)
+            {
+                MessageBox.Show("Welcome to BrawlCrate Canary! You were already on the latest commit.");
+                return;
+            }
+
+            // check to see if the user is online, and that github is up and running.
+            Console.WriteLine("Checking connection to server.");
+            using (Ping s = new Ping())
+                Console.WriteLine(s.Send("www.github.com").Status);
         }
     }
 

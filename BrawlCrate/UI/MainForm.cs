@@ -239,7 +239,31 @@ namespace BrawlCrate
 
         public void ShowCanaryChangelog()
         {
-            // Call changelog showing functionality
+            // Call canary changelog generation functionality
+            try
+            {
+                string path;
+                if (Program.CanRunGithubApp(true, out path))
+                {
+                    Process git = Process.Start(new ProcessStartInfo()
+                    {
+                        FileName = path,
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        Arguments = String.Format("-canaryChangelog"),
+                    });
+                    git.WaitForExit();
+                }
+                else
+                {
+                    MessageBox.Show(".NET version 4.5 is required to run the updater.");
+                    checkForUpdatesToolStripMenuItem.Enabled =
+                    checkForUpdatesToolStripMenuItem.Visible = false;
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         public bool DisplayPropertyDescriptionsWhenAvailable
