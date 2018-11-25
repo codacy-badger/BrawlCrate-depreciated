@@ -224,15 +224,30 @@ namespace Net
                     !String.Equals(releases[0].TagName, releaseTag, StringComparison.InvariantCulture) && //Make sure the most recent version is not this version
                     releases[0].Name.IndexOf("BrawlCrate v", StringComparison.InvariantCultureIgnoreCase) >= 0) //Make sure this is a BrawlCrate release
                 {
-                    int descriptionOffset = 0;
-                    if (releases[0].Body.Length > 110 && releases[0].Body.Substring(releases[0].Body.Length - 109) == "\nAlso check out the Brawl Stage Compendium for info and research on Stage Modding: https://discord.gg/s7c8763")
-                        descriptionOffset = 110;
                     if (automatic)
                     {
+                        if(releases[0].Body.Contains("WARNING: "))
+                        {
+                            if(releases[0].Body.StartsWith("WARNING: "))
+                            {
+                                DialogResult dr = MessageBox.Show(releases[0].Body.Substring(0, releases[0].Body.IndexOf("\n") - 1) + "\n\nWould you like to continue updating?", "Automatic Update Warning", MessageBoxButtons.YesNo);
+                                if (dr != DialogResult.Yes)
+                                    return;
+                            }
+                            else
+                            {
+                                DialogResult dr = MessageBox.Show(releases[0].Body.Substring(releases[0].Body.IndexOf("WARNING: ")) + "\n\nWould you like to continue updating?", "Automatic Update Warning", MessageBoxButtons.YesNo);
+                                if (dr != DialogResult.Yes)
+                                    return;
+                            }
+                        }
                         Task t = UpdateCheck(true, openFile, false, true);
                         t.Wait();
                         return;
                     }
+                    int descriptionOffset = 0;
+                    if (releases[0].Body.Length > 110 && releases[0].Body.Substring(releases[0].Body.Length - 109) == "\nAlso check out the Brawl Stage Compendium for info and research on Stage Modding: https://discord.gg/s7c8763")
+                        descriptionOffset = 110;
                     DialogResult UpdateResult = MessageBox.Show(releases[0].Name + " is available!\n\nThis release:\n\n" + releases[0].Body.Substring(0, releases[0].Body.Length - descriptionOffset) + "\n\nUpdate now?", "Update", MessageBoxButtons.YesNo);
                     if (UpdateResult == DialogResult.Yes)
                     {
@@ -709,7 +724,7 @@ namespace Net
                     {
                         releases = await github.Repository.Release.GetAll("soopercool101", "BrawlCrate");
 
-                        // If this is not a known pre-release version, remove all pre-release versions from the list
+                        // Remove all pre-release (Documentation) versions from the list
                         releases = releases.Where(r => !r.Prerelease).ToList();
 
                         issues = await github.Issue.GetAllForRepository("BrawlCrate", "BrawlCrateIssues");
