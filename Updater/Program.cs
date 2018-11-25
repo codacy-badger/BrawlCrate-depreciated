@@ -162,7 +162,7 @@ namespace Net
                         sw.WriteLine("del temp.exe /s /f /q");
                         sw.Write("START BrawlCrate.exe");
                         if (openFile != null && openFile != "<null>")
-                            sw.Write(" " + openFile);
+                            sw.Write(" \"" + openFile + "\"");
                     }
                     Process updateBat = Process.Start(AppPath + "/Update.bat");
                 }
@@ -432,7 +432,7 @@ namespace Net
                         sw.WriteLine("CD /d " + AppPath);
                         sw.WriteLine("START /wait temp.exe -y");
                         sw.WriteLine("del temp.exe /s /f /q");
-                        sw.Write("START BrawlCrate.exe " + (openFile != null && openFile != "<null>" ? openFile : "null") + " -Stable");
+                        sw.Write("START BrawlCrate.exe \"" + (openFile != null && openFile != "<null>" ? openFile : "null") + "\" -Stable");
                     }
                     Process updateBat = Process.Start(AppPath + "/Update.bat");
                 }
@@ -582,7 +582,7 @@ namespace Net
                         sw.WriteLine("CD /d " + AppPath);
                         sw.WriteLine("START /wait temp.exe -y");
                         sw.WriteLine("del temp.exe /s /f /q");
-                        sw.Write("START BrawlCrate.exe " + (openFile != null && openFile != "<null>" ? openFile : "null") + " -Canary");
+                        sw.Write("START BrawlCrate.exe \"" + (openFile != null && openFile != "<null>" ? openFile : "null") + "\" -Canary");
                     }
                     Process updateBat = Process.Start(AppPath + "/Update.bat");
                 }
@@ -841,7 +841,7 @@ namespace Net
                         break;
                     case "-buc": //BrawlCrate Canary update call
                         somethingDone = true;
-                        Task t2c = Updater.CheckCanaryUpdate(args[1], args[2].StartsWith("1", StringComparison.OrdinalIgnoreCase));
+                        Task t2c = Updater.CheckCanaryUpdate(args[2], args[1].StartsWith("1", StringComparison.OrdinalIgnoreCase));
                         t2c.Wait();
                         break;
                     case "-bi": //BrawlCrate issue call
