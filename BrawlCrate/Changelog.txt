@@ -25,7 +25,7 @@ they be held accountable for the manner in which it is used.
  . "Sub Item ID" now parsed as "Costume ID", matching BrawlBox v0.78
  . "Sort Items" now uses Ctrl+I as a shortcut
  . OpenTK updated from v1.1.0.0 to v3.0.1.0
- , Octokit updated from v0.5.2.0 to v0.32.0.0
+ . Octokit updated from v0.5.2.0 to v0.32.0.0
  . Improve general updater speed
  . Changelog window is now shown at the same time as the main window, rather than before
  . Fix bug in which settings from old versions would not upgrade properly when opening a GCT

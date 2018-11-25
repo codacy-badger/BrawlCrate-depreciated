@@ -634,6 +634,7 @@ namespace Net
             string changelog = "";
             string newSha = "";
             string oldSha = "";
+            string Filename = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old";
             try
             {
                 newSha = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "new")[2];
@@ -647,6 +648,8 @@ namespace Net
             if(newSha == oldSha)
             {
                 MessageBox.Show("Welcome to BrawlCrate Canary! You were already on the latest commit.");
+                if (File.Exists(Filename))
+                    File.Delete(Filename);
                 return;
             }
 
@@ -681,12 +684,8 @@ namespace Net
                 logWindow.ShowDialog();
                 DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
                 CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-                string Filename = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old";
                 if (File.Exists(Filename))
-                {
                     File.Delete(Filename);
-                }
-                
             }
             catch (Exception e)
             {
