@@ -16,6 +16,11 @@ they be held accountable for the manner in which it is used.
 |************ BrawlCrate Change Log ************|
  ===============================================
  
+ - BrawlCrate v0.17 Hotfix 1 - (11/25/2018)
+ . Fixes various issues when opening files with spaces in the directory
+ . Fixes bug in which older versions of Windows would crash when viewing hex
+ . Splash screen no longer shows white pixels around it
+ 
  - BrawlCrate v0.17 - (11/24/2018)
  . BrawlCrate now shows a splash screen while booting
  . Updater now shows a download progress bar
