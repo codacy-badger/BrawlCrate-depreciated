@@ -841,7 +841,6 @@ namespace Net
                         break;
                     case "-buc": //BrawlCrate Canary update call
                         somethingDone = true;
-                        MessageBox.Show("Mawwwk, what's in the quotes?: \"" + args[2] + "\"");
                         Task t2c = Updater.CheckCanaryUpdate(args[1], args[2].StartsWith("1", StringComparison.OrdinalIgnoreCase));
                         t2c.Wait();
                         break;
