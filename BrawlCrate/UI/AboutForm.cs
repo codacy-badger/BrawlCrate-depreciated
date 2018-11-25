@@ -11,7 +11,7 @@ namespace BrawlCrate
         public AboutForm()
         {
             InitializeComponent();
-            this.lblName.Text = Program.AssemblyTitle;
+            this.lblName.Text = MainForm.Instance.Canary ? "Canary" + MainForm.Instance.commitIDlong : Program.AssemblyTitle;
             this.txtDescription.Text = Program.AssemblyDescription;
             this.lblCopyright.Text = Program.AssemblyCopyright;
             this.lblBrawlLib.Text = "Using " + Program.BrawlLibTitle;
