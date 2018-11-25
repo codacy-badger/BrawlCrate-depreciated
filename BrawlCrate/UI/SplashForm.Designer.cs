@@ -35,9 +35,11 @@ namespace BrawlCrate
             // 
             this.BackColor = this.BackColor;
             this.BackgroundImage = global::BrawlCrate.Properties.Resources.BrawlCrateLogo;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(500, 500);
             this.ControlBox = false;
             this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
