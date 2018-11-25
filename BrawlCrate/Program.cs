@@ -16,13 +16,12 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.16Hotfix1";
-        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.16 Hotfix 1! This release:\n" +
-            "\n- Improves DAE import/export" +
-            "\n- Moves issue reporter to https://github.com/BrawlCrate/BrawlCrateIssues/issues" +
-            "\n- Fixes bug in which models with open subfolders would crash when stripped to bones" +
-            "\n- Improves updater speed" +
-            "\n- (Hotfix 1) Fixes various updater bugs introduced in the last patch" +
+        public static readonly string TagName = "BrawlCrate_v0.17";
+        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.17! This release:\n" +
+			"\n- Adds a fancy new splash screen on boot" +
+            "\n- Allows switching to the BrawlCrate Canary update track (check the settings if interested)" +
+            "\n- Updates various aspects of the Model Viewer backend, improving performance" +
+            "\n- Fixes various bugs and improves performance with the updater" +
             "\n\nFull changelog can be found in the installation folder:\n" + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
         public static readonly string AssemblyTitle;

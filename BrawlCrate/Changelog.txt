@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.16 Hotfix 1
+BrawlCrate - v0.17
 Copyright © 2018 soopercool101, MarioDox, Syvkal
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,29 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.17 - (11/24/2018)
+ . BrawlCrate now shows a splash screen while booting
+ . Updater now shows a download progress bar
+ . Updater now detects when multiple windows of the same installation are open, and allows the user to close them before updating (or cancel the update)
+ . Updater can now receive warnings which when received will force manual input before automatically updating
+ . Added support for switching to BrawlCrate Canary builds (Which get recompiled almost every commit to source)
+ . "Sub Item ID" now parsed as "Costume ID", matching BrawlBox v0.78
+ . "Sort Items" now uses Ctrl+I as a shortcut
+ . OpenTK updated from v1.1.0.0 to v3.0.1.0
+ , Octokit updated from v0.5.2.0 to v0.32.0.0
+ . Improve general updater speed
+ . Changelog window is now shown at the same time as the main window, rather than before
+ . Fix bug in which settings from old versions would not upgrade properly when opening a GCT
+ . Fix bug in which an unsuccessful save would prevent the user from saving until more edits are made
+ . Fix bug in which env mapping could crash the model viewer
+ . Fix bug in which "No Updates Found" message would not show when manually checking for updates
+ . Fix bug in which updater would somewhat regularly encounter GitHub's API call limits
+ . Fix bug in which model previewers would lag when the alt key is pressed
+ . Fix bug in which viewing <Null>-named ARCs would crash the model viewer
+ . Fix bug in which closing multiple BrawlCrate windows at once would throw an error
+ . Fix bug in which documentation updated success message would parse incorrectly
+ . Fix rare bug in which auto-updater could cause bootlock unless booting without internet
  
  - BrawlCrate v0.16 Hotfix 1 - (11/15/2018)
  . Fix various updater bugs present in the last patch
