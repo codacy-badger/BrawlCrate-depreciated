@@ -2952,8 +2952,15 @@ namespace Be.Windows.Forms
                     tempFont = new Font(Font, FontStyle.Bold | FontStyle.Italic | FontStyle.Underline);
 
             int winVersion = -1;
-            if (System.Environment.OSVersion.ToString().StartsWith("Microsoft Windows NT "))
-                Int32.TryParse(System.Environment.OSVersion.ToString().Substring(System.Environment.OSVersion.ToString().LastIndexOf(" ") + 1, System.Environment.OSVersion.ToString().IndexOf(".") - (System.Environment.OSVersion.ToString().LastIndexOf(" ") + 1)), out winVersion);
+            try
+            {
+                if (System.Environment.OSVersion.ToString().StartsWith("Microsoft Windows NT "))
+                    Int32.TryParse(System.Environment.OSVersion.ToString().Substring(System.Environment.OSVersion.ToString().LastIndexOf(" ") + 1, System.Environment.OSVersion.ToString().IndexOf(".") - (System.Environment.OSVersion.ToString().LastIndexOf(" ") + 1)), out winVersion);
+            }
+            catch
+            {
+                winVersion = -1;
+            }
             g.DrawString(sB.Substring(0, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + ((System.Environment.OSVersion.ToString() == "Microsoft Windows NT 6.2.9200.0" || winVersion >= 10) ? (((sB.Substring(0, 1) == "A") || (tempFont.Italic && !(sB.Substring(0, 1) == "1" || sB.Substring(0, 1) == "4")) ? 2 : 0)) : 0)), _stringFormat);
             bytePointF.X += _charSize.Width;
             g.DrawString(sB.Substring(1, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + ((System.Environment.OSVersion.ToString() == "Microsoft Windows NT 6.2.9200.0" || winVersion >= 10) ? (((sB.Substring(1, 1) == "A") || (tempFont.Italic && !(sB.Substring(1, 1) == "1" || sB.Substring(1, 1) == "4")) ? 2 : 0)) : 0)), _stringFormat);
@@ -2989,8 +2996,15 @@ namespace Be.Windows.Forms
                     tempFont = new Font(Font, FontStyle.Bold | FontStyle.Italic | FontStyle.Underline);
             
             int winVersion = -1;
-            if(System.Environment.OSVersion.ToString().StartsWith("Microsoft Windows NT "))
-                Int32.TryParse(System.Environment.OSVersion.ToString().Substring(System.Environment.OSVersion.ToString().LastIndexOf(" ") + 1, System.Environment.OSVersion.ToString().IndexOf(".") - (System.Environment.OSVersion.ToString().LastIndexOf(" ") + 1)), out winVersion);
+            try
+            {
+                if (System.Environment.OSVersion.ToString().StartsWith("Microsoft Windows NT "))
+                    Int32.TryParse(System.Environment.OSVersion.ToString().Substring(System.Environment.OSVersion.ToString().LastIndexOf(" ") + 1, System.Environment.OSVersion.ToString().IndexOf(".") - (System.Environment.OSVersion.ToString().LastIndexOf(" ") + 1)), out winVersion);
+            }
+            catch
+            {
+                winVersion = -1;
+            }
             g.FillRectangle(brushBack, bytePointF.X - t, bytePointF.Y, bcWidth, _charSize.Height);
             g.DrawString(sB.Substring(0, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + ((System.Environment.OSVersion.ToString() == "Microsoft Windows NT 6.2.9200.0" || winVersion >= 10) ? (((sB.Substring(0, 1) == "A") || (tempFont.Italic && !(sB.Substring(0, 1) == "1" || sB.Substring(0, 1) == "4")) ? 2 : 0)) : 0)), _stringFormat);
             bytePointF.X += _charSize.Width;
