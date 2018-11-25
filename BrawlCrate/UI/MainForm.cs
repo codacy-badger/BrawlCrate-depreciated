@@ -194,7 +194,7 @@ namespace BrawlCrate
                     {
                         FileName = path,
                         WindowStyle = ProcessWindowStyle.Hidden,
-                        Arguments = String.Format("-dlCanary {0}", Program.RootPath == null ? "<null>" : Program.RootPath),
+                        Arguments = String.Format("-dlCanary \"{0}\"", Program.RootPath == null ? "<null>" : Program.RootPath),
                     });
                     git.WaitForExit();
                 }
@@ -230,7 +230,7 @@ namespace BrawlCrate
                     {
                         FileName = path,
                         WindowStyle = ProcessWindowStyle.Hidden,
-                        Arguments = String.Format("-dlStable {0}", Program.RootPath == null ? "<null>" : Program.RootPath),
+                        Arguments = String.Format("-dlStable \"{0}\"", Program.RootPath == null ? "<null>" : Program.RootPath),
                     });
                     git.WaitForExit();
                 }

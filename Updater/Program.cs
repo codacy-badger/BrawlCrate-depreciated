@@ -841,7 +841,7 @@ namespace Net
                         break;
                     case "-buc": //BrawlCrate Canary update call
                         somethingDone = true;
-                        Task t2c = Updater.CheckCanaryUpdate(args[2], args[1].StartsWith("1", StringComparison.OrdinalIgnoreCase));
+                        Task t2c = Updater.CheckCanaryUpdate(args[2], args[1] != "0");
                         t2c.Wait();
                         break;
                     case "-bi": //BrawlCrate issue call
