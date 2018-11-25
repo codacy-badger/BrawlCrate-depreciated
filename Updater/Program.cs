@@ -443,7 +443,7 @@ namespace Net
                 return;
             }
         }
-        public static async Task CheckCanaryUpdate(string openFile, bool manual = true)
+        public static async Task CheckCanaryUpdate(string openFile, bool manual)
         {
             try
             {
