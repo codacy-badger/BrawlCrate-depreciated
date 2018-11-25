@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.17
+BrawlCrate - v0.17 Hotfix 1
 Copyright © 2018 soopercool101, MarioDox, Syvkal
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
