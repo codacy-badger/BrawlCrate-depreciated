@@ -675,7 +675,6 @@ namespace Net
                         break;
                     i++;
                 }
-                i = commits.Count - 1;
                 for (int j = i; j >= 0; j--)
                 {
                     if (j >= commits.Count)
