@@ -667,18 +667,31 @@ namespace Net
                 options.PageSize = 100;
                 options.PageCount = 1;
                 var commits = await github.Repository.Commit.GetAll("soopercool101", "BrawlCrate", options);
-                int i = 0;
-                foreach(GitHubCommit c in commits)
+                int i = -1;
+                foreach (GitHubCommit c in commits)
                 {
                     //var c = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
-                    if (c.Sha == oldSha || i >= 100)
+                    if (c.Sha == oldSha || i >= 99)
                         break;
                     i++;
                 }
+                i = commits.Count - 1;
                 for (int j = i; j >= 0; j--)
                 {
+                    if (j >= commits.Count)
+                        continue;
+                    if (j == 99)
+                        changelog += "\n\nMax commits reached. Showing last 100.";
+                    GitHubCommit c = new GitHubCommit();
+                    try
+                    {
+                        c = commits[j];
+                    }
+                    catch
+                    {
+                        continue;
+                    }
                     changelog += "\n\n========================================================\n\n";
-                    GitHubCommit c = commits[j];
                     changelog += "#" + c.Sha.Substring(0, 7) + " by " + c.Author.Login + "\n";
                     changelog += c.Commit.Message;
                 }
