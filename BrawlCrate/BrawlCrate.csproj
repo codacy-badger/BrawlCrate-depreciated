@@ -655,10 +655,17 @@ del Octokit.dll
 del updater.exe
 %25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Octokit.dll" "$(TargetDir)" /Y /I
 %25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Updater.exe" "$(TargetDir)" /Y /I
+%25windir%25\system32\xcopy "$(SolutionDir)sawndz\bin\Release\sawndz.exe" "$(TargetDir)" /Y /I
+if $(ConfigurationName) == Debug (
+  del sawndz.exe
+  %25windir%25\system32\xcopy "$(SolutionDir)sawndz\bin\Debug\sawndz.exe" "$(TargetDir)" /Y /I
+  %25windir%25\system32\xcopy "$(SolutionDir)sawndz\bin\Debug\sawndz.pdb" "$(TargetDir)" /Y /I
+)
 if $(ConfigurationName) == Documentation (
   del BrawlCrate.exe.config
   del BrawlCrate.pdb
   del BrawlLib.pdb
+  del sawndz.exe
   del Octokit.dll
   del updater.exe
   del BrawlLib.dll
