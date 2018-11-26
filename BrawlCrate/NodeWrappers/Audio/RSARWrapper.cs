@@ -17,7 +17,7 @@ namespace BrawlCrate.NodeWrappers
         static RSARWrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("Import Sawndz", null, ImportSawndzAction, Keys.Control | Keys.I));
+            _menu.Items.Add(new ToolStripMenuItem("Import Sawnd", null, ImportSawndzAction, Keys.Control | Keys.I));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Export", null, ExportAction, Keys.Control | Keys.E));
             _menu.Items.Add(new ToolStripMenuItem("&Replace", null, ReplaceAction, Keys.Control | Keys.R));
