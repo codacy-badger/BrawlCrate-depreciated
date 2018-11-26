@@ -1060,7 +1060,7 @@ int main(int argc, char **argv)
   {
   if(argc==1)
     {
-    printf("Please run the Sawndz GUI.\n");
+    printf("Please run through BrawlCrate.\n");
     Sleep(1000);
     return 0;
     }

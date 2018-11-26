@@ -48,6 +48,8 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items[1].Enabled = n.SoundFileNode != null;
             _menu.Items[3].Enabled = w.Parent != null;
             _menu.Items[5].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[7].Enabled = w.PrevNode != null;
+            _menu.Items[8].Enabled = w.NextNode != null;
         }
 
         #endregion

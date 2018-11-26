@@ -385,6 +385,17 @@ namespace BrawlCrate
             return false;
         }
 
+        public static bool Open(string path, string root)
+        {
+            bool returnVal = Open(path, false);
+            if (returnVal)
+            {
+                _rootPath = root;
+                MainForm.Instance.Reset();
+            }
+            return returnVal;
+        }
+
         public static unsafe void Scan(FileMap map, FileScanNode node)
         {
             using (ProgressWindow progress = new ProgressWindow(MainForm.Instance, "File Scanner", "Scanning for known file types, please wait...", true))
