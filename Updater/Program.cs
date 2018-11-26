@@ -668,7 +668,7 @@ namespace Net
                 options.PageCount = 1;
                 var commits = await github.Repository.Commit.GetAll("soopercool101", "BrawlCrate", options);
                 int i = 0;
-                commits.Reverse();
+                commits = commits.Reverse().ToList();
                 foreach(GitHubCommit c in commits)
                 {
                     //var c = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
