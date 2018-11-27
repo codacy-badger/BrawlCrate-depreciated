@@ -124,6 +124,8 @@ namespace BrawlCrate
                 }
                 // This is the first time booting this update
                 firstBoot = true;
+                // Canary setting should be initialized as false
+                BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
                 // Ensure settings only get updated once
                 BrawlCrate.Properties.Settings.Default.UpdateSettings = false;
                 BrawlCrate.Properties.Settings.Default.Save();
