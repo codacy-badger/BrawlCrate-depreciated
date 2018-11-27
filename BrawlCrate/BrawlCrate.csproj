@@ -215,6 +215,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="OpenTK, Version=3.0.1.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenTK.3.0.1\lib\net20\OpenTK.dll</HintPath>
@@ -245,6 +248,7 @@
       <DependentUpon>TransformEditor.cs</DependentUpon>
     </Compile>
     <None Include="app.config" />
+    <None Include="app.manifest" />
     <None Include="NodeWrappers\BMDWrapper.cs" />
     <None Include="NodeWrappers\RARCWrapper.cs" />
     <None Include="NodeWrappers\FMDLWrapper.cs" />
