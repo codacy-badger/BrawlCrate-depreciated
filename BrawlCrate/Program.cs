@@ -125,8 +125,11 @@ namespace BrawlCrate
                 }
                 // This is the first time booting this update
                 firstBoot = true;
-                // Canary setting should be initialized as false
-                BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
+                // Canary setting should be initialized depending on if canary is active
+                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary"))
+                    BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active");
+                else
+                    BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
                 // Ensure settings only get updated once
                 BrawlCrate.Properties.Settings.Default.UpdateSettings = false;
                 BrawlCrate.Properties.Settings.Default.Save();

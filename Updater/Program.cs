@@ -176,6 +176,8 @@ namespace Net
 
         public static async Task CheckUpdates(string releaseTag, string openFile, bool manual = true, bool checkDocumentation = false, bool automatic = false)
         {
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active");
             Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
             string docVer = null;
             if (checkDocumentation)
@@ -339,6 +341,8 @@ namespace Net
 
         public static async Task ForceDownloadRelease(string openFile)
         {
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active");
             Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
             try
             {
@@ -456,6 +460,8 @@ namespace Net
 
         public static async Task CheckCanaryUpdate(string openFile, bool manual)
         {
+            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+                File.Create(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active");
             try
             {
                 string oldDate = "";
@@ -486,6 +492,8 @@ namespace Net
 
         public static async Task ForceDownloadCanary(string openFile, string commitID = null)
         {
+            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+                File.Create(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active");
             try
             {
                 if (AppPath.EndsWith("lib", StringComparison.CurrentCultureIgnoreCase))
