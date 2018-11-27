@@ -284,7 +284,7 @@ namespace Net
                         releases = AllReleases.ToList();
 
                         // Ensure that the latest update is, in fact, a documentation update
-                        if (!releases[0].Prerelease && !releases[0].Name.Contains("Documentation"))
+                        if (!releases[0].Prerelease || !releases[0].Name.Contains("Documentation"))
                         {
                             if(manual)
                                 MessageBox.Show("No updates found.");
@@ -459,7 +459,7 @@ namespace Net
             try
             {
                 string oldDate = "";
-                oldDate = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "new")[0];
+                oldDate = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[0];
 
                 Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
                 var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
@@ -720,8 +720,8 @@ namespace Net
             string Filename = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old";
             try
             {
-                newSha = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "new")[2];
-                oldSha = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "old")[2];
+                newSha = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[2];
+                oldSha = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old")[2];
             }
             catch
             {
