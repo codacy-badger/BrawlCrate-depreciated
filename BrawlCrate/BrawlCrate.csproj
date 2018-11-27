@@ -703,7 +703,6 @@ if $(ConfigurationName) == Release (
   rename "$(TargetName)Canary.exe" "Canary"
   %25windir%25\system32\xcopy "$(TargetDir)Canary" "$(SolutionDir)CanaryBuild\" /Y /I
   del Canary
-  del sawndz.exe
   "Updater.exe" -bcommitTime
   "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName).v@(VersionNumber).exe
 )</PostBuildEvent>
