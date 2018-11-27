@@ -178,21 +178,27 @@ namespace Net
         {
             Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
             string docVer = null;
-            try
+            if (checkDocumentation)
             {
-                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "InternalDocumentation"))
+                try
                 {
-                    if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "InternalDocumentation" + '\\' + "version.txt"))
+                    docVer = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "InternalDocumentation" + '\\' + "version.txt")[0];
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    MessageBox.Show("ERROR: Documentation Version could not be found. Downloading the latest documentation release.");
+                    await ForceDownloadDocumentation();
+                    try
                     {
                         docVer = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "InternalDocumentation" + '\\' + "version.txt")[0];
                     }
+                    catch (Exception e2)
+                    {
+                        Console.WriteLine(e2.Message);
+                        MessageBox.Show("ERROR: Documentation Version still could not be found. Please report this on Discord or Github.");
+                    }
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                MessageBox.Show("ERROR: Documentation Version could not be found.");
-                return;
             }
             try
             {
@@ -268,7 +274,11 @@ namespace Net
                 if (checkDocumentation)
                 {
                     if(docVer == null)
-                        MessageBox.Show("Documentation Version could not be found. Will download the latest documentation.");
+                    {
+                        // Errors have already been thrown
+                        //MessageBox.Show("ERROR: Documentation Version could not be found. Will download the latest documentation.");
+                        return;
+                    }
                     try
                     {
                         releases = AllReleases.ToList();
@@ -443,6 +453,7 @@ namespace Net
                 return;
             }
         }
+
         public static async Task CheckCanaryUpdate(string openFile, bool manual)
         {
             try
@@ -594,8 +605,80 @@ namespace Net
             }
         }
 
-        //public static async Task ForceDownloadDocumentation() { }
+        public static async Task ForceDownloadDocumentation()
+        {
+            Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
+            try
+            {
+                if (AppPath.EndsWith("lib", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    AppPath = AppPath.Substring(0, AppPath.Length - 4);
+                }
 
+                // check to see if the user is online, and that github is up and running.
+                Console.WriteLine("Checking connection to server.");
+                using (Ping s = new Ping())
+                    Console.WriteLine(s.Send("www.github.com").Status);
+
+                // Initiate the github client.
+                GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
+
+                // get Release
+                IReadOnlyList<Release> releases = await github.Repository.Release.GetAll("soopercool101", "BrawlCrate");
+                releases = releases.Where(r => r.Prerelease).ToList();
+                Release release = releases[0];
+                // Get Release Assets
+                ReleaseAsset Asset = (await github.Repository.Release.GetAllAssets("soopercool101", "BrawlCrate", release.Id))[0];
+                if (Asset == null)
+                    return;
+
+                using (WebClient client = new WebClient())
+                {
+                    // Add the user agent header, otherwise we will get access denied.
+                    client.Headers.Add("User-Agent: Other");
+
+                    // Full asset streamed into a single string
+                    string html = client.DownloadString(Asset.Url);
+
+                    // The browser download link to the self extracting archive, hosted on github
+                    string URL = html.Substring(html.IndexOf(BaseURL)).TrimEnd(new char[] { '}', '"' });
+
+                    //client.DownloadFile(URL, AppPath + "/temp.exe");
+                    DLProgressWindow.finished = false;
+                    DLProgressWindow dlTrack = new DLProgressWindow(null, releases[0].Name, AppPath, URL);
+                    while (!DLProgressWindow.finished)
+                    {
+                        // do nothing
+                    }
+                    dlTrack.Close();
+                    dlTrack.Dispose();
+                    if (!File.Exists(AppPath + "/temp.exe"))
+                    {
+                        MessageBox.Show("Error downloading update");
+                        return;
+                    }
+                    
+                    try
+                    {
+                        Process update = Process.Start(AppPath + "/temp.exe", "-o\"" + AppPath + "\"" + " -y");
+                            update.WaitForExit();
+                            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe"))
+                                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe");
+                            MessageBox.Show("Documentation was successfully updated to " + ((releases[0].Name.StartsWith("BrawlCrate Documentation", StringComparison.OrdinalIgnoreCase) && releases[0].Name.Length > 26) ? releases[0].Name.Substring(25) : releases[0].Name) + (true ? "\nThis documentation release:\n" + releases[0].Body : ""));
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("Error: " + e.Message);
+                    }
+                    return;
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return;
+            }
+        }
         // Used when building for releases
         public static async Task WriteCanaryTime()
         {
