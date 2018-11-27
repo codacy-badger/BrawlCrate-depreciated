@@ -40,7 +40,7 @@ namespace BrawlCrate.NodeWrappers
         {
             RSARWrapper w = GetInstance<RSARWrapper>();
             RSARSoundNode n = w._resource as RSARSoundNode;
-            _menu.Items[0].Enabled = _menu.Items[0].Visible = _menu.Items[1].Visible = (w._resource.Parent == null);
+            _menu.Items[0].Enabled = _menu.Items[0].Visible = _menu.Items[1].Visible = (w._resource.Parent == null && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawndz.exe"));
             _menu.Items[2].Enabled = w.Parent != null;
             _menu.Items[4].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
             _menu.Items[6].Enabled = w.PrevNode != null;
@@ -55,7 +55,7 @@ namespace BrawlCrate.NodeWrappers
 
         public void ImportSawndz()
         {
-            if (Parent != null)
+            if (Parent != null || !File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawndz.exe"))
                 return;
             if (MainForm.Instance.RootNode.ResourceNode.IsDirty)
             {
