@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.17 Hotfix 2
+BrawlCrate - v0.17 Hotfix 3
 Copyright © 2018 soopercool101, MarioDox, Syvkal
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,11 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.17 Hotfix 3 - (11/26/2018)
+ . Fixes bug where systems with high DPI scaling settings would have window resizes when viewing models
+ . Fixes bug in which switching to Canary and switching back could cause Canary to be enabled again when updating the stable build
+ . Various Canary quality of life improvements
  
  - BrawlCrate v0.17 Hotfix 2 - (11/25/2018)
  . Fixes bug in which hex viewing being active would crash the program on BRSTM creation

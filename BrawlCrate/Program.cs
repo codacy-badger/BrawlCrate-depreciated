@@ -16,7 +16,7 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.17Hotfix2";
+        public static readonly string TagName = "BrawlCrate_v0.17Hotfix3";
         public static readonly string UpdateMessage = "Updated to BrawlCrate v0.17 Hotfix 2! This release:\n" +
 			"\n- Adds a fancy new splash screen on boot" +
             "\n- Allows switching to the BrawlCrate Canary update track (check the settings if interested)" +
@@ -24,6 +24,7 @@ namespace BrawlCrate
             "\n- Fixes various bugs and improves performance with the updater" +
             "\n- (Hotfix 1) Fixes crashes when viewing hex on older versions of Windows" +
             "\n- (Hotfix 2) Fixes hex viewer crash on BRSTM creation" +
+			"\n- (Hotfix 3) Fixes DPI resize when viewing models" +
             "\n\nFull changelog can be found in the installation folder:\n" + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
         public static readonly string AssemblyTitle;

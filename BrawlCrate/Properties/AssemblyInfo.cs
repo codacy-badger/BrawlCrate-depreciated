@@ -16,7 +16,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("BrawlCrate")]
 [assembly: AssemblyProduct("BrawlCrate")]
-[assembly: AssemblyCopyright(@"Copyright © 2018 soopercool101, MarioDox
+[assembly: AssemblyCopyright(@"Copyright © 2018 soopercool101, MarioDox, Syvkal
 BrawlBox © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie && Sammi Husky
 Super Smash Bros. Brawl © 2008 Nintendo and HAL Laboratory")]
 [assembly: AssemblyTrademark(@"Characters are copyrighted by the following:
@@ -45,4 +45,4 @@ Super Smash Bros. Brawl © 2008 Nintendo and HAL Laboratory")]
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("0.17.*")]
-[assembly: AssemblyFileVersion("0.17.2.0")]
+[assembly: AssemblyFileVersion("0.17.3.0")]
