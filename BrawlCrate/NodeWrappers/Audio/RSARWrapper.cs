@@ -78,6 +78,8 @@ namespace BrawlCrate.NodeWrappers
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawnd.sawnd");
             File.Copy(sawndfileName, AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawnd.sawnd");
             runSawndzWithArgs("sawnd" + " \"" + brsarfileName + "\"");
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawnd.sawnd"))
+                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawnd.sawnd");
         }
 
         public static Process p;
