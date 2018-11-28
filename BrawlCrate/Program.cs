@@ -369,8 +369,10 @@ REGEN:
             rand.NextBytes(buf);
             ulong randnumgen = BitConverter.ToUInt64(buf, 0);
             string newTempFile = AppDomain.CurrentDomain.BaseDirectory + '\\' + "tmp" + '\\' + randnumgen.ToString("X16");
-            if (File.Exists(newTempFile))
+            if (Directory.Exists(newTempFile))
                 goto REGEN;
+            Directory.CreateDirectory(newTempFile);
+            newTempFile += '\\' + Path.GetFileNameWithoutExtension(path);
             File.Copy(path, newTempFile);
 #if !DEBUG
             try
@@ -450,6 +452,11 @@ REGEN:
 
         public static bool Save()
         {
+            return Save(false);
+        }
+
+        public static bool Save(bool saveTemp)
+        {
             bool restoreHex = false;
             if (_rootNode != null)
             {
@@ -458,7 +465,7 @@ REGEN:
                 {
                 #endif
                 
-                if (_rootPath == null)
+                if (_rootPath == null && (!saveTemp || openTempFile == null))
                     return SaveAs();
 
                 bool force = Control.ModifierKeys == (Keys.Control | Keys.Shift);
@@ -478,8 +485,8 @@ REGEN:
 
                 _rootNode.Merge(force);
                 _rootNode.IsDirty = false;
-                _rootNode.Export(_rootPath);
-
+                _rootNode.Export(saveTemp ? openTempFile : _rootPath);
+                
                 if (restoreHex)
                 {
                     MainForm.Instance.ShowHex = true;

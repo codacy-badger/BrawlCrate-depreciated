@@ -57,20 +57,18 @@ namespace BrawlCrate.NodeWrappers
         {
             if (Parent != null || !File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawndz.exe"))
                 return;
-            if (MainForm.Instance.RootNode.ResourceNode.IsDirty)
-            {
-                MessageBox.Show("Changes must be saved before a sawndz can be imported. Please save your changes before importing.");
-                return;
-            }
+            Program.Save(true);
             string inPath = "";
             int index = Program.OpenFile("Brawl SFX files (*.sawnd)|*.sawnd", out inPath);
             if (index != 0)
             {
-                string openFile = Program.RootPath;
+                string fileRoot = Program.RootPath;
+                string openFile = Program.openTempFile;
                 Program.Close(true);
                 insertSawnd(inPath, openFile);
                 MainForm.Instance.Reset();
-                Program.Open(openFile);
+                Program.Open(openFile, fileRoot);
+                _resource.SignalPropertyChange();
             }
         }
 
