@@ -339,11 +339,12 @@ namespace BrawlCrate
             return Open(path, true);
         }
 
+        public static string openTempFile = null;
         public static bool Open(string path, bool setRoot)
         {
             if (String.IsNullOrEmpty(path))
                 return false;
-
+            
             if (!File.Exists(path))
             {
                 Say("File does not exist.");
@@ -360,13 +361,24 @@ namespace BrawlCrate
 
             if (!Close())
                 return false;
-
-            #if !DEBUG
+REGEN:
+            DirectoryInfo tmp = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "tmp");
+            tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+            Random rand = new Random();
+            byte[] buf = new byte[8];
+            rand.NextBytes(buf);
+            ulong randnumgen = BitConverter.ToUInt64(buf, 0);
+            string newTempFile = AppDomain.CurrentDomain.BaseDirectory + '\\' + "tmp" + '\\' + randnumgen.ToString("X16");
+            if (File.Exists(newTempFile))
+                goto REGEN;
+            File.Copy(path, newTempFile);
+#if !DEBUG
             try
             {
             #endif
-                if ((_rootNode = NodeFactory.FromFile(null, _rootPath = path)) != null)
+                if ((_rootNode = NodeFactory.FromFile(null, openTempFile = newTempFile)) != null)
                 {
+                    _rootPath = path;
                     if(!setRoot)
                         _rootPath = null;
                     MainForm.Instance.Reset();
@@ -374,6 +386,7 @@ namespace BrawlCrate
                 }
                 else
                 {
+                    openTempFile = null;
                     _rootPath = null;
                     Say("Unable to recognize input file.");
                     MainForm.Instance.Reset();
