@@ -248,6 +248,7 @@ namespace BrawlCrate
                 {
                     Task.Factory.StartNew(() =>
                     {
+                        System.Threading.Thread.Sleep(1000);
                         MessageBox.Show(Program.UpdateMessage);
                     });
                 }
