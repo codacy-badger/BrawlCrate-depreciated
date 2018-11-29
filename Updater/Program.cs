@@ -754,16 +754,19 @@ namespace Net
                 foreach (GitHubCommit c in commits)
                 {
                     //var c = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
-                    if (c.Sha == oldSha || i >= 99)
+                    if (c.Sha == oldSha || i > 99)
                         break;
                     i++;
                 }
                 for (int j = i; j >= 0; j--)
                 {
+                    if (j == 100)
+                    {
+                        changelog += "\n\nMax commits reached. Showing last 100.";
+                        continue;
+                    }
                     if (j >= commits.Count)
                         continue;
-                    if (j == 99)
-                        changelog += "\n\nMax commits reached. Showing last 100.";
                     GitHubCommit c = new GitHubCommit();
                     try
                     {
