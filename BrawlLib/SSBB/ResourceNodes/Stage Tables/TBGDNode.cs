@@ -5,6 +5,7 @@ using System.IO;
 using BrawlLib.SSBBTypes;
 using System.Linq;
 using System.Windows.Forms;
+using BrawlLib.Imaging;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
@@ -115,24 +116,69 @@ namespace BrawlLib.SSBB.ResourceNodes
             return ((bint*)AttributeAddress)[index];
         }
 
+        public void SetRGBAPixel(int index, string value)
+        {
+            RGBAPixel p = new RGBAPixel();
+
+            string s = value.ToString();
+            char[] delims = new char[] { ',', 'R', 'G', 'B', 'A', ':', ' ' };
+            string[] arr = s.Split(delims, StringSplitOptions.RemoveEmptyEntries);
+
+            if (arr.Length == 4)
+            {
+                byte.TryParse(arr[0], out p.R);
+                byte.TryParse(arr[1], out p.G);
+                byte.TryParse(arr[2], out p.B);
+                byte.TryParse(arr[3], out p.A);
+            }
+
+            if (((RGBAPixel*)AttributeAddress)[index] != p)
+            {
+                ((RGBAPixel*)AttributeAddress)[index] = p;
+                SignalPropertyChange();
+            }
+        }
+
+        public RGBAPixel GetRGBAPixel(int index)
+        {
+            return ((RGBAPixel*)AttributeAddress)[index];
+        }
+
+        public void SetHex(int index, string value)
+        {
+            string field0 = (value.ToString() ?? "").Split(' ')[0];
+            int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase) ? 16 : 10;
+            int temp = Convert.ToInt32(field0, fromBase);
+            if (((bint*)AttributeAddress)[index] != temp)
+            {
+                ((bint*)AttributeAddress)[index] = temp;
+                SignalPropertyChange();
+            }
+        }
+
+        public String GetHex(int index)
+        {
+            return "0x" + ((int)((bint*)AttributeAddress)[index]).ToString("X8");
+        }
+
         public IEnumerable<AttributeInterpretation> GetPossibleInterpretations()
         {
             ReadConfig();
             ResourceNode root = this;
             while (root.Parent != null) root = root.Parent;
             var q = from f in TBGDFormats
-                    where 0x10 + f.NumEntries * 4 == WorkingUncompressed.Length
+                    where 0x14 + f.NumEntries * 4 == WorkingUncompressed.Length
                     select f;
 
             bool any_match_name = q.Any(f => String.Equals(
                 Path.GetFileNameWithoutExtension(f.Filename),
-                root.Name.Replace("STG", ""),
+                root.Name.Replace("STG", "") + "[" + FileIndex + "]",
                 StringComparison.InvariantCultureIgnoreCase));
             if (!any_match_name) q = q.Concat(new AttributeInterpretation[] { GenerateDefaultInterpretation() });
 
             q = q.OrderBy(f => !String.Equals(
                 Path.GetFileNameWithoutExtension(f.Filename),
-                root.Name.Replace("STG", ""),
+                root.Name.Replace("STG", "") + "[" + FileIndex + "]",
                 StringComparison.InvariantCultureIgnoreCase));
 
             return q;
@@ -142,7 +188,11 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             AttributeInfo[] arr = new AttributeInfo[NumEntries];
             buint* pIn = (buint*)AttributeAddress;
-            int index = 0x10;
+            int index = 0x14;
+
+            ResourceNode root = this;
+            while (root.Parent != null) root = root.Parent;
+
             for (int i = 0; i < arr.Length; i++)
             {
                 arr[i] = new AttributeInfo()
@@ -152,39 +202,48 @@ namespace BrawlLib.SSBB.ResourceNodes
                 //Guess if the value is a an integer or float
                 uint u = (uint)*((buint*)pIn);
                 float f = (float)*((bfloat*)pIn);
+                RGBAPixel p = new RGBAPixel(u);
                 if (*pIn == 0)
                 {
                     arr[i]._type = 0;
-                    arr[i]._description = "Default: 0 (could be int or float - be careful)";
+                    arr[i]._description = "Default: 0 (Could be int or float - be careful)";
                 }
-                else if (((u >> 24) & 0xFF) != 0 && *((bint*)pIn) != -1 && !float.IsNaN(f))
+                else if ((((u >> 24) & 0xFF) != 0 && *((bint*)pIn) != -1 && !float.IsNaN(f)) || (p.R == 0 && p.G == 50 && p.B == 0))
                 {
                     float abs = Math.Abs(f);
-                    if (abs > 0.0000001 && abs < 10000000)
+                    if ((abs > 0.0000001 && abs < 10000000) || float.IsInfinity(abs))
                     {
                         arr[i]._type = 0;
-                        arr[i]._description = "Default (float): " + f + " (" + u.ToString("X8") + ")";
+                        arr[i]._description = "Default (Float): " + f + " (0x" + u.ToString("X8") + ")";
+                    }
+                    else if ((p.R % 5 == 0 || p.R % 3 == 0) && (p.B % 5 == 0 || p.B % 3 == 0) &&
+                             (p.G % 5 == 0 || p.G % 3 == 0) && (p.A == 0 || p.A == 255))
+                    {
+                        arr[i]._type = 3;
+                        arr[i]._description = "Default (Color): " + p + " (0x" + u.ToString("X8") + ")";
+                        arr[i]._name = arr[i]._name;
                     }
                     else
                     {
-                        arr[i]._type = 1;
-                        arr[i]._description = "Default (unknown type): " + u + " (" + u.ToString("X8") + ")";
+                        arr[i]._type = 4;
+                        arr[i]._description = "Default (Unknown Type): " + "(0x" + u.ToString("X8") + ")";
                         arr[i]._name = "~" + arr[i]._name;
                     }
                 }
                 else
                 {
                     arr[i]._type = 1;
-                    arr[i]._description = "Default (int): " + u + " (" + u.ToString("X8") + ")";
+                    arr[i]._description = "Default (Integer): " + u + " (0x" + u.ToString("X8") + ")";
                     arr[i]._name = "*" + arr[i]._name;
                 }
                 index += 4;
                 pIn++;
             }
 
-            ResourceNode root = this;
-            while (root.Parent != null) root = root.Parent;
-            string filename = "TBGD/" + root.Name.Replace("STG", "") + ".txt";
+            string temp = "";
+            if (root != this)
+                temp = "[" + FileIndex + "]";
+            string filename = AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\TBGD\\" + root.Name.Replace("STG", "") + temp + ".txt";
             return new AttributeInterpretation(arr, filename);
         }
 
@@ -193,25 +252,28 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         private static void ReadConfig()
         {
-            if (Directory.Exists("TBGD"))
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation"))
             {
-                foreach (string path in Directory.EnumerateFiles("TBGD", "*.txt"))
+                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\TBGD"))
                 {
-                    if (configpaths_read.Contains(path)) continue;
-                    configpaths_read.Add(path);
-                    try
+                    foreach (string path in Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\TBGD", "*.txt"))
                     {
-                        TBGDFormats.Add(new AttributeInterpretation(path));
-                    }
-                    catch (FormatException ex)
-                    {
-                        if (Properties.Settings.Default.HideMDL0Errors)
+                        if (configpaths_read.Contains(path)) continue;
+                        configpaths_read.Add(path);
+                        try
                         {
-                            Console.Error.WriteLine(ex.Message);
+                            TBGDFormats.Add(new AttributeInterpretation(path, 0x14));
                         }
-                        else
+                        catch (FormatException ex)
                         {
-                            MessageBox.Show(ex.Message);
+                            if (Properties.Settings.Default.HideMDL0Errors)
+                            {
+                                Console.Error.WriteLine(ex.Message);
+                            }
+                            else
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
                         }
                     }
                 }

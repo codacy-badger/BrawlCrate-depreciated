@@ -5,9 +5,19 @@ using System.Windows.Forms;
 
 namespace System
 {
+    public static class LanguageCheck
+    {
+        public static char[] FindDecimalDelimiters()
+        {
+            if(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.Contains(","))
+                return new char[] { '(', ')', ' ' };
+            return new char[] { ',', '(', ')', ' ' };
+		}
+    }
+
     public class Vector4StringConverter : TypeConverter
     {
-        private static char[] delims = new char[] { ',', '(', ')', ' ' };
+        private static char[] delims = System.LanguageCheck.FindDecimalDelimiters();
 
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) { return destinationType == typeof(Vector4); }
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType) { return value.ToString(); }
@@ -27,6 +37,17 @@ namespace System
                 float.TryParse(arr[2], out v._z);
                 float.TryParse(arr[3], out v._w);
             }
+            else if (arr.Length == 1)
+            {
+                float i;
+                if (float.TryParse(arr[0], out i))
+                {
+                    v._x = i;
+                    v._y = i;
+                    v._z = i;
+                    v._w = i;
+                }
+            }
 
             return v;
         }
@@ -34,7 +55,7 @@ namespace System
 
     public class Vector3StringConverter : TypeConverter
     {
-        private static char[] delims = new char[] { ',', '(', ')', ' ' };
+        private static char[] delims = System.LanguageCheck.FindDecimalDelimiters();
 
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) { return destinationType == typeof(Vector3); }
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)        {            return value.ToString();        }
@@ -53,6 +74,15 @@ namespace System
                 float.TryParse(arr[1], out v._y);
                 float.TryParse(arr[2], out v._z);
             }
+            else if(arr.Length == 1)
+            {
+                float i;
+                if (float.TryParse(arr[0], out i)) {
+                    v._x = i;
+                    v._y = i;
+                    v._z = i;
+                }
+            }
 
             return v;
         }
@@ -60,7 +90,7 @@ namespace System
 
     public class Vector2StringConverter : TypeConverter
     {
-        private static char[] delims = new char[] { ',', '(', ')', ' ' };
+        private static char[] delims = System.LanguageCheck.FindDecimalDelimiters();
 
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) { return destinationType == typeof(Vector2); }
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType) { return value.ToString(); }
@@ -77,6 +107,15 @@ namespace System
             {
                 float.TryParse(arr[0], out v._x);
                 float.TryParse(arr[1], out v._y);
+            }
+            else if (arr.Length == 1)
+            {
+                float i;
+                if (float.TryParse(arr[0], out i))
+                {
+                    v._x = i;
+                    v._y = i;
+                }
             }
 
             return v;
@@ -145,7 +184,7 @@ namespace System
 
     public unsafe class Matrix43StringConverter : TypeConverter
     {
-        private static char[] delims = new char[] { ',', '(', ')', ' ' };
+        private static char[] delims = System.LanguageCheck.FindDecimalDelimiters();
 
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) { return destinationType == typeof(Matrix34); }
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType) { return value.ToString(); }
@@ -179,7 +218,7 @@ namespace System
 
     public unsafe class MatrixStringConverter : TypeConverter
     {
-        private static char[] delims = new char[] { ',', '(', ')', ' ' };
+        private static char[] delims = System.LanguageCheck.FindDecimalDelimiters();
 
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) { return destinationType == typeof(Matrix); }
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType) { return value.ToString(); }
@@ -217,7 +256,7 @@ namespace System
 
     public class QuaternionStringConverter : TypeConverter
     {
-        private static char[] delims = new char[] { ',', '(', ')', ' ' };
+        private static char[] delims = System.LanguageCheck.FindDecimalDelimiters();
 
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) { return destinationType == typeof(Vector4); }
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType) { return value.ToString(); }

@@ -15,7 +15,7 @@ namespace System
         public Vector3(string s)
         {
             Vector3 v = new Vector3();
-            char[] delims = new char[] { ',', '(', ')', ' ' };
+            char[] delims = System.LanguageCheck.FindDecimalDelimiters();
             string[] arr = s.Split(delims, StringSplitOptions.RemoveEmptyEntries);
 
             if (arr.Length == 3)
@@ -147,7 +147,12 @@ namespace System
                 v._z > 0.0f ? (float)Math.Floor(v._z) : (float)Math.Ceiling(v._z));
         }
 
-        public override string ToString() { return String.Format("({0},{1},{2})", _x, _y, _z); }
+        public override string ToString()
+        {
+            if (CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.Contains(","))
+                return String.Format("({0} {1} {2})", _x, _y, _z);
+            return String.Format("({0},{1},{2})", _x, _y, _z);
+        }
 
         public bool Contained(Vector3 start, Vector3 end, float expansion) { return Contained(this, start, end, expansion); }
         public static unsafe bool Contained(Vector3 point, Vector3 start, Vector3 end, float expansion)

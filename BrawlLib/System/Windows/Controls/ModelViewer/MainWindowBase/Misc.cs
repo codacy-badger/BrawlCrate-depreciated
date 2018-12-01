@@ -287,6 +287,8 @@ namespace System.Windows.Forms
                 e.Finish();
             }
 
+            _loop = PlaybackPanel.chkLoop.Checked;
+
             if (MessageBox.Show(this, "Animated GIF successfully saved to \"" + outPath.Replace("\\", "/") + "\".\nOpen the folder now?", "GIF saved", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 Process.Start("explorer.exe", path);
         }

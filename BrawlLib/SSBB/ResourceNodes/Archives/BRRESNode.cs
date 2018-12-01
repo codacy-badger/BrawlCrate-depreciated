@@ -285,7 +285,8 @@ namespace BrawlLib.SSBB.ResourceNodes
             return n;
         }
         public void ExportToFolder(string outFolder) { ExportToFolder(outFolder, ".tex0"); }
-        public void ExportToFolder(string outFolder, string imageExtension)
+        public void ExportToFolder(string outFolder, string imageExtension) { ExportToFolder(outFolder, imageExtension, ".mdl0"); }
+        public void ExportToFolder(string outFolder, string imageExtension, string modelExtension)
         {
             if (!Directory.Exists(outFolder))
                 Directory.CreateDirectory(outFolder);
@@ -299,7 +300,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 if (group.Type == BRESGroupNode.BRESGroupType.Textures)
                     ext = imageExtension;
                 else if (group.Type == BRESGroupNode.BRESGroupType.Models)
-                    ext = ".mdl0";
+                    ext = modelExtension;
                 else if (group.Type == BRESGroupNode.BRESGroupType.CHR0)
                     ext = ".chr0";
                 else if (group.Type == BRESGroupNode.BRESGroupType.CLR0)
@@ -317,9 +318,10 @@ namespace BrawlLib.SSBB.ResourceNodes
                 else if (group.Type == BRESGroupNode.BRESGroupType.Palettes)
                 {
                     ext = ".plt0";
-                    if(imageExtension != ".tex0")
+                    if (imageExtension != ".tex0")
                         extract = false;
-                } else
+                }
+                else
                     extract = false;
                 if(extract)
                     foreach (BRESEntryNode entry in group.Children)

@@ -192,19 +192,19 @@ namespace BrawlLib.SSBB.ResourceNodes
         [Category("STPM Values")]
         public float Value41 { get { return _values.GetFloat(40); } set { _values.SetFloat(40, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
-        public float Value42 { get { return _values.GetFloat(41); } set { _values.SetFloat(41, value); SignalPropertyChange(); } }
+        public float OlimarFinalCamAngle { get { return _values.GetFloat(41); } set { _values.SetFloat(41, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
-        public float Value43 { get { return _values.GetFloat(42); } set { _values.SetFloat(42, value); SignalPropertyChange(); } }
+        public float IceClimbersFinalPosX { get { return _values.GetFloat(42); } set { _values.SetFloat(42, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
-        public float Value44 { get { return _values.GetFloat(43); } set { _values.SetFloat(43, value); SignalPropertyChange(); } }
+        public float IceClimbersFinalPosY { get { return _values.GetFloat(43); } set { _values.SetFloat(43, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
-        public float Value45 { get { return _values.GetFloat(44); } set { _values.SetFloat(44, value); SignalPropertyChange(); } }
+        public float IceClimbersFinalPosZ { get { return _values.GetFloat(44); } set { _values.SetFloat(44, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
-        public float Value46 { get { return _values.GetFloat(45); } set { _values.SetFloat(45, value); SignalPropertyChange(); } }
+        public float IceClimbersFinalScaleX { get { return _values.GetFloat(45); } set { _values.SetFloat(45, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
-        public float Value47 { get { return _values.GetFloat(46); } set { _values.SetFloat(46, value); SignalPropertyChange(); } }
+        public float IceClimbersFinalScaleY { get { return _values.GetFloat(46); } set { _values.SetFloat(46, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
-        public float Value48 { get { return _values.GetFloat(47); } set { _values.SetFloat(47, value); SignalPropertyChange(); } }
+        public float PitFinalPalutenaScale { get { return _values.GetFloat(47); } set { _values.SetFloat(47, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
         public float Value49 { get { return _values.GetFloat(48); } set { _values.SetFloat(48, value); SignalPropertyChange(); } }
         [Category("STPM Values")]

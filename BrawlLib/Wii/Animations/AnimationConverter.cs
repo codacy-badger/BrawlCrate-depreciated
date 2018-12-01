@@ -24,9 +24,7 @@ namespace BrawlLib.Wii.Animations
 
             // Fixes merge animation
             if (node != null)
-            {
                 kf.Loop = node.Loop;
-            }
 
             return kf;
         }

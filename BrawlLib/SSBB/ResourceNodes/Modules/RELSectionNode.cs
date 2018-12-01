@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.IO;
 using BrawlLib.IO;
+using System.Windows.Forms;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
@@ -18,13 +19,24 @@ namespace BrawlLib.SSBB.ResourceNodes
         public bool _isCodeSection = false;
         public bool _isBSSSection = false;
         public int _dataOffset = 0;
-        public int _endBufferSize = 0x00;
+        public int _endBufferSize = 0x0;
         public uint _dataSize;
         public int _dataAlign;
 
         public string DataAlign { get { return "0x" + _dataAlign.ToString("X"); } }
 
-        public string EndBufferSize { get { return "0x" + _endBufferSize.ToString("X"); } }
+        public string EndBufferSize {
+            get { return "0x" + _endBufferSize.ToString("X"); }
+            set
+            {
+                string field0 = (value.ToString() ?? "").Split(' ')[0];
+                int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase) ? 16 : 10;
+                if(Convert.ToByte(field0, fromBase) % 4 != 0 && MessageBox.Show("Buffers should generally be multiples of 0x4, are you sure you want to set this? (It may make the module unreadable!)", "", MessageBoxButtons.YesNo) == DialogResult.No)
+                    return;
+                _endBufferSize = Convert.ToByte(field0, fromBase);
+                SignalPropertyChange();
+            }
+        }
         
         [Category("REL Section")]
         public bool HasCommands { get { return _manager._commands.Count > 0; } }
@@ -40,9 +52,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             if (_name == null)
                 if (_dataSize > 0)
-                    _name = String.Format("[{0}] Section ", Index);
+                    _name = String.Format("Section [{0}]", Index);
                 else
-                    _name = String.Format("[{0}] null", Index);
+                    _name = String.Format("null [{0}]", Index);
 
             if (_dataOffset == 0 && WorkingUncompressed.Length != 0)
             {
@@ -73,10 +85,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             Memory.Move(address, _dataBuffer.Address, (uint)length);
             address += _dataBuffer.Length;
-            if (_endBufferSize > 0)
-            {
+            if(_endBufferSize > 0)
                 Memory.Fill(address, (uint)_endBufferSize, 0x00);
-            }
         }
 
         public override void Dispose()

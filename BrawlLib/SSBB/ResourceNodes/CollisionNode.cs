@@ -209,13 +209,13 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 if (_linkedBone != null)
                 {
-                    foreach (CollisionPlane p in _planes)
+                    /*foreach (CollisionPlane p in _planes)
                     {
                         if (p.LinkLeft != null)
                             p.LinkLeft._rawValue = _linkedBone.Matrix * p.LinkLeft._rawValue;
                         if (p.LinkRight != null)
                             p.LinkRight._rawValue = _linkedBone.Matrix * p.LinkRight._rawValue;
-                    }
+                    }*/
                 }
 
                 if ((_linkedBone = value) != null)
@@ -225,13 +225,13 @@ namespace BrawlLib.SSBB.ResourceNodes
                     _modelName = _linkedBone.Model.Name;
                     _flags[1] = false;
 
-                    foreach (CollisionPlane p in _planes)
+                    /*foreach (CollisionPlane p in _planes)
                     {
                         if (p.LinkLeft != null)
                             p.LinkLeft._rawValue = _linkedBone.InverseMatrix * p.LinkLeft._rawValue;
                         if (p.LinkRight != null)
                             p.LinkRight._rawValue = _linkedBone.InverseMatrix * p.LinkRight._rawValue;
-                    }
+                    }*/
                 }
                 else
                 {
@@ -333,6 +333,8 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             foreach (CollisionPlane p in _planes)
                 p.DrawPlanes(p);
+            foreach (CollisionLink l in _points)
+                l.Render(true);
         }
 
         public override string ToString()
@@ -388,7 +390,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public CollisionLink(CollisionObject parent, Vector2 value)
         {
             _parent = parent;
-            _rawValue = value;
+            Value = value;
             _parent._points.Add(this);
         }
 
@@ -512,6 +514,38 @@ namespace BrawlLib.SSBB.ResourceNodes
                 _parent._points.Remove(this);
         }
 
+        public void Render(bool newMethod)
+        {
+            if (!newMethod)
+            {
+                Render();
+                return;
+            }
+            Color4 clr = new Color4(1.0f, 1.0f, 1.0f, 1.0f);
+            float mult = 1.0f;
+            foreach(CollisionPlane p in _members)
+            {
+                if((p.LinkLeft == this && p.IsLeftLedge) || (p.LinkRight == this && p.IsRightLedge))
+                {
+                    clr = new Color4(1.0f, 0.0f, 1.0f, 1.0f);
+                    mult = 3.0f;
+                    break;
+                }
+            }
+            if (_highlight)
+                GL.Color4(1.0f, 1.0f, 0.0f, 1.0f);
+            else
+                GL.Color4(clr);
+
+            Vector2 v = Value;
+
+            GL.Disable(EnableCap.CullFace);
+            TKContext.DrawBox(
+                new Vector3(v._x - mult * BoxRadius, v._y - mult * BoxRadius, LineWidth),
+                new Vector3(v._x + mult * BoxRadius, v._y + mult * BoxRadius, -LineWidth));
+            GL.Enable(EnableCap.CullFace);
+        }
+
         public void Render() { Render(1.0f); }
         public void Render(float mult) { Render(new Color4(1.0f, 1.0f, 1.0f, 1.0f), mult); }
         public void Render(Color4 clr, float mult)
@@ -523,9 +557,11 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             Vector2 v = Value;
 
+            GL.Disable(EnableCap.CullFace);
             TKContext.DrawBox(
                 new Vector3(v._x - mult * BoxRadius, v._y - mult * BoxRadius,  LineWidth),
                 new Vector3(v._x + mult * BoxRadius, v._y + mult * BoxRadius, -LineWidth));
+            GL.Enable(EnableCap.CullFace);
         }
     }
 
@@ -862,6 +898,11 @@ namespace BrawlLib.SSBB.ResourceNodes
             if (!_render)
                 return;
 
+            float alpha = 0.8f;
+
+            if (!IsCharacters && (IsItems || IsPokemonTrainer))
+                alpha = 0.5f;
+
             Color4 clr = new Color4(1.0f, 0.0f, 1.0f, 1.0f);
             Vector2 l = _linkLeft.Value;
             Vector2 r = _linkRight.Value;
@@ -873,22 +914,22 @@ namespace BrawlLib.SSBB.ResourceNodes
                 lev++;
 
             if (lev == 1)
-                GL.Color4(1.0f, 0.5f, 0.5f, 0.8f);
+                GL.Color4(1.0f, 0.5f, 0.5f, alpha);
             else
-                GL.Color4(0.9f, 0.0f, 0.9f, 0.8f);
+                GL.Color4(0.9f, 0.0f, 0.9f, alpha);
 
-            if (p._type == CollisionPlaneType.Floor && lev == 0 && !IsFallThrough) { GL.Color4(0.0f, 0.9f, 0.9f, 0.8f); }
-            else if (p._type == CollisionPlaneType.Ceiling && lev == 0 && !IsFallThrough) { GL.Color4(0.9f, 0.0f, 0.0f, 0.8f); }
-            else if (p._type == CollisionPlaneType.LeftWall && lev == 0 && !IsFallThrough) { GL.Color4(0.0f, 0.9f, 0.0f, 0.8f); }
-            else if (p._type == CollisionPlaneType.RightWall && lev == 0 && !IsFallThrough) { GL.Color4(0.0f, 0.9f, 0.0f, 0.8f); }
-            else if (p._type == CollisionPlaneType.None && lev == 0 && !IsFallThrough) { GL.Color4(1.0f, 1.0f, 1.0f, 0.6f); }
-            else if (p._type != CollisionPlaneType.None && lev == 0 && !IsFallThrough) { GL.Color4(0.0f, 0.0f, 0.0f, 0.8f); }
-            else if (p._type == CollisionPlaneType.Floor && p.IsFallThrough && lev == 0) { GL.Color4(1.0f, 1.0f, 0.0f, 0.8f); }
-            else if (p._type == CollisionPlaneType.RightWall && p.IsFallThrough && lev == 0) { GL.Color4(0.45f, 1.0f, 0.0f, 0.8f); }
-            else if (p._type == CollisionPlaneType.LeftWall && p.IsFallThrough && lev == 0) { GL.Color4(0.45f, 1.0f, 0.0f, 0.8f); }
-            else if (p._type == CollisionPlaneType.Ceiling && p.IsFallThrough && lev == 0) { GL.Color4(0.9f, 0.3f, 0.0f, 0.8f); }
-            else if (p._type == CollisionPlaneType.None && p.IsFallThrough && lev == 0) { GL.Color4(0.65f, 0.65f, 0.35f, 0.6f); }
-            else if (p._type != CollisionPlaneType.None && p.IsFallThrough && lev == 0) { GL.Color4(0.5f, 0.5f, 0.0f, 0.8f); }
+            if (p._type == CollisionPlaneType.Floor && lev == 0 && !p.IsFallThrough) { GL.Color4(0.0f, 0.9f, 0.9f, alpha); }
+            else if (p._type == CollisionPlaneType.Ceiling && lev == 0 && !p.IsFallThrough) { GL.Color4(0.9f, 0.0f, 0.0f, alpha); }
+            else if (p._type == CollisionPlaneType.LeftWall && lev == 0 && !p.IsFallThrough) { GL.Color4(0.0f, 0.9f, 0.0f, alpha); }
+            else if (p._type == CollisionPlaneType.RightWall && lev == 0 && !p.IsFallThrough) { GL.Color4(0.0f, 0.9f, 0.0f, alpha); }
+            else if (p._type == CollisionPlaneType.None && lev == 0 && !p.IsFallThrough) { GL.Color4(1.0f, 1.0f, 1.0f, alpha); }
+            else if (p._type != CollisionPlaneType.None && lev == 0 && !p.IsFallThrough) { GL.Color4(0.0f, 0.0f, 0.0f, alpha); }
+            else if (p._type == CollisionPlaneType.Floor && p.IsFallThrough && lev == 0) { GL.Color4(1.0f, 1.0f, 0.0f, alpha); }
+            else if (p._type == CollisionPlaneType.RightWall && p.IsFallThrough && lev == 0) { GL.Color4(0.45f, 1.0f, 0.0f, alpha); }
+            else if (p._type == CollisionPlaneType.LeftWall && p.IsFallThrough && lev == 0) { GL.Color4(0.45f, 1.0f, 0.0f, alpha); }
+            else if (p._type == CollisionPlaneType.Ceiling && p.IsFallThrough && lev == 0) { GL.Color4(0.9f, 0.3f, 0.0f, alpha); }
+            else if (p._type == CollisionPlaneType.None && p.IsFallThrough && lev == 0) { GL.Color4(0.65f, 0.65f, 0.35f, alpha); }
+            else if (p._type != CollisionPlaneType.None && p.IsFallThrough && lev == 0) { GL.Color4(0.5f, 0.5f, 0.0f, alpha); }
 
             /*if (p.HasUnknownFlag) { GL.Color4(0.0f, 0.0f, 0.0f, 0.8f); }
             else if (p.IsUnknownStageBox) { GL.Color4(1.0f, 1.0f, 1.0f, 0.6f); }*/
@@ -900,22 +941,26 @@ namespace BrawlLib.SSBB.ResourceNodes
             GL.Vertex3(r._x, r._y, 10.0f);
             GL.End();
 
-            if (lev == 1){GL.Color4(0.7f, 0.2f, 0.2f, 0.8f);}
-            else { GL.Color4(0.6f, 0.0f, 0.6f, 0.8f); }
+            alpha = 0.8f;
 
-            
-            if (p._type == CollisionPlaneType.Floor && lev == 0 && !IsFallThrough) { GL.Color4(0.0f, 0.9f, 0.9f, 0.8f); }
-            else if (p._type == CollisionPlaneType.Ceiling && lev == 0 && !IsFallThrough) { GL.Color4(0.9f, 0.0f, 0.0f, 0.8f); }
-            else if (p._type == CollisionPlaneType.LeftWall && lev == 0 && !IsFallThrough) { GL.Color4(0.0f, 0.9f, 0.0f, 0.8f); }
-            else if (p._type == CollisionPlaneType.RightWall && lev == 0 && !IsFallThrough) { GL.Color4(0.0f, 0.9f, 0.0f, 0.8f); }
-            else if (p._type == CollisionPlaneType.None && lev == 0 && !IsFallThrough) { GL.Color4(1.0f, 1.0f, 1.0f, 0.6f); }
-            else if (p._type != CollisionPlaneType.None && lev == 0 && !IsFallThrough) { GL.Color4(0.0f, 0.0f, 0.0f, 0.8f); }
-            else if (p._type == CollisionPlaneType.Floor && p.IsFallThrough && lev == 0) { GL.Color4(1.0f, 1.0f, 0.0f, 0.8f); }
-            else if (p._type == CollisionPlaneType.RightWall && p.IsFallThrough && lev == 0) { GL.Color4(0.45f, 1.0f, 0.0f, 0.8f); }
-            else if (p._type == CollisionPlaneType.LeftWall && p.IsFallThrough && lev == 0) { GL.Color4(0.45f, 1.0f, 0.0f, 0.8f); }
-            else if (p._type == CollisionPlaneType.Ceiling && p.IsFallThrough && lev == 0) { GL.Color4(0.9f, 0.3f, 0.0f, 0.8f); }
-            else if (p._type == CollisionPlaneType.None && p.IsFallThrough && lev == 0) { GL.Color4(0.65f, 0.65f, 0.35f, 0.6f); }
-            else if (p._type != CollisionPlaneType.None && p.IsFallThrough && lev == 0) { GL.Color4(0.5f, 0.5f, 0.0f, 0.8f); }
+            if (!IsCharacters && (IsItems || IsPokemonTrainer))
+                alpha = 0.5f;
+
+            if (lev == 1){GL.Color4(0.7f, 0.2f, 0.2f, alpha);}
+            else { GL.Color4(0.6f, 0.0f, 0.6f, alpha); }
+
+            if (p._type == CollisionPlaneType.Floor && lev == 0 && !p.IsFallThrough) { GL.Color4(0.0f, 0.9f, 0.9f, alpha); }
+            else if (p._type == CollisionPlaneType.Ceiling && lev == 0 && !p.IsFallThrough) { GL.Color4(0.9f, 0.0f, 0.0f, alpha); }
+            else if (p._type == CollisionPlaneType.LeftWall && lev == 0 && !p.IsFallThrough) { GL.Color4(0.0f, 0.9f, 0.0f, alpha); }
+            else if (p._type == CollisionPlaneType.RightWall && lev == 0 && !p.IsFallThrough) { GL.Color4(0.0f, 0.9f, 0.0f, alpha); }
+            else if (p._type == CollisionPlaneType.None && lev == 0 && !p.IsFallThrough) { GL.Color4(1.0f, 1.0f, 1.0f, alpha); }
+            else if (p._type != CollisionPlaneType.None && lev == 0 && !p.IsFallThrough) { GL.Color4(0.0f, 0.0f, 0.0f, alpha); }
+            else if (p._type == CollisionPlaneType.Floor && p.IsFallThrough && lev == 0) { GL.Color4(1.0f, 1.0f, 0.0f, alpha); }
+            else if (p._type == CollisionPlaneType.RightWall && p.IsFallThrough && lev == 0) { GL.Color4(0.45f, 1.0f, 0.0f, alpha); }
+            else if (p._type == CollisionPlaneType.LeftWall && p.IsFallThrough && lev == 0) { GL.Color4(0.45f, 1.0f, 0.0f, alpha); }
+            else if (p._type == CollisionPlaneType.Ceiling && p.IsFallThrough && lev == 0) { GL.Color4(0.9f, 0.3f, 0.0f, alpha); }
+            else if (p._type == CollisionPlaneType.None && p.IsFallThrough && lev == 0) { GL.Color4(0.65f, 0.65f, 0.35f, alpha); }
+            else if (p._type != CollisionPlaneType.None && p.IsFallThrough && lev == 0) { GL.Color4(0.5f, 0.5f, 0.0f, alpha); }
 
             GL.Begin(BeginMode.Lines);
             GL.Vertex3(l._x, l._y, 10.0f);
@@ -924,14 +969,14 @@ namespace BrawlLib.SSBB.ResourceNodes
             GL.Vertex3(r._x, r._y, -10.0f);
             GL.End();
 
-            if (p.IsRightLedge && p.IsLeftLedge) { _linkLeft.Render(clr, 3.0f); _linkRight.Render(clr, 3.0f); }
+            /*if (p.IsRightLedge && p.IsLeftLedge) { _linkLeft.Render(clr, 3.0f); _linkRight.Render(clr, 3.0f); }
             else if (p.IsLeftLedge && !p.IsRightLedge) {  _linkLeft.Render(clr, 3.0f); _linkRight.Render(); }
             else if (p.IsRightLedge && !p.IsLeftLedge) { _linkLeft.Render(); _linkRight.Render(clr, 3.0f); }
             else
             {
                 _linkLeft.Render();
                 _linkRight.Render();
-            }
+            }*/
         }
     }
 }

@@ -5,6 +5,7 @@ using BrawlLib.SSBBTypes;
 using BrawlLib.Wii.Animations;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace System
 {
@@ -705,7 +706,7 @@ namespace System
                 0.0f, -0.5f, 0.0f, 0.5f,
                 0.0f, 0.0f, 0.0f, 1.0f);
 
-            //If no light is referenced, use the BrawlBox built-in light
+            //If no light is referenced, use the BrawlCrate built-in light
             if (refLight < 0 || (node != null && node.LightGroup != null && refLight >= node.LightGroup.Children.Count))
             {
                 refLight = 0;
@@ -880,7 +881,7 @@ namespace System
                 }
                 else
                 {
-
+                    camNode = new SCN0CameraNode();
                 }
 
                 Matrix cM, cMInv;
@@ -1076,7 +1077,11 @@ namespace System
         public override string ToString()
         {
             fixed (float* p = _data)
+            {
+                if (CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.Contains(","))
+                    return String.Format("({0} {1} {2} {3})({4} {5} {6} {7})({8} {9} {10} {11})", p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10], p[11]);
                 return String.Format("({0},{1},{2},{3})({4},{5},{6},{7})({8},{9},{10},{11})", p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10], p[11]);
+            }
         }
     }
 }

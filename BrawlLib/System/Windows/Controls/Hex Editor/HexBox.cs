@@ -28,6 +28,9 @@ namespace Be.Windows.Forms
         public SolidBrush BlueBrush = new SolidBrush(Color.Blue);
         public SolidBrush GreenBrush = new SolidBrush(Color.Green);
 
+        public List<string> annotationDescriptions = new List<string>();
+        public List<string> annotationUnderlines = new List<string>();
+
 		#region IKeyInterpreter interface
 		/// <summary>
 		/// Defines a user input handler such as for mouse and keyboard input
@@ -1387,7 +1390,7 @@ namespace Be.Windows.Forms
             this._vScrollBar.Cursor = Cursors.Default;
 
 			this._builtInContextMenu = new BuiltInContextMenu(this);
-
+            
 			BackColor = Color.White;
 			Font = new Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
 			_stringFormat = new StringFormat(StringFormat.GenericTypographic);
@@ -1993,7 +1996,10 @@ namespace Be.Windows.Forms
                     //throw new ArgumentException("Hex can not be null when Type is Hex");
                 }
 				buffer1 = options.Hex;
-			}
+			} else if (options.Type == FindType.Annotations)
+            {
+                return FindNextAnnotations(options);
+            }
 
 			int buffer1Length = buffer1.Length;
 
@@ -2045,7 +2051,7 @@ namespace Be.Windows.Forms
         /// -2 if Find was aborted.</returns>
         public long FindPrev(FindOptions options)
         {
-            var startIndex = SelectionStart;
+            var startIndex = SelectionStart - 1;
             int match = 0;
 
             byte[] buffer1 = null;
@@ -2075,6 +2081,9 @@ namespace Be.Windows.Forms
                     //throw new ArgumentException("Hex can not be null when Type is Hex");
                 }
                 buffer1 = options.Hex;
+            } else if(options.Type == FindType.Annotations)
+            {
+                return FindPrevAnnotations(options);
             }
 
             int buffer1Length = buffer1.Length;
@@ -2118,10 +2127,296 @@ namespace Be.Windows.Forms
             return -1;
         }
 
-		/// <summary>
-		/// Aborts a working Find method.
-		/// </summary>
-		public void AbortFind()
+        public long FindNextAnnotations(FindOptions options)
+        {
+            var startIndex = SelectionStart + SelectionLength;
+            int match = 0;
+            _abortFind = false;
+
+            for (long pos = startIndex.RoundUp(4); pos < _byteProvider.Length; pos += 4)
+            {
+                if (_abortFind)
+                    return -2;
+
+                if (pos % 1000 == 0) // for performance reasons: DoEvents only 1 times per 1000 loops
+                    Application.DoEvents();
+
+                if (annotationDescriptions.Count > pos / 4)
+                {
+                    if (options.MatchCase)
+                    {
+                        if (annotationDescriptions[(int)(pos / 4)].Contains(System.Text.Encoding.Default.GetString(options.FindBuffer)))
+                        {
+                            int posOffset = 0;
+                            int byteCount = 4;
+                            if (SectionEditor != null)
+                            {
+                                if (annotationUnderlines[(int)(pos / 4)].StartsWith("0000") || annotationUnderlines[(int)(pos / 4)].StartsWith("1111") || annotationUnderlines[(int)(pos / 4)].StartsWith("011"))
+                                {
+                                    SectionEditor.rdo4byte.Checked = true;
+                                }
+                                else
+                                {
+                                    bool firstFound = false;
+                                    int numBytes = 0;
+                                    numBytes += annotationUnderlines[(int)(pos / 4)].StartsWith("1") ? 1 : 0;
+                                    if (numBytes > 0 && !firstFound)
+                                        firstFound = true;
+                                    numBytes += annotationUnderlines[(int)(pos / 4)].Substring(1).StartsWith("1") ? 1 : 0;
+                                    if (numBytes > 0 && !firstFound)
+                                    {
+                                        firstFound = true;
+                                        posOffset = 1;
+                                    }
+                                    numBytes += annotationUnderlines[(int)(pos / 4)].Substring(2).StartsWith("1") ? 1 : 0;
+                                    if (numBytes > 0 && !firstFound)
+                                    {
+                                        firstFound = true;
+                                        posOffset = 2;
+                                    }
+                                    numBytes += annotationUnderlines[(int)(pos / 4)].Substring(3).StartsWith("1") ? 1 : 0;
+                                    if (numBytes > 0 && !firstFound)
+                                    {
+                                        firstFound = true;
+                                        posOffset = 3;
+                                    }
+                                    byteCount -= posOffset;
+                                    if (numBytes == 2 && annotationUnderlines[(int)(pos / 4)].Substring(0, 4).Contains("11"))
+                                    {
+                                        SectionEditor.rdo2byte.Checked = true;
+                                        byteCount = 2;
+                                    }
+                                    else if (numBytes == 1)
+                                    {
+                                        SectionEditor.rdo1byte.Checked = true;
+                                        byteCount = 1;
+                                    }
+                                    else
+                                    {
+                                        SectionEditor.rdo4byte.Checked = true;
+                                        posOffset = 0;
+                                        byteCount = 4;
+                                    }
+                                }
+                            }
+                            Select(pos + posOffset, byteCount);
+                            ScrollByteIntoView(pos + _selectionLength);
+                            ScrollByteIntoView(pos);
+                            return pos;
+                        }
+                    }
+                    else if (annotationDescriptions[(int)(pos / 4)].Contains(System.Text.Encoding.Default.GetString(options.FindBuffer), StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        int posOffset = 0;
+                        int byteCount = 4;
+                        if (SectionEditor != null)
+                        {
+                            if (annotationUnderlines[(int)(pos / 4)].StartsWith("0000") || annotationUnderlines[(int)(pos / 4)].StartsWith("1111") || annotationUnderlines[(int)(pos / 4)].StartsWith("011"))
+                            {
+                                SectionEditor.rdo4byte.Checked = true;
+                            }
+                            else
+                            {
+                                bool firstFound = false;
+                                int numBytes = 0;
+                                numBytes += annotationUnderlines[(int)(pos / 4)].StartsWith("1") ? 1 : 0;
+                                if (numBytes > 0 && !firstFound)
+                                    firstFound = true;
+                                numBytes += annotationUnderlines[(int)(pos / 4)].Substring(1).StartsWith("1") ? 1 : 0;
+                                if (numBytes > 0 && !firstFound)
+                                {
+                                    firstFound = true;
+                                    posOffset = 1;
+                                }
+                                numBytes += annotationUnderlines[(int)(pos / 4)].Substring(2).StartsWith("1") ? 1 : 0;
+                                if (numBytes > 0 && !firstFound)
+                                {
+                                    firstFound = true;
+                                    posOffset = 2;
+                                }
+                                numBytes += annotationUnderlines[(int)(pos / 4)].Substring(3).StartsWith("1") ? 1 : 0;
+                                if (numBytes > 0 && !firstFound)
+                                {
+                                    firstFound = true;
+                                    posOffset = 3;
+                                }
+                                byteCount -= posOffset;
+                                if (numBytes == 2 && annotationUnderlines[(int)(pos / 4)].Substring(0, 4).Contains("11"))
+                                {
+                                    SectionEditor.rdo2byte.Checked = true;
+                                    byteCount = 2;
+                                }
+                                else if (numBytes == 1)
+                                {
+                                    SectionEditor.rdo1byte.Checked = true;
+                                    byteCount = 1;
+                                }
+                                else
+                                {
+                                    SectionEditor.rdo4byte.Checked = true;
+                                    posOffset = 0;
+                                    byteCount = 4;
+                                }
+                            }
+                        }
+                        Select(pos + posOffset, byteCount);
+                        ScrollByteIntoView(pos + _selectionLength);
+                        ScrollByteIntoView(pos);
+                        return pos;
+                    }
+                }
+            }
+
+            return -1;
+        }
+
+        public long FindPrevAnnotations(FindOptions options)
+        {
+            var startIndex = SelectionStart;
+            int match = 0;
+            _abortFind = false;
+
+            for (long pos = startIndex.RoundDown(4) - 4; pos > 0; pos -= 4)
+            {
+                if (_abortFind)
+                    return -2;
+
+                if (pos % 1000 == 0) // for performance reasons: DoEvents only 1 times per 1000 loops
+                    Application.DoEvents();
+
+                if (annotationDescriptions.Count > pos / 4)
+                {
+                    if (options.MatchCase)
+                    {
+                        if (annotationDescriptions[(int)(pos / 4)].Contains(System.Text.Encoding.Default.GetString(options.FindBuffer)))
+                        {
+                            int posOffset = 0;
+                            int byteCount = 4;
+                            if (SectionEditor != null)
+                            {
+                                if (annotationUnderlines[(int)(pos / 4)].StartsWith("0000") || annotationUnderlines[(int)(pos / 4)].StartsWith("1111") || annotationUnderlines[(int)(pos / 4)].StartsWith("011"))
+                                {
+                                    SectionEditor.rdo4byte.Checked = true;
+                                }
+                                else
+                                {
+                                    bool firstFound = false;
+                                    int numBytes = 0;
+                                    numBytes += annotationUnderlines[(int)(pos / 4)].StartsWith("1") ? 1 : 0;
+                                    if (numBytes > 0 && !firstFound)
+                                        firstFound = true;
+                                    numBytes += annotationUnderlines[(int)(pos / 4)].Substring(1).StartsWith("1") ? 1 : 0;
+                                    if (numBytes > 0 && !firstFound)
+                                    {
+                                        firstFound = true;
+                                        posOffset = 1;
+                                    }
+                                    numBytes += annotationUnderlines[(int)(pos / 4)].Substring(2).StartsWith("1") ? 1 : 0;
+                                    if (numBytes > 0 && !firstFound)
+                                    {
+                                        firstFound = true;
+                                        posOffset = 2;
+                                    }
+                                    numBytes += annotationUnderlines[(int)(pos / 4)].Substring(3).StartsWith("1") ? 1 : 0;
+                                    if (numBytes > 0 && !firstFound)
+                                    {
+                                        firstFound = true;
+                                        posOffset = 3;
+                                    }
+                                    byteCount -= posOffset;
+                                    if (numBytes == 2 && annotationUnderlines[(int)(pos / 4)].Substring(0, 4).Contains("11"))
+                                    {
+                                        SectionEditor.rdo2byte.Checked = true;
+                                        byteCount = 2;
+                                    }
+                                    else if (numBytes == 1)
+                                    {
+                                        SectionEditor.rdo1byte.Checked = true;
+                                        byteCount = 1;
+                                    }
+                                    else
+                                    {
+                                        SectionEditor.rdo4byte.Checked = true;
+                                        posOffset = 0;
+                                        byteCount = 4;
+                                    }
+                                }
+                            }
+                            Select(pos + posOffset, byteCount);
+                            ScrollByteIntoView(pos + _selectionLength);
+                            ScrollByteIntoView(pos);
+                            return pos;
+                        }
+                    }
+                    else if (annotationDescriptions[(int)(pos / 4)].Contains(System.Text.Encoding.Default.GetString(options.FindBuffer), StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        int posOffset = 0;
+                        int byteCount = 4;
+                        if (SectionEditor != null)
+                        {
+                            if (annotationUnderlines[(int)(pos / 4)].StartsWith("0000") || annotationUnderlines[(int)(pos / 4)].StartsWith("1111") || annotationUnderlines[(int)(pos / 4)].StartsWith("011"))
+                            {
+                                SectionEditor.rdo4byte.Checked = true;
+                            }
+                            else
+                            {
+                                bool firstFound = false;
+                                int numBytes = 0;
+                                numBytes += annotationUnderlines[(int)(pos / 4)].StartsWith("1") ? 1 : 0;
+                                if (numBytes > 0 && !firstFound)
+                                    firstFound = true;
+                                numBytes += annotationUnderlines[(int)(pos / 4)].Substring(1).StartsWith("1") ? 1 : 0;
+                                if (numBytes > 0 && !firstFound)
+                                {
+                                    firstFound = true;
+                                    posOffset = 1;
+                                }
+                                numBytes += annotationUnderlines[(int)(pos / 4)].Substring(2).StartsWith("1") ? 1 : 0;
+                                if (numBytes > 0 && !firstFound)
+                                {
+                                    firstFound = true;
+                                    posOffset = 2;
+                                }
+                                numBytes += annotationUnderlines[(int)(pos / 4)].Substring(3).StartsWith("1") ? 1 : 0;
+                                if (numBytes > 0 && !firstFound)
+                                {
+                                    firstFound = true;
+                                    posOffset = 3;
+                                }
+                                byteCount -= posOffset;
+                                if (numBytes == 2 && annotationUnderlines[(int)(pos / 4)].Substring(0, 4).Contains("11"))
+                                {
+                                    SectionEditor.rdo2byte.Checked = true;
+                                    byteCount = 2;
+                                }
+                                else if (numBytes == 1)
+                                {
+                                    SectionEditor.rdo1byte.Checked = true;
+                                    byteCount = 1;
+                                }
+                                else
+                                {
+                                    SectionEditor.rdo4byte.Checked = true;
+                                    posOffset = 0;
+                                    byteCount = 4;
+                                }
+                            }
+                        }
+                        Select(pos + posOffset, byteCount);
+                        ScrollByteIntoView(pos + _selectionLength);
+                        ScrollByteIntoView(pos);
+                        return pos;
+                    }
+                }
+            }
+
+            return -1;
+        }
+
+        /// <summary>
+        /// Aborts a working Find method.
+        /// </summary>
+        public void AbortFind()
 		{
 			_abortFind = true;
 		}
@@ -2582,7 +2877,7 @@ namespace Be.Windows.Forms
 			}
 		}
 
-        RelCommand GetBrushes(int index, ref Brush foreColor, ref Brush backColor)
+        RelCommand GetBrushes(int index, ref Brush foreColor, ref Brush backColor, bool allowSelection)
         {
             //bool specialFunc = false; //_prolog || _epilog || _unresolved
 
@@ -2609,7 +2904,7 @@ namespace Be.Windows.Forms
             bool cmd = command != null && !command.IsHalf;
 
             backColor =
-                _sectionEditor.SelectedRelocationIndex == index ? SelectedBrush :
+                (_sectionEditor.SelectedRelocationIndex == index && allowSelection) ? SelectedBrush :
                 cmd ? CommandBrush :
                 null;
 
@@ -2638,25 +2933,40 @@ namespace Be.Windows.Forms
         void PaintByte(byte b, long offset, bool isSelectedByte, bool isKeyInterpreterActive, Graphics g, Brush foreBrush, Brush backBrush, Point gridPoint)
         {
             if (isSelectedByte && isKeyInterpreterActive)
-                PaintHexStringSelected(g, b, SelectionForeBrush, SelectionBackBrush, gridPoint);
+                PaintHexStringSelected(g, b, offset, SelectionForeBrush, SelectionBackBrush, gridPoint);
             else if (backBrush != null)
-                PaintHexStringSelected(g, b, foreBrush, backBrush, gridPoint);
+                PaintHexStringSelected(g, b, offset, foreBrush, backBrush, gridPoint);
             else
-                PaintHexString(g, b, foreBrush, gridPoint);
+                PaintHexString(g, b, offset, foreBrush, gridPoint);
         }
 
-		void PaintHexString(Graphics g, byte b, Brush brush, Point gridPoint)
+		void PaintHexString(Graphics g, byte b, long offset, Brush brush, Point gridPoint)
 		{
 			PointF bytePointF = GetBytePointF(gridPoint);
 
 			string sB = ConvertByteToHex(b);
+            Font tempFont = Font;
 
-			g.DrawString(sB.Substring(0, 1), Font, brush, bytePointF, _stringFormat);
-			bytePointF.X += _charSize.Width;
-			g.DrawString(sB.Substring(1, 1), Font, brush, bytePointF, _stringFormat);
-		}
+            if (annotationDescriptions != null && annotationDescriptions.Count > (int)(offset / 4))
+                if (!annotationDescriptions[(int)(offset / 4)].StartsWith("Default: 0x") && annotationUnderlines[(int)(offset / 4)].Substring((int)(offset % 4)).StartsWith("1") && annotationDescriptions[(int)(offset / 4)].Length > 0)
+                    tempFont = new Font(Font, FontStyle.Bold | FontStyle.Italic | FontStyle.Underline);
 
-		void PaintColumnInfo(Graphics g, byte b, Brush brush, int col)
+            int winVersion = -1;
+            try
+            {
+                if (System.Environment.OSVersion.ToString().StartsWith("Microsoft Windows NT "))
+                    Int32.TryParse(System.Environment.OSVersion.ToString().Substring(System.Environment.OSVersion.ToString().LastIndexOf(" ") + 1, System.Environment.OSVersion.ToString().IndexOf(".") - (System.Environment.OSVersion.ToString().LastIndexOf(" ") + 1)), out winVersion);
+            }
+            catch
+            {
+                winVersion = -1;
+            }
+            g.DrawString(sB.Substring(0, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + ((System.Environment.OSVersion.ToString() == "Microsoft Windows NT 6.2.9200.0" || winVersion >= 10) ? (((sB.Substring(0, 1) == "A") || (tempFont.Italic && !(sB.Substring(0, 1) == "1" || sB.Substring(0, 1) == "4")) ? 2 : 0)) : 0)), _stringFormat);
+            bytePointF.X += _charSize.Width;
+            g.DrawString(sB.Substring(1, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + ((System.Environment.OSVersion.ToString() == "Microsoft Windows NT 6.2.9200.0" || winVersion >= 10) ? (((sB.Substring(1, 1) == "A") || (tempFont.Italic && !(sB.Substring(1, 1) == "1" || sB.Substring(1, 1) == "4")) ? 2 : 0)) : 0)), _stringFormat);
+        }
+
+        void PaintColumnInfo(Graphics g, byte b, Brush brush, int col)
 		{
 			PointF headerPointF = GetColumnInfoPointF(col);
 
@@ -2667,7 +2977,7 @@ namespace Be.Windows.Forms
 			g.DrawString(sB.Substring(1, 1), Font, brush, headerPointF, _stringFormat);
 		}
 
-		void PaintHexStringSelected(Graphics g, byte b, Brush brush, Brush brushBack, Point gridPoint)
+		void PaintHexStringSelected(Graphics g, byte b, long offset, Brush brush, Brush brushBack, Point gridPoint)
 		{
 			string sB = b.ToString(_hexStringFormat, System.Threading.Thread.CurrentThread.CurrentCulture);
 			if (sB.Length == 1)
@@ -2679,14 +2989,30 @@ namespace Be.Windows.Forms
             bool isFirstLineChar = (gridPoint.X == 0);
 			float bcWidth = (isLastLineChar) ? _charSize.Width * 2.3f : _charSize.Width * 3;
             float t = isFirstLineChar ? 0 : 3;
+            Font tempFont = Font;
 
+            if (annotationDescriptions != null && annotationDescriptions.Count > (int)(offset / 4))
+                if (!annotationDescriptions[(int)(offset / 4)].StartsWith("Default: 0x") && annotationUnderlines[(int)(offset / 4)].Substring((int)(offset % 4)).StartsWith("1") && annotationDescriptions[(int)(offset / 4)].Length > 0)
+                    tempFont = new Font(Font, FontStyle.Bold | FontStyle.Italic | FontStyle.Underline);
+            
+            int winVersion = -1;
+            try
+            {
+                if (System.Environment.OSVersion.ToString().StartsWith("Microsoft Windows NT "))
+                    Int32.TryParse(System.Environment.OSVersion.ToString().Substring(System.Environment.OSVersion.ToString().LastIndexOf(" ") + 1, System.Environment.OSVersion.ToString().IndexOf(".") - (System.Environment.OSVersion.ToString().LastIndexOf(" ") + 1)), out winVersion);
+            }
+            catch
+            {
+                winVersion = -1;
+            }
             g.FillRectangle(brushBack, bytePointF.X - t, bytePointF.Y, bcWidth, _charSize.Height);
-			g.DrawString(sB.Substring(0, 1), Font, brush, bytePointF, _stringFormat);
-			bytePointF.X += _charSize.Width;
-			g.DrawString(sB.Substring(1, 1), Font, brush, bytePointF, _stringFormat);
-		}
+            g.DrawString(sB.Substring(0, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + ((System.Environment.OSVersion.ToString() == "Microsoft Windows NT 6.2.9200.0" || winVersion >= 10) ? (((sB.Substring(0, 1) == "A") || (tempFont.Italic && !(sB.Substring(0, 1) == "1" || sB.Substring(0, 1) == "4")) ? 2 : 0)) : 0)), _stringFormat);
+            bytePointF.X += _charSize.Width;
+            g.DrawString(sB.Substring(1, 1), tempFont, brush, new PointF(bytePointF.X, bytePointF.Y + ((System.Environment.OSVersion.ToString() == "Microsoft Windows NT 6.2.9200.0" || winVersion >= 10) ? (((sB.Substring(1, 1) == "A") || (tempFont.Italic && !(sB.Substring(1, 1) == "1" || sB.Substring(1, 1) == "4")) ? 2 : 0)) : 0)), _stringFormat);
+        }
 
-		void PaintHexAndStringView(Graphics g, long startByte, long endByte)
+        public int byteCount = 4;
+        void PaintHexAndStringView(Graphics g, long startByte, long endByte)
 		{
 			Brush foreBrush = GetDefaultForeColor();
             Brush backBrush = null;
@@ -2716,7 +3042,7 @@ namespace Be.Windows.Forms
                         ((uint)_byteProvider.ReadByte(x + 3) << 0);
 
                     RelCommand cmd = null;
-                    if (_sectionEditor != null && (cmd = GetBrushes(index, ref foreBrush, ref backBrush)) != null)
+                    if (_sectionEditor != null && (cmd = GetBrushes(index, ref foreBrush, ref backBrush, false)) != null)
                         word = cmd.Apply(word, 0);
 
                     bool half = cmd != null && cmd.IsHalf;
@@ -2724,9 +3050,18 @@ namespace Be.Windows.Forms
                     {
                         Point gridPoint = GetGridBytePoint(counter);
                         PointF byteStringPointF = GetByteStringPointF(gridPoint);
+                        /*if (byteCount >= 4)
+                            GetBrushes(index, ref foreBrush, ref backBrush, true);*/
 
                         if (half && u > 1)
                             backBrush = CommandBrush;
+                        if(byteCount != 0)
+                        {
+                            if(_bytePos/byteCount == (offset / byteCount))
+                                GetBrushes(index, ref foreBrush, ref backBrush, true);
+                            else if(!(half && u > 1))
+                                GetBrushes(index, ref foreBrush, ref backBrush, false);
+                        }
 
                         byte b = _byteProvider.ReadByte(x + u);
                         if (cmd != null && _sectionEditor.displayInitialized.Checked)

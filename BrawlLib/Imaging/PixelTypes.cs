@@ -211,7 +211,7 @@ namespace BrawlLib.Imaging
         public const float ColorFactor = 1.0f / 255.0f;
         
         public byte R, G, B, A;
-
+        
         public static implicit operator RGBAPixel(ARGBPixel p) { return new RGBAPixel() { A = p.A, B = p.B, G = p.G, R = p.R }; }
         public static implicit operator ARGBPixel(RGBAPixel p) { return new ARGBPixel() { A = p.A, B = p.B, G = p.G, R = p.R }; }
         public static explicit operator Color(RGBAPixel p) 
@@ -224,6 +224,14 @@ namespace BrawlLib.Imaging
         public static implicit operator Vector3(RGBAPixel p) { return new Vector3(p.R / 255.0f, p.G / 255.0f, p.B / 255.0f); }
 
         public RGBAPixel(byte r, byte g, byte b, byte a) { R = r; G = g; B = b; A = a; }
+        public RGBAPixel(uint u)
+        {
+            string temp = u.ToString("X8");
+            R = Convert.ToByte(temp.Substring(0, 2), 16);
+            G = Convert.ToByte(temp.Substring(2, 2), 16);
+            B = Convert.ToByte(temp.Substring(4, 2), 16);
+            A = Convert.ToByte(temp.Substring(6, 2), 16);
+        }
 
         [Category("RGBA Pixel")]
         public byte Red { get { return R; } set { R = value; } }
@@ -310,6 +318,20 @@ namespace BrawlLib.Imaging
             for (int i = 0; i < 8; i += 2)
                 *ptr++ = s.Length >= i + 2 ? byte.Parse(s.Substring(i, 2), System.Globalization.NumberStyles.HexNumber) : (byte)(i == 6 ? 0xFF : 0);
             return p;
+        }
+
+        public static bool TryParse(string s, out RGBAPixel result)
+        {
+            try
+            {
+                result = Parse(s);
+                return true;
+            }
+            catch(Exception e)
+            {
+                result = new RGBAPixel();
+                return false;
+            }
         }
     }
 

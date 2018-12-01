@@ -70,11 +70,20 @@
             this.highlightBlr = new System.Windows.Forms.ToolStripMenuItem();
             this.displayInitialized = new System.Windows.Forms.ToolStripMenuItem();
             this.displayStringsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkAnnotations = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlLeft = new System.Windows.Forms.Panel();
             this.ppcDisassembler1 = new System.Windows.Forms.PPCDisassembler();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.pnlHexEditor = new System.Windows.Forms.Panel();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.hexBox1 = new Be.Windows.Forms.HexBox();
+            this.annotationDescription = new System.Windows.Forms.RichTextBox();
+            this.btn1underline = new System.Windows.Forms.CheckBox();
+            this.btn2underline = new System.Windows.Forms.CheckBox();
+            this.btn3underline = new System.Windows.Forms.CheckBox();
+            this.btn4underline = new System.Windows.Forms.CheckBox();
+            this.btnSaveAnnotation = new System.Windows.Forms.Button();
+            this.annotationTitle = new System.Windows.Forms.RichTextBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.selectedBytesToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -84,6 +93,9 @@
             this.insertValue = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlRight = new System.Windows.Forms.Panel();
             this.grpValue = new System.Windows.Forms.GroupBox();
+            this.rdo1byte = new System.Windows.Forms.RadioButton();
+            this.rdo2byte = new System.Windows.Forms.RadioButton();
+            this.rdo4byte = new System.Windows.Forms.RadioButton();
             this.txtByte4 = new System.Windows.Forms.TextBox();
             this.txtByte3 = new System.Windows.Forms.TextBox();
             this.txtByte2 = new System.Windows.Forms.TextBox();
@@ -113,6 +125,10 @@
             this.menuStrip1.SuspendLayout();
             this.pnlLeft.SuspendLayout();
             this.pnlHexEditor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.pnlRight.SuspendLayout();
             this.grpValue.SuspendLayout();
@@ -159,9 +175,9 @@
             this.grpRelocInfo.Controls.Add(this.panel2);
             this.grpRelocInfo.Controls.Add(this.panel3);
             this.grpRelocInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpRelocInfo.Location = new System.Drawing.Point(0, 202);
+            this.grpRelocInfo.Location = new System.Drawing.Point(0, 221);
             this.grpRelocInfo.Name = "grpRelocInfo";
-            this.grpRelocInfo.Size = new System.Drawing.Size(171, 393);
+            this.grpRelocInfo.Size = new System.Drawing.Size(171, 419);
             this.grpRelocInfo.TabIndex = 2;
             this.grpRelocInfo.TabStop = false;
             this.grpRelocInfo.Text = "Selected Word Info";
@@ -175,7 +191,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 39);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(165, 351);
+            this.panel2.Size = new System.Drawing.Size(165, 377);
             this.panel2.TabIndex = 11;
             // 
             // lstLinked
@@ -187,7 +203,7 @@
             this.lstLinked.IntegralHeight = false;
             this.lstLinked.Location = new System.Drawing.Point(0, 18);
             this.lstLinked.Name = "lstLinked";
-            this.lstLinked.Size = new System.Drawing.Size(165, 82);
+            this.lstLinked.Size = new System.Drawing.Size(165, 108);
             this.lstLinked.TabIndex = 10;
             this.lstLinked.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lstLinked_DrawItem);
             this.lstLinked.DoubleClick += new System.EventHandler(this.lstLinked_DoubleClick);
@@ -206,7 +222,7 @@
             // splitter1
             // 
             this.splitter1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitter1.Location = new System.Drawing.Point(0, 100);
+            this.splitter1.Location = new System.Drawing.Point(0, 126);
             this.splitter1.Name = "splitter1";
             this.splitter1.Size = new System.Drawing.Size(165, 3);
             this.splitter1.TabIndex = 9;
@@ -218,7 +234,7 @@
             this.panel5.Controls.Add(this.label2);
             this.panel5.Controls.Add(this.pnlFunctions);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel5.Location = new System.Drawing.Point(0, 103);
+            this.panel5.Location = new System.Drawing.Point(0, 129);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(165, 248);
             this.panel5.TabIndex = 12;
@@ -491,7 +507,8 @@
             this.displayToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.highlightBlr,
             this.displayInitialized,
-            this.displayStringsToolStripMenuItem});
+            this.displayStringsToolStripMenuItem,
+            this.chkAnnotations});
             this.displayToolStripMenuItem.Name = "displayToolStripMenuItem";
             this.displayToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.displayToolStripMenuItem.Text = "Display";
@@ -502,7 +519,7 @@
             this.highlightBlr.CheckOnClick = true;
             this.highlightBlr.CheckState = System.Windows.Forms.CheckState.Checked;
             this.highlightBlr.Name = "highlightBlr";
-            this.highlightBlr.Size = new System.Drawing.Size(165, 22);
+            this.highlightBlr.Size = new System.Drawing.Size(180, 22);
             this.highlightBlr.Text = "Highlight blr";
             this.highlightBlr.CheckedChanged += new System.EventHandler(this.highlightBlr_CheckedChanged);
             // 
@@ -510,7 +527,7 @@
             // 
             this.displayInitialized.CheckOnClick = true;
             this.displayInitialized.Name = "displayInitialized";
-            this.displayInitialized.Size = new System.Drawing.Size(165, 22);
+            this.displayInitialized.Size = new System.Drawing.Size(180, 22);
             this.displayInitialized.Text = "Display Initialized";
             this.displayInitialized.CheckedChanged += new System.EventHandler(this.displayInitialized_CheckedChanged);
             // 
@@ -520,9 +537,19 @@
             this.displayStringsToolStripMenuItem.CheckOnClick = true;
             this.displayStringsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.displayStringsToolStripMenuItem.Name = "displayStringsToolStripMenuItem";
-            this.displayStringsToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.displayStringsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.displayStringsToolStripMenuItem.Text = "Display strings";
             this.displayStringsToolStripMenuItem.CheckedChanged += new System.EventHandler(this.displayStringsToolStripMenuItem_CheckedChanged);
+            // 
+            // chkAnnotations
+            // 
+            this.chkAnnotations.Checked = true;
+            this.chkAnnotations.CheckOnClick = true;
+            this.chkAnnotations.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAnnotations.Name = "chkAnnotations";
+            this.chkAnnotations.Size = new System.Drawing.Size(180, 22);
+            this.chkAnnotations.Text = "Display Annotations";
+            this.chkAnnotations.CheckedChanged += new System.EventHandler(this.chkAnnotations_CheckedChanged);
             // 
             // pnlLeft
             // 
@@ -532,7 +559,7 @@
             this.pnlLeft.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlLeft.Location = new System.Drawing.Point(0, 0);
             this.pnlLeft.Name = "pnlLeft";
-            this.pnlLeft.Size = new System.Drawing.Size(780, 597);
+            this.pnlLeft.Size = new System.Drawing.Size(780, 642);
             this.pnlLeft.TabIndex = 5;
             // 
             // ppcDisassembler1
@@ -540,7 +567,7 @@
             this.ppcDisassembler1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ppcDisassembler1.Location = new System.Drawing.Point(0, 0);
             this.ppcDisassembler1.Name = "ppcDisassembler1";
-            this.ppcDisassembler1.Size = new System.Drawing.Size(277, 597);
+            this.ppcDisassembler1.Size = new System.Drawing.Size(277, 642);
             this.ppcDisassembler1.TabIndex = 11;
             // 
             // splitter2
@@ -548,20 +575,46 @@
             this.splitter2.Dock = System.Windows.Forms.DockStyle.Right;
             this.splitter2.Location = new System.Drawing.Point(277, 0);
             this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(3, 597);
+            this.splitter2.Size = new System.Drawing.Size(3, 642);
             this.splitter2.TabIndex = 11;
             this.splitter2.TabStop = false;
             // 
             // pnlHexEditor
             // 
-            this.pnlHexEditor.Controls.Add(this.hexBox1);
+            this.pnlHexEditor.Controls.Add(this.splitContainer1);
             this.pnlHexEditor.Controls.Add(this.menuStrip1);
             this.pnlHexEditor.Controls.Add(this.statusStrip);
             this.pnlHexEditor.Dock = System.Windows.Forms.DockStyle.Right;
             this.pnlHexEditor.Location = new System.Drawing.Point(280, 0);
             this.pnlHexEditor.Name = "pnlHexEditor";
-            this.pnlHexEditor.Size = new System.Drawing.Size(500, 597);
+            this.pnlHexEditor.Size = new System.Drawing.Size(500, 642);
             this.pnlHexEditor.TabIndex = 11;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(0, 27);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.hexBox1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.annotationDescription);
+            this.splitContainer1.Panel2.Controls.Add(this.btn1underline);
+            this.splitContainer1.Panel2.Controls.Add(this.btn2underline);
+            this.splitContainer1.Panel2.Controls.Add(this.btn3underline);
+            this.splitContainer1.Panel2.Controls.Add(this.btn4underline);
+            this.splitContainer1.Panel2.Controls.Add(this.btnSaveAnnotation);
+            this.splitContainer1.Panel2.Controls.Add(this.annotationTitle);
+            this.splitContainer1.Size = new System.Drawing.Size(503, 590);
+            this.splitContainer1.SplitterDistance = 420;
+            this.splitContainer1.TabIndex = 19;
             // 
             // hexBox1
             // 
@@ -583,13 +636,14 @@
             this.hexBox1.GroupSeparatorVisible = true;
             this.hexBox1.InfoForeColor = System.Drawing.Color.Blue;
             this.hexBox1.LineInfoVisible = true;
-            this.hexBox1.Location = new System.Drawing.Point(0, 24);
+            this.hexBox1.LinkedBranchColor = System.Drawing.Color.Orange;
+            this.hexBox1.Location = new System.Drawing.Point(0, 0);
             this.hexBox1.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
             this.hexBox1.Name = "hexBox1";
             this.hexBox1.SectionEditor = null;
             this.hexBox1.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.hexBox1.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
-            this.hexBox1.Size = new System.Drawing.Size(500, 551);
+            this.hexBox1.Size = new System.Drawing.Size(503, 420);
             this.hexBox1.StringViewVisible = true;
             this.hexBox1.TabIndex = 3;
             this.hexBox1.UseFixedBytesPerLine = true;
@@ -601,6 +655,110 @@
             this.hexBox1.Copied += new System.EventHandler(this.hexBox1_Copied);
             this.hexBox1.CopiedHex += new System.EventHandler(this.hexBox1_CopiedHex);
             // 
+            // annotationDescription
+            // 
+            this.annotationDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.annotationDescription.BackColor = System.Drawing.SystemColors.Control;
+            this.annotationDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.annotationDescription.Cursor = System.Windows.Forms.Cursors.Default;
+            this.annotationDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.annotationDescription.ForeColor = System.Drawing.Color.Black;
+            this.annotationDescription.Location = new System.Drawing.Point(0, 25);
+            this.annotationDescription.Name = "annotationDescription";
+            this.annotationDescription.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.annotationDescription.Size = new System.Drawing.Size(503, 141);
+            this.annotationDescription.TabIndex = 11;
+            this.annotationDescription.Text = "No Description Available.";
+            this.annotationDescription.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.annotationDescription_LinkClicked);
+            this.annotationDescription.TextChanged += new System.EventHandler(this.description_TextChanged);
+            this.annotationDescription.MouseDown += new System.Windows.Forms.MouseEventHandler(this.annotationDescription_MouseDown);
+            // 
+            // btn1underline
+            // 
+            this.btn1underline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn1underline.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btn1underline.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn1underline.Location = new System.Drawing.Point(717, 536);
+            this.btn1underline.Name = "btn1underline";
+            this.btn1underline.Size = new System.Drawing.Size(24, 23);
+            this.btn1underline.TabIndex = 18;
+            this.btn1underline.Text = "1";
+            this.btn1underline.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btn1underline.UseVisualStyleBackColor = true;
+            this.btn1underline.CheckedChanged += new System.EventHandler(this.btnUnderline_CheckedChanged);
+            // 
+            // btn2underline
+            // 
+            this.btn2underline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn2underline.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btn2underline.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn2underline.Location = new System.Drawing.Point(742, 536);
+            this.btn2underline.Name = "btn2underline";
+            this.btn2underline.Size = new System.Drawing.Size(24, 23);
+            this.btn2underline.TabIndex = 17;
+            this.btn2underline.Text = "2";
+            this.btn2underline.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btn2underline.UseVisualStyleBackColor = true;
+            this.btn2underline.CheckedChanged += new System.EventHandler(this.btnUnderline_CheckedChanged);
+            // 
+            // btn3underline
+            // 
+            this.btn3underline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn3underline.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btn3underline.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn3underline.Location = new System.Drawing.Point(767, 536);
+            this.btn3underline.Name = "btn3underline";
+            this.btn3underline.Size = new System.Drawing.Size(24, 23);
+            this.btn3underline.TabIndex = 16;
+            this.btn3underline.Text = "3";
+            this.btn3underline.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btn3underline.UseVisualStyleBackColor = true;
+            this.btn3underline.CheckedChanged += new System.EventHandler(this.btnUnderline_CheckedChanged);
+            // 
+            // btn4underline
+            // 
+            this.btn4underline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn4underline.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btn4underline.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn4underline.Location = new System.Drawing.Point(792, 536);
+            this.btn4underline.Name = "btn4underline";
+            this.btn4underline.Size = new System.Drawing.Size(24, 23);
+            this.btn4underline.TabIndex = 15;
+            this.btn4underline.Text = "4";
+            this.btn4underline.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btn4underline.UseVisualStyleBackColor = true;
+            this.btn4underline.CheckedChanged += new System.EventHandler(this.btnUnderline_CheckedChanged);
+            // 
+            // btnSaveAnnotation
+            // 
+            this.btnSaveAnnotation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveAnnotation.Location = new System.Drawing.Point(822, 536);
+            this.btnSaveAnnotation.Name = "btnSaveAnnotation";
+            this.btnSaveAnnotation.Size = new System.Drawing.Size(82, 23);
+            this.btnSaveAnnotation.TabIndex = 14;
+            this.btnSaveAnnotation.Text = "Save";
+            this.btnSaveAnnotation.UseVisualStyleBackColor = true;
+            this.btnSaveAnnotation.Click += new System.EventHandler(this.btnSaveAnnotation_Click);
+            // 
+            // annotationTitle
+            // 
+            this.annotationTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.annotationTitle.BackColor = System.Drawing.SystemColors.Control;
+            this.annotationTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.annotationTitle.Cursor = System.Windows.Forms.Cursors.Default;
+            this.annotationTitle.Enabled = false;
+            this.annotationTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.annotationTitle.ForeColor = System.Drawing.Color.Black;
+            this.annotationTitle.Location = new System.Drawing.Point(0, 0);
+            this.annotationTitle.Name = "annotationTitle";
+            this.annotationTitle.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.annotationTitle.Size = new System.Drawing.Size(503, 30);
+            this.annotationTitle.TabIndex = 12;
+            this.annotationTitle.Text = "No Description Available.";
+            // 
             // statusStrip
             // 
             this.statusStrip.BackColor = System.Drawing.SystemColors.Control;
@@ -611,7 +769,7 @@
             this.toolStripStatusLabel1,
             this.OffsetToolStripStatusLabel,
             this.insertValue});
-            this.statusStrip.Location = new System.Drawing.Point(0, 575);
+            this.statusStrip.Location = new System.Drawing.Point(0, 620);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
             this.statusStrip.Size = new System.Drawing.Size(500, 22);
@@ -664,11 +822,14 @@
             this.pnlRight.Dock = System.Windows.Forms.DockStyle.Right;
             this.pnlRight.Location = new System.Drawing.Point(783, 0);
             this.pnlRight.Name = "pnlRight";
-            this.pnlRight.Size = new System.Drawing.Size(173, 597);
+            this.pnlRight.Size = new System.Drawing.Size(173, 642);
             this.pnlRight.TabIndex = 13;
             // 
             // grpValue
             // 
+            this.grpValue.Controls.Add(this.rdo1byte);
+            this.grpValue.Controls.Add(this.rdo2byte);
+            this.grpValue.Controls.Add(this.rdo4byte);
             this.grpValue.Controls.Add(this.txtByte4);
             this.grpValue.Controls.Add(this.txtByte3);
             this.grpValue.Controls.Add(this.txtByte2);
@@ -689,17 +850,56 @@
             this.grpValue.Dock = System.Windows.Forms.DockStyle.Top;
             this.grpValue.Location = new System.Drawing.Point(0, 58);
             this.grpValue.Name = "grpValue";
-            this.grpValue.Size = new System.Drawing.Size(171, 144);
+            this.grpValue.Size = new System.Drawing.Size(171, 163);
             this.grpValue.TabIndex = 15;
             this.grpValue.TabStop = false;
             this.grpValue.Text = "Value";
+            // 
+            // rdo1byte
+            // 
+            this.rdo1byte.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rdo1byte.AutoSize = true;
+            this.rdo1byte.Location = new System.Drawing.Point(113, 16);
+            this.rdo1byte.Name = "rdo1byte";
+            this.rdo1byte.Size = new System.Drawing.Size(55, 17);
+            this.rdo1byte.TabIndex = 18;
+            this.rdo1byte.TabStop = true;
+            this.rdo1byte.Text = "1 Byte";
+            this.rdo1byte.UseVisualStyleBackColor = true;
+            this.rdo1byte.CheckedChanged += new System.EventHandler(this.byteCount_CheckedChanged);
+            // 
+            // rdo2byte
+            // 
+            this.rdo2byte.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rdo2byte.AutoSize = true;
+            this.rdo2byte.Location = new System.Drawing.Point(60, 16);
+            this.rdo2byte.Name = "rdo2byte";
+            this.rdo2byte.Size = new System.Drawing.Size(55, 17);
+            this.rdo2byte.TabIndex = 17;
+            this.rdo2byte.TabStop = true;
+            this.rdo2byte.Text = "2 Byte";
+            this.rdo2byte.UseVisualStyleBackColor = true;
+            this.rdo2byte.CheckedChanged += new System.EventHandler(this.byteCount_CheckedChanged);
+            // 
+            // rdo4byte
+            // 
+            this.rdo4byte.AutoSize = true;
+            this.rdo4byte.Checked = true;
+            this.rdo4byte.Location = new System.Drawing.Point(7, 16);
+            this.rdo4byte.Name = "rdo4byte";
+            this.rdo4byte.Size = new System.Drawing.Size(55, 17);
+            this.rdo4byte.TabIndex = 15;
+            this.rdo4byte.TabStop = true;
+            this.rdo4byte.Text = "4 Byte";
+            this.rdo4byte.UseVisualStyleBackColor = true;
+            this.rdo4byte.CheckedChanged += new System.EventHandler(this.byteCount_CheckedChanged);
             // 
             // txtByte4
             // 
             this.txtByte4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtByte4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtByte4.Enabled = false;
-            this.txtByte4.Location = new System.Drawing.Point(138, 115);
+            this.txtByte4.Location = new System.Drawing.Point(138, 134);
             this.txtByte4.Name = "txtByte4";
             this.txtByte4.Size = new System.Drawing.Size(25, 20);
             this.txtByte4.TabIndex = 16;
@@ -710,7 +910,7 @@
             this.txtByte3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtByte3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtByte3.Enabled = false;
-            this.txtByte3.Location = new System.Drawing.Point(138, 96);
+            this.txtByte3.Location = new System.Drawing.Point(138, 115);
             this.txtByte3.Name = "txtByte3";
             this.txtByte3.Size = new System.Drawing.Size(25, 20);
             this.txtByte3.TabIndex = 15;
@@ -721,7 +921,7 @@
             this.txtByte2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtByte2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtByte2.Enabled = false;
-            this.txtByte2.Location = new System.Drawing.Point(138, 77);
+            this.txtByte2.Location = new System.Drawing.Point(138, 96);
             this.txtByte2.Name = "txtByte2";
             this.txtByte2.Size = new System.Drawing.Size(25, 20);
             this.txtByte2.TabIndex = 14;
@@ -732,7 +932,7 @@
             this.txtByte1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtByte1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtByte1.Enabled = false;
-            this.txtByte1.Location = new System.Drawing.Point(138, 58);
+            this.txtByte1.Location = new System.Drawing.Point(138, 77);
             this.txtByte1.Name = "txtByte1";
             this.txtByte1.Size = new System.Drawing.Size(25, 20);
             this.txtByte1.TabIndex = 13;
@@ -742,7 +942,7 @@
             // 
             this.txtBin8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBin8.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtBin8.Location = new System.Drawing.Point(95, 115);
+            this.txtBin8.Location = new System.Drawing.Point(95, 134);
             this.txtBin8.MaxLength = 4;
             this.txtBin8.Name = "txtBin8";
             this.txtBin8.Size = new System.Drawing.Size(44, 20);
@@ -754,7 +954,7 @@
             // 
             this.txtBin7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBin7.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtBin7.Location = new System.Drawing.Point(52, 115);
+            this.txtBin7.Location = new System.Drawing.Point(52, 134);
             this.txtBin7.MaxLength = 4;
             this.txtBin7.Name = "txtBin7";
             this.txtBin7.Size = new System.Drawing.Size(44, 20);
@@ -766,7 +966,7 @@
             // 
             this.txtBin6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBin6.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtBin6.Location = new System.Drawing.Point(95, 96);
+            this.txtBin6.Location = new System.Drawing.Point(95, 115);
             this.txtBin6.MaxLength = 4;
             this.txtBin6.Name = "txtBin6";
             this.txtBin6.Size = new System.Drawing.Size(44, 20);
@@ -778,7 +978,7 @@
             // 
             this.txtBin5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBin5.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtBin5.Location = new System.Drawing.Point(52, 96);
+            this.txtBin5.Location = new System.Drawing.Point(52, 115);
             this.txtBin5.MaxLength = 4;
             this.txtBin5.Name = "txtBin5";
             this.txtBin5.Size = new System.Drawing.Size(44, 20);
@@ -790,7 +990,7 @@
             // 
             this.txtBin4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBin4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtBin4.Location = new System.Drawing.Point(95, 77);
+            this.txtBin4.Location = new System.Drawing.Point(95, 96);
             this.txtBin4.MaxLength = 4;
             this.txtBin4.Name = "txtBin4";
             this.txtBin4.Size = new System.Drawing.Size(44, 20);
@@ -802,7 +1002,7 @@
             // 
             this.txtBin3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBin3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtBin3.Location = new System.Drawing.Point(52, 77);
+            this.txtBin3.Location = new System.Drawing.Point(52, 96);
             this.txtBin3.MaxLength = 4;
             this.txtBin3.Name = "txtBin3";
             this.txtBin3.Size = new System.Drawing.Size(44, 20);
@@ -814,7 +1014,7 @@
             // 
             this.txtBin2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBin2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtBin2.Location = new System.Drawing.Point(95, 58);
+            this.txtBin2.Location = new System.Drawing.Point(95, 77);
             this.txtBin2.MaxLength = 4;
             this.txtBin2.Name = "txtBin2";
             this.txtBin2.Size = new System.Drawing.Size(44, 20);
@@ -826,7 +1026,7 @@
             // 
             this.txtBin1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBin1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtBin1.Location = new System.Drawing.Point(52, 58);
+            this.txtBin1.Location = new System.Drawing.Point(52, 77);
             this.txtBin1.MaxLength = 4;
             this.txtBin1.Name = "txtBin1";
             this.txtBin1.Size = new System.Drawing.Size(44, 20);
@@ -837,7 +1037,7 @@
             // label6
             // 
             this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label6.Location = new System.Drawing.Point(7, 58);
+            this.label6.Location = new System.Drawing.Point(7, 77);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(46, 77);
             this.label6.TabIndex = 4;
@@ -847,8 +1047,7 @@
             // txtInt
             // 
             this.txtInt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtInt.Enabled = false;
-            this.txtInt.Location = new System.Drawing.Point(52, 39);
+            this.txtInt.Location = new System.Drawing.Point(52, 58);
             this.txtInt.Name = "txtInt";
             this.txtInt.Size = new System.Drawing.Size(111, 20);
             this.txtInt.TabIndex = 3;
@@ -857,8 +1056,7 @@
             // txtFloat
             // 
             this.txtFloat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFloat.Enabled = false;
-            this.txtFloat.Location = new System.Drawing.Point(52, 20);
+            this.txtFloat.Location = new System.Drawing.Point(52, 39);
             this.txtFloat.Name = "txtFloat";
             this.txtFloat.Size = new System.Drawing.Size(111, 20);
             this.txtFloat.TabIndex = 2;
@@ -867,7 +1065,7 @@
             // label4
             // 
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label4.Location = new System.Drawing.Point(7, 39);
+            this.label4.Location = new System.Drawing.Point(7, 58);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 20);
             this.label4.TabIndex = 1;
@@ -877,7 +1075,7 @@
             // label3
             // 
             this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label3.Location = new System.Drawing.Point(7, 20);
+            this.label3.Location = new System.Drawing.Point(7, 39);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(46, 20);
             this.label3.TabIndex = 0;
@@ -889,7 +1087,7 @@
             this.splitter3.Dock = System.Windows.Forms.DockStyle.Right;
             this.splitter3.Location = new System.Drawing.Point(780, 0);
             this.splitter3.Name = "splitter3";
-            this.splitter3.Size = new System.Drawing.Size(3, 597);
+            this.splitter3.Size = new System.Drawing.Size(3, 642);
             this.splitter3.TabIndex = 11;
             this.splitter3.TabStop = false;
             // 
@@ -897,7 +1095,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(956, 597);
+            this.ClientSize = new System.Drawing.Size(956, 642);
             this.Controls.Add(this.pnlLeft);
             this.Controls.Add(this.splitter3);
             this.Controls.Add(this.pnlRight);
@@ -921,6 +1119,10 @@
             this.pnlLeft.ResumeLayout(false);
             this.pnlHexEditor.ResumeLayout(false);
             this.pnlHexEditor.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.pnlRight.ResumeLayout(false);
@@ -1010,5 +1212,17 @@
         private CheckBox chkDestructor;
         private CheckBox chkConstructor;
         private Splitter splitter3;
+        private ToolStripMenuItem chkAnnotations;
+        public RichTextBox annotationDescription;
+        public RichTextBox annotationTitle;
+        private Button btnSaveAnnotation;
+        public RadioButton rdo4byte;
+        public RadioButton rdo2byte;
+        public RadioButton rdo1byte;
+        private CheckBox btn4underline;
+        private CheckBox btn1underline;
+        private CheckBox btn2underline;
+        private CheckBox btn3underline;
+        private SplitContainer splitContainer1;
     }
 }
