@@ -665,10 +665,10 @@
             this.annotationDescription.Cursor = System.Windows.Forms.Cursors.Default;
             this.annotationDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.annotationDescription.ForeColor = System.Drawing.Color.Black;
-            this.annotationDescription.Location = new System.Drawing.Point(0, 32);
+            this.annotationDescription.Location = new System.Drawing.Point(0, 25);
             this.annotationDescription.Name = "annotationDescription";
             this.annotationDescription.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.annotationDescription.Size = new System.Drawing.Size(503, 134);
+            this.annotationDescription.Size = new System.Drawing.Size(503, 141);
             this.annotationDescription.TabIndex = 11;
             this.annotationDescription.Text = "No Description Available.";
             this.annotationDescription.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.annotationDescription_LinkClicked);
@@ -755,7 +755,7 @@
             this.annotationTitle.Location = new System.Drawing.Point(0, 0);
             this.annotationTitle.Name = "annotationTitle";
             this.annotationTitle.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.annotationTitle.Size = new System.Drawing.Size(503, 34);
+            this.annotationTitle.Size = new System.Drawing.Size(503, 30);
             this.annotationTitle.TabIndex = 12;
             this.annotationTitle.Text = "No Description Available.";
             // 
