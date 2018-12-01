@@ -1500,12 +1500,7 @@ namespace System.Windows.Forms
         private void chkAnnotations_CheckedChanged(object sender, EventArgs e)
         {
             this.btn1underline.Visible = this.btn2underline.Visible = this.btn3underline.Visible = this.btn4underline.Visible = this.annotationDescription.Visible = this.annotationTitle.Visible = this.btnSaveAnnotation.Visible = chkAnnotations.Checked;
-            hexBox1.Width = pnlHexEditor.Width;
-            hexBox1.Height = pnlHexEditor.Height - (this.btnSaveAnnotation.Height + this.annotationTitle.Height + this.annotationDescription.Height + this.statusStrip.Height);
-            if (chkAnnotations.Checked)
-                hexBox1.Dock = DockStyle.Top;
-            else
-                hexBox1.Dock = DockStyle.Fill;
+            this.splitContainer1.Panel2Collapsed = !chkAnnotations.Checked;
         }
 
         private void description_TextChanged(object sender, EventArgs e)
