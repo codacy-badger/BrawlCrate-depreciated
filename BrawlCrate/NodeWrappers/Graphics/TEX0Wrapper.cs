@@ -120,13 +120,22 @@ namespace BrawlCrate.NodeWrappers
                     if (textureList.Count <= 0)
                         return;
                     PAT0Node newPat0 = new PAT0Node();
-                    newPat0.Name = _resource.Name.Substring(0, _resource.Name.LastIndexOf("."));
+                    newPat0.Name = _resource.Name.Substring(0, _resource.Name.LastIndexOf(".")).Equals("InfStc") ? "InfStockface_TopN__0" : _resource.Name.Substring(0, _resource.Name.LastIndexOf("."));
                     newPat0._numFrames = highestNum + 1;
                     PAT0EntryNode pat0Entry = new PAT0EntryNode();
                     newPat0.AddChild(pat0Entry);
-                    pat0Entry.Name = _resource.Name.Substring(0, _resource.Name.LastIndexOf("."));
+                    pat0Entry.Name = _resource.Name.Substring(0, _resource.Name.LastIndexOf(".")).Equals("InfStc") ? "lambert87" : _resource.Name.Substring(0, _resource.Name.LastIndexOf("."));
                     PAT0TextureNode pat0Tex = new PAT0TextureNode((PAT0Flags)7, 0);
                     pat0Entry.AddChild(pat0Tex);
+                    if(((BRRESNode)(_resource.Parent.Parent)).GetFolder<PAT0Node>().FindChildrenByName(newPat0.Name).Length > 0)
+                    {
+                        DialogResult d = MessageBox.Show("Would you like to replace the currently existing \"" + newPat0.Name + "\" PAT0 animation?", "PAT0 Generator", MessageBoxButtons.YesNoCancel);
+                        if (d == DialogResult.Cancel || d == DialogResult.Abort)
+                            return;
+                        if (d == DialogResult.Yes)
+                            while (((BRRESNode)(_resource.Parent.Parent)).GetFolder<PAT0Node>().FindChildrenByName(newPat0.Name).Length > 0)
+                                ((BRRESNode)(_resource.Parent.Parent)).GetFolder<PAT0Node>().FindChildrenByName(newPat0.Name)[0].Remove();
+                    }
                     if (matchName == "InfStc." && highestNum < 1000 && !textureList.Contains("InfStc.000"))
                     {
                         textureList.Add("InfStc.000");
@@ -172,7 +181,10 @@ namespace BrawlCrate.NodeWrappers
                         //newPat0.AddChild
                     }
                     pat0Tex._children = pat0Tex._children.OrderBy(o => ((PAT0TextureEntryNode)o)._frame).ToList();
+                    if (_resource.Name.Substring(0, _resource.Name.LastIndexOf(".")).Equals("InfStc") && newPat0.FrameCount < 501)
+                        newPat0.FrameCount = 501;
                     ((BRRESNode)_resource.Parent.Parent).GetOrCreateFolder<PAT0Node>().AddChild(newPat0);
+                    MainForm.Instance.TargetResource(newPat0);
                 }
                 else
                 {
@@ -189,6 +201,7 @@ namespace BrawlCrate.NodeWrappers
                     pat0texEntry.Name = _resource.Name;
                     pat0texEntry._frame = 0;
                     ((BRRESNode)_resource.Parent.Parent).GetOrCreateFolder<PAT0Node>().AddChild(newPat0);
+                    MainForm.Instance.TargetResource(newPat0);
                 }
             }
         }
