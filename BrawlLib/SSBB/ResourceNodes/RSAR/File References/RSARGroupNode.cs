@@ -8,6 +8,7 @@ namespace BrawlLib.SSBB.ResourceNodes
     {
         internal INFOGroupHeader* Header { get { return (INFOGroupHeader*)WorkingUncompressed.Address; } }
 
+        [Browsable(true)]
         [Category("Data")]
         [DisplayName("Group ID")]
         public override int StringId { get { return Header == null ? -1 : (int)Header->_stringId; } }
