@@ -7,11 +7,10 @@ namespace BrawlLib.SSBB.ResourceNodes
     public unsafe class RSARGroupNode : RSAREntryNode
     {
         internal INFOGroupHeader* Header { get { return (INFOGroupHeader*)WorkingUncompressed.Address; } }
-#if DEBUG
-        [Browsable(true), Category("DEBUG")]
-#else
-        [Browsable(false)]
-#endif
+
+        [Browsable(true)]
+        [Category("Data")]
+        [DisplayName("Group ID")]
         public override int StringId { get { return Header == null ? -1 : (int)Header->_stringId; } }
 
         public override ResourceType ResourceType { get { return ResourceType.RSARGroup; } }

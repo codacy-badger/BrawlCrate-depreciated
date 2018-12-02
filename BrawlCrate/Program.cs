@@ -406,11 +406,22 @@ REGEN:
 
         public static bool Open(string path, string root)
         {
+            return (Open(path, root, null));
+        }
+
+        public static bool Open(string path, string root, string openNode)
+        {
             bool returnVal = Open(path, false);
             if (returnVal)
             {
                 _rootPath = root;
                 MainForm.Instance.Reset();
+                if (openNode != null)
+                {
+                    ResourceNode target = ResourceNode.FindNode(RootNode, openNode, true);
+                    if (target != null)
+                        MainForm.Instance.TargetResource(target);
+                }
             }
             return returnVal;
         }
@@ -472,7 +483,8 @@ REGEN:
                 bool force = Control.ModifierKeys == (Keys.Control | Keys.Shift);
                 if (!force && !_rootNode.IsDirty)
                 {
-                    MessageBox.Show("No changes have been made.");
+                    if(!saveTemp)
+                        MessageBox.Show("No changes have been made.");
                     return false;
                 }
                 
