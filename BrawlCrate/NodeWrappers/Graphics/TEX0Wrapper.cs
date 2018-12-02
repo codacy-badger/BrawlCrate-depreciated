@@ -47,7 +47,7 @@ namespace BrawlCrate.NodeWrappers
         {
             TEX0Wrapper w = GetInstance<TEX0Wrapper>();
             _menu.Items[2].Enabled = _menu.Items[5].Enabled = _menu.Items[12].Enabled = w.Parent != null;
-            _menu.Items[1].Visible = _menu.Items[2].Visible = (Regex.Match(w._resource.Name, @"(\.\d+)?$").Success && w._resource.Name.LastIndexOf(".") > 0 && w._resource.Name.LastIndexOf(".") <= w._resource.Name.Length && int.TryParse(w._resource.Name.Substring(w._resource.Name.LastIndexOf(".") + 1, w._resource.Name.Length - (w._resource.Name.LastIndexOf(".") + 1)), out int n));
+            _menu.Items[1].Visible = _menu.Items[2].Visible = true; //(Regex.Match(w._resource.Name, @"(\.\d+)?$").Success && w._resource.Name.LastIndexOf(".") > 0 && w._resource.Name.LastIndexOf(".") <= w._resource.Name.Length && int.TryParse(w._resource.Name.Substring(w._resource.Name.LastIndexOf(".") + 1, w._resource.Name.Length - (w._resource.Name.LastIndexOf(".") + 1)), out int n));
             _menu.Items[6].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
             _menu.Items[8].Enabled = w.PrevNode != null;
             _menu.Items[9].Enabled = w.NextNode != null;
@@ -172,7 +172,7 @@ namespace BrawlCrate.NodeWrappers
                                 if (paletteList[i] != null)
                                 {
                                     pat0Tex.HasPalette = true;
-                                    pat0texEntryFinal._plt = paletteList[i].Name;
+                                    pat0texEntryFinal.Palette = paletteList[i].Name;
                                 }
                                 else if ((s == "InfStc.000" || s == "InfStc.0000") && pat0Tex.HasPalette)
                                     pat0texEntryFinal._plt = s;
@@ -200,6 +200,11 @@ namespace BrawlCrate.NodeWrappers
                     pat0Tex.AddChild(pat0texEntry);
                     pat0texEntry.Name = _resource.Name;
                     pat0texEntry._frame = 0;
+                    if (((TEX0Node)(_resource)).HasPalette)
+                    {
+                        pat0Tex.HasPalette = true;
+                        pat0texEntry.Palette = ((TEX0Node)_resource).GetPaletteNode().Name;
+                    }
                     ((BRRESNode)_resource.Parent.Parent).GetOrCreateFolder<PAT0Node>().AddChild(newPat0);
                     MainForm.Instance.TargetResource(newPat0);
                 }
