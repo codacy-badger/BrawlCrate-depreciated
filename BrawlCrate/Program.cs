@@ -406,21 +406,27 @@ REGEN:
 
         public static bool Open(string path, string root)
         {
-            return (Open(path, root, null));
+            return (Open(path, root, null, null));
         }
 
-        public static bool Open(string path, string root, string openNode)
+        public static bool Open(string path, string root, string folder, string openNode)
         {
             bool returnVal = Open(path, false);
             if (returnVal)
             {
                 _rootPath = root;
                 MainForm.Instance.Reset();
-                if (openNode != null)
+                if (openNode != null && folder != null)
                 {
-                    ResourceNode target = ResourceNode.FindNode(RootNode, openNode, true);
+                    ResourceNode target = ResourceNode.FindNode(RootNode, folder, true);
                     if (target != null)
-                        MainForm.Instance.TargetResource(target);
+                    {
+                        ResourceNode target2 = ResourceNode.FindNode(target, openNode, true);
+                        if(target2 != null)
+                            MainForm.Instance.TargetResource(target2);
+                        else
+                            MainForm.Instance.TargetResource(target);
+                    }
                 }
             }
             return returnVal;
