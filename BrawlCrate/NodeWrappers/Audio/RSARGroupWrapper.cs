@@ -66,7 +66,7 @@ namespace BrawlCrate.NodeWrappers
                 Program.Close(true);
                 exportSawnd(outPath, openFile, groupID);
                 MainForm.Instance.Reset();
-                Program.Open(openFile, fileRoot, null);
+                Program.Open(openFile, fileRoot, "group");
                 if(stuffChanged)
                     Program.RootNode.SignalPropertyChange();
             }
