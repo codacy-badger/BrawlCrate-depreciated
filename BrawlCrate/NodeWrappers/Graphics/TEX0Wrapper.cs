@@ -32,7 +32,7 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteTEX0Action, Keys.Control | Keys.Delete));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("&Convert Stock System", null, ConvertStockAction));
+            _menu.Items.Add(new ToolStripMenuItem("Convert Stock System", null, ConvertStockAction));
             _menu.Items[1].Visible = _menu.Items[2].Visible = _menu.Items[13].Visible = _menu.Items[14].Visible = false;
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
@@ -54,7 +54,12 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items[6].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
             _menu.Items[8].Enabled = w.PrevNode != null;
             _menu.Items[9].Enabled = w.NextNode != null;
-            _menu.Items[13].Visible = _menu.Items[14].Visible = w._resource.Name.StartsWith("InfStc.");
+            _menu.Items[13].Visible = _menu.Items[14].Visible = false;
+            if (w._resource.Name.StartsWith("InfStc.") && Regex.Match(w._resource.Name, @"(\.\d+)?$").Success && w._resource.Name.LastIndexOf(".") > 0 && w._resource.Name.LastIndexOf(".") <= w._resource.Name.Length && int.TryParse(w._resource.Name.Substring(w._resource.Name.LastIndexOf(".") + 1, w._resource.Name.Length - (w._resource.Name.LastIndexOf(".") + 1)), out int n))
+            {
+                _menu.Items[13].Visible = _menu.Items[14].Visible = true;
+                _menu.Items[14].Text = w._resource.Name.Length == 10 ? "Convert to Expanded 40-Stock System" : "Convert to Default Stock System";
+            }
         }
 
         public TEX0Wrapper() { ContextMenuStrip = _menu; }
@@ -266,15 +271,27 @@ namespace BrawlCrate.NodeWrappers
             List<TEX0Node> texList = new List<TEX0Node>();
             foreach (TEX0Node tx0 in _resource.Parent.Children)
             {
-                if (tx0.Name.StartsWith(matchName) && tx0.Name.LastIndexOf(".") > 0 && tx0.Name.LastIndexOf(".") <= tx0.Name.Length && int.TryParse(tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1, tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int x) && x >= 0)
+                if (tx0.Name.StartsWith(matchName) && tx0.Name.LastIndexOf(".") > 0 && tx0.Name.LastIndexOf(".") < tx0.Name.Length && tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1).Length == 3 && int.TryParse(tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1, tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int x) && x >= 0)
                 {
-                    tx0.texSortNum = ((int)(Math.Floor(((Double)x - 1) / 10.0)) * 40) + (x % 10);
-                    if (x % 10 == 0)
-                        tx0.texSortNum += 10;
-                    if (tx0.HasPalette)
+                    // WarioMan edge case (should pre-program)
+                    if (x >= 475)
+                        tx0.texSortNum = 9001 + (x % 475);
+                    else
                     {
-                        tx0.GetPaletteNode().Name = "InfStc." + tx0.texSortNum.ToString("0000");
+                        tx0.texSortNum = ((int)(Math.Floor(((Double)x - 1) / 10.0)) * 40) + (x % 10);
+
+                        if (x % 10 == 0)
+                            tx0.texSortNum += 10;
+
+                        if ((x >= 201 && x <= 205) || // Ganon Edge Case
+                            (x >= 351 && x <= 355) || // ROB Edge Case
+                            (x >= 381 && x <= 384) || // Wario Edge Case
+                            (x >= 411 && x <= 415) || // Toon Link Edge Case
+                            (x >= 471 && x <= 474))   // Sonic Edge Case
+                            tx0.texSortNum -= 30;
                     }
+                    if (tx0.HasPalette)
+                        tx0.GetPaletteNode().Name = "InfStc." + tx0.texSortNum.ToString("0000");
                     tx0.Name = "InfStc." + tx0.texSortNum.ToString("0000");
                 }
             }
