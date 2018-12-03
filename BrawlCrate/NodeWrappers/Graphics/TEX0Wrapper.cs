@@ -299,7 +299,44 @@ namespace BrawlCrate.NodeWrappers
 
         public void ConvertToStockDefault()
         {
+            string matchName = _resource.Name.Substring(0, _resource.Name.LastIndexOf(".")) + ".";
+            List<TEX0Node> texList = new List<TEX0Node>();
+            foreach (TEX0Node tx0 in _resource.Parent.Children)
+            {
+                if (tx0.Name.StartsWith(matchName) && tx0.Name.LastIndexOf(".") > 0 && tx0.Name.LastIndexOf(".") < tx0.Name.Length && tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1).Length == 4 && int.TryParse(tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1, tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int x) && x >= 0)
+                {
+                    tx0.texSortNum = x;
+                    // WarioMan edge case (should pre-program)
+                    if (x >= 9001)
+                    {
+                        tx0.texSortNum = 475 + (x % 9001);
+                        if (tx0.HasPalette)
+                            tx0.GetPaletteNode().Name = "InfStc." + tx0.texSortNum.ToString("000");
+                        tx0.Name = "InfStc." + tx0.texSortNum.ToString("000");
+                    }
+                    else if ((x % 40 <= 10 && x % 40 != 0) ||
+                        (x >= 0771 && x <= 0775) || // Ganon Edge Case
+                        (x >= 1371 && x <= 1375) || // ROB Edge Case
+                        (x >= 1491 && x <= 1494) || // Wario Edge Case
+                        (x >= 1611 && x <= 1615) || // Toon Link Edge Case
+                        (x >= 1851 && x <= 1854))   // Sonic Edge Case
+                    {
+                        tx0.texSortNum = ((int)(Math.Floor(((Double)x + 1) / 40.0)) * 10) + (x % 10);
+                        
+                        if ((x % 10 == 0) ||
+                            (x >= 0771 && x <= 0775) || // Ganon Edge Case
+                            (x >= 1371 && x <= 1375) || // ROB Edge Case
+                            (x >= 1491 && x <= 1494) || // Wario Edge Case
+                            (x >= 1611 && x <= 1615) || // Toon Link Edge Case
+                            (x >= 1851 && x <= 1854))   // Sonic Edge Case
+                            tx0.texSortNum += 10;
 
+                        if (tx0.HasPalette)
+                            tx0.GetPaletteNode().Name = "InfStc." + tx0.texSortNum.ToString("000");
+                        tx0.Name = "InfStc." + tx0.texSortNum.ToString("000");
+                    }
+                }
+            }
         }
     }
 }
