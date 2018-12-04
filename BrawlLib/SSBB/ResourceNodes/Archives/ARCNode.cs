@@ -20,11 +20,11 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        [Browsable(false)]
+        [Browsable(true)]
         public bool IsStage { get { return _isStage; } set { _isStage = value; } }
         private bool _isStage;
 
-        [Browsable(false)]
+        [Browsable(true)]
         public bool IsCharacter { get { return _isCharacter; } set { _isCharacter = value; } }
         private bool _isCharacter;
 
@@ -271,8 +271,8 @@ namespace BrawlLib.SSBB.ResourceNodes
                 ExportVillage(outPath);
             else if (outPath.EndsWith(".tengan", StringComparison.OrdinalIgnoreCase))
                 ExportTengan(outPath);
-            //else if (outPath.EndsWith(".pac", StringComparison.OrdinalIgnoreCase))
-            //    ExportPAC(outPath);
+            else if (outPath.EndsWith(".pac", StringComparison.OrdinalIgnoreCase) && IsCharacter)
+                ExportPAC(outPath);
             else
                 base.Export(outPath);
         }
