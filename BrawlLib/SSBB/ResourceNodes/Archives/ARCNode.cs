@@ -20,17 +20,54 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
+#if !DEBUG
         [Browsable(false)]
-        public bool IsStage { get { return _isStage; } set { _isStage = value; } }
-        private bool _isStage;
-
-        [Browsable(false)]
-        public bool IsCharacter { get { return _isCharacter; } set { _isCharacter = value; } }
-        private bool _isCharacter;
-
-        [Browsable(false)]
+#endif
         public bool IsPair { get { return _isPair; } set { _isPair = value; } }
         private bool _isPair;
+
+#if !DEBUG
+        [Browsable(false)]
+#endif
+        public bool IsStage { get { return _isStage; } }//set { _isStage = value; } }
+        private bool _isStage;
+
+#if !DEBUG
+        [Browsable(false)]
+#endif
+        public bool IsCharacter { get { return _isCharacter; } }// set { _isCharacter = value; } }
+        private bool _isCharacter;
+
+#if !DEBUG
+        [Browsable(false)]
+#endif
+        public bool IsItemTable { get { return _isItemTable; } }// set { _isCharacter = value; } }
+        private bool _isItemTable;
+
+        [Browsable(true)]
+        public string SpecialARC {
+            get {
+                if (IsCharacter)
+                {
+                    return "Fighter";
+                }
+                else if (IsStage)
+                {
+                    return "Stage";
+                }
+                else if (IsItemTable)
+                {
+                    return "Item Table";
+                }
+                else if (Parent != null && Parent is ARCNode)
+                {
+                    if (((ARCNode)Parent).SpecialARC.EndsWith("SubNode") || ((ARCNode)Parent).SpecialARC.Equals("<None>"))
+                        return ((ARCNode)Parent).SpecialARC;
+                    return ((ARCNode)Parent).SpecialARC + " SubNode";
+                }
+                return "<None>";
+            }
+        }
 
         [Category("Models")]
         public int NumModels
@@ -155,19 +192,24 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             base.OnInitialize();
             _name = Header->Name;
-            IsStage = false;
-            IsCharacter = false;
+            _isStage = false;
+            _isCharacter = false;
+            _isItemTable = false;
             if (_name.Length >= 3 && AbsoluteIndex == -1)
             {
                 if (_name.Substring(0, 3).Equals("STG", StringComparison.OrdinalIgnoreCase))
                 {
-                    IsStage = true;
+                    _isStage = true;
                     Console.WriteLine(_name + " Generating MetaData");
                 }
                 else if (_name.Substring(0, 3).Equals("FIT", StringComparison.OrdinalIgnoreCase))
                 {
-                    IsCharacter = true;
+                    _isCharacter = true;
                 }
+            }
+            if (_name.StartsWith("ItmMelee", StringComparison.OrdinalIgnoreCase))
+            {
+                _isItemTable = true;
             }
 
             if (Compression == "LZ77" && Header->_numFiles > 0)
@@ -271,8 +313,8 @@ namespace BrawlLib.SSBB.ResourceNodes
                 ExportVillage(outPath);
             else if (outPath.EndsWith(".tengan", StringComparison.OrdinalIgnoreCase))
                 ExportTengan(outPath);
-            //else if (outPath.EndsWith(".pac", StringComparison.OrdinalIgnoreCase))
-            //    ExportPAC(outPath);
+            else if (outPath.EndsWith(".pac", StringComparison.OrdinalIgnoreCase) && IsCharacter)
+                ExportPAC(outPath);
             else
                 base.Export(outPath);
         }
