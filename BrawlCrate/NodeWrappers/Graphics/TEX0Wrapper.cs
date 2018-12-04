@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 namespace BrawlCrate.NodeWrappers
 {
@@ -273,8 +274,9 @@ namespace BrawlCrate.NodeWrappers
             {
                 if (tx0.Name.StartsWith(matchName) && tx0.Name.LastIndexOf(".") > 0 && tx0.Name.LastIndexOf(".") < tx0.Name.Length && tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1).Length == 3 && int.TryParse(tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1, tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int x) && x >= 0)
                 {
-                    // WarioMan edge case (should pre-program)
-                    if (x >= 475)
+                    if (x <= 0) // 0 edge case
+                        tx0.texSortNum = 0;
+                    else if (x == 475) // WarioMan edge case (should pre-program)
                         tx0.texSortNum = 9001 + (x % 475);
                     else
                     {
@@ -295,6 +297,43 @@ namespace BrawlCrate.NodeWrappers
                     tx0.Name = "InfStc." + tx0.texSortNum.ToString("0000");
                 }
             }
+            if(MessageBox.Show("Would you like to convert the InfFace portraits to the new system as well at this time?", "Convert InfFace?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                FolderBrowserDialog f = new FolderBrowserDialog();
+                f.Description = "Select the \"portrite\" folder";
+                f.ShowDialog();
+                if (f.SelectedPath == null)
+                    return;
+                DirectoryInfo d = Directory.CreateDirectory(f.SelectedPath);
+                Console.WriteLine(f.SelectedPath);
+                foreach(FileInfo infFace in d.GetFiles())
+                {
+                    Console.WriteLine(f.SelectedPath + '\\' + infFace.Name);
+                    if(infFace.Name.StartsWith("InfFace") && infFace.Name.EndsWith(".brres", StringComparison.CurrentCultureIgnoreCase) && infFace.Name.Length == 16 && int.TryParse(infFace.Name.Substring(7, 3), out int x) && x >= 0)
+                    {
+                        int n = x;
+                        if (x <= 0) // 0 edge case
+                            n = 0;
+                        else if (x == 475) // WarioMan edge case (should pre-program)
+                            n = 9001 + (x % 475);
+                        else
+                        {
+                            n = ((int)(Math.Floor(((Double)x - 1) / 10.0)) * 40) + (x % 10);
+
+                            if (x % 10 == 0)
+                                n += 10;
+
+                            if ((x >= 201 && x <= 205) || // Ganon Edge Case
+                                (x >= 351 && x <= 355) || // ROB Edge Case
+                                (x >= 381 && x <= 384) || // Wario Edge Case
+                                (x >= 411 && x <= 415) || // Toon Link Edge Case
+                                (x >= 471 && x <= 474))   // Sonic Edge Case
+                                n -= 30;
+                        }
+                        infFace.MoveTo(f.SelectedPath + '\\' + "InfFace" + n.ToString("0000") + ".brres");
+                    }
+                }
+            }
         }
 
         public void ConvertToStockDefault()
@@ -306,8 +345,14 @@ namespace BrawlCrate.NodeWrappers
                 if (tx0.Name.StartsWith(matchName) && tx0.Name.LastIndexOf(".") > 0 && tx0.Name.LastIndexOf(".") < tx0.Name.Length && tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1).Length == 4 && int.TryParse(tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1, tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int x) && x >= 0)
                 {
                     tx0.texSortNum = x;
-                    // WarioMan edge case (should pre-program)
-                    if (x >= 9001)
+                    if (x <= 0) // 0 edge case
+                    {
+                        tx0.texSortNum = 0;
+                        if (tx0.HasPalette)
+                            tx0.GetPaletteNode().Name = "InfStc." + tx0.texSortNum.ToString("000");
+                        tx0.Name = "InfStc." + tx0.texSortNum.ToString("000");
+                    }
+                    else if (x == 9001) // WarioMan edge case (should pre-program)
                     {
                         tx0.texSortNum = 475 + (x % 9001);
                         if (tx0.HasPalette)
@@ -334,6 +379,53 @@ namespace BrawlCrate.NodeWrappers
                         if (tx0.HasPalette)
                             tx0.GetPaletteNode().Name = "InfStc." + tx0.texSortNum.ToString("000");
                         tx0.Name = "InfStc." + tx0.texSortNum.ToString("000");
+                    }
+                }
+            }
+            if (MessageBox.Show("Would you like to convert the InfFace portraits to the new system as well at this time?", "Convert InfFace?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                FolderBrowserDialog f = new FolderBrowserDialog();
+                f.Description = "Select the \"portrite\" folder";
+                f.ShowDialog();
+                if (f.SelectedPath == null)
+                    return;
+                DirectoryInfo d = Directory.CreateDirectory(f.SelectedPath);
+                Console.WriteLine(f.SelectedPath);
+                foreach (FileInfo infFace in d.GetFiles())
+                {
+                    Console.WriteLine(f.SelectedPath + '\\' + infFace.Name);
+                    if (infFace.Name.StartsWith("InfFace") && infFace.Name.EndsWith(".brres", StringComparison.CurrentCultureIgnoreCase) && infFace.Name.Length == 17 && int.TryParse(infFace.Name.Substring(7, 4), out int x) && x >= 0)
+                    {
+                        int n = x;
+                        if (x <= 0) // 0 edge case
+                        {
+                            n = 0;
+                            infFace.MoveTo(f.SelectedPath + '\\' + "InfFace" + n.ToString("000") + ".brres");
+                        }
+                        else if (x == 9001) // WarioMan edge case (should pre-program)
+                        {
+                            n = 475 + (x % 9001);
+                            infFace.MoveTo(f.SelectedPath + '\\' + "InfFace" + n.ToString("000") + ".brres");
+                        }
+                        else if ((x % 40 <= 10 && x % 40 != 0) ||
+                            (x >= 0771 && x <= 0775) || // Ganon Edge Case
+                            (x >= 1371 && x <= 1375) || // ROB Edge Case
+                            (x >= 1491 && x <= 1494) || // Wario Edge Case
+                            (x >= 1611 && x <= 1615) || // Toon Link Edge Case
+                            (x >= 1851 && x <= 1854))   // Sonic Edge Case
+                        {
+                            n = ((int)(Math.Floor(((Double)x + 1) / 40.0)) * 10) + (x % 10);
+
+                            if ((x % 10 == 0) ||
+                                (x >= 0771 && x <= 0775) || // Ganon Edge Case
+                                (x >= 1371 && x <= 1375) || // ROB Edge Case
+                                (x >= 1491 && x <= 1494) || // Wario Edge Case
+                                (x >= 1611 && x <= 1615) || // Toon Link Edge Case
+                                (x >= 1851 && x <= 1854))   // Sonic Edge Case
+                                n += 10;
+
+                            infFace.MoveTo(f.SelectedPath + '\\' + "InfFace" + n.ToString("000") + ".brres");
+                        }
                     }
                 }
             }
