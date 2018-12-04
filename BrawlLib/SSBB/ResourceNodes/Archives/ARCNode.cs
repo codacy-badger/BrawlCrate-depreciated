@@ -19,6 +19,13 @@ namespace BrawlLib.SSBB.ResourceNodes
                 return new Type[] { typeof(ARCEntryNode) };
             }
         }
+
+#if !DEBUG
+        [Browsable(false)]
+#endif
+        public bool IsPair { get { return _isPair; } set { _isPair = value; } }
+        private bool _isPair;
+
 #if !DEBUG
         [Browsable(false)]
 #endif
@@ -61,11 +68,6 @@ namespace BrawlLib.SSBB.ResourceNodes
                 return "<None>";
             }
         }
-
-
-        [Browsable(false)]
-        public bool IsPair { get { return _isPair; } set { _isPair = value; } }
-        private bool _isPair;
 
         [Category("Models")]
         public int NumModels
