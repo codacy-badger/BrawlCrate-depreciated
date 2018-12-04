@@ -19,14 +19,49 @@ namespace BrawlLib.SSBB.ResourceNodes
                 return new Type[] { typeof(ARCEntryNode) };
             }
         }
-
-        [Browsable(true)]
-        public bool IsStage { get { return _isStage; } set { _isStage = value; } }
+#if !DEBUG
+        [Browsable(false)]
+#endif
+        public bool IsStage { get { return _isStage; } }//set { _isStage = value; } }
         private bool _isStage;
 
-        [Browsable(true)]
-        public bool IsCharacter { get { return _isCharacter; } set { _isCharacter = value; } }
+#if !DEBUG
+        [Browsable(false)]
+#endif
+        public bool IsCharacter { get { return _isCharacter; } }// set { _isCharacter = value; } }
         private bool _isCharacter;
+
+#if !DEBUG
+        [Browsable(false)]
+#endif
+        public bool IsItemTable { get { return _isItemTable; } }// set { _isCharacter = value; } }
+        private bool _isItemTable;
+
+        [Browsable(true)]
+        public string SpecialARC {
+            get {
+                if (IsCharacter)
+                {
+                    return "Fighter";
+                }
+                else if (IsStage)
+                {
+                    return "Stage";
+                }
+                else if (IsItemTable)
+                {
+                    return "Item Table";
+                }
+                else if (Parent != null && Parent is ARCNode)
+                {
+                    if (((ARCNode)Parent).SpecialARC.EndsWith("SubNode") || ((ARCNode)Parent).SpecialARC.Equals("<None>"))
+                        return ((ARCNode)Parent).SpecialARC;
+                    return ((ARCNode)Parent).SpecialARC + " SubNode";
+                }
+                return "<None>";
+            }
+        }
+
 
         [Browsable(false)]
         public bool IsPair { get { return _isPair; } set { _isPair = value; } }
@@ -157,6 +192,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             _name = Header->Name;
             _isStage = false;
             _isCharacter = false;
+            _isItemTable = false;
             if (_name.Length >= 3 && AbsoluteIndex == -1)
             {
                 if (_name.Substring(0, 3).Equals("STG", StringComparison.OrdinalIgnoreCase))
@@ -168,6 +204,10 @@ namespace BrawlLib.SSBB.ResourceNodes
                 {
                     _isCharacter = true;
                 }
+            }
+            if (_name.StartsWith("ItmMelee", StringComparison.OrdinalIgnoreCase))
+            {
+                _isItemTable = true;
             }
 
             if (Compression == "LZ77" && Header->_numFiles > 0)
