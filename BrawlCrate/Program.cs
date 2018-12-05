@@ -489,7 +489,7 @@ REGEN:
                 bool force = Control.ModifierKeys == (Keys.Control | Keys.Shift);
                 if (!force && !_rootNode.IsDirty)
                 {
-                    if(!saveTemp)
+                    if(false)
                         MessageBox.Show("No changes have been made.");
                     return false;
                 }

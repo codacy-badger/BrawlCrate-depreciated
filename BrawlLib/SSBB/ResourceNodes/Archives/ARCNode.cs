@@ -231,6 +231,15 @@ namespace BrawlLib.SSBB.ResourceNodes
                     }
                 }
             }
+            if (IsCharacter && AbsoluteIndex == -1 && Compression != "None")
+            {
+                CompressionType type;
+                if (Enum.TryParse("None", out type))
+                {
+                    _compression = type;
+                    SignalPropertyChange();
+                }
+            }
             FindUnloadedChildren();
             return Header->_numFiles > 0;
         }

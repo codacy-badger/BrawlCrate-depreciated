@@ -898,6 +898,25 @@ namespace BrawlCrate
                     splitter.IsSplitterFixed = false;
             }
         }
+
+        private void fIXPACSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog f = new FolderBrowserDialog();
+            DialogResult dr = f.ShowDialog();
+            if(dr == DialogResult.OK)
+            {
+                DirectoryInfo d = Directory.CreateDirectory(f.SelectedPath);
+                foreach(DirectoryInfo d2 in d.GetDirectories())
+                {
+                    foreach(FileInfo _file in d2.GetFiles())
+                    {
+                        Program.Open(_file.FullName);
+                        Program.Save();
+                        Program.Close();
+                    }
+                }
+            }
+        }
     }
 
     public class RecentFileHandler : Component

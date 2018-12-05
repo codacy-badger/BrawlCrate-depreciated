@@ -46,13 +46,13 @@ namespace BrawlCrate
             this.audioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bRSTMAudioStreamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.effectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eFLSEffectListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rEFFParticlesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rEFTParticleTexturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stage1to1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.vBrawl1to1sToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.projectM1to1sToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.custom1to1sToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pm36STGBATTLEFIELD_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pm36STGDOLPIC_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pm36STGDXGREENS_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pm36STGFINAL_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pm36STGFAMICOM_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pm36STGGREENHILL_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,14 +60,13 @@ namespace BrawlCrate
             this.pm36STGVILLAGE_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pm36STGVILLAGE_nv_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pm36STGMADEIN_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vBrawl1to1sToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vBrawlSTGBATTLEFIELD_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vBrawlSTGFINAL_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vBrawlSTGVILLAGE_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vBrawlSTGVILLAGE_nv_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.custom1to1sToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customSkySanctuary_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.eFLSEffectListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rEFFParticlesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rEFTParticleTexturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -105,6 +104,8 @@ namespace BrawlCrate
             this.rsarGroupEditor = new System.Windows.Forms.RSARGroupEditor();
             this.soundPackControl1 = new System.Windows.Forms.SoundPackControl();
             this.msBinEditor1 = new System.Windows.Forms.MSBinEditor();
+            this.pm36STGDXGREENS_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fIXPACSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -178,7 +179,8 @@ namespace BrawlCrate
             this.toolStripMenuItem1,
             this.recentFilesToolStripMenuItem,
             this.toolStripSeparator1,
-            this.exitToolStripMenuItem});
+            this.exitToolStripMenuItem,
+            this.fIXPACSToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
@@ -191,7 +193,7 @@ namespace BrawlCrate
             this.effectsToolStripMenuItem,
             this.stage1to1ToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.newToolStripMenuItem.Text = "&New";
             // 
             // archivesToolStripMenuItem
@@ -202,7 +204,7 @@ namespace BrawlCrate
             this.u8FileArchiveToolStripMenuItem1,
             this.tPLTextureArchiveToolStripMenuItem1});
             this.archivesToolStripMenuItem.Name = "archivesToolStripMenuItem";
-            this.archivesToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.archivesToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.archivesToolStripMenuItem.Text = "Archives";
             // 
             // aRCFileArchiveToolStripMenuItem
@@ -238,7 +240,7 @@ namespace BrawlCrate
             this.audioToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bRSTMAudioStreamToolStripMenuItem});
             this.audioToolStripMenuItem.Name = "audioToolStripMenuItem";
-            this.audioToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.audioToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.audioToolStripMenuItem.Text = "Audio";
             // 
             // bRSTMAudioStreamToolStripMenuItem
@@ -255,7 +257,7 @@ namespace BrawlCrate
             this.rEFFParticlesToolStripMenuItem,
             this.rEFTParticleTexturesToolStripMenuItem});
             this.effectsToolStripMenuItem.Name = "effectsToolStripMenuItem";
-            this.effectsToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.effectsToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.effectsToolStripMenuItem.Text = "Particle Effects";
             // 
             // eFLSEffectListToolStripMenuItem
@@ -286,8 +288,87 @@ namespace BrawlCrate
             this.vBrawl1to1sToolStripMenuItem,
             this.custom1to1sToolStripMenuItem});
             this.stage1to1ToolStripMenuItem.Name = "stage1to1ToolStripMenuItem";
-            this.stage1to1ToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.stage1to1ToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.stage1to1ToolStripMenuItem.Text = "Stage 1:1s (Requires Internet!)";
+            // 
+            // projectM1to1sToolStripMenuItem
+            // 
+            this.projectM1to1sToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pm36STGBATTLEFIELD_ToolStripMenuItem,
+            this.pm36STGDOLPIC_ToolStripMenuItem,
+            this.pm36STGFINAL_ToolStripMenuItem,
+            this.pm36STGFAMICOM_ToolStripMenuItem,
+            this.pm36STGGREENHILL_ToolStripMenuItem,
+            this.pm36STGDXPSTADIUM_ToolStripMenuItem,
+            this.pm36STGVILLAGE_ToolStripMenuItem,
+            this.pm36STGVILLAGE_nv_ToolStripMenuItem,
+            this.pm36STGMADEIN_ToolStripMenuItem});
+            this.projectM1to1sToolStripMenuItem.Name = "projectM1to1sToolStripMenuItem";
+            this.projectM1to1sToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.projectM1to1sToolStripMenuItem.Text = "Project M 3.6";
+            // 
+            // pm36STGBATTLEFIELD_ToolStripMenuItem
+            // 
+            this.pm36STGBATTLEFIELD_ToolStripMenuItem.Name = "pm36STGBATTLEFIELD_ToolStripMenuItem";
+            this.pm36STGBATTLEFIELD_ToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.pm36STGBATTLEFIELD_ToolStripMenuItem.Text = "Battlefield";
+            this.pm36STGBATTLEFIELD_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGBATTLEFIELD_ToolStripMenuItem_Click);
+            // 
+            // pm36STGDOLPIC_ToolStripMenuItem
+            // 
+            this.pm36STGDOLPIC_ToolStripMenuItem.Name = "pm36STGDOLPIC_ToolStripMenuItem";
+            this.pm36STGDOLPIC_ToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.pm36STGDOLPIC_ToolStripMenuItem.Text = "Delfino\'s Secret";
+            this.pm36STGDOLPIC_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGDOLPIC_ToolStripMenuItem_Click);
+            // 
+            // pm36STGFINAL_ToolStripMenuItem
+            // 
+            this.pm36STGFINAL_ToolStripMenuItem.Name = "pm36STGFINAL_ToolStripMenuItem";
+            this.pm36STGFINAL_ToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.pm36STGFINAL_ToolStripMenuItem.Text = "Final Destination";
+            this.pm36STGFINAL_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGFINAL_ToolStripMenuItem_Click);
+            // 
+            // pm36STGFAMICOM_ToolStripMenuItem
+            // 
+            this.pm36STGFAMICOM_ToolStripMenuItem.Name = "pm36STGFAMICOM_ToolStripMenuItem";
+            this.pm36STGFAMICOM_ToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.pm36STGFAMICOM_ToolStripMenuItem.Text = "Fountain of Dreams";
+            this.pm36STGFAMICOM_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGFAMICOM_ToolStripMenuItem_Click);
+            // 
+            // pm36STGGREENHILL_ToolStripMenuItem
+            // 
+            this.pm36STGGREENHILL_ToolStripMenuItem.Name = "pm36STGGREENHILL_ToolStripMenuItem";
+            this.pm36STGGREENHILL_ToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.pm36STGGREENHILL_ToolStripMenuItem.Text = "Green Hill Zone";
+            this.pm36STGGREENHILL_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGGREENHILL_ToolStripMenuItem_Click);
+            // 
+            // pm36STGDXPSTADIUM_ToolStripMenuItem
+            // 
+            this.pm36STGDXPSTADIUM_ToolStripMenuItem.Name = "pm36STGDXPSTADIUM_ToolStripMenuItem";
+            this.pm36STGDXPSTADIUM_ToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.pm36STGDXPSTADIUM_ToolStripMenuItem.Text = "Pokémon Stadium 2";
+            this.pm36STGDXPSTADIUM_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGDXPSTADIUM_ToolStripMenuItem_Click);
+            // 
+            // pm36STGVILLAGE_ToolStripMenuItem
+            // 
+            this.pm36STGVILLAGE_ToolStripMenuItem.Name = "pm36STGVILLAGE_ToolStripMenuItem";
+            this.pm36STGVILLAGE_ToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.pm36STGVILLAGE_ToolStripMenuItem.Text = "Smashville (Villagers)";
+            this.pm36STGVILLAGE_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGVILLAGE_ToolStripMenuItem_Click);
+            // 
+            // pm36STGVILLAGE_nv_ToolStripMenuItem
+            // 
+            this.pm36STGVILLAGE_nv_ToolStripMenuItem.Name = "pm36STGVILLAGE_nv_ToolStripMenuItem";
+            this.pm36STGVILLAGE_nv_ToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.pm36STGVILLAGE_nv_ToolStripMenuItem.Text = "Smashville (No Villagers)";
+            this.pm36STGVILLAGE_nv_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGVILLAGE_nv_ToolStripMenuItem_Click);
+            // 
+            // pm36STGMADEIN_ToolStripMenuItem
+            // 
+            this.pm36STGMADEIN_ToolStripMenuItem.Name = "pm36STGMADEIN_ToolStripMenuItem";
+            this.pm36STGMADEIN_ToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.pm36STGMADEIN_ToolStripMenuItem.Text = "Wario Land";
+            this.pm36STGMADEIN_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGMADEIN_ToolStripMenuItem_Click);
             // 
             // vBrawl1to1sToolStripMenuItem
             // 
@@ -297,136 +378,49 @@ namespace BrawlCrate
             this.vBrawlSTGVILLAGE_ToolStripMenuItem,
             this.vBrawlSTGVILLAGE_nv_ToolStripMenuItem});
             this.vBrawl1to1sToolStripMenuItem.Name = "vBrawl1to1sToolStripMenuItem";
-            this.vBrawl1to1sToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.vBrawl1to1sToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.vBrawl1to1sToolStripMenuItem.Text = "Vanilla Brawl";
             // 
             // vBrawlSTGBATTLEFIELD_ToolStripMenuItem
             // 
             this.vBrawlSTGBATTLEFIELD_ToolStripMenuItem.Name = "vBrawlSTGBATTLEFIELD_ToolStripMenuItem";
-            this.vBrawlSTGBATTLEFIELD_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.vBrawlSTGBATTLEFIELD_ToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.vBrawlSTGBATTLEFIELD_ToolStripMenuItem.Text = "Battlefield";
             this.vBrawlSTGBATTLEFIELD_ToolStripMenuItem.Click += new System.EventHandler(this.vBrawlSTGBATTLEFIELD_ToolStripMenuItem_Click);
             // 
             // vBrawlSTGFINAL_ToolStripMenuItem
             // 
             this.vBrawlSTGFINAL_ToolStripMenuItem.Name = "vBrawlSTGFINAL_ToolStripMenuItem";
-            this.vBrawlSTGFINAL_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.vBrawlSTGFINAL_ToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.vBrawlSTGFINAL_ToolStripMenuItem.Text = "Final Destination";
             this.vBrawlSTGFINAL_ToolStripMenuItem.Click += new System.EventHandler(this.vBrawlSTGFINAL_ToolStripMenuItem_Click);
             // 
             // vBrawlSTGVILLAGE_ToolStripMenuItem
             // 
             this.vBrawlSTGVILLAGE_ToolStripMenuItem.Name = "vBrawlSTGVILLAGE_ToolStripMenuItem";
-            this.vBrawlSTGVILLAGE_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.vBrawlSTGVILLAGE_ToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.vBrawlSTGVILLAGE_ToolStripMenuItem.Text = "Smashville (Villagers)";
             this.vBrawlSTGVILLAGE_ToolStripMenuItem.Click += new System.EventHandler(this.vBrawlSTGVILLAGE_ToolStripMenuItem_Click);
             // 
             // vBrawlSTGVILLAGE_nv_ToolStripMenuItem
             // 
             this.vBrawlSTGVILLAGE_nv_ToolStripMenuItem.Name = "vBrawlSTGVILLAGE_nv_ToolStripMenuItem";
-            this.vBrawlSTGVILLAGE_nv_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.vBrawlSTGVILLAGE_nv_ToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.vBrawlSTGVILLAGE_nv_ToolStripMenuItem.Text = "Smashville (No Villagers)";
             this.vBrawlSTGVILLAGE_nv_ToolStripMenuItem.Click += new System.EventHandler(this.vBrawlSTGVILLAGE_nv_ToolStripMenuItem_Click);
-            // 
-            // projectM1to1sToolStripMenuItem
-            // 
-            this.projectM1to1sToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.pm36STGBATTLEFIELD_ToolStripMenuItem,
-            this.pm36STGDOLPIC_ToolStripMenuItem,
-            //this.pm36STGDXGREENS_ToolStripMenuItem,
-            this.pm36STGFINAL_ToolStripMenuItem,
-            this.pm36STGFAMICOM_ToolStripMenuItem,
-            this.pm36STGGREENHILL_ToolStripMenuItem,
-            this.pm36STGDXPSTADIUM_ToolStripMenuItem,
-            this.pm36STGVILLAGE_ToolStripMenuItem,
-            this.pm36STGVILLAGE_nv_ToolStripMenuItem,
-            this.pm36STGMADEIN_ToolStripMenuItem});
-            this.projectM1to1sToolStripMenuItem.Name = "projectM1to1sToolStripMenuItem";
-            this.projectM1to1sToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
-            this.projectM1to1sToolStripMenuItem.Text = "Project M 3.6";
-            // 
-            // pm36STGBATTLEFIELD_ToolStripMenuItem
-            // 
-            this.pm36STGBATTLEFIELD_ToolStripMenuItem.Name = "pm36STGBATTLEFIELD_ToolStripMenuItem";
-            this.pm36STGBATTLEFIELD_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.pm36STGBATTLEFIELD_ToolStripMenuItem.Text = "Battlefield";
-            this.pm36STGBATTLEFIELD_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGBATTLEFIELD_ToolStripMenuItem_Click);
-            // 
-            // pm36STGDOLPIC_ToolStripMenuItem
-            // 
-            this.pm36STGDOLPIC_ToolStripMenuItem.Name = "pm36STGDOLPIC_ToolStripMenuItem";
-            this.pm36STGDOLPIC_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.pm36STGDOLPIC_ToolStripMenuItem.Text = "Delfino's Secret";
-            this.pm36STGDOLPIC_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGDOLPIC_ToolStripMenuItem_Click);
-            // 
-            // pm36STGDXGREENS_ToolStripMenuItem
-            // 
-            this.pm36STGDXGREENS_ToolStripMenuItem.Name = "pm36STGDXGREENS_ToolStripMenuItem";
-            this.pm36STGDXGREENS_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.pm36STGDXGREENS_ToolStripMenuItem.Text = "Dreamland";
-            this.pm36STGDXGREENS_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGDXGREENS_ToolStripMenuItem_Click);
-            // 
-            // pm36STGFINAL_ToolStripMenuItem
-            // 
-            this.pm36STGFINAL_ToolStripMenuItem.Name = "pm36STGFINAL_ToolStripMenuItem";
-            this.pm36STGFINAL_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.pm36STGFINAL_ToolStripMenuItem.Text = "Final Destination";
-            this.pm36STGFINAL_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGFINAL_ToolStripMenuItem_Click);
-            // 
-            // pm36STGFAMICOM_ToolStripMenuItem
-            // 
-            this.pm36STGFAMICOM_ToolStripMenuItem.Name = "pm36STGFAMICOM_ToolStripMenuItem";
-            this.pm36STGFAMICOM_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.pm36STGFAMICOM_ToolStripMenuItem.Text = "Fountain of Dreams";
-            this.pm36STGFAMICOM_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGFAMICOM_ToolStripMenuItem_Click);
-            // 
-            // pm36STGGREENHILL_ToolStripMenuItem
-            // 
-            this.pm36STGGREENHILL_ToolStripMenuItem.Name = "pm36STGGREENHILL_ToolStripMenuItem";
-            this.pm36STGGREENHILL_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.pm36STGGREENHILL_ToolStripMenuItem.Text = "Green Hill Zone";
-            this.pm36STGGREENHILL_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGGREENHILL_ToolStripMenuItem_Click);
-            // 
-            // pm36STGDXPSTADIUM_ToolStripMenuItem
-            // 
-            this.pm36STGDXPSTADIUM_ToolStripMenuItem.Name = "pm36STGDXPSTADIUM_ToolStripMenuItem";
-            this.pm36STGDXPSTADIUM_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.pm36STGDXPSTADIUM_ToolStripMenuItem.Text = "Pokémon Stadium 2";
-            this.pm36STGDXPSTADIUM_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGDXPSTADIUM_ToolStripMenuItem_Click);
-            // 
-            // pm36STGVILLAGE_ToolStripMenuItem
-            // 
-            this.pm36STGVILLAGE_ToolStripMenuItem.Name = "pm36STGVILLAGE_ToolStripMenuItem";
-            this.pm36STGVILLAGE_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.pm36STGVILLAGE_ToolStripMenuItem.Text = "Smashville (Villagers)";
-            this.pm36STGVILLAGE_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGVILLAGE_ToolStripMenuItem_Click);
-            // 
-            // pm36STGVILLAGE_nv_ToolStripMenuItem
-            // 
-            this.pm36STGVILLAGE_nv_ToolStripMenuItem.Name = "pm36STGVILLAGE_nv_ToolStripMenuItem";
-            this.pm36STGVILLAGE_nv_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.pm36STGVILLAGE_nv_ToolStripMenuItem.Text = "Smashville (No Villagers)";
-            this.pm36STGVILLAGE_nv_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGVILLAGE_nv_ToolStripMenuItem_Click);
-            // 
-            // pm36STGMADEIN_ToolStripMenuItem
-            // 
-            this.pm36STGMADEIN_ToolStripMenuItem.Name = "pm36STGMADEIN_ToolStripMenuItem";
-            this.pm36STGMADEIN_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.pm36STGMADEIN_ToolStripMenuItem.Text = "Wario Land";
-            this.pm36STGMADEIN_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGMADEIN_ToolStripMenuItem_Click);
             // 
             // custom1to1sToolStripMenuItem
             // 
             this.custom1to1sToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.customSkySanctuary_ToolStripMenuItem});
             this.custom1to1sToolStripMenuItem.Name = "custom1to1sToolStripMenuItem";
-            this.custom1to1sToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.custom1to1sToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.custom1to1sToolStripMenuItem.Text = "Custom Stages";
             // 
             // customSkySanctuary_ToolStripMenuItem
             // 
             this.customSkySanctuary_ToolStripMenuItem.Name = "customSkySanctuary_ToolStripMenuItem";
-            this.customSkySanctuary_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.customSkySanctuary_ToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.customSkySanctuary_ToolStripMenuItem.Text = "Sky Sanctuary";
             this.customSkySanctuary_ToolStripMenuItem.Click += new System.EventHandler(this.customSkySanctuary_ToolStripMenuItem_Click);
             // 
@@ -434,7 +428,7 @@ namespace BrawlCrate
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.openToolStripMenuItem.Text = "&Open...";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -443,7 +437,7 @@ namespace BrawlCrate
             this.saveToolStripMenuItem.Enabled = false;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -451,8 +445,9 @@ namespace BrawlCrate
             // 
             this.saveAsToolStripMenuItem.Enabled = false;
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.S)));
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
@@ -460,31 +455,31 @@ namespace BrawlCrate
             // 
             this.closeToolStripMenuItem.Enabled = false;
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.closeToolStripMenuItem.Text = "&Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(162, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(192, 6);
             // 
             // recentFilesToolStripMenuItem
             // 
             this.recentFilesToolStripMenuItem.Name = "recentFilesToolStripMenuItem";
-            this.recentFilesToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.recentFilesToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.recentFilesToolStripMenuItem.Text = "Recent Files";
             this.recentFilesToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.recentFilesToolStripMenuItem_DropDownItemClicked);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(162, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(192, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -800,6 +795,20 @@ namespace BrawlCrate
             this.msBinEditor1.TabIndex = 2;
             this.msBinEditor1.Visible = false;
             // 
+            // pm36STGDXGREENS_ToolStripMenuItem
+            // 
+            this.pm36STGDXGREENS_ToolStripMenuItem.Name = "pm36STGDXGREENS_ToolStripMenuItem";
+            this.pm36STGDXGREENS_ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.pm36STGDXGREENS_ToolStripMenuItem.Text = "Dreamland";
+            this.pm36STGDXGREENS_ToolStripMenuItem.Click += new System.EventHandler(this.pm36STGDXGREENS_ToolStripMenuItem_Click);
+            // 
+            // fIXPACSToolStripMenuItem
+            // 
+            this.fIXPACSToolStripMenuItem.Name = "fIXPACSToolStripMenuItem";
+            this.fIXPACSToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.fIXPACSToolStripMenuItem.Text = "FIX PACS";
+            this.fIXPACSToolStripMenuItem.Click += new System.EventHandler(this.fIXPACSToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -906,6 +915,7 @@ namespace BrawlCrate
         private PPCDisassembler ppcDisassembler1;
         private MDL0ObjectControl mdL0ObjectControl1;
         private Be.Windows.Forms.HexBox hexBox1;
+        private ToolStripMenuItem fIXPACSToolStripMenuItem;
     }
 }
 
