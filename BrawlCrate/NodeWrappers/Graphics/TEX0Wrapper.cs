@@ -112,7 +112,6 @@ namespace BrawlCrate.NodeWrappers
                     if (matchName.Equals("InfStc.", StringComparison.OrdinalIgnoreCase))
                     {
                         isStock = true;
-                        MessageBox.Show("Stock" + _resource.Name.Length);
                         if (_resource.Name.Length >= 11)
                         {
                             isStockEx = true;
