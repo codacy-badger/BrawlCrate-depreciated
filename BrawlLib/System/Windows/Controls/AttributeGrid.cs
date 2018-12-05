@@ -72,20 +72,22 @@ namespace System.Windows.Forms
             // 
             // description
             // 
+            this.description.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.description.BackColor = System.Drawing.SystemColors.Control;
             this.description.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.description.Cursor = System.Windows.Forms.Cursors.Default;
-            this.description.Dock = System.Windows.Forms.DockStyle.Fill;
             this.description.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.description.ForeColor = System.Drawing.Color.Black;
             this.description.Location = new System.Drawing.Point(0, 0);
             this.description.Name = "description";
             this.description.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.description.Size = new System.Drawing.Size(479, 102);
+            this.description.Size = new System.Drawing.Size(479, 74);
             this.description.TabIndex = 6;
             this.description.Text = "No Description Available.";
-            this.description.TextChanged += new System.EventHandler(this.description_TextChanged);
             this.description.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.description_LinkClicked);
+            this.description.TextChanged += new System.EventHandler(this.description_TextChanged);
             // 
             // splitter1
             // 
