@@ -910,9 +910,12 @@ namespace BrawlCrate
                 {
                     foreach(FileInfo _file in d2.GetFiles())
                     {
-                        Program.Open(_file.FullName);
-                        Program.Save();
-                        Program.Close();
+                        if (_file.FullName.EndsWith(".pac", StringComparison.OrdinalIgnoreCase))
+                        {
+                            Program.Open(_file.FullName);
+                            Program.Save();
+                            Program.Close();
+                        }
                     }
                 }
             }
