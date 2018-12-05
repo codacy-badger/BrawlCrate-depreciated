@@ -465,7 +465,6 @@ namespace BrawlCrate.NodeWrappers
             {
                 FolderBrowserDialog f = new FolderBrowserDialog();
                 f.Description = "Select the \"portrite\" folder";
-                f.ShowDialog();
                 DialogResult dr = f.ShowDialog();
                 if (dr != DialogResult.OK || f.SelectedPath == null || f.SelectedPath == "")
                     return;
