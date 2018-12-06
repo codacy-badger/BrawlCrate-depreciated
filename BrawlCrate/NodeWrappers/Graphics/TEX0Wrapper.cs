@@ -59,7 +59,7 @@ namespace BrawlCrate.NodeWrappers
             if (w._resource.Name.StartsWith("InfStc.") && Regex.Match(w._resource.Name, @"(\.\d+)?$").Success && w._resource.Name.LastIndexOf(".") > 0 && w._resource.Name.LastIndexOf(".") <= w._resource.Name.Length && int.TryParse(w._resource.Name.Substring(w._resource.Name.LastIndexOf(".") + 1, w._resource.Name.Length - (w._resource.Name.LastIndexOf(".") + 1)), out int n))
             {
                 _menu.Items[13].Visible = _menu.Items[14].Visible = true;
-                _menu.Items[14].Text = w._resource.Name.Length == 10 ? "Convert to Expanded 40-Stock System" : "Convert to Default Stock System";
+                _menu.Items[14].Text = w._resource.Name.Length == 10 ? "Convert to Expanded 50-Stock System" : "Convert to Default Stock System";
             }
         }
 
@@ -313,7 +313,7 @@ namespace BrawlCrate.NodeWrappers
                         tx0.texSortNum = 9001 + (x % 475);
                     else
                     {
-                        tx0.texSortNum = ((int)(Math.Floor(((Double)x - 1) / 10.0)) * 40) + (x % 10);
+                        tx0.texSortNum = ((int)(Math.Floor(((Double)x - 1) / 10.0)) * 50) + (x % 10);
 
                         if (x % 10 == 0)
                             tx0.texSortNum += 10;
@@ -323,7 +323,7 @@ namespace BrawlCrate.NodeWrappers
                             (x >= 381 && x <= 384) || // Wario Edge Case
                             (x >= 411 && x <= 415) || // Toon Link Edge Case
                             (x >= 471 && x <= 474))   // Sonic Edge Case
-                            tx0.texSortNum -= 30;
+                            tx0.texSortNum -= 40;
                     }
                     if (tx0.HasPalette)
                         tx0.GetPaletteNode().Name = "InfStc." + tx0.texSortNum.ToString("0000");
@@ -372,7 +372,7 @@ namespace BrawlCrate.NodeWrappers
                                 n = 9001 + (x % 475);
                             else
                             {
-                                n = ((int)(Math.Floor(((Double)x - 1) / 10.0)) * 40) + (x % 10);
+                                n = ((int)(Math.Floor(((Double)x - 1) / 10.0)) * 50) + (x % 10);
 
                                 if (x % 10 == 0)
                                     n += 10;
@@ -382,7 +382,7 @@ namespace BrawlCrate.NodeWrappers
                                     (x >= 381 && x <= 384) || // Wario Edge Case
                                     (x >= 411 && x <= 415) || // Toon Link Edge Case
                                     (x >= 471 && x <= 474))   // Sonic Edge Case
-                                    n -= 30;
+                                    n -= 40;
                             }
                             infFace.MoveTo(f.SelectedPath + '\\' + "InfFace" + n.ToString("0000") + ".brres");
                         }
@@ -419,21 +419,21 @@ namespace BrawlCrate.NodeWrappers
                             tx0.GetPaletteNode().Name = "InfStc." + tx0.texSortNum.ToString("000");
                         tx0.Name = "InfStc." + tx0.texSortNum.ToString("000");
                     }
-                    else if ((x % 40 <= 10 && x % 40 != 0) ||
-                        (x >= 0771 && x <= 0775) || // Ganon Edge Case
-                        (x >= 1371 && x <= 1375) || // ROB Edge Case
-                        (x >= 1491 && x <= 1494) || // Wario Edge Case
-                        (x >= 1611 && x <= 1615) || // Toon Link Edge Case
-                        (x >= 1851 && x <= 1854))   // Sonic Edge Case
+                    else if ((x % 50 <= 10 && x % 50 != 0) ||
+                             (x >= 0961 && x <= 0965) || // Ganon Edge Case
+                             (x >= 1711 && x <= 1715) || // ROB Edge Case
+                             (x >= 1861 && x <= 1864) || // Wario Edge Case
+                             (x >= 2011 && x <= 2015) || // Toon Link Edge Case
+                             (x >= 2311 && x <= 2314))   // Sonic Edge Case
                     {
-                        tx0.texSortNum = ((int)(Math.Floor(((Double)x + 1) / 40.0)) * 10) + (x % 10);
+                        tx0.texSortNum = ((int)(Math.Floor(((Double)x + 1) / 50.0)) * 10) + (x % 10);
                         
                         if ((x % 10 == 0) ||
-                            (x >= 0771 && x <= 0775) || // Ganon Edge Case
-                            (x >= 1371 && x <= 1375) || // ROB Edge Case
-                            (x >= 1491 && x <= 1494) || // Wario Edge Case
-                            (x >= 1611 && x <= 1615) || // Toon Link Edge Case
-                            (x >= 1851 && x <= 1854))   // Sonic Edge Case
+                            (x >= 0961 && x <= 0965) || // Ganon Edge Case
+                            (x >= 1711 && x <= 1715) || // ROB Edge Case
+                            (x >= 1861 && x <= 1864) || // Wario Edge Case
+                            (x >= 2011 && x <= 2015) || // Toon Link Edge Case
+                            (x >= 2311 && x <= 2314))   // Sonic Edge Case
                             tx0.texSortNum += 10;
 
                         if (tx0.HasPalette)
@@ -488,21 +488,21 @@ namespace BrawlCrate.NodeWrappers
                                 n = 475 + (x % 9001);
                                 infFace.MoveTo(f.SelectedPath + '\\' + "InfFace" + n.ToString("000") + ".brres");
                             }
-                            else if ((x % 40 <= 10 && x % 40 != 0) ||
-                                (x >= 0771 && x <= 0775) || // Ganon Edge Case
-                                (x >= 1371 && x <= 1375) || // ROB Edge Case
-                                (x >= 1491 && x <= 1494) || // Wario Edge Case
-                                (x >= 1611 && x <= 1615) || // Toon Link Edge Case
-                                (x >= 1851 && x <= 1854))   // Sonic Edge Case
+                            else if ((x % 50 <= 10 && x % 50 != 0) ||
+                                     (x >= 0961 && x <= 0965) || // Ganon Edge Case
+                                     (x >= 1711 && x <= 1715) || // ROB Edge Case
+                                     (x >= 1861 && x <= 1864) || // Wario Edge Case
+                                     (x >= 2011 && x <= 2015) || // Toon Link Edge Case
+                                     (x >= 2311 && x <= 2314))   // Sonic Edge Case
                             {
-                                n = ((int)(Math.Floor(((Double)x + 1) / 40.0)) * 10) + (x % 10);
+                                n = ((int)(Math.Floor(((Double)x + 1) / 50.0)) * 10) + (x % 10);
 
                                 if ((x % 10 == 0) ||
-                                    (x >= 0771 && x <= 0775) || // Ganon Edge Case
-                                    (x >= 1371 && x <= 1375) || // ROB Edge Case
-                                    (x >= 1491 && x <= 1494) || // Wario Edge Case
-                                    (x >= 1611 && x <= 1615) || // Toon Link Edge Case
-                                    (x >= 1851 && x <= 1854))   // Sonic Edge Case
+                                    (x >= 0961 && x <= 0965) || // Ganon Edge Case
+                                    (x >= 1711 && x <= 1715) || // ROB Edge Case
+                                    (x >= 1861 && x <= 1864) || // Wario Edge Case
+                                    (x >= 2011 && x <= 2015) || // Toon Link Edge Case
+                                    (x >= 2311 && x <= 2314))   // Sonic Edge Case
                                     n += 10;
 
                                 infFace.MoveTo(f.SelectedPath + '\\' + "InfFace" + n.ToString("000") + ".brres");
