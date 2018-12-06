@@ -14,6 +14,7 @@ namespace System
         //2 == float radians to degrees
         //3 == color
         //4 == unknown (parse as hexadecimal)
+        //5 == flags (parse as binary)
     }
 
     public class AttributeInterpretation {
