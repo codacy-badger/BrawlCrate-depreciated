@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.17 Hotfix 3
+BrawlCrate - v0.18
 Copyright © 2018 soopercool101, MarioDox, Syvkal
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,19 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.18 - (12/10/2018)
+ . Adds support for sawnd importing and exporting for a BRSAR
+ . Files now open temporary duplicates, and do not writelock the original file
+ . Group ID is now displayed for RSAR groups
+ . Now shows when an ARC is detected to be a special type (Stage, Fighter, or Item Generation)
+ . Improves PAT0 Generator for Stocks
+ . Adds Binary Flags editor type for stage tables
+ . Decreased splash screen size
+ . Section Editor's annotation viewer can now be properly resized
+ . Fixes bug where saving a fighter PCS as a PAC would save it with PCS compression
+ . Fixes bug in which Stage Table attribute descriptions could be covered up by the attribute type buttons
+ . Fixes bug where documentation releases could not be downloaded if the documentation folder was deleted
  
  - BrawlCrate v0.17 Hotfix 3 - (11/26/2018)
  . Fixes bug where systems with high DPI scaling settings would have window resizes when viewing models
