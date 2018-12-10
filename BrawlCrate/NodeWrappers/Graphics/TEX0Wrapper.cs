@@ -56,7 +56,7 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items[8].Enabled = w.PrevNode != null;
             _menu.Items[9].Enabled = w.NextNode != null;
             _menu.Items[13].Visible = _menu.Items[14].Visible = false;
-            if (w._resource.Name.StartsWith("InfStc.") && Regex.Match(w._resource.Name, @"(\.\d+)?$").Success && w._resource.Name.LastIndexOf(".") > 0 && w._resource.Name.LastIndexOf(".") <= w._resource.Name.Length && int.TryParse(w._resource.Name.Substring(w._resource.Name.LastIndexOf(".") + 1, w._resource.Name.Length - (w._resource.Name.LastIndexOf(".") + 1)), out int n))
+            if (false && w._resource.Name.StartsWith("InfStc.") && Regex.Match(w._resource.Name, @"(\.\d+)?$").Success && w._resource.Name.LastIndexOf(".") > 0 && w._resource.Name.LastIndexOf(".") <= w._resource.Name.Length && int.TryParse(w._resource.Name.Substring(w._resource.Name.LastIndexOf(".") + 1, w._resource.Name.Length - (w._resource.Name.LastIndexOf(".") + 1)), out int n))
             {
                 _menu.Items[13].Visible = _menu.Items[14].Visible = true;
                 _menu.Items[14].Text = w._resource.Name.Length == 10 ? "Convert to Expanded 50-Stock System" : "Convert to Default Stock System";
