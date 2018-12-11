@@ -368,8 +368,8 @@ namespace BrawlCrate.NodeWrappers
                             int n = x;
                             if (x <= 0) // 0 edge case
                                 n = 0;
-                            else if (x == 475) // WarioMan edge case (should pre-program)
-                                n = 9001 + (x % 475);
+                            else if (x >= 661 && x <= 674) // WarioMan edge case (should pre-program)
+                                n = 9001 + (x % 661);
                             else
                             {
                                 n = ((int)(Math.Floor(((Double)x - 1) / 10.0)) * 50) + (x % 10);
@@ -483,9 +483,9 @@ namespace BrawlCrate.NodeWrappers
                                 n = 0;
                                 infFace.MoveTo(f.SelectedPath + '\\' + "InfFace" + n.ToString("000") + ".brres");
                             }
-                            else if (x == 9001) // WarioMan edge case (should pre-program)
+                            else if (x >= 9001 && x <= 9014) // WarioMan edge case (should pre-program)
                             {
-                                n = 475 + (x % 9001);
+                                n = 661 + (x % 9001);
                                 infFace.MoveTo(f.SelectedPath + '\\' + "InfFace" + n.ToString("000") + ".brres");
                             }
                             else if ((x % 50 <= 10 && x % 50 != 0) ||
