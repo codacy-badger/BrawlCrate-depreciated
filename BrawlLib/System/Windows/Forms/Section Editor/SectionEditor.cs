@@ -1035,22 +1035,30 @@ namespace System.Windows.Forms
                 hexBox1.Invalidate();
                 PosChanged();
             }
+            else if (txtFloat.Text == "")
+            {
+                long t = Position.RoundDown(4);
+                hexBox1.ByteProvider.WriteByte(t + 3, 0);
+                hexBox1.ByteProvider.WriteByte(t + 2, 0);
+                hexBox1.ByteProvider.WriteByte(t + 1, 0);
+                hexBox1.ByteProvider.WriteByte(t + 0, 0);
+                hexBox1.Invalidate();
+                PosChanged();
+            }
         }
 
         private void txtInt_TextChanged(object sender, EventArgs e)
         {
             if (_updating)
                 return;
-
-            int i;
-            short s;
-            byte tempB;
+            
             long l;
             if(rdo4byte.Checked)
             {
-                if (int.TryParse(txtInt.Text, out i))
+                if (long.TryParse(txtInt.Text, out l))
                 {
                     long t = Position.RoundDown(4);
+                    int i = (int)l.Clamp(int.MinValue, int.MaxValue);
                     byte* b = (byte*)&i;
                     hexBox1.ByteProvider.WriteByte(t + 3, b[0]);
                     hexBox1.ByteProvider.WriteByte(t + 2, b[1]);
@@ -1058,126 +1066,52 @@ namespace System.Windows.Forms
                     hexBox1.ByteProvider.WriteByte(t + 0, b[3]);
                     hexBox1.Invalidate();
                     PosChanged();
-                } else if (long.TryParse(txtInt.Text, out l))
-                {
-                    if(l > int.MaxValue)
-                    {
-                        i = int.MaxValue;
-                        long t = Position.RoundDown(4);
-                        byte* b = (byte*)&i;
-                        hexBox1.ByteProvider.WriteByte(t + 3, b[0]);
-                        hexBox1.ByteProvider.WriteByte(t + 2, b[1]);
-                        hexBox1.ByteProvider.WriteByte(t + 1, b[2]);
-                        hexBox1.ByteProvider.WriteByte(t + 0, b[3]);
-                        hexBox1.Invalidate();
-                        PosChanged();
-                    } else if(l < int.MinValue)
-                    {
-                        i = int.MinValue;
-                        long t = Position.RoundDown(4);
-                        byte* b = (byte*)&i;
-                        hexBox1.ByteProvider.WriteByte(t + 3, b[0]);
-                        hexBox1.ByteProvider.WriteByte(t + 2, b[1]);
-                        hexBox1.ByteProvider.WriteByte(t + 1, b[2]);
-                        hexBox1.ByteProvider.WriteByte(t + 0, b[3]);
-                        hexBox1.Invalidate();
-                        PosChanged();
-                    }
                 } else if(txtInt.Text == "")
                 {
-                    i = 0;
                     long t = Position.RoundDown(4);
-                    byte* b = (byte*)&i;
-                    hexBox1.ByteProvider.WriteByte(t + 3, b[0]);
-                    hexBox1.ByteProvider.WriteByte(t + 2, b[1]);
-                    hexBox1.ByteProvider.WriteByte(t + 1, b[2]);
-                    hexBox1.ByteProvider.WriteByte(t + 0, b[3]);
+                    hexBox1.ByteProvider.WriteByte(t + 3, 0);
+                    hexBox1.ByteProvider.WriteByte(t + 2, 0);
+                    hexBox1.ByteProvider.WriteByte(t + 1, 0);
+                    hexBox1.ByteProvider.WriteByte(t + 0, 0);
                     hexBox1.Invalidate();
                     PosChanged();
                 }
             }
             else if(rdo2byte.Checked)
             {
-                if (short.TryParse(txtInt.Text, out s))
+                if (long.TryParse(txtInt.Text, out l))
                 {
                     long t = Position.RoundDown(2);
+                    short s = (short)l.Clamp(short.MinValue, short.MaxValue);
                     byte* b = (byte*)&s;
                     hexBox1.ByteProvider.WriteByte(t + 1, b[0]);
                     hexBox1.ByteProvider.WriteByte(t + 0, b[1]);
                     hexBox1.Invalidate();
                     PosChanged();
                 }
-                else if (long.TryParse(txtInt.Text, out l))
-                {
-                    if (l > short.MaxValue)
-                    {
-                        s = short.MaxValue;
-                        long t = Position.RoundDown(2);
-                        byte* b = (byte*)&s;
-                        hexBox1.ByteProvider.WriteByte(t + 1, b[0]);
-                        hexBox1.ByteProvider.WriteByte(t + 0, b[1]);
-                        hexBox1.Invalidate();
-                        PosChanged();
-                    }
-                    else if (l < short.MinValue)
-                    {
-                        s = short.MinValue;
-                        long t = Position.RoundDown(2);
-                        byte* b = (byte*)&s;
-                        hexBox1.ByteProvider.WriteByte(t + 1, b[0]);
-                        hexBox1.ByteProvider.WriteByte(t + 0, b[1]);
-                        hexBox1.Invalidate();
-                        PosChanged();
-                    }
-                }
                 else if (txtInt.Text == "")
                 {
-                    s = 0;
                     long t = Position.RoundDown(2);
-                    byte* b = (byte*)&s;
-                    hexBox1.ByteProvider.WriteByte(t + 1, b[0]);
-                    hexBox1.ByteProvider.WriteByte(t + 0, b[1]);
+                    hexBox1.ByteProvider.WriteByte(t + 1, 0);
+                    hexBox1.ByteProvider.WriteByte(t + 0, 0);
                     hexBox1.Invalidate();
                     PosChanged();
                 }
             }
             else
             {
-                if (byte.TryParse(txtInt.Text, out tempB))
+                if (long.TryParse(txtInt.Text, out l))
                 {
                     long t = Position;
-                    byte* b = (byte*)&tempB;
-                    hexBox1.ByteProvider.WriteByte(t, b[0]);
+                    byte b = (byte)l.Clamp(byte.MinValue, byte.MaxValue);
+                    hexBox1.ByteProvider.WriteByte(t, b);
                     hexBox1.Invalidate();
                     PosChanged();
                 }
-                else if (long.TryParse(txtInt.Text, out l))
-                {
-                    if (l > byte.MaxValue)
-                    {
-                        tempB = byte.MaxValue;
-                        long t = Position;
-                        byte* b = (byte*)&tempB;
-                        hexBox1.ByteProvider.WriteByte(t, b[0]);
-                        hexBox1.Invalidate();
-                        PosChanged();
-                    }
-                    else if (l < byte.MinValue)
-                    {
-                        tempB = byte.MinValue;
-                        long t = Position;
-                        byte* b = (byte*)&tempB;
-                        hexBox1.ByteProvider.WriteByte(t, b[0]);
-                        hexBox1.Invalidate();
-                        PosChanged();
-                    }
-                }
                 else if (txtInt.Text == "")
                 {
-                    tempB = 0;
                     long t = Position;
-                    byte* b = (byte*)&tempB;
-                    hexBox1.ByteProvider.WriteByte(t, b[0]);
+                    hexBox1.ByteProvider.WriteByte(t, 0);
                     hexBox1.Invalidate();
                     PosChanged();
                 }
