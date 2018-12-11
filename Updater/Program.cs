@@ -78,6 +78,7 @@ namespace Net
                             {
                                 foreach (Process pNext in pToClose)
                                     pNext.Kill();
+                                await Task.Delay(50);
                             }
                             catch(Exception xp)
                             {
@@ -388,6 +389,7 @@ namespace Net
                         {
                             foreach (Process pNext in pToClose)
                                 pNext.Kill();
+                            await Task.Delay(50);
                         }
                         catch (Exception xp)
                         {
@@ -538,6 +540,7 @@ namespace Net
                         {
                             foreach (Process pNext in pToClose)
                                 pNext.Kill();
+                            await Task.Delay(50);
                         }
                         catch (Exception xp)
                         {
