@@ -102,9 +102,16 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
+        [Browsable(false)]
         public bool isModelData()
         {
             return (FileType == ARCFileType.ModelData);
+        }
+
+        [Browsable(false)]
+        public bool isTextureData()
+        {
+            return (FileType == ARCFileType.TextureData);
         }
 
         public override Type[] AllowedChildTypes
