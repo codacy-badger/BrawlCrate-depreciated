@@ -101,14 +101,12 @@ namespace BrawlLib.SSBB.ResourceNodes
                 return count;
             }
         }
-
-        [Browsable(false)]
+        
         public bool isModelData()
         {
             return (FileType == ARCFileType.ModelData);
         }
-
-        [Browsable(false)]
+        
         public bool isTextureData()
         {
             return (FileType == ARCFileType.TextureData);
