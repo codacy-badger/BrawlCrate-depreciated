@@ -755,7 +755,6 @@ namespace BrawlCrate
             this.audioPlaybackPanel1.TabIndex = 4;
             this.audioPlaybackPanel1.TargetStreams = null;
             this.audioPlaybackPanel1.Visible = false;
-            this.audioPlaybackPanel1.Volume = null;
             // 
             // visEditor
             // 
