@@ -74,8 +74,16 @@ namespace Net
                             "Select \"Cancel\" if you would like to wait to update until another time", releases[0].Name + " Update", MessageBoxButtons.YesNoCancel);
                         if (continueUpdate == DialogResult.Yes)
                         {
-                            foreach (Process pNext in pToClose)
-                                p.Kill();
+                            try
+                            {
+                                foreach (Process pNext in pToClose)
+                                    pNext.Kill();
+                                await Task.Delay(50);
+                            }
+                            catch(Exception xp)
+                            {
+                                MessageBox.Show(xp.Message);
+                            }
                             goto TRY_AGAIN;
                         }
                         else if (continueUpdate == DialogResult.No)
@@ -377,8 +385,16 @@ namespace Net
                         "Select \"Cancel\" if you would like to wait to update until another time", releases[0].Name + " Update", MessageBoxButtons.YesNoCancel);
                     if (continueUpdate == DialogResult.Yes)
                     {
-                        foreach (Process pNext in pToClose)
-                            p.Kill();
+                        try
+                        {
+                            foreach (Process pNext in pToClose)
+                                pNext.Kill();
+                            await Task.Delay(50);
+                        }
+                        catch (Exception xp)
+                        {
+                            MessageBox.Show(xp.Message);
+                        }
                         goto TRY_AGAIN;
                     }
                     else if (continueUpdate == DialogResult.No)
@@ -520,8 +536,16 @@ namespace Net
                         "Select \"Cancel\" if you would like to wait to update until another time", "Canary Update #" + commitID, MessageBoxButtons.YesNoCancel);
                     if (continueUpdate == DialogResult.Yes)
                     {
-                        foreach (Process pNext in pToClose)
-                            p.Kill();
+                        try
+                        {
+                            foreach (Process pNext in pToClose)
+                                pNext.Kill();
+                            await Task.Delay(50);
+                        }
+                        catch (Exception xp)
+                        {
+                            MessageBox.Show(xp.Message);
+                        }
                         goto TRY_AGAIN;
                     }
                     else if (continueUpdate == DialogResult.No)

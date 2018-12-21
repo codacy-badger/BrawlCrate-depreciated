@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.18
+BrawlCrate - v0.18 Hotfix 1
 Copyright © 2018 soopercool101, MarioDox, Syvkal
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,13 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.18 Hotfix 1 - (12/21/2018)
+ . Display IDs for all relevant BRSAR subnodes
+ . Speed up number entry for Module Editor
+ . Fix "Save As" functionality not working at all
+ . Fix volume settings not being saved between sessions (despite visually showing them as saved)
+ . Fix broken "Close All Open Windows" functionality in updater
  
  - BrawlCrate v0.18 - (12/10/2018)
  . Adds support for sawnd importing and exporting for a BRSAR

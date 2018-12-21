@@ -16,12 +16,12 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.18";
-        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.18! This release:\n" +
-			"\n- Adds sawnd importing and exporting for BRSARs" +
-            "\n- Adds Binary Flags editor type for Stage Tables" +
-            "\n- Fixes compression issues when saving from PCS to PAC" +
-            "\n- Improves viewer for Stage Table and Module annotations" +
+        public static readonly string TagName = "BrawlCrate_v0.18Hotfix1";
+        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.18 Hotfix 1! This release:\n" +
+            "\n- Adds additional parsing for IDs for BRSAR subnodes" +
+			"\n- Fixes Save As functionality" +
+            "\n- Fixes issue where volume settings were not properly loaded" +
+            "\n- Fixes broken \"Close all open windows\" functionality in the updater" +
             "\n\nFull changelog can be found in the installation folder:\n" + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
         public static readonly string AssemblyTitle;
@@ -623,7 +623,6 @@ REGEN:
                     }
 
                     GenericWrapper w = MainForm.Instance.RootNode as GenericWrapper;
-                    w.ResourceNode.IsDirty = false;
                     string path = w.Export();
                     if (path != null)
                     {
@@ -636,6 +635,7 @@ REGEN:
                             MainForm.Instance.Invalidate();
                             MainForm.Instance.resourceTree_SelectionChanged(MainForm.Instance, EventArgs.Empty);
                         }
+                        w.ResourceNode.IsDirty = false;
                         return true;
                     }
                     else
