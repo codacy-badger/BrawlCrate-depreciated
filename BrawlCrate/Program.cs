@@ -623,7 +623,6 @@ REGEN:
                     }
 
                     GenericWrapper w = MainForm.Instance.RootNode as GenericWrapper;
-                    w.ResourceNode.IsDirty = false;
                     string path = w.Export();
                     if (path != null)
                     {
@@ -636,6 +635,7 @@ REGEN:
                             MainForm.Instance.Invalidate();
                             MainForm.Instance.resourceTree_SelectionChanged(MainForm.Instance, EventArgs.Empty);
                         }
+                        w.ResourceNode.IsDirty = false;
                         return true;
                     }
                     else
