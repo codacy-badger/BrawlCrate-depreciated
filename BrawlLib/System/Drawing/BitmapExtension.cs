@@ -287,6 +287,14 @@ namespace System
             int w = bmp.Width / scale, h = bmp.Height / scale;
 
             Bitmap dst = new Bitmap(w, h, bmp.PixelFormat);
+            for(int y = 0; y < h; y++)
+            {
+                for(int x = 0; x < w; x++)
+                {
+                    dst.SetPixel(x, y, level % 2 == 0 ? Color.Magenta : Color.Green);
+                }
+            }
+            return dst;
 
             //Step-scale indexed elements
             if (bmp.IsIndexed())
