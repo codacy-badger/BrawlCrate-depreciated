@@ -8,11 +8,7 @@ namespace BrawlLib.SSBB.ResourceNodes
     {
         internal INFOPlayerInfoEntry* Header { get { return (INFOPlayerInfoEntry*)WorkingUncompressed.Address; } }
 
-#if DEBUG
-        [Browsable(true), Category("DEBUG")]
-#else
-        [Browsable(false)]
-#endif
+        [Browsable(true), DisplayName("ID")]
         public override int StringId { get { return Header == null ? -1 : (int)Header->_stringId; } }
 
         public override ResourceType ResourceType { get { return ResourceType.RSARType; } }
