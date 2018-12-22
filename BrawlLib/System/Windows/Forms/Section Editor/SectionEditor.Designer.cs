@@ -74,13 +74,14 @@
             this.pnlLeft = new System.Windows.Forms.Panel();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.pnlHexEditor = new System.Windows.Forms.Panel();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.annotationDescription = new System.Windows.Forms.RichTextBox();
             this.btn1underline = new System.Windows.Forms.CheckBox();
             this.btn2underline = new System.Windows.Forms.CheckBox();
             this.btn3underline = new System.Windows.Forms.CheckBox();
             this.btn4underline = new System.Windows.Forms.CheckBox();
             this.btnSaveAnnotation = new System.Windows.Forms.Button();
             this.annotationTitle = new System.Windows.Forms.RichTextBox();
-            this.annotationDescription = new System.Windows.Forms.RichTextBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.selectedBytesToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -124,6 +125,10 @@
             this.menuStrip1.SuspendLayout();
             this.pnlLeft.SuspendLayout();
             this.pnlHexEditor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.pnlRight.SuspendLayout();
             this.grpValue.SuspendLayout();
@@ -568,14 +573,7 @@
             // 
             // pnlHexEditor
             // 
-            this.pnlHexEditor.Controls.Add(this.btn1underline);
-            this.pnlHexEditor.Controls.Add(this.btn2underline);
-            this.pnlHexEditor.Controls.Add(this.btn3underline);
-            this.pnlHexEditor.Controls.Add(this.btn4underline);
-            this.pnlHexEditor.Controls.Add(this.btnSaveAnnotation);
-            this.pnlHexEditor.Controls.Add(this.annotationTitle);
-            this.pnlHexEditor.Controls.Add(this.annotationDescription);
-            this.pnlHexEditor.Controls.Add(this.hexBox1);
+            this.pnlHexEditor.Controls.Add(this.splitContainer1);
             this.pnlHexEditor.Controls.Add(this.menuStrip1);
             this.pnlHexEditor.Controls.Add(this.statusStrip);
             this.pnlHexEditor.Dock = System.Windows.Forms.DockStyle.Right;
@@ -584,12 +582,59 @@
             this.pnlHexEditor.Size = new System.Drawing.Size(500, 642);
             this.pnlHexEditor.TabIndex = 11;
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(0, 27);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.hexBox1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.annotationDescription);
+            this.splitContainer1.Panel2.Controls.Add(this.btn1underline);
+            this.splitContainer1.Panel2.Controls.Add(this.btn2underline);
+            this.splitContainer1.Panel2.Controls.Add(this.btn3underline);
+            this.splitContainer1.Panel2.Controls.Add(this.btn4underline);
+            this.splitContainer1.Panel2.Controls.Add(this.btnSaveAnnotation);
+            this.splitContainer1.Panel2.Controls.Add(this.annotationTitle);
+            this.splitContainer1.Size = new System.Drawing.Size(503, 590);
+            this.splitContainer1.SplitterDistance = 420;
+            this.splitContainer1.SplitterWidth = 1;
+            this.splitContainer1.TabIndex = 19;
+            // 
+            // annotationDescription
+            // 
+            this.annotationDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.annotationDescription.BackColor = System.Drawing.SystemColors.Control;
+            this.annotationDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.annotationDescription.Cursor = System.Windows.Forms.Cursors.Default;
+            this.annotationDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.annotationDescription.ForeColor = System.Drawing.Color.Black;
+            this.annotationDescription.Location = new System.Drawing.Point(0, 25);
+            this.annotationDescription.Name = "annotationDescription";
+            this.annotationDescription.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.annotationDescription.Size = new System.Drawing.Size(503, 144);
+            this.annotationDescription.TabIndex = 11;
+            this.annotationDescription.Text = "No Description Available.";
+            this.annotationDescription.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.annotationDescription_LinkClicked);
+            this.annotationDescription.TextChanged += new System.EventHandler(this.description_TextChanged);
+            this.annotationDescription.MouseDown += new System.Windows.Forms.MouseEventHandler(this.annotationDescription_MouseDown);
+            // 
             // btn1underline
             // 
             this.btn1underline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btn1underline.Appearance = System.Windows.Forms.Appearance.Button;
             this.btn1underline.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn1underline.Location = new System.Drawing.Point(310, 470);
+            this.btn1underline.Location = new System.Drawing.Point(717, 539);
             this.btn1underline.Name = "btn1underline";
             this.btn1underline.Size = new System.Drawing.Size(24, 23);
             this.btn1underline.TabIndex = 18;
@@ -603,7 +648,7 @@
             this.btn2underline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btn2underline.Appearance = System.Windows.Forms.Appearance.Button;
             this.btn2underline.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn2underline.Location = new System.Drawing.Point(335, 470);
+            this.btn2underline.Location = new System.Drawing.Point(742, 539);
             this.btn2underline.Name = "btn2underline";
             this.btn2underline.Size = new System.Drawing.Size(24, 23);
             this.btn2underline.TabIndex = 17;
@@ -617,7 +662,7 @@
             this.btn3underline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btn3underline.Appearance = System.Windows.Forms.Appearance.Button;
             this.btn3underline.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn3underline.Location = new System.Drawing.Point(360, 470);
+            this.btn3underline.Location = new System.Drawing.Point(767, 539);
             this.btn3underline.Name = "btn3underline";
             this.btn3underline.Size = new System.Drawing.Size(24, 23);
             this.btn3underline.TabIndex = 16;
@@ -631,7 +676,7 @@
             this.btn4underline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btn4underline.Appearance = System.Windows.Forms.Appearance.Button;
             this.btn4underline.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn4underline.Location = new System.Drawing.Point(385, 470);
+            this.btn4underline.Location = new System.Drawing.Point(792, 539);
             this.btn4underline.Name = "btn4underline";
             this.btn4underline.Size = new System.Drawing.Size(24, 23);
             this.btn4underline.TabIndex = 15;
@@ -643,7 +688,7 @@
             // btnSaveAnnotation
             // 
             this.btnSaveAnnotation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveAnnotation.Location = new System.Drawing.Point(415, 470);
+            this.btnSaveAnnotation.Location = new System.Drawing.Point(822, 539);
             this.btnSaveAnnotation.Name = "btnSaveAnnotation";
             this.btnSaveAnnotation.Size = new System.Drawing.Size(82, 23);
             this.btnSaveAnnotation.TabIndex = 14;
@@ -653,37 +698,20 @@
             // 
             // annotationTitle
             // 
+            this.annotationTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.annotationTitle.BackColor = System.Drawing.SystemColors.Control;
             this.annotationTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.annotationTitle.Cursor = System.Windows.Forms.Cursors.Default;
-            this.annotationTitle.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.annotationTitle.Enabled = false;
             this.annotationTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.annotationTitle.ForeColor = System.Drawing.Color.Black;
-            this.annotationTitle.Location = new System.Drawing.Point(0, 466);
+            this.annotationTitle.Location = new System.Drawing.Point(0, 0);
             this.annotationTitle.Name = "annotationTitle";
             this.annotationTitle.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.annotationTitle.Size = new System.Drawing.Size(500, 28);
+            this.annotationTitle.Size = new System.Drawing.Size(503, 30);
             this.annotationTitle.TabIndex = 12;
             this.annotationTitle.Text = "No Description Available.";
-            // 
-            // annotationDescription
-            // 
-            this.annotationDescription.BackColor = System.Drawing.SystemColors.Control;
-            this.annotationDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.annotationDescription.Cursor = System.Windows.Forms.Cursors.Default;
-            this.annotationDescription.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.annotationDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.annotationDescription.ForeColor = System.Drawing.Color.Black;
-            this.annotationDescription.Location = new System.Drawing.Point(0, 494);
-            this.annotationDescription.Name = "annotationDescription";
-            this.annotationDescription.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.annotationDescription.Size = new System.Drawing.Size(500, 126);
-            this.annotationDescription.TabIndex = 11;
-            this.annotationDescription.Text = "No Description Available.";
-            this.annotationDescription.TextChanged += new System.EventHandler(this.description_TextChanged);
-            this.annotationDescription.MouseDown += new System.Windows.Forms.MouseEventHandler(this.annotationDescription_MouseDown);
-            this.annotationDescription.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.annotationDescription_LinkClicked);
             // 
             // statusStrip
             // 
@@ -1040,19 +1068,19 @@
             this.hexBox1.ColumnInfoVisible = true;
             this.hexBox1.CommandColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(255)))), ((int)(((byte)(200)))));
             this.hexBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.hexBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.hexBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.hexBox1.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.hexBox1.GroupSeparatorVisible = true;
             this.hexBox1.InfoForeColor = System.Drawing.Color.Blue;
             this.hexBox1.LineInfoVisible = true;
             this.hexBox1.LinkedBranchColor = System.Drawing.Color.Orange;
-            this.hexBox1.Location = new System.Drawing.Point(0, 24);
+            this.hexBox1.Location = new System.Drawing.Point(0, 0);
             this.hexBox1.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
             this.hexBox1.Name = "hexBox1";
             this.hexBox1.SectionEditor = null;
             this.hexBox1.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.hexBox1.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
-            this.hexBox1.Size = new System.Drawing.Size(500, 446);
+            this.hexBox1.Size = new System.Drawing.Size(503, 420);
             this.hexBox1.StringViewVisible = true;
             this.hexBox1.TabIndex = 3;
             this.hexBox1.UseFixedBytesPerLine = true;
@@ -1092,6 +1120,10 @@
             this.pnlLeft.ResumeLayout(false);
             this.pnlHexEditor.ResumeLayout(false);
             this.pnlHexEditor.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.pnlRight.ResumeLayout(false);
@@ -1192,5 +1224,6 @@
         private CheckBox btn1underline;
         private CheckBox btn2underline;
         private CheckBox btn3underline;
+        private SplitContainer splitContainer1;
     }
 }

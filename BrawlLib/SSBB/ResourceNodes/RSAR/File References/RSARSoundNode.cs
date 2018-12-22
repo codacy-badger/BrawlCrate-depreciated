@@ -25,11 +25,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             _waveInfo._channelPriority = 64;
         }
 
-#if DEBUG
-        [Browsable(true), Category("DEBUG")]
-#else
-        [Browsable(false)]
-#endif
+        [Browsable(true), DisplayName("Sound ID")]
         public override int StringId { get { return Header == null ? -1 : (int)Header->_stringId; } }
 
         public override ResourceType ResourceType { get { return ResourceType.RSARSound; } }

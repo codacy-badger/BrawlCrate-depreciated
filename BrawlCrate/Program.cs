@@ -16,15 +16,12 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.17Hotfix3";
-        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.17 Hotfix 2! This release:\n" +
-			"\n- Adds a fancy new splash screen on boot" +
-            "\n- Allows switching to the BrawlCrate Canary update track (check the settings if interested)" +
-            "\n- Updates various aspects of the Model Viewer backend, improving performance" +
-            "\n- Fixes various bugs and improves performance with the updater" +
-            "\n- (Hotfix 1) Fixes crashes when viewing hex on older versions of Windows" +
-            "\n- (Hotfix 2) Fixes hex viewer crash on BRSTM creation" +
-			"\n- (Hotfix 3) Fixes DPI resize when viewing models" +
+        public static readonly string TagName = "BrawlCrate_v0.18Hotfix1";
+        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.18 Hotfix 1! This release:\n" +
+            "\n- Adds additional parsing for IDs for BRSAR subnodes" +
+			"\n- Fixes Save As functionality" +
+            "\n- Fixes issue where volume settings were not properly loaded" +
+            "\n- Fixes broken \"Close all open windows\" functionality in the updater" +
             "\n\nFull changelog can be found in the installation folder:\n" + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
         public static readonly string AssemblyTitle;
@@ -251,6 +248,7 @@ namespace BrawlCrate
                 {
                     Task.Factory.StartNew(() =>
                     {
+                        System.Threading.Thread.Sleep(1000);
                         MessageBox.Show(Program.UpdateMessage);
                     });
                 }
@@ -342,11 +340,12 @@ namespace BrawlCrate
             return Open(path, true);
         }
 
+        public static string openTempFile = null;
         public static bool Open(string path, bool setRoot)
         {
             if (String.IsNullOrEmpty(path))
                 return false;
-
+            
             if (!File.Exists(path))
             {
                 Say("File does not exist.");
@@ -363,13 +362,26 @@ namespace BrawlCrate
 
             if (!Close())
                 return false;
-
-            #if !DEBUG
+REGEN:
+            DirectoryInfo tmp = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "tmp");
+            tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+            Random rand = new Random();
+            byte[] buf = new byte[8];
+            rand.NextBytes(buf);
+            ulong randnumgen = BitConverter.ToUInt64(buf, 0);
+            string newTempFile = AppDomain.CurrentDomain.BaseDirectory + '\\' + "tmp" + '\\' + randnumgen.ToString("X16");
+            if (Directory.Exists(newTempFile))
+                goto REGEN;
+            Directory.CreateDirectory(newTempFile);
+            newTempFile += '\\' + Path.GetFileNameWithoutExtension(path);
+            File.Copy(path, newTempFile);
+#if !DEBUG
             try
             {
             #endif
-                if ((_rootNode = NodeFactory.FromFile(null, _rootPath = path)) != null)
+                if ((_rootNode = NodeFactory.FromFile(null, openTempFile = newTempFile)) != null)
                 {
+                    _rootPath = path;
                     if(!setRoot)
                         _rootPath = null;
                     MainForm.Instance.Reset();
@@ -377,6 +389,7 @@ namespace BrawlCrate
                 }
                 else
                 {
+                    openTempFile = null;
                     _rootPath = null;
                     Say("Unable to recognize input file.");
                     MainForm.Instance.Reset();
@@ -393,11 +406,28 @@ namespace BrawlCrate
 
         public static bool Open(string path, string root)
         {
+            return (Open(path, root, null, null));
+        }
+
+        public static bool Open(string path, string root, string folder, string openNode)
+        {
             bool returnVal = Open(path, false);
             if (returnVal)
             {
                 _rootPath = root;
                 MainForm.Instance.Reset();
+                if (openNode != null && folder != null)
+                {
+                    ResourceNode target = ResourceNode.FindNode(RootNode, folder, true);
+                    if (target != null)
+                    {
+                        ResourceNode target2 = ResourceNode.FindNode(target, openNode, true);
+                        if(target2 != null)
+                            MainForm.Instance.TargetResource(target2);
+                        else
+                            MainForm.Instance.TargetResource(target);
+                    }
+                }
             }
             return returnVal;
         }
@@ -440,6 +470,11 @@ namespace BrawlCrate
 
         public static bool Save()
         {
+            return Save(false);
+        }
+
+        public static bool Save(bool saveTemp)
+        {
             bool restoreHex = false;
             if (_rootNode != null)
             {
@@ -448,13 +483,14 @@ namespace BrawlCrate
                 {
                 #endif
                 
-                if (_rootPath == null)
+                if (_rootPath == null && (!saveTemp || openTempFile == null))
                     return SaveAs();
 
                 bool force = Control.ModifierKeys == (Keys.Control | Keys.Shift);
                 if (!force && !_rootNode.IsDirty)
                 {
-                    MessageBox.Show("No changes have been made.");
+                    if(!saveTemp)
+                        MessageBox.Show("No changes have been made.");
                     return false;
                 }
                 
@@ -468,8 +504,8 @@ namespace BrawlCrate
 
                 _rootNode.Merge(force);
                 _rootNode.IsDirty = false;
-                _rootNode.Export(_rootPath);
-
+                _rootNode.Export(saveTemp ? openTempFile : _rootPath);
+                
                 if (restoreHex)
                 {
                     MainForm.Instance.ShowHex = true;
@@ -590,7 +626,6 @@ namespace BrawlCrate
                     }
 
                     GenericWrapper w = MainForm.Instance.RootNode as GenericWrapper;
-                    w.ResourceNode.IsDirty = false;
                     string path = w.Export();
                     if (path != null)
                     {
@@ -603,6 +638,7 @@ namespace BrawlCrate
                             MainForm.Instance.Invalidate();
                             MainForm.Instance.resourceTree_SelectionChanged(MainForm.Instance, EventArgs.Empty);
                         }
+                        w.ResourceNode.IsDirty = false;
                         return true;
                     }
                     else

@@ -36,7 +36,7 @@ namespace BrawlCrate
             this.BackColor = this.BackColor;
             this.BackgroundImage = global::BrawlCrate.Properties.Resources.BrawlCrateLogo;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(500, 500);
+            this.ClientSize = new System.Drawing.Size(250, 250);
             this.ControlBox = false;
             this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
             this.DoubleBuffered = true;
@@ -53,6 +53,7 @@ namespace BrawlCrate
             this.UseWaitCursor = true;
             this.Load += new System.EventHandler(this.SplashForm_Load);
             this.ResumeLayout(false);
+
         }
 
         #endregion

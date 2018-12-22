@@ -8,16 +8,16 @@ using System.Diagnostics;
 
 namespace BrawlCrate.NodeWrappers
 {
-    [NodeWrapper(ResourceType.RSAR)]
-    class RSARWrapper : GenericWrapper
+    [NodeWrapper(ResourceType.RSARGroup)]
+    class RSARGroupWrapper : GenericWrapper
     {
         #region Menu
 
         private static ContextMenuStrip _menu;
-        static RSARWrapper()
+        static RSARGroupWrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("Import Sawnd", null, ImportSawndzAction, Keys.Control | Keys.I));
+            _menu.Items.Add(new ToolStripMenuItem("Export Sawnd", null, ExportSawndzAction, Keys.Control | Keys.I));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Export", null, ExportAction, Keys.Control | Keys.E));
             _menu.Items.Add(new ToolStripMenuItem("&Replace", null, ReplaceAction, Keys.Control | Keys.R));
@@ -31,16 +31,15 @@ namespace BrawlCrate.NodeWrappers
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
-        protected static void ImportSawndzAction(object sender, EventArgs e) { GetInstance<RSARWrapper>().ImportSawndz(); }
+        protected static void ExportSawndzAction(object sender, EventArgs e) { GetInstance<RSARGroupWrapper>().ExportSawndz(); }
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
             _menu.Items[0].Enabled = _menu.Items[0].Visible = _menu.Items[1].Visible = _menu.Items[2].Enabled = _menu.Items[4].Enabled = _menu.Items[6].Enabled = _menu.Items[7].Enabled = true;
         }
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
-            RSARWrapper w = GetInstance<RSARWrapper>();
-            RSARSoundNode n = w._resource as RSARSoundNode;
-            _menu.Items[0].Enabled = _menu.Items[0].Visible = _menu.Items[1].Visible = (w._resource.Parent == null && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawndz.exe"));
+            RSARGroupWrapper w = GetInstance<RSARGroupWrapper>();
+            _menu.Items[0].Enabled = _menu.Items[0].Visible = _menu.Items[1].Visible = (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawndz.exe"));
             _menu.Items[2].Enabled = w.Parent != null;
             _menu.Items[4].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
             _menu.Items[6].Enabled = w.PrevNode != null;
@@ -49,35 +48,38 @@ namespace BrawlCrate.NodeWrappers
 
         #endregion
 
-        public RSARWrapper() { ContextMenuStrip = _menu; }
+        public RSARGroupWrapper() { ContextMenuStrip = _menu; }
 
-        public override string ExportFilter { get { return FileFilters.RSAR; } }
-
-        public void ImportSawndz()
+        public void ExportSawndz()
         {
-            if (Parent != null || !File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawndz.exe"))
+            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawndz.exe"))
                 return;
-            Program.Save(true);
-            string inPath = "";
-            int index = Program.OpenFile("Brawl SFX files (*.sawnd)|*.sawnd", out inPath);
+            string target = _resource.Name;
+            int groupID = ((RSARGroupNode)_resource).StringId;
+            bool stuffChanged = Program.Save(true);
+            string outPath = "";
+            int index = Program.SaveFile("Brawl SFX files (*.sawnd)|*.sawnd", groupID.ToString(), out outPath);
             if (index != 0)
             {
                 string fileRoot = Program.RootPath;
                 string openFile = Program.openTempFile;
                 Program.Close(true);
-                insertSawnd(inPath, openFile);
+                exportSawnd(outPath, openFile, groupID);
                 MainForm.Instance.Reset();
-                Program.Open(openFile, fileRoot);
-                _resource.SignalPropertyChange();
+                Program.Open(openFile, fileRoot, "group", target);
+                if(stuffChanged)
+                    Program.RootNode.SignalPropertyChange();
             }
         }
 
-        public static void insertSawnd(string sawndfileName, string brsarfileName)
+        public static void exportSawnd(string sawndfileName, string bRSARGroupfileName, int groupID)
         {
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawnd.sawnd"))
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawnd.sawnd");
-            File.Copy(sawndfileName, AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawnd.sawnd");
-            runSawndzWithArgs("sawnd" + " \"" + brsarfileName + "\"");
+            runSawndzWithArgs("sawndcreate " + groupID + " \"" + bRSARGroupfileName + "\"");
+            if (File.Exists(sawndfileName))
+                File.Delete(sawndfileName);
+            File.Move("sawnd.sawnd", sawndfileName);
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawnd.sawnd"))
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawnd.sawnd");
         }
