@@ -18,6 +18,8 @@ namespace Net
 {
     public static class Updater
     {
+        public static readonly string branchName = "brawlcrate-master";
+
         static byte[] _rawData =
         {
             0x34, 0x35, 0x31, 0x30, 0x34, 0x31, 0x62, 0x38, 0x65, 0x39, 0x32, 0x64, 0x37, 0x32, 0x66, 0x62, 0x63, 0x36,
@@ -171,6 +173,7 @@ namespace Net
                         sw.Write("START BrawlCrate.exe");
                         if (openFile != null && openFile != "<null>")
                             sw.Write(" \"" + openFile + "\"");
+                        sw.Close();
                     }
                     Process updateBat = Process.Start(AppPath + "/Update.bat");
                 }
@@ -463,6 +466,7 @@ namespace Net
                         sw.WriteLine("START /wait temp.exe -y");
                         sw.WriteLine("del temp.exe /s /f /q");
                         sw.Write("START BrawlCrate.exe \"" + (openFile != null && openFile != "<null>" ? openFile : "null") + "\" -Stable");
+                        sw.Close();
                     }
                     Process updateBat = Process.Start(AppPath + "/Update.bat");
                 }
@@ -626,6 +630,7 @@ namespace Net
                         sw.WriteLine("START /wait temp.exe -y");
                         sw.WriteLine("del temp.exe /s /f /q");
                         sw.Write("START BrawlCrate.exe \"" + (openFile != null && openFile != "<null>" ? openFile : "null") + "\" -Canary");
+                        sw.Close();
                     }
                     Process updateBat = Process.Start(AppPath + "/Update.bat");
                 }
@@ -735,6 +740,7 @@ namespace Net
                     sw.WriteLine(commitDate.ToString("O"));
                     sw.WriteLine(result.Sha.ToString().Substring(0, 7));
                     sw.Write(result.Sha.ToString());
+                    sw.Close();
                 }
             }
             catch(Exception e)
@@ -742,6 +748,25 @@ namespace Net
                 MessageBox.Show(e.Message);
                 return;
             }
+        }
+
+        public static async Task SetCanaryActive()
+        {
+            DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
+            CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+            Console.WriteLine("FUCK: " + AppDomain.CurrentDomain.BaseDirectory);
+            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+                using (var sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+                {
+                    sw.Write(branchName);
+                    sw.Close();
+                }
+        }
+
+        public static async Task SetCanaryInactive()
+        {
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active");
         }
 
         public static async Task ShowCanaryChangelog()
@@ -999,6 +1024,16 @@ namespace Net
                         somethingDone = true;
                         Task t7 = Updater.ShowCanaryChangelog();
                         t7.Wait();
+                        break;
+                    case "-canaryOn": // Activate canary build
+                        somethingDone = true;
+                        Task t8 = Updater.SetCanaryActive();
+                        t8.Wait();
+                        break;
+                    case "-canaryOff":
+                        somethingDone = true;
+                        Task t9 = Updater.SetCanaryInactive();
+                        t9.Wait();
                         break;
                 }
             }
