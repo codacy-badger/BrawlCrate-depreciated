@@ -761,7 +761,7 @@ namespace Net
             if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
                 using (var sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
                 {
-                    sw.Write(branchName);
+                    sw.Write(mainBranch);
                     sw.Close();
                 }
         }
