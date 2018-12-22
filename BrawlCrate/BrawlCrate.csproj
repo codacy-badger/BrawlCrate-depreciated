@@ -694,7 +694,6 @@ if $(ConfigurationName) == TestRelease (
   %25windir%25\system32\xcopy "$(TargetDir)Canary" "$(SolutionDir)CanaryBuild\" /Y /I
 )
 if $(ConfigurationName) == Release (
-  "Updater.exe" -canaryOn
   del $(SolutionDir)CanaryBuild\Canary
   del BrawlCrate.exe.config
   del BrawlCrate.pdb
@@ -704,7 +703,6 @@ if $(ConfigurationName) == Release (
  "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName)Canary.exe
   %25windir%25\system32\xcopy "$(TargetDir)$(TargetName)Canary.exe" "$(SolutionDir)CanaryBuild\" /Y /I
   rename "$(SolutionDir)CanaryBuild\$(TargetName)Canary.exe" "Canary"
-  "Updater.exe" -canaryOff
   del $(TargetName)Canary.exe
   "Updater.exe" -bcommitTime
   "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName).v@(VersionNumber).exe

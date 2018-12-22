@@ -18,7 +18,7 @@ namespace Net
 {
     public static class Updater
     {
-        public static readonly string branchName = "brawlcrate-master";
+        public static readonly string mainBranch = "brawlcrate-master";
 
         static byte[] _rawData =
         {
@@ -481,12 +481,16 @@ namespace Net
         public static async Task CheckCanaryUpdate(string openFile, bool manual)
         {
             if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
-                File.Create(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active");
+            {
+                await SetCanaryActive();
+                await ForceDownloadCanary(openFile);
+                return;
+            }
             try
             {
                 string oldDate = "";
                 oldDate = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[0];
-
+                
                 Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
                 var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
                 var branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", "brawlcrate-master");
@@ -513,7 +517,7 @@ namespace Net
         public static async Task ForceDownloadCanary(string openFile, string commitID = null)
         {
             if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
-                File.Create(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active");
+                await SetCanaryActive();
             try
             {
                 if (AppPath.EndsWith("lib", StringComparison.CurrentCultureIgnoreCase))
@@ -754,7 +758,6 @@ namespace Net
         {
             DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
             CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-            Console.WriteLine("FUCK: " + AppDomain.CurrentDomain.BaseDirectory);
             if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
                 using (var sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
                 {
