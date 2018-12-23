@@ -843,9 +843,16 @@ namespace Net
             try
             {
                 newSha = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[2];
-                newBranch = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[3];
                 oldSha = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old")[2];
-                oldBranch = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[3];
+                try
+                {
+                    newBranch = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[3];
+                    oldBranch = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[3];
+                }
+                catch
+                {
+                    // Do nothing. The branches are allowed to be missing.
+                }
             }
             catch
             {
