@@ -122,12 +122,19 @@ namespace BrawlCrate
                 }
                 // This is the first time booting this update
                 firstBoot = true;
-                // Canary setting should be initialized as false
+                // Canary setting should be initialized depending on if canary is active
                 BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
                 // Ensure settings only get updated once
                 BrawlCrate.Properties.Settings.Default.UpdateSettings = false;
                 BrawlCrate.Properties.Settings.Default.Save();
             }
+            if (BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds == false && Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary"))
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+                {
+                    BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
+                    BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
+                    BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
+                }
             if (!BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds)
             {
                 try
@@ -147,6 +154,7 @@ namespace BrawlCrate
                 }
             }
 
+            string path = "";
             if (args.Length >= 1)
             {
                 if (args[0].Equals("/gct", StringComparison.InvariantCultureIgnoreCase))
@@ -165,6 +173,16 @@ namespace BrawlCrate
                         if (args[1] == "-Canary")
                         {
                             // Set Canary build active
+                            if (CanRunGithubApp(false, out path))
+                            {
+                                Process git = Process.Start(new ProcessStartInfo()
+                                {
+                                    FileName = path,
+                                    WindowStyle = ProcessWindowStyle.Hidden,
+                                    Arguments = String.Format("-canaryOn"),
+                                });
+                                git.WaitForExit();
+                            }
                             BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
                             BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
                             BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
@@ -173,6 +191,16 @@ namespace BrawlCrate
                         else if (args[1] == "-Stable")
                         {
                             // Set Stable build active
+                            if (CanRunGithubApp(false, out path))
+                            {
+                                Process git = Process.Start(new ProcessStartInfo()
+                                {
+                                    FileName = path,
+                                    WindowStyle = ProcessWindowStyle.Hidden,
+                                    Arguments = String.Format("-canaryOff"),
+                                });
+                                git.WaitForExit();
+                            }
                             BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
                             BrawlCrate.Properties.Settings.Default.Save();
                         }
@@ -192,6 +220,16 @@ namespace BrawlCrate
                     if (args[1] == "-Canary")
                     {
                         // Set Canary build active
+                        if (CanRunGithubApp(false, out path))
+                        {
+                            Process git = Process.Start(new ProcessStartInfo()
+                            {
+                                FileName = path,
+                                WindowStyle = ProcessWindowStyle.Hidden,
+                                Arguments = String.Format("-canaryOn"),
+                            });
+                            git.WaitForExit();
+                        }
                         BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
                         BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
                         BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
@@ -200,6 +238,16 @@ namespace BrawlCrate
                     else if (args[1] == "-Stable")
                     {
                         // Set Stable build active
+                        if (CanRunGithubApp(false, out path))
+                        {
+                            Process git = Process.Start(new ProcessStartInfo()
+                            {
+                                FileName = path,
+                                WindowStyle = ProcessWindowStyle.Hidden,
+                                Arguments = String.Format("-canaryOff"),
+                            });
+                            git.WaitForExit();
+                        }
                         BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
                         BrawlCrate.Properties.Settings.Default.Save();
                     }
@@ -209,6 +257,16 @@ namespace BrawlCrate
                     if (args[0] == "-Canary")
                     {
                         // Set Canary build active
+                        if (CanRunGithubApp(false, out path))
+                        {
+                            Process git = Process.Start(new ProcessStartInfo()
+                            {
+                                FileName = path,
+                                WindowStyle = ProcessWindowStyle.Hidden,
+                                Arguments = String.Format("-canaryOn"),
+                            });
+                            git.WaitForExit();
+                        }
                         BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
                         BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
                         BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
@@ -217,6 +275,16 @@ namespace BrawlCrate
                     else if (args[0] == "-Stable")
                     {
                         // Set Stable build active
+                        if (CanRunGithubApp(false, out path))
+                        {
+                            Process git = Process.Start(new ProcessStartInfo()
+                            {
+                                FileName = path,
+                                WindowStyle = ProcessWindowStyle.Hidden,
+                                Arguments = String.Format("-canaryOff"),
+                            });
+                            git.WaitForExit();
+                        }
                         BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
                         BrawlCrate.Properties.Settings.Default.Save();
                     }

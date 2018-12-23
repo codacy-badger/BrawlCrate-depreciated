@@ -700,10 +700,10 @@ if $(ConfigurationName) == Release (
   del BrawlLib.pdb
   del OpenTK.pdb
   del OpenTK.xml
-  "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName)Canary.exe
-  rename "$(TargetName)Canary.exe" "Canary"
-  %25windir%25\system32\xcopy "$(TargetDir)Canary" "$(SolutionDir)CanaryBuild\" /Y /I
-  del Canary
+ "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName)Canary.exe
+  %25windir%25\system32\xcopy "$(TargetDir)$(TargetName)Canary.exe" "$(SolutionDir)CanaryBuild\" /Y /I
+  rename "$(SolutionDir)CanaryBuild\$(TargetName)Canary.exe" "Canary"
+  del $(TargetName)Canary.exe
   "Updater.exe" -bcommitTime
   "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName).v@(VersionNumber).exe
 )</PostBuildEvent>
