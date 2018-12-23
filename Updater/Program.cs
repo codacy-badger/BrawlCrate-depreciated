@@ -26,15 +26,13 @@ namespace Net
         {
             try
             {
-                string temp = File.ReadAllLines(AppPath + '\\' + "Canary" + '\\' + "Active")[0];
-                MessageBox.Show("Test2: " + temp);
+                string temp = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active")[0];
                 if (temp == null || temp == "")
                     throw (new ArgumentNullException());
                 return temp;
             }
             catch
             {
-                MessageBox.Show("Test1: " + mainBranch);
                 return mainBranch;
             }
         }
