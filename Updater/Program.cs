@@ -26,7 +26,7 @@ namespace Net
         {
             try
             {
-                string temp = File.ReadAllLines(AppPath + '\\' + "Active")[0];
+                string temp = File.ReadAllLines(AppPath + '\\' + "Canary" + '\\' + "Active")[0];
                 MessageBox.Show("Test2: " + temp);
                 if (temp == null || temp == "")
                     throw (new ArgumentNullException());
