@@ -857,6 +857,8 @@ namespace Net
             catch
             {
                 MessageBox.Show("Canary changelog could not be shown. Make sure to never disturb the \"Canary\" folder in the installation folder.");
+                if (File.Exists(Filename))
+                    File.Delete(Filename);
                 return;
             }
             if(newSha == oldSha)
