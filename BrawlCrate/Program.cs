@@ -181,6 +181,7 @@ namespace BrawlCrate
                                     WindowStyle = ProcessWindowStyle.Hidden,
                                     Arguments = String.Format("-canaryOn"),
                                 });
+                                git.WaitForExit();
                             }
                             BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
                             BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
@@ -198,6 +199,7 @@ namespace BrawlCrate
                                     WindowStyle = ProcessWindowStyle.Hidden,
                                     Arguments = String.Format("-canaryOff"),
                                 });
+                                git.WaitForExit();
                             }
                             BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
                             BrawlCrate.Properties.Settings.Default.Save();
@@ -226,6 +228,7 @@ namespace BrawlCrate
                                 WindowStyle = ProcessWindowStyle.Hidden,
                                 Arguments = String.Format("-canaryOn"),
                             });
+                            git.WaitForExit();
                         }
                         BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
                         BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
@@ -243,6 +246,7 @@ namespace BrawlCrate
                                 WindowStyle = ProcessWindowStyle.Hidden,
                                 Arguments = String.Format("-canaryOff"),
                             });
+                            git.WaitForExit();
                         }
                         BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
                         BrawlCrate.Properties.Settings.Default.Save();
@@ -261,6 +265,7 @@ namespace BrawlCrate
                                 WindowStyle = ProcessWindowStyle.Hidden,
                                 Arguments = String.Format("-canaryOn"),
                             });
+                            git.WaitForExit();
                         }
                         BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
                         BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
@@ -278,6 +283,7 @@ namespace BrawlCrate
                                 WindowStyle = ProcessWindowStyle.Hidden,
                                 Arguments = String.Format("-canaryOff"),
                             });
+                            git.WaitForExit();
                         }
                         BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
                         BrawlCrate.Properties.Settings.Default.Save();
