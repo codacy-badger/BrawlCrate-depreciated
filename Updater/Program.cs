@@ -27,12 +27,14 @@ namespace Net
             try
             {
                 string temp = File.ReadAllLines(AppPath + '\\' + "Active")[0];
+                MessageBox.Show("Test2: " + temp);
                 if (temp == null || temp == "")
                     throw (new ArgumentNullException());
                 return temp;
             }
             catch
             {
+                MessageBox.Show("Test1: " + mainBranch);
                 return mainBranch;
             }
         }
