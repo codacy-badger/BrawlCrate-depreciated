@@ -7,12 +7,8 @@ namespace BrawlLib.SSBB.ResourceNodes
     public unsafe class RSARBankNode : RSAREntryNode
     {
         internal INFOBankEntry* Header { get { return (INFOBankEntry*)WorkingUncompressed.Address; } }
-
-#if DEBUG
-        [Browsable(true), Category("DEBUG")]
-#else
-        [Browsable(false)]
-#endif
+        
+        [Browsable(true), DisplayName("Bank ID")]
         public override int StringId { get { return Header == null ? -1 : (int)Header->_stringId; } }
 
         private RSARFileNode _rbnk;

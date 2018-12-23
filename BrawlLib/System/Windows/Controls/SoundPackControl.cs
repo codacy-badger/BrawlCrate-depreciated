@@ -234,7 +234,6 @@ namespace System.Windows.Forms
             this.audioPlaybackPanel1.TabIndex = 2;
             this.audioPlaybackPanel1.TargetStreams = null;
             this.audioPlaybackPanel1.Visible = false;
-            this.audioPlaybackPanel1.Volume = 0;
             // 
             // editToolStripMenuItem
             // 

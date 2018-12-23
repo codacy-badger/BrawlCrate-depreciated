@@ -3,6 +3,7 @@ using BrawlLib.SSBB.ResourceNodes;
 using System.Data;
 using BrawlLib.Imaging;
 using System.Drawing;
+using System.Text.RegularExpressions;
 
 namespace System.Windows.Forms
 {
@@ -25,6 +26,7 @@ namespace System.Windows.Forms
             this.rdoFloat = new System.Windows.Forms.RadioButton();
             this.rdoInt = new System.Windows.Forms.RadioButton();
             this.rdoColor = new System.Windows.Forms.RadioButton();
+            this.rdoFlags = new System.Windows.Forms.RadioButton();
             this.rdoDegrees = new System.Windows.Forms.RadioButton();
             this.rdoUnknown = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dtgrdAttributes)).BeginInit();
@@ -72,20 +74,22 @@ namespace System.Windows.Forms
             // 
             // description
             // 
+            this.description.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.description.BackColor = System.Drawing.SystemColors.Control;
             this.description.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.description.Cursor = System.Windows.Forms.Cursors.Default;
-            this.description.Dock = System.Windows.Forms.DockStyle.Fill;
             this.description.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.description.ForeColor = System.Drawing.Color.Black;
             this.description.Location = new System.Drawing.Point(0, 0);
             this.description.Name = "description";
             this.description.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.description.Size = new System.Drawing.Size(479, 102);
+            this.description.Size = new System.Drawing.Size(479, 74);
             this.description.TabIndex = 6;
             this.description.Text = "No Description Available.";
-            this.description.TextChanged += new System.EventHandler(this.description_TextChanged);
             this.description.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.description_LinkClicked);
+            this.description.TextChanged += new System.EventHandler(this.description_TextChanged);
             // 
             // splitter1
             // 
@@ -160,7 +164,8 @@ namespace System.Windows.Forms
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 5;
+            this.tableLayoutPanel1.ColumnCount = 6;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -169,8 +174,9 @@ namespace System.Windows.Forms
             this.tableLayoutPanel1.Controls.Add(this.rdoFloat, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.rdoInt, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.rdoColor, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.rdoDegrees, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.rdoUnknown, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.rdoFlags, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.rdoDegrees, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.rdoUnknown, 5, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 77);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -189,7 +195,7 @@ namespace System.Windows.Forms
             this.rdoFloat.Location = new System.Drawing.Point(0, 0);
             this.rdoFloat.Margin = new System.Windows.Forms.Padding(0);
             this.rdoFloat.Name = "rdoFloat";
-            this.rdoFloat.Size = new System.Drawing.Size(95, 25);
+            this.rdoFloat.Size = new System.Drawing.Size(79, 25);
             this.rdoFloat.TabIndex = 0;
             this.rdoFloat.TabStop = true;
             this.rdoFloat.Text = "Float";
@@ -202,10 +208,10 @@ namespace System.Windows.Forms
             this.rdoInt.AutoSize = true;
             this.rdoInt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rdoInt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdoInt.Location = new System.Drawing.Point(95, 0);
+            this.rdoInt.Location = new System.Drawing.Point(79, 0);
             this.rdoInt.Margin = new System.Windows.Forms.Padding(0);
             this.rdoInt.Name = "rdoInt";
-            this.rdoInt.Size = new System.Drawing.Size(95, 25);
+            this.rdoInt.Size = new System.Drawing.Size(79, 25);
             this.rdoInt.TabIndex = 1;
             this.rdoInt.TabStop = true;
             this.rdoInt.Text = "Integer";
@@ -218,15 +224,31 @@ namespace System.Windows.Forms
             this.rdoColor.AutoSize = true;
             this.rdoColor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rdoColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdoColor.Location = new System.Drawing.Point(190, 0);
+            this.rdoColor.Location = new System.Drawing.Point(158, 0);
             this.rdoColor.Margin = new System.Windows.Forms.Padding(0);
             this.rdoColor.Name = "rdoColor";
-            this.rdoColor.Size = new System.Drawing.Size(95, 25);
+            this.rdoColor.Size = new System.Drawing.Size(79, 25);
             this.rdoColor.TabIndex = 1;
             this.rdoColor.TabStop = true;
             this.rdoColor.Text = "Color";
             this.rdoColor.UseVisualStyleBackColor = true;
             this.rdoColor.CheckedChanged += new System.EventHandler(this.radioButtonsChanged);
+            // 
+            // rdoFlags
+            // 
+            this.rdoFlags.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rdoFlags.AutoSize = true;
+            this.rdoFlags.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rdoFlags.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdoFlags.Location = new System.Drawing.Point(237, 0);
+            this.rdoFlags.Margin = new System.Windows.Forms.Padding(0);
+            this.rdoFlags.Name = "rdoFlags";
+            this.rdoFlags.Size = new System.Drawing.Size(79, 25);
+            this.rdoFlags.TabIndex = 2;
+            this.rdoFlags.TabStop = true;
+            this.rdoFlags.Text = "Flags";
+            this.rdoFlags.UseVisualStyleBackColor = true;
+            this.rdoFlags.CheckedChanged += new System.EventHandler(this.radioButtonsChanged);
             // 
             // rdoDegrees
             // 
@@ -234,10 +256,10 @@ namespace System.Windows.Forms
             this.rdoDegrees.AutoSize = true;
             this.rdoDegrees.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rdoDegrees.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdoDegrees.Location = new System.Drawing.Point(285, 0);
+            this.rdoDegrees.Location = new System.Drawing.Point(316, 0);
             this.rdoDegrees.Margin = new System.Windows.Forms.Padding(0);
             this.rdoDegrees.Name = "rdoDegrees";
-            this.rdoDegrees.Size = new System.Drawing.Size(95, 25);
+            this.rdoDegrees.Size = new System.Drawing.Size(79, 25);
             this.rdoDegrees.TabIndex = 2;
             this.rdoDegrees.TabStop = true;
             this.rdoDegrees.Text = "Degrees";
@@ -250,13 +272,13 @@ namespace System.Windows.Forms
             this.rdoUnknown.AutoSize = true;
             this.rdoUnknown.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rdoUnknown.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdoUnknown.Location = new System.Drawing.Point(380, 0);
+            this.rdoUnknown.Location = new System.Drawing.Point(395, 0);
             this.rdoUnknown.Margin = new System.Windows.Forms.Padding(0);
             this.rdoUnknown.Name = "rdoUnknown";
-            this.rdoUnknown.Size = new System.Drawing.Size(99, 25);
+            this.rdoUnknown.Size = new System.Drawing.Size(84, 25);
             this.rdoUnknown.TabIndex = 1;
             this.rdoUnknown.TabStop = true;
-            this.rdoUnknown.Text = "Hexidecimal";
+            this.rdoUnknown.Text = "Hex";
             this.rdoUnknown.UseVisualStyleBackColor = true;
             this.rdoUnknown.CheckedChanged += new System.EventHandler(this.radioButtonsChanged);
             // 
@@ -294,6 +316,7 @@ namespace System.Windows.Forms
         private RadioButton rdoFloat;
         private RadioButton rdoInt;
         private RadioButton rdoColor;
+        private RadioButton rdoFlags;
         private RadioButton rdoDegrees;
         private RadioButton rdoUnknown;
         private Label lblColor;
@@ -330,7 +353,7 @@ namespace System.Windows.Forms
             lblColor.Visible = false;
             lblCNoA.Visible = false;
             btnInf.Visible = btnMinusInf.Visible = false;
-            rdoColor.Enabled = rdoDegrees.Enabled = rdoFloat.Enabled = rdoInt.Enabled = rdoUnknown.Enabled = true;
+            rdoColor.Enabled = rdoDegrees.Enabled = rdoFlags.Enabled = rdoFloat.Enabled = rdoInt.Enabled = rdoUnknown.Enabled = true;
 
             if (TargetNode == null)
                 return;
@@ -348,7 +371,7 @@ namespace System.Windows.Forms
                 RefreshRow(i);
 
             if(AttributeArray.Length <= 0)
-                rdoColor.Enabled = rdoDegrees.Enabled = rdoFloat.Enabled = rdoInt.Enabled = rdoUnknown.Enabled = false;
+                rdoColor.Enabled = rdoDegrees.Enabled = rdoFlags.Enabled = rdoFloat.Enabled = rdoInt.Enabled = rdoUnknown.Enabled = false;
         }
 
         private void RefreshRow(int i)
@@ -365,6 +388,8 @@ namespace System.Windows.Forms
             }
             else if (AttributeArray[i]._type == 4)
                 attributes.Rows[i][1] = "0x" + ((int)((bint*)TargetNode.AttributeAddress)[i]).ToString("X8");
+            else if (AttributeArray[i]._type == 5)
+                attributes.Rows[i][1] = Convert.ToString((int)((bint*)TargetNode.AttributeAddress)[i], 2).PadLeft(32, '0'); //attributes.Rows[i][1] = String.Join(" ", Regex.Split(Convert.ToString((int)((bint*)TargetNode.AttributeAddress)[i], 2).PadLeft(16, '0'), "(?<=^(.{4})+)"));
             else
                 attributes.Rows[i][1] = (float)((bfloat*)TargetNode.AttributeAddress)[i];
         }
@@ -396,8 +421,14 @@ namespace System.Windows.Forms
             lblColor.Visible = false;
             lblCNoA.Visible = false;
             btnInf.Visible = btnMinusInf.Visible = false;
-
-            if (AttributeArray[index]._type == 4) // Hex
+            if (AttributeArray[index]._type == 5) // Binary
+            {
+                string field0 = value.ToString().Replace(" ", String.Empty);
+                ((bint*)buffer)[index] = Convert.ToInt32(field0, 2);
+                //MessageBox.Show(((int)((bint*)buffer)[index]).ToString("X8"));
+                TargetNode.SignalPropertyChange();
+            }
+            else if (AttributeArray[index]._type == 4) // Hex
             {
                 string field0 = (value.ToString() ?? "").Split(' ')[0];
                 int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase) ? 16 : 10;
@@ -510,6 +541,7 @@ namespace System.Windows.Forms
                 : AttributeArray[index]._type == 3 ? rdoColor
                 : AttributeArray[index]._type == 2 ? rdoDegrees
                 : AttributeArray[index]._type == 4 ? rdoUnknown
+                : AttributeArray[index]._type == 5 ? rdoFlags
                 : rdoFloat).Checked = true;
 
             if(AttributeArray[index]._type == 3)
@@ -554,6 +586,7 @@ namespace System.Windows.Forms
                 : rdoColor.Checked ? 3
                 : rdoDegrees.Checked ? 2
                 : rdoUnknown.Checked ? 4
+                : rdoFlags.Checked ? 5
                 : -1;
 			if (ntype != AttributeArray[index]._type) {
 				AttributeArray[index]._type = ntype;
@@ -616,6 +649,7 @@ namespace System.Windows.Forms
         Int = 1,
         Degrees = 2,
         Color = 3,
-        Unknown = 4
+        Unknown = 4,
+        Flags = 5
     }
 }

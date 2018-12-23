@@ -18,6 +18,25 @@ namespace Net
 {
     public static class Updater
     {
+        public static readonly string mainBranch = "brawlcrate-master";
+
+        public static string currentBranch = GetCurrentBranch();
+
+        static string GetCurrentBranch()
+        {
+            try
+            {
+                string temp = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active")[0];
+                if (temp == null || temp == "")
+                    throw (new ArgumentNullException());
+                return temp;
+            }
+            catch
+            {
+                return mainBranch;
+            }
+        }
+
         static byte[] _rawData =
         {
             0x34, 0x35, 0x31, 0x30, 0x34, 0x31, 0x62, 0x38, 0x65, 0x39, 0x32, 0x64, 0x37, 0x32, 0x66, 0x62, 0x63, 0x36,
@@ -74,8 +93,16 @@ namespace Net
                             "Select \"Cancel\" if you would like to wait to update until another time", releases[0].Name + " Update", MessageBoxButtons.YesNoCancel);
                         if (continueUpdate == DialogResult.Yes)
                         {
-                            foreach (Process pNext in pToClose)
-                                p.Kill();
+                            try
+                            {
+                                foreach (Process pNext in pToClose)
+                                    pNext.Kill();
+                                await Task.Delay(50);
+                            }
+                            catch(Exception xp)
+                            {
+                                MessageBox.Show(xp.Message);
+                            }
                             goto TRY_AGAIN;
                         }
                         else if (continueUpdate == DialogResult.No)
@@ -163,6 +190,7 @@ namespace Net
                         sw.Write("START BrawlCrate.exe");
                         if (openFile != null && openFile != "<null>")
                             sw.Write(" \"" + openFile + "\"");
+                        sw.Close();
                     }
                     Process updateBat = Process.Start(AppPath + "/Update.bat");
                 }
@@ -176,6 +204,8 @@ namespace Net
 
         public static async Task CheckUpdates(string releaseTag, string openFile, bool manual = true, bool checkDocumentation = false, bool automatic = false)
         {
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active");
             Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
             string docVer = null;
             if (checkDocumentation)
@@ -339,6 +369,8 @@ namespace Net
 
         public static async Task ForceDownloadRelease(string openFile)
         {
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active");
             Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
             try
             {
@@ -377,8 +409,16 @@ namespace Net
                         "Select \"Cancel\" if you would like to wait to update until another time", releases[0].Name + " Update", MessageBoxButtons.YesNoCancel);
                     if (continueUpdate == DialogResult.Yes)
                     {
-                        foreach (Process pNext in pToClose)
-                            p.Kill();
+                        try
+                        {
+                            foreach (Process pNext in pToClose)
+                                pNext.Kill();
+                            await Task.Delay(50);
+                        }
+                        catch (Exception xp)
+                        {
+                            MessageBox.Show(xp.Message);
+                        }
                         goto TRY_AGAIN;
                     }
                     else if (continueUpdate == DialogResult.No)
@@ -442,7 +482,8 @@ namespace Net
                         sw.WriteLine("CD /d " + AppPath);
                         sw.WriteLine("START /wait temp.exe -y");
                         sw.WriteLine("del temp.exe /s /f /q");
-                        sw.Write("START BrawlCrate.exe \"" + (openFile != null && openFile != "<null>" ? openFile : "null") + "\" -Stable");
+                        sw.Write("START BrawlCrate.exe \"" + (openFile != null && openFile != "<null>" ? openFile : "null") + "\"");
+                        sw.Close();
                     }
                     Process updateBat = Process.Start(AppPath + "/Update.bat");
                 }
@@ -456,17 +497,39 @@ namespace Net
 
         public static async Task CheckCanaryUpdate(string openFile, bool manual)
         {
+            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+            {
+                await SetCanaryActive();
+                MessageBox.Show("ERROR: Current Canary version could not be found. Updating to the latest commit");
+                await ForceDownloadCanary(openFile);
+                return;
+            }
             try
             {
                 string oldDate = "";
                 oldDate = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[0];
-
+                
                 Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
                 var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
-                var branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", "brawlcrate-master");
-                var result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
-                var commitDate = result.Commit.Author.Date;
-                string newDate = commitDate.ToUniversalTime().ToString("O");
+                string newDate;
+                Branch branch;
+                GitHubCommit result;
+                DateTimeOffset commitDate;
+                try
+                {
+                    branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", currentBranch);
+                    result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
+                    commitDate = result.Commit.Author.Date;
+                    newDate = commitDate.ToUniversalTime().ToString("O");
+                }
+                catch
+                {
+                    branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", mainBranch);
+                    result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
+                    commitDate = result.Commit.Author.Date;
+                    newDate = commitDate.ToUniversalTime().ToString("O");
+                    currentBranch = mainBranch;
+                }
                 if (oldDate.Equals(newDate, StringComparison.OrdinalIgnoreCase))
                 {
                     if (manual)
@@ -486,6 +549,8 @@ namespace Net
 
         public static async Task ForceDownloadCanary(string openFile, string commitID = null)
         {
+            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+                await SetCanaryActive();
             try
             {
                 if (AppPath.EndsWith("lib", StringComparison.CurrentCultureIgnoreCase))
@@ -502,9 +567,19 @@ namespace Net
                 {
                     Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
                     var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
-                    var branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", "brawlcrate-master");
-                    var result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
-                    commitID = result.Sha.ToString().Substring(0, 7);
+                    try
+                    {
+                        var branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", currentBranch);
+                        var result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
+                        commitID = result.Sha.ToString().Substring(0, 7);
+                    }
+                    catch
+                    {
+                        var branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", mainBranch);
+                        var result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
+                        commitID = result.Sha.ToString().Substring(0, 7);
+                        currentBranch = mainBranch;
+                    }
                 }
 
                 //Find and close the BrawlCrate application that will be overwritten
@@ -520,8 +595,16 @@ namespace Net
                         "Select \"Cancel\" if you would like to wait to update until another time", "Canary Update #" + commitID, MessageBoxButtons.YesNoCancel);
                     if (continueUpdate == DialogResult.Yes)
                     {
-                        foreach (Process pNext in pToClose)
-                            p.Kill();
+                        try
+                        {
+                            foreach (Process pNext in pToClose)
+                                pNext.Kill();
+                            await Task.Delay(50);
+                        }
+                        catch (Exception xp)
+                        {
+                            MessageBox.Show(xp.Message);
+                        }
                         goto TRY_AGAIN;
                     }
                     else if (continueUpdate == DialogResult.No)
@@ -544,11 +627,11 @@ namespace Net
                     client.Headers.Add("User-Agent: Other");
 
                     // The browser download link to the self extracting archive, hosted on github
-                    string URL = "https://github.com/soopercool101/BrawlCrate/raw/brawlcrate-master/CanaryBuild/Canary";
+                    string URL = "https://github.com/soopercool101/BrawlCrate/raw/" + currentBranch + "/CanaryBuild/Canary";
 
                     //client.DownloadFile(URL, AppPath + "/temp.exe");
                     DLProgressWindow.finished = false;
-                    DLProgressWindow dlTrack = new DLProgressWindow(null, commitID == null ? "BrawlCrate Canary Build" : "BrawlCrate Canary #" + commitID, AppPath, URL);
+                    DLProgressWindow dlTrack = new DLProgressWindow(null, commitID == null ? "BrawlCrate Canary Build" : (currentBranch == mainBranch ? "BrawlCrate Canary #" + commitID : "Canary@" + currentBranch + " #" + commitID), AppPath, URL);
                     while (!DLProgressWindow.finished)
                     {
                         // do nothing
@@ -593,7 +676,8 @@ namespace Net
                         sw.WriteLine("CD /d " + AppPath);
                         sw.WriteLine("START /wait temp.exe -y");
                         sw.WriteLine("del temp.exe /s /f /q");
-                        sw.Write("START BrawlCrate.exe \"" + (openFile != null && openFile != "<null>" ? openFile : "null") + "\" -Canary");
+                        sw.Write("START BrawlCrate.exe \"" + (openFile != null && openFile != "<null>" ? openFile : "null") + "\"");
+                        sw.Close();
                     }
                     Process updateBat = Process.Start(AppPath + "/Update.bat");
                 }
@@ -685,10 +769,23 @@ namespace Net
             try
             {
                 Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
-                var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
-                var branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", "brawlcrate-master");
-                var result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
-                var commitDate = result.Commit.Author.Date;
+                GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
+                Branch branch;
+                GitHubCommit result;
+                DateTimeOffset commitDate;
+                try
+                {
+                    branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", currentBranch);
+                    result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
+                    commitDate = result.Commit.Author.Date;
+                }
+                catch
+                {
+                    branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", mainBranch);
+                    result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
+                    commitDate = result.Commit.Author.Date;
+                    currentBranch = mainBranch;
+                }
                 commitDate = commitDate.ToUniversalTime();
                 DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
                 CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
@@ -702,7 +799,9 @@ namespace Net
                 {
                     sw.WriteLine(commitDate.ToString("O"));
                     sw.WriteLine(result.Sha.ToString().Substring(0, 7));
-                    sw.Write(result.Sha.ToString());
+                    sw.WriteLine(result.Sha.ToString());
+                    sw.Write(currentBranch);
+                    sw.Close();
                 }
             }
             catch(Exception e)
@@ -712,25 +811,66 @@ namespace Net
             }
         }
 
+        public static async Task SetCanaryActive()
+        {
+            DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
+            CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+                using (var sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+                {
+                    currentBranch = mainBranch;
+                    sw.Write(mainBranch);
+                    sw.Close();
+                }
+            await Task.Delay(1);
+        }
+
+        public static async Task SetCanaryInactive()
+        {
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active");
+            await Task.Delay(1);
+        }
+
         public static async Task ShowCanaryChangelog()
         {
             string changelog = "";
             string newSha = "";
             string oldSha = "";
+            string newBranch = "";
+            string oldBranch = "";
             string Filename = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old";
             try
             {
                 newSha = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[2];
                 oldSha = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old")[2];
+                try
+                {
+                    newBranch = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[3];
+                    oldBranch = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[3];
+                }
+                catch
+                {
+                    // Do nothing. The branches are allowed to be missing.
+                }
             }
             catch
             {
                 MessageBox.Show("Canary changelog could not be shown. Make sure to never disturb the \"Canary\" folder in the installation folder.");
+                if (File.Exists(Filename))
+                    File.Delete(Filename);
                 return;
             }
             if(newSha == oldSha)
             {
                 MessageBox.Show("Welcome to BrawlCrate Canary! You were already on the latest commit.");
+                if (File.Exists(Filename))
+                    File.Delete(Filename);
+                return;
+            }
+            if(newBranch != oldBranch)
+            {
+                MessageBox.Show("Welcome to BrawlCrate Canary! You are now tracking the " + newBranch + " branch instead of the " + oldBranch + " branch. Changelog is not supported when switching branches, so please check the Discord for what's been changed.");
                 if (File.Exists(Filename))
                     File.Delete(Filename);
                 return;
@@ -745,7 +885,16 @@ namespace Net
             {
                 Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
                 var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
-                var branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", "brawlcrate-master");
+                Branch branch;
+                try
+                {
+                    branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", currentBranch);
+                }
+                catch
+                {
+                    branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", mainBranch);
+                    currentBranch = mainBranch;
+                }
                 ApiOptions options = new ApiOptions();
                 options.PageSize = 100;
                 options.PageCount = 1;
@@ -774,7 +923,7 @@ namespace Net
                         continue;
                     }
                     changelog += "\n\n========================================================\n\n";
-                    changelog += "#" + c.Sha.Substring(0, 7) + " by " + c.Author.Login + "\n";
+                    changelog += "#" + c.Sha.Substring(0, 7) + "@" + currentBranch +" by " + c.Author.Login + "\n";
                     changelog += c.Commit.Message;
                 }
                 changelog += "\n\n========================================================";
@@ -967,6 +1116,16 @@ namespace Net
                         somethingDone = true;
                         Task t7 = Updater.ShowCanaryChangelog();
                         t7.Wait();
+                        break;
+                    case "-canaryOn": // Activate canary build
+                        somethingDone = true;
+                        Task t8 = Updater.SetCanaryActive();
+                        t8.Wait();
+                        break;
+                    case "-canaryOff":
+                        somethingDone = true;
+                        Task t9 = Updater.SetCanaryInactive();
+                        t9.Wait();
                         break;
                 }
             }
