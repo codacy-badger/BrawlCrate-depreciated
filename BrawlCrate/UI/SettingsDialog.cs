@@ -515,7 +515,7 @@ namespace BrawlCrate
                     "If you select yes, the update will begin immediately, so make sure your work is saved.", "BrawlCrate Canary Updater", MessageBoxButtons.YesNo);
                 if(dc == DialogResult.Yes)
                 {
-                    MainForm.Instance.ForceDownloadCanary();
+                    Program.ForceDownloadCanary();
                 }
             }
             else
@@ -526,7 +526,7 @@ namespace BrawlCrate
                     "If you select yes, the downgrade will begin immediately, so make sure your work is saved.", "BrawlCrate Canary Updater", MessageBoxButtons.YesNo);
                 if (dc == DialogResult.Yes)
                 {
-                    MainForm.Instance.ForceDownloadStable();
+                    Program.ForceDownloadStable();
                 }
             }
             chkCanary.Checked = MainForm.Instance.Canary;

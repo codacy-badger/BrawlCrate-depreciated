@@ -19,14 +19,13 @@ namespace Net
     public static class Updater
     {
         public static readonly string mainBranch = "brawlcrate-master";
-
         public static string currentBranch = GetCurrentBranch();
 
         static string GetCurrentBranch()
         {
             try
             {
-                string temp = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active")[0];
+                string temp = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch")[0];
                 if (temp == null || temp == "")
                     throw (new ArgumentNullException());
                 return temp;
@@ -816,12 +815,7 @@ namespace Net
             DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
             CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
-                using (var sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
-                {
-                    currentBranch = mainBranch;
-                    sw.Write(mainBranch);
-                    sw.Close();
-                }
+                File.Create(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active");
             await Task.Delay(1);
         }
 
