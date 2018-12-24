@@ -123,18 +123,29 @@ namespace BrawlCrate
                 // This is the first time booting this update
                 firstBoot = true;
                 // Canary setting should be initialized depending on if canary is active
-                BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
-                // Ensure settings only get updated once
-                BrawlCrate.Properties.Settings.Default.UpdateSettings = false;
-                BrawlCrate.Properties.Settings.Default.Save();
-            }
-            if (BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds == false && Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary"))
-                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
                 {
                     BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
                     BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
                     BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
                 }
+                else
+                {
+                    BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
+                }
+                // Ensure settings only get updated once
+                BrawlCrate.Properties.Settings.Default.UpdateSettings = false;
+                BrawlCrate.Properties.Settings.Default.Save();
+            }
+            // Ensure canary status updated correctly
+            if ((Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active")) != BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds)
+            {
+                MessageBox.Show("Canary Status Changed. Updating accordingly.");
+                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+                    ForceDownloadCanary();
+                else
+                    ForceDownloadStable();
+            }
             if (!BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds)
             {
                 try
@@ -168,43 +179,6 @@ namespace BrawlCrate
                 }
                 else if (args[0].EndsWith(".gct", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    if (args.Length >= 2)
-                    {
-                        if (args[1] == "-Canary")
-                        {
-                            // Set Canary build active
-                            if (CanRunGithubApp(false, out path))
-                            {
-                                Process git = Process.Start(new ProcessStartInfo()
-                                {
-                                    FileName = path,
-                                    WindowStyle = ProcessWindowStyle.Hidden,
-                                    Arguments = String.Format("-canaryOn"),
-                                });
-                                git.WaitForExit();
-                            }
-                            BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
-                            BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
-                            BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
-                            BrawlCrate.Properties.Settings.Default.Save();
-                        }
-                        else if (args[1] == "-Stable")
-                        {
-                            // Set Stable build active
-                            if (CanRunGithubApp(false, out path))
-                            {
-                                Process git = Process.Start(new ProcessStartInfo()
-                                {
-                                    FileName = path,
-                                    WindowStyle = ProcessWindowStyle.Hidden,
-                                    Arguments = String.Format("-canaryOff"),
-                                });
-                                git.WaitForExit();
-                            }
-                            BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
-                            BrawlCrate.Properties.Settings.Default.Save();
-                        }
-                    }
                     GCTEditor editor = new GCTEditor();
                     editor.TargetNode = GCTEditor.LoadGCT(args[0]);
                     s.Close();
@@ -215,80 +189,9 @@ namespace BrawlCrate
 
             try
             {
-                if (args.Length >= 2)
-                {
-                    if (args[1] == "-Canary")
-                    {
-                        // Set Canary build active
-                        if (CanRunGithubApp(false, out path))
-                        {
-                            Process git = Process.Start(new ProcessStartInfo()
-                            {
-                                FileName = path,
-                                WindowStyle = ProcessWindowStyle.Hidden,
-                                Arguments = String.Format("-canaryOn"),
-                            });
-                            git.WaitForExit();
-                        }
-                        BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
-                        BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
-                        BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
-                        BrawlCrate.Properties.Settings.Default.Save();
-                    }
-                    else if (args[1] == "-Stable")
-                    {
-                        // Set Stable build active
-                        if (CanRunGithubApp(false, out path))
-                        {
-                            Process git = Process.Start(new ProcessStartInfo()
-                            {
-                                FileName = path,
-                                WindowStyle = ProcessWindowStyle.Hidden,
-                                Arguments = String.Format("-canaryOff"),
-                            });
-                            git.WaitForExit();
-                        }
-                        BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
-                        BrawlCrate.Properties.Settings.Default.Save();
-                    }
-                }
                 if (args.Length >= 1)
                 {
-                    if (args[0] == "-Canary")
-                    {
-                        // Set Canary build active
-                        if (CanRunGithubApp(false, out path))
-                        {
-                            Process git = Process.Start(new ProcessStartInfo()
-                            {
-                                FileName = path,
-                                WindowStyle = ProcessWindowStyle.Hidden,
-                                Arguments = String.Format("-canaryOn"),
-                            });
-                            git.WaitForExit();
-                        }
-                        BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
-                        BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
-                        BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
-                        BrawlCrate.Properties.Settings.Default.Save();
-                    }
-                    else if (args[0] == "-Stable")
-                    {
-                        // Set Stable build active
-                        if (CanRunGithubApp(false, out path))
-                        {
-                            Process git = Process.Start(new ProcessStartInfo()
-                            {
-                                FileName = path,
-                                WindowStyle = ProcessWindowStyle.Hidden,
-                                Arguments = String.Format("-canaryOff"),
-                            });
-                            git.WaitForExit();
-                        }
-                        BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
-                        BrawlCrate.Properties.Settings.Default.Save();
-                    }
-                    else if (args[0] != "null")
+                    if (args[0] != "null" && args[0] != "-Canary" && args[0] != "-Stable")
                         Open(args[0]);
                 }
                 if(args.Length >= 2 && args[1] != "-Canary" && args[1] != "-Stable")
@@ -342,6 +245,64 @@ namespace BrawlCrate
 
                 }
                 Close(true);
+            }
+        }
+        
+        public static void ForceDownloadCanary(bool manual = true)
+        {
+            try
+            {
+                string path;
+                if (!MainForm.CheckForInternetConnection())
+                {
+                    if (manual)
+                        MessageBox.Show("Could not connect to internet");
+                    return;
+                }
+                if (Program.CanRunGithubApp(true, out path))
+                {
+                    Process git = Process.Start(new ProcessStartInfo()
+                    {
+                        FileName = path,
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        Arguments = String.Format("-dlCanary \"{0}\"", Program.RootPath == null ? "<null>" : Program.RootPath),
+                    });
+                    git.WaitForExit();
+                }
+            }
+            catch (Exception e)
+            {
+                if (manual)
+                    MessageBox.Show(e.Message);
+            }
+        }
+
+        public static void ForceDownloadStable(bool manual = true)
+        {
+            try
+            {
+                string path;
+                if (!MainForm.CheckForInternetConnection())
+                {
+                    if (manual)
+                        MessageBox.Show("Could not connect to internet");
+                    return;
+                }
+                if (Program.CanRunGithubApp(true, out path))
+                {
+                    Process git = Process.Start(new ProcessStartInfo()
+                    {
+                        FileName = path,
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        Arguments = String.Format("-dlStable \"{0}\"", Program.RootPath == null ? "<null>" : Program.RootPath),
+                    });
+                    git.WaitForExit();
+                }
+            }
+            catch (Exception e)
+            {
+                if (manual)
+                    MessageBox.Show(e.Message);
             }
         }
 

@@ -50,8 +50,34 @@ namespace BrawlCrate
             _interpolationForm = null;
         }
 
+        // Canary stuff
         public string commitIDshort = "";
         public string commitIDlong = "";
+        public static readonly string mainBranch = "brawlcrate-master";
+        public static string currentBranch = GetCurrentBranch();
+        static string GetCurrentBranch()
+        {
+            try
+            {
+                string temp = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch")[0];
+                if (temp == null || temp == "")
+                    throw (new ArgumentNullException());
+                return temp;
+            }
+            catch
+            {
+                DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
+                CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                using (var sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+                {
+                    currentBranch = mainBranch;
+                    sw.Write(mainBranch);
+                    sw.Close();
+                }
+                return mainBranch;
+            }
+        }
+
         public MainForm()
         {
             InitializeComponent();
@@ -73,7 +99,7 @@ namespace BrawlCrate
                     }
                 }
             }
-            Text = _canary ? "BrawlCrate Canary" + commitIDlong : Program.AssemblyTitle;
+            Text = _canary ? "BrawlCrate Canary" + (currentBranch == mainBranch ? "" : ("@" + currentBranch)) + commitIDlong : Program.AssemblyTitle;
             // Currently depreciated settings
             _compatibilityMode = BrawlLib.Properties.Settings.Default.CompatibilityMode;
             _importPNGwPalette = BrawlLib.Properties.Settings.Default.ImportPNGsWithPalettes;
@@ -161,78 +187,6 @@ namespace BrawlCrate
                         if (automatic)
                             git.WaitForExit();
                     }
-                }
-                else
-                {
-                    if (manual)
-                        MessageBox.Show(".NET version 4.5 is required to run the updater.");
-                    checkForUpdatesToolStripMenuItem.Enabled =
-                    checkForUpdatesToolStripMenuItem.Visible = false;
-                }
-            }
-            catch (Exception e)
-            {
-                if (manual)
-                    MessageBox.Show(e.Message);
-            }
-        }
-
-        public void ForceDownloadCanary(bool manual = true)
-        {
-            try
-            {
-                string path;
-                if (!CheckForInternetConnection())
-                {
-                    if (manual)
-                        MessageBox.Show("Could not connect to internet");
-                    return;
-                }
-                if (Program.CanRunGithubApp(true, out path))
-                {
-                    Process git = Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = path,
-                        WindowStyle = ProcessWindowStyle.Hidden,
-                        Arguments = String.Format("-dlCanary \"{0}\"", Program.RootPath == null ? "<null>" : Program.RootPath),
-                    });
-                    git.WaitForExit();
-                }
-                else
-                {
-                    if (manual)
-                        MessageBox.Show(".NET version 4.5 is required to run the updater.");
-                    checkForUpdatesToolStripMenuItem.Enabled =
-                    checkForUpdatesToolStripMenuItem.Visible = false;
-                }
-            }
-            catch (Exception e)
-            {
-                if (manual)
-                    MessageBox.Show(e.Message);
-            }
-        }
-
-        public void ForceDownloadStable(bool manual = true)
-        {
-            try
-            {
-                string path;
-                if (!CheckForInternetConnection())
-                {
-                    if (manual)
-                        MessageBox.Show("Could not connect to internet");
-                    return;
-                }
-                if (Program.CanRunGithubApp(true, out path))
-                {
-                    Process git = Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = path,
-                        WindowStyle = ProcessWindowStyle.Hidden,
-                        Arguments = String.Format("-dlStable \"{0}\"", Program.RootPath == null ? "<null>" : Program.RootPath),
-                    });
-                    git.WaitForExit();
                 }
                 else
                 {
