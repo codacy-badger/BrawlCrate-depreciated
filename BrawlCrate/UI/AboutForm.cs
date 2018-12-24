@@ -14,7 +14,7 @@ namespace BrawlCrate
             this.lblName.Text = MainForm.Instance.Canary ? "Canary@" + MainForm.currentBranch + MainForm.Instance.commitIDshort : Program.AssemblyTitle;
             this.txtDescription.Text = Program.AssemblyDescription;
             this.lblCopyright.Text = Program.AssemblyCopyright;
-            this.lblBrawlLib.Text = "Using " + (MainForm.Instance.Canary ? ("BrawlCrateLib Canary" + MainForm.Instance.commitIDshort) : Program.BrawlLibTitle);
+            this.lblBrawlLib.Text = "Using " + (MainForm.Instance.Canary ? ("BrawlCrateLib Canary@" + MainForm.currentBranch + MainForm.Instance.commitIDshort) : Program.BrawlLibTitle);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
