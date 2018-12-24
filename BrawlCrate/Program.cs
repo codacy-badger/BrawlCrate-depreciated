@@ -146,23 +146,20 @@ namespace BrawlCrate
                 else
                     ForceDownloadStable();
             }
-            if (!BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds)
+            try
             {
-                try
-                {
-                    if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.exe"))
-                        File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.exe");
-                    if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe"))
-                        File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe");
-                    if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.bat"))
-                        File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.bat");
-                    if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "StageBox.exe"))
-                        File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "StageBox.exe");
-                }
-                catch
-                {
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.exe"))
+                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.exe");
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe"))
+                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe");
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.bat"))
+                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.bat");
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "StageBox.exe"))
+                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "StageBox.exe");
+            }
+            catch
+            {
 
-                }
             }
 
             string path = "";
