@@ -388,9 +388,9 @@ namespace BrawlCrate
         public void UpdateName()
         {
             if (Program.RootPath != null)
-                Text = String.Format("{0} - {1}", _canary ? "BrawlCrate Canary" + commitIDshort : Program.AssemblyTitle, Program.RootPath);
+                Text = String.Format("{0} - {1}", _canary ? "BrawlCrate Canary" + (currentBranch == mainBranch ? "" : ("@" + currentBranch)) + commitIDshort : Program.AssemblyTitle, Program.RootPath);
             else
-                Text = _canary ? "BrawlCrate Canary" + commitIDlong : Program.AssemblyTitle;
+                Text = _canary ? "BrawlCrate Canary" + (currentBranch == mainBranch ? "" : ("@" + currentBranch)) + commitIDlong : Program.AssemblyTitle;
         }
 
         public void TargetResource(ResourceNode n)
