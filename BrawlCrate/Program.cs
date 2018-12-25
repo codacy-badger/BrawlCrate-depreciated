@@ -147,10 +147,12 @@ namespace BrawlCrate
                     BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
                     BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
                     BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
+                    BrawlCrate.Properties.Settings.Default.Save();
                 }
                 else
                 {
                     BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
+                    BrawlCrate.Properties.Settings.Default.Save();
                 }
                 if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
                     ForceDownloadCanary();
