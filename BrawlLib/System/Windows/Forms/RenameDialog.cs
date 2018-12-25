@@ -5,26 +5,52 @@ namespace System.Windows.Forms
     public class RenameDialog : Form
     {
         private ResourceNode _node;
+        private string name;
+        public string NewName { get { return name; } }
 
         public RenameDialog() { InitializeComponent(); }
 
         public DialogResult ShowDialog(IWin32Window owner, ResourceNode node)
         {
             _node = node;
+            this.Text = "Rename Node";
 
             if (_node is ARCNode)
                 txtName.MaxLength = 47;
             else
                 txtName.MaxLength = 255;
 
+            name = node.Name;
             txtName.Text = node.Name;
+
+            try { return base.ShowDialog(owner); }
+            finally { _node = null; }
+        }
+
+        public DialogResult ShowDialog(IWin32Window owner, string title, string defaultText)
+        {
+            _node = null;
+            this.Text = title;
+
+            txtName.MaxLength = 255;
+
+            name = defaultText;
+            txtName.Text = defaultText;
 
             try { return base.ShowDialog(owner); }
             finally { _node = null; }
         }
         private unsafe void btnOkay_Click(object sender, EventArgs e)
         {
-            string name = txtName.Text;
+            name = txtName.Text;
+
+            if(_node == null)
+            {
+                DialogResult = DialogResult.OK;
+                Close();
+                return;
+            }
+
             if (name.Length == 0)
                 name = "<null>";
 

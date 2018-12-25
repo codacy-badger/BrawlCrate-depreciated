@@ -959,7 +959,7 @@ namespace Net
                 var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
                 IReadOnlyList<Release> releases = null;
                 IReadOnlyList<Issue> issues = null;
-                if (!TagName.StartsWith("BrawlCrateCanary#", StringComparison.OrdinalIgnoreCase))
+                if (!TagName.StartsWith("BrawlCrate Canary", StringComparison.OrdinalIgnoreCase))
                 {
                     try
                     {

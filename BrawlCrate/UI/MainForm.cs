@@ -54,7 +54,7 @@ namespace BrawlCrate
         public string commitIDshort = "";
         public string commitIDlong = "";
         public static readonly string mainBranch = "brawlcrate-master";
-        public static string currentBranch = GetCurrentBranch();
+        public static string currentBranch { get { return GetCurrentBranch(); } set { SetCurrentBranch(value); } }
         static string GetCurrentBranch()
         {
             try
@@ -68,13 +68,26 @@ namespace BrawlCrate
             {
                 DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
                 CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
                 using (var sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
                 {
-                    currentBranch = mainBranch;
                     sw.Write(mainBranch);
                     sw.Close();
                 }
                 return mainBranch;
+            }
+        }
+        static void SetCurrentBranch(string newBranch)
+        {
+            if (newBranch == null || newBranch == "")
+                newBranch = mainBranch;
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
+            using (var sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+            {
+                sw.Write(newBranch);
+                sw.Close();
             }
         }
 
