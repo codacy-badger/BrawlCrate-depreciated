@@ -635,10 +635,15 @@ namespace BrawlCrate
         {
             if(MessageBox.Show(this, "Warning: Changing Branches can be unstable unless you know what you're doing. You should generally stay on the brawlcrate-master branch unless directed otherwise for testing purposes", "Warning", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
+                string cBranch = MainForm.currentBranch;
                 RenameDialog d = new RenameDialog();
-                if(d.ShowDialog(this, "Enter new branch to track", MainForm.currentBranch) == DialogResult.OK)
+                if(d.ShowDialog(this, "Enter new branch to track", cBranch) == DialogResult.OK)
                 {
-                    MainForm.currentBranch = d.NewName;
+                    if(d.NewName != cBranch)
+                    {
+                        MainForm.currentBranch = d.NewName;
+                        MessageBox.Show(this, "The canary updater will now track the " + MainForm.currentBranch + " branch, starting with the next canary update.", "Branch Changed");
+                    }
                 }
             }
         }

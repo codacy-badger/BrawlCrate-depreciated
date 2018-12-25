@@ -141,6 +141,17 @@ namespace BrawlCrate
             if ((Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active")) != BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds)
             {
                 MessageBox.Show("Canary Status Changed. Updating accordingly.");
+                // Canary setting should be initialized depending on if canary is active
+                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+                {
+                    BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
+                    BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
+                    BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
+                }
+                else
+                {
+                    BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
+                }
                 if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
                     ForceDownloadCanary();
                 else
