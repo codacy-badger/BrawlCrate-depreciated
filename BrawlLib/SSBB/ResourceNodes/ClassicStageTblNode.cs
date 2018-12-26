@@ -22,6 +22,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public int StageID3 { get { return data._stageID3; } set { data._stageID3 = (ushort)value; SignalPropertyChange(); } }
         [TypeConverter(typeof(DropDownListStageIDs))]
         public int StageID4 { get { return data._stageID4; } set { data._stageID4 = (ushort)value; SignalPropertyChange(); } }
+        public int Unknown1 { get { return data._unknown00; } set { data._unknown00 = (bint)value; SignalPropertyChange(); } }
 
         public override bool OnInitialize()
         {
@@ -87,13 +88,6 @@ namespace BrawlLib.SSBB.ResourceNodes
     {
         private ClassicDifficultyData data;
 
-        public enum AiTypeEnum : byte
-        {
-            Normal = 0,
-            Walk = 1,
-            Run = 2,
-            Jump = 3,
-        }
 
         [Category("Unknown")]
         [DisplayName("Unknown 00")]
@@ -115,7 +109,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         public short DefenseRatio { get { return data._defenseRatio; } set { data._defenseRatio = value; SignalPropertyChange(); } }
         [Category("Fighter")]
         [DisplayName("AI Type")]
-        public AiTypeEnum AIType { get { return (AiTypeEnum)data._aiType; } set { data._aiType = (byte)value; SignalPropertyChange(); } }
+        [TypeConverter(typeof(DropDownListAITypes))]
+        public byte AIType { get { return data._aiType; } set { data._aiType = (byte)value; SignalPropertyChange(); } }
         [Category("Fighter")]
         [DisplayName("CostumeID")]
         public byte CostumeID { get { return data._color; } set { data._color = value; SignalPropertyChange(); } }
@@ -326,6 +321,25 @@ namespace BrawlLib.SSBB.ResourceNodes
             node.Initialize(this, tempFile);
             AddChild(node, true);
         }
+    }
+
+    public class BrawlAITypes
+    {
+        public byte AIID;
+        public string Name;
+
+        public BrawlAITypes(byte id, string name)
+        {
+            AIID = id;
+            this.Name = name;
+        }
+
+        public readonly static BrawlAITypes[] AITypes = new BrawlAITypes[] {
+            new BrawlAITypes(0x00, "Normal"),
+            new BrawlAITypes(0x02, "Walk"),
+            new BrawlAITypes(0x03, "Run"),
+            new BrawlAITypes(0x04, "Jump")
+        };
     }
 
     public class ClassicStageTblSizeTblNode : RawDataNode { }
