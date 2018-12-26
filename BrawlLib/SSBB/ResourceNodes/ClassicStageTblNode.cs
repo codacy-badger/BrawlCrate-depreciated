@@ -14,6 +14,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override ResourceType ResourceType => ResourceType.Container;
 
+        public ClassicBattleType BattleType { get { return (ClassicBattleType)((int)data._battleType); } set { data._battleType = (bint)((int)value); SignalPropertyChange(); } }
         [TypeConverter(typeof(DropDownListStageIDs))]
         public int StageID1 { get { return data._stageID1; } set { data._stageID1 = (ushort)value; SignalPropertyChange(); } }
         [TypeConverter(typeof(DropDownListStageIDs))]
@@ -22,7 +23,13 @@ namespace BrawlLib.SSBB.ResourceNodes
         public int StageID3 { get { return data._stageID3; } set { data._stageID3 = (ushort)value; SignalPropertyChange(); } }
         [TypeConverter(typeof(DropDownListStageIDs))]
         public int StageID4 { get { return data._stageID4; } set { data._stageID4 = (ushort)value; SignalPropertyChange(); } }
-        public int Unknown1 { get { return data._unknown00; } set { data._unknown00 = (bint)value; SignalPropertyChange(); } }
+
+        public enum ClassicBattleType : int
+        {
+            FreeForAll = 0,
+            TeamBattle = 1,
+            HordeBattle = 2
+        }
 
         public override bool OnInitialize()
         {
@@ -62,7 +69,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             // Copy the data back to the address
             ClassicStageBlock* dataPtr = (ClassicStageBlock*)address;
-            dataPtr->_stages._unknown00 = data._unknown00;
+            dataPtr->_stages._battleType = data._battleType;
             dataPtr->_stages._stageID1 = data._stageID1;
             dataPtr->_stages._stageID2 = data._stageID2;
             dataPtr->_stages._stageID3 = data._stageID3;
