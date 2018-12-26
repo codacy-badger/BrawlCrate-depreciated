@@ -14,14 +14,27 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override ResourceType ResourceType => ResourceType.Container;
 
+        [Category("Classic Mode Battle")]
+        public ClassicBattleType BattleType { get { return (ClassicBattleType)((int)data._battleType); } set { data._battleType = (bint)((int)value); SignalPropertyChange(); } }
+        [Category("Stage List")]
         [TypeConverter(typeof(DropDownListStageIDs))]
         public int StageID1 { get { return data._stageID1; } set { data._stageID1 = (ushort)value; SignalPropertyChange(); } }
+        [Category("Stage List")]
         [TypeConverter(typeof(DropDownListStageIDs))]
         public int StageID2 { get { return data._stageID2; } set { data._stageID2 = (ushort)value; SignalPropertyChange(); } }
+        [Category("Stage List")]
         [TypeConverter(typeof(DropDownListStageIDs))]
         public int StageID3 { get { return data._stageID3; } set { data._stageID3 = (ushort)value; SignalPropertyChange(); } }
+        [Category("Stage List")]
         [TypeConverter(typeof(DropDownListStageIDs))]
         public int StageID4 { get { return data._stageID4; } set { data._stageID4 = (ushort)value; SignalPropertyChange(); } }
+
+        public enum ClassicBattleType : int
+        {
+            FreeForAll = 0,
+            TeamBattle = 1,
+            HordeBattle = 2
+        }
 
         public override bool OnInitialize()
         {
@@ -61,7 +74,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             // Copy the data back to the address
             ClassicStageBlock* dataPtr = (ClassicStageBlock*)address;
-            dataPtr->_stages._unknown00 = data._unknown00;
+            dataPtr->_stages._battleType = data._battleType;
             dataPtr->_stages._stageID1 = data._stageID1;
             dataPtr->_stages._stageID2 = data._stageID2;
             dataPtr->_stages._stageID3 = data._stageID3;
@@ -87,41 +100,35 @@ namespace BrawlLib.SSBB.ResourceNodes
     {
         private ClassicDifficultyData data;
 
-        public enum AiTypeEnum : byte
-        {
-            Normal = 0,
-            Walk = 1,
-            Run = 2,
-            Jump = 3,
-        }
-
-        [Category("Unknown")]
-        [DisplayName("Unknown 00")]
+        [Browsable(false)]
+        [Category("Fighter")]
+        [DisplayName("Ally Status")]
         public byte Unknown00 { get { return data._unknown00; } set { data._unknown00 = value; SignalPropertyChange(); } }
         [Category("Fighter")]
-        [DisplayName("Handicap")]
-        public byte Handicap { get { return data._handicap; } set { data._handicap = value; SignalPropertyChange(); } }
-        [Category("Unknown")]
-        [DisplayName("Unknown 02")]
-        public byte Unknown02 { get { return data._unknown02; } set { data._unknown02 = value; SignalPropertyChange(); } }
+        [DisplayName("CostumeID")]
+        public byte CostumeID { get { return data._color; } set { data._color = value; SignalPropertyChange(); } }
+        [Category("AI")]
+        [DisplayName("CPU Level")]
+        public byte CPULevel { get { return data._aiLevel; } set { data._aiLevel = value; SignalPropertyChange(); } }
+        [Category("AI")]
+        [DisplayName("AI Type")]
+        [TypeConverter(typeof(DropDownListAITypes))]
+        public byte AIType { get { return data._aiType; } set { data._aiType = (byte)value; SignalPropertyChange(); } }
         [Category("Unknown")]
         [DisplayName("Unknown 03")]
         public byte Unknown03 { get { return data._unknown03; } set { data._unknown03 = value; SignalPropertyChange(); } }
+        [Category("Fighter")]
+        [DisplayName("Stocks")]
+        public byte Stock { get { return data._stock; } set { data._stock = value; SignalPropertyChange(); } }
+        [Category("Fighter")]
+        [DisplayName("Handicap")]
+        public byte Handicap { get { return data._handicap; } set { data._handicap = value; SignalPropertyChange(); } }
         [Category("Fighter")]
         [DisplayName("Offense Ratio")]
         public short OffenseRatio { get { return data._offenseRatio; } set { data._offenseRatio = value; SignalPropertyChange(); } }
         [Category("Fighter")]
         [DisplayName("Defense Ratio")]
         public short DefenseRatio { get { return data._defenseRatio; } set { data._defenseRatio = value; SignalPropertyChange(); } }
-        [Category("Fighter")]
-        [DisplayName("AI Type")]
-        public AiTypeEnum AIType { get { return (AiTypeEnum)data._aiType; } set { data._aiType = (byte)value; SignalPropertyChange(); } }
-        [Category("Fighter")]
-        [DisplayName("CostumeID")]
-        public byte CostumeID { get { return data._color; } set { data._color = value; SignalPropertyChange(); } }
-        [Category("Fighter")]
-        [DisplayName("Number of Stocks")]
-        public byte Stock { get { return data._stock; } set { data._stock = value; SignalPropertyChange(); } }
         [Category("Unknown")]
         [DisplayName("Unknown 0b")]
         public byte Unknown0b { get { return data._unknown0b; } set { data._unknown0b = value; SignalPropertyChange(); } }
@@ -168,8 +175,8 @@ namespace BrawlLib.SSBB.ResourceNodes
 
     public unsafe class ClassicFighterNode : ResourceNode
     {
-
-    private ClassicTblHeader _header;
+        public override bool supportsCompression { get { return false; } }
+        private ClassicTblHeader _header;
 
         public enum StatusEnum : byte
         {
@@ -194,6 +201,23 @@ namespace BrawlLib.SSBB.ResourceNodes
         [Category("Fighter")]
         [DisplayName("Fighter Scale")]
         public float FighterScale { get { return _header._fighterscale; } set { _header._fighterscale = value; SignalPropertyChange(); } }
+
+        [Category("Fighter")]
+        [DisplayName("Player Ally")]
+        public bool IsAlly
+        {
+            get
+            {
+                if (Children.Count > 0)
+                    return ((ClassicDifficultyNode)Children[0]).Unknown00 == 0;
+                return false;
+            }
+            set
+            {
+                if (Children.Count > 0)
+                    ((ClassicDifficultyNode)Children[0]).Unknown00 = value ? (byte)0 : (byte)1;
+            }
+        }
 
         public override bool OnInitialize()
         {
@@ -326,6 +350,25 @@ namespace BrawlLib.SSBB.ResourceNodes
             node.Initialize(this, tempFile);
             AddChild(node, true);
         }
+    }
+
+    public class BrawlAITypes
+    {
+        public byte AIID;
+        public string Name;
+
+        public BrawlAITypes(byte id, string name)
+        {
+            AIID = id;
+            this.Name = name;
+        }
+
+        public readonly static BrawlAITypes[] AITypes = new BrawlAITypes[] {
+            new BrawlAITypes(0x00, "Normal"),
+            new BrawlAITypes(0x02, "Walk"),
+            new BrawlAITypes(0x03, "Run"),
+            new BrawlAITypes(0x04, "Jump")
+        };
     }
 
     public class ClassicStageTblSizeTblNode : RawDataNode { }

@@ -644,7 +644,10 @@
     <PostBuildEvent Condition=" '$(OS)' != 'Unix' ">%25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(ConfigurationName)\Updater.exe" "$(TargetDir)" /Y /I</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>if $(ConfigurationName) == Release (
+    <PreBuildEvent>if EXIST "$(TargetDir)Updater.exe" (
+  "$(TargetDir)Updater.exe" -killAll
+)
+if $(ConfigurationName) == Release (
   RD /S /Q "$(TargetDir)"
 )
 if $(ConfigurationName) == TestRelease (
@@ -660,7 +663,9 @@ del Octokit.dll
 del updater.exe
 %25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Octokit.dll" "$(TargetDir)" /Y /I
 %25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Updater.exe" "$(TargetDir)" /Y /I
-%25windir%25\system32\xcopy "$(SolutionDir)sawndz\bin\Release\sawndz.exe" "$(TargetDir)" /Y /I
+if EXIST "$(SolutionDir)sawndz\bin\Release\sawndz.exe" (
+  %25windir%25\system32\xcopy "$(SolutionDir)sawndz\bin\Release\sawndz.exe" "$(TargetDir)" /Y /I
+)
 if $(ConfigurationName) == Debug (
   del sawndz.exe
   %25windir%25\system32\xcopy "$(SolutionDir)sawndz\bin\Debug\sawndz.exe" "$(TargetDir)" /Y /I
@@ -689,9 +694,11 @@ if $(ConfigurationName) == TestRelease (
   del BrawlLib.pdb
   del OpenTK.pdb
   del OpenTK.xml
+  "Updater.exe" -canaryOn
   "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName)Canary.exe
-  rename "$(TargetName)Canary.exe" "Canary"
-  %25windir%25\system32\xcopy "$(TargetDir)Canary" "$(SolutionDir)CanaryBuild\" /Y /I
+  %25windir%25\system32\xcopy "$(TargetDir)$(TargetName)Canary.exe" "$(SolutionDir)CanaryBuild\" /Y /I
+  rename "$(SolutionDir)CanaryBuild\$(TargetName)Canary.exe" "Canary"
+  del $(TargetName)Canary.exe
 )
 if $(ConfigurationName) == Release (
   del $(SolutionDir)CanaryBuild\Canary

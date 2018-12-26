@@ -55,7 +55,7 @@ namespace BrawlCrate
         public string commitIDlong = "";
         public static readonly string mainBranch = "brawlcrate-master";
         public static string currentBranch { get { return GetCurrentBranch(); } set { SetCurrentBranch(value); } }
-        static string GetCurrentBranch()
+        private static string GetCurrentBranch()
         {
             try
             {
@@ -78,10 +78,14 @@ namespace BrawlCrate
                 return mainBranch;
             }
         }
-        static void SetCurrentBranch(string newBranch)
+        private static void SetCurrentBranch(string newBranch)
         {
+            DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
+            CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             if (newBranch == null || newBranch == "")
                 newBranch = mainBranch;
+            if (currentBranch == newBranch)
+                return;
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
             using (var sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
@@ -89,6 +93,7 @@ namespace BrawlCrate
                 sw.Write(newBranch);
                 sw.Close();
             }
+            MessageBox.Show("The canary updater will now track the " + newBranch + " branch, starting with the next canary update.", "Branch Changed");
         }
 
         public MainForm()

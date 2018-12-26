@@ -21,7 +21,7 @@ namespace BrawlLib.SSBB.Types
     {
         public const int Size = 20;
 
-        public bint _unknown00;
+        public bint _battleType;
         public bint _stageID1;
         public bint _stageID2;
         public bint _stageID3;
@@ -56,7 +56,7 @@ namespace BrawlLib.SSBB.Types
 
         public byte _unknown00;
         public byte _handicap;
-        public byte _unknown02;
+        public byte _aiLevel;
         public byte _unknown03;
         public bshort _offenseRatio;
         public bshort _defenseRatio;

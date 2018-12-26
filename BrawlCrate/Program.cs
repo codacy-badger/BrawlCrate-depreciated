@@ -16,12 +16,11 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.18Hotfix1";
-        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.18 Hotfix 1! This release:\n" +
-            "\n- Adds additional parsing for IDs for BRSAR subnodes" +
-			"\n- Fixes Save As functionality" +
-            "\n- Fixes issue where volume settings were not properly loaded" +
-            "\n- Fixes broken \"Close all open windows\" functionality in the updater" +
+        public static readonly string TagName = "BrawlCrate_v0.19";
+        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.19! This release:\n" +
+            "\n- Greatly improved classic mode parsing" +
+			"\n- Settings have been expanded and reorganized" +
+            "\n- Canary now uses a much more stable and robust hook" +
             "\n\nFull changelog can be found in the installation folder:\n" + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
         public static readonly string AssemblyTitle;
@@ -147,10 +146,12 @@ namespace BrawlCrate
                     BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
                     BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
                     BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
+                    BrawlCrate.Properties.Settings.Default.Save();
                 }
                 else
                 {
                     BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
+                    BrawlCrate.Properties.Settings.Default.Save();
                 }
                 if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
                     ForceDownloadCanary();
