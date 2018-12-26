@@ -175,8 +175,8 @@ namespace BrawlLib.SSBB.ResourceNodes
 
     public unsafe class ClassicFighterNode : ResourceNode
     {
-
-    private ClassicTblHeader _header;
+        public override bool supportsCompression { get { return false; } }
+        private ClassicTblHeader _header;
 
         public enum StatusEnum : byte
         {
