@@ -14,13 +14,18 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override ResourceType ResourceType => ResourceType.Container;
 
+        [Category("Classic Mode Battle")]
         public ClassicBattleType BattleType { get { return (ClassicBattleType)((int)data._battleType); } set { data._battleType = (bint)((int)value); SignalPropertyChange(); } }
+        [Category("Stage List")]
         [TypeConverter(typeof(DropDownListStageIDs))]
         public int StageID1 { get { return data._stageID1; } set { data._stageID1 = (ushort)value; SignalPropertyChange(); } }
+        [Category("Stage List")]
         [TypeConverter(typeof(DropDownListStageIDs))]
         public int StageID2 { get { return data._stageID2; } set { data._stageID2 = (ushort)value; SignalPropertyChange(); } }
+        [Category("Stage List")]
         [TypeConverter(typeof(DropDownListStageIDs))]
         public int StageID3 { get { return data._stageID3; } set { data._stageID3 = (ushort)value; SignalPropertyChange(); } }
+        [Category("Stage List")]
         [TypeConverter(typeof(DropDownListStageIDs))]
         public int StageID4 { get { return data._stageID4; } set { data._stageID4 = (ushort)value; SignalPropertyChange(); } }
 
@@ -95,9 +100,9 @@ namespace BrawlLib.SSBB.ResourceNodes
     {
         private ClassicDifficultyData data;
 
-
-        [Category("Unknown")]
-        [DisplayName("Unknown 00")]
+        [Browsable(false)]
+        [Category("Fighter")]
+        [DisplayName("Ally Status")]
         public byte Unknown00 { get { return data._unknown00; } set { data._unknown00 = value; SignalPropertyChange(); } }
         [Category("Fighter")]
         [DisplayName("Handicap")]
@@ -196,6 +201,23 @@ namespace BrawlLib.SSBB.ResourceNodes
         [Category("Fighter")]
         [DisplayName("Fighter Scale")]
         public float FighterScale { get { return _header._fighterscale; } set { _header._fighterscale = value; SignalPropertyChange(); } }
+
+        [Category("Fighter")]
+        [DisplayName("Player Ally")]
+        public bool IsAlly
+        {
+            get
+            {
+                if (Children.Count > 0)
+                    return ((ClassicDifficultyNode)Children[0]).Unknown00 == 0;
+                return false;
+            }
+            set
+            {
+                if (Children.Count > 0)
+                    ((ClassicDifficultyNode)Children[0]).Unknown00 = value ? (byte)0 : (byte)1;
+            }
+        }
 
         public override bool OnInitialize()
         {
