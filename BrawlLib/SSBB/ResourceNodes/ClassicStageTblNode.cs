@@ -105,30 +105,30 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Ally Status")]
         public byte Unknown00 { get { return data._unknown00; } set { data._unknown00 = value; SignalPropertyChange(); } }
         [Category("Fighter")]
-        [DisplayName("Handicap")]
-        public byte Handicap { get { return data._handicap; } set { data._handicap = value; SignalPropertyChange(); } }
-        [Category("Unknown")]
-        [DisplayName("Unknown 02")]
-        public byte Unknown02 { get { return data._unknown02; } set { data._unknown02 = value; SignalPropertyChange(); } }
+        [DisplayName("CostumeID")]
+        public byte CostumeID { get { return data._color; } set { data._color = value; SignalPropertyChange(); } }
+        [Category("AI")]
+        [DisplayName("CPU Level")]
+        public byte CPULevel { get { return data._aiLevel; } set { data._aiLevel = value; SignalPropertyChange(); } }
+        [Category("AI")]
+        [DisplayName("AI Type")]
+        [TypeConverter(typeof(DropDownListAITypes))]
+        public byte AIType { get { return data._aiType; } set { data._aiType = (byte)value; SignalPropertyChange(); } }
         [Category("Unknown")]
         [DisplayName("Unknown 03")]
         public byte Unknown03 { get { return data._unknown03; } set { data._unknown03 = value; SignalPropertyChange(); } }
+        [Category("Fighter")]
+        [DisplayName("Stocks")]
+        public byte Stock { get { return data._stock; } set { data._stock = value; SignalPropertyChange(); } }
+        [Category("Fighter")]
+        [DisplayName("Handicap")]
+        public byte Handicap { get { return data._handicap; } set { data._handicap = value; SignalPropertyChange(); } }
         [Category("Fighter")]
         [DisplayName("Offense Ratio")]
         public short OffenseRatio { get { return data._offenseRatio; } set { data._offenseRatio = value; SignalPropertyChange(); } }
         [Category("Fighter")]
         [DisplayName("Defense Ratio")]
         public short DefenseRatio { get { return data._defenseRatio; } set { data._defenseRatio = value; SignalPropertyChange(); } }
-        [Category("Fighter")]
-        [DisplayName("AI Type")]
-        [TypeConverter(typeof(DropDownListAITypes))]
-        public byte AIType { get { return data._aiType; } set { data._aiType = (byte)value; SignalPropertyChange(); } }
-        [Category("Fighter")]
-        [DisplayName("CostumeID")]
-        public byte CostumeID { get { return data._color; } set { data._color = value; SignalPropertyChange(); } }
-        [Category("Fighter")]
-        [DisplayName("Number of Stocks")]
-        public byte Stock { get { return data._stock; } set { data._stock = value; SignalPropertyChange(); } }
         [Category("Unknown")]
         [DisplayName("Unknown 0b")]
         public byte Unknown0b { get { return data._unknown0b; } set { data._unknown0b = value; SignalPropertyChange(); } }

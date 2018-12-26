@@ -56,7 +56,7 @@ namespace BrawlLib.SSBB.Types
 
         public byte _unknown00;
         public byte _handicap;
-        public byte _unknown02;
+        public byte _aiLevel;
         public byte _unknown03;
         public bshort _offenseRatio;
         public bshort _defenseRatio;
