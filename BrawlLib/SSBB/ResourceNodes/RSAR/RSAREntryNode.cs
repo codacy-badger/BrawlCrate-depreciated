@@ -35,7 +35,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 string field0 = (value.ToString() ?? "").Split(' ')[0];
                 int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase) ? 16 : 10;
-                int intValue = Convert.ToByte(field0, fromBase);
+                int intValue = Convert.ToInt32(field0, fromBase);
                 int i = 0;
                 Type t = GetType();
                 switch (t.Name)
