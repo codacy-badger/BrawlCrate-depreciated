@@ -90,7 +90,7 @@ namespace BrawlCrate
             ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
             try
             {
-                string url = "https://github.com/soopercool101/BrawlCrate/blob/" + newBranch + "/CanaryBuild/Canary";
+                string url = "https://github.com/soopercool101/BrawlCrate/blob/" + newBranch + "/CanaryBuild/CanaryREADME.md";
                 WebClient x = new WebClient();
                 string source = x.DownloadString(url);
                 string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
