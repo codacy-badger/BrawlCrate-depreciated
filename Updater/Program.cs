@@ -935,6 +935,33 @@ namespace Net
                 return;
             }
         }
+
+        public static async Task KillOpenWindows()
+        {
+            //Find and close the BrawlCrate application that will be overwritten
+            TRY_AGAIN:
+            Process[] px = Process.GetProcessesByName("BrawlCrate");
+            Process[] pToClose = px.Where(x => x.MainModule.FileName.Equals(AppPath + "\\BrawlCrate.exe")).ToArray();
+            Process p = px.FirstOrDefault(x => x.MainModule.FileName.Equals(AppPath + "\\BrawlCrate.exe"));
+            if (p != null && p != default(Process) && px != null && pToClose != null && pToClose.Length > 1)
+            {
+                try
+                {
+                    foreach (Process pNext in pToClose)
+                        pNext.Kill();
+                    await Task.Delay(50);
+                }
+                catch (Exception xp)
+                {
+                    MessageBox.Show(xp.Message);
+                }
+                goto TRY_AGAIN;
+            }
+            else if (p != null && p != default(Process))
+            {
+                p.Kill();
+            }
+        }
     }
 
     public static class BugSquish
@@ -959,7 +986,7 @@ namespace Net
                 var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
                 IReadOnlyList<Release> releases = null;
                 IReadOnlyList<Issue> issues = null;
-                if (!TagName.StartsWith("BrawlCrateCanary#", StringComparison.OrdinalIgnoreCase))
+                if (!TagName.StartsWith("BrawlCrate Canary", StringComparison.OrdinalIgnoreCase))
                 {
                     try
                     {
@@ -1120,6 +1147,11 @@ namespace Net
                         somethingDone = true;
                         Task t9 = Updater.SetCanaryInactive();
                         t9.Wait();
+                        break;
+                    case "-killAll":
+                        somethingDone = true;
+                        Task t10 = Updater.KillOpenWindows();
+                        t10.Wait();
                         break;
                 }
             }

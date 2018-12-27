@@ -12,6 +12,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using System.Configuration;
+using System.Net;
+using System.Text.RegularExpressions;
 
 namespace BrawlCrate
 {
@@ -54,8 +56,8 @@ namespace BrawlCrate
         public string commitIDshort = "";
         public string commitIDlong = "";
         public static readonly string mainBranch = "brawlcrate-master";
-        public static string currentBranch = GetCurrentBranch();
-        static string GetCurrentBranch()
+        public static string currentBranch { get { return GetCurrentBranch(); } set { SetCurrentBranch(value); } }
+        private static string GetCurrentBranch()
         {
             try
             {
@@ -68,14 +70,51 @@ namespace BrawlCrate
             {
                 DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
                 CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
                 using (var sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
                 {
-                    currentBranch = mainBranch;
                     sw.Write(mainBranch);
                     sw.Close();
                 }
                 return mainBranch;
             }
+        }
+        private static void SetCurrentBranch(string newBranch)
+        {
+            if (newBranch == null || newBranch == "")
+                newBranch = mainBranch;
+            if (currentBranch == newBranch)
+                return;
+            // Check if Branch is valid
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            try
+            {
+                string url = "https://github.com/soopercool101/BrawlCrate/blob/" + newBranch + "/CanaryBuild/Canary";
+                WebClient x = new WebClient();
+                string source = x.DownloadString(url);
+                string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+                if (title.Contains("not found", StringComparison.OrdinalIgnoreCase))
+                {
+                    MessageBox.Show(newBranch + " was not found as a valid branch of the BrawlCrate repository, or does not support Canary builds.");
+                    return;
+                }
+            }
+            catch
+            {
+                MessageBox.Show(newBranch + " was not found as a valid branch of the BrawlCrate repository, or does not support Canary builds.");
+                return;
+            }
+            DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
+            CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
+            using (var sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+            {
+                sw.Write(newBranch);
+                sw.Close();
+            }
+            MessageBox.Show("The canary updater will now track the " + newBranch + " branch, starting with the next canary update.", "Branch Changed");
         }
 
         public MainForm()
