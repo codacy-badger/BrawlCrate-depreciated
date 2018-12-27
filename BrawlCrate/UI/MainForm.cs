@@ -91,18 +91,20 @@ namespace BrawlCrate
             try
             {
                 string url = "https://github.com/soopercool101/BrawlCrate/blob/" + newBranch + "/CanaryBuild/CanaryREADME.md";
-                WebClient x = new WebClient();
-                string source = x.DownloadString(url);
-                string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
-                if (title.Contains("not found", StringComparison.OrdinalIgnoreCase))
+                using (WebClient x = new WebClient())
                 {
-                    MessageBox.Show(newBranch + " was not found as a valid branch of the BrawlCrate repository, or does not support Canary builds.");
-                    return;
+                    string source = x.DownloadString(url);
+                    string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+                    if (title.Contains("not found", StringComparison.OrdinalIgnoreCase))
+                    {
+                        MessageBox.Show(newBranch + " was not found as a valid branch of the BrawlCrate repository, or does not properly support Canary builds.");
+                        return;
+                    }
                 }
             }
             catch
             {
-                MessageBox.Show(newBranch + " was not found as a valid branch of the BrawlCrate repository, or does not support Canary builds.");
+                MessageBox.Show(newBranch + " was not found as a valid branch of the BrawlCrate repository, or does not properly support Canary builds.");
                 return;
             }
             DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
