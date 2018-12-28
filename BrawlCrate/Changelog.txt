@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.19 Hotfix 1
+BrawlCrate - v0.20
 Copyright © 2018 soopercool101, MarioDox, Syvkal
 BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,10 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.20 - (12/28/2019)
+ . Added complete support for DukeItOut's 50 Costume Code featured in Legacy TE 2.1
+   - Right click a stock texture in Info.pac to convert between the two systems
  
  - BrawlCrate v0.19 Hotfix 1 - (12/27/2018)
  . Fix issue where InfoIndex editing for BRSAR entries only worked up to 255 (0x000000FF) 
