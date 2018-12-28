@@ -16,11 +16,12 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.19";
+        public static readonly string TagName = "BrawlCrate_v0.19Hotfix1";
         public static readonly string UpdateMessage = "Updated to BrawlCrate v0.19! This release:\n" +
             "\n- Greatly improved classic mode parsing" +
 			"\n- Settings have been expanded and reorganized" +
             "\n- Canary now uses a much more stable and robust hook" +
+			"\n- (Hotfix 1) Fixes issue where InfoIndex could not be edited properly" +
             "\n\nFull changelog can be found in the installation folder:\n" + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
         public static readonly string AssemblyTitle;
