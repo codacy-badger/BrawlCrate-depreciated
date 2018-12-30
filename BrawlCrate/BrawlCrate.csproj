@@ -219,8 +219,14 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="OpenTK, Version=3.0.1.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenTK.3.0.1\lib\net20\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="RazorEngine, Version=3.10.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorEngine.3.10.0\lib\net40\RazorEngine.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -230,11 +236,186 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Managers\CostumeManager\CostumeManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Managers\CostumeManager\CostumeManager.Designer.cs">
+      <DependentUpon>CostumeManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\CostumeManager\FighterFile.cs" />
+    <Compile Include="Managers\CostumeManager\KirbyCopy.cs" />
+    <Compile Include="Managers\CostumeManager\ModelManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Managers\CostumeManager\ModelManager.Designer.cs">
+      <DependentUpon>ModelManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\CostumeManager\Portrait Viewers\BattleSinglePortraitViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Managers\CostumeManager\Portrait Viewers\CostumeNumberLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Managers\CostumeManager\Portrait Viewers\CSSPortraitViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Managers\CostumeManager\Portrait Viewers\InfoStockIconViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Managers\CostumeManager\Portrait Viewers\PortraitViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Managers\CostumeManager\Portrait Viewers\PortraitViewerTextureData.cs" />
+    <Compile Include="Managers\CostumeManager\Portrait Viewers\ResultSinglePortraitViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Managers\CostumeManager\Portrait Viewers\SinglePortraitViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Managers\CostumeManager\Portrait Viewers\SinglePortraitViewer.Designer.cs">
+      <DependentUpon>SinglePortraitViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\CostumeManager\PortraitMap.cs" />
+    <Compile Include="Managers\CostumeManager\Program.cs" />
+    <Compile Include="Managers\SongManager\CustomSongVolumeEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Managers\SongManager\CustomSongVolumeEditor.Designer.cs">
+      <DependentUpon>CustomSongVolumeEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\SongManager\CustomSongVolumeStatusForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Managers\SongManager\CustomSongVolumeStatusForm.Designer.cs">
+      <DependentUpon>CustomSongVolumeStatusForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\SongManager\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Managers\SongManager\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\SongManager\Program.cs" />
+    <Compile Include="Managers\SongManager\ReadOnlySearchableRichTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Managers\SongManager\SongExport\SongEditor.cs" />
+    <Compile Include="Managers\SongManager\SongExport\SongExporter.cs" />
+    <Compile Include="Managers\SongManager\SongExport\SongImporter.cs" />
+    <Compile Include="Managers\SongManager\SongInfo.cs" />
+    <Compile Include="Managers\SongManager\SongsByStage.cs" />
+    <Compile Include="Managers\SSSEditor\PairListModel.cs" />
+    <Compile Include="Managers\SSSEditor\Program.cs" />
+    <Compile Include="Managers\SSSEditor\Resources.cs" />
+    <Compile Include="Managers\SSSEditor\SSSEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Managers\SSSEditor\SSSEditorForm.Designer.cs">
+      <DependentUpon>SSSEditorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\SSSEditor\SSSPrev.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Managers\SSSEditor\SSSPrev.Designer.cs">
+      <DependentUpon>SSSPrev.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\SSSEditor\StagePair.cs" />
+    <Compile Include="Managers\SSSEditor\UpDownKeyAwareRadioButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Managers\StageManager\IconsToMenumain.cs" />
+    <Compile Include="Managers\StageManager\ImagePreviewPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Managers\StageManager\ListControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Managers\StageManager\ListControl.Designer.cs">
+      <DependentUpon>ListControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\StageManager\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Managers\StageManager\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\StageManager\MSBinViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Managers\StageManager\NameCreator.cs" />
+    <Compile Include="Managers\StageManager\NameCreatorDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Managers\StageManager\NameCreatorDialog.Designer.cs">
+      <DependentUpon>NameCreatorDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\StageManager\NameCreatorSettings.cs" />
+    <Compile Include="Managers\StageManager\PortraitViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Managers\StageManager\PortraitViewer.Designer.cs">
+      <DependentUpon>PortraitViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\StageManager\Program.cs" />
+    <Compile Include="Managers\StageManager\SingleUseDialogs\AskNameDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Managers\StageManager\SingleUseDialogs\AskNameDialog.Designer.cs">
+      <DependentUpon>AskNameDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\StageManager\SingleUseDialogs\BatchAddPAT0Dialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Managers\StageManager\SingleUseDialogs\BatchAddPAT0Dialog.Designer.cs">
+      <DependentUpon>BatchAddPAT0Dialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\StageManager\SingleUseDialogs\ConfirmIconReplaceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Managers\StageManager\SingleUseDialogs\ConfirmIconReplaceDialog.Designer.cs">
+      <DependentUpon>ConfirmIconReplaceDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\StageManager\SingleUseDialogs\CopyPacRelDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Managers\StageManager\SingleUseDialogs\CopyPacRelDialog.Designer.cs">
+      <DependentUpon>CopyPacRelDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\StageManager\SingleUseDialogs\EnterSizeDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Managers\StageManager\SingleUseDialogs\EnterSizeDialog.Designer.cs">
+      <DependentUpon>EnterSizeDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\StageManager\SingleUseDialogs\ModifyPAT0Dialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Managers\StageManager\SingleUseDialogs\ModifyPAT0Dialog.Designer.cs">
+      <DependentUpon>ModifyPAT0Dialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\StageManager\SingleUseDialogs\RandomSelectEditNamesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Managers\StageManager\SingleUseDialogs\RandomSelectEditNamesDialog.Designer.cs">
+      <DependentUpon>RandomSelectEditNamesDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\StageManager\SongListItem.cs" />
+    <Compile Include="Managers\StageManager\SongsByStageID.cs" />
+    <Compile Include="Managers\StageManager\StageInfoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Managers\StageManager\StageInfoControl.Designer.cs">
+      <DependentUpon>StageInfoControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\StageManager\TEX0Extension.cs" />
     <Compile Include="NodeWrappers\Audio\RSARGroupWrapper.cs" />
     <Compile Include="UI\SplashForm.cs">
       <SubType>Form</SubType>
@@ -250,6 +431,10 @@
     </Compile>
     <None Include="app.config" />
     <None Include="app.manifest" />
+    <None Include="Managers\CostumeManager\README.md" />
+    <None Include="Managers\SSSEditor\App.config" />
+    <None Include="Managers\SSSEditor\packages.config" />
+    <EmbeddedResource Include="Managers\SSSEditor\PairList.cshtml" />
     <None Include="NodeWrappers\BMDWrapper.cs" />
     <None Include="NodeWrappers\RARCWrapper.cs" />
     <None Include="NodeWrappers\FMDLWrapper.cs" />
@@ -413,6 +598,80 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Managers\CostumeManager\CostumeManager.resx">
+      <DependentUpon>CostumeManager.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\CostumeManager\ModelManager.resx">
+      <DependentUpon>ModelManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\CostumeManager\Portrait Viewers\CSSPortraitViewer.resx">
+      <DependentUpon>CSSPortraitViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\CostumeManager\Portrait Viewers\InfoStockIconViewer.resx">
+      <DependentUpon>InfoStockIconViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\CostumeManager\Portrait Viewers\SinglePortraitViewer.resx">
+      <DependentUpon>SinglePortraitViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\SongManager\CustomSongVolumeEditor.resx">
+      <DependentUpon>CustomSongVolumeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\SongManager\CustomSongVolumeStatusForm.resx">
+      <DependentUpon>CustomSongVolumeStatusForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\SongManager\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\SSSEditor\SSSEditorForm.resx">
+      <DependentUpon>SSSEditorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\SSSEditor\SSSPrev.resx">
+      <DependentUpon>SSSPrev.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\StageManager\ListControl.resx">
+      <DependentUpon>ListControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\StageManager\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\StageManager\MSBinViewer.resx">
+      <DependentUpon>MSBinViewer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\StageManager\NameCreatorDialog.resx">
+      <DependentUpon>NameCreatorDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\StageManager\PortraitViewer.resx">
+      <DependentUpon>PortraitViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\StageManager\SingleUseDialogs\AskNameDialog.resx">
+      <DependentUpon>AskNameDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\StageManager\SingleUseDialogs\BatchAddPAT0Dialog.resx">
+      <DependentUpon>BatchAddPAT0Dialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\StageManager\SingleUseDialogs\ConfirmIconReplaceDialog.resx">
+      <DependentUpon>ConfirmIconReplaceDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\StageManager\SingleUseDialogs\CopyPacRelDialog.resx">
+      <DependentUpon>CopyPacRelDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\StageManager\SingleUseDialogs\EnterSizeDialog.resx">
+      <DependentUpon>EnterSizeDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\StageManager\SingleUseDialogs\ModifyPAT0Dialog.resx">
+      <DependentUpon>ModifyPAT0Dialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\StageManager\SingleUseDialogs\RandomSelectEditNamesDialog.resx">
+      <DependentUpon>RandomSelectEditNamesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\StageManager\StageInfoControl.resx">
+      <DependentUpon>StageInfoControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -586,6 +845,31 @@
   <ItemGroup>
     <Content Include="BrawlCrate.ico" />
     <None Include="Resources\BrawlCrateLogo.png" />
+    <Content Include="Managers\CostumeManager\BrawlCostumeManager.txt" />
+    <Content Include="Managers\CostumeManager\icon.ico" />
+    <Content Include="Managers\SongManager\BrawlSongManager.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Managers\SongManager\sicon.ico" />
+    <EmbeddedResource Include="Managers\SongManager\speaker.png" />
+    <EmbeddedResource Include="Managers\SSSEditor\About.html" />
+    <Content Include="Managers\SSSEditor\downarr.png" />
+    <Content Include="Managers\SSSEditor\icon.ico" />
+    <EmbeddedResource Include="Managers\SSSEditor\jquery.min.js" />
+    <Content Include="Managers\SSSEditor\SSSEditor.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Managers\SSSEditor\stageicon.png" />
+    <Content Include="Managers\SSSEditor\uparr.png" />
+    <EmbeddedResource Include="Managers\StageManager\border.png" />
+    <Content Include="Managers\StageManager\BrawlStageManager.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Managers\StageManager\button-l.png" />
+    <EmbeddedResource Include="Managers\StageManager\button-start.png" />
+    <EmbeddedResource Include="Managers\StageManager\button-z.png" />
+    <Content Include="Managers\StageManager\icon.ico" />
+    <EmbeddedResource Include="Managers\StageManager\XX.png" />
     <Content Include="Resources\GCAM.png" />
     <Content Include="Resources\GIB2.png" />
     <Content Include="Resources\GITM.png" />
@@ -624,6 +908,7 @@
       <Name>BrawlLib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="PostBuildMacros">
     <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">

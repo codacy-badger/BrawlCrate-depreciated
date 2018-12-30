@@ -226,6 +226,65 @@
     <None Include="System\ComponentModel\CustomPropertyDescriptor.cs" />
     <None Include="System\ComponentModel\DelegatePropertyDescriptor.cs" />
     <Compile Include="BrawlCrate\Generate1to1Stages.cs" />
+    <Compile Include="Managers\AboutBSM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Managers\AboutBSM.Designer.cs">
+      <DependentUpon>AboutBSM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\BitmapUtilities.cs" />
+    <Compile Include="Managers\BrawlSplitter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Managers\ByteUtilities.cs" />
+    <Compile Include="Managers\CopyDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Managers\CopyDialog.Designer.cs">
+      <DependentUpon>CopyDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\FileOperations.cs" />
+    <Compile Include="Managers\GCT\AlternateStageEntry.cs" />
+    <Compile Include="Managers\GCT\ReadOnly\AlternateStageLoaderData.cs" />
+    <Compile Include="Managers\GCT\ReadOnly\AltStageSongForcer.cs" />
+    <Compile Include="Managers\GCT\ReadOnly\CMM.cs" />
+    <Compile Include="Managers\GCT\ReadOnly\CNMT.cs" />
+    <Compile Include="Managers\GCT\ReadOnly\StageDependentSongLoader.cs" />
+    <Compile Include="Managers\GCT\ReadOnly\TracklistModifier.cs" />
+    <Compile Include="Managers\GCT\ReadWrite\CustomSongVolumeCodeset.cs" />
+    <Compile Include="Managers\GCT\ReadWrite\CustomSSSCodeset.cs" />
+    <Compile Include="Managers\NameDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Managers\ProgressDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Managers\ProgressDialog.Designer.cs">
+      <DependentUpon>ProgressDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\Songs\Song.cs" />
+    <Compile Include="Managers\Songs\SongIDMap.cs" />
+    <Compile Include="Managers\Songs\SongNameBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Managers\Songs\SongNameBar.Designer.cs">
+      <DependentUpon>SongNameBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\Songs\SongPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Managers\Songs\SongPanel.Designer.cs">
+      <DependentUpon>SongPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\StageIDMap.cs" />
+    <Compile Include="Managers\TempFiles.cs" />
+    <Compile Include="Managers\TextBoxDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Managers\TextBoxDialog.Designer.cs">
+      <DependentUpon>TextBoxDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\TextureContainer.cs" />
     <Compile Include="Modeling\Collada\ColladaImportDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1085,6 +1144,28 @@
     <Compile Include="Wii\Textures\TextureConverter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Managers\AboutBSM.resx">
+      <DependentUpon>AboutBSM.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\CopyDialog.resx">
+      <DependentUpon>CopyDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\NameDialog.resx">
+      <DependentUpon>NameDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\ProgressDialog.resx">
+      <DependentUpon>ProgressDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\Songs\SongNameBar.resx">
+      <DependentUpon>SongNameBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\Songs\SongPanel.resx">
+      <DependentUpon>SongPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Managers\TextBoxDialog.resx">
+      <DependentUpon>TextBoxDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="OpenGL\GLPanel.resx">
       <DependentUpon>GLPanel.cs</DependentUpon>
     </EmbeddedResource>
