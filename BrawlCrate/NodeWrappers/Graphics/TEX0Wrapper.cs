@@ -126,8 +126,6 @@ namespace BrawlCrate.NodeWrappers
                             {
                                 if (isStockEx && tx0.Name.Length < 11)
                                     continue;
-                                if (!isStockEx && tx0.Name.Length != 10)
-                                    continue;
                             }
                             // Add the matching texture to the texture list for the PAT0
                             textureList.Add(tx0.Name);
@@ -287,7 +285,7 @@ namespace BrawlCrate.NodeWrappers
                 {
                     if (_resource.Name.Substring(_resource.Name.LastIndexOf(".") + 1, _resource.Name.Length - (_resource.Name.LastIndexOf(".") + 1)).Length == 3)
                     {
-                        ConvertToStock40();
+                        ConvertToStock50();
                         return;
                     }
                     else if (_resource.Name.Substring(_resource.Name.LastIndexOf(".") + 1, _resource.Name.Length - (_resource.Name.LastIndexOf(".") + 1)).Length == 4)
@@ -299,13 +297,14 @@ namespace BrawlCrate.NodeWrappers
             }
         }
 
-        public void ConvertToStock40()
+        public void ConvertToStock50()
         {
             string matchName = _resource.Name.Substring(0, _resource.Name.LastIndexOf(".")) + ".";
+            string matchNameX = _resource.Name.Substring(0, _resource.Name.LastIndexOf(".")) + "X.";
             List<TEX0Node> texList = new List<TEX0Node>();
             foreach (TEX0Node tx0 in _resource.Parent.Children)
             {
-                if (tx0.Name.StartsWith(matchName) && tx0.Name.LastIndexOf(".") > 0 && tx0.Name.LastIndexOf(".") < tx0.Name.Length && tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1).Length == 3 && int.TryParse(tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1, tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int x) && x >= 0)
+                if (tx0.Name.StartsWith(matchName) && tx0.Name.LastIndexOf(".") > 0 && tx0.Name.LastIndexOf(".") < tx0.Name.Length && int.TryParse(tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1, tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int x) && x >= 0)
                 {
                     if (x <= 0) // 0 edge case
                         tx0.texSortNum = 0;
@@ -328,6 +327,12 @@ namespace BrawlCrate.NodeWrappers
                     if (tx0.HasPalette)
                         tx0.GetPaletteNode().Name = "InfStc." + tx0.texSortNum.ToString("0000");
                     tx0.Name = "InfStc." + tx0.texSortNum.ToString("0000");
+                }
+                else if (tx0.Name.StartsWith(matchNameX) && tx0.Name.LastIndexOf(".") > 0 && tx0.Name.LastIndexOf(".") < tx0.Name.Length && int.TryParse(tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1, tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int x2) && x2 >= 0)
+                {
+                    if (tx0.HasPalette)
+                        tx0.GetPaletteNode().Name = "InfStc." + x2.ToString("0000");
+                    tx0.Name = "InfStc." + x2.ToString("0000");
                 }
             }
             PAT0Node newPat0 = GeneratePAT0(true);
@@ -382,7 +387,11 @@ namespace BrawlCrate.NodeWrappers
                     foreach (FileInfo infFace in d.GetFiles())
                     {
                         Console.WriteLine(infFaceFolder + '\\' + infFace.Name);
-                        if (infFace.Name.StartsWith("InfFace") && infFace.Name.EndsWith(".brres", StringComparison.CurrentCultureIgnoreCase) && infFace.Name.Length == 16 && int.TryParse(infFace.Name.Substring(7, 3), out int x) && x >= 0)
+                        if (infFace.Name.StartsWith("InfFaceX") && infFace.Name.EndsWith(".brres", StringComparison.CurrentCultureIgnoreCase) && int.TryParse(infFace.Name.Substring(8, 4), out int x2) && x2 >= 0)
+                        {
+                            infFace.MoveTo(infFaceFolder + '\\' + "InfFace" + x2.ToString("0000") + ".brres");
+                        }
+                        else if (infFace.Name.StartsWith("InfFace") && infFace.Name.EndsWith(".brres", StringComparison.CurrentCultureIgnoreCase) && int.TryParse(infFace.Name.Substring(7, 3), out int x) && x >= 0)
                         {
                             int n = x;
                             if (x <= 0) // 0 edge case
@@ -423,10 +432,11 @@ namespace BrawlCrate.NodeWrappers
         public void ConvertToStockDefault()
         {
             string matchName = _resource.Name.Substring(0, _resource.Name.LastIndexOf(".")) + ".";
+            string matchNameX = _resource.Name.Substring(0, _resource.Name.LastIndexOf(".")) + "X.";
             List<TEX0Node> texList = new List<TEX0Node>();
             foreach (TEX0Node tx0 in _resource.Parent.Children)
             {
-                if (tx0.Name.StartsWith(matchName) && tx0.Name.LastIndexOf(".") > 0 && tx0.Name.LastIndexOf(".") < tx0.Name.Length && tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1).Length == 4 && int.TryParse(tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1, tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int x) && x >= 0)
+                if (tx0.Name.StartsWith(matchName) && tx0.Name.LastIndexOf(".") > 0 && tx0.Name.LastIndexOf(".") < tx0.Name.Length && int.TryParse(tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1, tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int x) && x >= 0)
                 {
                     tx0.texSortNum = x;
                     if (x <= 0) // 0 edge case
@@ -463,6 +473,12 @@ namespace BrawlCrate.NodeWrappers
                         if (tx0.HasPalette)
                             tx0.GetPaletteNode().Name = "InfStc." + tx0.texSortNum.ToString("000");
                         tx0.Name = "InfStc." + tx0.texSortNum.ToString("000");
+                    }
+                    else
+                    {
+                        if (tx0.HasPalette)
+                            tx0.GetPaletteNode().Name = "InfStcX." + tx0.texSortNum.ToString("0000");
+                        tx0.Name = "InfStcX." + tx0.texSortNum.ToString("0000");
                     }
                 }
             }
@@ -518,7 +534,8 @@ namespace BrawlCrate.NodeWrappers
                     foreach (FileInfo infFace in d.GetFiles())
                     {
                         Console.WriteLine(infFaceFolder + '\\' + infFace.Name);
-                        if (infFace.Name.StartsWith("InfFace") && infFace.Name.EndsWith(".brres", StringComparison.CurrentCultureIgnoreCase) && infFace.Name.Length == 17 && int.TryParse(infFace.Name.Substring(7, 4), out int x) && x >= 0)
+
+                        if (infFace.Name.StartsWith("InfFace") && !infFace.Name.StartsWith("InfFaceX") && infFace.Name.EndsWith(".brres", StringComparison.CurrentCultureIgnoreCase) && int.TryParse(infFace.Name.Substring(7, 4), out int x) && x >= 0)
                         {
                             int n = x;
                             if (x <= 0) // 0 edge case
@@ -549,6 +566,11 @@ namespace BrawlCrate.NodeWrappers
                                     n += 10;
 
                                 infFace.MoveTo(infFaceFolder + '\\' + "InfFace" + n.ToString("000") + ".brres");
+                                count++;
+                            }
+                            else
+                            {
+                                infFace.MoveTo(infFaceFolder + '\\' + "InfFaceX" + n.ToString("0000") + ".brres");
                                 count++;
                             }
                         }
