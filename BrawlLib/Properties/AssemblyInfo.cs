@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("BrawlCrate")]
 [assembly: AssemblyProduct("BrawlCrateLib")]
-[assembly: AssemblyCopyright(@"Copyright © 2018 soopercool101, MarioDox
+[assembly: AssemblyCopyright(@"Copyright © 2018 soopercool101, MarioDox, Syvkal
 BrawlLib Copyright © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie && Sammi Husky")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
