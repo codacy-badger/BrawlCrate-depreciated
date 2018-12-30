@@ -661,6 +661,8 @@ if $(ConfigurationName) == Documentation (
     <PostBuildEvent>cd $(TargetDir)
 del Octokit.dll
 del updater.exe
+del CustomLists\FighterList.txt
+del CustomLists\StageList.txt
 %25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Octokit.dll" "$(TargetDir)" /Y /I
 %25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Updater.exe" "$(TargetDir)" /Y /I
 if EXIST "$(SolutionDir)sawndz\bin\Release\sawndz.exe" (
