@@ -222,5 +222,20 @@ namespace BrawlCrate.Properties {
                 this["UpdateSettings"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("false")]
+        public bool AutoPlayAudio
+        {
+            get
+            {
+                return ((bool)(this["AutoPlayAudio"]));
+            }
+            set
+            {
+                this["AutoPlayAudio"] = value;
+            }
+        }
     }
 }

@@ -122,5 +122,50 @@ namespace BrawlLib.Properties
                 this["ImportPNGsWithPalettes"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("true")]
+        public bool AutoCompressStages
+        {
+            get
+            {
+                return (bool)(this["AutoCompressStages"]);
+            }
+            set
+            {
+                this["AutoCompressStages"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("true")]
+        public bool AutoDecompressFighterPAC
+        {
+            get
+            {
+                return (bool)(this["AutoDecompressFighterPAC"]);
+            }
+            set
+            {
+                this["AutoDecompressFighterPAC"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("true")]
+        public bool AutoCompressFighterPCS
+        {
+            get
+            {
+                return (bool)(this["AutoCompressFighterPCS"]);
+            }
+            set
+            {
+                this["AutoCompressFighterPCS"] = value;
+            }
+        }
     }
 }
