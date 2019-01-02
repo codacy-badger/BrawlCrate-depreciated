@@ -302,8 +302,11 @@ namespace BrawlCrate.NodeWrappers
             string matchName = _resource.Name.Substring(0, _resource.Name.LastIndexOf(".")) + ".";
             string matchNameX = _resource.Name.Substring(0, _resource.Name.LastIndexOf(".")) + "X.";
             List<TEX0Node> texList = new List<TEX0Node>();
-            foreach (TEX0Node tx0 in _resource.Parent.Children)
+            for (int i = _resource.Parent.Children.Count - 1; i >= 0; i--)
             {
+                if (!(_resource.Parent.Children[i] is TEX0Node))
+                    continue;
+                TEX0Node tx0 = (TEX0Node)_resource.Parent.Children[i];
                 if (tx0.Name.StartsWith(matchName) && tx0.Name.LastIndexOf(".") > 0 && tx0.Name.LastIndexOf(".") < tx0.Name.Length && int.TryParse(tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1, tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int x) && x >= 0)
                 {
                     if (x <= 0) // 0 edge case
@@ -327,12 +330,18 @@ namespace BrawlCrate.NodeWrappers
                     if (tx0.HasPalette)
                         tx0.GetPaletteNode().Name = "InfStc." + tx0.texSortNum.ToString("0000");
                     tx0.Name = "InfStc." + tx0.texSortNum.ToString("0000");
+                    if (((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStc." + x.ToString("000")).Count() > 0)
+                        foreach (PLT0Node p in ((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStc." + x.ToString("000")))
+                            p.Remove();
                 }
                 else if (tx0.Name.StartsWith(matchNameX) && tx0.Name.LastIndexOf(".") > 0 && tx0.Name.LastIndexOf(".") < tx0.Name.Length && int.TryParse(tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1, tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int x2) && x2 >= 0)
                 {
                     if (tx0.HasPalette)
                         tx0.GetPaletteNode().Name = "InfStc." + x2.ToString("0000");
                     tx0.Name = "InfStc." + x2.ToString("0000");
+                    if (((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStcX." + x2.ToString("0000")).Count() > 0)
+                        foreach (PLT0Node p in ((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStcX." + x2.ToString("0000")))
+                            p.Remove();
                 }
             }
             PAT0Node newPat0 = GeneratePAT0(true);
@@ -382,16 +391,20 @@ namespace BrawlCrate.NodeWrappers
                 try
                 {
                     DirectoryInfo d = Directory.CreateDirectory(infFaceFolder);
+                    DirectoryInfo d2 = Directory.CreateDirectory(infFaceFolder + '\\' + "temp");
                     Console.WriteLine(infFaceFolder);
                     int count = 0;
                     foreach (FileInfo infFace in d.GetFiles())
                     {
                         Console.WriteLine(infFaceFolder + '\\' + infFace.Name);
-                        if (infFace.Name.StartsWith("InfFaceX") && infFace.Name.EndsWith(".brres", StringComparison.CurrentCultureIgnoreCase) && int.TryParse(infFace.Name.Substring(8, 4), out int x2) && x2 >= 0)
+                        int properlength = infFace.Name.EndsWith(".brres", StringComparison.OrdinalIgnoreCase) ? infFace.Name.Length - ".brres".Length : infFace.Name.Length;
+                        Console.WriteLine(infFace.Name.Substring(7, properlength - 7));
+                        if (infFace.Name.StartsWith("InfFaceX") && infFace.Name.EndsWith(".brres", StringComparison.CurrentCultureIgnoreCase) && int.TryParse(infFace.Name.Substring(8, properlength - 8), out int x2) && x2 >= 0)
                         {
-                            infFace.MoveTo(infFaceFolder + '\\' + "InfFace" + x2.ToString("0000") + ".brres");
+                            infFace.MoveTo(infFaceFolder + '\\' + "temp" + '\\' + "InfFace" + x2.ToString("0000") + ".brres");
+                            count++;
                         }
-                        else if (infFace.Name.StartsWith("InfFace") && infFace.Name.EndsWith(".brres", StringComparison.CurrentCultureIgnoreCase) && int.TryParse(infFace.Name.Substring(7, 3), out int x) && x >= 0)
+                        else if (!infFace.Name.StartsWith("InfFaceX") && infFace.Name.StartsWith("InfFace") && infFace.Name.EndsWith(".brres", StringComparison.CurrentCultureIgnoreCase) && int.TryParse(infFace.Name.Substring(7, properlength - 7), out int x) && x >= 0)
                         {
                             int n = x;
                             if (x <= 0) // 0 edge case
@@ -412,10 +425,13 @@ namespace BrawlCrate.NodeWrappers
                                     (x >= 471 && x <= 474))   // Sonic Edge Case
                                     n -= 40;
                             }
-                            infFace.MoveTo(infFaceFolder + '\\' + "InfFace" + n.ToString("0000") + ".brres");
+                            infFace.MoveTo(infFaceFolder + '\\' + "temp" + '\\' + "InfFace" + n.ToString("0000") + ".brres");
                             count++;
                         }
                     }
+                    foreach (FileInfo infFace in d2.GetFiles())
+                        infFace.MoveTo(infFaceFolder + '\\' + infFace.Name + (infFace.Name.EndsWith(".brres", StringComparison.OrdinalIgnoreCase) ? "" : ".brres"));
+                    d2.Delete();
                     if (count > 0)
                         MessageBox.Show("InfFace conversion successful!");
                     else
@@ -434,8 +450,11 @@ namespace BrawlCrate.NodeWrappers
             string matchName = _resource.Name.Substring(0, _resource.Name.LastIndexOf(".")) + ".";
             string matchNameX = _resource.Name.Substring(0, _resource.Name.LastIndexOf(".")) + "X.";
             List<TEX0Node> texList = new List<TEX0Node>();
-            foreach (TEX0Node tx0 in _resource.Parent.Children)
+            for (int i = _resource.Parent.Children.Count - 1; i >= 0; i--)
             {
+                if (!(_resource.Parent.Children[i] is TEX0Node))
+                    continue;
+                TEX0Node tx0 = (TEX0Node)_resource.Parent.Children[i];
                 if (tx0.Name.StartsWith(matchName) && tx0.Name.LastIndexOf(".") > 0 && tx0.Name.LastIndexOf(".") < tx0.Name.Length && int.TryParse(tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1, tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int x) && x >= 0)
                 {
                     tx0.texSortNum = x;
@@ -445,6 +464,9 @@ namespace BrawlCrate.NodeWrappers
                         if (tx0.HasPalette)
                             tx0.GetPaletteNode().Name = "InfStc." + tx0.texSortNum.ToString("000");
                         tx0.Name = "InfStc." + tx0.texSortNum.ToString("000");
+                        if (((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStc." + x.ToString("0000")).Count() > 0)
+                            foreach (PLT0Node p in ((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStc." + x.ToString("0000")))
+                                p.Remove();
                     }
                     else if (x == 9001) // WarioMan edge case (should pre-program)
                     {
@@ -452,6 +474,9 @@ namespace BrawlCrate.NodeWrappers
                         if (tx0.HasPalette)
                             tx0.GetPaletteNode().Name = "InfStc." + tx0.texSortNum.ToString("000");
                         tx0.Name = "InfStc." + tx0.texSortNum.ToString("000");
+                        if (((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStc." + x.ToString("0000")).Count() > 0)
+                            foreach (PLT0Node p in ((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStc." + x.ToString("0000")))
+                                p.Remove();
                     }
                     else if ((x % 50 <= 10 && x % 50 != 0) ||
                              (x >= 0961 && x <= 0965) || // Ganon Edge Case
@@ -473,12 +498,18 @@ namespace BrawlCrate.NodeWrappers
                         if (tx0.HasPalette)
                             tx0.GetPaletteNode().Name = "InfStc." + tx0.texSortNum.ToString("000");
                         tx0.Name = "InfStc." + tx0.texSortNum.ToString("000");
+                        if(((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStc." + x.ToString("0000")).Count() > 0)
+                            foreach (PLT0Node p in ((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStc." + x.ToString("0000")))
+                                p.Remove();
                     }
                     else
                     {
                         if (tx0.HasPalette)
                             tx0.GetPaletteNode().Name = "InfStcX." + tx0.texSortNum.ToString("0000");
                         tx0.Name = "InfStcX." + tx0.texSortNum.ToString("0000");
+                        if (((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStc." + x.ToString("0000")).Count() > 0)
+                            foreach (PLT0Node p in ((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStc." + x.ToString("0000")))
+                                p.Remove();
                     }
                 }
             }
@@ -529,24 +560,26 @@ namespace BrawlCrate.NodeWrappers
                 try
                 {
                     DirectoryInfo d = Directory.CreateDirectory(infFaceFolder);
+                    DirectoryInfo d2 = Directory.CreateDirectory(infFaceFolder + '\\' + "temp");
                     Console.WriteLine(infFaceFolder);
                     int count = 0;
-                    foreach (FileInfo infFace in d.GetFiles())
+                    foreach (FileInfo infFace in d.GetFiles().Reverse())
                     {
                         Console.WriteLine(infFaceFolder + '\\' + infFace.Name);
+                        int properlength = infFace.Name.EndsWith(".brres", StringComparison.OrdinalIgnoreCase) ? infFace.Name.Length - ".brres".Length : infFace.Name.Length;
 
-                        if (infFace.Name.StartsWith("InfFace") && !infFace.Name.StartsWith("InfFaceX") && infFace.Name.EndsWith(".brres", StringComparison.CurrentCultureIgnoreCase) && int.TryParse(infFace.Name.Substring(7, 4), out int x) && x >= 0)
+                        if (infFace.Name.StartsWith("InfFace") && !infFace.Name.StartsWith("InfFaceX") && infFace.Name.EndsWith(".brres", StringComparison.CurrentCultureIgnoreCase) && int.TryParse(infFace.Name.Substring(7, properlength - 7), out int x) && x >= 0)
                         {
                             int n = x;
                             if (x <= 0) // 0 edge case
                             {
                                 n = 0;
-                                infFace.MoveTo(infFaceFolder + '\\' + "InfFace" + n.ToString("000") + ".brres");
+                                infFace.MoveTo(infFaceFolder + '\\' + "temp" + '\\' + "InfFace" + n.ToString("000") + ".brres");
                             }
                             else if (x >= 9001 && x <= 9014) // WarioMan edge case (should pre-program)
                             {
                                 n = 661 + (x % 9001);
-                                infFace.MoveTo(infFaceFolder + '\\' + "InfFace" + n.ToString("000") + ".brres");
+                                infFace.MoveTo(infFaceFolder + '\\' + "temp" + '\\' + "InfFace" + n.ToString("000") + ".brres");
                             }
                             else if ((x % 50 <= 10 && x % 50 != 0) ||
                                      (x >= 0961 && x <= 0965) || // Ganon Edge Case
@@ -565,16 +598,19 @@ namespace BrawlCrate.NodeWrappers
                                     (x >= 2311 && x <= 2314))   // Sonic Edge Case
                                     n += 10;
 
-                                infFace.MoveTo(infFaceFolder + '\\' + "InfFace" + n.ToString("000") + ".brres");
+                                infFace.MoveTo(infFaceFolder + '\\' + "temp" + '\\' + "InfFace" + n.ToString("000") + ".brres");
                                 count++;
                             }
                             else
                             {
-                                infFace.MoveTo(infFaceFolder + '\\' + "InfFaceX" + n.ToString("0000") + ".brres");
+                                infFace.MoveTo(infFaceFolder + '\\' + "temp" + '\\' + "InfFaceX" + n.ToString("0000") + ".brres");
                                 count++;
                             }
                         }
                     }
+                    foreach (FileInfo infFace in d2.GetFiles())
+                        infFace.MoveTo(infFaceFolder + '\\' + infFace.Name + (infFace.Name.EndsWith(".brres", StringComparison.OrdinalIgnoreCase) ? "" : ".brres"));
+                    d2.Delete();
                     if (count > 0)
                         MessageBox.Show("InfFace conversion successful!");
                     else
