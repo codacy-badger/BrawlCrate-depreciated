@@ -450,7 +450,7 @@ namespace BrawlCrate.NodeWrappers
             string matchName = _resource.Name.Substring(0, _resource.Name.LastIndexOf(".")) + ".";
             string matchNameX = _resource.Name.Substring(0, _resource.Name.LastIndexOf(".")) + "X.";
             List<TEX0Node> texList = new List<TEX0Node>();
-            for (int i = _resource.Parent.Children.Count - 1; i >= 0; i--)
+            for (int i = 0; i < _resource.Parent.Children.Count; i++)
             {
                 if (!(_resource.Parent.Children[i] is TEX0Node))
                     continue;
