@@ -60,7 +60,7 @@ namespace BrawlCrate.NodeWrappers
             {
                 node._costumeID = (byte)(((CSSCEntryNode)(_resource.Children[_resource.Children.Count - 1]))._costumeID + 1);
             }
-            node._name = "Fit" + node._costumeID.ToString("00") + " - " + BrawlExColorID.Colors[node._colorID].Name;
+            node._name = "Fit" + BrawlLib.BrawlCrate.FighterNameGenerators.InternalNameFromID(((CSSCNode)_resource)._cosmeticSlot, BrawlLib.BrawlCrate.FighterNameGenerators.cosmeticIDIndex, "+S") + node._costumeID.ToString("00") + (BrawlExColorID.Colors.Length > node._colorID ? " - " + BrawlExColorID.Colors[node._colorID].Name : "");
             _resource.AddChild(node);
         }
 

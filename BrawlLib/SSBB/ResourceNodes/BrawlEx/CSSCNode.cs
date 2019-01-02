@@ -235,7 +235,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             int extraBytes = 0;
             while ((0x20 + ((Children.Count + 1) * 2) + extraBytes) % 16 != 0)
                 extraBytes++;
-            return (0x20 + ((Children.Count + 1) * 2) + extraBytes);
+            return (0x20 + ((Children.Count + 1) * 2) + extraBytes) < CSSC.Size ? CSSC.Size : (0x20 + ((Children.Count + 1) * 2) + extraBytes);
         }
 
         public override bool OnInitialize()
