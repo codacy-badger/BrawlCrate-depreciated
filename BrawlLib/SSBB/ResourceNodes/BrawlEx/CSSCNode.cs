@@ -25,8 +25,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public uint _wiimoteSFX;             // 0x14
         public uint _unknown0x18;           // 0x18 - Seemingly padding
         public uint _status;                 // 0x1C - I have no idea what this is
-
-        public byte[] _cosmetics = new byte[32];
+        
 
         private bool _primarySecondarySet;
         [Category("Character")]
@@ -162,15 +161,17 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override void OnPopulate()
         {
-            for (int i = 0; i < 16; i++)
+            CSSCEntryNode end = new CSSCEntryNode(true);
+            for (int i = 0; i+0x20 < Header->_size; i++)
             {
-                if (_cosmetics[i * 2] == 0x0C && _cosmetics[i * 2 + 1] == 0x00)
+                new CSSCEntryNode().Initialize(this, new DataSource((*Header)[i], 2));
+                CSSCEntryNode c = (CSSCEntryNode)Children[Children.Count - 1];
+                if(c.Color == end.Color && c.CostumeID == end.CostumeID)
+                {
+                    RemoveChild(c);
+                    _changed = false;
                     break;
-                DataSource source;
-                if (i == 15)
-                { source = new DataSource((*Header)[i], WorkingUncompressed.Address + WorkingUncompressed.Length - (*Header)[i]); }
-                else { source = new DataSource((*Header)[i], (*Header)[i + 1] - (*Header)[i]); }
-                new CSSCEntryNode().Initialize(this, source);
+                }
             }
         }
 
@@ -179,7 +180,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             CSSC* hdr = (CSSC*)address;
             *hdr = new CSSC();
             hdr->_tag = _tag;
-            hdr->_size = _size;
+            hdr->_size = (buint)(OnCalculateSize(true));
             hdr->_version = _version;
             hdr->_editFlag1 = _editFlag1;
             hdr->_editFlag2 = _editFlag2;
@@ -198,8 +199,22 @@ namespace BrawlLib.SSBB.ResourceNodes
             hdr->_unknown0x18 = _unknown0x18;
             hdr->_status = _status;
             uint offset = (uint)(0x20);
-            int index = 0;
             for (int i = 0; i < Children.Count; i++)
+            {
+                ResourceNode r = Children[i];
+                r.Rebuild((VoidPtr)address + offset, 2, true);
+                offset += 2;
+            }
+            CSSCEntryNode end = new CSSCEntryNode(true);
+            end.Rebuild((VoidPtr)address + offset, 2, true);
+            offset += 2;
+            while(offset < hdr->_size)
+            {
+                CSSCEntryNode blank = new CSSCEntryNode(false);
+                blank.Rebuild((VoidPtr)address + offset, 2, true);
+                offset += 2;
+            }
+            /*for (int i = 0; i < Children.Count; i++)
             {
                 ResourceNode r = Children[i];
                 *(buint*)((byte*)address + 0x20 + (i * 2)) = offset;
@@ -212,12 +227,15 @@ namespace BrawlLib.SSBB.ResourceNodes
                 hdr->_cosmetics[index] = 0x0C;
                 for (int j = index + 1; j < 32; j++)
                     hdr->_cosmetics[j] = 0x0;
-            }
+            }*/
         }
-
+        
         public override int OnCalculateSize(bool force)
         {
-            return CSSC.Size;
+            int extraBytes = 0;
+            while ((0x20 + ((Children.Count + 1) * 2) + extraBytes) % 16 != 0)
+                extraBytes++;
+            return (0x20 + ((Children.Count + 1) * 2) + extraBytes);
         }
 
         public override bool OnInitialize()
@@ -238,38 +256,6 @@ namespace BrawlLib.SSBB.ResourceNodes
             _status = Header->_status;
             _cosmeticSlotSet = ((_editFlag4 & 0x02) != 0);
             _primarySecondarySet = ((_editFlag4 & 0x01) != 0);
-            _cosmetics[0] = Header->_cosmetics[0];
-            _cosmetics[1] = Header->_cosmetics[1];
-            _cosmetics[2] = Header->_cosmetics[2];
-            _cosmetics[3] = Header->_cosmetics[3];
-            _cosmetics[4] = Header->_cosmetics[4];
-            _cosmetics[5] = Header->_cosmetics[5];
-            _cosmetics[6] = Header->_cosmetics[6];
-            _cosmetics[7] = Header->_cosmetics[7];
-            _cosmetics[8] = Header->_cosmetics[8];
-            _cosmetics[9] = Header->_cosmetics[9];
-            _cosmetics[10] = Header->_cosmetics[10];
-            _cosmetics[11] = Header->_cosmetics[11];
-            _cosmetics[12] = Header->_cosmetics[12];
-            _cosmetics[13] = Header->_cosmetics[13];
-            _cosmetics[14] = Header->_cosmetics[14];
-            _cosmetics[15] = Header->_cosmetics[15];
-            _cosmetics[16] = Header->_cosmetics[16];
-            _cosmetics[17] = Header->_cosmetics[17];
-            _cosmetics[18] = Header->_cosmetics[18];
-            _cosmetics[19] = Header->_cosmetics[19];
-            _cosmetics[20] = Header->_cosmetics[20];
-            _cosmetics[21] = Header->_cosmetics[21];
-            _cosmetics[22] = Header->_cosmetics[22];
-            _cosmetics[23] = Header->_cosmetics[23];
-            _cosmetics[24] = Header->_cosmetics[24];
-            _cosmetics[25] = Header->_cosmetics[25];
-            _cosmetics[26] = Header->_cosmetics[26];
-            _cosmetics[27] = Header->_cosmetics[27];
-            _cosmetics[28] = Header->_cosmetics[28];
-            _cosmetics[29] = Header->_cosmetics[29];
-            _cosmetics[30] = Header->_cosmetics[30];
-            _cosmetics[31] = Header->_cosmetics[31];
             if ((_name == null) && (_origPath != null))
                 _name = Path.GetFileNameWithoutExtension(_origPath);
             return true;
@@ -285,6 +271,19 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public byte _colorID;
         public byte _costumeID;
+        
+        public CSSCEntryNode()
+        {
+            _colorID = 0x00;
+            _costumeID = 0x00;
+        }
+
+        // Defaults to the costume end marker
+        public CSSCEntryNode(bool end)
+        {
+            _colorID = (byte)(end ? 0x0C : 0x00);
+            _costumeID = 0x00;
+        }
 
         [Category("Costume")]
         [DisplayName("Costume ID")]
@@ -297,7 +296,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             set
             {
                 _costumeID = value;
-                Name = "Fit" + _costumeID.ToString("00") + " - " + BrawlExColorID.Colors[_colorID].Name;
+                Name = "Fit" + BrawlLib.BrawlCrate.FighterNameGenerators.InternalNameFromID(((CSSCNode)Parent)._cosmeticSlot, BrawlLib.BrawlCrate.FighterNameGenerators.cosmeticIDIndex, "+S") + _costumeID.ToString("00") + (BrawlExColorID.Colors.Length > _colorID ? " - " + BrawlExColorID.Colors[_colorID].Name : "");
                 SignalPropertyChange();
             }
         }
@@ -314,7 +313,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             set
             {
                 _colorID = value;
-                Name = "Fit" + _costumeID.ToString("00") + " - " + BrawlExColorID.Colors[_colorID].Name;
+                Name = "Fit" + BrawlLib.BrawlCrate.FighterNameGenerators.InternalNameFromID(((CSSCNode)Parent)._cosmeticSlot, BrawlLib.BrawlCrate.FighterNameGenerators.cosmeticIDIndex, "+S") + _costumeID.ToString("00") + (BrawlExColorID.Colors.Length > _colorID ? " - " + BrawlExColorID.Colors[_colorID].Name : "");
                 SignalPropertyChange();
             }
         }
@@ -329,13 +328,13 @@ namespace BrawlLib.SSBB.ResourceNodes
             _colorID = Header->_colorID;
             _costumeID = Header->_costumeID;
             if (_name == null)
-                _name = "Fit" + BrawlLib.BrawlCrate.FighterNameGenerators.InternalNameFromID(((CSSCNode)Parent)._cosmeticSlot, BrawlLib.BrawlCrate.FighterNameGenerators.cosmeticIDIndex, "+S") + _costumeID.ToString("00") + " - " + BrawlExColorID.Colors[_colorID].Name;
+                _name = "Fit" + BrawlLib.BrawlCrate.FighterNameGenerators.InternalNameFromID(((CSSCNode)Parent)._cosmeticSlot, BrawlLib.BrawlCrate.FighterNameGenerators.cosmeticIDIndex, "+S") + _costumeID.ToString("00") + (BrawlExColorID.Colors.Length > _colorID ? " - " + BrawlExColorID.Colors[_colorID].Name : "");
             return false;
         }
 
         public void regenName()
         {
-            Name = "Fit" + BrawlLib.BrawlCrate.FighterNameGenerators.InternalNameFromID(((CSSCNode)Parent)._cosmeticSlot, BrawlLib.BrawlCrate.FighterNameGenerators.cosmeticIDIndex, "+S") + _costumeID.ToString("00") + " - " + BrawlExColorID.Colors[_colorID].Name;
+            Name = "Fit" + BrawlLib.BrawlCrate.FighterNameGenerators.InternalNameFromID(((CSSCNode)Parent)._cosmeticSlot, BrawlLib.BrawlCrate.FighterNameGenerators.cosmeticIDIndex, "+S") + _costumeID.ToString("00") + (BrawlExColorID.Colors.Length > _colorID ? " - " + BrawlExColorID.Colors[_colorID].Name : "");
         }
 
         public override void OnRebuild(VoidPtr address, int length, bool force)

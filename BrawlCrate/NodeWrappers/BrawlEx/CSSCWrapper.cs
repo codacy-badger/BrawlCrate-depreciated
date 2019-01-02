@@ -52,10 +52,8 @@ namespace BrawlCrate.NodeWrappers
 
         public void NewEntry()
         {
-            if(_resource.Children.Count >= 16)
-            {
+            if(_resource.Children.Count >= 50)
                 return;
-            }
             CSSCEntryNode node = new CSSCEntryNode();
             node._colorID = 0x0B;
             if (_resource.HasChildren)

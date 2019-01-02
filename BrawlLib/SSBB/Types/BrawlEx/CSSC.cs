@@ -9,8 +9,8 @@ namespace BrawlLib.SSBBTypes
         public const uint Tag = 0x43535343;
         public const int Size = 0x40;
         public uint _tag;                   // 0x00 - Uneditable; CSSC
-        public uint _size;                  // 0x04 - Uneditable; Should be "40"
-        public uint _version;               // 0x08 - Version; Only parses "2" currently
+        public buint _size;                 // 0x04 - Uneditable; Should be "40"
+        public buint _version;              // 0x08 - Version; Only parses "2" currently
         public byte _editFlag1;             // 0x0C - Unused?
         public byte _editFlag2;             // 0x0D - Unused?
         public byte _editFlag3;             // 0X0E - Unused?
@@ -22,7 +22,7 @@ namespace BrawlLib.SSBBTypes
         public buint _wiimoteSFX;           // 0x14
         public buint _unknown0x18;          // 0x18 - Seemingly padding
         public buint _status;               // 0x1C - I have no idea what this is
-        public fixed byte _cosmetics[32];   // 0x20 - 32 bytes
+        //public fixed byte _cosmetics[32];   // 0x20 - 32 bytes
         
         public VoidPtr this[int index] { get { return (VoidPtr)((byte*)Address + 0x20 + (index * 2)); } }
         private VoidPtr Address { get { fixed (void* ptr = &this) return ptr; } }
