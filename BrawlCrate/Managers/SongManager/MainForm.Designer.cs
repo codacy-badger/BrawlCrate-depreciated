@@ -54,13 +54,13 @@
             this.updateMumenumainToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportMusicSongsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importMusicSongsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.customSongVolumeStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.defaultSongsListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainerTop = new System.Windows.Forms.SplitContainer();
-            this.customSongVolumeStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -147,6 +147,7 @@
             this.customSongVolumeEditor1.TabIndex = 2;
             this.customSongVolumeEditor1.Value = ((byte)(0));
             this.customSongVolumeEditor1.VolumeIcon = ((System.Drawing.Image)(resources.GetObject("customSongVolumeEditor1.VolumeIcon")));
+            this.customSongVolumeEditor1.VolumeToolTip = "No song selected";
             this.customSongVolumeEditor1.ValueChanged += new System.EventHandler(this.customSongVolumeEditor1_ValueChanged);
             // 
             // songPanel1
@@ -244,7 +245,7 @@
             // 
             this.use16ptFontToolStripMenuItem.CheckOnClick = true;
             this.use16ptFontToolStripMenuItem.Name = "use16ptFontToolStripMenuItem";
-            this.use16ptFontToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.use16ptFontToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.use16ptFontToolStripMenuItem.Text = "Use 16pt font";
             this.use16ptFontToolStripMenuItem.Click += new System.EventHandler(this.use16ptFontToolStripMenuItem_Click);
             // 
@@ -338,6 +339,18 @@
             this.importMusicSongsToolStripMenuItem.Text = "Import songs...";
             this.importMusicSongsToolStripMenuItem.Click += new System.EventHandler(this.importMusicSongsToolStripMenuItem_Click);
             // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(220, 6);
+            // 
+            // customSongVolumeStatusToolStripMenuItem
+            // 
+            this.customSongVolumeStatusToolStripMenuItem.Name = "customSongVolumeStatusToolStripMenuItem";
+            this.customSongVolumeStatusToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.customSongVolumeStatusToolStripMenuItem.Text = "Custom Song Volume status";
+            this.customSongVolumeStatusToolStripMenuItem.Click += new System.EventHandler(this.customSongVolumeStatusToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -350,14 +363,14 @@
             // defaultSongsListToolStripMenuItem
             // 
             this.defaultSongsListToolStripMenuItem.Name = "defaultSongsListToolStripMenuItem";
-            this.defaultSongsListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.defaultSongsListToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.defaultSongsListToolStripMenuItem.Text = "Default Songs List";
             this.defaultSongsListToolStripMenuItem.Click += new System.EventHandler(this.defaultSongsListToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -383,18 +396,6 @@
             this.splitContainerTop.Size = new System.Drawing.Size(592, 290);
             this.splitContainerTop.SplitterDistance = 197;
             this.splitContainerTop.TabIndex = 0;
-            // 
-            // customSongVolumeStatusToolStripMenuItem
-            // 
-            this.customSongVolumeStatusToolStripMenuItem.Name = "customSongVolumeStatusToolStripMenuItem";
-            this.customSongVolumeStatusToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
-            this.customSongVolumeStatusToolStripMenuItem.Text = "Custom Song Volume status";
-            this.customSongVolumeStatusToolStripMenuItem.Click += new System.EventHandler(this.customSongVolumeStatusToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(220, 6);
             // 
             // MainForm
             // 

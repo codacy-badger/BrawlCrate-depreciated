@@ -113,9 +113,6 @@
             this.texturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.brawlBoxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.brawlBoxStageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.brawlBoxcommon5scselmapToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
             this.brawlSplitter5 = new BrawlManagerLib.BrawlSplitter();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -290,8 +287,7 @@
             this.toolsToolStripMenuItem,
             this.resizeToolStripMenuItem,
             this.texturesToolStripMenuItem,
-            this.helpToolStripMenuItem,
-            this.brawlBoxToolStripMenuItem});
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(684, 24);
@@ -864,30 +860,6 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // brawlBoxToolStripMenuItem
-            // 
-            this.brawlBoxToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.brawlBoxToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.brawlBoxStageToolStripMenuItem,
-            this.brawlBoxcommon5scselmapToolStripMenuItem1});
-            this.brawlBoxToolStripMenuItem.Name = "brawlBoxToolStripMenuItem";
-            this.brawlBoxToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
-            this.brawlBoxToolStripMenuItem.Text = "BrawlBox";
-            // 
-            // brawlBoxStageToolStripMenuItem
-            // 
-            this.brawlBoxStageToolStripMenuItem.Name = "brawlBoxStageToolStripMenuItem";
-            this.brawlBoxStageToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.brawlBoxStageToolStripMenuItem.Text = "No stage loaded";
-            this.brawlBoxStageToolStripMenuItem.Click += new System.EventHandler(this.brawlBoxStageToolStripMenuItem_Click);
-            // 
-            // brawlBoxcommon5scselmapToolStripMenuItem1
-            // 
-            this.brawlBoxcommon5scselmapToolStripMenuItem1.Name = "brawlBoxcommon5scselmapToolStripMenuItem1";
-            this.brawlBoxcommon5scselmapToolStripMenuItem1.Size = new System.Drawing.Size(188, 22);
-            this.brawlBoxcommon5scselmapToolStripMenuItem1.Text = "common5/sc_selmap";
-            this.brawlBoxcommon5scselmapToolStripMenuItem1.Click += new System.EventHandler(this.brawlBoxcommon5scselmapToolStripMenuItem1_Click);
-            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.modelPanel1);
@@ -1084,9 +1056,6 @@
 		private System.Windows.Forms.ToolStripMenuItem common5scselmapToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem exportAllMiscData80ToolStripMenuItem;
         private System.Windows.Forms.Panel panel2;
-		private System.Windows.Forms.ToolStripMenuItem brawlBoxToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem brawlBoxStageToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem brawlBoxcommon5scselmapToolStripMenuItem1;
 		private System.Windows.Forms.ToolStripMenuItem loadCustomSSSToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
 		private System.Windows.Forms.ToolStripMenuItem loadStagepacsToolStripMenuItem;

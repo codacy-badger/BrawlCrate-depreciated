@@ -654,11 +654,6 @@ namespace BrawlStageManager {
 
 		private void listBox1_SelectedIndexChanged(object sender, EventArgs e) {
 			open((FileInfo)listBox1.SelectedItem);
-			if (listBox1.SelectedItem == null) {
-				brawlBoxStageToolStripMenuItem.Text = "No stage loaded";
-			} else {
-				brawlBoxStageToolStripMenuItem.Text = listBox1.SelectedItem.ToString();
-			}
 		}
 		private void stageContextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e) {
 			listBox1.SelectedIndex = listBox1.IndexFromPoint(listBox1.PointToClient(Cursor.Position));
