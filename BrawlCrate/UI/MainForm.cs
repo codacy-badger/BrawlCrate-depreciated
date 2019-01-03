@@ -893,6 +893,26 @@ namespace BrawlCrate
                     splitter.IsSplitterFixed = false;
             }
         }
+
+        private void codeManagerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new GCTEditor().Show();
+        }
+
+        private void costumeManagerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new BrawlCostumeManager.CostumeManager().ShowDialog();
+        }
+
+        private void songManagerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new BrawlSongManager.MainForm(System.IO.Directory.GetCurrentDirectory(), true, true, false).ShowDialog();
+        }
+
+        private void stageManagerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new BrawlStageManager.MainForm(null, true).ShowDialog();
+        }
     }
 
     public class RecentFileHandler : Component

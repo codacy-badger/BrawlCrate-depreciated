@@ -356,7 +356,7 @@ namespace BrawlStageManager {
                 return songs.Select(s => s.Filename).ToArray();
             }
             // Tracklist Modifier 1.0 [Phantom Wings]
-            if (cmm.TracklistModifier != null) {
+            if (cmm.TracklistModifier != null && cmm.TracklistModifier.Length > stageId) {
                 byte currentTracklistId = cmm.TracklistModifier[stageId];
                 for (int i = 0; i < CMM.StandardCMMTracklistModifierData.Length; i++) {
                     if (CMM.StandardCMMTracklistModifierData[i] == currentTracklistId) {

@@ -42,17 +42,20 @@ namespace BrawlManagerLib {
 		/// </summary>
 		public static void DeleteAll() {
 			List<Exception> exceptions = new List<Exception>();
-			foreach (string s in Directory.EnumerateFiles(Path.Combine(Path.GetTempPath(), SUBDIR))) {
-				try {
-					File.Delete(s);
-				} catch (Exception e) {
-					exceptions.Add(e);
-				}
-			}
+            if(Directory.Exists(Path.Combine(Path.GetTempPath(), SUBDIR)))
+			    foreach (string s in Directory.EnumerateFiles(Path.Combine(Path.GetTempPath(), SUBDIR))) {
+				    try {
+					    File.Delete(s);
+				    } catch (Exception e) {
+					    exceptions.Add(e);
+				    }
+			    }
 
 			if (exceptions.Count == 0) {
-				try {
-					Directory.Delete(Path.Combine(Path.GetTempPath(), SUBDIR));
+				try
+                {
+                    if (Directory.Exists(Path.Combine(Path.GetTempPath(), SUBDIR)))
+                        Directory.Delete(Path.Combine(Path.GetTempPath(), SUBDIR));
 				} catch (Exception e) {
 					exceptions.Add(e);
 				}

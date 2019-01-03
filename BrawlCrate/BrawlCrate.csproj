@@ -847,24 +847,18 @@
     <None Include="Resources\BrawlCrateLogo.png" />
     <Content Include="Managers\CostumeManager\BrawlCostumeManager.txt" />
     <Content Include="Managers\CostumeManager\icon.ico" />
-    <Content Include="Managers\SongManager\BrawlSongManager.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Managers\SongManager\BrawlSongManager.txt" />
     <Content Include="Managers\SongManager\sicon.ico" />
     <EmbeddedResource Include="Managers\SongManager\speaker.png" />
     <EmbeddedResource Include="Managers\SSSEditor\About.html" />
     <Content Include="Managers\SSSEditor\downarr.png" />
     <Content Include="Managers\SSSEditor\icon.ico" />
     <EmbeddedResource Include="Managers\SSSEditor\jquery.min.js" />
-    <Content Include="Managers\SSSEditor\SSSEditor.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Managers\SSSEditor\SSSEditor.txt" />
     <None Include="Managers\SSSEditor\stageicon.png" />
     <Content Include="Managers\SSSEditor\uparr.png" />
     <EmbeddedResource Include="Managers\StageManager\border.png" />
-    <Content Include="Managers\StageManager\BrawlStageManager.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Managers\StageManager\BrawlStageManager.txt" />
     <EmbeddedResource Include="Managers\StageManager\button-l.png" />
     <EmbeddedResource Include="Managers\StageManager\button-start.png" />
     <EmbeddedResource Include="Managers\StageManager\button-z.png" />
@@ -971,6 +965,13 @@ if $(ConfigurationName) == Documentation (
   del OpenTK.xml
   del BrawlCrate.exe
   del Changelog.txt
+  del Newtonsoft.Json.dll
+  del Newtonsoft.Json.pdb
+  del Newtonsoft.Json.xml
+  del RazorEngine.dll
+  del RazorEngine.xml
+  del System.Web.Razor.dll
+  del System.Web.Razor.xml
   RD /S /Q "$(TargetDir)CustomLists\"
   "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a Documentation.v@(VersionNumber).exe
 )
@@ -981,6 +982,10 @@ if $(ConfigurationName) == TestRelease (
   del BrawlLib.pdb
   del OpenTK.pdb
   del OpenTK.xml
+  del Newtonsoft.Json.pdb
+  del Newtonsoft.Json.xml
+  del RazorEngine.xml
+  del System.Web.Razor.xml
   "Updater.exe" -canaryOn
   "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName)Canary.exe
   %25windir%25\system32\xcopy "$(TargetDir)$(TargetName)Canary.exe" "$(SolutionDir)CanaryBuild\" /Y /I
@@ -994,6 +999,10 @@ if $(ConfigurationName) == Release (
   del BrawlLib.pdb
   del OpenTK.pdb
   del OpenTK.xml
+  del Newtonsoft.Json.pdb
+  del Newtonsoft.Json.xml
+  del RazorEngine.xml
+  del System.Web.Razor.xml
   "Updater.exe" -canaryOn
  "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName)Canary.exe
   %25windir%25\system32\xcopy "$(TargetDir)$(TargetName)Canary.exe" "$(SolutionDir)CanaryBuild\" /Y /I
