@@ -137,6 +137,21 @@ namespace BrawlLib.Properties
                 this["AutoCompressStages"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("false")]
+        public bool AutoCompressModules
+        {
+            get
+            {
+                return (bool)(this["AutoCompressModules"]);
+            }
+            set
+            {
+                this["AutoCompressModules"] = value;
+            }
+        }
 
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

@@ -218,7 +218,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 {
                     if (_parent is ARCNode)
                     {
-                        if (((ARCNode)_parent).IsStage)
+                        if (((ARCNode)_parent).IsStage && BrawlLib.Properties.Settings.Default.AutoCompressStages)
                         {
                             // Console.WriteLine(_parent._name);
                             CompressionType type;
@@ -313,7 +313,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 ExportVillage(outPath);
             else if (outPath.EndsWith(".tengan", StringComparison.OrdinalIgnoreCase))
                 ExportTengan(outPath);
-            else if (outPath.EndsWith(".pac", StringComparison.OrdinalIgnoreCase) && IsCharacter)
+            else if (outPath.EndsWith(".pac", StringComparison.OrdinalIgnoreCase) && IsCharacter && BrawlLib.Properties.Settings.Default.AutoDecompressFighterPAC)
                 ExportPAC(outPath);
             else
                 base.Export(outPath);
@@ -491,7 +491,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public void ExportPCS(string outPath)
         {
             Rebuild();
-            if (_compression != CompressionType.None)
+            if (_compression != CompressionType.None || !BrawlLib.Properties.Settings.Default.AutoCompressFighterPCS)
                 base.Export(outPath);
             else
             {

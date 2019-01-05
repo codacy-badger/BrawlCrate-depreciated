@@ -129,6 +129,11 @@ namespace BrawlCrate
             _docUpdates = BrawlCrate.Properties.Settings.Default.GetDocumentationUpdates;
             _showHex = BrawlCrate.Properties.Settings.Default.ShowHex;
             _canary = BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds;
+            _autoCompressModules = BrawlLib.Properties.Settings.Default.AutoCompressModules;
+            _autoCompressPCS = BrawlLib.Properties.Settings.Default.AutoCompressFighterPCS;
+            _autoDecompressPAC = BrawlLib.Properties.Settings.Default.AutoDecompressFighterPAC;
+            _autoCompressStages = BrawlLib.Properties.Settings.Default.AutoCompressStages;
+            _autoPlayAudio = BrawlCrate.Properties.Settings.Default.AutoPlayAudio;
             if (_canary)
             {
                 if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary"))
@@ -317,6 +322,71 @@ namespace BrawlCrate
             }
         }
         bool _docUpdates;
+
+        public bool AutoCompressPCS
+        {
+            get { return _autoCompressPCS; }
+            set
+            {
+                _autoCompressPCS = value;
+
+                BrawlLib.Properties.Settings.Default.AutoCompressFighterPCS = _autoCompressPCS;
+                BrawlLib.Properties.Settings.Default.Save();
+            }
+        }
+        bool _autoCompressPCS;
+        
+        public bool AutoDecompressFighterPAC
+        {
+            get { return _autoDecompressPAC; }
+            set
+            {
+                _autoDecompressPAC = value;
+
+                BrawlLib.Properties.Settings.Default.AutoDecompressFighterPAC = _autoDecompressPAC;
+                BrawlLib.Properties.Settings.Default.Save();
+            }
+        }
+        bool _autoDecompressPAC;
+
+        public bool AutoCompressStages
+        {
+            get { return _autoCompressStages; }
+            set
+            {
+                _autoCompressStages = value;
+
+                BrawlLib.Properties.Settings.Default.AutoCompressStages = _autoCompressStages;
+                BrawlLib.Properties.Settings.Default.Save();
+            }
+        }
+        bool _autoCompressStages;
+        
+        public bool AutoCompressModules
+        {
+            get { return _autoCompressModules; }
+            set
+            {
+                _autoCompressModules = value;
+
+                BrawlLib.Properties.Settings.Default.AutoCompressStages = _autoCompressModules;
+                BrawlLib.Properties.Settings.Default.Save();
+            }
+        }
+        bool _autoCompressModules;
+        
+        public bool AutoPlayAudio
+        {
+            get { return _autoPlayAudio; }
+            set
+            {
+                _autoPlayAudio = value;
+
+                BrawlCrate.Properties.Settings.Default.AutoPlayAudio = _autoPlayAudio;
+                BrawlCrate.Properties.Settings.Default.Save();
+            }
+        }
+        bool _autoPlayAudio;
 
         public bool UpdateAutomatically
 
@@ -565,6 +635,8 @@ namespace BrawlCrate
                         newControl = audioPlaybackPanel1;
                         if (node is RSTMNode)
                             audioPlaybackPanel1.chkLoop.Checked = ((RSTMNode)node).IsLooped;
+                        if (AutoPlayAudio)
+                            audioPlaybackPanel1.Play();
                     }
                 }
                 else if (node is IImageSource)
