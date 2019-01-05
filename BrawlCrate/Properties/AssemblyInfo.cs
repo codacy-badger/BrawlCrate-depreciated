@@ -22,7 +22,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("BrawlCrate")]
 [assembly: AssemblyProduct("BrawlCrate")]
-[assembly: AssemblyCopyright(@"Copyright © 2018-2019 soopercool101, MarioDox, Syvkal
+[assembly: AssemblyCopyright(@"Copyright © 2018 - 2019 soopercool101, MarioDox, Syvkal
 BrawlBox © 2009 - 2019 Bryan Moulton, BlackJax96, libertyernie && Sammi Husky
 Super Smash Bros. Brawl © 2008 Nintendo and HAL Laboratory")]
 [assembly: AssemblyTrademark(@"Characters are copyrighted by the following:
