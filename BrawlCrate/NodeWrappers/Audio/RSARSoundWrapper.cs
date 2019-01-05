@@ -23,7 +23,7 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items.Add(new ToolStripMenuItem("View File", null, ViewFileAction, Keys.Control | Keys.I));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Export", null, ExportAction, Keys.Control | Keys.E));
-            _menu.Items.Add(new ToolStripMenuItem("&Replace", null, ReplaceAction, Keys.Control | Keys.R));
+            _menu.Items.Add(new ToolStripMenuItem("&Replace", null, ReplaceAction));
             _menu.Items.Add(new ToolStripMenuItem("Res&tore", null, RestoreAction, Keys.Control | Keys.T));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("Move &Up", null, MoveUpAction, Keys.Control | Keys.Up));
@@ -47,6 +47,7 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items[0].Enabled = n._waveDataNode != null;
             _menu.Items[1].Enabled = n.SoundFileNode != null;
             _menu.Items[3].Enabled = w.Parent != null;
+            _menu.Items[4].Visible = false;
             _menu.Items[5].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
             _menu.Items[7].Enabled = w.PrevNode != null;
             _menu.Items[8].Enabled = w.NextNode != null;

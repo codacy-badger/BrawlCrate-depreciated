@@ -40,13 +40,25 @@ namespace BrawlCrate
         private CheckBox checkBox1;
         private ListView listView1;
         private ColumnHeader columnHeader1;
-        private GroupBox groupBox3;
+        private GroupBox grpBoxCanary;
         private Button btnCanaryBranch;
         private RadioButton rdoAutoUpdate;
         private RadioButton rdoCheckManual;
         private RadioButton rdoCheckStartup;
         private GroupBox groupBox4;
         private Label lblAdminApproval;
+        private TabPage tabCompression;
+        private GroupBox groupBoxFighterCompression;
+        private CheckBox chkBoxFighterPacDecompress;
+        private CheckBox chkBoxFighterPcsCompress;
+        private GroupBox groupBoxStageCompression;
+        private CheckBox chkBoxStageCompress;
+        private GroupBox groupBoxModuleCompression;
+        private CheckBox chkBoxModuleCompress;
+        private GroupBox grpBoxAudioGeneral;
+        private CheckBox chkBoxAutoPlayAudio;
+        private GroupBox grpBoxMDL0;
+        private CheckBox chkBoxMDL0Compatibility;
         private CheckBox chkShowPropDesc;
 
         public SettingsDialog()
@@ -136,6 +148,13 @@ namespace BrawlCrate
             chkCanary.Checked = MainForm.Instance.Canary;
             chkShowPropDesc.Checked = MainForm.Instance.DisplayPropertyDescriptionsWhenAvailable;
             chkShowHex.Checked = MainForm.Instance.ShowHex;
+            chkBoxAutoPlayAudio.Checked = MainForm.Instance.AutoPlayAudio;
+            chkBoxFighterPacDecompress.Checked = MainForm.Instance.AutoDecompressFighterPAC;
+            chkBoxFighterPcsCompress.Checked = MainForm.Instance.AutoCompressPCS;
+            chkBoxStageCompress.Checked = MainForm.Instance.AutoCompressStages;
+            chkBoxModuleCompress.Checked = MainForm.Instance.AutoCompressModules;
+            chkBoxAutoPlayAudio.Checked = MainForm.Instance.AutoPlayAudio;
+            chkBoxMDL0Compatibility.Checked = MainForm.Instance.CompatibilityMode;
 
             _updating = false;
             checkAdminAccess();
@@ -225,7 +244,17 @@ namespace BrawlCrate
             this.chkCanary = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.grpBoxAudioGeneral = new System.Windows.Forms.GroupBox();
+            this.chkBoxAutoPlayAudio = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.tabCompression = new System.Windows.Forms.TabPage();
+            this.groupBoxModuleCompression = new System.Windows.Forms.GroupBox();
+            this.chkBoxModuleCompress = new System.Windows.Forms.CheckBox();
+            this.groupBoxStageCompression = new System.Windows.Forms.GroupBox();
+            this.chkBoxStageCompress = new System.Windows.Forms.CheckBox();
+            this.groupBoxFighterCompression = new System.Windows.Forms.GroupBox();
+            this.chkBoxFighterPacDecompress = new System.Windows.Forms.CheckBox();
+            this.chkBoxFighterPcsCompress = new System.Windows.Forms.CheckBox();
             this.tabFileAssociations = new System.Windows.Forms.TabPage();
             this.lblAdminApproval = new System.Windows.Forms.Label();
             this.btnApply = new System.Windows.Forms.Button();
@@ -234,26 +263,34 @@ namespace BrawlCrate
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabUpdater = new System.Windows.Forms.TabPage();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.grpBoxCanary = new System.Windows.Forms.GroupBox();
             this.btnCanaryBranch = new System.Windows.Forms.Button();
             this.updaterBehaviorGroupbox = new System.Windows.Forms.GroupBox();
             this.rdoAutoUpdate = new System.Windows.Forms.RadioButton();
             this.rdoCheckManual = new System.Windows.Forms.RadioButton();
             this.rdoCheckStartup = new System.Windows.Forms.RadioButton();
+            this.grpBoxMDL0 = new System.Windows.Forms.GroupBox();
+            this.chkBoxMDL0Compatibility = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabGeneral.SuspendLayout();
+            this.grpBoxAudioGeneral.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.tabCompression.SuspendLayout();
+            this.groupBoxModuleCompression.SuspendLayout();
+            this.groupBoxStageCompression.SuspendLayout();
+            this.groupBoxFighterCompression.SuspendLayout();
             this.tabFileAssociations.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabUpdater.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.grpBoxCanary.SuspendLayout();
             this.updaterBehaviorGroupbox.SuspendLayout();
+            this.grpBoxMDL0.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkShowPropDesc
             // 
             this.chkShowPropDesc.AutoSize = true;
-            this.chkShowPropDesc.Location = new System.Drawing.Point(6, 22);
+            this.chkShowPropDesc.Location = new System.Drawing.Point(10, 22);
             this.chkShowPropDesc.Name = "chkShowPropDesc";
             this.chkShowPropDesc.Size = new System.Drawing.Size(242, 17);
             this.chkShowPropDesc.TabIndex = 7;
@@ -264,7 +301,7 @@ namespace BrawlCrate
             // chkShowHex
             // 
             this.chkShowHex.AutoSize = true;
-            this.chkShowHex.Location = new System.Drawing.Point(6, 45);
+            this.chkShowHex.Location = new System.Drawing.Point(10, 45);
             this.chkShowHex.Name = "chkShowHex";
             this.chkShowHex.Size = new System.Drawing.Size(233, 17);
             this.chkShowHex.TabIndex = 9;
@@ -297,6 +334,7 @@ namespace BrawlCrate
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabGeneral);
+            this.tabControl1.Controls.Add(this.tabCompression);
             this.tabControl1.Controls.Add(this.tabFileAssociations);
             this.tabControl1.Controls.Add(this.tabUpdater);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -309,6 +347,8 @@ namespace BrawlCrate
             // tabGeneral
             // 
             this.tabGeneral.BackColor = System.Drawing.SystemColors.Control;
+            this.tabGeneral.Controls.Add(this.grpBoxMDL0);
+            this.tabGeneral.Controls.Add(this.grpBoxAudioGeneral);
             this.tabGeneral.Controls.Add(this.groupBox4);
             this.tabGeneral.Location = new System.Drawing.Point(4, 22);
             this.tabGeneral.Name = "tabGeneral";
@@ -316,6 +356,29 @@ namespace BrawlCrate
             this.tabGeneral.Size = new System.Drawing.Size(281, 319);
             this.tabGeneral.TabIndex = 0;
             this.tabGeneral.Text = "General";
+            // 
+            // grpBoxAudioGeneral
+            // 
+            this.grpBoxAudioGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpBoxAudioGeneral.Controls.Add(this.chkBoxAutoPlayAudio);
+            this.grpBoxAudioGeneral.Location = new System.Drawing.Point(8, 87);
+            this.grpBoxAudioGeneral.Name = "grpBoxAudioGeneral";
+            this.grpBoxAudioGeneral.Size = new System.Drawing.Size(265, 53);
+            this.grpBoxAudioGeneral.TabIndex = 18;
+            this.grpBoxAudioGeneral.TabStop = false;
+            this.grpBoxAudioGeneral.Text = "Audio";
+            // 
+            // chkBoxAutoPlayAudio
+            // 
+            this.chkBoxAutoPlayAudio.AutoSize = true;
+            this.chkBoxAutoPlayAudio.Location = new System.Drawing.Point(10, 22);
+            this.chkBoxAutoPlayAudio.Name = "chkBoxAutoPlayAudio";
+            this.chkBoxAutoPlayAudio.Size = new System.Drawing.Size(171, 17);
+            this.chkBoxAutoPlayAudio.TabIndex = 7;
+            this.chkBoxAutoPlayAudio.Text = "Automatically play audio nodes";
+            this.chkBoxAutoPlayAudio.UseVisualStyleBackColor = true;
+            this.chkBoxAutoPlayAudio.CheckedChanged += new System.EventHandler(this.chkBoxAutoPlayAudio_CheckedChanged);
             // 
             // groupBox4
             // 
@@ -329,6 +392,100 @@ namespace BrawlCrate
             this.groupBox4.TabIndex = 15;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Main Form";
+            // 
+            // tabCompression
+            // 
+            this.tabCompression.BackColor = System.Drawing.SystemColors.Control;
+            this.tabCompression.Controls.Add(this.groupBoxModuleCompression);
+            this.tabCompression.Controls.Add(this.groupBoxStageCompression);
+            this.tabCompression.Controls.Add(this.groupBoxFighterCompression);
+            this.tabCompression.Location = new System.Drawing.Point(4, 22);
+            this.tabCompression.Name = "tabCompression";
+            this.tabCompression.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCompression.Size = new System.Drawing.Size(281, 319);
+            this.tabCompression.TabIndex = 3;
+            this.tabCompression.Text = "Compression";
+            // 
+            // groupBoxModuleCompression
+            // 
+            this.groupBoxModuleCompression.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxModuleCompression.Controls.Add(this.chkBoxModuleCompress);
+            this.groupBoxModuleCompression.Location = new System.Drawing.Point(8, 146);
+            this.groupBoxModuleCompression.Name = "groupBoxModuleCompression";
+            this.groupBoxModuleCompression.Size = new System.Drawing.Size(265, 53);
+            this.groupBoxModuleCompression.TabIndex = 18;
+            this.groupBoxModuleCompression.TabStop = false;
+            this.groupBoxModuleCompression.Text = "Modules";
+            // 
+            // chkBoxModuleCompress
+            // 
+            this.chkBoxModuleCompress.AutoSize = true;
+            this.chkBoxModuleCompress.Location = new System.Drawing.Point(10, 22);
+            this.chkBoxModuleCompress.Name = "chkBoxModuleCompress";
+            this.chkBoxModuleCompress.Size = new System.Drawing.Size(157, 17);
+            this.chkBoxModuleCompress.TabIndex = 7;
+            this.chkBoxModuleCompress.Text = "Automatically compress files";
+            this.chkBoxModuleCompress.UseVisualStyleBackColor = true;
+            this.chkBoxModuleCompress.CheckedChanged += new System.EventHandler(this.chkBoxModuleCompress_CheckedChanged);
+            // 
+            // groupBoxStageCompression
+            // 
+            this.groupBoxStageCompression.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxStageCompression.Controls.Add(this.chkBoxStageCompress);
+            this.groupBoxStageCompression.Location = new System.Drawing.Point(8, 87);
+            this.groupBoxStageCompression.Name = "groupBoxStageCompression";
+            this.groupBoxStageCompression.Size = new System.Drawing.Size(265, 53);
+            this.groupBoxStageCompression.TabIndex = 17;
+            this.groupBoxStageCompression.TabStop = false;
+            this.groupBoxStageCompression.Text = "Stages";
+            // 
+            // chkBoxStageCompress
+            // 
+            this.chkBoxStageCompress.AutoSize = true;
+            this.chkBoxStageCompress.Location = new System.Drawing.Point(10, 22);
+            this.chkBoxStageCompress.Name = "chkBoxStageCompress";
+            this.chkBoxStageCompress.Size = new System.Drawing.Size(157, 17);
+            this.chkBoxStageCompress.TabIndex = 7;
+            this.chkBoxStageCompress.Text = "Automatically compress files";
+            this.chkBoxStageCompress.UseVisualStyleBackColor = true;
+            this.chkBoxStageCompress.CheckedChanged += new System.EventHandler(this.chkBoxStageCompress_CheckedChanged);
+            // 
+            // groupBoxFighterCompression
+            // 
+            this.groupBoxFighterCompression.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxFighterCompression.Controls.Add(this.chkBoxFighterPacDecompress);
+            this.groupBoxFighterCompression.Controls.Add(this.chkBoxFighterPcsCompress);
+            this.groupBoxFighterCompression.Location = new System.Drawing.Point(8, 6);
+            this.groupBoxFighterCompression.Name = "groupBoxFighterCompression";
+            this.groupBoxFighterCompression.Size = new System.Drawing.Size(265, 75);
+            this.groupBoxFighterCompression.TabIndex = 16;
+            this.groupBoxFighterCompression.TabStop = false;
+            this.groupBoxFighterCompression.Text = "Fighters";
+            // 
+            // chkBoxFighterPacDecompress
+            // 
+            this.chkBoxFighterPacDecompress.AutoSize = true;
+            this.chkBoxFighterPacDecompress.Location = new System.Drawing.Point(10, 22);
+            this.chkBoxFighterPacDecompress.Name = "chkBoxFighterPacDecompress";
+            this.chkBoxFighterPacDecompress.Size = new System.Drawing.Size(193, 17);
+            this.chkBoxFighterPacDecompress.TabIndex = 7;
+            this.chkBoxFighterPacDecompress.Text = "Automatically decompress PAC files";
+            this.chkBoxFighterPacDecompress.UseVisualStyleBackColor = true;
+            this.chkBoxFighterPacDecompress.CheckedChanged += new System.EventHandler(this.chkBoxFighterPacDecompress_CheckedChanged);
+            // 
+            // chkBoxFighterPcsCompress
+            // 
+            this.chkBoxFighterPcsCompress.AutoSize = true;
+            this.chkBoxFighterPcsCompress.Location = new System.Drawing.Point(10, 45);
+            this.chkBoxFighterPcsCompress.Name = "chkBoxFighterPcsCompress";
+            this.chkBoxFighterPcsCompress.Size = new System.Drawing.Size(181, 17);
+            this.chkBoxFighterPcsCompress.TabIndex = 9;
+            this.chkBoxFighterPcsCompress.Text = "Automatically compress PCS files";
+            this.chkBoxFighterPcsCompress.UseVisualStyleBackColor = true;
+            this.chkBoxFighterPcsCompress.CheckedChanged += new System.EventHandler(this.chkBoxFighterPcsCompress_CheckedChanged);
             // 
             // tabFileAssociations
             // 
@@ -488,7 +645,7 @@ namespace BrawlCrate
             // 
             // tabUpdater
             // 
-            this.tabUpdater.Controls.Add(this.groupBox3);
+            this.tabUpdater.Controls.Add(this.grpBoxCanary);
             this.tabUpdater.Controls.Add(this.updaterBehaviorGroupbox);
             this.tabUpdater.Location = new System.Drawing.Point(4, 22);
             this.tabUpdater.Name = "tabUpdater";
@@ -497,18 +654,18 @@ namespace BrawlCrate
             this.tabUpdater.TabIndex = 1;
             this.tabUpdater.Text = "Updater";
             // 
-            // groupBox3
+            // grpBoxCanary
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpBoxCanary.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.btnCanaryBranch);
-            this.groupBox3.Controls.Add(this.chkCanary);
-            this.groupBox3.Location = new System.Drawing.Point(8, 132);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(265, 71);
-            this.groupBox3.TabIndex = 15;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "BrawlCrate Canary";
+            this.grpBoxCanary.Controls.Add(this.btnCanaryBranch);
+            this.grpBoxCanary.Controls.Add(this.chkCanary);
+            this.grpBoxCanary.Location = new System.Drawing.Point(8, 132);
+            this.grpBoxCanary.Name = "grpBoxCanary";
+            this.grpBoxCanary.Size = new System.Drawing.Size(265, 71);
+            this.grpBoxCanary.TabIndex = 15;
+            this.grpBoxCanary.TabStop = false;
+            this.grpBoxCanary.Text = "BrawlCrate Canary";
             // 
             // btnCanaryBranch
             // 
@@ -571,6 +728,29 @@ namespace BrawlCrate
             this.rdoCheckStartup.Text = "Manual, but check for updates on startup";
             this.rdoCheckStartup.UseVisualStyleBackColor = true;
             // 
+            // grpBoxMDL0
+            // 
+            this.grpBoxMDL0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpBoxMDL0.Controls.Add(this.chkBoxMDL0Compatibility);
+            this.grpBoxMDL0.Location = new System.Drawing.Point(8, 146);
+            this.grpBoxMDL0.Name = "grpBoxMDL0";
+            this.grpBoxMDL0.Size = new System.Drawing.Size(265, 53);
+            this.grpBoxMDL0.TabIndex = 19;
+            this.grpBoxMDL0.TabStop = false;
+            this.grpBoxMDL0.Text = "Models";
+            // 
+            // chkBoxMDL0Compatibility
+            // 
+            this.chkBoxMDL0Compatibility.AutoSize = true;
+            this.chkBoxMDL0Compatibility.Location = new System.Drawing.Point(10, 22);
+            this.chkBoxMDL0Compatibility.Name = "chkBoxMDL0Compatibility";
+            this.chkBoxMDL0Compatibility.Size = new System.Drawing.Size(134, 17);
+            this.chkBoxMDL0Compatibility.TabIndex = 7;
+            this.chkBoxMDL0Compatibility.Text = "Use compatibility mode";
+            this.chkBoxMDL0Compatibility.UseVisualStyleBackColor = true;
+            this.chkBoxMDL0Compatibility.CheckedChanged += new System.EventHandler(this.chkBoxMDL0Compatibility_CheckedChanged);
+            // 
             // SettingsDialog
             // 
             this.ClientSize = new System.Drawing.Size(289, 345);
@@ -582,15 +762,26 @@ namespace BrawlCrate
             this.Shown += new System.EventHandler(this.SettingsDialog_Shown);
             this.tabControl1.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
+            this.grpBoxAudioGeneral.ResumeLayout(false);
+            this.grpBoxAudioGeneral.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.tabCompression.ResumeLayout(false);
+            this.groupBoxModuleCompression.ResumeLayout(false);
+            this.groupBoxModuleCompression.PerformLayout();
+            this.groupBoxStageCompression.ResumeLayout(false);
+            this.groupBoxStageCompression.PerformLayout();
+            this.groupBoxFighterCompression.ResumeLayout(false);
+            this.groupBoxFighterCompression.PerformLayout();
             this.tabFileAssociations.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.tabUpdater.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this.grpBoxCanary.ResumeLayout(false);
+            this.grpBoxCanary.PerformLayout();
             this.updaterBehaviorGroupbox.ResumeLayout(false);
             this.updaterBehaviorGroupbox.PerformLayout();
+            this.grpBoxMDL0.ResumeLayout(false);
+            this.grpBoxMDL0.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -686,6 +877,42 @@ namespace BrawlCrate
                         MainForm.currentBranch = d.NewName;
                 }
             }
+        }
+
+        private void chkBoxAutoPlayAudio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!_updating)
+                MainForm.Instance.AutoPlayAudio = chkBoxAutoPlayAudio.Checked;
+        }
+
+        private void chkBoxFighterPacDecompress_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!_updating)
+                MainForm.Instance.AutoDecompressFighterPAC = chkBoxFighterPacDecompress.Checked;
+        }
+
+        private void chkBoxFighterPcsCompress_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!_updating)
+                MainForm.Instance.AutoCompressPCS = chkBoxFighterPcsCompress.Checked;
+        }
+
+        private void chkBoxStageCompress_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!_updating)
+                MainForm.Instance.AutoCompressStages = chkBoxStageCompress.Checked;
+        }
+
+        private void chkBoxModuleCompress_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!_updating)
+                MainForm.Instance.AutoCompressModules = chkBoxModuleCompress.Checked;
+        }
+
+        private void chkBoxMDL0Compatibility_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!_updating)
+                MainForm.Instance.CompatibilityMode = chkBoxMDL0Compatibility.Checked;
         }
     }
 }

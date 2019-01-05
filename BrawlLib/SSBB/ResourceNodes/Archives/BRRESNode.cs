@@ -762,9 +762,11 @@ namespace BrawlLib.SSBB.ResourceNodes
             if (Children[0].Name.StartsWith("InfStc", StringComparison.OrdinalIgnoreCase) && Children[0] is TEX0Node)
             {
                 InfStcSort();
+                SignalPropertyChange();
                 return;
             }
             _children = _children.OrderBy(o => o.Name).ToList();
+            SignalPropertyChange();
         }
 
         public void InfStcSort()

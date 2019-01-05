@@ -55,13 +55,15 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override unsafe void Replace(string fileName)
         {
             if (fileName.EndsWith(".wav"))
-            using (BrstmConverterDialog dlg = new BrstmConverterDialog())
-            {
-                dlg.Type = 1;
-                dlg.AudioSource = fileName;
-                if (dlg.ShowDialog(null) == DialogResult.OK)
-                    ReplaceRaw(dlg.AudioData);
-            }
+                using (BrstmConverterDialog dlg = new BrstmConverterDialog())
+                {
+                    dlg.Type = 1;
+                    dlg.AudioSource = fileName;
+                    if (dlg.ShowDialog(null) == DialogResult.OK)
+                        ReplaceRaw(dlg.AudioData);
+                    else
+                        return;
+                }
             else
                 base.Replace(fileName);
 
