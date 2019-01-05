@@ -57,6 +57,8 @@ namespace BrawlCrate
         private CheckBox chkBoxModuleCompress;
         private GroupBox grpBoxAudioGeneral;
         private CheckBox chkBoxAutoPlayAudio;
+        private GroupBox grpBoxMDL0;
+        private CheckBox chkBoxMDL0Compatibility;
         private CheckBox chkShowPropDesc;
 
         public SettingsDialog()
@@ -152,6 +154,7 @@ namespace BrawlCrate
             chkBoxStageCompress.Checked = MainForm.Instance.AutoCompressStages;
             chkBoxModuleCompress.Checked = MainForm.Instance.AutoCompressModules;
             chkBoxAutoPlayAudio.Checked = MainForm.Instance.AutoPlayAudio;
+            chkBoxMDL0Compatibility.Checked = MainForm.Instance.CompatibilityMode;
 
             _updating = false;
             checkAdminAccess();
@@ -266,6 +269,8 @@ namespace BrawlCrate
             this.rdoAutoUpdate = new System.Windows.Forms.RadioButton();
             this.rdoCheckManual = new System.Windows.Forms.RadioButton();
             this.rdoCheckStartup = new System.Windows.Forms.RadioButton();
+            this.grpBoxMDL0 = new System.Windows.Forms.GroupBox();
+            this.chkBoxMDL0Compatibility = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.grpBoxAudioGeneral.SuspendLayout();
@@ -279,6 +284,7 @@ namespace BrawlCrate
             this.tabUpdater.SuspendLayout();
             this.grpBoxCanary.SuspendLayout();
             this.updaterBehaviorGroupbox.SuspendLayout();
+            this.grpBoxMDL0.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkShowPropDesc
@@ -341,6 +347,7 @@ namespace BrawlCrate
             // tabGeneral
             // 
             this.tabGeneral.BackColor = System.Drawing.SystemColors.Control;
+            this.tabGeneral.Controls.Add(this.grpBoxMDL0);
             this.tabGeneral.Controls.Add(this.grpBoxAudioGeneral);
             this.tabGeneral.Controls.Add(this.groupBox4);
             this.tabGeneral.Location = new System.Drawing.Point(4, 22);
@@ -721,6 +728,29 @@ namespace BrawlCrate
             this.rdoCheckStartup.Text = "Manual, but check for updates on startup";
             this.rdoCheckStartup.UseVisualStyleBackColor = true;
             // 
+            // grpBoxMDL0
+            // 
+            this.grpBoxMDL0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpBoxMDL0.Controls.Add(this.chkBoxMDL0Compatibility);
+            this.grpBoxMDL0.Location = new System.Drawing.Point(8, 146);
+            this.grpBoxMDL0.Name = "grpBoxMDL0";
+            this.grpBoxMDL0.Size = new System.Drawing.Size(265, 53);
+            this.grpBoxMDL0.TabIndex = 19;
+            this.grpBoxMDL0.TabStop = false;
+            this.grpBoxMDL0.Text = "Models";
+            // 
+            // chkBoxMDL0Compatibility
+            // 
+            this.chkBoxMDL0Compatibility.AutoSize = true;
+            this.chkBoxMDL0Compatibility.Location = new System.Drawing.Point(10, 22);
+            this.chkBoxMDL0Compatibility.Name = "chkBoxMDL0Compatibility";
+            this.chkBoxMDL0Compatibility.Size = new System.Drawing.Size(134, 17);
+            this.chkBoxMDL0Compatibility.TabIndex = 7;
+            this.chkBoxMDL0Compatibility.Text = "Use compatibility mode";
+            this.chkBoxMDL0Compatibility.UseVisualStyleBackColor = true;
+            this.chkBoxMDL0Compatibility.CheckedChanged += new System.EventHandler(this.chkBoxMDL0Compatibility_CheckedChanged);
+            // 
             // SettingsDialog
             // 
             this.ClientSize = new System.Drawing.Size(289, 345);
@@ -750,6 +780,8 @@ namespace BrawlCrate
             this.grpBoxCanary.PerformLayout();
             this.updaterBehaviorGroupbox.ResumeLayout(false);
             this.updaterBehaviorGroupbox.PerformLayout();
+            this.grpBoxMDL0.ResumeLayout(false);
+            this.grpBoxMDL0.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -875,6 +907,12 @@ namespace BrawlCrate
         {
             if (!_updating)
                 MainForm.Instance.AutoCompressModules = chkBoxModuleCompress.Checked;
+        }
+
+        private void chkBoxMDL0Compatibility_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!_updating)
+                MainForm.Instance.CompatibilityMode = chkBoxMDL0Compatibility.Checked;
         }
     }
 }

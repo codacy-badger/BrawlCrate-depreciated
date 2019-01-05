@@ -422,7 +422,7 @@ namespace BrawlCrate
             {
                 _compatibilityMode = value;
 
-                BrawlLib.Properties.Settings.Default.CompatibilityMode = _compatibilityMode;
+                BrawlLib.Properties.Settings.Default.HideMDL0Errors = BrawlLib.Properties.Settings.Default.CompatibilityMode = _compatibilityMode;
                 BrawlLib.Properties.Settings.Default.Save();
             }
         }
