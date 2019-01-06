@@ -647,11 +647,20 @@
     <PreBuildEvent>if EXIST "$(TargetDir)Updater.exe" (
   "$(TargetDir)Updater.exe" -killAll
 )
+if $(ConfigurationName) == Debug (
+  RD /S /Q "$(TargetDir)"
+  cd $(SolutionDir)ColorSmash\
+  cargo build
+)
 if $(ConfigurationName) == Release (
   RD /S /Q "$(TargetDir)"
+  cd $(SolutionDir)ColorSmash\
+  cargo build --release
 )
 if $(ConfigurationName) == TestRelease (
   RD /S /Q "$(TargetDir)"
+  cd $(SolutionDir)ColorSmash\
+  cargo build --release
 )
 if $(ConfigurationName) == Documentation (
   RD /S /Q "$(TargetDir)"
@@ -667,6 +676,9 @@ del CustomLists\StageList.txt
 %25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Updater.exe" "$(TargetDir)" /Y /I
 if EXIST "$(SolutionDir)sawndz\bin\Release\sawndz.exe" (
   %25windir%25\system32\xcopy "$(SolutionDir)sawndz\bin\Release\sawndz.exe" "$(TargetDir)" /Y /I
+)
+if EXIST "$(SolutionDir)ColorSmash\target\release\color_smash.exe" (
+  %25windir%25\system32\xcopy "$(SolutionDir)ColorSmash\target\release\color_smash.exe" "$(TargetDir)" /Y /I
 )
 if $(ConfigurationName) == Debug (
   del sawndz.exe
