@@ -266,26 +266,14 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override unsafe void Replace(string fileName)
         {
             string ext = Path.GetExtension(fileName);
-            Bitmap bmp;
-            if (String.Equals(ext, ".tga", StringComparison.OrdinalIgnoreCase))
-                bmp = TGA.FromFile(fileName);
-            else if (
-                String.Equals(ext, ".png", StringComparison.OrdinalIgnoreCase) ||
-                String.Equals(ext, ".tif", StringComparison.OrdinalIgnoreCase) || 
-                String.Equals(ext, ".tiff", StringComparison.OrdinalIgnoreCase) ||
-                String.Equals(ext, ".bmp", StringComparison.OrdinalIgnoreCase) ||
-                String.Equals(ext, ".jpg", StringComparison.OrdinalIgnoreCase) || 
-                String.Equals(ext, ".jpeg", StringComparison.OrdinalIgnoreCase) ||
-                String.Equals(ext, ".gif", StringComparison.OrdinalIgnoreCase))
-                bmp = (Bitmap)Bitmap.FromFile(fileName);
+            if (!String.Equals(ext, ".tex0", StringComparison.OrdinalIgnoreCase))
+                using (System.Windows.Forms.TextureConverterDialog dlg = new System.Windows.Forms.TextureConverterDialog())
+                {
+                    dlg.ImageSource = fileName;
+                    dlg.ShowDialog(null, this);
+                }
             else
-            {
                 base.Replace(fileName);
-                return;
-            }
-
-            using (Bitmap b = bmp)
-                Replace(b);
         }
 
         public override void Export(string outPath)
