@@ -81,11 +81,16 @@ namespace BrawlCrate.NodeWrappers
 
         public void ReEncode()
         {
+            PLT0Node plt = null;
+            if (((TEX0Node)ResourceNode).HasPalette)
+                plt = ((TEX0Node)ResourceNode).GetPaletteNode();
             using (TextureConverterDialog dlg = new TextureConverterDialog())
             {
                 dlg.LoadImages((ResourceNode as TEX0Node).GetImage(0));
                 dlg.ShowDialog(MainForm.Instance, ResourceNode as TEX0Node);
             }
+            if (plt != null && !((TEX0Node)ResourceNode).HasPalette)
+                plt.Remove();
         }
 
 
