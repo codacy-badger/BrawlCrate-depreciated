@@ -406,7 +406,7 @@ REGEN:
             if (Directory.Exists(newTempFile))
                 goto REGEN;
             Directory.CreateDirectory(newTempFile);
-            newTempFile += '\\' + Path.GetFileNameWithoutExtension(path);
+            newTempFile += '\\' + Path.GetFileName(path);
             File.Copy(path, newTempFile);
 #if !DEBUG
             try
