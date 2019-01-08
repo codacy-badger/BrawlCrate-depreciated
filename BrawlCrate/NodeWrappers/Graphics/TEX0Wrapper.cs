@@ -113,6 +113,8 @@ namespace BrawlCrate.NodeWrappers
 
         public void ColorSmash(int textureCount)
         {
+            if (TEX0Node._updating)
+                return;
             TEX0Node._updating = true;
             int curindex = _resource.Index;
             int parentCount = _resource.Parent.Children.Count;
@@ -168,13 +170,14 @@ namespace BrawlCrate.NodeWrappers
                         errorThrown = true;
                         attemptRegardless = (MessageBox.Show("One or more images threw an error when converting. Would you like to try to color smash these regardless? (As opposed to keeping them seperate)", "Color Smash", MessageBoxButtons.YesNo) == DialogResult.Yes);
                     }
-                    if(attemptRegardless)
+                    if (attemptRegardless)
+                    {
                         if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + j + ".png"))
                         {
                             using (TextureConverterDialog dlg = new TextureConverterDialog())
                             {
                                 dlg.ImageSource = AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + j + ".png";
-                                if (dlg.ShowDialog(MainForm.Instance, brparent, true, true, texNames[j], usesOnlyCI4, curindex) == DialogResult.OK)
+                                if (dlg.ShowDialog(null, brparent, true, true, texNames[j], usesOnlyCI4, curindex) == DialogResult.OK)
                                 {
                                     if (j < texNames.Count - 1)
                                         dlg.TEX0TextureNode.SharesData = true;
@@ -182,13 +185,14 @@ namespace BrawlCrate.NodeWrappers
                                 }
                             }
                         }
+                    }
                     else
                         remainingIDs.Add(j);
                 }
             }
             for (j = 0; j < remainingIDs.Count; j++)
             {
-                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + j + ".png"))
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + remainingIDs[j] + ".png"))
                 {
                     using (TextureConverterDialog dlg = new TextureConverterDialog())
                     {

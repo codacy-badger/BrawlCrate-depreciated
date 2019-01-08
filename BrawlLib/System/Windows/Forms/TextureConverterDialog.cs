@@ -245,6 +245,11 @@ namespace System.Windows.Forms
             if (_base == null)
                 if (_imageSource == null)
                 {
+                    if (automatic)
+                    {
+                        Close();
+                        return;
+                    }
                     if (!LoadImages())
                     {
                         Close();

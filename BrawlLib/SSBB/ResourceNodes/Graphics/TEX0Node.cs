@@ -110,8 +110,10 @@ namespace BrawlLib.SSBB.ResourceNodes
         
         public static void ColorSmash(List<TEX0Node> texList)
         {
-            texList.Sort((x, y) => x.Index.CompareTo(y.Index));
+            if (_updating)
+                return;
             TEX0Node._updating = true;
+            texList.Sort((x, y) => x.Index.CompareTo(y.Index));
             int curindex = texList[0].Index;
             int parentCount = texList[0].Parent.Children.Count;
             BRRESNode brparent = texList[0].Parent.Parent as BRRESNode;
@@ -144,6 +146,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             bool attemptRegardless = false;
             for (int j = 0; j < texNames.Count; j++)
             {
+                Console.WriteLine(j);
                 if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\out\\" + j + ".png"))
                 {
                     using (TextureConverterDialog dlg = new TextureConverterDialog())
@@ -165,6 +168,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                         attemptRegardless = false;//(MessageBox.Show("One or more images threw an error when converting. Would you like to try to color smash these regardless? (As opposed to keeping them seperate)\n" + AppDomain.CurrentDomain.BaseDirectory + "\\cs\\out\\" + j + ".png", "Color Smash", MessageBoxButtons.YesNo) == DialogResult.Yes);
                     }
                     if (attemptRegardless)
+                    {
                         if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + j + ".png"))
                         {
                             using (TextureConverterDialog dlg = new TextureConverterDialog())
@@ -178,14 +182,16 @@ namespace BrawlLib.SSBB.ResourceNodes
                                 }
                             }
                         }
-                        else
-                            remainingIDs.Add(j);
+                    }
+                    else
+                        remainingIDs.Add(j);
                 }
             }
             for (int j = 0; j < remainingIDs.Count; j++)
             {
-                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + j + ".png"))
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + remainingIDs[j] + ".png"))
                 {
+                    Console.WriteLine(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + remainingIDs[j] + ".png");
                     using (TextureConverterDialog dlg = new TextureConverterDialog())
                     {
                         dlg.ImageSource = AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + remainingIDs[j] + ".png";
