@@ -1234,7 +1234,18 @@ namespace BrawlLib.SSBB.ResourceNodes
                 return "----AccessViolationException----";
             }
         }
-#endregion
+        #endregion
+
+        public ResourceNode PrevSibling()
+        {
+            if (_parent == null)
+                return null;
+            int siblingIndex = Index - 1;
+            if (siblingIndex < 0)
+                return null;
+
+            return Parent.Children[siblingIndex];
+        }
 
         public ResourceNode NextSibling()
         {

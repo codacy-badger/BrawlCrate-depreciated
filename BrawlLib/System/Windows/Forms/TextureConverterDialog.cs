@@ -165,7 +165,7 @@ namespace System.Windows.Forms
             //catch (Exception x) { MessageBox.Show(x.ToString()); return DialogResult.Cancel; }
             finally { DisposeImages(); }
         }
-        public DialogResult ShowDialog(IWin32Window owner, TEX0Node original)
+        public DialogResult ShowDialog(IWin32Window owner, TEX0Node original, bool auto = false, bool cs = false)
         {
             _bresParent = null;
             _origTEX0 = original;
@@ -175,8 +175,8 @@ namespace System.Windows.Forms
             _origTPLPlt = null;
             _paletteData = _textureData = null;
             DialogResult = DialogResult.Cancel;
-            colorSmash = false;
-            automatic = false;
+            colorSmash = cs;
+            automatic = auto;
             name = "";
             index = -1;
             try { return base.ShowDialog(owner); }

@@ -36,7 +36,7 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteTEX0Action, Keys.Control | Keys.Delete));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("Convert Stock System", null, ConvertStockAction));
-            _menu.Items[1].Visible = _menu.Items[2].Visible = _menu.Items[13].Visible = _menu.Items[14].Visible = false;
+            _menu.Items[2].Visible = _menu.Items[14].Visible = _menu.Items[15].Visible = false;
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
@@ -47,22 +47,22 @@ namespace BrawlCrate.NodeWrappers
         protected static void ConvertStockAction(object sender, EventArgs e) { GetInstance<TEX0Wrapper>().ConvertStocks(); }
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-            _menu.Items[2].Enabled = _menu.Items[5].Enabled = _menu.Items[6].Enabled = _menu.Items[8].Enabled = _menu.Items[9].Enabled = _menu.Items[12].Enabled = true;
-            _menu.Items[1].Visible = _menu.Items[2].Visible = _menu.Items[13].Visible = _menu.Items[14].Visible = false;
+            _menu.Items[2].Enabled = _menu.Items[6].Enabled = _menu.Items[7].Enabled = _menu.Items[9].Enabled = _menu.Items[10].Enabled = _menu.Items[13].Enabled = true;
+            _menu.Items[2].Visible = _menu.Items[14].Visible = _menu.Items[15].Visible = false;
         }
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             TEX0Wrapper w = GetInstance<TEX0Wrapper>();
             _menu.Items[2].Enabled = _menu.Items[5].Enabled = _menu.Items[12].Enabled = w.Parent != null;
-            _menu.Items[1].Visible = _menu.Items[2].Visible = true; //(Regex.Match(w._resource.Name, @"(\.\d+)?$").Success && w._resource.Name.LastIndexOf(".") > 0 && w._resource.Name.LastIndexOf(".") <= w._resource.Name.Length && int.TryParse(w._resource.Name.Substring(w._resource.Name.LastIndexOf(".") + 1, w._resource.Name.Length - (w._resource.Name.LastIndexOf(".") + 1)), out int n));
-            _menu.Items[6].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
-            _menu.Items[8].Enabled = w.PrevNode != null;
-            _menu.Items[9].Enabled = w.NextNode != null;
-            _menu.Items[13].Visible = _menu.Items[14].Visible = false;
+            _menu.Items[2].Visible = true; //(Regex.Match(w._resource.Name, @"(\.\d+)?$").Success && w._resource.Name.LastIndexOf(".") > 0 && w._resource.Name.LastIndexOf(".") <= w._resource.Name.Length && int.TryParse(w._resource.Name.Substring(w._resource.Name.LastIndexOf(".") + 1, w._resource.Name.Length - (w._resource.Name.LastIndexOf(".") + 1)), out int n));
+            _menu.Items[7].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[9].Enabled = w.PrevNode != null;
+            _menu.Items[10].Enabled = w.NextNode != null;
+            _menu.Items[14].Visible = _menu.Items[15].Visible = false;
             if (w._resource.Name.StartsWith("InfStc.") && Regex.Match(w._resource.Name, @"(\.\d+)?$").Success && w._resource.Name.LastIndexOf(".") > 0 && w._resource.Name.LastIndexOf(".") <= w._resource.Name.Length && int.TryParse(w._resource.Name.Substring(w._resource.Name.LastIndexOf(".") + 1, w._resource.Name.Length - (w._resource.Name.LastIndexOf(".") + 1)), out int n))
             {
-                _menu.Items[13].Visible = _menu.Items[14].Visible = true;
-                _menu.Items[14].Text = w._resource.Name.Length == 10 ? "Convert to Expanded 50-Stock System" : "Convert to Default Stock System";
+                _menu.Items[14].Visible = _menu.Items[15].Visible = true;
+                _menu.Items[15].Text = w._resource.Name.Length == 10 ? "Convert to Expanded 50-Stock System" : "Convert to Default Stock System";
             }
         }
 
@@ -72,6 +72,14 @@ namespace BrawlCrate.NodeWrappers
 
         public override void OnReplace(string inStream, int filterIndex)
         {
+            if (((TEX0Node)_resource).SharesData)
+            {
+                if(_resource.Index > 0 && ((TEX0Node)_resource.Parent.Children[_resource.Index - 1]).SharesData)
+                {
+                    ((TEX0Node)_resource).SharesData = false;
+                    ((TEX0Node)_resource.Parent.Children[_resource.Index - 1]).SharesData = false;
+                }
+            }
             if (filterIndex == 8)
                 base.OnReplace(inStream, filterIndex);
             else
@@ -105,6 +113,7 @@ namespace BrawlCrate.NodeWrappers
 
         public void ColorSmash(int textureCount)
         {
+            TEX0Node._updating = true;
             int curindex = _resource.Index;
             int parentCount = _resource.Parent.Children.Count;
             BRRESNode brparent = _resource.Parent.Parent as BRRESNode;
@@ -205,6 +214,7 @@ namespace BrawlCrate.NodeWrappers
             {
 
             }
+            TEX0Node._updating = false;
         }
 
         public PAT0Node GeneratePAT0(bool force)
