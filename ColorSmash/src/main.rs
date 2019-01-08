@@ -123,7 +123,7 @@ fn get_output_path(input_file: &Path, matches: &Matches) -> PathBuf {
     //};
     //let output_extension = ".png";
     //let output_name = stem.to_string_lossy().into_owned() + &output_suffix + output_extension;
-    let output_name = "/out/".to_owned() + &filename.to_string_lossy().into_owned();
+    let output_name = "./out/".to_owned() + &filename.to_string_lossy().into_owned();
 	//println!("{}", output_name);
     input_file.with_file_name(output_name)
 }
