@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Diagnostics;
 
 namespace BrawlCrate.NodeWrappers
 {
@@ -22,6 +23,7 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items.Add(new ToolStripMenuItem("&Re-Encode", null, ReEncodeAction));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("Generate &PAT0", null, GeneratePAT0Action));
+            _menu.Items.Add(new ToolStripMenuItem("Color Smash", null, ColorSmashAction));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Export", null, ExportAction, Keys.Control | Keys.E));
             _menu.Items.Add(new ToolStripMenuItem("&Replace", null, ReplaceAction, Keys.Control | Keys.R));
@@ -38,6 +40,7 @@ namespace BrawlCrate.NodeWrappers
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
+        protected static void ColorSmashAction(object sender, EventArgs e) { GetInstance<TEX0Wrapper>().ColorSmash(); }
         protected static void ReEncodeAction(object sender, EventArgs e) { GetInstance<TEX0Wrapper>().ReEncode(); }
         protected static void GeneratePAT0Action(object sender, EventArgs e) { GetInstance<TEX0Wrapper>().GeneratePAT0(false); }
         protected static void DeleteTEX0Action(object sender, EventArgs e) { GetInstance<TEX0Wrapper>().DeleteTEX0(); }
@@ -93,6 +96,79 @@ namespace BrawlCrate.NodeWrappers
                 plt.Remove();
         }
 
+        public void ColorSmash()
+        {
+            StageBoxNumericEntry colorsmashcount = new StageBoxNumericEntry();
+            if (colorsmashcount.ShowDialog("Color Smasher", "How many textures?") == DialogResult.OK)
+                ColorSmash(colorsmashcount.NewValue);
+        }
+
+        public void ColorSmash(int textureCount)
+        {
+            int curindex = _resource.Index;
+            int parentCount = _resource.Parent.Children.Count;
+            BRRESNode brparent = _resource.Parent.Parent as BRRESNode;
+            List<string> texNames = new List<string>();
+            Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\");
+            DirectoryInfo outputDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\out\\");
+            bool usesOnlyCI4 = true;
+            int j = 0;
+            for (int i = curindex; i < parentCount && i < curindex + textureCount; i++)
+            {
+                TEX0Node tex = brparent.GetOrCreateFolder<TEX0Node>().Children[curindex] as TEX0Node;
+                texNames.Add(tex.Name);
+                tex.Export(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + j + ".png");
+                j++;
+                if (tex.HasPalette)
+                {
+                    tex.GetPaletteNode().Remove();
+                }
+                if (tex.Format != BrawlLib.Wii.Textures.WiiPixelFormat.CI4)
+                    usesOnlyCI4 = false;
+                tex.Remove();
+            }
+            Process csmash = Process.Start(new ProcessStartInfo()
+            {
+                FileName = AppDomain.CurrentDomain.BaseDirectory + "color_smash.exe",
+                //WindowStyle = ProcessWindowStyle.Hidden,
+                Arguments = String.Format("-c RGB5A3"),
+            });
+            csmash.WaitForExit();
+            j = 0;
+            foreach(FileInfo importTex in outputDir.GetFiles())
+            {
+                using (TextureConverterDialog dlg = new TextureConverterDialog())
+                {
+                    dlg.ImageSource = importTex.FullName;
+                    if (dlg.ShowDialog(MainForm.Instance, brparent, true, texNames[j], usesOnlyCI4) == DialogResult.OK)
+                    {
+                        BaseWrapper w = this.FindResource(dlg.TEX0TextureNode, true);
+                        if (j < texNames.Count - 1)
+                            dlg.TEX0TextureNode.SharesData = true;
+                    }
+                    j++;
+                }
+                try
+                {
+                    importTex.Delete();
+                }
+                catch
+                {
+
+                }
+            }
+            try
+            {
+                outputDir.Delete();
+                foreach (FileInfo tex in Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\").GetFiles())
+                    try { tex.Delete(); } catch { }
+                Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\");
+            }
+            catch
+            {
+
+            }
+        }
 
         public PAT0Node GeneratePAT0(bool force)
         {

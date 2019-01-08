@@ -50,6 +50,14 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public PLT0Node GetPaletteNode() { return ((_parent == null) || (!HasPalette)) ? null : Parent._parent.FindChild("Palettes(NW4R)/" + this.Name, false) as PLT0Node; }
 
+
+        [Browsable(false)]
+        public override string Name
+        {
+            get { return base.Name; }
+            set { base.Name = value; if (HasPalette && GetPaletteNode() != null) { GetPaletteNode().Name = value; } }
+        }
+
         int HeaderSize()
         {
             int headerLen = TEX0v1.Size;
