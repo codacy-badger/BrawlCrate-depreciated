@@ -130,35 +130,69 @@ namespace BrawlCrate.NodeWrappers
             Process csmash = Process.Start(new ProcessStartInfo()
             {
                 FileName = AppDomain.CurrentDomain.BaseDirectory + "color_smash.exe",
-                //WindowStyle = ProcessWindowStyle.Hidden,
+                WindowStyle = ProcessWindowStyle.Hidden,
                 Arguments = String.Format("-c RGB5A3"),
             });
             csmash.WaitForExit();
-            j = 0;
-            foreach(FileInfo importTex in outputDir.GetFiles())
+            List<int> remainingIDs = new List<int>();
+            bool errorThrown = false;
+            bool attemptRegardless = false;
+            for (j = 0; j < texNames.Count; j++)
             {
-                using (TextureConverterDialog dlg = new TextureConverterDialog())
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\out\\" + j + ".png"))
                 {
-                    dlg.ImageSource = importTex.FullName;
-                    if (dlg.ShowDialog(MainForm.Instance, brparent, true, texNames[j], usesOnlyCI4) == DialogResult.OK)
+                    using (TextureConverterDialog dlg = new TextureConverterDialog())
                     {
-                        BaseWrapper w = this.FindResource(dlg.TEX0TextureNode, true);
-                        if (j < texNames.Count - 1)
-                            dlg.TEX0TextureNode.SharesData = true;
+                        dlg.ImageSource = AppDomain.CurrentDomain.BaseDirectory + "\\cs\\out\\" + j + ".png";
+                        if (dlg.ShowDialog(MainForm.Instance, brparent, true, true, texNames[j], usesOnlyCI4) == DialogResult.OK)
+                        {
+                            if (j < texNames.Count - 1)
+                                dlg.TEX0TextureNode.SharesData = true;
+                        }
                     }
-                    j++;
                 }
-                try
+                else
                 {
-                    importTex.Delete();
+                    if(!errorThrown)
+                    {
+                        errorThrown = true;
+                        attemptRegardless = (MessageBox.Show("One or more images threw an error when converting. Would you like to try to color smash these regardless? (As opposed to keeping them seperate)", "Color Smash", MessageBoxButtons.YesNo) == DialogResult.Yes);
+                    }
+                    if(attemptRegardless)
+                        if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + j + ".png"))
+                        {
+                            using (TextureConverterDialog dlg = new TextureConverterDialog())
+                            {
+                                dlg.ImageSource = AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + j + ".png";
+                                if (dlg.ShowDialog(MainForm.Instance, brparent, true, true, texNames[j], usesOnlyCI4) == DialogResult.OK)
+                                {
+                                    if (j < texNames.Count - 1)
+                                        dlg.TEX0TextureNode.SharesData = true;
+                                }
+                            }
+                        }
+                    else
+                        remainingIDs.Add(j);
                 }
-                catch
+            }
+            for (j = 0; j < remainingIDs.Count; j++)
+            {
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + j + ".png"))
                 {
-
+                    using (TextureConverterDialog dlg = new TextureConverterDialog())
+                    {
+                        dlg.ImageSource = AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + remainingIDs[j] + ".png";
+                        if (dlg.ShowDialog(MainForm.Instance, brparent, false, true, texNames[remainingIDs[j]]) == DialogResult.OK)
+                        {
+                            //BaseWrapper w = this.FindResource(dlg.TEX0TextureNode, true);
+                        }
+                    }
                 }
             }
             try
             {
+                foreach (FileInfo tex in outputDir.GetFiles())
+                    try { tex.Delete(); } catch { }
                 outputDir.Delete();
                 foreach (FileInfo tex in Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\").GetFiles())
                     try { tex.Delete(); } catch { }

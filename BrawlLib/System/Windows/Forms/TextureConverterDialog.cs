@@ -75,6 +75,7 @@ namespace System.Windows.Forms
         private CheckBox chkSwapAlpha;
         private CheckBox chkSwapAlphaRGB;
 
+        public bool automatic = false;
         public bool colorSmash = false;
         private bool usesCI4 = false;
 
@@ -104,13 +105,8 @@ namespace System.Windows.Forms
 
             cboAlgorithm.SelectedItem = QuantizationAlgorithm.MedianCut;
         }
-
-        public DialogResult ShowDialog(IWin32Window owner, BRRESNode parent)
-        {
-            return ShowDialog(owner, parent, false, "", false);
-        }
-
-        public DialogResult ShowDialog(IWin32Window owner, BRRESNode parent, bool cs, string str, bool CI4)
+        
+        public DialogResult ShowDialog(IWin32Window owner, BRRESNode parent, bool cs = false, bool auto = false, string str = "", bool CI4 = false)
         {
             _bresParent = parent;
             _origTEX0 = null;
@@ -121,6 +117,7 @@ namespace System.Windows.Forms
             _paletteData = _textureData = null;
             colorSmash = cs;
             name = str;
+            automatic = auto;
             usesCI4 = CI4;
             DialogResult = DialogResult.Cancel;
             try { return base.ShowDialog(owner); }
@@ -139,6 +136,7 @@ namespace System.Windows.Forms
             _paletteData = _textureData = null;
             DialogResult = DialogResult.Cancel;
             colorSmash = false;
+            automatic = false;
             name = "";
             try { return base.ShowDialog(owner); }
             //catch (Exception x) { MessageBox.Show(x.ToString()); return DialogResult.Cancel; }
@@ -157,6 +155,7 @@ namespace System.Windows.Forms
             _paletteData = _textureData = null;
             DialogResult = DialogResult.Cancel;
             colorSmash = false;
+            automatic = false;
             name = "";
             try { return base.ShowDialog(owner); }
             //catch (Exception x) { MessageBox.Show(x.ToString()); return DialogResult.Cancel; }
@@ -173,6 +172,7 @@ namespace System.Windows.Forms
             _paletteData = _textureData = null;
             DialogResult = DialogResult.Cancel;
             colorSmash = false;
+            automatic = false;
             name = "";
             try { return base.ShowDialog(owner); }
             //catch (Exception x) { MessageBox.Show(x.ToString()); return DialogResult.Cancel; }
@@ -189,6 +189,7 @@ namespace System.Windows.Forms
             _paletteData = _textureData = null;
             DialogResult = DialogResult.Cancel;
             colorSmash = false;
+            automatic = false;
             name = "";
             try { return base.ShowDialog(owner); }
             //catch (Exception x) { MessageBox.Show(x.ToString()); return DialogResult.Cancel; }
@@ -205,6 +206,7 @@ namespace System.Windows.Forms
             _paletteData = _textureData = null;
             DialogResult = DialogResult.Cancel;
             colorSmash = false;
+            automatic = false;
             name = "";
             try { return base.ShowDialog(owner); }
             //catch (Exception x) { MessageBox.Show(x.ToString()); return DialogResult.Cancel; }
@@ -221,6 +223,7 @@ namespace System.Windows.Forms
             _paletteData = _textureData = null;
             DialogResult = DialogResult.Cancel;
             colorSmash = false;
+            automatic = false;
             name = "";
             try { return base.ShowDialog(owner); }
             //catch (Exception x) { MessageBox.Show(x.ToString()); return DialogResult.Cancel; }
@@ -312,6 +315,9 @@ namespace System.Windows.Forms
             {
                 cboFormat.SelectedItem = usesCI4 ? WiiPixelFormat.CI4 : WiiPixelFormat.CI8;
                 chkImportPalette.Checked = true;
+            }
+            if (automatic)
+            {
                 btnOkay_Click(new object(), new EventArgs());
             }
         }
