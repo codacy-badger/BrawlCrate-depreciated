@@ -698,6 +698,7 @@ if $(ConfigurationName) == Documentation (
   del OpenTK.xml
   del BrawlCrate.exe
   del Changelog.txt
+  del color_smash.exe
   RD /S /Q "$(TargetDir)CustomLists\"
   "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a Documentation.v@(VersionNumber).exe
 )
