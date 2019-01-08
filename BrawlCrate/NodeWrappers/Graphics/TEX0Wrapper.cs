@@ -144,10 +144,11 @@ namespace BrawlCrate.NodeWrappers
                     using (TextureConverterDialog dlg = new TextureConverterDialog())
                     {
                         dlg.ImageSource = AppDomain.CurrentDomain.BaseDirectory + "\\cs\\out\\" + j + ".png";
-                        if (dlg.ShowDialog(MainForm.Instance, brparent, true, true, texNames[j], usesOnlyCI4) == DialogResult.OK)
+                        if (dlg.ShowDialog(MainForm.Instance, brparent, true, true, texNames[j], usesOnlyCI4, curindex) == DialogResult.OK)
                         {
                             if (j < texNames.Count - 1)
                                 dlg.TEX0TextureNode.SharesData = true;
+                            curindex++;
                         }
                     }
                 }
@@ -164,10 +165,11 @@ namespace BrawlCrate.NodeWrappers
                             using (TextureConverterDialog dlg = new TextureConverterDialog())
                             {
                                 dlg.ImageSource = AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + j + ".png";
-                                if (dlg.ShowDialog(MainForm.Instance, brparent, true, true, texNames[j], usesOnlyCI4) == DialogResult.OK)
+                                if (dlg.ShowDialog(MainForm.Instance, brparent, true, true, texNames[j], usesOnlyCI4, curindex) == DialogResult.OK)
                                 {
                                     if (j < texNames.Count - 1)
                                         dlg.TEX0TextureNode.SharesData = true;
+                                    curindex++;
                                 }
                             }
                         }
@@ -182,9 +184,10 @@ namespace BrawlCrate.NodeWrappers
                     using (TextureConverterDialog dlg = new TextureConverterDialog())
                     {
                         dlg.ImageSource = AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + remainingIDs[j] + ".png";
-                        if (dlg.ShowDialog(MainForm.Instance, brparent, false, true, texNames[remainingIDs[j]]) == DialogResult.OK)
+                        if (dlg.ShowDialog(MainForm.Instance, brparent, false, true, texNames[remainingIDs[j]], false, curindex) == DialogResult.OK)
                         {
                             //BaseWrapper w = this.FindResource(dlg.TEX0TextureNode, true);
+                            curindex++;
                         }
                     }
                 }

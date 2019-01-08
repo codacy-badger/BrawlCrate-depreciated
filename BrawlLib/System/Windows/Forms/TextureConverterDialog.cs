@@ -78,6 +78,7 @@ namespace System.Windows.Forms
         public bool automatic = false;
         public bool colorSmash = false;
         private bool usesCI4 = false;
+        int index = -1;
 
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public FileMap TextureData { get { return _textureData; } }
@@ -106,7 +107,7 @@ namespace System.Windows.Forms
             cboAlgorithm.SelectedItem = QuantizationAlgorithm.MedianCut;
         }
         
-        public DialogResult ShowDialog(IWin32Window owner, BRRESNode parent, bool cs = false, bool auto = false, string str = "", bool CI4 = false)
+        public DialogResult ShowDialog(IWin32Window owner, BRRESNode parent, bool cs = false, bool auto = false, string str = "", bool CI4 = false, int i = -1)
         {
             _bresParent = parent;
             _origTEX0 = null;
@@ -119,6 +120,7 @@ namespace System.Windows.Forms
             name = str;
             automatic = auto;
             usesCI4 = CI4;
+            index = i;
             DialogResult = DialogResult.Cancel;
             try { return base.ShowDialog(owner); }
             //catch (Exception x) { MessageBox.Show(x.ToString()); return DialogResult.Cancel; }
@@ -138,6 +140,7 @@ namespace System.Windows.Forms
             colorSmash = false;
             automatic = false;
             name = "";
+            index = -1;
             try { return base.ShowDialog(owner); }
             //catch (Exception x) { MessageBox.Show(x.ToString()); return DialogResult.Cancel; }
             finally { DisposeImages(); }
@@ -157,6 +160,7 @@ namespace System.Windows.Forms
             colorSmash = false;
             automatic = false;
             name = "";
+            index = -1;
             try { return base.ShowDialog(owner); }
             //catch (Exception x) { MessageBox.Show(x.ToString()); return DialogResult.Cancel; }
             finally { DisposeImages(); }
@@ -174,6 +178,7 @@ namespace System.Windows.Forms
             colorSmash = false;
             automatic = false;
             name = "";
+            index = -1;
             try { return base.ShowDialog(owner); }
             //catch (Exception x) { MessageBox.Show(x.ToString()); return DialogResult.Cancel; }
             finally { DisposeImages(); }
@@ -191,6 +196,7 @@ namespace System.Windows.Forms
             colorSmash = false;
             automatic = false;
             name = "";
+            index = -1;
             try { return base.ShowDialog(owner); }
             //catch (Exception x) { MessageBox.Show(x.ToString()); return DialogResult.Cancel; }
             finally { DisposeImages(); }
@@ -208,6 +214,7 @@ namespace System.Windows.Forms
             colorSmash = false;
             automatic = false;
             name = "";
+            index = -1;
             try { return base.ShowDialog(owner); }
             //catch (Exception x) { MessageBox.Show(x.ToString()); return DialogResult.Cancel; }
             finally { DisposeImages(); }
@@ -225,6 +232,7 @@ namespace System.Windows.Forms
             colorSmash = false;
             automatic = false;
             name = "";
+            index = -1;
             try { return base.ShowDialog(owner); }
             //catch (Exception x) { MessageBox.Show(x.ToString()); return DialogResult.Cancel; }
             finally { DisposeImages(); }
@@ -706,7 +714,7 @@ namespace System.Windows.Forms
 
             if (_bresParent != null)
             {
-                _origTEX0 = _bresParent.CreateResource<TEX0Node>(name == "" ? Path.GetFileNameWithoutExtension(_imageSource) : name);
+                _origTEX0 = _bresParent.CreateResource<TEX0Node>(name == "" ? Path.GetFileNameWithoutExtension(_imageSource) : name, index);
                 if (_paletteData != null)
                 {
                     _origPLT0 = _bresParent.CreateResource<PLT0Node>(_origTEX0.Name);
