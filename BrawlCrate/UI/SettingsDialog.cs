@@ -109,6 +109,10 @@ namespace BrawlCrate
             {
                 MessageBox.Show(null, "Unable to access the registry to set file associations.\nRun the program as administrator and try again.", "Insufficient Privileges", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            catch (Exception)
+            {
+                MessageBox.Show(null, "Unable to access the registry to set file associations.\nRun the program as administrator and try again.", "Insufficient Privileges", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             finally
             {
                 btnApply.Enabled = false;
@@ -158,7 +162,7 @@ namespace BrawlCrate
 
             _updating = false;
             checkAdminAccess();
-            btnApply.Enabled = false;      
+            btnApply.Enabled = false;
         }
 
         // Unimplemented
@@ -238,12 +242,15 @@ namespace BrawlCrate
             System.Windows.Forms.ListViewItem listViewItem27 = new System.Windows.Forms.ListViewItem("Static Module (*.dol)");
             System.Windows.Forms.ListViewItem listViewItem28 = new System.Windows.Forms.ListViewItem("Relocatable Module (*.rel)");
             System.Windows.Forms.ListViewItem listViewItem29 = new System.Windows.Forms.ListViewItem("Texture Archive (*.tpl)");
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsDialog));
             this.chkShowPropDesc = new System.Windows.Forms.CheckBox();
             this.chkShowHex = new System.Windows.Forms.CheckBox();
             this.chkDocUpdates = new System.Windows.Forms.CheckBox();
             this.chkCanary = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.grpBoxMDL0 = new System.Windows.Forms.GroupBox();
+            this.chkBoxMDL0Compatibility = new System.Windows.Forms.CheckBox();
             this.grpBoxAudioGeneral = new System.Windows.Forms.GroupBox();
             this.chkBoxAutoPlayAudio = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -269,10 +276,9 @@ namespace BrawlCrate
             this.rdoAutoUpdate = new System.Windows.Forms.RadioButton();
             this.rdoCheckManual = new System.Windows.Forms.RadioButton();
             this.rdoCheckStartup = new System.Windows.Forms.RadioButton();
-            this.grpBoxMDL0 = new System.Windows.Forms.GroupBox();
-            this.chkBoxMDL0Compatibility = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabGeneral.SuspendLayout();
+            this.grpBoxMDL0.SuspendLayout();
             this.grpBoxAudioGeneral.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tabCompression.SuspendLayout();
@@ -284,7 +290,6 @@ namespace BrawlCrate
             this.tabUpdater.SuspendLayout();
             this.grpBoxCanary.SuspendLayout();
             this.updaterBehaviorGroupbox.SuspendLayout();
-            this.grpBoxMDL0.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkShowPropDesc
@@ -356,6 +361,29 @@ namespace BrawlCrate
             this.tabGeneral.Size = new System.Drawing.Size(281, 319);
             this.tabGeneral.TabIndex = 0;
             this.tabGeneral.Text = "General";
+            // 
+            // grpBoxMDL0
+            // 
+            this.grpBoxMDL0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpBoxMDL0.Controls.Add(this.chkBoxMDL0Compatibility);
+            this.grpBoxMDL0.Location = new System.Drawing.Point(8, 146);
+            this.grpBoxMDL0.Name = "grpBoxMDL0";
+            this.grpBoxMDL0.Size = new System.Drawing.Size(265, 53);
+            this.grpBoxMDL0.TabIndex = 19;
+            this.grpBoxMDL0.TabStop = false;
+            this.grpBoxMDL0.Text = "Models";
+            // 
+            // chkBoxMDL0Compatibility
+            // 
+            this.chkBoxMDL0Compatibility.AutoSize = true;
+            this.chkBoxMDL0Compatibility.Location = new System.Drawing.Point(10, 22);
+            this.chkBoxMDL0Compatibility.Name = "chkBoxMDL0Compatibility";
+            this.chkBoxMDL0Compatibility.Size = new System.Drawing.Size(134, 17);
+            this.chkBoxMDL0Compatibility.TabIndex = 7;
+            this.chkBoxMDL0Compatibility.Text = "Use compatibility mode";
+            this.chkBoxMDL0Compatibility.UseVisualStyleBackColor = true;
+            this.chkBoxMDL0Compatibility.CheckedChanged += new System.EventHandler(this.chkBoxMDL0Compatibility_CheckedChanged);
             // 
             // grpBoxAudioGeneral
             // 
@@ -728,40 +756,20 @@ namespace BrawlCrate
             this.rdoCheckStartup.Text = "Manual, but check for updates on startup";
             this.rdoCheckStartup.UseVisualStyleBackColor = true;
             // 
-            // grpBoxMDL0
-            // 
-            this.grpBoxMDL0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpBoxMDL0.Controls.Add(this.chkBoxMDL0Compatibility);
-            this.grpBoxMDL0.Location = new System.Drawing.Point(8, 146);
-            this.grpBoxMDL0.Name = "grpBoxMDL0";
-            this.grpBoxMDL0.Size = new System.Drawing.Size(265, 53);
-            this.grpBoxMDL0.TabIndex = 19;
-            this.grpBoxMDL0.TabStop = false;
-            this.grpBoxMDL0.Text = "Models";
-            // 
-            // chkBoxMDL0Compatibility
-            // 
-            this.chkBoxMDL0Compatibility.AutoSize = true;
-            this.chkBoxMDL0Compatibility.Location = new System.Drawing.Point(10, 22);
-            this.chkBoxMDL0Compatibility.Name = "chkBoxMDL0Compatibility";
-            this.chkBoxMDL0Compatibility.Size = new System.Drawing.Size(134, 17);
-            this.chkBoxMDL0Compatibility.TabIndex = 7;
-            this.chkBoxMDL0Compatibility.Text = "Use compatibility mode";
-            this.chkBoxMDL0Compatibility.UseVisualStyleBackColor = true;
-            this.chkBoxMDL0Compatibility.CheckedChanged += new System.EventHandler(this.chkBoxMDL0Compatibility_CheckedChanged);
-            // 
             // SettingsDialog
             // 
             this.ClientSize = new System.Drawing.Size(289, 345);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsDialog";
             this.Text = "Settings";
             this.Load += new System.EventHandler(this.SettingsDialog_Load);
             this.Shown += new System.EventHandler(this.SettingsDialog_Shown);
             this.tabControl1.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
+            this.grpBoxMDL0.ResumeLayout(false);
+            this.grpBoxMDL0.PerformLayout();
             this.grpBoxAudioGeneral.ResumeLayout(false);
             this.grpBoxAudioGeneral.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -780,8 +788,6 @@ namespace BrawlCrate
             this.grpBoxCanary.PerformLayout();
             this.updaterBehaviorGroupbox.ResumeLayout(false);
             this.updaterBehaviorGroupbox.PerformLayout();
-            this.grpBoxMDL0.ResumeLayout(false);
-            this.grpBoxMDL0.PerformLayout();
             this.ResumeLayout(false);
 
         }
