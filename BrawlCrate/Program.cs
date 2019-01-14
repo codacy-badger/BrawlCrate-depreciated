@@ -436,13 +436,8 @@ REGEN:
 
             return false;
         }
-
-        public static bool Open(string path, string root)
-        {
-            return (Open(path, root, null, null));
-        }
-
-        public static bool Open(string path, string root, string folder, string openNode)
+        
+        public static bool Open(string path, string root, string folder = null, string openNode = null)
         {
             bool returnVal = Open(path, false);
             if (returnVal)
@@ -460,6 +455,12 @@ REGEN:
                         else
                             MainForm.Instance.TargetResource(target);
                     }
+                }
+                else if(folder != null)
+                {
+                    ResourceNode target = ResourceNode.FindNode(RootNode, folder, true);
+                    if (target != null)
+                        MainForm.Instance.TargetResource(target);
                 }
             }
             return returnVal;
