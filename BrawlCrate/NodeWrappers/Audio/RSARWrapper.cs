@@ -68,7 +68,7 @@ namespace BrawlCrate.NodeWrappers
                 insertSawnd(inPath, openFile);
                 MainForm.Instance.Reset();
                 Program.Open(openFile, fileRoot);
-                _resource.SignalPropertyChange();
+                MainForm.Instance.RootNode.ResourceNode.SignalPropertyChange();
             }
         }
 
