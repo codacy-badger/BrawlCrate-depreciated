@@ -277,7 +277,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             return group;
         }
 
-        public T CreateResource<T>(string name) where T : BRESEntryNode
+        public T CreateResource<T>(string name, int index = -1) where T : BRESEntryNode
         {
             BRESGroupNode group = GetOrCreateFolder<T>();
             if (group == null)
@@ -285,7 +285,10 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             T n = Activator.CreateInstance<T>();
             n.Name = group.FindName(name);
-            group.AddChild(n);
+            if (index == -1)
+                group.AddChild(n);
+            else
+                group.InsertChild(n, true, index);
 
             return n;
         }
@@ -762,9 +765,11 @@ namespace BrawlLib.SSBB.ResourceNodes
             if (Children[0].Name.StartsWith("InfStc", StringComparison.OrdinalIgnoreCase) && Children[0] is TEX0Node)
             {
                 InfStcSort();
+                SignalPropertyChange();
                 return;
             }
             _children = _children.OrderBy(o => o.Name).ToList();
+            SignalPropertyChange();
         }
 
         public void InfStcSort()

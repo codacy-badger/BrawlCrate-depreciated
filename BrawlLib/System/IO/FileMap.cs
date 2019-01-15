@@ -50,6 +50,7 @@ namespace BrawlLib.IO
             try { map = FromStreamInternal(stream, prot, offset, length); }
             catch (Exception x) { stream.Dispose(); throw; }
             map._path = path; //In case we're using a temp file
+            stream.Close();
             return map;
         }
         public static FileMap FromTempFile(int length)

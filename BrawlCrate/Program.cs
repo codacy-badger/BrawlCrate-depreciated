@@ -16,9 +16,11 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.20";
-        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.20! This release:\n" +
-            "\n- Adds automated support for DukeItOut's 50 Costume Code featured in Legacy TE 2.1" +
+        public static readonly string TagName = "BrawlCrate_v0.21";
+        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.21! This release:\n" +
+            "\n- Adds native support for Color Smashing textures" +
+            "\n- Fixes various bugs and adds various improvements to 50CC support" +
+            "\n- Fixes crashes associated with sawndz import/export" +
             "\n\nFull changelog can be found in the installation folder:\n" + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
         public static readonly string AssemblyTitle;
@@ -406,7 +408,7 @@ REGEN:
             if (Directory.Exists(newTempFile))
                 goto REGEN;
             Directory.CreateDirectory(newTempFile);
-            newTempFile += '\\' + Path.GetFileNameWithoutExtension(path);
+            newTempFile += '\\' + Path.GetFileName(path);
             File.Copy(path, newTempFile);
 #if !DEBUG
             try
@@ -436,13 +438,8 @@ REGEN:
 
             return false;
         }
-
-        public static bool Open(string path, string root)
-        {
-            return (Open(path, root, null, null));
-        }
-
-        public static bool Open(string path, string root, string folder, string openNode)
+        
+        public static bool Open(string path, string root, string folder = null, string openNode = null)
         {
             bool returnVal = Open(path, false);
             if (returnVal)
@@ -460,6 +457,12 @@ REGEN:
                         else
                             MainForm.Instance.TargetResource(target);
                     }
+                }
+                else if(folder != null)
+                {
+                    ResourceNode target = ResourceNode.FindNode(RootNode, folder, true);
+                    if (target != null)
+                        MainForm.Instance.TargetResource(target);
                 }
             }
             return returnVal;

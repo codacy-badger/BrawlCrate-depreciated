@@ -5,9 +5,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 #if !DEBUG
-[assembly: AssemblyTitle("BrawlCrate v0.20")]
+[assembly: AssemblyTitle("BrawlCrate v0.21")]
 #else
-[assembly: AssemblyTitle("BrawlCrate v0.21 (BETA)")]
+[assembly: AssemblyTitle("BrawlCrate v0.22 (BETA)")]
 #endif
 [assembly: AssemblyDescription("This program is provided as-is without any warranty, implied or otherwise." +
 " By using this program, the end user agrees to take full responsibility regarding its proper and lawful use." +
@@ -22,8 +22,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("BrawlCrate")]
 [assembly: AssemblyProduct("BrawlCrate")]
-[assembly: AssemblyCopyright(@"Copyright © 2018 soopercool101, MarioDox, Syvkal
-BrawlBox © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie && Sammi Husky
+[assembly: AssemblyCopyright(@"Copyright © 2018 - 2019 soopercool101, MarioDox, Syvkal
+BrawlBox © 2009 - 2019 Bryan Moulton, BlackJax96, libertyernie && Sammi Husky
 Super Smash Bros. Brawl © 2008 Nintendo and HAL Laboratory")]
 [assembly: AssemblyTrademark(@"Characters are copyrighted by the following:
 © Nintendo / HAL Laboratory, Inc. / Pokemon / Creatures Inc. / GAME FREAK Inc. / SHIGESATO ITOI / APE Inc. / INTELLIGENT SYSTEMS / Konami Digital Entertainment Co., Ltd. / SEGA")]
@@ -50,5 +50,5 @@ Super Smash Bros. Brawl © 2008 Nintendo and HAL Laboratory")]
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.20.*")]
-[assembly: AssemblyFileVersion("0.20.0.0")]
+[assembly: AssemblyVersion("0.21.*")]
+[assembly: AssemblyFileVersion("0.21.0.0")]

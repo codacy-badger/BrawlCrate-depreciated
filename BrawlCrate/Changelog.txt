@@ -1,7 +1,7 @@
 ﻿
-BrawlCrate - v0.20
-Copyright © 2018 soopercool101, MarioDox, Syvkal
-BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
+BrawlCrate - v0.21
+Copyright © 2018 - 2019 soopercool101, MarioDox, Syvkal
+BrawlBox  © 2009 - 2019 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
 https://github.com/soopercool101/BrawlCrate
 https://discord.gg/s7c8763
@@ -15,6 +15,23 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.21 - (1/14/2019)
+ . Add support for native Color Smashing of files
+   - Color Smashing can now be properly reverted
+ . Added support for BrawlEx 50CC
+   - Improved support for CSSC
+ . (Re)Add compatibility mode which prevents breaking for older models
+ . Interpolation Editor now saves selected type when scrolling between nodes
+ . Dragging in an image to replace a TEX0 now shows the texture conversion options
+ . Re-encoding a TEX0 in a way that makes it no longer use a palette now deletes unused palettes
+ . Updated license information
+ . Various 50CC fixes
+ . Fix issue where certain modules could not be opened
+ . Fix corruption/crashing when cancelling a change for BRSAR sounds
+ . Fix CSSC nodes crashing when encountering an unrecognized color
+ . Fix issue where sorting a BRRES folder would not properly flag a node as needing saving
+ . Fix crashing errors when importing/exporting sawnd files
  
  - BrawlCrate v0.20 - (12/28/2019)
  . Added complete support for DukeItOut's 50 Costume Code featured in Legacy TE 2.1

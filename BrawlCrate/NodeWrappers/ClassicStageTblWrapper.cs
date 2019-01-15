@@ -45,7 +45,10 @@ namespace BrawlCrate.NodeWrappers
         public ClassicStageTblWrapper() { ContextMenuStrip = _menu; }
         public void NewEntry()
         {
-            ((ClassicStageTblNode)_resource).CreateEntry();
+            ResourceNode n = ((ClassicStageTblNode)_resource).CreateEntry();
+            BaseWrapper w = this.FindResource(n, false);
+            w.EnsureVisible();
+            w.TreeView.SelectedNode = w;
         }
     }
 }
