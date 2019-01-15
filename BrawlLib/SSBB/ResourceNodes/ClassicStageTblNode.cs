@@ -348,7 +348,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             // Is this the right way to add a new child node?
             var node = new ClassicStageBlockNode();
             node.Initialize(this, tempFile);
-            AddChild(node, true);
+            //AddChild(node, true);
         }
     }
 
