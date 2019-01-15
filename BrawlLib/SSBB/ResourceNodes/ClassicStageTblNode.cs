@@ -342,13 +342,14 @@ namespace BrawlLib.SSBB.ResourceNodes
             return sizeof(ClassicStageBlock) * Children.Count + Padding.Length * sizeof(bint);
         }
 
-        public void CreateEntry()
+        public ResourceNode CreateEntry()
         {
             FileMap tempFile = FileMap.FromTempFile(sizeof(ClassicStageBlock));
             // Is this the right way to add a new child node?
             var node = new ClassicStageBlockNode();
-            node.Initialize(this, tempFile);
-            //AddChild(node, true);
+            node.Initialize(null, tempFile);
+            AddChild(node, true);
+            return node;
         }
     }
 
