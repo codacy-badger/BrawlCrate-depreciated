@@ -912,7 +912,19 @@ namespace BrawlCrate
         private void chkBoxModuleCompress_CheckedChanged(object sender, EventArgs e)
         {
             if (!_updating)
+            {
+                if (chkBoxModuleCompress.Checked)
+                {
+                    if(MessageBox.Show("Warning: Module compression does not save much space and can reduce editablity of modules. Are you sure you want to turn this on?", "Module Compressor", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                    {
+                        _updating = true;
+                        chkBoxModuleCompress.Checked = false;
+                        _updating = false;
+                        return;
+                    }
+                }
                 MainForm.Instance.AutoCompressModules = chkBoxModuleCompress.Checked;
+            }
         }
 
         private void chkBoxMDL0Compatibility_CheckedChanged(object sender, EventArgs e)
