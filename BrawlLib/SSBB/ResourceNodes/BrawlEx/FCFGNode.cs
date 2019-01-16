@@ -951,10 +951,17 @@ namespace BrawlLib.SSBB.ResourceNodes
             _kirbyPacName = System.Text.Encoding.UTF8.GetString(_kirbyPacNameArray).Substring(0, System.Text.Encoding.UTF8.GetString(_kirbyPacNameArray).IndexOf('\0')).TrimEnd(new char[] { '\0' });
             _moduleName = System.Text.Encoding.UTF8.GetString(_moduleNameArray).Substring(0, System.Text.Encoding.UTF8.GetString(_moduleNameArray).IndexOf('\0')).TrimEnd(new char[] { '\0' });
             _internalName = System.Text.Encoding.UTF8.GetString(_internalNameArray).Substring(0, System.Text.Encoding.UTF8.GetString(_internalNameArray).IndexOf('\0')).TrimEnd(new char[] { '\0' });
-            if (_kirbyPacName.ToUpper().LastIndexOf(".PAC") > 0 && _kirbyPacName.Length > 14 && _kirbyPacName.ToUpper().StartsWith("KIRBY/FITKIRBY"))
-                _fighterName = _kirbyPacName.Substring(14, _kirbyPacName.ToUpper().LastIndexOf(".PAC") - 14);
-            else
+            try
+            {
+                if (_pacName.ToUpper().LastIndexOf(".PAC") > 0 && _pacName.ToUpper().Contains("/FIT"))
+                    _fighterName = _pacName.Substring(_pacName.ToUpper().LastIndexOf("/FIT") + 4, _pacName.ToUpper().LastIndexOf(".PAC") - (_pacName.ToUpper().LastIndexOf("/FIT") + 4));
+                else
+                    _fighterName = _internalName;
+            }
+            catch
+            {
                 _fighterName = _internalName;
+            }
             if (System.Text.Encoding.UTF8.GetString(_pacNameArray).ToUpper().TrimEnd(new char[] { '\0' }).EndsWith("\0X"))
                 _hasPac = false;
             if (System.Text.Encoding.UTF8.GetString(_kirbyPacNameArray).ToUpper().TrimEnd(new char[] { '\0' }).EndsWith("\0X"))
