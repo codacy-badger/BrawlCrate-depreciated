@@ -94,13 +94,14 @@ namespace BrawlCrate
             return dirty;
         }
 
+        public static bool firstBoot = false;
         [STAThread]
         public static void Main(string[] args)
         {
             SplashForm s = new SplashForm();
             s.Show();
             s.Focus();
-            bool firstBoot = false;
+            firstBoot = false;
             if (BrawlCrate.Properties.Settings.Default.UpdateSettings)
             {
                 foreach (var _Assembly in AppDomain.CurrentDomain.GetAssemblies())
@@ -220,14 +221,6 @@ namespace BrawlCrate
                 {
                     if(Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old"))
                         MainForm.Instance.ShowCanaryChangelog();
-                }
-                else if (BrawlCrate.Properties.Settings.Default.UpdateAutomatically && firstBoot)
-                {
-                    Task.Factory.StartNew(() =>
-                    {
-                        System.Threading.Thread.Sleep(1000);
-                        MessageBox.Show(Program.UpdateMessage);
-                    });
                 }
 #endif
                 s.Close();
