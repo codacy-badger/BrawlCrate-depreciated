@@ -170,6 +170,16 @@ namespace BrawlCrate
 
         private delegate bool DelegateOpenFile(String s);
         private DelegateOpenFile m_DelegateOpenFile;
+        
+        protected override void OnShown(EventArgs e)
+        {
+            Focus();
+            base.OnShown(e);
+#if !DEBUG
+            if (!Canary && BrawlCrate.Properties.Settings.Default.UpdateAutomatically && Program.firstBoot)
+                MessageBox.Show(Program.UpdateMessage);
+#endif
+        }
 
         public static bool CheckForInternetConnection()
         {
