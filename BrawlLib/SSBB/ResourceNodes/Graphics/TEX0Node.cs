@@ -59,6 +59,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 if (MessageBox.Show("Would you like to attempt to automatically change Color Smash state of this texture as well?" + (value ? " (Choose no if you're using the old Color Smash method)" : ""), "Color Smasher", MessageBoxButtons.YesNo) != DialogResult.Yes)
                 {
                     _sharesData = value;
+                    SignalPropertyChange();
                     if (value == false)
                     {
                         using (System.Windows.Forms.TextureConverterDialog dlg = new System.Windows.Forms.TextureConverterDialog())
