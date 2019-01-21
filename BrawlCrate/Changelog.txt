@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.21
+BrawlCrate - v0.21 Hotfix 1
 Copyright © 2018 - 2019 soopercool101, MarioDox, Syvkal
 BrawlBox  © 2009 - 2019 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -16,12 +16,21 @@ they be held accountable for the manner in which it is used.
 |************ BrawlCrate Change Log ************|
  ===============================================
  
+ - BrawlCrate v0.21 Hotfix 1 - (1/20/2019)
+ . Adds warning to module compressor setting
+ . Fixes issue where creating a new Classic Stage Table would add two (hiding one until reopening)
+ . Fixes issue where FCFG/FITC names were pulled from Kirby hat rather than fighter pac
+ . Fixes issue where materials in daes with undefined wrapping and filtering would lose their texture references upon import
+ . Fixes issue where changelog would display separate from main window
+ 
  - BrawlCrate v0.21 - (1/14/2019)
  . Add support for native Color Smashing of files
    - Color Smashing can now be properly reverted
  . Added support for BrawlEx 50CC
    - Improved support for CSSC
  . (Re)Add compatibility mode which prevents breaking for older models
+ . Adds various settings related to compression
+ . Adds setting to auto-play audio nodes
  . Interpolation Editor now saves selected type when scrolling between nodes
  . Dragging in an image to replace a TEX0 now shows the texture conversion options
  . Re-encoding a TEX0 in a way that makes it no longer use a palette now deletes unused palettes
