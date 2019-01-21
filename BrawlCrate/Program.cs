@@ -548,7 +548,29 @@ REGEN:
                 #if !DEBUG
                 }
                 catch (Exception x) { Say(x.Message); _rootNode.SignalPropertyChange(); }
-                #endif
+                finally
+                {
+                    string tmpDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\temp\\";
+                    if (Directory.Exists(tmpDir))
+                    {
+                        DirectoryInfo d = Directory.CreateDirectory(tmpDir);
+                        foreach (FileInfo f in d.GetFiles())
+                        {
+                            if (f.Extension.Equals(".tmp", StringComparison.OrdinalIgnoreCase) || f.Extension.Equals("tmp", StringComparison.OrdinalIgnoreCase))
+                            {
+                                try
+                                {
+                                    f.Delete();
+                                }
+                                catch
+                                {
+
+                                }
+                            }
+                        }
+                    }
+                }
+#endif
             }
             return false;
         }
@@ -679,7 +701,28 @@ REGEN:
                 #if !DEBUG
                 }
                 catch (Exception x) { Say(x.Message); _rootNode.SignalPropertyChange(); }
-                //finally { }
+                finally
+                {
+                    string tmpDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\temp\\";
+                    if (Directory.Exists(tmpDir))
+                    {
+                        DirectoryInfo d = Directory.CreateDirectory(tmpDir);
+                        foreach (FileInfo f in d.GetFiles())
+                        {
+                            if(f.Extension.Equals(".tmp", StringComparison.OrdinalIgnoreCase) || f.Extension.Equals("tmp", StringComparison.OrdinalIgnoreCase))
+                            {
+                                try
+                                {
+                                    f.Delete();
+                                }
+                                catch
+                                {
+
+                                }
+                            }
+                        }
+                    }
+                }
                 #endif
             }
 
