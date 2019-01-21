@@ -56,7 +56,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 }
                 bool needsSmashing = false;
                 Bitmap bmp = GetImage(0);
-                if (MessageBox.Show("Would you like to attempt to automatically change Color Smash state of this texture as well? (Choose no if you're using the old Color Smash method)", "Color Smasher", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                if (MessageBox.Show("Would you like to attempt to automatically change Color Smash state of this texture as well?" + (value ? " (Choose no if you're using the old Color Smash method)" : ""), "Color Smasher", MessageBoxButtons.YesNo) != DialogResult.Yes)
                 {
                     _sharesData = value;
                     if (value == false)
