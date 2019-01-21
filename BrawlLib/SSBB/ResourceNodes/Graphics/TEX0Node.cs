@@ -55,10 +55,22 @@ namespace BrawlLib.SSBB.ResourceNodes
                     return;
                 }
                 bool needsSmashing = false;
+                Bitmap bmp = GetImage(0);
+                if (MessageBox.Show("Would you like to attempt to automatically change Color Smash state of this texture as well? (Choose no if you're using the old Color Smash method)", "Color Smasher", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                {
+                    _sharesData = value;
+                    if (value == false)
+                    {
+                        using (System.Windows.Forms.TextureConverterDialog dlg = new System.Windows.Forms.TextureConverterDialog())
+                        {
+                            dlg.LoadImages(bmp);
+                            dlg.ShowDialog(null, this, true, true);
+                        }
+                    }
+                    return;
+                }
                 if (value == true)
                 {
-                    if (MessageBox.Show("Are you sure you want to attempt to color smash this CSP?", "Color Smasher", MessageBoxButtons.YesNo) != DialogResult.Yes)
-                        return;
                     needsSmashing = true;
                     TEX0Node t = this;
                     List<TEX0Node> texList = new List<TEX0Node>();
@@ -94,7 +106,6 @@ namespace BrawlLib.SSBB.ResourceNodes
                         ColorSmash(texList);
                     }
                 }
-                Bitmap bmp = GetImage(0);
                 _sharesData = value;
                 if (value == false)
                 {
