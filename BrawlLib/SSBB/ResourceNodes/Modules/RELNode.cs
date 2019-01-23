@@ -294,7 +294,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 section._dataSize = entry._size;
                 
                 // Calculate buffer
-                if (BrawlLib.Properties.Settings.Default.AutoCompressModules && i > 0 && dataOffset > 0)
+                if (!BrawlLib.Properties.Settings.Default.AutoCompressModules && i > 0 && dataOffset > 0)
                     _sections[i-1]._endBufferSize = dataOffset - prevOffset;
 
                 section.Initialize(this, WorkingUncompressed.Address + dataOffset, dataSize);
