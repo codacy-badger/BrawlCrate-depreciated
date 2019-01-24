@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.21 Hotfix 1
+BrawlCrate - v0.21 Hotfix 2
 Copyright © 2018 - 2019 soopercool101, MarioDox, Syvkal
 BrawlBox  © 2009 - 2019 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,10 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.21 Hotfix 2 - (1/24/2019)
+ . Fixes issue where old Color Smash method no longer worked
+ . Fixes module compression setting having the opposite effect as intended
  
  - BrawlCrate v0.21 Hotfix 1 - (1/20/2019)
  . Adds warning to module compressor setting
