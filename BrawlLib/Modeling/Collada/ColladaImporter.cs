@@ -267,10 +267,10 @@ namespace BrawlLib.Modeling
                                     mr._name = mr._texture.Name;
                                     matNode._children.Add(mr);
                                     mr._parent = matNode;
-                                    mr._minFltr = minfilter.Count > i ? minfilter[i] : 0;
-                                    mr._magFltr = magfilter.Count > i ? magfilter[i] : 0;
-                                    mr._uWrap = uwrap.Count > i ? uwrap[i] : 0;
-                                    mr._vWrap = vwrap.Count > i ? vwrap[i] : 0;
+                                    mr._minFltr = minfilter.Count > i ? minfilter[i] : 1;
+                                    mr._magFltr = magfilter.Count > i ? magfilter[i] : 1;
+                                    mr._uWrap = uwrap.Count > i ? uwrap[i] : 1;
+                                    mr._vWrap = vwrap.Count > i ? vwrap[i] : 1;
                                     i++;
                                 }
                                 break;
