@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Net
 {
@@ -523,7 +524,7 @@ namespace Net
 					{
 						string source = x.DownloadString(url);
 						string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
-						if (title.Contains("not found", StringComparison.OrdinalIgnoreCase))
+						if (title.ToLower().Contains("not found"))
 						{
 							throw new Exception();
 						}
