@@ -25,7 +25,7 @@ namespace Net
         {
             try
             {
-                string temp = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[3];
+                string temp = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch")[0];
                 if (temp == null || temp == "")
                     throw (new ArgumentNullException());
                 return temp;
