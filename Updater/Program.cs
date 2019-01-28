@@ -25,7 +25,7 @@ namespace Net
         {
             try
             {
-                string temp = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch")[0];
+                string temp = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[3];
                 if (temp == null || temp == "")
                     throw (new ArgumentNullException());
                 return temp;
@@ -518,6 +518,16 @@ namespace Net
                 {
                     branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", currentBranch);
                     result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
+					string url = "https://github.com/soopercool101/BrawlCrate/blob/" + currentBranch + "/CanaryBuild/CanaryREADME.md";
+					using (WebClient x = new WebClient())
+					{
+						string source = x.DownloadString(url);
+						string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+						if (title.Contains("not found", StringComparison.OrdinalIgnoreCase))
+						{
+							throw new Exception();
+						}
+					}
                     commitDate = result.Commit.Author.Date;
                     newDate = commitDate.ToUniversalTime().ToString("O");
                 }
