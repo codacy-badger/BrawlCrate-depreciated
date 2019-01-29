@@ -16,10 +16,11 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.21Hotfix2";
-        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.21 Hotfix 2! This release:\n" +
-            "\n- Fixes issues with the old Color Smash method" +
-            "\n- Fixes issues where module buffers would be removed if Module Compression was off, rather than on" +
+        public static readonly string TagName = "BrawlCrate_v0.21Hotfix3";
+        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.21 Hotfix 3! This release:\n" +
+            "\n- Adds direct Color Smash texture imports" +
+            "\n- Adds user-defined defaults for wrapping and filtering with DAE imports" +
+            "\n- Fixes issue where sawndz or color_smash utilities could get corrupted on update (if you have had trouble with these, please do a fresh install or wait for the next update)" +
             "\n\nFull changelog can be found in the installation folder:\n" + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
         public static readonly string AssemblyTitle;
