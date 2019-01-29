@@ -185,6 +185,31 @@ namespace Net
                     using (var sw = new StreamWriter(AppPath + "/Update.bat"))
                     {
                         sw.WriteLine("CD /d " + AppPath);
+
+                        // Mass delete relevant files (Prevents corruption)
+                        
+                        // Delete exes where found/applicable
+                        if (File.Exists(AppPath + "/BrawlCrate.exe"))
+                            sw.WriteLine("del BrawlCrate.exe /s /f /q");
+                        if (File.Exists(AppPath + "/BrawlBox.exe"))
+                            sw.WriteLine("del BrawlBox.exe /s /f /q");
+                        if (File.Exists(AppPath + "/StageBox.exe"))
+                            sw.WriteLine("del StageBox.exe /s /f /q");
+                        if (File.Exists(AppPath + "/color_smash.exe"))
+                            sw.WriteLine("del color_smash.exe /s /f /q");
+                        if (File.Exists(AppPath + "/sawndz.exe"))
+                            sw.WriteLine("del sawndz.exe /s /f /q");
+                        if (File.Exists(AppPath + "/Updater.exe"))
+                            sw.WriteLine("del sawndz.exe /s /f /q");
+
+                        // Delete DLLs where found/applicable
+                        if (File.Exists(AppPath + "/BrawlLib.dll"))
+                            sw.WriteLine("del BrawlLib.dll /s /f /q");
+                        if (File.Exists(AppPath + "/Octokit.dll"))
+                            sw.WriteLine("del Octokit.dll /s /f /q");
+                        if (File.Exists(AppPath + "/OpenTK.dll"))
+                            sw.WriteLine("del OpenTK.dll /s /f /q");
+
                         sw.WriteLine("START /wait temp.exe -y");
                         sw.WriteLine("del temp.exe /s /f /q");
                         sw.Write("START BrawlCrate.exe");
@@ -480,6 +505,31 @@ namespace Net
                     using (var sw = new StreamWriter(AppPath + "/Update.bat"))
                     {
                         sw.WriteLine("CD /d " + AppPath);
+
+                        // Mass delete relevant files (Prevents corruption)
+
+                        // Delete exes where found/applicable
+                        if (File.Exists(AppPath + "/BrawlCrate.exe"))
+                            sw.WriteLine("del BrawlCrate.exe /s /f /q");
+                        if (File.Exists(AppPath + "/BrawlBox.exe"))
+                            sw.WriteLine("del BrawlBox.exe /s /f /q");
+                        if (File.Exists(AppPath + "/StageBox.exe"))
+                            sw.WriteLine("del StageBox.exe /s /f /q");
+                        if (File.Exists(AppPath + "/color_smash.exe"))
+                            sw.WriteLine("del color_smash.exe /s /f /q");
+                        if (File.Exists(AppPath + "/sawndz.exe"))
+                            sw.WriteLine("del sawndz.exe /s /f /q");
+                        if (File.Exists(AppPath + "/Updater.exe"))
+                            sw.WriteLine("del sawndz.exe /s /f /q");
+
+                        // Delete DLLs where found/applicable
+                        if (File.Exists(AppPath + "/BrawlLib.dll"))
+                            sw.WriteLine("del BrawlLib.dll /s /f /q");
+                        if (File.Exists(AppPath + "/Octokit.dll"))
+                            sw.WriteLine("del Octokit.dll /s /f /q");
+                        if (File.Exists(AppPath + "/OpenTK.dll"))
+                            sw.WriteLine("del OpenTK.dll /s /f /q");
+
                         sw.WriteLine("START /wait temp.exe -y");
                         sw.WriteLine("del temp.exe /s /f /q");
                         sw.Write("START BrawlCrate.exe \"" + (openFile != null && openFile != "<null>" ? openFile : "null") + "\"");
@@ -684,6 +734,31 @@ namespace Net
                     using (var sw = new StreamWriter(AppPath + "/Update.bat"))
                     {
                         sw.WriteLine("CD /d " + AppPath);
+
+                        // Mass delete relevant files (Prevents corruption)
+
+                        // Delete exes where found/applicable
+                        if (File.Exists(AppPath + "/BrawlCrate.exe"))
+                            sw.WriteLine("del BrawlCrate.exe /s /f /q");
+                        if (File.Exists(AppPath + "/BrawlBox.exe"))
+                            sw.WriteLine("del BrawlBox.exe /s /f /q");
+                        if (File.Exists(AppPath + "/StageBox.exe"))
+                            sw.WriteLine("del StageBox.exe /s /f /q");
+                        if (File.Exists(AppPath + "/color_smash.exe"))
+                            sw.WriteLine("del color_smash.exe /s /f /q");
+                        if (File.Exists(AppPath + "/sawndz.exe"))
+                            sw.WriteLine("del sawndz.exe /s /f /q");
+                        if (File.Exists(AppPath + "/Updater.exe"))
+                            sw.WriteLine("del sawndz.exe /s /f /q");
+
+                        // Delete DLLs where found/applicable
+                        if (File.Exists(AppPath + "/BrawlLib.dll"))
+                            sw.WriteLine("del BrawlLib.dll /s /f /q");
+                        if (File.Exists(AppPath + "/Octokit.dll"))
+                            sw.WriteLine("del Octokit.dll /s /f /q");
+                        if (File.Exists(AppPath + "/OpenTK.dll"))
+                            sw.WriteLine("del OpenTK.dll /s /f /q");
+
                         sw.WriteLine("START /wait temp.exe -y");
                         sw.WriteLine("del temp.exe /s /f /q");
                         sw.Write("START BrawlCrate.exe \"" + (openFile != null && openFile != "<null>" ? openFile : "null") + "\"");
