@@ -6,6 +6,7 @@ using System.ComponentModel;
 using BrawlLib;
 using System.Collections.Generic;
 using System.Net;
+using System.Diagnostics;
 
 namespace BrawlCrate
 {
@@ -30,6 +31,7 @@ namespace BrawlCrate
                 ));
             _menu.Items.Add(new ToolStripMenuItem("&Import", null,
                 new ToolStripMenuItem("Texture", null, ImportTextureAction),
+                new ToolStripMenuItem("Color Smashable Textures", null, ImportCSTexturesAction),
                 new ToolStripMenuItem("Model", null, ImportModelAction),
                 new ToolStripMenuItem("Model Animation", null, ImportChrAction),
                 new ToolStripMenuItem("Texture Animation", null, ImportSrtAction),
@@ -71,6 +73,7 @@ namespace BrawlCrate
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
+        protected static void ImportCSTexturesAction(object sender, EventArgs e) { GetInstance<BRESWrapper>().ImportCSTextures(); }
         protected static void ImportTextureAction(object sender, EventArgs e) { GetInstance<BRESWrapper>().ImportTexture(); }
         protected static void ImportModelAction(object sender, EventArgs e) { GetInstance<BRESWrapper>().ImportModel(); }
         protected static void ImportChrAction(object sender, EventArgs e) { GetInstance<BRESWrapper>().ImportChr(); }
@@ -180,6 +183,130 @@ namespace BrawlCrate
                         w.TreeView.SelectedNode = w;
                     }
                 }
+        }
+        
+        public void ImportCSTextures()
+        {
+            OpenFileDialog _openDlg = new OpenFileDialog();
+            _openDlg.Multiselect = true;
+            _openDlg.Filter = "PNG (*.png)|*.png";
+            List<string> texNames = new List<string>();
+            if (_openDlg.ShowDialog() == DialogResult.OK)
+            {
+                TEX0Node._updating = true;
+                DialogResult dr = MessageBox.Show("Have these textures already been sent through the Color Smash Tool?", "Color Smash", MessageBoxButtons.YesNoCancel);
+                if (dr == DialogResult.Yes)
+                {
+                    // Don't color smash them again
+                }
+                else if (dr == DialogResult.No)
+                {
+                    // Color Smash them
+                    DirectoryInfo inputDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\");
+                    DirectoryInfo outputDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\out\\");
+                    try
+                    {
+                        foreach (FileInfo tex in outputDir.GetFiles())
+                            try { tex.Delete(); } catch { }
+                        foreach (FileInfo tex in Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\").GetFiles())
+                            try { tex.Delete(); } catch { }
+                    }
+                    catch
+                    {
+
+                    }
+                    int i = 0;
+                    foreach (string file in _openDlg.FileNames)
+                    {
+                        FileInfo f = new FileInfo(file);
+                        texNames.Add(f.Name.Substring(0, f.Name.ToLower().LastIndexOf(".png")));
+                        f.CopyTo(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + i + ".png");
+                        i++;
+                    }
+                    Process csmash = Process.Start(new ProcessStartInfo()
+                    {
+                        FileName = AppDomain.CurrentDomain.BaseDirectory + "color_smash.exe",
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        Arguments = String.Format("-c RGB5A3"),
+                    });
+                    csmash.WaitForExit();
+                    List<int> remainingIDs = new List<int>();
+                    bool errorThrown = false;
+                    bool attemptRegardless = false;
+                    int curindex = ((BRRESNode)_resource).GetOrCreateFolder<TEX0Node>().Children.Count;
+                    for (int j = 0; j < texNames.Count; j++)
+                    {
+                        if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\out\\" + j + ".png"))
+                        {
+                            using (TextureConverterDialog dlg = new TextureConverterDialog())
+                            {
+                                dlg.ImageSource = AppDomain.CurrentDomain.BaseDirectory + "\\cs\\out\\" + j + ".png";
+                                if (dlg.ShowDialog(MainForm.Instance, (BRRESNode)_resource, true, true, texNames[j], false, curindex) == DialogResult.OK)
+                                {
+                                    if (j < texNames.Count - 1)
+                                        dlg.TEX0TextureNode.SharesData = true;
+                                    curindex++;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (!errorThrown)
+                            {
+                                errorThrown = true;
+                                attemptRegardless = (MessageBox.Show("One or more images threw an error when converting. Would you like to try to color smash these regardless? (As opposed to keeping them seperate)", "Color Smash", MessageBoxButtons.YesNo) == DialogResult.Yes);
+                            }
+                            if (attemptRegardless)
+                            {
+                                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + j + ".png"))
+                                {
+                                    using (TextureConverterDialog dlg = new TextureConverterDialog())
+                                    {
+                                        dlg.ImageSource = AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + j + ".png";
+                                        if (dlg.ShowDialog(null, (BRRESNode)_resource, true, true, texNames[j], false, curindex) == DialogResult.OK)
+                                        {
+                                            if (j < texNames.Count - 1)
+                                                dlg.TEX0TextureNode.SharesData = true;
+                                            curindex++;
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                                remainingIDs.Add(j);
+                        }
+                    }
+                    for (int j = 0; j < remainingIDs.Count; j++)
+                    {
+                        if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + remainingIDs[j] + ".png"))
+                        {
+                            using (TextureConverterDialog dlg = new TextureConverterDialog())
+                            {
+                                dlg.ImageSource = AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + remainingIDs[j] + ".png";
+                                if (dlg.ShowDialog(MainForm.Instance, (BRRESNode)_resource, false, true, texNames[remainingIDs[j]], false, curindex) == DialogResult.OK)
+                                {
+                                    //BaseWrapper w = this.FindResource(dlg.TEX0TextureNode, true);
+                                    curindex++;
+                                }
+                            }
+                        }
+                    }
+                    try
+                    {
+                        foreach (FileInfo tex in outputDir.GetFiles())
+                            try { tex.Delete(); } catch { }
+                        outputDir.Delete();
+                        foreach (FileInfo tex in Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\").GetFiles())
+                            try { tex.Delete(); } catch { }
+                        Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\");
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
+            TEX0Node._updating = false;
         }
 
         public void ImportModel()
