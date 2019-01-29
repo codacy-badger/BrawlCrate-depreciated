@@ -389,10 +389,10 @@ namespace BrawlCrate.NodeWrappers
             if (Parent == null || (MainForm.Instance != null && Form.ActiveForm != null && Form.ActiveForm != MainForm.Instance))
                 return;
 
-            if (((TEX0Node)_resource).HasPalette)
+            if (((TEX0Node)_resource).HasPalette && ((TEX0Node)_resource).GetPaletteNode() != null)
             {
                 PLT0Node plt0 = ((TEX0Node)_resource).GetPaletteNode();
-                if (MessageBox.Show("Would you like to delete the associated PLT0?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("Would you like to delete the associated PLT0?", "Deleting TEX0", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     plt0.Parent.RemoveChild(plt0);
             }
 
