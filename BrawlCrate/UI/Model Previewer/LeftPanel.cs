@@ -1738,24 +1738,10 @@ namespace System.Windows.Forms
 
         private void AddAnimation(BRRESNode target)
         {
-            if ((int)TargetAnimType == 0)
-                target.CreateResource<CHR0Node>("New" + TargetAnimType.ToString());
-            else if ((int)TargetAnimType == 1)
-                target.CreateResource<SRT0Node>("New" + TargetAnimType.ToString());
-            else if ((int)TargetAnimType == 2)
-                target.CreateResource<SHP0Node>("New" + TargetAnimType.ToString());
-            else if ((int)TargetAnimType == 3)
-                target.CreateResource<PAT0Node>("New" + TargetAnimType.ToString());
-            else if ((int)TargetAnimType == 4)
-                target.CreateResource<VIS0Node>("New" + TargetAnimType.ToString());
-            else if ((int)TargetAnimType == 5)
-                target.CreateResource<CLR0Node>("New" + TargetAnimType.ToString());
-            else if ((int)TargetAnimType == 6)
-                target.CreateResource<SCN0Node>("New" + TargetAnimType.ToString());
-            //Type t = ModelEditorBase.AnimTypeList[(int)TargetAnimType];
-            //var method = typeof(BRRESNode).GetMethod("CreateResource");
-            //var generic = method.MakeGenericMethod(t);
-            //generic.Invoke(target, new object[] { "New" + TargetAnimType.ToString() });
+            Type t = ModelEditorBase.AnimTypeList[(int)TargetAnimType];
+            var method = typeof(BRRESNode).GetMethod("CreateResource");
+            var generic = method.MakeGenericMethod(t);
+            generic.Invoke(target, new object[] { "New" + TargetAnimType.ToString(), -1 });
             UpdateAnimations();
             listAnims.Items[listAnims.Items.Count - 1].Selected = true;
         }
