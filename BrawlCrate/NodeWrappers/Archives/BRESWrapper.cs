@@ -198,6 +198,23 @@ namespace BrawlCrate
                 if (dr == DialogResult.Yes)
                 {
                     // Don't color smash them again
+                    int curindex = ((BRRESNode)_resource).GetOrCreateFolder<TEX0Node>().Children.Count;
+                    int j = 0;
+                    foreach (string file in _openDlg.FileNames)
+                    {
+                        FileInfo f = new FileInfo(file);
+                        using (TextureConverterDialog dlg = new TextureConverterDialog())
+                        {
+                            dlg.ImageSource = file;
+                            if (dlg.ShowDialog(null, (BRRESNode)_resource, true, true, f.Name.Substring(0, f.Name.ToLower().LastIndexOf(".png")), false, curindex) == DialogResult.OK)
+                            {
+                                if (j < _openDlg.FileNames.Length - 1)
+                                    dlg.TEX0TextureNode.SharesData = true;
+                                curindex++;
+                            }
+                            j++;
+                        }
+                    }
                 }
                 else if (dr == DialogResult.No)
                 {
