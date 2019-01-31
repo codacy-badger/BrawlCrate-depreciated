@@ -16,12 +16,10 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.21Hotfix1";
-        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.21 Hotfix 1! This release:\n" +
-            "\n- Fixes issues with texture mapping for imported DAE files" +
-            "\n- Fixes issues with duplication of Classic Mode stage tables" +
-            "\n- Fixes FCFG/FITC BrawlEx fighter name identification" +
-            "\n- Fixes issue where changelog would display separate from main window" +
+        public static readonly string TagName = "BrawlCrate_v0.21Hotfix2";
+        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.21 Hotfix 2! This release:\n" +
+            "\n- Fixes issues with the old Color Smash method" +
+            "\n- Fixes issues where module buffers would be removed if Module Compression was off, rather than on" +
             "\n\nFull changelog can be found in the installation folder:\n" + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
         public static readonly string AssemblyTitle;

@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Net
 {
@@ -518,6 +519,16 @@ namespace Net
                 {
                     branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", currentBranch);
                     result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
+					string url = "https://github.com/soopercool101/BrawlCrate/blob/" + currentBranch + "/CanaryBuild/CanaryREADME.md";
+					using (WebClient x = new WebClient())
+					{
+						string source = x.DownloadString(url);
+						string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+						if (title.ToLower().Contains("not found"))
+						{
+							throw new Exception();
+						}
+					}
                     commitDate = result.Commit.Author.Date;
                     newDate = commitDate.ToUniversalTime().ToString("O");
                 }
