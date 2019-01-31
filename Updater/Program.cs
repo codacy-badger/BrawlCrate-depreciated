@@ -217,7 +217,11 @@ namespace Net
                             sw.Write(" \"" + openFile + "\"");
                         sw.Close();
                     }
-                    Process updateBat = Process.Start(AppPath + "/Update.bat");
+                    Process updateBat = Process.Start(new ProcessStartInfo()
+                    {
+                        FileName = AppPath + "/Update.bat",
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                    });
                 }
             }
             catch (Exception e)
@@ -535,7 +539,11 @@ namespace Net
                         sw.Write("START BrawlCrate.exe \"" + (openFile != null && openFile != "<null>" ? openFile : "null") + "\"");
                         sw.Close();
                     }
-                    Process updateBat = Process.Start(AppPath + "/Update.bat");
+                    Process updateBat = Process.Start(new ProcessStartInfo()
+                    {
+                        FileName = AppPath + "/Update.bat",
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                    });
                 }
             }
             catch (Exception e)
@@ -764,7 +772,11 @@ namespace Net
                         sw.Write("START BrawlCrate.exe \"" + (openFile != null && openFile != "<null>" ? openFile : "null") + "\"");
                         sw.Close();
                     }
-                    Process updateBat = Process.Start(AppPath + "/Update.bat");
+                    Process updateBat = Process.Start(new ProcessStartInfo()
+                    {
+                        FileName = AppPath + "/Update.bat",
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                    });
                 }
             }
             catch (Exception e)
