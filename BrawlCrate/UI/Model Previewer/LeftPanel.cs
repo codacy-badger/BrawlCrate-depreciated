@@ -1741,7 +1741,7 @@ namespace System.Windows.Forms
             Type t = ModelEditorBase.AnimTypeList[(int)TargetAnimType];
             var method = typeof(BRRESNode).GetMethod("CreateResource");
             var generic = method.MakeGenericMethod(t);
-            generic.Invoke(target, new object[] { "New" + TargetAnimType.ToString(), -1 });
+            generic.Invoke(target, new object[] { "New" + TargetAnimType.ToString() });
             UpdateAnimations();
             listAnims.Items[listAnims.Items.Count - 1].Selected = true;
         }

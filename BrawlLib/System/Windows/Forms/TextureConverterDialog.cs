@@ -719,7 +719,7 @@ namespace System.Windows.Forms
 
             if (_bresParent != null)
             {
-                _origTEX0 = _bresParent.CreateResource<TEX0Node>(name == "" ? Path.GetFileNameWithoutExtension(_imageSource) : name, index);
+                _origTEX0 = _bresParent.CreateResourceInPlace<TEX0Node>(name == "" ? Path.GetFileNameWithoutExtension(_imageSource) : name, index);
                 if (_paletteData != null)
                 {
                     _origPLT0 = _bresParent.CreateResource<PLT0Node>(_origTEX0.Name);

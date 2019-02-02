@@ -277,7 +277,11 @@ namespace BrawlLib.SSBB.ResourceNodes
             return group;
         }
 
-        public T CreateResource<T>(string name, int index = -1) where T : BRESEntryNode
+        public T CreateResource<T>(string name) where T : BRESEntryNode
+        {
+            return CreateResourceInPlace<T>(name, -1);
+        }
+        public T CreateResourceInPlace<T>(string name, int index) where T : BRESEntryNode
         {
             BRESGroupNode group = GetOrCreateFolder<T>();
             if (group == null)
