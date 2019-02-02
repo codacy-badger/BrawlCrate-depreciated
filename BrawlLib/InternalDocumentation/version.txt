@@ -6,7 +6,7 @@
  
  Current BrawlCrate Documentation contributors: soopercool101, Syvkal, MarioDox
  
- - Documentation v0.21.0 - (2/1/2018)
+ - Documentation v0.21.0 - (2/1/2019)
  . Added module annotations for stage loading in Mushroomy Kingdom Section [1]
 
  - Documentation v0.17.0 - (11/19/2018)
