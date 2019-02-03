@@ -533,7 +533,7 @@ REGEN:
 
                 _rootNode.Merge(force);
                 _rootNode.IsDirty = false;
-                _rootNode.Export(saveTemp ? openTempFile : _rootPath);
+                _rootNode.Export(saveTemp ? openTempFile : _rootPath, saveTemp);
                 
                 if (restoreHex)
                 {
