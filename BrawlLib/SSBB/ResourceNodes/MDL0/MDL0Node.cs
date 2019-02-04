@@ -730,7 +730,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 Populate();
                 _linker.RegenerateBoneCache();
             }
-            foreach (MDL0BoneNode b in _linker.BoneCache)
+            foreach (MDL0BoneNode b in BoneCache)
                 if (b.BoneIndex == givenIndex)
                     return b;
 
