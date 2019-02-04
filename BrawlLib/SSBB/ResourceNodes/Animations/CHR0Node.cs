@@ -299,12 +299,11 @@ namespace BrawlLib.SSBB.ResourceNodes
             foreach(MDL0Node m in temp.GetFolder<MDL0Node>().Children)
             {
                 //Console.WriteLine("  " + m);
+                // Ensures bones are built
+                m.FindBoneByIndex(0);
                 // For every bone in a model
-                MDL0BoneNode b = m.FindBoneByIndex(0);
-                j = 0;
-                while(b != null)
+                foreach (MDL0BoneNode b in m.BoneList)
                 {
-                    ++j;
                     bool alreadyAdded = false;
                     if (b != null)
                     {
@@ -328,7 +327,6 @@ namespace BrawlLib.SSBB.ResourceNodes
                             CreateEntryFromBone(b, framesToGenerate, generateOrigin);
                         }
                     }
-                    b = m.FindBoneByIndex(j);
                 }
             }
         }
