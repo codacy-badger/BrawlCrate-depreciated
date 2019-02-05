@@ -193,6 +193,10 @@ namespace Net
                             sw.WriteLine("del BrawlCrate.exe /s /f /q");
                         if (File.Exists(AppPath + "/BrawlBox.exe"))
                             sw.WriteLine("del BrawlBox.exe /s /f /q");
+                        if (File.Exists(AppPath + "/BrawlScape.exe"))
+                            sw.WriteLine("del BrawlScape.exe /s /f /q");
+                        if (File.Exists(AppPath + "/SmashBox.exe"))
+                            sw.WriteLine("del SmashBox.exe /s /f /q");
                         if (File.Exists(AppPath + "/StageBox.exe"))
                             sw.WriteLine("del StageBox.exe /s /f /q");
                         if (File.Exists(AppPath + "/color_smash.exe"))
@@ -517,6 +521,10 @@ namespace Net
                             sw.WriteLine("del BrawlCrate.exe /s /f /q");
                         if (File.Exists(AppPath + "/BrawlBox.exe"))
                             sw.WriteLine("del BrawlBox.exe /s /f /q");
+                        if (File.Exists(AppPath + "/BrawlScape.exe"))
+                            sw.WriteLine("del BrawlScape.exe /s /f /q");
+                        if (File.Exists(AppPath + "/SmashBox.exe"))
+                            sw.WriteLine("del SmashBox.exe /s /f /q");
                         if (File.Exists(AppPath + "/StageBox.exe"))
                             sw.WriteLine("del StageBox.exe /s /f /q");
                         if (File.Exists(AppPath + "/color_smash.exe"))
@@ -750,6 +758,10 @@ namespace Net
                             sw.WriteLine("del BrawlCrate.exe /s /f /q");
                         if (File.Exists(AppPath + "/BrawlBox.exe"))
                             sw.WriteLine("del BrawlBox.exe /s /f /q");
+                        if (File.Exists(AppPath + "/BrawlScape.exe"))
+                            sw.WriteLine("del BrawlScape.exe /s /f /q");
+                        if (File.Exists(AppPath + "/SmashBox.exe"))
+                            sw.WriteLine("del SmashBox.exe /s /f /q");
                         if (File.Exists(AppPath + "/StageBox.exe"))
                             sw.WriteLine("del StageBox.exe /s /f /q");
                         if (File.Exists(AppPath + "/color_smash.exe"))

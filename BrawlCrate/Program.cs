@@ -412,6 +412,13 @@ REGEN:
                     _rootPath = path;
                     if(!setRoot)
                         _rootPath = null;
+                    else if (_rootNode is ARCNode && ((ARCNode)_rootNode).IsCharacter)
+                    {
+                        if (Program.RootPath.EndsWith(".pcs", StringComparison.OrdinalIgnoreCase) && (_rootNode.Compression.Equals("LZ77", StringComparison.OrdinalIgnoreCase) || _rootNode.Compression.Equals("None", StringComparison.OrdinalIgnoreCase)) && BrawlLib.Properties.Settings.Default.AutoCompressFighterPCS)
+                            _rootNode.Compression = "ExtendedLZ77";
+                        else if (Program.RootPath.EndsWith(".pac", StringComparison.OrdinalIgnoreCase) && !_rootNode.Compression.Equals("None", StringComparison.OrdinalIgnoreCase) && BrawlLib.Properties.Settings.Default.AutoDecompressFighterPAC)
+                            _rootNode.Compression = "None";
+                    }
                     MainForm.Instance.Reset();
                     return true;
                 }
