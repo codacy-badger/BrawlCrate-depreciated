@@ -365,7 +365,7 @@ namespace BrawlLib.Modeling
                 {
                     MDL0BoneNode actualTop = (MDL0BoneNode)oldTop.Children[0];
                     // Try to ensure top bone is a mistake bone
-                    if(!oldTop.Name.Equals("TopN") || actualTop.Name.Equals("TopN"))
+                    if(oldTop.Children.Count == 1 && (!oldTop.Name.Equals("TopN") || actualTop.Name.Equals("TopN")))
                     {
                         // Remove the actual top bone
                         m.FindChildrenByName("Bones")[0].AddChild(actualTop);
@@ -375,7 +375,7 @@ namespace BrawlLib.Modeling
                         foreach (MDL0ObjectNode obj in m._objList)
                         {
                             if (obj.SingleBind.Equals(oldTop.Name))
-                                obj.SingleBind = actualTop.Name;
+                                obj.SingleBind = actualTop.Name;                                    // Remove unecessary reference to armature bone
                             else if (obj.SingleBind.EndsWith("_end") && m.FindBone(obj.SingleBind) != null && m.FindBone(obj.SingleBind).Parent != null && obj.SingleBind.Equals(m.FindBone(obj.SingleBind).Parent.Name + "_end") && ensureBoneIsUnused(m.FindBone(obj.SingleBind)))
                                 obj.SingleBind = m.FindBone(obj.SingleBind).Parent.Name;            // Remove unecessary reference to "end" bones
                             else
@@ -383,28 +383,42 @@ namespace BrawlLib.Modeling
                             foreach (DrawCall dc in obj._drawCalls)
                             {
                                 if (dc.VisibilityBone.Equals(oldTop.Name))
-                                    dc.VisibilityBone = actualTop.Name;
+                                    dc.VisibilityBone = actualTop.Name;                             // Remove unecessary reference to armature bone
                                 else if (dc.VisibilityBone.EndsWith("_end") && m.FindBone(dc.VisibilityBone) != null && m.FindBone(dc.VisibilityBone).Parent != null && dc.VisibilityBone.Equals(m.FindBone(dc.VisibilityBone).Parent.Name + "_end") && ensureBoneIsUnused(m.FindBone(dc.VisibilityBone)))
                                     dc.VisibilityBone = m.FindBone(dc.VisibilityBone).Parent.Name;  // Remove unecessary reference to "end" bones
                                 else
                                     dc.VisibilityBone = dc.VisibilityBone;                          // Ensure bones are still properly linked
                             }
                         }
-                        MDL0BoneNode b = m.FindBoneByIndex(0);
-                        int j = 0;
-                        while (b != null)
-                        {
-                            ++j;
-                            if (b != null)
-                            {
-                                if (b.Name.EndsWith("_end") && ensureBoneIsUnused(b) && (b.VisibilityDrawCalls == null || b.VisibilityDrawCalls.Length == 0) && (b.SingleBindObjects == null || b.SingleBindObjects.Length == 0))
-                                    b.Parent.RemoveChild(b);
-                            }
-                            b = m.FindBoneByIndex(j);
-                        }
-                        m._linker.RegenerateBoneCache(true);
-                        return m;
                     }
+                    else
+                    {
+                        // Remove reference to any end bones
+                        foreach (MDL0ObjectNode obj in m._objList)
+                        {
+                            if (obj.SingleBind.EndsWith("_end") && m.FindBone(obj.SingleBind) != null && m.FindBone(obj.SingleBind).Parent != null && obj.SingleBind.Equals(m.FindBone(obj.SingleBind).Parent.Name + "_end") && ensureBoneIsUnused(m.FindBone(obj.SingleBind)))
+                                obj.SingleBind = m.FindBone(obj.SingleBind).Parent.Name;            // Remove unecessary reference to "end" bones
+                            foreach (DrawCall dc in obj._drawCalls)
+                            {
+                                if (dc.VisibilityBone.EndsWith("_end") && m.FindBone(dc.VisibilityBone) != null && m.FindBone(dc.VisibilityBone).Parent != null && dc.VisibilityBone.Equals(m.FindBone(dc.VisibilityBone).Parent.Name + "_end") && ensureBoneIsUnused(m.FindBone(dc.VisibilityBone)))
+                                    dc.VisibilityBone = m.FindBone(dc.VisibilityBone).Parent.Name;  // Remove unecessary reference to "end" bones
+                            }
+                        }
+                    }
+                    MDL0BoneNode b = m.FindBoneByIndex(0);
+                    int j = 0;
+                    while (b != null)
+                    {
+                        ++j;
+                        if (b != null)
+                        {
+                            if (b.Name.EndsWith("_end") && ensureBoneIsUnused(b) && (b.VisibilityDrawCalls == null || b.VisibilityDrawCalls.Length == 0) && (b.SingleBindObjects == null || b.SingleBindObjects.Length == 0))
+                                b.Parent.RemoveChild(b);
+                        }
+                        b = m.FindBoneByIndex(j);
+                    }
+                    m._linker.RegenerateBoneCache(true);
+                    return m;
                 }
             }
 
