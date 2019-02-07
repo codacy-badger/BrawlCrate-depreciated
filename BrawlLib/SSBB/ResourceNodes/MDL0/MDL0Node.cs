@@ -707,7 +707,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             while (_objGroup != null && _objGroup.HasChildren)
                 ((MDL0ObjectNode)(_objGroup.Children[0])).Remove(true);
             while (_matGroup != null && _matGroup.HasChildren)
-                _matGroup.Children[0].Remove();
+                ((MDL0MaterialNode)(_matGroup.Children[0])).Remove(true);
             while (_shadGroup != null && _shadGroup.HasChildren)
                 _shadGroup.Children[0].Remove();
             while (_uvGroup != null && _uvGroup.HasChildren)
