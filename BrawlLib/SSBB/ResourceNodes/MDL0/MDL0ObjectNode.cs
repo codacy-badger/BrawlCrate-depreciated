@@ -1468,14 +1468,14 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 _vertexNode._objects.Remove(this);
                 if (_vertexNode._objects.Count == 0 && v)
-                    _vertexNode.Remove();
+                    _vertexNode.Parent.RemoveChild(_vertexNode);
             }
 
             if (_normalNode != null)
             {
                 _normalNode._objects.Remove(this);
                 if (_normalNode._objects.Count == 0 && n)
-                    _normalNode.Remove();
+                    _normalNode.Parent.RemoveChild(_normalNode);
             }
 
             for (int i = 0; i < 2; i++)
@@ -1483,7 +1483,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 {
                     _colorSet[i]._objects.Remove(this);
                     if (_colorSet[i]._objects.Count == 0 && (i == 0 ? c1 : c2))
-                        _colorSet[i].Remove();
+                        _colorSet[i].Parent.RemoveChild(_colorSet[i]);
                 }
 
             for (int i = 0; i < 8; i++)
@@ -1491,7 +1491,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 {
                     _uvSet[i]._objects.Remove(this);
                     if (_uvSet[i]._objects.Count == 0 && uv[i])
-                        _uvSet[i].Remove();
+                        _uvSet[i].Parent.RemoveChild(_uvSet[i]);
                 }
             
             MatrixNode = null;
