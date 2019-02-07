@@ -2131,8 +2131,17 @@ For example, if the shader has two stages but this number is 1, the second stage
 
         public override void Remove()
         {
+            Remove(false);
+        }
+        
+        public void Remove(bool force)
+        {
             if (Parent != null)
             {
+                if (ShaderNode != null && ShaderNode.Materials.Length == 1)
+                    if (force || MessageBox.Show("Do you want to remove this material's shader? (It's only used by this material)", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        ShaderNode.Remove();
+
                 ShaderNode = null;
 
                 foreach (MDL0MaterialRefNode r in Children)
