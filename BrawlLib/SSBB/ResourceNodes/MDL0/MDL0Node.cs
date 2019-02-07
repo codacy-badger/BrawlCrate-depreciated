@@ -331,10 +331,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             if (MaterialGroup.Children.Count == 1 && MaterialGroup.Children[0].Name.IndexOf("_") > 0)
                 MaterialGroup.Children[0].Name = MaterialGroup.Children[0].Name.Substring(0, MaterialGroup.Children[0].Name.IndexOf("_"));
 
-            if (_boneGroup == null)
+            if (BoneGroup == null)
                 Populate();
 
-            MDL0BoneNode b = (MDL0BoneNode)_boneGroup.Children[0];
+            MDL0BoneNode b = (MDL0BoneNode)BoneGroup.Children[0];
             b.Name = b.Name + "_NShadow";
             b.setManualScale('X', (float)(b.Scale._x * 1.01));
             b.setManualScale('Y', (float)(b.Scale._y * 1.01));
