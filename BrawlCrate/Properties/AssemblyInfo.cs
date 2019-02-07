@@ -5,9 +5,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 #if !DEBUG
-[assembly: AssemblyTitle("BrawlCrate v0.21")]
+[assembly: AssemblyTitle("BrawlCrate v0.22")]
 #else
-[assembly: AssemblyTitle("BrawlCrate v0.22 (BETA)")]
+[assembly: AssemblyTitle("BrawlCrate v0.23 (BETA)")]
 #endif
 [assembly: AssemblyDescription("This program is provided as-is without any warranty, implied or otherwise." +
 " By using this program, the end user agrees to take full responsibility regarding its proper and lawful use." +
@@ -50,5 +50,5 @@ Super Smash Bros. Brawl © 2008 Nintendo and HAL Laboratory")]
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.21.*")]
-[assembly: AssemblyFileVersion("0.21.3.0")]
+[assembly: AssemblyVersion("0.22.*")]
+[assembly: AssemblyFileVersion("0.22.0.0")]

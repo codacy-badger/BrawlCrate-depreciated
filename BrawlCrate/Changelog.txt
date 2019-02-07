@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.21 Hotfix 3
+BrawlCrate - v0.22
 Copyright © 2018 - 2019 soopercool101, MarioDox, Syvkal
 BrawlBox  © 2009 - 2019 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,22 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.22 - (2/6/2019)
+ . Add Blender Bone Fix setting when importing DAE files (Removes armature and end bones)
+ . Fighter PACs and PCSs now immediately set proper compression and flag as changed when settings are active for it
+ . When deleting a material from a model, prompts to delete the relevant shader if it would go unused
+ . When deleting an object, now prompts to delete the relevant material if it would go unused
+ . When deleting an object, now properly deletes vertices and normals
+ . Updated info on SubItem ID to reflect current understanding
+ . OpenTK reverted to v1.1.0.0 to increase compatibility
+ . Updater's batch file cmd window is now hidden
+ . Improve texture importing's detection of inverted alpha
+ . Speed up and improve CHR0 from bone position generation
+ . No longer imports null bones that don't have a skin wrap
+ . Fixes in-game crashes with the metal generation script
+ . Files are now deleted before export to  potentially prevent overwriting issues
+ . Fix crashes when adding animations from the preview window
  
  - BrawlCrate v0.21 Hotfix 3 - (1/29/2019)
  . Add direct import for Color-Smashable textures
