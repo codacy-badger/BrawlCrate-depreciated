@@ -702,8 +702,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public void StripModel()
         {
-            if (_objGroup == null)
-                Populate();
+            Populate();
             while (_objGroup != null && _objGroup.HasChildren)
                 ((MDL0ObjectNode)(_objGroup.Children[0])).Remove(true);
             while (_matGroup != null && _matGroup.HasChildren)
