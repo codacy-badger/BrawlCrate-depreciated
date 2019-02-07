@@ -331,7 +331,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             if (MaterialGroup.Children.Count == 1 && MaterialGroup.Children[0].Name.IndexOf("_") > 0)
                 MaterialGroup.Children[0].Name = MaterialGroup.Children[0].Name.Substring(0, MaterialGroup.Children[0].Name.IndexOf("_"));
 
-            MDL0BoneNode b = FindBoneByIndex(0);
+            if (_boneGroup == null)
+                Populate();
+
+            MDL0BoneNode b = (MDL0BoneNode)_boneGroup.Children[0];
             b.Name = b.Name + "_NShadow";
             b.setManualScale('X', (float)(b.Scale._x * 1.01));
             b.setManualScale('Y', (float)(b.Scale._y * 1.01));
@@ -727,7 +730,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             if(_boneGroup == null)
             {
                 Populate();
-                _linker.RegenerateBoneCache();
+                //_linker.RegenerateBoneCache();
             }
             foreach (MDL0BoneNode b in BoneCache)
                 if (b.BoneIndex == givenIndex)
