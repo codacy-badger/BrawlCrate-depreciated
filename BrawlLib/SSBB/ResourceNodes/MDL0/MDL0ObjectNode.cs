@@ -1464,26 +1464,13 @@ namespace BrawlLib.SSBB.ResourceNodes
                 return;
             }
 
-            if (_vertexNode != null)
-            {
-                _vertexNode._objects.Remove(this);
-                if (_vertexNode._objects.Count == 0 && v)
-                    _vertexNode.Parent.RemoveChild(_vertexNode);
-            }
-
-            if (_normalNode != null)
-            {
-                _normalNode._objects.Remove(this);
-                if (_normalNode._objects.Count == 0 && n)
-                    _normalNode.Parent.RemoveChild(_normalNode);
-            }
 
             for (int i = 0; i < 2; i++)
                 if (_colorSet[i] != null)
                 {
                     _colorSet[i]._objects.Remove(this);
                     if (_colorSet[i]._objects.Count == 0 && (i == 0 ? c1 : c2))
-                        _colorSet[i].Parent.RemoveChild(_colorSet[i]);
+                        _colorSet[i].Remove();
                 }
 
             for (int i = 0; i < 8; i++)
@@ -1491,9 +1478,25 @@ namespace BrawlLib.SSBB.ResourceNodes
                 {
                     _uvSet[i]._objects.Remove(this);
                     if (_uvSet[i]._objects.Count == 0 && uv[i])
-                        _uvSet[i].Parent.RemoveChild(_uvSet[i]);
+                        _uvSet[i].Remove();
                 }
-            
+
+            if (_vertexNode != null)
+            {
+                if (_vertexNode._objects.Count == 1 && v)
+                    _vertexNode.Remove();
+                else
+                    _vertexNode._objects.Remove(this);
+            }
+
+            if (_normalNode != null)
+            {
+                if (_normalNode._objects.Count == 1 && n)
+                    _normalNode.Remove();
+                else
+                    _normalNode._objects.Remove(this);
+            }
+
             MatrixNode = null;
 
             foreach (DrawCall c in _drawCalls)
