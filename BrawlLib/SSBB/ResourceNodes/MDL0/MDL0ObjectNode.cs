@@ -1526,6 +1526,13 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public void Remove(bool force)
         {
+            int i = 0;
+            foreach(DrawCall dc in _drawCalls)
+            {
+                ++i;
+                if(dc.MaterialNode._objects.Count == 1 && (force || MessageBox.Show("Do you want to remove this object's material" + (_drawCalls.Count > 1 ? (" " + i) : "") + "?", "", MessageBoxButtons.YesNo) == DialogResult.Yes))
+                    dc.MaterialNode.Remove();
+            }
             Remove(
                 _vertexNode != null && _vertexNode._objects.Count == 1 && (force || MessageBox.Show("Do you want to remove this object's vertex node?", "", MessageBoxButtons.YesNo) == DialogResult.Yes),
                 _normalNode != null && _normalNode._objects.Count == 1 && (force || MessageBox.Show("Do you want to remove this object's normal node?", "", MessageBoxButtons.YesNo) == DialogResult.Yes),
