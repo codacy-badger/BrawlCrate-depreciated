@@ -167,10 +167,13 @@ namespace BrawlCrate
             RecentFileHandler = new RecentFileHandler(this.components);
             RecentFileHandler.RecentFileToolStripItem = this.recentFilesToolStripMenuItem;
 
-            BrawlCrate.Discord.DiscordSettings.startTime = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-            BrawlCrate.Discord.DiscordSettings.DiscordController = new BrawlCrate.Discord.DiscordController();
-            BrawlCrate.Discord.DiscordSettings.DiscordController.Initialize();
-            BrawlCrate.Discord.DiscordSettings.Update();
+            if (Program.CanRunDiscordRPC())
+            {
+                BrawlCrate.Discord.DiscordSettings.startTime = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+                BrawlCrate.Discord.DiscordSettings.DiscordController = new BrawlCrate.Discord.DiscordController();
+                BrawlCrate.Discord.DiscordSettings.DiscordController.Initialize();
+                BrawlCrate.Discord.DiscordSettings.Update();
+            }
         }
 
         private delegate bool DelegateOpenFile(String s);
@@ -509,7 +512,8 @@ namespace BrawlCrate
             resourceTree_SelectionChanged(null, null);
 
             UpdateName();
-            BrawlCrate.Discord.DiscordSettings.Update();
+            if(Program.CanRunDiscordRPC())
+                BrawlCrate.Discord.DiscordSettings.Update();
         }
 
         public void UpdateName()

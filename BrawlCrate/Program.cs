@@ -721,5 +721,11 @@ REGEN:
             }
             return true;
         }
+
+        public static bool CanRunDiscordRPC()
+        {
+            string path = System.Windows.Forms.Application.StartupPath + "\\discord-rpc.dll";
+            return File.Exists(path);
+        }
     }
 }
