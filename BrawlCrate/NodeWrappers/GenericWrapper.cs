@@ -220,6 +220,8 @@ namespace BrawlCrate
         public void Rename()
         {
             using (RenameDialog dlg = new RenameDialog()) { dlg.ShowDialog(MainForm.Instance, _resource); }
+            if (_resource.Parent == null)
+                BrawlCrate.Discord.DiscordSettings.Update();
         }
     }
 }

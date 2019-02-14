@@ -236,6 +236,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Discord\DiscordRpc.cs" />
+    <Compile Include="Discord\DiscordController.cs" />
+    <Compile Include="Discord\DiscordSettings.cs" />
     <Compile Include="NodeWrappers\Audio\RSARGroupWrapper.cs" />
     <Compile Include="UI\SplashForm.cs">
       <SubType>Form</SubType>
@@ -585,6 +588,9 @@
   <ItemGroup>
     <Content Include="BrawlCrate.ico" />
     <None Include="Resources\BrawlCrateLogo.png" />
+    <Content Include="discord-rpc.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\GCAM.png" />
     <Content Include="Resources\GIB2.png" />
     <Content Include="Resources\GITM.png" />
