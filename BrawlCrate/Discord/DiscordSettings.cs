@@ -12,16 +12,17 @@ namespace BrawlCrate.Discord
         {
             Disabled,
             UserDefined,
-            Auto
+            AutoInternal,
+            AutoExternal
         }
 
         // Fields to be saved between runs
         public static bool enabled = true;
         public static string userPickedImageKey = "brawlcrate";
-        public static ModNameType modNameType = ModNameType.Auto;
+        public static ModNameType modNameType = ModNameType.AutoExternal;
+        public static string workString = "Working on";
         public static string userNamedMod = "ModNameHere";
-        public static bool showCurrentWindow;
-        public static bool showTimeElapsed;
+        public static bool showTimeElapsed = true;
         public static DiscordController DiscordController;
 
         public static void Update()
@@ -43,24 +44,27 @@ namespace BrawlCrate.Discord
             switch (modNameType)
             {
                 case ModNameType.Disabled:
-                    DiscordController.presence.state = "Working on a mod";
+                    DiscordController.presence.state = workString + " " + "a mod";
                     break;
                 case ModNameType.UserDefined:
-                    DiscordController.presence.state = $"Working on {userNamedMod}";
+                    DiscordController.presence.state = workString + " " + userNamedMod;
                     break;
-                case ModNameType.Auto:
-                    DiscordController.presence.state = ("Working on " + (MainForm.Instance.RootNode == null ? " a mod" : MainForm.Instance.RootNode.Text));
+                case ModNameType.AutoInternal:
+                    DiscordController.presence.state = workString + " " + (MainForm.Instance.RootNode == null ? "a mod" : MainForm.Instance.RootNode.Text);
+                    break;
+                case ModNameType.AutoExternal:
+                    DiscordController.presence.state = workString + " " + ((Program.RootPath == null || Program.RootPath == "") ? "a mod" : Program.RootPath.Substring(Program.RootPath.LastIndexOf('\\') + 1));
                     break;
             }
 
-            if (showCurrentWindow)
+            /*if (showCurrentWindow)
             {
                 if (MainForm.Instance.RootNode != null)
                 {
                     string tabName = MainForm.Instance.RootNode.Name;
                     DiscordController.presence.details = $"{tabName}";
                 }
-            }
+            }*/
 
             if (showTimeElapsed)
                 DiscordController.presence.startTimestamp = startTime;
