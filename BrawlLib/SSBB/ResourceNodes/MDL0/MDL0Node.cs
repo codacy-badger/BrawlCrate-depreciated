@@ -180,7 +180,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             if (_matGroup == null)
             {
-                return;
+                Populate();
+                if(_matGroup == null || _boneGroup == null || _objGroup == null)
+                    return;
             }
 
             // Implementation with support for multiple culling types
@@ -1048,7 +1050,8 @@ namespace BrawlLib.SSBB.ResourceNodes
                 foreach (MDL0TextureNode n in _texGroup.Children)
                     if (n._name == name)
                         return n;
-
+            if (_texGroup == null)
+                _texGroup = (MDL0GroupNode)FindChildrenByName("Textures")[0];
             MDL0TextureNode node = new MDL0TextureNode(name);
             _texGroup.AddChild(node, false);
 
@@ -1062,7 +1065,8 @@ namespace BrawlLib.SSBB.ResourceNodes
                 foreach (MDL0TextureNode n in _pltGroup.Children)
                     if (n._name == name)
                         return n;
-
+            if (_pltGroup == null)
+                _pltGroup = (MDL0GroupNode)FindChildrenByName("Palettes")[0];
             MDL0TextureNode node = new MDL0TextureNode(name);
             _pltGroup.AddChild(node, false);
 
