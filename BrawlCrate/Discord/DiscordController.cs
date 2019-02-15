@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace BrawlCrate.Discord
     {
         public DiscordRpc.RichPresence presence;
         DiscordRpc.EventHandlers handlers;
-        public string applicationId = BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds ? "545788780980994078" : "545732315658059801";
+        public string applicationId = (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active")) ? "545788780980994078" : "545732315658059801";
         public string optionalSteamId;
 
         /// <summary>

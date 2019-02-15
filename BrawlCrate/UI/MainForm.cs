@@ -449,7 +449,13 @@ namespace BrawlCrate
         public bool Canary
         {
             get { return _canary; }
-            set { _canary = value; }
+            set
+            {
+                _canary = value;
+
+                BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = _canary;
+                BrawlCrate.Properties.Settings.Default.Save();
+            }
         }
         bool _canary;
         
