@@ -79,7 +79,8 @@ namespace BrawlCrate.Discord
                     }
                 }
                 else if(MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("sc_", StringComparison.OrdinalIgnoreCase) ||
-                        MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("common", StringComparison.OrdinalIgnoreCase))
+                        MainForm.Instance.RootNode.ResourceNode.Name.Equals("common5", StringComparison.OrdinalIgnoreCase) ||
+                        MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("mu_", StringComparison.OrdinalIgnoreCase))
                 {
                     DiscordController.presence.details = workString + " " + "menus";
                 }
