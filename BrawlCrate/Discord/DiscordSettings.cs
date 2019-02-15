@@ -20,7 +20,7 @@ namespace BrawlCrate.Discord
         // Fields to be saved between runs
         public static bool enabled = true;
         public static string userPickedImageKey = "brawlcrate";
-        public static ModNameType modNameType = ModNameType.AutoInternal;
+        public static ModNameType modNameType = ModNameType.Disabled;
         public static string workString = "Working on";
         public static string userNamedMod = "ModNameHere";
         public static bool showTimeElapsed = true;
