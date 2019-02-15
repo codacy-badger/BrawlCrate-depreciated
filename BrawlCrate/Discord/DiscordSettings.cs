@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BrawlLib.SSBB.ResourceNodes;
 
 namespace BrawlCrate.Discord
 {
@@ -40,8 +41,65 @@ namespace BrawlCrate.Discord
                 largeImageKey = "brawlcrate",
                 largeImageText = ""
             };
-            
-            DiscordController.presence.details = workString + " " + "a mod";
+            if(MainForm.Instance.RootNode == null)
+            {
+                DiscordController.presence.details = "Idling";
+            }
+            else if(MainForm.Instance.RootNode.ResourceNode is ARCNode)
+            {
+                if (((ARCNode)MainForm.Instance.RootNode.ResourceNode).IsStage)
+                {
+                    if(MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("STGRESULT", StringComparison.OrdinalIgnoreCase))
+                        DiscordController.presence.details = workString + " " + "the results screen";
+                    else
+                        DiscordController.presence.details = workString + " " + "a stage";
+                }
+                else if (((ARCNode)MainForm.Instance.RootNode.ResourceNode).IsCharacter)
+                {
+                    if (MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("0") ||
+                       MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("1") ||
+                       MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("2") ||
+                       MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("3") ||
+                       MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("4") ||
+                       MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("5") ||
+                       MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("6") ||
+                       MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("7") ||
+                       MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("8") ||
+                       MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("9"))
+                    {
+                        DiscordController.presence.details = workString + " " + "a costume";
+                    }
+                    else if(MainForm.Instance.RootNode.ResourceNode.Name.Contains("motion", StringComparison.OrdinalIgnoreCase))
+                    {
+                        DiscordController.presence.details = workString + " " + "animations";
+                    }
+                    else
+                    {
+                        DiscordController.presence.details = workString + " " + "a fighter";
+                    }
+                }
+                else if(MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("sc_", StringComparison.OrdinalIgnoreCase) ||
+                        MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("common", StringComparison.OrdinalIgnoreCase))
+                {
+                    DiscordController.presence.details = workString + " " + "menus";
+                }
+                else if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("info", StringComparison.OrdinalIgnoreCase))
+                {
+                    DiscordController.presence.details = workString + " " + "UI";
+                }
+                else
+                {
+                    DiscordController.presence.details = workString + " " + "a mod";
+                }
+            }
+            else if (MainForm.Instance.RootNode.ResourceNode is RSTMNode)
+            {
+                DiscordController.presence.details = workString + " " + "a BRSTM";
+            }
+            else
+            {
+                DiscordController.presence.details = workString + " " + "a mod";
+            }
 
             if (MainForm.Instance.RootNode != null)
             {
