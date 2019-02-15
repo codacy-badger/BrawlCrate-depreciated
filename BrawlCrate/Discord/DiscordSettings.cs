@@ -114,7 +114,7 @@ namespace BrawlCrate.Discord
                         DiscordController.presence.state = userNamedMod;
                         break;
                     case ModNameType.AutoInternal:
-                        DiscordController.presence.state = (MainForm.Instance.RootNode == null ? "" : MainForm.Instance.RootNode.Text);
+                        DiscordController.presence.state = ((MainForm.Instance.RootNode == null || MainForm.Instance.RootNode.Name == null || MainForm.Instance.RootNode.ResourceNode.Name.Equals("<null>", StringComparison.OrdinalIgnoreCase)) ? "" : MainForm.Instance.RootNode.ResourceNode.Name);
                         break;
                     case ModNameType.AutoExternal:
                         DiscordController.presence.state = ((Program.RootPath == null || Program.RootPath == "") ? "" : Program.RootPath.Substring(Program.RootPath.LastIndexOf('\\') + 1));
