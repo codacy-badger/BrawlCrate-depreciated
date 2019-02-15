@@ -10,7 +10,7 @@ namespace BrawlCrate.Discord
     {
         public DiscordRpc.RichPresence presence;
         DiscordRpc.EventHandlers handlers;
-        public string applicationId = "545732315658059801";
+        public string applicationId = BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds ? "545788780980994078" : "545732315658059801";
         public string optionalSteamId;
 
         /// <summary>
