@@ -246,6 +246,8 @@ namespace BrawlCrate
                 {
 
                 }
+                if (CanRunDiscordRPC())
+                    Discord.DiscordRpc.Shutdown();
                 Close(true);
             }
         }
