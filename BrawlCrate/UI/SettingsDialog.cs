@@ -839,6 +839,7 @@ namespace BrawlCrate
                     "If you select yes, the update will begin immediately, so make sure your work is saved.", "BrawlCrate Canary Updater", MessageBoxButtons.YesNo);
                 if(dc == DialogResult.Yes)
                 {
+                    MainForm.Instance.Canary = true;
                     Program.ForceDownloadCanary();
                 }
             }
@@ -850,6 +851,7 @@ namespace BrawlCrate
                     "If you select yes, the downgrade will begin immediately, so make sure your work is saved.", "BrawlCrate Canary Updater", MessageBoxButtons.YesNo);
                 if (dc == DialogResult.Yes)
                 {
+                    MainForm.Instance.Canary = false;
                     Program.ForceDownloadStable();
                 }
             }

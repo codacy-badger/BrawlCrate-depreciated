@@ -449,6 +449,7 @@ namespace BrawlCrate
         public bool Canary
         {
             get { return _canary; }
+            set { _canary = value; }
         }
         bool _canary;
         
