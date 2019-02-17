@@ -79,7 +79,7 @@ namespace BrawlCrate.Discord
                     }
                 }
                 else if(MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("sc_", StringComparison.OrdinalIgnoreCase) ||
-                        MainForm.Instance.RootNode.ResourceNode.Name.Equals("common5", StringComparison.OrdinalIgnoreCase) ||
+                        MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("common5", StringComparison.OrdinalIgnoreCase) ||
                         MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("mu_", StringComparison.OrdinalIgnoreCase))
                 {
                     DiscordController.presence.details = workString + " " + "menus";
@@ -87,6 +87,10 @@ namespace BrawlCrate.Discord
                 else if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("info", StringComparison.OrdinalIgnoreCase))
                 {
                     DiscordController.presence.details = workString + " " + "UI";
+                }
+                else if (Program.RootPath.Substring(0, Program.RootPath.LastIndexOf('\\')).EndsWith("\\stage\\adventure"))
+                {
+                    DiscordController.presence.details = workString + " " + "a subspace stage";
                 }
                 else
                 {
