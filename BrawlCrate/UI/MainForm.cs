@@ -57,7 +57,6 @@ namespace BrawlCrate
         public string commitIDlong = "";
         public static readonly string mainRepo = "soopercool101/BrawlCrate";
         public static readonly string mainBranch = "brawlcrate-master";
-        private static bool validBranchSet = true;
         public static string currentBranch { get { return GetCurrentBranch(); } set { SetCurrentBranch(value); } }
         private static string GetCurrentBranch()
         {
@@ -243,7 +242,7 @@ namespace BrawlCrate
                     }
                 }
             }
-            Text = _canary ? "BrawlCrate Canary" + (currentBranch == mainBranch ? "" : ("@" + currentBranch)) + commitIDlong : Program.AssemblyTitle;
+            Text = _canary ? "BrawlCrate Canary" + (currentRepo == mainRepo ? (currentBranch == mainBranch ? "" : ("@" + currentBranch)) : "@" + currentRepo + "@" + currentBranch) + commitIDlong : Program.AssemblyTitle;
             // Currently depreciated settings
             _compatibilityMode = BrawlLib.Properties.Settings.Default.CompatibilityMode;
             _importPNGwPalette = BrawlLib.Properties.Settings.Default.ImportPNGsWithPalettes;
@@ -624,9 +623,9 @@ namespace BrawlCrate
         public void UpdateName()
         {
             if (Program.RootPath != null)
-                Text = String.Format("{0} - {1}", _canary ? "BrawlCrate Canary" + (currentBranch == mainBranch ? "" : ("@" + currentBranch)) + commitIDshort : Program.AssemblyTitle, Program.RootPath);
+                Text = String.Format("{0} - {1}", _canary ? "BrawlCrate Canary" + (currentRepo == mainRepo ? (currentBranch == mainBranch ? "" : ("@" + currentBranch)) : "@" + currentRepo + "@" + currentBranch) + commitIDshort : Program.AssemblyTitle, Program.RootPath);
             else
-                Text = _canary ? "BrawlCrate Canary" + (currentBranch == mainBranch ? "" : ("@" + currentBranch)) + commitIDlong : Program.AssemblyTitle;
+                Text = _canary ? "BrawlCrate Canary" + (currentRepo == mainRepo ? (currentBranch == mainBranch ? "" : ("@" + currentBranch)) : "@" + currentRepo + "@" + currentBranch) + commitIDlong : Program.AssemblyTitle;
         }
 
         public void TargetResource(ResourceNode n)

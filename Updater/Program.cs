@@ -19,8 +19,25 @@ namespace Net
 {
     public static class Updater
     {
+        public static readonly string mainRepo = "soopercool101/BrawlCrate";
         public static readonly string mainBranch = "brawlcrate-master";
+        public static string currentRepo = GetCurrentRepo();
         public static string currentBranch = GetCurrentBranch();
+
+        static string GetCurrentRepo()
+        {
+            try
+            {
+                string temp = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch")[1];
+                if (temp == null || temp == "")
+                    throw (new ArgumentNullException());
+                return temp;
+            }
+            catch
+            {
+                return mainRepo;
+            }
+        }
 
         static string GetCurrentBranch()
         {
@@ -574,18 +591,20 @@ namespace Net
             {
                 string oldDate = "";
                 oldDate = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[0];
-                
+
                 Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
                 var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
                 string newDate;
+                char[] slashes = { '\\', '/' };
+                string[] repoData = currentRepo.Split(slashes);
                 Branch branch;
                 GitHubCommit result;
                 DateTimeOffset commitDate;
                 try
                 {
-                    branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", currentBranch);
-                    result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
-					string url = "https://github.com/soopercool101/BrawlCrate/blob/" + currentBranch + "/CanaryBuild/CanaryREADME.md";
+                    branch = await github.Repository.Branch.Get(repoData[0], repoData[1], currentBranch);
+                    result = await github.Repository.Commit.Get(repoData[0], repoData[1], branch.Commit.Sha);
+					string url = "https://github.com/" + currentRepo + "/blob/" + currentBranch + "/CanaryBuild/CanaryREADME.md";
 					using (WebClient x = new WebClient())
 					{
 						string source = x.DownloadString(url);
@@ -600,10 +619,12 @@ namespace Net
                 }
                 catch
                 {
-                    branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", mainBranch);
-                    result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
+                    repoData = mainRepo.Split(slashes);
+                    branch = await github.Repository.Branch.Get(repoData[0], repoData[1], mainBranch);
+                    result = await github.Repository.Commit.Get(repoData[0], repoData[1], branch.Commit.Sha);
                     commitDate = result.Commit.Author.Date;
                     newDate = commitDate.ToUniversalTime().ToString("O");
+                    currentRepo = mainRepo;
                     currentBranch = mainBranch;
                 }
                 if (oldDate.Equals(newDate, StringComparison.OrdinalIgnoreCase))
@@ -639,21 +660,26 @@ namespace Net
                 using (Ping s = new Ping())
                     Console.WriteLine(s.Send("www.github.com").Status);
 
+                char[] slashes = { '\\', '/' };
+                string[] repoData = currentRepo.Split(slashes);
+
                 if (commitID == null)
                 {
                     Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
                     var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
                     try
                     {
-                        var branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", currentBranch);
-                        var result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
+                        var branch = await github.Repository.Branch.Get(repoData[0], repoData[1], currentBranch);
+                        var result = await github.Repository.Commit.Get(repoData[0], repoData[1], branch.Commit.Sha);
                         commitID = result.Sha.ToString().Substring(0, 7);
                     }
                     catch
                     {
-                        var branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", mainBranch);
-                        var result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
+                        repoData = mainRepo.Split(slashes);
+                        var branch = await github.Repository.Branch.Get(repoData[0], repoData[1], mainBranch);
+                        var result = await github.Repository.Commit.Get(repoData[0], repoData[1], branch.Commit.Sha);
                         commitID = result.Sha.ToString().Substring(0, 7);
+                        currentRepo = mainRepo;
                         currentBranch = mainBranch;
                     }
                 }
@@ -703,11 +729,11 @@ namespace Net
                     client.Headers.Add("User-Agent: Other");
 
                     // The browser download link to the self extracting archive, hosted on github
-                    string URL = "https://github.com/soopercool101/BrawlCrate/raw/" + currentBranch + "/CanaryBuild/Canary";
+                    string URL = "https://github.com/" + currentRepo + "/raw/" + currentBranch + "/CanaryBuild/Canary";
 
                     //client.DownloadFile(URL, AppPath + "/temp.exe");
                     DLProgressWindow.finished = false;
-                    DLProgressWindow dlTrack = new DLProgressWindow(null, commitID == null ? "BrawlCrate Canary Build" : (currentBranch == mainBranch ? "BrawlCrate Canary #" + commitID : "Canary@" + currentBranch + " #" + commitID), AppPath, URL);
+                    DLProgressWindow dlTrack = new DLProgressWindow(null, commitID == null ? "BrawlCrate Canary Build" : (currentRepo == mainRepo ? (currentBranch == mainBranch ? "BrawlCrate Canary #" + commitID : "Canary@" + currentBranch + " #" + commitID) : currentRepo + " Canary@" + currentBranch + " #" + commitID), AppPath, URL);
                     while (!DLProgressWindow.finished)
                     {
                         // do nothing
