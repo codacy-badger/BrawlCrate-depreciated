@@ -76,7 +76,7 @@ namespace BrawlCrate
         {
             if (newBranch == null || newBranch == "")
                 newBranch = mainBranch;
-            if (currentBranch == newBranch)
+            if (currentBranch.Equals(mainBranch, StringComparison.OrdinalIgnoreCase))
                 return;
             string cRepo = currentRepo;
             // Check if Branch is valid
@@ -131,7 +131,7 @@ namespace BrawlCrate
         {
             if (newRepo == null || newRepo == "")
                 newRepo = mainRepo;
-            if (currentRepo == newRepo)
+            if (currentRepo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase))
                 return;
             string cBranch = currentBranch;
             // Check if Repo is valid
@@ -175,7 +175,7 @@ namespace BrawlCrate
                 newRepo = mainRepo;
             if (newBranch == null || newBranch == "")
                 newBranch = mainBranch;
-            if (currentRepo == newRepo && currentBranch == newBranch)
+            if (currentRepo.Equals(newRepo, StringComparison.OrdinalIgnoreCase) && currentBranch.Equals(mainBranch, StringComparison.OrdinalIgnoreCase))
                 return;
             // Check if Repo/Branch combo is valid
             ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
@@ -242,7 +242,7 @@ namespace BrawlCrate
                     }
                 }
             }
-            Text = _canary ? "BrawlCrate Canary" + (currentRepo == mainRepo ? (currentBranch == mainBranch ? "" : ("@" + currentBranch)) : "@" + currentRepo + "@" + currentBranch) + commitIDlong : Program.AssemblyTitle;
+            Text = _canary ? "BrawlCrate Canary" + (currentRepo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase) ? (currentBranch.Equals(mainBranch, StringComparison.OrdinalIgnoreCase) ? "" : ("@" + currentBranch)) : "@" + currentRepo + "@" + currentBranch) + commitIDlong : Program.AssemblyTitle;
             // Currently depreciated settings
             _compatibilityMode = BrawlLib.Properties.Settings.Default.CompatibilityMode;
             _importPNGwPalette = BrawlLib.Properties.Settings.Default.ImportPNGsWithPalettes;
@@ -623,9 +623,9 @@ namespace BrawlCrate
         public void UpdateName()
         {
             if (Program.RootPath != null)
-                Text = String.Format("{0} - {1}", _canary ? "BrawlCrate Canary" + (currentRepo == mainRepo ? (currentBranch == mainBranch ? "" : ("@" + currentBranch)) : "@" + currentRepo + "@" + currentBranch) + commitIDshort : Program.AssemblyTitle, Program.RootPath);
+                Text = String.Format("{0} - {1}", _canary ? "BrawlCrate Canary" + (currentRepo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase) ? (currentBranch.Equals(mainBranch, StringComparison.OrdinalIgnoreCase) ? "" : ("@" + currentBranch)) : "@" + currentRepo + "@" + currentBranch) + commitIDshort : Program.AssemblyTitle, Program.RootPath);
             else
-                Text = _canary ? "BrawlCrate Canary" + (currentRepo == mainRepo ? (currentBranch == mainBranch ? "" : ("@" + currentBranch)) : "@" + currentRepo + "@" + currentBranch) + commitIDlong : Program.AssemblyTitle;
+                Text = _canary ? "BrawlCrate Canary" + (currentRepo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase) ? (currentBranch.Equals(mainBranch, StringComparison.OrdinalIgnoreCase) ? "" : ("@" + currentBranch)) : "@" + currentRepo + "@" + currentBranch) + commitIDlong : Program.AssemblyTitle;
         }
 
         public void TargetResource(ResourceNode n)
