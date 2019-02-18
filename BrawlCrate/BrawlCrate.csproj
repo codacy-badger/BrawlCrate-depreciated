@@ -240,6 +240,9 @@
     <Compile Include="Discord\DiscordController.cs" />
     <Compile Include="Discord\DiscordSettings.cs" />
     <Compile Include="NodeWrappers\Audio\RSARGroupWrapper.cs" />
+    <Compile Include="UI\TwoStringInputDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UI\SplashForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -460,6 +463,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ModelForm.resx">
       <DependentUpon>ModelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TwoStringInputDialog.resx">
+      <DependentUpon>TwoStringInputDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>

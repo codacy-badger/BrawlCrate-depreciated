@@ -55,7 +55,9 @@ namespace BrawlCrate
         // Canary stuff
         public string commitIDshort = "";
         public string commitIDlong = "";
+        public static readonly string mainRepo = "soopercool101/BrawlCrate";
         public static readonly string mainBranch = "brawlcrate-master";
+        private static bool validBranchSet = true;
         public static string currentBranch { get { return GetCurrentBranch(); } set { SetCurrentBranch(value); } }
         private static string GetCurrentBranch()
         {
@@ -68,15 +70,6 @@ namespace BrawlCrate
             }
             catch
             {
-                DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
-                CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
-                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
-                using (var sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
-                {
-                    sw.Write(mainBranch);
-                    sw.Close();
-                }
                 return mainBranch;
             }
         }
@@ -86,7 +79,106 @@ namespace BrawlCrate
                 newBranch = mainBranch;
             if (currentBranch == newBranch)
                 return;
+            string cRepo = currentRepo;
             // Check if Branch is valid
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            try
+            {
+                string url = "https://github.com/" + cRepo + "/blob/" + newBranch + "/CanaryBuild/CanaryREADME.md";
+                using (WebClient x = new WebClient())
+                {
+                    string source = x.DownloadString(url);
+                    string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+                    if (title.Contains("not found", StringComparison.OrdinalIgnoreCase))
+                    {
+                        MessageBox.Show(newBranch + " was not found as a valid branch of the " + cRepo + " repository, or does not properly support Canary builds.");
+                        return;
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show(newBranch + " was not found as a valid branch of the " + cRepo + " repository, or does not properly support Canary builds.");
+                return;
+            }
+            DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
+            CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
+            using (var sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+            {
+                sw.WriteLine(newBranch);
+                sw.Write(cRepo);
+                sw.Close();
+            }
+            MessageBox.Show("The canary updater will now track the " + newBranch + " branch, starting with the next canary update.", "Branch Changed");
+        }
+        public static string currentRepo { get { return GetCurrentRepo(); } set { SetCurrentRepo(value); } }
+        private static string GetCurrentRepo()
+        {
+            try
+            {
+                string temp = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch")[1];
+                if (temp == null || temp == "")
+                    throw (new ArgumentNullException());
+                return temp;
+            }
+            catch
+            {
+                return mainRepo;
+            }
+        }
+        private static void SetCurrentRepo(string newRepo)
+        {
+            if (newRepo == null || newRepo == "")
+                newRepo = mainRepo;
+            if (currentRepo == newRepo)
+                return;
+            string cBranch = currentBranch;
+            // Check if Repo is valid
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            try
+            {
+                string url = "https://github.com/soopercool101/BrawlCrate/blob/" + cBranch + "/CanaryBuild/CanaryREADME.md";
+                using (WebClient x = new WebClient())
+                {
+                    string source = x.DownloadString(url);
+                    string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+                    if (title.Contains("not found", StringComparison.OrdinalIgnoreCase))
+                    {
+                        MessageBox.Show(cBranch + " was not found as a valid branch of the " + newRepo + " repository, or does not properly support Canary builds.");
+                        return;
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show(cBranch + " was not found as a valid branch of the " + newRepo + " repository, or does not properly support Canary builds.");
+                return;
+            }
+            DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
+            CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
+            using (var sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+            {
+                sw.WriteLine(cBranch);
+                sw.Write(newRepo);
+                sw.Close();
+            }
+            MessageBox.Show("The canary updater will now track the " + newRepo + " repo, starting with the next canary update.", "Repo Changed");
+        }
+
+        // Sets branch and repo
+        private static void SetCanaryTracking(string newRepo, string newBranch)
+        {
+            if (newRepo == null || newRepo == "")
+                newRepo = mainRepo;
+            if (newBranch == null || newBranch == "")
+                newBranch = mainBranch;
+            if (currentRepo == newRepo && currentBranch == newBranch)
+                return;
+            // Check if Repo/Branch combo is valid
             ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
             try
             {
@@ -97,14 +189,14 @@ namespace BrawlCrate
                     string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
                     if (title.Contains("not found", StringComparison.OrdinalIgnoreCase))
                     {
-                        MessageBox.Show(newBranch + " was not found as a valid branch of the BrawlCrate repository, or does not properly support Canary builds.");
+                        MessageBox.Show(newBranch + " was not found as a valid branch of the " + newRepo + " repository, or does not properly support Canary builds.");
                         return;
                     }
                 }
             }
             catch
             {
-                MessageBox.Show(newBranch + " was not found as a valid branch of the BrawlCrate repository, or does not properly support Canary builds.");
+                MessageBox.Show(newBranch + " was not found as a valid branch of the " + newRepo + " repository, or does not properly support Canary builds.");
                 return;
             }
             DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
@@ -113,11 +205,17 @@ namespace BrawlCrate
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
             using (var sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
             {
-                sw.Write(newBranch);
+                sw.WriteLine(newBranch);
+                sw.Write(newRepo);
                 sw.Close();
             }
-            MessageBox.Show("The canary updater will now track the " + newBranch + " branch, starting with the next canary update.", "Branch Changed");
+            if(MessageBox.Show("The canary updater will now track the " + newBranch + " branch of the " + newRepo + " repository, starting with the next canary update. Would you like to " + (BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds ? "" : "enable Canary and ") + "begin the update now?", "Canary Target Changed", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                Instance.Canary = true;
+                Program.ForceDownloadCanary(true);
+            }
         }
+
 
         public MainForm()
         {
