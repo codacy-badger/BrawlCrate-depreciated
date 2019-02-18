@@ -243,6 +243,17 @@ namespace BrawlCrate
                 }
             }
             Text = _canary ? "BrawlCrate Canary" + (currentRepo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase) ? (currentBranch.Equals(mainBranch, StringComparison.OrdinalIgnoreCase) ? "" : ("@" + currentBranch)) : "@" + currentRepo + "@" + currentBranch) + commitIDlong : Program.AssemblyTitle;
+            
+            // Slight space saving by deleting unused/unnecessary branch identifier
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary"))
+            {
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+                    if (currentRepo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase) && currentBranch.Equals(mainBranch, StringComparison.OrdinalIgnoreCase))
+                        File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
+                /*if(Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary").GetFiles().Length == 0)
+                    Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");*/
+            }
+
             // Currently depreciated settings
             _compatibilityMode = BrawlLib.Properties.Settings.Default.CompatibilityMode;
             _importPNGwPalette = BrawlLib.Properties.Settings.Default.ImportPNGsWithPalettes;
