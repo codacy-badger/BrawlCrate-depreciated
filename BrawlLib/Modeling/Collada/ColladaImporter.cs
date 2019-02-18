@@ -356,7 +356,7 @@ namespace BrawlLib.Modeling
             CurrentModel = null;
             Error = null;
 
-            // Blender Bone Fix
+            // Blender fbx Bone Fix
             if(_importOptions._blenderBoneFix && model is MDL0Node)
             {
                 MDL0Node m = (MDL0Node)model;
@@ -783,7 +783,7 @@ namespace BrawlLib.Modeling
             public MDLType ModelType { get { return _mdlType; } set { _mdlType = value; } }
             [DisplayName("Force Counterclockwise Primitives"), Category("Model"), Description("If true, object primitives will be culled in reverse. This means the outside of the object will be the inside, and the inside will be the outside. It is not recommended to change this to true as you can change the culling later using the object's material.")]
             public bool ForceCounterClockwisePrimitives { get { return _forceCCW; } set { _forceCCW = value; } }
-            [DisplayName("Blender Bone Fix"), Category("Model"), Description("Removes bones added by blender (armature and end bones).")]
+            [DisplayName("Blender FBX Bone Fix"), Category("Model"), Description("Removes bones added by blender fbx exports (armature and end bones).")]
             public bool BlenderFBXBoneFix { get { return _blenderBoneFix; } set { _blenderBoneFix = value; } }
             [DisplayName("Set Original Path"), Category("Model"), Description("If true, the file path of the imported model will be written to the model's header.")]
             public bool SetOriginalPath { get { return _setOrigPath; } set { _setOrigPath = value; } }
