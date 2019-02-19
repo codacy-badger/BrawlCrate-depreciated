@@ -14,7 +14,7 @@ namespace BrawlCrate
             this.lblName.Text = "BrawlCrate" + (MainForm.Instance.Canary ? " Canary" : "");
             this.lblVersion.Text = MainForm.Instance.Canary ? MainForm.currentRepo + "@" + MainForm.currentBranch + MainForm.Instance.commitIDshort : "Version " + Program.AssemblyVersion;
 #if DEBUG
-            this.lblVersion.Text += " DEBUG"
+            this.lblVersion.Text += " DEBUG";
 #endif
             this.txtDescription.Text = Program.AssemblyDescription;
             this.lblCopyright.Text = Program.AssemblyCopyright;
