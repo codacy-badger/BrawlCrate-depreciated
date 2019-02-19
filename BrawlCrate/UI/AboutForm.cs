@@ -13,6 +13,8 @@ namespace BrawlCrate
             InitializeComponent();
             this.lblName.Text = "BrawlCrate" + (MainForm.Instance.Canary ? " Canary" : "");
             this.lblVersion.Text = MainForm.Instance.Canary ? MainForm.currentRepo + "@" + MainForm.currentBranch + MainForm.Instance.commitIDshort : "Version " + Program.AssemblyVersion;
+            if (MainForm.Instance.Canary)
+                this.lblVersion.Font = new System.Drawing.Font(this.lblVersion.Font.FontFamily.ToString(), 10.0f);
 #if DEBUG
             this.lblVersion.Text += " DEBUG";
 #endif
