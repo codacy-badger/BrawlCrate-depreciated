@@ -569,7 +569,7 @@ namespace System.Windows.Forms
             }
             else
             {
-                if (_colorInfo.ColorCount <= 16)
+                if (_colorInfo.ColorCount <= 16 || ((name == "" ? Path.GetFileNameWithoutExtension(_imageSource) : name).StartsWith("InfStc.")))
                     cboFormat.SelectedItem = WiiPixelFormat.CI4;
                 else if (_colorInfo.ColorCount <= 272)
                     cboFormat.SelectedItem = WiiPixelFormat.CI8;
