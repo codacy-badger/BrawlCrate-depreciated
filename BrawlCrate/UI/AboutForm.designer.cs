@@ -33,6 +33,7 @@
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.lblCopyright = new System.Windows.Forms.Label();
             this.lblBrawlLib = new System.Windows.Forms.Label();
+            this.lblVersion = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnClose
@@ -63,12 +64,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescription.Font = new System.Drawing.Font("Corbel", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDescription.Location = new System.Drawing.Point(12, 35);
+            this.txtDescription.Location = new System.Drawing.Point(12, 52);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ReadOnly = true;
             this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDescription.Size = new System.Drawing.Size(311, 264);
+            this.txtDescription.Size = new System.Drawing.Size(311, 247);
             this.txtDescription.TabIndex = 3;
             this.txtDescription.TabStop = false;
             this.txtDescription.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -95,11 +96,23 @@
             this.lblBrawlLib.TabIndex = 5;
             this.lblBrawlLib.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // lblVersion
+            // 
+            this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblVersion.Font = new System.Drawing.Font("Georgia", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersion.Location = new System.Drawing.Point(12, 26);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(311, 23);
+            this.lblVersion.TabIndex = 6;
+            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // AboutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(335, 400);
+            this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.lblBrawlLib);
             this.Controls.Add(this.lblCopyright);
             this.Controls.Add(this.txtDescription);
@@ -126,5 +139,6 @@
         private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.Label lblCopyright;
 		private System.Windows.Forms.Label lblBrawlLib;
+        private System.Windows.Forms.Label lblVersion;
     }
 }
