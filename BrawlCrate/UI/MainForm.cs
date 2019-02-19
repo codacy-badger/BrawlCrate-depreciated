@@ -198,6 +198,9 @@ namespace BrawlCrate
                 MessageBox.Show(newBranch + " was not found as a valid branch of the " + newRepo + " repository, or does not properly support Canary builds.");
                 return false;
             }
+            if (!newRepo.StartsWith("soopercool101/", StringComparison.OrdinalIgnoreCase) && !newRepo.StartsWith("libertyernie/", StringComparison.OrdinalIgnoreCase))
+                if (MessageBox.Show("In future Canary updates you will track the " + newRepo + " repository. Please note that this repository is not affiliated with the BrawlBox or BrawlCrate teams. Neither team holds responsibility for malicious, illegal, or otherwise problematic code or content of this repository. Would you like to continue?", "Switching Repositories", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                    return false;
             DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
             CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
