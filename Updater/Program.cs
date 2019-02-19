@@ -935,7 +935,8 @@ namespace Net
                     sw.WriteLine(commitDate.ToString("O"));
                     sw.WriteLine(result.Sha.ToString().Substring(0, 7));
                     sw.WriteLine(result.Sha.ToString());
-                    sw.Write(currentBranch);
+                    sw.WriteLine(currentBranch);
+                    sw.Write(currentRepo);
                     sw.Close();
                 }
             }
