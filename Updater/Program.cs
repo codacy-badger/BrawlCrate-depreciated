@@ -970,6 +970,8 @@ namespace Net
             string oldSha = "";
             string newBranch = "";
             string oldBranch = "";
+            string newRepo = "";
+            string oldRepo = "";
             string Filename = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old";
             try
             {
@@ -982,7 +984,18 @@ namespace Net
                 }
                 catch
                 {
-                    // Do nothing. The branches are allowed to be missing.
+                    // Assume that this is updating from an old version before branch data was tracked.
+                    newBranch = oldBranch = "";
+                }
+                try
+                {
+                    newRepo = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[4];
+                    oldRepo = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old")[4];
+                }
+                catch
+                {
+                    // Assume that this is updating from an old version before repo data was tracked.
+                    newRepo = oldRepo = "";
                 }
             }
             catch
@@ -999,9 +1012,16 @@ namespace Net
                     File.Delete(Filename);
                 return;
             }
+            if(newRepo != oldRepo)
+            {
+                MessageBox.Show("Welcome to BrawlCrate Canary! You are now tracking the " + newBranch + " branch of the " + newRepo + " repository instead of the " + oldBranch + " branch of the " + oldRepo + " repository. Canary changelog is not supported when switching repositories, so please check online to see differences.");
+                if (File.Exists(Filename))
+                    File.Delete(Filename);
+                return;
+            }
             if(newBranch != oldBranch)
             {
-                MessageBox.Show("Welcome to BrawlCrate Canary! You are now tracking the " + newBranch + " branch instead of the " + oldBranch + " branch. Changelog is not supported when switching branches, so please check the Discord for what's been changed.");
+                MessageBox.Show("Welcome to BrawlCrate Canary! You are now tracking the " + newBranch + " branch instead of the " + oldBranch + " branch. Canary changelog is not supported when switching branches, so please check the Discord for what's been changed.");
                 if (File.Exists(Filename))
                     File.Delete(Filename);
                 return;
@@ -1012,6 +1032,10 @@ namespace Net
             using (Ping s = new Ping())
                 Console.WriteLine(s.Send("www.github.com").Status);
 
+
+            char[] slashes = { '\\', '/' };
+            string[] repoData = currentRepo.Split(slashes);
+
             try
             {
                 Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
@@ -1019,17 +1043,19 @@ namespace Net
                 Branch branch;
                 try
                 {
-                    branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", currentBranch);
+                    branch = await github.Repository.Branch.Get(repoData[0], repoData[1], currentBranch);
                 }
                 catch
                 {
-                    branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", mainBranch);
+                    repoData = mainRepo.Split(slashes);
+                    branch = await github.Repository.Branch.Get(repoData[0], repoData[1], mainBranch);
                     currentBranch = mainBranch;
+                    currentRepo = mainRepo;
                 }
                 ApiOptions options = new ApiOptions();
                 options.PageSize = 100;
                 options.PageCount = 1;
-                var commits = await github.Repository.Commit.GetAll("soopercool101", "BrawlCrate", options);
+                var commits = await github.Repository.Commit.GetAll(repoData[0], repoData[1], options);
                 int i = -1;
                 foreach (GitHubCommit c in commits)
                 {
@@ -1054,7 +1080,7 @@ namespace Net
                         continue;
                     }
                     changelog += "\n\n========================================================\n\n";
-                    changelog += "#" + c.Sha.Substring(0, 7) + "@" + currentBranch +" by " + c.Author.Login + "\n";
+                    changelog += "#" + c.Sha.Substring(0, 7) + "@" + currentRepo + '\\' + currentBranch + " by " + c.Author.Login + "\n";
                     changelog += c.Commit.Message;
                 }
                 changelog += "\n\n========================================================";
@@ -1117,6 +1143,11 @@ namespace Net
             string Title,
             string Description)
         {
+            if(File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active") && !Updater.currentRepo.Equals(Updater.mainRepo, StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("Issue reporter does not allow reporting issues from forks")
+                return;
+            }
             try
             {
                 Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
