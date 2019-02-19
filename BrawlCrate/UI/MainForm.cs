@@ -169,14 +169,14 @@ namespace BrawlCrate
         }
 
         // Sets branch and repo
-        private static void SetCanaryTracking(string newRepo, string newBranch)
+        public static bool SetCanaryTracking(string newRepo, string newBranch)
         {
             if (newRepo == null || newRepo == "")
                 newRepo = mainRepo;
             if (newBranch == null || newBranch == "")
                 newBranch = mainBranch;
-            if (currentRepo.Equals(newRepo, StringComparison.OrdinalIgnoreCase) && currentBranch.Equals(mainBranch, StringComparison.OrdinalIgnoreCase))
-                return;
+            if (currentRepo.Equals(newRepo, StringComparison.OrdinalIgnoreCase) && currentBranch.Equals(newBranch, StringComparison.OrdinalIgnoreCase))
+                return false;
             // Check if Repo/Branch combo is valid
             ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
             try
@@ -189,14 +189,14 @@ namespace BrawlCrate
                     if (title.Contains("not found", StringComparison.OrdinalIgnoreCase))
                     {
                         MessageBox.Show(newBranch + " was not found as a valid branch of the " + newRepo + " repository, or does not properly support Canary builds.");
-                        return;
+                        return false;
                     }
                 }
             }
             catch
             {
                 MessageBox.Show(newBranch + " was not found as a valid branch of the " + newRepo + " repository, or does not properly support Canary builds.");
-                return;
+                return false;
             }
             DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
             CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
@@ -213,6 +213,7 @@ namespace BrawlCrate
                 Instance.Canary = true;
                 Program.ForceDownloadCanary(true);
             }
+            return true;
         }
 
 

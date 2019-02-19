@@ -875,14 +875,17 @@ namespace BrawlCrate
 
         private void btnCanaryBranch_Click(object sender, EventArgs e)
         {
-            if(MessageBox.Show(this, "Warning: Changing Branches can be unstable unless you know what you're doing. You should generally stay on the brawlcrate-master branch unless directed otherwise for testing purposes", "Warning", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if(MessageBox.Show(this, "Warning: Switching branches or repositories can be unstable unless you know what you're doing. You should generally stay on the brawlcrate-master branch unless directed otherwise for testing purposes. You can reset to the default for either field by leaving it blank.", "Warning", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
+                string cRepo = MainForm.currentRepo;
                 string cBranch = MainForm.currentBranch;
-                RenameDialog d = new RenameDialog();
-                if(d.ShowDialog(this, "Enter new branch to track", cBranch) == DialogResult.OK)
+                TwoInputStringDialog d = new TwoInputStringDialog();
+                if(d.ShowDialog(this, "Enter new repo/branch to track", "Repo:", cRepo, "Branch:", cBranch) == DialogResult.OK)
                 {
-                    if(d.NewName != cBranch)
-                        MainForm.currentBranch = d.NewName;
+                    if (!d.InputText1.Equals(cRepo, StringComparison.OrdinalIgnoreCase) || !d.InputText2.Equals(cBranch, StringComparison.OrdinalIgnoreCase))
+                    {
+                        MainForm.SetCanaryTracking(d.InputText1, d.InputText2);
+                    }
                 }
             }
         }
