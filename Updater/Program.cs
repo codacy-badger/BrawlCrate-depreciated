@@ -1145,7 +1145,7 @@ namespace Net
         {
             if(File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active") && !Updater.currentRepo.Equals(Updater.mainRepo, StringComparison.OrdinalIgnoreCase))
             {
-                MessageBox.Show("Issue reporter does not allow reporting issues from forks")
+                MessageBox.Show("Issue reporter does not allow reporting issues from forks. Please contact the owner of the repository to report your issue.");
                 return;
             }
             try
