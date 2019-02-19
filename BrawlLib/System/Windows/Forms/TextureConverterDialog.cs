@@ -558,7 +558,11 @@ namespace System.Windows.Forms
                 return;
 
             _updating = true;
-            if (_colorInfo.IsGreyscale)
+            if((name == "" ? Path.GetFileNameWithoutExtension(_imageSource) : name).StartsWith("InfStc.") || (name == "" ? Path.GetFileNameWithoutExtension(_imageSource) : name).EndsWith("_STC"))
+            {
+                cboFormat.SelectedItem = WiiPixelFormat.CI4;
+            }
+            else if (_colorInfo.IsGreyscale)
             {
                 if (_colorInfo.ColorCount <= 16)
                     cboFormat.SelectedItem = (_colorInfo.AlphaColors == 0) ? WiiPixelFormat.I4 : WiiPixelFormat.CI4;
@@ -569,7 +573,7 @@ namespace System.Windows.Forms
             }
             else
             {
-                if (_colorInfo.ColorCount <= 16 || ((name == "" ? Path.GetFileNameWithoutExtension(_imageSource) : name).StartsWith("InfStc.")))
+                if (_colorInfo.ColorCount <= 16)
                     cboFormat.SelectedItem = WiiPixelFormat.CI4;
                 else if (_colorInfo.ColorCount <= 272)
                     cboFormat.SelectedItem = WiiPixelFormat.CI8;
