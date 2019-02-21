@@ -632,7 +632,7 @@ namespace BrawlCrate
 
             UpdateName();
             if(Program.CanRunDiscordRPC())
-                BrawlCrate.Discord.DiscordSettings.Update();
+                BrawlCrate.Discord.DiscordSettings.LoadSettings(true);
         }
 
         public void UpdateName()

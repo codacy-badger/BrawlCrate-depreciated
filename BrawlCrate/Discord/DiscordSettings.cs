@@ -22,7 +22,7 @@ namespace BrawlCrate.Discord
         public static string userPickedImageKey = "brawlcrate";
         public static ModNameType modNameType = ModNameType.Disabled;
         public static string workString = "Working on";
-        public static string userNamedMod = "ModNameHere";
+        public static string userNamedMod = "My Mod";
         public static bool showTimeElapsed = true;
         public static DiscordController DiscordController;
 
@@ -131,6 +131,17 @@ namespace BrawlCrate.Discord
             DiscordRpc.UpdatePresence(DiscordController.presence);
         }
 
+        public static void LoadSettings(bool update = false)
+        {
+            if (enabled != BrawlCrate.Properties.Settings.Default.DiscordRPCEnabled && enabled == true)
+                DiscordController.Initialize();
+            enabled = BrawlCrate.Properties.Settings.Default.DiscordRPCEnabled;
+            modNameType = BrawlCrate.Properties.Settings.Default.DiscordRPCNameType;
+            userNamedMod = BrawlCrate.Properties.Settings.Default.DiscordRPCNameCustom;
+            if(update)
+                Update();
+        }
+        
         //Temporary, don't save to config
         public static string lastFileOpened = null;
         public static long startTime;

@@ -237,5 +237,50 @@ namespace BrawlCrate.Properties {
                 this["AutoPlayAudio"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("true")]
+        public bool DiscordRPCEnabled
+        {
+            get
+            {
+                return ((bool)(this["DiscordRPCEnabled"]));
+            }
+            set
+            {
+                this["DiscordRPCEnabled"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Disabled")]
+        public BrawlCrate.Discord.DiscordSettings.ModNameType DiscordRPCNameType
+        {
+            get
+            {
+                return ((BrawlCrate.Discord.DiscordSettings.ModNameType)(this["DiscordRPCNameType"]));
+            }
+            set
+            {
+                this["DiscordRPCNameType"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("My Mod")]
+        public string DiscordRPCNameCustom
+        {
+            get
+            {
+                return ((string)(this["DiscordRPCNameCustom"]));
+            }
+            set
+            {
+                this["DiscordRPCNameCustom"] = value;
+            }
+        }
     }
 }
