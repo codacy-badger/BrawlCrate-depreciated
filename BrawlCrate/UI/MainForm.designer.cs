@@ -187,7 +187,7 @@ namespace BrawlCrate
             // 
             this.newToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.archivesToolStripMenuItem,
-            this.audioToolStripMenuItem,
+            this.bRSTMAudioStreamToolStripMenuItem,
             this.effectsToolStripMenuItem,
             this.stage1to1ToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
@@ -235,8 +235,8 @@ namespace BrawlCrate
             // 
             // audioToolStripMenuItem
             // 
-            this.audioToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bRSTMAudioStreamToolStripMenuItem});
+            /*this.audioToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bRSTMAudioStreamToolStripMenuItem});*/
             this.audioToolStripMenuItem.Name = "audioToolStripMenuItem";
             this.audioToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.audioToolStripMenuItem.Text = "Audio";
