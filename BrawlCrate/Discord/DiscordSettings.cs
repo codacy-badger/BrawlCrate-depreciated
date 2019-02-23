@@ -154,6 +154,9 @@ namespace BrawlCrate.Discord
                     case ModNameType.AutoExternal:
                         DiscordController.presence.state = ((Program.RootPath == null || Program.RootPath == "") ? "" : Program.RootPath.Substring(Program.RootPath.LastIndexOf('\\') + 1));
                         break;
+                    default:
+                        DiscordController.presence.state = "";
+                        break;
                 }
             }
 
