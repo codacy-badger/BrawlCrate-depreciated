@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.22
+BrawlCrate - v0.23
 Copyright © 2018 - 2019 soopercool101, MarioDox, Syvkal
 BrawlBox  © 2009 - 2019 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,18 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.23 - (2/23/2019)
+ . Add Discord Rich Presence (customizable via the settings menu)
+ . Add experimental AutoMetal option, which automatically updates metal materials as you work on a model
+ . Add force delete option to MDL0 Objects
+ . Can now switch forks with Canary
+ . Stock icons now always suggest CI4 encoding
+ . Switching branches or repos with Canary now prompts to update
+ . Update text for blender bone fix
+ . About form now shows additional information
+ . Model stripping no longer prompts to remove shaders (done automatically again)
+ . Fix bug where switching to/from Canary would update twice
  
  - BrawlCrate v0.22 - (2/6/2019)
  . Add Blender Bone Fix setting when importing DAE files (Removes armature and end bones)

@@ -16,11 +16,12 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.22";
-        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.22! This release:\n" +
-            "\n- Adds DAE import setting to fix Blender's handling of bones" +
-            "\n- Fixes issue where characters with regenerated metal materials could crash the game" +
-            "\n- Improves deletion for MDL0 subnodes" +
+        public static readonly string TagName = "BrawlCrate_v0.23";
+        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.23! This release:\n" +
+            "\n- Adds Discord Rich Presence (Customizable in the settings)" +
+            "\n- Adds experimental AutoMetal option, which can be used to automatically generate metal materials while working on a costume" +
+            "\n- Stock icons now automatically suggest CI4 encoding" +
+            "\n- Add additional Canary functionality" +
             "\n\nFull changelog can be found in the installation folder:\n" + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
         public static readonly string AssemblyTitle;
