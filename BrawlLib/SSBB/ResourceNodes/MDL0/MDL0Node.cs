@@ -46,10 +46,11 @@ namespace BrawlLib.SSBB.ResourceNodes
         [Browsable(false)]
         public InfluenceManager Influences { get { return _influences; } }
 
-//        [Browsable(true), Description(
-//@"This feature is for Super Smash Bros Brawl models specifically.
-//When true, metal materials and shaders will be added and modulated as you edit your own custom materials and shaders.")]
-//        public bool AutoMetalMaterials { get { return _autoMetal; } set { _autoMetal = value; GenerateMetalMaterials(); } }
+        public string metalMat = "metal00";
+        [Browsable(true), Description(
+        @"This feature is for Super Smash Bros Brawl models specifically.
+        When true, metal materials and shaders will be added and modulated as you edit your own custom materials and shaders.")]
+        public bool AutoMetalMaterials { get { return _autoMetal; } set { _autoMetal = value; GenerateMetalMaterials(metalMat); } }
 
         [Category("G3D Model")]
         public MDLScalingRule ScalingRule { get { return (MDLScalingRule)_scalingRule; } set { _scalingRule = (int)value; SignalPropertyChange(); } }
@@ -180,7 +181,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             if (_matGroup == null)
             {
-                return;
+                Populate();
+                if(_matGroup == null || _boneGroup == null || _objGroup == null)
+                    return;
             }
 
             // Implementation with support for multiple culling types
@@ -331,7 +334,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             if (MaterialGroup.Children.Count == 1 && MaterialGroup.Children[0].Name.IndexOf("_") > 0)
                 MaterialGroup.Children[0].Name = MaterialGroup.Children[0].Name.Substring(0, MaterialGroup.Children[0].Name.IndexOf("_"));
 
-            MDL0BoneNode b = FindBoneByIndex(0);
+            if (BoneGroup == null)
+                Populate();
+
+            MDL0BoneNode b = (MDL0BoneNode)BoneGroup.Children[0];
             b.Name = b.Name + "_NShadow";
             b.setManualScale('X', (float)(b.Scale._x * 1.01));
             b.setManualScale('Y', (float)(b.Scale._y * 1.01));
@@ -702,12 +708,11 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public void StripModel()
         {
-            if (_objGroup == null)
-                Populate();
+            Populate();
             while (_objGroup != null && _objGroup.HasChildren)
                 ((MDL0ObjectNode)(_objGroup.Children[0])).Remove(true);
             while (_matGroup != null && _matGroup.HasChildren)
-                _matGroup.Children[0].Remove();
+                ((MDL0MaterialNode)(_matGroup.Children[0])).Remove(true);
             while (_shadGroup != null && _shadGroup.HasChildren)
                 _shadGroup.Children[0].Remove();
             while (_uvGroup != null && _uvGroup.HasChildren)
@@ -728,9 +733,9 @@ namespace BrawlLib.SSBB.ResourceNodes
             if(_boneGroup == null)
             {
                 Populate();
-                _linker.RegenerateBoneCache();
+                //_linker.RegenerateBoneCache();
             }
-            foreach (MDL0BoneNode b in _linker.BoneCache)
+            foreach (MDL0BoneNode b in BoneCache)
                 if (b.BoneIndex == givenIndex)
                     return b;
 
@@ -843,17 +848,25 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public void GenerateMetalMaterials(String metalTextureName)
         {
-            Console.WriteLine(metalTextureName);
             if (_children == null)
                 Populate();
 
             if (_matList == null)
                 return;
+            List<MDL0MaterialNode> metalMats = new List<MDL0MaterialNode>();
+            foreach(MDL0MaterialNode m in _matList)
+            {
+                if (m.IsMetal)
+                    metalMats.Add(m);
+            }
+            foreach(MDL0MaterialNode m in metalMats)
+            {
+                m.Remove(true);
+            }
 
             for (int x = 0; x < _matList.Count; x++)
             {
                 MDL0MaterialNode n = (MDL0MaterialNode)_matList[x];
-                Generate:
                 if (!n.IsMetal && n.MetalMaterial == null)
                 {
                     MDL0MaterialNode node = new MDL0MaterialNode()
@@ -920,11 +933,6 @@ namespace BrawlLib.SSBB.ResourceNodes
                     node._normMapRefLight2 =
                     node._normMapRefLight3 =
                     node._normMapRefLight4 = -1;
-                }
-                else if(!n.IsMetal && n.MetalMaterial != null && n.MetalMaterial.Children.Count > 0 && n.MetalMaterial.Children[0].Name != metalTextureName)
-                {
-                    _matList.Remove(n.MetalMaterial);
-                    goto Generate;
                 }
             }
             foreach (MDL0MaterialNode node in _matList)
@@ -1043,7 +1051,8 @@ namespace BrawlLib.SSBB.ResourceNodes
                 foreach (MDL0TextureNode n in _texGroup.Children)
                     if (n._name == name)
                         return n;
-
+            if (_texGroup == null)
+                _texGroup = (MDL0GroupNode)FindChildrenByName("Textures")[0];
             MDL0TextureNode node = new MDL0TextureNode(name);
             _texGroup.AddChild(node, false);
 
@@ -1057,7 +1066,8 @@ namespace BrawlLib.SSBB.ResourceNodes
                 foreach (MDL0TextureNode n in _pltGroup.Children)
                     if (n._name == name)
                         return n;
-
+            if (_pltGroup == null)
+                _pltGroup = (MDL0GroupNode)FindChildrenByName("Palettes")[0];
             MDL0TextureNode node = new MDL0TextureNode(name);
             _pltGroup.AddChild(node, false);
 

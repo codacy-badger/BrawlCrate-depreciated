@@ -1,7 +1,7 @@
 ﻿
-BrawlCrate - v0.20
-Copyright © 2018 soopercool101, MarioDox, Syvkal
-BrawlBox  © 2009 - 2018 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
+BrawlCrate - v0.22
+Copyright © 2018 - 2019 soopercool101, MarioDox, Syvkal
+BrawlBox  © 2009 - 2019 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
 https://github.com/soopercool101/BrawlCrate
 https://discord.gg/s7c8763
@@ -15,6 +15,60 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.22 - (2/6/2019)
+ . Add Blender Bone Fix setting when importing DAE files (Removes armature and end bones)
+ . Fighter PACs and PCSs now immediately set proper compression and flag as changed when settings are active for it
+ . When deleting a material from a model, prompts to delete the relevant shader if it would go unused
+ . When deleting an object, now prompts to delete the relevant material if it would go unused
+ . When deleting an object, now properly deletes vertices and normals
+ . Updated info on SubItem ID to reflect current understanding
+ . OpenTK reverted to v1.1.0.0 to increase compatibility
+ . Updater's batch file cmd window is now hidden
+ . Improve texture importing's detection of inverted alpha
+ . Speed up and improve CHR0 from bone position generation
+ . No longer imports null bones that don't have a skin wrap
+ . Fixes in-game crashes with the metal generation script
+ . Files are now deleted before export to  potentially prevent overwriting issues
+ . Fix crashes when adding animations from the preview window
+ 
+ - BrawlCrate v0.21 Hotfix 3 - (1/29/2019)
+ . Add direct import for Color-Smashable textures
+ . Allow DAE imports to have user-defined defaults for wrapping and filtering
+ . Fix major issue where exes could potentially get corrupted when overwritten by the updater
+ . Replacing textures from the model preview window no longer throws an error
+ . Deleting a PLT0 before deleting the related TEX0 no longer prompts to delete the PLT0 again
+ . Fix minor issues with the Canary branch-switching functionality
+ 
+ - BrawlCrate v0.21 Hotfix 2 - (1/24/2019)
+ . Fixes issue where old Color Smash method no longer worked
+ . Fixes module compression setting having the opposite effect as intended
+ 
+ - BrawlCrate v0.21 Hotfix 1 - (1/20/2019)
+ . Adds warning to module compressor setting
+ . Fixes issue where creating a new Classic Stage Table would add two (hiding one until reopening)
+ . Fixes issue where FCFG/FITC names were pulled from Kirby hat rather than fighter pac
+ . Fixes issue where materials in daes with undefined wrapping and filtering would lose their texture references upon import
+ . Fixes issue where changelog would display separate from main window
+ 
+ - BrawlCrate v0.21 - (1/14/2019)
+ . Add support for native Color Smashing of files
+   - Color Smashing can now be properly reverted
+ . Added support for BrawlEx 50CC
+   - Improved support for CSSC
+ . (Re)Add compatibility mode which prevents breaking for older models
+ . Adds various settings related to compression
+ . Adds setting to auto-play audio nodes
+ . Interpolation Editor now saves selected type when scrolling between nodes
+ . Dragging in an image to replace a TEX0 now shows the texture conversion options
+ . Re-encoding a TEX0 in a way that makes it no longer use a palette now deletes unused palettes
+ . Updated license information
+ . Various 50CC fixes
+ . Fix issue where certain modules could not be opened
+ . Fix corruption/crashing when cancelling a change for BRSAR sounds
+ . Fix CSSC nodes crashing when encountering an unrecognized color
+ . Fix issue where sorting a BRRES folder would not properly flag a node as needing saving
+ . Fix crashing errors when importing/exporting sawnd files
  
  - BrawlCrate v0.20 - (12/28/2019)
  . Added complete support for DukeItOut's 50 Costume Code featured in Legacy TE 2.1

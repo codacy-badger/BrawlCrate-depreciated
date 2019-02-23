@@ -7,6 +7,9 @@ using System.Drawing;
 using BrawlLib.IO;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
@@ -24,19 +27,211 @@ namespace BrawlLib.SSBB.ResourceNodes
         // Texture number used for stuff like stocks. Used for sorting purposes.
         public int texSortNum = -1;
 
-        bool _sharesData;
+        public bool _sharesData;
         int _headerLen;
         int _width, _height;
         WiiPixelFormat _format;
         int _lod;
         bool _hasPalette;
 
+        public static bool _updating = false;
+
         // Could improve performance by caching, and making sure to clear the cache when needed.
         // For now, prefer the simplicity of not identifying every situation where clearing the cache would be needed.
         TEX0Node SourceNode { get { return FindSourceNode(); } }
 
         [Category("G3D Node")]
-        public bool SharesData { get { return _sharesData; } set { _sharesData = value; SignalPropertyChange(); } }
+        public bool SharesData {
+            get
+            {
+                return _sharesData;
+            }
+            set
+            {
+                if (_updating)
+                {
+                    _sharesData = value;
+                    SignalPropertyChange();
+                    return;
+                }
+                bool needsSmashing = false;
+                Bitmap bmp = GetImage(0);
+                if (MessageBox.Show("Would you like to attempt to automatically change Color Smash state of this texture as well?" + (value ? " (Choose no if you're using the old Color Smash method)" : ""), "Color Smasher", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                {
+                    _sharesData = value;
+                    SignalPropertyChange();
+                    if (value == false)
+                    {
+                        using (System.Windows.Forms.TextureConverterDialog dlg = new System.Windows.Forms.TextureConverterDialog())
+                        {
+                            dlg.LoadImages(bmp);
+                            dlg.ShowDialog(null, this, true, true);
+                        }
+                    }
+                    return;
+                }
+                if (value == true)
+                {
+                    needsSmashing = true;
+                    TEX0Node t = this;
+                    List<TEX0Node> texList = new List<TEX0Node>();
+                    texList.Add(t);
+                    /*while (t.PrevSibling() != null && ((TEX0Node)t.PrevSibling()).SharesData)
+                    {
+                        texList.Add(t.PrevSibling() as TEX0Node);
+                        t = t.PrevSibling() as TEX0Node;
+                    }
+                    t = this;*/
+                    while (t.NextSibling() != null && ((TEX0Node)t.NextSibling()).SharesData)
+                    {
+                        texList.Add(t.NextSibling() as TEX0Node);
+                        t = t.NextSibling() as TEX0Node;
+                    }
+                    if(t.NextSibling() != null)
+                        texList.Add(t.NextSibling() as TEX0Node);
+                    ColorSmash(texList);
+                }
+                else if (value == false)
+                {
+                    if (PrevSibling() != null && ((TEX0Node)PrevSibling()).SharesData)
+                    {
+                        // Needs to color smash
+                        TEX0Node t = this;
+                        List<TEX0Node> texList = new List<TEX0Node>();
+                        texList.Add(t);
+                        while (t.PrevSibling() != null && ((TEX0Node)t.PrevSibling()).SharesData)
+                        {
+                            texList.Add(t.PrevSibling() as TEX0Node);
+                            t = t.PrevSibling() as TEX0Node;
+                        }
+                        ColorSmash(texList);
+                    }
+                }
+                _sharesData = value;
+                if (value == false)
+                {
+                    using (System.Windows.Forms.TextureConverterDialog dlg = new System.Windows.Forms.TextureConverterDialog())
+                    {
+                        dlg.LoadImages(bmp);
+                        dlg.ShowDialog(null, this, true, true);
+                    }
+                }
+                SignalPropertyChange();
+            }
+        }
+        
+        public static void ColorSmash(List<TEX0Node> texList)
+        {
+            if (_updating)
+                return;
+            TEX0Node._updating = true;
+            texList.Sort((x, y) => x.Index.CompareTo(y.Index));
+            int curindex = texList[0].Index;
+            int parentCount = texList[0].Parent.Children.Count;
+            BRRESNode brparent = texList[0].Parent.Parent as BRRESNode;
+            List<string> texNames = new List<string>();
+            Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\");
+            DirectoryInfo outputDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\out\\");
+            bool usesOnlyCI4 = true;
+            for (int i = 0; i < texList.Count; i++)
+            {
+                TEX0Node tex = texList[i];
+                texNames.Add(tex.Name);
+                tex.Export(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + i + ".png");
+                if (tex.HasPalette)
+                {
+                    tex.GetPaletteNode().Remove();
+                }
+                if (tex.Format != BrawlLib.Wii.Textures.WiiPixelFormat.CI4)
+                    usesOnlyCI4 = false;
+                tex.Remove();
+            }
+            Process csmash = Process.Start(new ProcessStartInfo()
+            {
+                FileName = AppDomain.CurrentDomain.BaseDirectory + "color_smash.exe",
+                WindowStyle = ProcessWindowStyle.Hidden,
+                Arguments = String.Format("-c RGB5A3"),
+            });
+            csmash.WaitForExit();
+            List<int> remainingIDs = new List<int>();
+            bool errorThrown = false;
+            bool attemptRegardless = false;
+            for (int j = 0; j < texNames.Count; j++)
+            {
+                Console.WriteLine(j);
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\out\\" + j + ".png"))
+                {
+                    using (TextureConverterDialog dlg = new TextureConverterDialog())
+                    {
+                        dlg.ImageSource = AppDomain.CurrentDomain.BaseDirectory + "\\cs\\out\\" + j + ".png";
+                        if (dlg.ShowDialog(null, brparent, true, true, texNames[j], usesOnlyCI4, curindex) == DialogResult.OK)
+                        {
+                            if (j < texNames.Count - 1)
+                                dlg.TEX0TextureNode.SharesData = true;
+                            curindex++;
+                        }
+                    }
+                }
+                else
+                {
+                    if (!errorThrown)
+                    {
+                        errorThrown = true;
+                        attemptRegardless = false;//(MessageBox.Show("One or more images threw an error when converting. Would you like to try to color smash these regardless? (As opposed to keeping them seperate)\n" + AppDomain.CurrentDomain.BaseDirectory + "\\cs\\out\\" + j + ".png", "Color Smash", MessageBoxButtons.YesNo) == DialogResult.Yes);
+                    }
+                    if (attemptRegardless)
+                    {
+                        if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + j + ".png"))
+                        {
+                            using (TextureConverterDialog dlg = new TextureConverterDialog())
+                            {
+                                dlg.ImageSource = AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + j + ".png";
+                                if (dlg.ShowDialog(null, brparent, true, true, texNames[j], usesOnlyCI4, curindex) == DialogResult.OK)
+                                {
+                                    if (j < texNames.Count - 1)
+                                        dlg.TEX0TextureNode.SharesData = true;
+                                    curindex++;
+                                }
+                            }
+                        }
+                    }
+                    else
+                        remainingIDs.Add(j);
+                }
+            }
+            for (int j = 0; j < remainingIDs.Count; j++)
+            {
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + remainingIDs[j] + ".png"))
+                {
+                    Console.WriteLine(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + remainingIDs[j] + ".png");
+                    using (TextureConverterDialog dlg = new TextureConverterDialog())
+                    {
+                        dlg.ImageSource = AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + remainingIDs[j] + ".png";
+                        if (dlg.ShowDialog(null, brparent, false, true, texNames[remainingIDs[j]], false, curindex) == DialogResult.OK)
+                        {
+                            //BaseWrapper w = this.FindResource(dlg.TEX0TextureNode, true);
+                            curindex++;
+                        }
+                    }
+                }
+            }
+            try
+            {
+                foreach (FileInfo tex in outputDir.GetFiles())
+                    try { tex.Delete(); } catch { }
+                outputDir.Delete();
+                foreach (FileInfo tex in Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\").GetFiles())
+                    try { tex.Delete(); } catch { }
+                Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\");
+            }
+            catch
+            {
+
+            }
+            TEX0Node._updating = false;
+            brparent.SignalPropertyChange();
+        }
+
         [Category("G3D Texture")]
         public int Width { get { return SharesData ? SourceNode.Width : _width; } }
         [Category("G3D Texture")]
@@ -49,6 +244,14 @@ namespace BrawlLib.SSBB.ResourceNodes
         public bool HasPalette { get { return SharesData ? SourceNode.HasPalette : _hasPalette; } }
 
         public PLT0Node GetPaletteNode() { return ((_parent == null) || (!HasPalette)) ? null : Parent._parent.FindChild("Palettes(NW4R)/" + this.Name, false) as PLT0Node; }
+
+
+        [Browsable(false)]
+        public override string Name
+        {
+            get { return base.Name; }
+            set { base.Name = value; if (HasPalette && GetPaletteNode() != null) { GetPaletteNode().Name = value; } }
+        }
 
         int HeaderSize()
         {
@@ -266,26 +469,14 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override unsafe void Replace(string fileName)
         {
             string ext = Path.GetExtension(fileName);
-            Bitmap bmp;
-            if (String.Equals(ext, ".tga", StringComparison.OrdinalIgnoreCase))
-                bmp = TGA.FromFile(fileName);
-            else if (
-                String.Equals(ext, ".png", StringComparison.OrdinalIgnoreCase) ||
-                String.Equals(ext, ".tif", StringComparison.OrdinalIgnoreCase) || 
-                String.Equals(ext, ".tiff", StringComparison.OrdinalIgnoreCase) ||
-                String.Equals(ext, ".bmp", StringComparison.OrdinalIgnoreCase) ||
-                String.Equals(ext, ".jpg", StringComparison.OrdinalIgnoreCase) || 
-                String.Equals(ext, ".jpeg", StringComparison.OrdinalIgnoreCase) ||
-                String.Equals(ext, ".gif", StringComparison.OrdinalIgnoreCase))
-                bmp = (Bitmap)Bitmap.FromFile(fileName);
+            if (!String.Equals(ext, ".tex0", StringComparison.OrdinalIgnoreCase))
+                using (System.Windows.Forms.TextureConverterDialog dlg = new System.Windows.Forms.TextureConverterDialog())
+                {
+                    dlg.ImageSource = fileName;
+                    dlg.ShowDialog(null, this);
+                }
             else
-            {
                 base.Replace(fileName);
-                return;
-            }
-
-            using (Bitmap b = bmp)
-                Replace(b);
         }
 
         public override void Export(string outPath)

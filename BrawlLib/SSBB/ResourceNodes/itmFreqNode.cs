@@ -309,9 +309,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         private int _costumeID;
-        [DisplayName("Costume ID")]
+        [DisplayName("SubItem ID")]
         [Category("Item")]
-        [Description("Item costume to use. (e.x Present Barrel/Crate)")]
+        [Description("Item subset to use. For Barrels, Crates, and Rolling Crates, this determines the costume used. For Bob-Ombs, setting to 1 causes Sudden Death Behavior.")]
         public int SubID { get { return _costumeID; } set { _costumeID = value; SignalPropertyChange(); } }
 
         private float _frequency;

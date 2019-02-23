@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Diagnostics;
 
 namespace BrawlCrate.NodeWrappers
 {
@@ -22,6 +23,7 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items.Add(new ToolStripMenuItem("&Re-Encode", null, ReEncodeAction));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("Generate &PAT0", null, GeneratePAT0Action));
+            _menu.Items.Add(new ToolStripMenuItem("Color Smash", null, ColorSmashAction));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Export", null, ExportAction, Keys.Control | Keys.E));
             _menu.Items.Add(new ToolStripMenuItem("&Replace", null, ReplaceAction, Keys.Control | Keys.R));
@@ -34,32 +36,33 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteTEX0Action, Keys.Control | Keys.Delete));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("Convert Stock System", null, ConvertStockAction));
-            _menu.Items[1].Visible = _menu.Items[2].Visible = _menu.Items[13].Visible = _menu.Items[14].Visible = false;
+            _menu.Items[2].Visible = _menu.Items[14].Visible = _menu.Items[15].Visible = false;
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
+        protected static void ColorSmashAction(object sender, EventArgs e) { GetInstance<TEX0Wrapper>().ColorSmash(); }
         protected static void ReEncodeAction(object sender, EventArgs e) { GetInstance<TEX0Wrapper>().ReEncode(); }
         protected static void GeneratePAT0Action(object sender, EventArgs e) { GetInstance<TEX0Wrapper>().GeneratePAT0(false); }
         protected static void DeleteTEX0Action(object sender, EventArgs e) { GetInstance<TEX0Wrapper>().DeleteTEX0(); }
         protected static void ConvertStockAction(object sender, EventArgs e) { GetInstance<TEX0Wrapper>().ConvertStocks(); }
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-            _menu.Items[2].Enabled = _menu.Items[5].Enabled = _menu.Items[6].Enabled = _menu.Items[8].Enabled = _menu.Items[9].Enabled = _menu.Items[12].Enabled = true;
-            _menu.Items[1].Visible = _menu.Items[2].Visible = _menu.Items[13].Visible = _menu.Items[14].Visible = false;
+            _menu.Items[2].Enabled = _menu.Items[6].Enabled = _menu.Items[7].Enabled = _menu.Items[9].Enabled = _menu.Items[10].Enabled = _menu.Items[13].Enabled = true;
+            _menu.Items[2].Visible = _menu.Items[14].Visible = _menu.Items[15].Visible = false;
         }
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             TEX0Wrapper w = GetInstance<TEX0Wrapper>();
             _menu.Items[2].Enabled = _menu.Items[5].Enabled = _menu.Items[12].Enabled = w.Parent != null;
-            _menu.Items[1].Visible = _menu.Items[2].Visible = true; //(Regex.Match(w._resource.Name, @"(\.\d+)?$").Success && w._resource.Name.LastIndexOf(".") > 0 && w._resource.Name.LastIndexOf(".") <= w._resource.Name.Length && int.TryParse(w._resource.Name.Substring(w._resource.Name.LastIndexOf(".") + 1, w._resource.Name.Length - (w._resource.Name.LastIndexOf(".") + 1)), out int n));
-            _menu.Items[6].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
-            _menu.Items[8].Enabled = w.PrevNode != null;
-            _menu.Items[9].Enabled = w.NextNode != null;
-            _menu.Items[13].Visible = _menu.Items[14].Visible = false;
+            _menu.Items[2].Visible = true; //(Regex.Match(w._resource.Name, @"(\.\d+)?$").Success && w._resource.Name.LastIndexOf(".") > 0 && w._resource.Name.LastIndexOf(".") <= w._resource.Name.Length && int.TryParse(w._resource.Name.Substring(w._resource.Name.LastIndexOf(".") + 1, w._resource.Name.Length - (w._resource.Name.LastIndexOf(".") + 1)), out int n));
+            _menu.Items[7].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[9].Enabled = w.PrevNode != null;
+            _menu.Items[10].Enabled = w.NextNode != null;
+            _menu.Items[14].Visible = _menu.Items[15].Visible = false;
             if (w._resource.Name.StartsWith("InfStc.") && Regex.Match(w._resource.Name, @"(\.\d+)?$").Success && w._resource.Name.LastIndexOf(".") > 0 && w._resource.Name.LastIndexOf(".") <= w._resource.Name.Length && int.TryParse(w._resource.Name.Substring(w._resource.Name.LastIndexOf(".") + 1, w._resource.Name.Length - (w._resource.Name.LastIndexOf(".") + 1)), out int n))
             {
-                _menu.Items[13].Visible = _menu.Items[14].Visible = true;
-                _menu.Items[14].Text = w._resource.Name.Length == 10 ? "Convert to Expanded 50-Stock System" : "Convert to Default Stock System";
+                _menu.Items[14].Visible = _menu.Items[15].Visible = true;
+                _menu.Items[15].Text = w._resource.Name.Length == 10 ? "Convert to Expanded 50-Stock System" : "Convert to Default Stock System";
             }
         }
 
@@ -69,6 +72,14 @@ namespace BrawlCrate.NodeWrappers
 
         public override void OnReplace(string inStream, int filterIndex)
         {
+            if (((TEX0Node)_resource).SharesData)
+            {
+                if(_resource.Index > 0 && ((TEX0Node)_resource.Parent.Children[_resource.Index - 1]).SharesData)
+                {
+                    ((TEX0Node)_resource).SharesData = false;
+                    ((TEX0Node)_resource.Parent.Children[_resource.Index - 1]).SharesData = false;
+                }
+            }
             if (filterIndex == 8)
                 base.OnReplace(inStream, filterIndex);
             else
@@ -81,13 +92,134 @@ namespace BrawlCrate.NodeWrappers
 
         public void ReEncode()
         {
+            PLT0Node plt = null;
+            if (((TEX0Node)ResourceNode).HasPalette)
+                plt = ((TEX0Node)ResourceNode).GetPaletteNode();
             using (TextureConverterDialog dlg = new TextureConverterDialog())
             {
                 dlg.LoadImages((ResourceNode as TEX0Node).GetImage(0));
                 dlg.ShowDialog(MainForm.Instance, ResourceNode as TEX0Node);
             }
+            if (plt != null && !((TEX0Node)ResourceNode).HasPalette)
+                plt.Remove();
         }
 
+        public void ColorSmash()
+        {
+            StageBoxNumericEntry colorsmashcount = new StageBoxNumericEntry();
+            if (colorsmashcount.ShowDialog("Color Smasher", "How many textures?") == DialogResult.OK)
+                ColorSmash(colorsmashcount.NewValue);
+        }
+
+        public void ColorSmash(int textureCount)
+        {
+            if (TEX0Node._updating)
+                return;
+            TEX0Node._updating = true;
+            int curindex = _resource.Index;
+            int parentCount = _resource.Parent.Children.Count;
+            BRRESNode brparent = _resource.Parent.Parent as BRRESNode;
+            List<string> texNames = new List<string>();
+            Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\");
+            DirectoryInfo outputDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\out\\");
+            bool usesOnlyCI4 = true;
+            int j = 0;
+            for (int i = curindex; i < parentCount && i < curindex + textureCount; i++)
+            {
+                TEX0Node tex = brparent.GetOrCreateFolder<TEX0Node>().Children[curindex] as TEX0Node;
+                texNames.Add(tex.Name);
+                tex.Export(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + j + ".png");
+                j++;
+                if (tex.HasPalette)
+                {
+                    tex.GetPaletteNode().Remove();
+                }
+                if (tex.Format != BrawlLib.Wii.Textures.WiiPixelFormat.CI4)
+                    usesOnlyCI4 = false;
+                tex.Remove();
+            }
+            Process csmash = Process.Start(new ProcessStartInfo()
+            {
+                FileName = AppDomain.CurrentDomain.BaseDirectory + "color_smash.exe",
+                WindowStyle = ProcessWindowStyle.Hidden,
+                Arguments = String.Format("-c RGB5A3"),
+            });
+            csmash.WaitForExit();
+            List<int> remainingIDs = new List<int>();
+            bool errorThrown = false;
+            bool attemptRegardless = false;
+            for (j = 0; j < texNames.Count; j++)
+            {
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\out\\" + j + ".png"))
+                {
+                    using (TextureConverterDialog dlg = new TextureConverterDialog())
+                    {
+                        dlg.ImageSource = AppDomain.CurrentDomain.BaseDirectory + "\\cs\\out\\" + j + ".png";
+                        if (dlg.ShowDialog(MainForm.Instance, brparent, true, true, texNames[j], usesOnlyCI4, curindex) == DialogResult.OK)
+                        {
+                            if (j < texNames.Count - 1)
+                                dlg.TEX0TextureNode.SharesData = true;
+                            curindex++;
+                        }
+                    }
+                }
+                else
+                {
+                    if(!errorThrown)
+                    {
+                        errorThrown = true;
+                        attemptRegardless = (MessageBox.Show("One or more images threw an error when converting. Would you like to try to color smash these regardless? (As opposed to keeping them seperate)", "Color Smash", MessageBoxButtons.YesNo) == DialogResult.Yes);
+                    }
+                    if (attemptRegardless)
+                    {
+                        if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + j + ".png"))
+                        {
+                            using (TextureConverterDialog dlg = new TextureConverterDialog())
+                            {
+                                dlg.ImageSource = AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + j + ".png";
+                                if (dlg.ShowDialog(null, brparent, true, true, texNames[j], usesOnlyCI4, curindex) == DialogResult.OK)
+                                {
+                                    if (j < texNames.Count - 1)
+                                        dlg.TEX0TextureNode.SharesData = true;
+                                    curindex++;
+                                }
+                            }
+                        }
+                    }
+                    else
+                        remainingIDs.Add(j);
+                }
+            }
+            for (j = 0; j < remainingIDs.Count; j++)
+            {
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + remainingIDs[j] + ".png"))
+                {
+                    using (TextureConverterDialog dlg = new TextureConverterDialog())
+                    {
+                        dlg.ImageSource = AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + remainingIDs[j] + ".png";
+                        if (dlg.ShowDialog(MainForm.Instance, brparent, false, true, texNames[remainingIDs[j]], false, curindex) == DialogResult.OK)
+                        {
+                            //BaseWrapper w = this.FindResource(dlg.TEX0TextureNode, true);
+                            curindex++;
+                        }
+                    }
+                }
+            }
+            try
+            {
+                foreach (FileInfo tex in outputDir.GetFiles())
+                    try { tex.Delete(); } catch { }
+                outputDir.Delete();
+                foreach (FileInfo tex in Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\").GetFiles())
+                    try { tex.Delete(); } catch { }
+                Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\");
+            }
+            catch
+            {
+
+            }
+            TEX0Node._updating = false;
+        }
 
         public PAT0Node GeneratePAT0(bool force)
         {
@@ -257,10 +389,10 @@ namespace BrawlCrate.NodeWrappers
             if (Parent == null || (MainForm.Instance != null && Form.ActiveForm != null && Form.ActiveForm != MainForm.Instance))
                 return;
 
-            if (((TEX0Node)_resource).HasPalette)
+            if (((TEX0Node)_resource).HasPalette && ((TEX0Node)_resource).GetPaletteNode() != null)
             {
                 PLT0Node plt0 = ((TEX0Node)_resource).GetPaletteNode();
-                if (MessageBox.Show("Would you like to delete the associated PLT0?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("Would you like to delete the associated PLT0?", "Deleting TEX0", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     plt0.Parent.RemoveChild(plt0);
             }
 

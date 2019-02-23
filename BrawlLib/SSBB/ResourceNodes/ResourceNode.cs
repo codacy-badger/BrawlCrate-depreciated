@@ -620,11 +620,20 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public unsafe virtual void Export(string outPath)
         {
+            Export(outPath, false);
+        }
+
+        public unsafe virtual void Export(string outPath, bool tempFile)
+        {
             Rebuild(); //Apply changes the user has made by rebuilding.
 #if !DEBUG
             try
             {
 #endif
+                if(!tempFile && File.Exists(outPath))
+                {
+                    try { File.Delete(outPath); } catch { }
+                }
                 using (FileStream stream = new FileStream(outPath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite, 8, FileOptions.SequentialScan))
                     Export(stream);
 #if !DEBUG
@@ -1234,7 +1243,18 @@ namespace BrawlLib.SSBB.ResourceNodes
                 return "----AccessViolationException----";
             }
         }
-#endregion
+        #endregion
+
+        public ResourceNode PrevSibling()
+        {
+            if (_parent == null)
+                return null;
+            int siblingIndex = Index - 1;
+            if (siblingIndex < 0)
+                return null;
+
+            return Parent.Children[siblingIndex];
+        }
 
         public ResourceNode NextSibling()
         {

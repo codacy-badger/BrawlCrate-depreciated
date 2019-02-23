@@ -279,13 +279,20 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public T CreateResource<T>(string name) where T : BRESEntryNode
         {
+            return CreateResourceInPlace<T>(name, -1);
+        }
+        public T CreateResourceInPlace<T>(string name, int index) where T : BRESEntryNode
+        {
             BRESGroupNode group = GetOrCreateFolder<T>();
             if (group == null)
                 return null;
 
             T n = Activator.CreateInstance<T>();
             n.Name = group.FindName(name);
-            group.AddChild(n);
+            if (index == -1)
+                group.AddChild(n);
+            else
+                group.InsertChild(n, true, index);
 
             return n;
         }

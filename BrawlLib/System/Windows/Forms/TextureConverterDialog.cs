@@ -75,6 +75,11 @@ namespace System.Windows.Forms
         private CheckBox chkSwapAlpha;
         private CheckBox chkSwapAlphaRGB;
 
+        public bool automatic = false;
+        public bool colorSmash = false;
+        private bool usesCI4 = false;
+        int index = -1;
+
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public FileMap TextureData { get { return _textureData; } }
 
@@ -101,8 +106,8 @@ namespace System.Windows.Forms
 
             cboAlgorithm.SelectedItem = QuantizationAlgorithm.MedianCut;
         }
-
-        public DialogResult ShowDialog(IWin32Window owner, BRRESNode parent)
+        
+        public DialogResult ShowDialog(IWin32Window owner, BRRESNode parent, bool cs = false, bool auto = false, string str = "", bool CI4 = false, int i = -1)
         {
             _bresParent = parent;
             _origTEX0 = null;
@@ -111,6 +116,11 @@ namespace System.Windows.Forms
             _origTPL = null;
             _origTPLPlt = null;
             _paletteData = _textureData = null;
+            colorSmash = cs;
+            name = str;
+            automatic = auto;
+            usesCI4 = CI4;
+            index = i;
             DialogResult = DialogResult.Cancel;
             try { return base.ShowDialog(owner); }
             //catch (Exception x) { MessageBox.Show(x.ToString()); return DialogResult.Cancel; }
@@ -127,6 +137,10 @@ namespace System.Windows.Forms
             _origTPLPlt = null;
             _paletteData = _textureData = null;
             DialogResult = DialogResult.Cancel;
+            colorSmash = false;
+            automatic = false;
+            name = "";
+            index = -1;
             try { return base.ShowDialog(owner); }
             //catch (Exception x) { MessageBox.Show(x.ToString()); return DialogResult.Cancel; }
             finally { DisposeImages(); }
@@ -143,11 +157,15 @@ namespace System.Windows.Forms
             _origTPLPlt = null;
             _paletteData = _textureData = null;
             DialogResult = DialogResult.Cancel;
+            colorSmash = false;
+            automatic = false;
+            name = "";
+            index = -1;
             try { return base.ShowDialog(owner); }
             //catch (Exception x) { MessageBox.Show(x.ToString()); return DialogResult.Cancel; }
             finally { DisposeImages(); }
         }
-        public DialogResult ShowDialog(IWin32Window owner, TEX0Node original)
+        public DialogResult ShowDialog(IWin32Window owner, TEX0Node original, bool auto = false, bool cs = false)
         {
             _bresParent = null;
             _origTEX0 = original;
@@ -157,6 +175,10 @@ namespace System.Windows.Forms
             _origTPLPlt = null;
             _paletteData = _textureData = null;
             DialogResult = DialogResult.Cancel;
+            colorSmash = cs;
+            automatic = auto;
+            name = "";
+            index = -1;
             try { return base.ShowDialog(owner); }
             //catch (Exception x) { MessageBox.Show(x.ToString()); return DialogResult.Cancel; }
             finally { DisposeImages(); }
@@ -171,6 +193,10 @@ namespace System.Windows.Forms
             _origPLT0 = null;
             _paletteData = _textureData = null;
             DialogResult = DialogResult.Cancel;
+            colorSmash = false;
+            automatic = false;
+            name = "";
+            index = -1;
             try { return base.ShowDialog(owner); }
             //catch (Exception x) { MessageBox.Show(x.ToString()); return DialogResult.Cancel; }
             finally { DisposeImages(); }
@@ -185,6 +211,10 @@ namespace System.Windows.Forms
             _origPLT0 = null;
             _paletteData = _textureData = null;
             DialogResult = DialogResult.Cancel;
+            colorSmash = false;
+            automatic = false;
+            name = "";
+            index = -1;
             try { return base.ShowDialog(owner); }
             //catch (Exception x) { MessageBox.Show(x.ToString()); return DialogResult.Cancel; }
             finally { DisposeImages(); }
@@ -199,6 +229,10 @@ namespace System.Windows.Forms
             _origTPLPlt = null;
             _paletteData = _textureData = null;
             DialogResult = DialogResult.Cancel;
+            colorSmash = false;
+            automatic = false;
+            name = "";
+            index = -1;
             try { return base.ShowDialog(owner); }
             //catch (Exception x) { MessageBox.Show(x.ToString()); return DialogResult.Cancel; }
             finally { DisposeImages(); }
@@ -211,6 +245,11 @@ namespace System.Windows.Forms
             if (_base == null)
                 if (_imageSource == null)
                 {
+                    if (automatic)
+                    {
+                        Close();
+                        return;
+                    }
                     if (!LoadImages())
                     {
                         Close();
@@ -284,6 +323,16 @@ namespace System.Windows.Forms
 			if (InitialFormat != null) {
 				cboFormat.SelectedItem = InitialFormat;
 			}
+
+            if (colorSmash)
+            {
+                cboFormat.SelectedItem = usesCI4 ? WiiPixelFormat.CI4 : WiiPixelFormat.CI8;
+                chkImportPalette.Checked = true;
+            }
+            if (automatic)
+            {
+                btnOkay_Click(new object(), new EventArgs());
+            }
         }
 
         public bool LoadImages(string path)
@@ -509,7 +558,11 @@ namespace System.Windows.Forms
                 return;
 
             _updating = true;
-            if (_colorInfo.IsGreyscale)
+            if((name == "" ? Path.GetFileNameWithoutExtension(_imageSource) : name).StartsWith("InfStc.") || (name == "" ? Path.GetFileNameWithoutExtension(_imageSource) : name).EndsWith("_STC"))
+            {
+                cboFormat.SelectedItem = WiiPixelFormat.CI4;
+            }
+            else if (_colorInfo.IsGreyscale)
             {
                 if (_colorInfo.ColorCount <= 16)
                     cboFormat.SelectedItem = (_colorInfo.AlphaColors == 0) ? WiiPixelFormat.I4 : WiiPixelFormat.CI4;
@@ -636,6 +689,7 @@ namespace System.Windows.Forms
 
         private void btnCancel_Click(object sender, EventArgs e) { Close(); }
 
+        string name = "";
         public void EncodeSource()
         {
             TextureConverter format = TextureConverter.Get((WiiPixelFormat)cboFormat.SelectedItem);
@@ -669,7 +723,7 @@ namespace System.Windows.Forms
 
             if (_bresParent != null)
             {
-                _origTEX0 = _bresParent.CreateResource<TEX0Node>(Path.GetFileNameWithoutExtension(_imageSource));
+                _origTEX0 = _bresParent.CreateResourceInPlace<TEX0Node>(name == "" ? Path.GetFileNameWithoutExtension(_imageSource) : name, index);
                 if (_paletteData != null)
                 {
                     _origPLT0 = _bresParent.CreateResource<PLT0Node>(_origTEX0.Name);

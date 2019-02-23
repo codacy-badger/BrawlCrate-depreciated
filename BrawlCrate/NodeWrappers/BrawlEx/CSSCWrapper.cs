@@ -40,7 +40,7 @@ namespace BrawlCrate.NodeWrappers
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             CSSCWrapper w = GetInstance<CSSCWrapper>();
-            _menu.Items[0].Enabled = (w._resource.Children.Count <= 50);
+            _menu.Items[0].Enabled = (w._resource.Children.Count < 50);
             _menu.Items[3].Enabled = _menu.Items[10].Enabled = w.Parent != null;
             _menu.Items[4].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
             _menu.Items[6].Enabled = w.PrevNode != null;

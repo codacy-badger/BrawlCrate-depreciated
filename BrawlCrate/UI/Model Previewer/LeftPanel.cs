@@ -1336,9 +1336,18 @@ namespace System.Windows.Forms
             if ((_selectedTexture != null) && (_selectedTexture.Source is TEX0Node))
             {
                 TEX0Node node = _selectedTexture.Source as TEX0Node;
-                using (TextureConverterDialog dlg = new TextureConverterDialog())
-                    if (dlg.ShowDialog(this, node) == DialogResult.OK)
+                if (node.Parent == null)
+                    return;
+                OpenFileDialog _openDlg = new OpenFileDialog();
+                _openDlg.Filter = FileFilters.TEX0;
+#if !DEBUG
+                try
+                {
+#endif
+                    if (_openDlg.ShowDialog() == DialogResult.OK)
                     {
+                        string fileName = _openDlg.FileName;
+                        node.Replace(fileName);
                         _updating = true;
                         _selectedTexture.Reload();
                         lstTextures.SetItemCheckState(index, CheckState.Checked);
@@ -1347,6 +1356,10 @@ namespace System.Windows.Forms
 
                         _mainWindow.ModelPanel.Invalidate();
                     }
+#if !DEBUG
+                }
+                catch (Exception ex) { MessageBox.Show(ex.ToString()); index = 0; }
+#endif
             }
         }
 
