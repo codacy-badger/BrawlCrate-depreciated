@@ -49,7 +49,7 @@ namespace BrawlCrate.Discord
             {
                 if (((ARCNode)MainForm.Instance.RootNode.ResourceNode).IsStage)
                 {
-                    if(MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("STGRESULT", StringComparison.OrdinalIgnoreCase))
+                    if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("STGRESULT", StringComparison.OrdinalIgnoreCase))
                         DiscordController.presence.details = workString + " " + "the results screen";
                     else
                         DiscordController.presence.details = workString + " " + "a stage";
@@ -69,7 +69,7 @@ namespace BrawlCrate.Discord
                     {
                         DiscordController.presence.details = workString + " " + "a costume";
                     }
-                    else if(MainForm.Instance.RootNode.ResourceNode.Name.Contains("motion", StringComparison.OrdinalIgnoreCase))
+                    else if (MainForm.Instance.RootNode.ResourceNode.Name.Contains("motion", StringComparison.OrdinalIgnoreCase))
                     {
                         DiscordController.presence.details = workString + " " + "animations";
                     }
@@ -78,7 +78,7 @@ namespace BrawlCrate.Discord
                         DiscordController.presence.details = workString + " " + "a fighter";
                     }
                 }
-                else if(MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("sc_", StringComparison.OrdinalIgnoreCase) ||
+                else if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("sc_", StringComparison.OrdinalIgnoreCase) ||
                         MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("common5", StringComparison.OrdinalIgnoreCase) ||
                         MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("mu_", StringComparison.OrdinalIgnoreCase))
                 {
@@ -92,10 +92,41 @@ namespace BrawlCrate.Discord
                 {
                     DiscordController.presence.details = workString + " " + "a subspace stage";
                 }
+                else if(MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("common2", StringComparison.OrdinalIgnoreCase))
+                {
+                    DiscordController.presence.details = workString + " " + "single player";
+                }
+                else if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("common3", StringComparison.OrdinalIgnoreCase))
+                {
+                    DiscordController.presence.details = workString + " " + "items";
+                }
+                else if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("common", StringComparison.OrdinalIgnoreCase))
+                {
+                    DiscordController.presence.details = workString + " " + "animations";
+                }
+                else if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("home_", StringComparison.OrdinalIgnoreCase)
+                    && Program.RootPath.Substring(0, Program.RootPath.LastIndexOf('\\')).EndsWith("\\system\\homebutton"))
+                {
+                    DiscordController.presence.details = workString + " " + "the home menu";
+                }
+                else if (MainForm.Instance.RootNode.ResourceNode.Name.Equals("cs_pack", StringComparison.OrdinalIgnoreCase))
+                {
+                    DiscordController.presence.details = workString + " " + "coin launcher";
+                }
+                else if ((MainForm.Instance.RootNode.Name.StartsWith("Itm") || (Program.RootPath.Substring(0, Program.RootPath.LastIndexOf('\\')).EndsWith("\\item") ||
+                    Program.RootPath.Substring(0, Program.RootPath.LastIndexOf('\\')).Substring(0, Program.RootPath.LastIndexOf('\\')).EndsWith("\\item")))
+                    && (MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("Brres") || MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("Param")))
+                {
+                    DiscordController.presence.details = workString + " " + "an item";
+                }
                 else
                 {
                     DiscordController.presence.details = workString + " " + "a mod";
                 }
+            }
+            else if (MainForm.Instance.RootNode.ResourceNode is RELNode)
+            {
+                DiscordController.presence.details = workString + " " + "a module";
             }
             else if (MainForm.Instance.RootNode.ResourceNode is RSTMNode)
             {
