@@ -637,7 +637,7 @@ namespace BrawlCrate.NodeWrappers
             MDL0MaterialNode mat = new MDL0MaterialNode();
             model._matGroup.AddChild(mat);
             mat.Name = "Material" + mat.Index;
-
+            mat.CullMode = BrawlLib.SSBBTypes.CullMode.Cull_Inside;
             if (model._shadGroup == null)
             {
                 MDL0GroupNode g = model._shadGroup;
