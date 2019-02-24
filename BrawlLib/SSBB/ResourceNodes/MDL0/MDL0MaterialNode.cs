@@ -1170,7 +1170,11 @@ For example, if the shader has two stages but this number is 1, the second stage
                 }
             }
         }
-        [Category("Material"), Description("This will make one, neither or both sides of the linked objects' mesh invisible.")]
+        [Category("Material"), Description("This will make one, neither or both sides of the linked objects' mesh invisible." +
+            "\n- Cull_Inside: Makes inside (back faces) of model invisible" +
+            "\n- Cull_Outside: Makes outside(front faces) of model invisible" +
+            "\n- Cull_None: Makes both sides visible" +
+            "\n- Cull_All: Makes both sides invisible")]
         public CullMode CullMode
         {
             get { return _cull; }
