@@ -230,6 +230,8 @@ namespace Net
                             sw.WriteLine("del Octokit.dll /s /f /q");
                         if (File.Exists(AppPath + "/OpenTK.dll"))
                             sw.WriteLine("del OpenTK.dll /s /f /q");
+                        if (File.Exists(AppPath + "/discord-rpc.dll"))
+                            sw.WriteLine("del discord-rpc.dll /s /f /q");
 
                         sw.WriteLine("START /wait temp.exe -y");
                         sw.WriteLine("del temp.exe /s /f /q");
@@ -558,6 +560,8 @@ namespace Net
                             sw.WriteLine("del Octokit.dll /s /f /q");
                         if (File.Exists(AppPath + "/OpenTK.dll"))
                             sw.WriteLine("del OpenTK.dll /s /f /q");
+                        if (File.Exists(AppPath + "/discord-rpc.dll"))
+                            sw.WriteLine("del discord-rpc.dll /s /f /q");
 
                         sw.WriteLine("START /wait temp.exe -y");
                         sw.WriteLine("del temp.exe /s /f /q");
@@ -804,6 +808,8 @@ namespace Net
                             sw.WriteLine("del Octokit.dll /s /f /q");
                         if (File.Exists(AppPath + "/OpenTK.dll"))
                             sw.WriteLine("del OpenTK.dll /s /f /q");
+                        if (File.Exists(AppPath + "/discord-rpc.dll"))
+                            sw.WriteLine("del discord-rpc.dll /s /f /q");
 
                         sw.WriteLine("START /wait temp.exe -y");
                         sw.WriteLine("del temp.exe /s /f /q");
