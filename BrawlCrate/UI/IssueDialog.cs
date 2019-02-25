@@ -32,7 +32,10 @@ namespace System.Windows.Forms
         private void button2_Click(object sender, EventArgs e)
         {
             if (chkForceClose.Checked)
+            {
+                BrawlCrate.Discord.DiscordRpc.Shutdown();
                 Environment.Exit(0);
+            }
 
             Close();
         }
