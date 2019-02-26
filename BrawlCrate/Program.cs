@@ -105,6 +105,7 @@ namespace BrawlCrate
             s.Show();
             s.Focus();
             firstBoot = false;
+#if !DEBUG
             if (BrawlCrate.Properties.Settings.Default.UpdateSettings)
             {
                 foreach (var _Assembly in AppDomain.CurrentDomain.GetAssemblies())
@@ -177,7 +178,7 @@ namespace BrawlCrate
             {
 
             }
-
+#endif
             string path = "";
             if (args.Length >= 1)
             {
