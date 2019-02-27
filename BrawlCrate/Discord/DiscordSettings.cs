@@ -30,7 +30,6 @@ namespace BrawlCrate.Discord
         {
             if (!enabled)
             {
-                DiscordRpc.ClearPresence();
                 DiscordRpc.Shutdown();
                 return;
             }
