@@ -16,11 +16,11 @@ namespace BrawlCrate
         {
             _menu = new ContextMenuStrip();
             _menu.Items.Add(new ToolStripMenuItem("&New Entry", null, NewBoneAction, Keys.Control | Keys.H));
+            _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("Edit", null,
                 //new ToolStripMenuItem("&Merge Animation", null, MergeAction),
                 new ToolStripMenuItem("&Append Animation", null, AppendAction),
                 new ToolStripMenuItem("Res&ize", null, ResizeAction)));
-            _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Export", null, ExportAction, Keys.Control | Keys.E));
             _menu.Items.Add(new ToolStripMenuItem("&Replace", null, ReplaceAction, Keys.Control | Keys.R));
