@@ -37,6 +37,7 @@ namespace BrawlCrate
         protected static void RestoreAction(object sender, EventArgs e) { GetInstance<GenericWrapper>().Restore(); }
         protected static void DeleteAction(object sender, EventArgs e) { GetInstance<GenericWrapper>().Delete(); }
         protected static void RenameAction(object sender, EventArgs e) { GetInstance<GenericWrapper>().Rename(); }
+        protected static void SortAction(object sender, EventArgs e) { GetInstance<GenericWrapper>().Sort(); }
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
             _menu.Items[1].Enabled = _menu.Items[2].Enabled = _menu.Items[4].Enabled = _menu.Items[5].Enabled = _menu.Items[8].Enabled = true;
@@ -222,6 +223,11 @@ namespace BrawlCrate
             using (RenameDialog dlg = new RenameDialog()) { dlg.ShowDialog(MainForm.Instance, _resource); }
             if (_resource.Parent == null && Program.CanRunDiscordRPC())
                 BrawlCrate.Discord.DiscordSettings.Update();
+        }
+
+        public virtual void Sort()
+        {
+            _resource.SortChildren();
         }
     }
 }

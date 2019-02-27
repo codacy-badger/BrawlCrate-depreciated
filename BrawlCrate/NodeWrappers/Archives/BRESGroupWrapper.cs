@@ -16,14 +16,14 @@ namespace BrawlCrate
             _menu.Items.Add(new ToolStripMenuItem("Move D&own", null, MoveDownAction, Keys.Control | Keys.Down));
             _menu.Items.Add(new ToolStripMenuItem("Re&name", null, RenameAction, Keys.Control | Keys.N));
             _menu.Items.Add(new ToolStripMenuItem("&Default Name", null, DefaultAction, Keys.Control | Keys.D));
-            _menu.Items.Add(new ToolStripMenuItem("Sort &Items", null, SortAction, Keys.Control | Keys.I));
+            _menu.Items.Add(new ToolStripMenuItem("Sort &Items", null, SortGroupAction, Keys.Control | Keys.I));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteAction, Keys.Control | Keys.Delete));
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
         protected static void DefaultAction(object sender, EventArgs e) { GetInstance<BRESGroupWrapper>().Default(); }
-        protected static void SortAction(object sender, EventArgs e) { GetInstance<BRESGroupWrapper>().Sort(); }
+        protected static void SortGroupAction(object sender, EventArgs e) { GetInstance<BRESGroupWrapper>().Sort(); }
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
             _menu.Items[0].Enabled = _menu.Items[1].Enabled = _menu.Items[6].Enabled = true;
@@ -38,7 +38,7 @@ namespace BrawlCrate
 
         public BRESGroupWrapper() { ContextMenuStrip = _menu; }
 
-        public void Sort()
+        public override void Sort()
         {
             int index = Index;
             ((BRESGroupNode)_resource).SortChildren();
