@@ -242,8 +242,11 @@ namespace BrawlCrate
                 }
             }
             finally {
-                if (CanRunDiscordRPC())
+                //if (CanRunDiscordRPC())
+                //{
+                    Discord.DiscordRpc.ClearPresence();
                     Discord.DiscordRpc.Shutdown();
+                //}
                 try
                 {
                     Generate1to1Stages.clearTmpDir(Generate1to1Stages.tmpDirectory);
