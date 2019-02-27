@@ -7,6 +7,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Security.Cryptography;
 using System.Text;
+using System.Linq;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
@@ -1270,6 +1271,14 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override string ToString()
         {
             return Name;
+        }
+
+        public virtual void SortChildren()
+        {
+            if (Children == null || Children.Count <= 0)
+                return;
+            _children = _children.OrderBy(o => o.Name).ToList();
+            SignalPropertyChange();
         }
     }
 

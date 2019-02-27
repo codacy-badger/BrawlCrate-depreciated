@@ -41,7 +41,6 @@ namespace BrawlCrate
         public void Sort()
         {
             int index = Index;
-            ResourceNode parent = _resource._parent;
             ((BRESGroupNode)_resource).SortChildren();
             RefreshView(_resource);
         }

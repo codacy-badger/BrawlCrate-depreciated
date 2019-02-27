@@ -41,7 +41,16 @@ namespace BrawlCrate.NodeWrappers
                 new ToolStripMenuItem("Vertices", null, ImportVertexAction),
                 new ToolStripMenuItem("Normals", null, ImportNormalAction),
                 new ToolStripMenuItem("Colors", null, ImportColorAction),
-                new ToolStripMenuItem("UVs", null, ImportUVAction)
+                new ToolStripMenuItem("UVs", null, ImportUVAction),
+                new ToolStripMenuItem("Objects", null, ImportObjectAction)
+                ));
+            _menu.Items.Add(new ToolStripMenuItem("&Sort Assets", null,
+                new ToolStripMenuItem("Vertices", null, SortVertexAction),
+                new ToolStripMenuItem("Normals", null, SortNormalAction),
+                new ToolStripMenuItem("Colors", null, SortColorAction),
+                new ToolStripMenuItem("UVs", null, SortUVAction),
+                new ToolStripMenuItem("Objects", null, SortObjectAction),
+                new ToolStripMenuItem("Textures", null, SortObjectAction)
                 ));
             _menu.Items.Add(new ToolStripMenuItem("&Auto Name Assets", null,
                 new ToolStripMenuItem("Vertices", null, NameVertexAction),
@@ -78,7 +87,6 @@ namespace BrawlCrate.NodeWrappers
                 )
                 ));
             _menu.Items.Add(new ToolStripMenuItem("&Reimport Meshes", null, ReimportAction));
-            _menu.Items.Add(new ToolStripMenuItem("&Import Existing Object", null, ImportObjectAction));
             _menu.Items.Add(new ToolStripMenuItem("&Optimize Meshes", null, OptimizeAction));
             _menu.Items.Add(new ToolStripMenuItem("&Recalculate Bounding Boxes", null, RecalcBBsOption));
             _menu.Items.Add(new ToolStripSeparator());
@@ -133,7 +141,14 @@ namespace BrawlCrate.NodeWrappers
         protected static void ImportNormalAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().ImportNormal(); }
         protected static void ImportColorAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().ImportColor(); }
         protected static void ImportUVAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().ImportUV(); }
-        
+
+        protected static void SortVertexAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortVertex(); }
+        protected static void SortNormalAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortNormal(); }
+        protected static void SortColorAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortColor(); }
+        protected static void SortUVAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortUV(); }
+        protected static void SortObjectAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortObject(); }
+        protected static void SortTextureAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortTexture(); }
+
         protected static void StripAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().StripModel(); }
 
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
@@ -898,6 +913,43 @@ namespace BrawlCrate.NodeWrappers
             if (o.ShowDialog() == DialogResult.OK)
                 if ((external = (MDL0Node)NodeFactory.FromFile(null, o.FileName)) != null)
                     new ObjectImporter().ShowDialog((MDL0Node)_resource, external);
+        }
+
+        public void SortVertex()
+        {
+            int index = Index;
+            ((MDL0Node)_resource).VertexGroup.SortChildren();
+            RefreshView(_resource);
+        }
+        public void SortNormal()
+        {
+            int index = Index;
+            ((MDL0Node)_resource).NormalGroup.SortChildren();
+            RefreshView(_resource);
+        }
+        public void SortColor()
+        {
+            int index = Index;
+            ((MDL0Node)_resource).ColorGroup.SortChildren();
+            RefreshView(_resource);
+        }
+        public void SortUV()
+        {
+            int index = Index;
+            ((MDL0Node)_resource).UVGroup.SortChildren();
+            RefreshView(_resource);
+        }
+        public void SortObject()
+        {
+            int index = Index;
+            ((MDL0Node)_resource).PolygonGroup.SortChildren();
+            RefreshView(_resource);
+        }
+        public void SortTexture()
+        {
+            int index = Index;
+            ((MDL0Node)_resource).TextureGroup.SortChildren();
+            RefreshView(_resource);
         }
 
         private void RecalcBoundingBoxes()

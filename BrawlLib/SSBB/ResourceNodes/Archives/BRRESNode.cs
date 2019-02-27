@@ -762,9 +762,9 @@ namespace BrawlLib.SSBB.ResourceNodes
             if (Type == BRESGroupType.None) GetFileType();
         }
 
-        public void SortChildren()
+        public override void SortChildren()
         {
-            if (Children.Count <= 0)
+            if (Children == null || Children.Count <= 0)
                 return;
             if (Children[0].Name.StartsWith("InfStc", StringComparison.OrdinalIgnoreCase) && Children[0] is TEX0Node)
             {
