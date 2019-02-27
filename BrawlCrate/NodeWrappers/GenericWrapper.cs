@@ -228,6 +228,7 @@ namespace BrawlCrate
         public virtual void Sort()
         {
             _resource.SortChildren();
+            RefreshView(_resource);
         }
     }
 }

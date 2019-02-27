@@ -40,7 +40,6 @@ namespace BrawlCrate
 
         public override void Sort()
         {
-            int index = Index;
             ((BRESGroupNode)_resource).SortChildren();
             RefreshView(_resource);
         }
