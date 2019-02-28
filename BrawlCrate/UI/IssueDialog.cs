@@ -33,6 +33,7 @@ namespace System.Windows.Forms
         {
             if (chkForceClose.Checked)
             {
+                BrawlCrate.Discord.DiscordRpc.ClearPresence();
                 BrawlCrate.Discord.DiscordRpc.Shutdown();
                 Environment.Exit(0);
             }
