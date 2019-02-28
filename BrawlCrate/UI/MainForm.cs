@@ -281,6 +281,9 @@ namespace BrawlCrate
 
             if (Program.CanRunDiscordRPC())
             {
+                Process[] px = Process.GetProcessesByName("BrawlCrate");
+                if(px.Length == 1)
+                    BrawlCrate.Discord.DiscordRpc.ClearPresence();
                 BrawlCrate.Discord.DiscordSettings.startTime = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
                 BrawlCrate.Discord.DiscordSettings.DiscordController = new BrawlCrate.Discord.DiscordController();
                 BrawlCrate.Discord.DiscordSettings.DiscordController.Initialize();
