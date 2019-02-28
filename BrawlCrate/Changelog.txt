@@ -16,6 +16,17 @@ they be held accountable for the manner in which it is used.
 |************ BrawlCrate Change Log ************|
  ===============================================
  
+ - BrawlCrate v0.23 Hotfix 1 - (2/27/2019)
+ . Add sorting option to MDL0 Groups as well as animations
+ . Import Existing Object for MDL0s moved into Import Asset submenu
+ . Cull Mode is now set to Cull_Inside for new materials
+ . Material Culling description updated to a more detailed one by Xen
+ . Rich Presence DLL now deleted by the updater
+ . Add various cases to ensure Discord Rich Presence terminates properly
+   - Always clear presence before shutting down
+   - Shutdown when crash reporter sends a force close
+   - If there's only one BrawlCrate process, attempts to refresh presence to prevent doubling up
+ 
  - BrawlCrate v0.23 - (2/23/2019)
  . Add Discord Rich Presence (customizable via the settings menu)
  . Add experimental AutoMetal option, which automatically updates metal materials as you work on a model
