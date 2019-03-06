@@ -91,8 +91,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         public event ResourceChildEventHandler ChildAdded, ChildRemoved;
         public event ResourceChildInsertEventHandler ChildInserted;
 
-        [Browsable(true), DisplayName("Estimated Size (Bytes)")]
-        public int estimatedSize
+        [Browsable(true), DisplayName("Uncompressed Size (Bytes)")]
+        public int uncompSize
         {
             get { return OnCalculateSize(false); }
         }
