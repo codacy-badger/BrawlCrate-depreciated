@@ -194,8 +194,8 @@ namespace BrawlCrate
             if (_openDlg.ShowDialog() == DialogResult.OK)
             {
                 TEX0Node._updating = true;
-                DialogResult dr = MessageBox.Show("Have these textures already been sent through the Color Smash Tool?", "Color Smash", MessageBoxButtons.YesNoCancel);
-                if (dr == DialogResult.Yes)
+                DialogResult dr = MessageBox.Show("Would you like to send these through the color smash tool now?", "Color Smash", MessageBoxButtons.YesNoCancel);
+                if (dr == DialogResult.No)
                 {
                     // Don't color smash them again
                     int curindex = ((BRRESNode)_resource).GetOrCreateFolder<TEX0Node>().Children.Count;
@@ -216,7 +216,7 @@ namespace BrawlCrate
                         }
                     }
                 }
-                else if (dr == DialogResult.No)
+                else if (dr == DialogResult.Yes)
                 {
                     // Color Smash them
                     DirectoryInfo inputDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\");
