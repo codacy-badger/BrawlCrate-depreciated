@@ -91,6 +91,12 @@ namespace BrawlLib.SSBB.ResourceNodes
         public event ResourceChildEventHandler ChildAdded, ChildRemoved;
         public event ResourceChildInsertEventHandler ChildInserted;
 
+        [Browsable(true), DisplayName("Estimated Size (Bytes)")]
+        public int estimatedSize
+        {
+            get { return OnCalculateSize(false); }
+        }
+
         public virtual void FindUnloadedChildren() { }
 
         #region Properties
