@@ -92,7 +92,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public event ResourceChildInsertEventHandler ChildInserted;
 
         [Browsable(true), DisplayName("Uncompressed Size (Bytes)")]
-        public int uncompSize
+        public virtual int uncompSize
         {
             get { return OnCalculateSize(false); }
         }

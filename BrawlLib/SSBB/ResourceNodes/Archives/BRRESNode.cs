@@ -649,6 +649,20 @@ namespace BrawlLib.SSBB.ResourceNodes
     {
         internal ResourceGroup* Group { get { return (ResourceGroup*)WorkingUncompressed.Address; } }
         public override ResourceType ResourceType { get { return ResourceType.BRESGroup; } }
+
+        public virtual int uncompSize
+        {
+            get
+            {
+                int calcSize = 0;
+                for(int i = 0; i < Children.Count; i++)
+                {
+                    calcSize += Children[i].uncompSize;
+                }
+                return calcSize;
+            }
+        }
+
         public override Type[] AllowedChildTypes
         {
             get
