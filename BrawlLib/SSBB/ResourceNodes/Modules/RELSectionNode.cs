@@ -10,6 +10,12 @@ namespace BrawlLib.SSBB.ResourceNodes
     {
         ObjectParser _parser;
 
+        [Browsable(false), DisplayName("Uncompressed Size (Bytes)")]
+        public override int uncompSize
+        {
+            get { return 0; }
+        }
+
         internal VoidPtr Header { get { return WorkingUncompressed.Address; } }
         public override ResourceType ResourceType { get { return ResourceType.RELSection; } }
         

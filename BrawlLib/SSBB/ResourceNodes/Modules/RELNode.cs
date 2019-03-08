@@ -27,6 +27,12 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
+        [Browsable(false), DisplayName("Uncompressed Size (Bytes)")]
+        public override int uncompSize
+        {
+            get { return 0; }
+        }
+
         public ModuleSectionNode[] _sections = null;
 
         public uint _id;
