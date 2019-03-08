@@ -654,6 +654,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
+                    return -1;
                 int calcSize = 0;
                 for(int i = 0; i < Children.Count; i++)
                 {

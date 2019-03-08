@@ -94,7 +94,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [Browsable(true), DisplayName("Uncompressed Size (Bytes)")]
         public virtual int uncompSize
         {
-            get { return OnCalculateSize(false); }
+            get { return BrawlLib.Properties.Settings.Default.CompatibilityMode ? -1 : OnCalculateSize(false); }
         }
 
         public virtual void FindUnloadedChildren() { }
