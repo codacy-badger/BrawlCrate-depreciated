@@ -1,10 +1,16 @@
-﻿Documentation_v0.21.0
+﻿Documentation_v0.23.0
 
  =============================================================
 |************ BrawlCrate Documentation Change Log ************|
  =============================================================
  
  Current BrawlCrate Documentation contributors: soopercool101, Syvkal, MarioDox
+
+ - Documentation v0.23.0 - (3/7/2019)
+ . Big Blue STDT documentation updated to latest understanding:
+   - 0x80 -> Track Speed
+   - 0x88 -> Car Leave Timer
+   - 0x8C -> Track Landing Timer
  
  - Documentation v0.21.0 - (2/1/2019)
  . Added module annotations for stage loading in Mushroomy Kingdom Section [1]
