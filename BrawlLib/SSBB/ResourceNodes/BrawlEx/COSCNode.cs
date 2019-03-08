@@ -154,7 +154,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             // This node has no children
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return COSC.Size;
         }

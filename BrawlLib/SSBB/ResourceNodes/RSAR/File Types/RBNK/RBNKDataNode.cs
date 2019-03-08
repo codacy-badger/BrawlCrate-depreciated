@@ -105,7 +105,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             return false;
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return RBNKInstParam.Size;
         }
@@ -277,7 +277,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = 0;
             _rebuildType = false;
@@ -325,7 +325,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             return false;
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return 0;
         }

@@ -1554,7 +1554,7 @@ For example, if the shader has two stages but this number is 1, the second stage
         }
 
         internal int _dataAlign = 0, _mdlOffset = 0;
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int temp, size;
 

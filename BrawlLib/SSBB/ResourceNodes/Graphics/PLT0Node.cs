@@ -61,7 +61,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 table.Add(_originalPath);
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int count = Palette.Entries.Length.Align(16);
             return 0x40 + (count * 2);

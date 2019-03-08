@@ -31,7 +31,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 new GET1EntryNode().Initialize(this, source);
             }
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return GET1.SIZE + (Children.Count * 4) + (Children.Count * GET1Entry.SIZE);
         }
@@ -104,7 +104,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             return false;
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return GET1Entry.SIZE;
         }

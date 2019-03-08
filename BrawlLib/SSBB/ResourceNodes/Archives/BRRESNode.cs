@@ -445,7 +445,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         private int _numEntries, _strOffset, _rootSize;
         StringTable _stringTable = new StringTable();
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = BRESHeader.Size;
             _rootSize = 0x20 + (Children.Count * 0x10);
@@ -650,13 +650,13 @@ namespace BrawlLib.SSBB.ResourceNodes
         internal ResourceGroup* Group { get { return (ResourceGroup*)WorkingUncompressed.Address; } }
         public override ResourceType ResourceType { get { return ResourceType.BRESGroup; } }
 
-        public override int uncompSize
+        public override uint uncompSize
         {
             get
             {
                 if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
-                    return -1;
-                int calcSize = 0;
+                    return 0;
+                uint calcSize = 0;
                 for(int i = 0; i < Children.Count; i++)
                 {
                     calcSize += Children[i].uncompSize;

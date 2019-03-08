@@ -89,7 +89,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             // Constant size (260 bytes)
             return sizeof(ClassicStageBlock);
@@ -153,7 +153,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             // Copy the data back to the address
             *(ClassicDifficultyData*)address = data;
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return sizeof(ClassicDifficultyData);
         }
@@ -275,7 +275,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return sizeof(ClassicFighterData);
         }
@@ -337,7 +337,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return sizeof(ClassicStageBlock) * Children.Count + Padding.Length * sizeof(bint);
         }

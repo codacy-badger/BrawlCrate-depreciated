@@ -75,7 +75,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
         private int offset = 0;
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = offset = 0x20 + (Children.Count * 0x20);
             foreach (ResourceNode node in Children)

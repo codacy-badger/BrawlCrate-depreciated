@@ -77,7 +77,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = 0xC;
             foreach (RBNKEntryNode g in Children)
@@ -154,7 +154,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 n.GetAudio();
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = 0xC + Children.Count * 8;
             foreach (WAVESoundNode g in Children)

@@ -273,11 +273,16 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = ARCHeader.Size + (Children.Count * 0x20);
             foreach (ResourceNode node in Children)
-                size += node.CalculateSize(force).Align(0x20);
+            {
+                if (rebuilding)
+                    size += node.CalculateSize(force).Align(0x20);
+                else
+                    size += (int)node.uncompSize;
+            }
             return size;
         }
 

@@ -92,9 +92,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         public event ResourceChildInsertEventHandler ChildInserted;
 
         [Browsable(true), DisplayName("Uncompressed Size (Bytes)")]
-        public virtual int uncompSize
+        public virtual uint uncompSize
         {
-            get { return BrawlLib.Properties.Settings.Default.CompatibilityMode ? -1 : OnCalculateSize(false); }
+            get { return BrawlLib.Properties.Settings.Default.CompatibilityMode ? 0 : ((uint)OnCalculateSize(false, false)); }
         }
 
         public virtual void FindUnloadedChildren() { }
@@ -837,7 +837,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         //Returns uncompressed size of node data.
         //It's up to the child nodes to return compressed sizes.
         //If this has been called, it means a rebuild must happen.
-        public virtual int OnCalculateSize(bool force)
+        public virtual int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return WorkingUncompressed.Length;
         }

@@ -35,7 +35,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             return Header->_count > 0;
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = GDBF.Size + (Children.Count * 4);
             foreach (ResourceNode node in Children)
@@ -223,7 +223,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             header->Pad4 = 1.0f;
             
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return GDBFEntry.Size;
         }

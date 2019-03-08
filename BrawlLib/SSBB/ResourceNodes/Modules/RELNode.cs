@@ -27,10 +27,19 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        [Browsable(false), DisplayName("Uncompressed Size (Bytes)")]
-        public override int uncompSize
+        public override uint uncompSize
         {
-            get { return 0; }
+            get
+            {
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
+                    return 0;
+                uint calcSize = 0;
+                for (int i = 0; i < Children.Count; i++)
+                {
+                    calcSize += Children[i].uncompSize;
+                }
+                return calcSize;
+            }
         }
 
         public ModuleSectionNode[] _sections = null;
@@ -517,7 +526,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 cmds.Add(new RELLink() { _type = RELLinkType.End });
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             GenerateImports();
 

@@ -92,7 +92,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             return entry;
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = (_version == 4 ? CLR0v4.Size : CLR0v3.Size) + 0x18 + Children.Count * 0x10;
             foreach (CLR0MaterialNode n in Children)

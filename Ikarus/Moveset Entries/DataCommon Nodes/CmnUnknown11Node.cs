@@ -24,7 +24,7 @@ namespace Ikarus.MovesetFile
             
         }
 
-        //protected override int OnCalculateSize(bool force)
+        //protected override int OnCalculateSize(bool force, bool rebuilding = true)
         //{
         //    _lookupCount = _entries.GetLookupCount();
         //    _entryLength = sListOffset.Size;

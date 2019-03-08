@@ -1994,7 +1994,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             else
                 base.Export(outPath);
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             //Clean and sort influence list
             _influences.Clean();

@@ -55,7 +55,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         private CompactStringTable _stringTable;
 
         public bool _writeInfo = true;
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = 16;
             foreach (GCTCodeEntryNode n in Children)

@@ -25,7 +25,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             //DATA Entries
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return base.OnCalculateSize(force);
         }

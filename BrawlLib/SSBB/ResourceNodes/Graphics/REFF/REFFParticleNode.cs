@@ -98,7 +98,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             return false;
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = 0x8C;
             foreach (string s in _textureNames)

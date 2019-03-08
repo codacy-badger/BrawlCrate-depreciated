@@ -74,7 +74,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public VertexCodec _enc;
         public bool _forceRebuild = false;
         public bool _forceFloat = false;
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             if (Model._isImport || _forceRebuild)
             {

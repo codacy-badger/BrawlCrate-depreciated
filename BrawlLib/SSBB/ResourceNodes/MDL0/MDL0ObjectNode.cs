@@ -783,7 +783,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         //This should be done after node indices have been assigned
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             MDL0Node model = Model;
             if (model._isImport)

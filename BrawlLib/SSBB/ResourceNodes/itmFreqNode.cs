@@ -132,7 +132,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             // Finally, write the string table for the Data and external data tables
             _strings.WriteTable(_pDataTable + (_DataTable.Count * 8));
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = ItmFreqHeader.Size;
             foreach (TableNode node in Children)
@@ -197,7 +197,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             for (int i = 0; i < Children.Count; i++)
                 Children[i].Rebuild(BaseAddress + Header->_offset + (i * 0x14), 0x14, force);
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = ItmFreqOffEntry.Size;
             foreach (TableGroupNode node in Children)
@@ -275,7 +275,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             for (int i = 0; i < Children.Count; i++)
                 Children[i].Rebuild(BaseAddress + Header->_entryOffset + (i * 0x10), 0x10, force);
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = ItmFreqGroup.Size;
             foreach (ItmFreqEntryNode node in Children)
@@ -357,7 +357,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             Header->_subaction = _subaction;
             Header->_subItem = _costumeID;
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = ItmFreqEntry.Size;
             return size;

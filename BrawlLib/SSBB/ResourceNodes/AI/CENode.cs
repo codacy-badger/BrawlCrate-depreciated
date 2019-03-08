@@ -77,7 +77,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             return n;
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = 0x10 + Children[0].Children.Count * 0x4 + Children[1].Children.Count * 0x4;//CEheader size
             if (size % 0x10 != 0)
@@ -162,7 +162,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
 
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = 0;
             if (this._name == "Events")//calculate size of all CEEntryNode
@@ -296,7 +296,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 header->part2[i] = Part2Entries[i];
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int eventSize = 0;
             int part2Size = 0;
@@ -408,7 +408,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 e->Entries[i] = Entries[i];
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return EntrySize;
         }
@@ -501,7 +501,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = 0x10;
             foreach (int[] array in Entries)

@@ -169,7 +169,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 _userEntries.Write(((SHP0v4*)address)->UserData = dataAddress);
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             _strings.Clear();
             foreach (SHP0EntryNode entry in Children)
@@ -447,7 +447,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             header->ResourceStringAddress = stringTable[Name] + 4;
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             _entryLen = (0x14 + Children.Count * 6).Align(4);
             _dataLen = 0;
@@ -548,7 +548,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             return false;
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return _dataLen = ((_isFixed = Keyframes._keyCount <= 1) ? 0 : Keyframes._keyCount * 12 + 4);
         }

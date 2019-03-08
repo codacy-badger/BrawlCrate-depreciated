@@ -142,7 +142,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             return false;
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return (RWSD_DATAEntry.Size + RWSD_WSDEntry.Size + 0x20 + RWSD_NoteEvent.Size + 12 + RWSD_NoteInfo.Size);
         }

@@ -311,7 +311,7 @@ namespace BrawlLib.SSBBTypes
         public bool IsCalculatingSize { get { return _builder != null && _builder.IsCalculatingSize; } }
 
         internal SakuraiArchiveBuilder _builder;
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             _currentlyBuilding = this;
             int size = (_builder = new SakuraiArchiveBuilder(this)).GetSize();

@@ -11,9 +11,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         ObjectParser _parser;
 
         [Browsable(false), DisplayName("Uncompressed Size (Bytes)")]
-        public override int uncompSize
+        public override uint uncompSize
         {
-            get { return 0; }
+            get { return _dataSize; }
         }
 
         internal VoidPtr Header { get { return WorkingUncompressed.Address; } }
@@ -82,7 +82,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             _parser.Parse();
             _parser.Populate();
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return _dataBuffer.Length + _endBufferSize;
         }
@@ -171,7 +171,7 @@ namespace BrawlLib.SSBB.ResourceNodes
     //            _values[i] = values[i];
     //    }
 
-        //public override int OnCalculateSize(bool force)
+        //public override int OnCalculateSize(bool force, bool rebuilding = true)
         //{
         //    return _values.Length * 4;
         //}
