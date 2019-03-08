@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.23
+BrawlCrate - v0.23 Hotfix 1
 Copyright © 2018 - 2019 soopercool101, MarioDox, Syvkal
 BrawlBox  © 2009 - 2019 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -18,10 +18,15 @@ they be held accountable for the manner in which it is used.
  
  - BrawlCrate v0.23 Hotfix 1 - (2/27/2019)
  . Add sorting option to MDL0 Groups as well as animations
+ . Add uncompressed size listing in bytes for all resource nodes
  . Import Existing Object for MDL0s moved into Import Asset submenu
  . Cull Mode is now set to Cull_Inside for new materials
+ . Color Smash import uses new method by default
+ . Update documentation to v0.23.0
  . Material Culling description updated to a more detailed one by Xen
  . Rich Presence DLL now deleted by the updater
+ . Fix bug where Color Smash utility would be corrupted in certain builds
+ . Fix bug in which subsequent color smash temp files would not be deleted if any output file failed
  . Add various cases to ensure Discord Rich Presence terminates properly
    - Always clear presence before shutting down
    - Shutdown when crash reporter sends a force close
