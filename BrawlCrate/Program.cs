@@ -19,9 +19,11 @@ namespace BrawlCrate
         public static readonly string TagName = "BrawlCrate_v0.23Hotfix1";
         public static readonly string UpdateMessage = "Updated to BrawlCrate v0.23 Hotfix 1! This release:\n" +
             "\n- Adds ability to sort items from MDL0 groups and animation entries" +
+            "\n- Adds uncompressed size display for all resource nodes" +
             "\n- Improve material culling description to be more user-friendly" +
-            "\n- Should fix various issues where rich presence would not terminate correctly" +
             "\n- Fix VIS0 context menu having incorrect seperator placement" +
+            "\n- Fully fix color smash utility to definitively have all functionality of the original tool" +
+            "\n- Should fix various issues where rich presence would not terminate correctly" +
             "\n\nFull changelog can be found in the installation folder:\n" + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
         public static readonly string AssemblyTitle;
