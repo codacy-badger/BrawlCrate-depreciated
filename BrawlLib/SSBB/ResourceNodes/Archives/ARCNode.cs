@@ -278,10 +278,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             int size = ARCHeader.Size + (Children.Count * 0x20);
             foreach (ResourceNode node in Children)
             {
-                if (rebuilding)
+                if (rebuilding || !(node is RELNode))
                     size += node.CalculateSize(force).Align(0x20);
                 else
-                    size += (int)node.uncompSize;
+                    size += (int)node.uncompSize.Align(0x20);
             }
             return size;
         }

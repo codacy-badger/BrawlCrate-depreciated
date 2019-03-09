@@ -27,18 +27,30 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
+        [Browsable(true), DisplayName("Uncompressed Size (Bytes)")]
         public override uint uncompSize
         {
             get
             {
                 if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
                     return 0;
-                uint calcSize = 0;
-                for (int i = 0; i < Children.Count; i++)
+                //GenerateImports();
+                uint size = (uint)RELHeader.Size + (uint)Children.Count * (uint)RELSectionEntry.Size + (uint)_imports.Keys.Count * (uint)RELImportEntry.Size;
+                foreach (ModuleSectionNode s in Children)
                 {
-                    calcSize += Children[i].uncompSize;
+                    //Section 4 and 5 seem to be the only ones that are aligned.
+                    //I don't know the exact alignment procedure. It's not consistent
+                    //if (s.Index > 3)
+                    //    size = size.Align(8);
+
+                    int r = s.OnCalculateSize(false, false);
+                    if (!s._isBSSSection)
+                        size += (uint)r;
+
                 }
-                return calcSize;
+                foreach (List<RELLink> s in _imports.Values)
+                    size += (uint)s.Count * (uint)RELLink.Size;
+                return size;
             }
         }
 
