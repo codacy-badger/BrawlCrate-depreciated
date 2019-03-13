@@ -41,7 +41,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             return base.GetName("Stage Collision Attributes");
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return 0x10 + Children.Count * 4 + Children.Count * _entrySize;
         }
@@ -200,7 +200,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             Name = "Entry [" + _index + "]";
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return 0x54;
         }

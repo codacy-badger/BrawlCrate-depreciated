@@ -80,7 +80,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = VIS0v3.Size + 0x18 + Children.Count * 0x10;
             foreach (ResourceNode e in Children)
@@ -391,7 +391,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             if (_entryCount == 0) return 8;
             return _entryCount.Align(32) / 8 + 8;

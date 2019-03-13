@@ -52,7 +52,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         int size = 0, texHdrLen = 0, pltHdrLen = 0, texLen = 0, pltLen = 0;
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             texHdrLen = 0;
             pltHdrLen = 0;
@@ -321,7 +321,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return TextureConverter.Get(Format).GetMipOffset(Width, Height, LevelOfDetail + 1);
         }
@@ -373,7 +373,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             return false;
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return Palette.Entries.Length.Align(16) * 2;
         }

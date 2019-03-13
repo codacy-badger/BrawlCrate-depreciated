@@ -56,7 +56,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         public ColorCodec _enc;
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             if (Model._isImport || _changed)
             {

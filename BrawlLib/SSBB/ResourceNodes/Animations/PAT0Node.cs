@@ -189,7 +189,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 table.Add(_originalPath);
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             RegenerateTextureList();
             RegeneratePaletteList();
@@ -480,7 +480,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             _dataLens = new int[Children.Count];
             _dataAddrs = new VoidPtr[Children.Count];
@@ -815,7 +815,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return Children.Count > 1 ? PAT0TextureTable.Size + PAT0Texture.Size * Children.Count : 0;
         }
@@ -1097,7 +1097,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             header->_pltFileIndex = ((PAT0TextureNode)Parent)._hasPlt && !String.IsNullOrEmpty(_plt) ? _pltFileIndex : (ushort)0;
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return PAT0Texture.Size;
         }

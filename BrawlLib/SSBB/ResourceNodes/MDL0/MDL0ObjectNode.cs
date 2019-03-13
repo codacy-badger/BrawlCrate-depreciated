@@ -783,7 +783,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         //This should be done after node indices have been assigned
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             MDL0Node model = Model;
             if (model._isImport)
@@ -1061,19 +1061,19 @@ namespace BrawlLib.SSBB.ResourceNodes
             return box;
         }
 
-        BlendingFactor[] _blendSrc = 
+        BlendingFactorSrc[] _blendSrc = 
         {
-            BlendingFactor.Zero, BlendingFactor.One,
-            BlendingFactor.DstColor, BlendingFactor.OneMinusDstColor,
-            BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha, 
-            BlendingFactor.DstAlpha, BlendingFactor.OneMinusDstAlpha
+            BlendingFactorSrc.Zero, BlendingFactorSrc.One,
+            BlendingFactorSrc.DstColor, BlendingFactorSrc.OneMinusDstColor,
+            BlendingFactorSrc.SrcAlpha, BlendingFactorSrc.OneMinusSrcAlpha, 
+            BlendingFactorSrc.DstAlpha, BlendingFactorSrc.OneMinusDstAlpha
         };
-        BlendingFactor[] _blendDst =
+        BlendingFactorDest[] _blendDst =
         {
-            BlendingFactor.Zero, BlendingFactor.One, 
-            BlendingFactor.SrcColor, BlendingFactor.OneMinusSrcColor,
-            BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha,
-            BlendingFactor.DstAlpha, BlendingFactor.OneMinusDstAlpha
+            BlendingFactorDest.Zero, BlendingFactorDest.One, 
+            BlendingFactorDest.SrcColor, BlendingFactorDest.OneMinusSrcColor,
+            BlendingFactorDest.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha,
+            BlendingFactorDest.DstAlpha, BlendingFactorDest.OneMinusDstAlpha
         };
         LogicOp[] _logicOp =
         {
@@ -1464,19 +1464,6 @@ namespace BrawlLib.SSBB.ResourceNodes
                 return;
             }
 
-            if (_vertexNode != null)
-            {
-                _vertexNode._objects.Remove(this);
-                if (_vertexNode._objects.Count == 0 && v)
-                    _vertexNode.Remove();
-            }
-
-            if (_normalNode != null)
-            {
-                _normalNode._objects.Remove(this);
-                if (_normalNode._objects.Count == 0 && n)
-                    _normalNode.Remove();
-            }
 
             for (int i = 0; i < 2; i++)
                 if (_colorSet[i] != null)
@@ -1493,7 +1480,23 @@ namespace BrawlLib.SSBB.ResourceNodes
                     if (_uvSet[i]._objects.Count == 0 && uv[i])
                         _uvSet[i].Remove();
                 }
-            
+
+            if (_vertexNode != null)
+            {
+                if (_vertexNode._objects.Count == 1 && v)
+                    _vertexNode.Remove();
+                else
+                    _vertexNode._objects.Remove(this);
+            }
+
+            if (_normalNode != null)
+            {
+                if (_normalNode._objects.Count == 1 && n)
+                    _normalNode.Remove();
+                else
+                    _normalNode._objects.Remove(this);
+            }
+
             MatrixNode = null;
 
             foreach (DrawCall c in _drawCalls)
@@ -1523,6 +1526,13 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public void Remove(bool force)
         {
+            int i = 0;
+            foreach(DrawCall dc in _drawCalls)
+            {
+                ++i;
+                if(dc.MaterialNode._objects.Count == 1 && (force || MessageBox.Show("Do you want to remove this object's material" + (_drawCalls.Count > 1 ? (" " + i) : "") + "?", "", MessageBoxButtons.YesNo) == DialogResult.Yes))
+                    dc.MaterialNode.Remove(force);
+            }
             Remove(
                 _vertexNode != null && _vertexNode._objects.Count == 1 && (force || MessageBox.Show("Do you want to remove this object's vertex node?", "", MessageBoxButtons.YesNo) == DialogResult.Yes),
                 _normalNode != null && _normalNode._objects.Count == 1 && (force || MessageBox.Show("Do you want to remove this object's normal node?", "", MessageBoxButtons.YesNo) == DialogResult.Yes),

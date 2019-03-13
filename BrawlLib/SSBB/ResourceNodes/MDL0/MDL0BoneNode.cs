@@ -478,7 +478,7 @@ Y: Only the Y axis is allowed to rotate. Is affected by the parent bone's rotati
         //    }
         //}
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return 0xD0 + _userEntries.GetSize();
         }

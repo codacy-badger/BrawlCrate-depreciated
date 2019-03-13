@@ -349,7 +349,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 base.Export(outPath);
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return _buffer.Length;
         }

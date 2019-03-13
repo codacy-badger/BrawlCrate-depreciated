@@ -193,7 +193,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = sizeof(Common2TblHeader);
             foreach (ResourceNode node in Children)

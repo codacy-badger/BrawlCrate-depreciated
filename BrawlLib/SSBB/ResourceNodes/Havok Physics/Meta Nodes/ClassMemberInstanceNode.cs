@@ -27,7 +27,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         //Size of this member in bytes
         public virtual int GetSize() { return 0; }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return GetSize();
         }

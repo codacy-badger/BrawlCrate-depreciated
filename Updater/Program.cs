@@ -19,8 +19,25 @@ namespace Net
 {
     public static class Updater
     {
+        public static readonly string mainRepo = "soopercool101/BrawlCrate";
         public static readonly string mainBranch = "brawlcrate-master";
+        public static string currentRepo = GetCurrentRepo();
         public static string currentBranch = GetCurrentBranch();
+
+        static string GetCurrentRepo()
+        {
+            try
+            {
+                string temp = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch")[1];
+                if (temp == null || temp == "")
+                    throw (new ArgumentNullException());
+                return temp;
+            }
+            catch
+            {
+                return mainRepo;
+            }
+        }
 
         static string GetCurrentBranch()
         {
@@ -185,6 +202,37 @@ namespace Net
                     using (var sw = new StreamWriter(AppPath + "/Update.bat"))
                     {
                         sw.WriteLine("CD /d " + AppPath);
+
+                        // Mass delete relevant files (Prevents corruption)
+                        
+                        // Delete exes where found/applicable
+                        if (File.Exists(AppPath + "/BrawlCrate.exe"))
+                            sw.WriteLine("del BrawlCrate.exe /s /f /q");
+                        if (File.Exists(AppPath + "/BrawlBox.exe"))
+                            sw.WriteLine("del BrawlBox.exe /s /f /q");
+                        if (File.Exists(AppPath + "/BrawlScape.exe"))
+                            sw.WriteLine("del BrawlScape.exe /s /f /q");
+                        if (File.Exists(AppPath + "/SmashBox.exe"))
+                            sw.WriteLine("del SmashBox.exe /s /f /q");
+                        if (File.Exists(AppPath + "/StageBox.exe"))
+                            sw.WriteLine("del StageBox.exe /s /f /q");
+                        if (File.Exists(AppPath + "/color_smash.exe"))
+                            sw.WriteLine("del color_smash.exe /s /f /q");
+                        if (File.Exists(AppPath + "/sawndz.exe"))
+                            sw.WriteLine("del sawndz.exe /s /f /q");
+                        if (File.Exists(AppPath + "/Updater.exe"))
+                            sw.WriteLine("del sawndz.exe /s /f /q");
+
+                        // Delete DLLs where found/applicable
+                        if (File.Exists(AppPath + "/BrawlLib.dll"))
+                            sw.WriteLine("del BrawlLib.dll /s /f /q");
+                        if (File.Exists(AppPath + "/Octokit.dll"))
+                            sw.WriteLine("del Octokit.dll /s /f /q");
+                        if (File.Exists(AppPath + "/OpenTK.dll"))
+                            sw.WriteLine("del OpenTK.dll /s /f /q");
+                        if (File.Exists(AppPath + "/discord-rpc.dll"))
+                            sw.WriteLine("del discord-rpc.dll /s /f /q");
+
                         sw.WriteLine("START /wait temp.exe -y");
                         sw.WriteLine("del temp.exe /s /f /q");
                         sw.Write("START BrawlCrate.exe");
@@ -192,7 +240,11 @@ namespace Net
                             sw.Write(" \"" + openFile + "\"");
                         sw.Close();
                     }
-                    Process updateBat = Process.Start(AppPath + "/Update.bat");
+                    Process updateBat = Process.Start(new ProcessStartInfo()
+                    {
+                        FileName = AppPath + "/Update.bat",
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                    });
                 }
             }
             catch (Exception e)
@@ -480,12 +532,47 @@ namespace Net
                     using (var sw = new StreamWriter(AppPath + "/Update.bat"))
                     {
                         sw.WriteLine("CD /d " + AppPath);
+
+                        // Mass delete relevant files (Prevents corruption)
+
+                        // Delete exes where found/applicable
+                        if (File.Exists(AppPath + "/BrawlCrate.exe"))
+                            sw.WriteLine("del BrawlCrate.exe /s /f /q");
+                        if (File.Exists(AppPath + "/BrawlBox.exe"))
+                            sw.WriteLine("del BrawlBox.exe /s /f /q");
+                        if (File.Exists(AppPath + "/BrawlScape.exe"))
+                            sw.WriteLine("del BrawlScape.exe /s /f /q");
+                        if (File.Exists(AppPath + "/SmashBox.exe"))
+                            sw.WriteLine("del SmashBox.exe /s /f /q");
+                        if (File.Exists(AppPath + "/StageBox.exe"))
+                            sw.WriteLine("del StageBox.exe /s /f /q");
+                        if (File.Exists(AppPath + "/color_smash.exe"))
+                            sw.WriteLine("del color_smash.exe /s /f /q");
+                        if (File.Exists(AppPath + "/sawndz.exe"))
+                            sw.WriteLine("del sawndz.exe /s /f /q");
+                        if (File.Exists(AppPath + "/Updater.exe"))
+                            sw.WriteLine("del sawndz.exe /s /f /q");
+
+                        // Delete DLLs where found/applicable
+                        if (File.Exists(AppPath + "/BrawlLib.dll"))
+                            sw.WriteLine("del BrawlLib.dll /s /f /q");
+                        if (File.Exists(AppPath + "/Octokit.dll"))
+                            sw.WriteLine("del Octokit.dll /s /f /q");
+                        if (File.Exists(AppPath + "/OpenTK.dll"))
+                            sw.WriteLine("del OpenTK.dll /s /f /q");
+                        if (File.Exists(AppPath + "/discord-rpc.dll"))
+                            sw.WriteLine("del discord-rpc.dll /s /f /q");
+
                         sw.WriteLine("START /wait temp.exe -y");
                         sw.WriteLine("del temp.exe /s /f /q");
                         sw.Write("START BrawlCrate.exe \"" + (openFile != null && openFile != "<null>" ? openFile : "null") + "\"");
                         sw.Close();
                     }
-                    Process updateBat = Process.Start(AppPath + "/Update.bat");
+                    Process updateBat = Process.Start(new ProcessStartInfo()
+                    {
+                        FileName = AppPath + "/Update.bat",
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                    });
                 }
             }
             catch (Exception e)
@@ -508,18 +595,20 @@ namespace Net
             {
                 string oldDate = "";
                 oldDate = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[0];
-                
+
                 Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
                 var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
                 string newDate;
+                char[] slashes = { '\\', '/' };
+                string[] repoData = currentRepo.Split(slashes);
                 Branch branch;
                 GitHubCommit result;
                 DateTimeOffset commitDate;
                 try
                 {
-                    branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", currentBranch);
-                    result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
-					string url = "https://github.com/soopercool101/BrawlCrate/blob/" + currentBranch + "/CanaryBuild/CanaryREADME.md";
+                    branch = await github.Repository.Branch.Get(repoData[0], repoData[1], currentBranch);
+                    result = await github.Repository.Commit.Get(repoData[0], repoData[1], branch.Commit.Sha);
+					string url = "https://github.com/" + currentRepo + "/blob/" + currentBranch + "/CanaryBuild/CanaryREADME.md";
 					using (WebClient x = new WebClient())
 					{
 						string source = x.DownloadString(url);
@@ -534,10 +623,12 @@ namespace Net
                 }
                 catch
                 {
-                    branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", mainBranch);
-                    result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
+                    repoData = mainRepo.Split(slashes);
+                    branch = await github.Repository.Branch.Get(repoData[0], repoData[1], mainBranch);
+                    result = await github.Repository.Commit.Get(repoData[0], repoData[1], branch.Commit.Sha);
                     commitDate = result.Commit.Author.Date;
                     newDate = commitDate.ToUniversalTime().ToString("O");
+                    currentRepo = mainRepo;
                     currentBranch = mainBranch;
                 }
                 if (oldDate.Equals(newDate, StringComparison.OrdinalIgnoreCase))
@@ -573,21 +664,26 @@ namespace Net
                 using (Ping s = new Ping())
                     Console.WriteLine(s.Send("www.github.com").Status);
 
+                char[] slashes = { '\\', '/' };
+                string[] repoData = currentRepo.Split(slashes);
+
                 if (commitID == null)
                 {
                     Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
                     var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
                     try
                     {
-                        var branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", currentBranch);
-                        var result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
+                        var branch = await github.Repository.Branch.Get(repoData[0], repoData[1], currentBranch);
+                        var result = await github.Repository.Commit.Get(repoData[0], repoData[1], branch.Commit.Sha);
                         commitID = result.Sha.ToString().Substring(0, 7);
                     }
                     catch
                     {
-                        var branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", mainBranch);
-                        var result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
+                        repoData = mainRepo.Split(slashes);
+                        var branch = await github.Repository.Branch.Get(repoData[0], repoData[1], mainBranch);
+                        var result = await github.Repository.Commit.Get(repoData[0], repoData[1], branch.Commit.Sha);
                         commitID = result.Sha.ToString().Substring(0, 7);
+                        currentRepo = mainRepo;
                         currentBranch = mainBranch;
                     }
                 }
@@ -637,11 +733,11 @@ namespace Net
                     client.Headers.Add("User-Agent: Other");
 
                     // The browser download link to the self extracting archive, hosted on github
-                    string URL = "https://github.com/soopercool101/BrawlCrate/raw/" + currentBranch + "/CanaryBuild/Canary";
+                    string URL = "https://github.com/" + currentRepo + "/raw/" + currentBranch + "/CanaryBuild/Canary";
 
                     //client.DownloadFile(URL, AppPath + "/temp.exe");
                     DLProgressWindow.finished = false;
-                    DLProgressWindow dlTrack = new DLProgressWindow(null, commitID == null ? "BrawlCrate Canary Build" : (currentBranch == mainBranch ? "BrawlCrate Canary #" + commitID : "Canary@" + currentBranch + " #" + commitID), AppPath, URL);
+                    DLProgressWindow dlTrack = new DLProgressWindow(null, commitID == null ? "BrawlCrate Canary Build" : (currentRepo == mainRepo ? (currentBranch == mainBranch ? "BrawlCrate Canary #" + commitID : "Canary@" + currentBranch + " #" + commitID) : currentRepo + " Canary@" + currentBranch + " #" + commitID), AppPath, URL);
                     while (!DLProgressWindow.finished)
                     {
                         // do nothing
@@ -684,12 +780,47 @@ namespace Net
                     using (var sw = new StreamWriter(AppPath + "/Update.bat"))
                     {
                         sw.WriteLine("CD /d " + AppPath);
+
+                        // Mass delete relevant files (Prevents corruption)
+
+                        // Delete exes where found/applicable
+                        if (File.Exists(AppPath + "/BrawlCrate.exe"))
+                            sw.WriteLine("del BrawlCrate.exe /s /f /q");
+                        if (File.Exists(AppPath + "/BrawlBox.exe"))
+                            sw.WriteLine("del BrawlBox.exe /s /f /q");
+                        if (File.Exists(AppPath + "/BrawlScape.exe"))
+                            sw.WriteLine("del BrawlScape.exe /s /f /q");
+                        if (File.Exists(AppPath + "/SmashBox.exe"))
+                            sw.WriteLine("del SmashBox.exe /s /f /q");
+                        if (File.Exists(AppPath + "/StageBox.exe"))
+                            sw.WriteLine("del StageBox.exe /s /f /q");
+                        if (File.Exists(AppPath + "/color_smash.exe"))
+                            sw.WriteLine("del color_smash.exe /s /f /q");
+                        if (File.Exists(AppPath + "/sawndz.exe"))
+                            sw.WriteLine("del sawndz.exe /s /f /q");
+                        if (File.Exists(AppPath + "/Updater.exe"))
+                            sw.WriteLine("del sawndz.exe /s /f /q");
+
+                        // Delete DLLs where found/applicable
+                        if (File.Exists(AppPath + "/BrawlLib.dll"))
+                            sw.WriteLine("del BrawlLib.dll /s /f /q");
+                        if (File.Exists(AppPath + "/Octokit.dll"))
+                            sw.WriteLine("del Octokit.dll /s /f /q");
+                        if (File.Exists(AppPath + "/OpenTK.dll"))
+                            sw.WriteLine("del OpenTK.dll /s /f /q");
+                        if (File.Exists(AppPath + "/discord-rpc.dll"))
+                            sw.WriteLine("del discord-rpc.dll /s /f /q");
+
                         sw.WriteLine("START /wait temp.exe -y");
                         sw.WriteLine("del temp.exe /s /f /q");
                         sw.Write("START BrawlCrate.exe \"" + (openFile != null && openFile != "<null>" ? openFile : "null") + "\"");
                         sw.Close();
                     }
-                    Process updateBat = Process.Start(AppPath + "/Update.bat");
+                    Process updateBat = Process.Start(new ProcessStartInfo()
+                    {
+                        FileName = AppPath + "/Update.bat",
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                    });
                 }
             }
             catch (Exception e)
@@ -810,7 +941,8 @@ namespace Net
                     sw.WriteLine(commitDate.ToString("O"));
                     sw.WriteLine(result.Sha.ToString().Substring(0, 7));
                     sw.WriteLine(result.Sha.ToString());
-                    sw.Write(currentBranch);
+                    sw.WriteLine(currentBranch);
+                    sw.Write(currentRepo);
                     sw.Close();
                 }
             }
@@ -844,6 +976,8 @@ namespace Net
             string oldSha = "";
             string newBranch = "";
             string oldBranch = "";
+            string newRepo = "";
+            string oldRepo = "";
             string Filename = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old";
             try
             {
@@ -856,7 +990,18 @@ namespace Net
                 }
                 catch
                 {
-                    // Do nothing. The branches are allowed to be missing.
+                    // Assume that this is updating from an old version before branch data was tracked.
+                    newBranch = oldBranch = "";
+                }
+                try
+                {
+                    newRepo = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[4];
+                    oldRepo = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old")[4];
+                }
+                catch
+                {
+                    // Assume that this is updating from an old version before repo data was tracked.
+                    newRepo = oldRepo = "";
                 }
             }
             catch
@@ -873,9 +1018,16 @@ namespace Net
                     File.Delete(Filename);
                 return;
             }
+            if(newRepo != oldRepo)
+            {
+                MessageBox.Show("Welcome to BrawlCrate Canary! You are now tracking the " + newBranch + " branch of the " + newRepo + " repository instead of the " + oldBranch + " branch of the " + oldRepo + " repository. Canary changelog is not supported when switching repositories, so please check online to see differences.");
+                if (File.Exists(Filename))
+                    File.Delete(Filename);
+                return;
+            }
             if(newBranch != oldBranch)
             {
-                MessageBox.Show("Welcome to BrawlCrate Canary! You are now tracking the " + newBranch + " branch instead of the " + oldBranch + " branch. Changelog is not supported when switching branches, so please check the Discord for what's been changed.");
+                MessageBox.Show("Welcome to BrawlCrate Canary! You are now tracking the " + newBranch + " branch instead of the " + oldBranch + " branch. Canary changelog is not supported when switching branches, so please check the Discord for what's been changed.");
                 if (File.Exists(Filename))
                     File.Delete(Filename);
                 return;
@@ -886,6 +1038,10 @@ namespace Net
             using (Ping s = new Ping())
                 Console.WriteLine(s.Send("www.github.com").Status);
 
+
+            char[] slashes = { '\\', '/' };
+            string[] repoData = currentRepo.Split(slashes);
+
             try
             {
                 Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
@@ -893,17 +1049,19 @@ namespace Net
                 Branch branch;
                 try
                 {
-                    branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", currentBranch);
+                    branch = await github.Repository.Branch.Get(repoData[0], repoData[1], currentBranch);
                 }
                 catch
                 {
-                    branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", mainBranch);
+                    repoData = mainRepo.Split(slashes);
+                    branch = await github.Repository.Branch.Get(repoData[0], repoData[1], mainBranch);
                     currentBranch = mainBranch;
+                    currentRepo = mainRepo;
                 }
                 ApiOptions options = new ApiOptions();
                 options.PageSize = 100;
                 options.PageCount = 1;
-                var commits = await github.Repository.Commit.GetAll("soopercool101", "BrawlCrate", options);
+                var commits = await github.Repository.Commit.GetAll(repoData[0], repoData[1], options);
                 int i = -1;
                 foreach (GitHubCommit c in commits)
                 {
@@ -928,7 +1086,7 @@ namespace Net
                         continue;
                     }
                     changelog += "\n\n========================================================\n\n";
-                    changelog += "#" + c.Sha.Substring(0, 7) + "@" + currentBranch +" by " + c.Author.Login + "\n";
+                    changelog += "#" + c.Sha.Substring(0, 7) + "@" + currentRepo + '\\' + currentBranch + " by " + c.Author.Login + "\n";
                     changelog += c.Commit.Message;
                 }
                 changelog += "\n\n========================================================";
@@ -991,6 +1149,11 @@ namespace Net
             string Title,
             string Description)
         {
+            if(File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active") && !Updater.currentRepo.Equals(Updater.mainRepo, StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("Issue reporter does not allow reporting issues from forks. Please contact the owner of the repository to report your issue.");
+                return;
+            }
             try
             {
                 Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));

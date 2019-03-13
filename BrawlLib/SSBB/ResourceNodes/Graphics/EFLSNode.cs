@@ -30,7 +30,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         internal int RE3DOffset = 0;
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = 0x10, re3dSize = 0; _brresCount = 0;
             foreach (EFLSEntryNode e in Children)

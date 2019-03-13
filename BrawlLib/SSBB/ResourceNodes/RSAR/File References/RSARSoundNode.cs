@@ -417,7 +417,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             return new IAudioStream[] { _stream };
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = INFOSoundEntry.Size + Sound3DParam.Size;
             switch (SoundType)

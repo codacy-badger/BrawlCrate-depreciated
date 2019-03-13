@@ -38,7 +38,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             }
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = BGMG.Size + (Children.Count * 4);
             foreach (ResourceNode node in Children)

@@ -31,7 +31,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 new GNDVEntryNode().Initialize(this, source);
             }
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return GNDV.SIZE + (Children.Count * 4) + (Children.Count * GNDVEntry.SIZE);
         }
@@ -119,7 +119,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             return false;
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return GNDVEntry.SIZE;
         }

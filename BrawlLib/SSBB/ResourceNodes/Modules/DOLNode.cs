@@ -181,7 +181,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 new ModuleSectionNode() { _name = String.Format("[{0}] Data{1}", x, i), _dataOffset = (int)Header->DataOffset[i], _dataSize = Header->DataSize[i] }.Initialize(this, (VoidPtr)Header + Header->DataOffset[i], (int)Header->DataSize[i]);
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = DOLHeader.Size;
             foreach (ModuleSectionNode s in Children)

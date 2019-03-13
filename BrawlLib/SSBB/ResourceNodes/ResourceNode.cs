@@ -7,6 +7,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Security.Cryptography;
 using System.Text;
+using System.Linq;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
@@ -89,6 +90,12 @@ namespace BrawlLib.SSBB.ResourceNodes
         public event ResourceEventHandler Disposing, Renamed, PropertyChanged, Replaced, Restored;
         public event ResourceChildEventHandler ChildAdded, ChildRemoved;
         public event ResourceChildInsertEventHandler ChildInserted;
+
+        [Browsable(true), DisplayName("Uncompressed Size (Bytes)")]
+        public virtual uint uncompSize
+        {
+            get { return BrawlLib.Properties.Settings.Default.CompatibilityMode ? 0 : ((uint)OnCalculateSize(false, false)); }
+        }
 
         public virtual void FindUnloadedChildren() { }
 
@@ -620,11 +627,20 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public unsafe virtual void Export(string outPath)
         {
+            Export(outPath, false);
+        }
+
+        public unsafe virtual void Export(string outPath, bool tempFile)
+        {
             Rebuild(); //Apply changes the user has made by rebuilding.
 #if !DEBUG
             try
             {
 #endif
+                if(!tempFile && File.Exists(outPath))
+                {
+                    try { File.Delete(outPath); } catch { }
+                }
                 using (FileStream stream = new FileStream(outPath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite, 8, FileOptions.SequentialScan))
                     Export(stream);
 #if !DEBUG
@@ -821,7 +837,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         //Returns uncompressed size of node data.
         //It's up to the child nodes to return compressed sizes.
         //If this has been called, it means a rebuild must happen.
-        public virtual int OnCalculateSize(bool force)
+        public virtual int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return WorkingUncompressed.Length;
         }
@@ -1261,6 +1277,14 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override string ToString()
         {
             return Name;
+        }
+
+        public virtual void SortChildren()
+        {
+            if (Children == null || Children.Count <= 0)
+                return;
+            _children = _children.OrderBy(o => o.Name).ToList();
+            SignalPropertyChange();
         }
     }
 

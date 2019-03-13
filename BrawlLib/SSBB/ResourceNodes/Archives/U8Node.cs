@@ -117,7 +117,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             return size;
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             _entrySize = 12; 
             int id = 1;
@@ -291,7 +291,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             return base.OnInitialize();
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return 0;
         }

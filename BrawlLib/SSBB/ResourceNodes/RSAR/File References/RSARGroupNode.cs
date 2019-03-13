@@ -39,7 +39,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             return false;
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return INFOGroupHeader.Size + 4 + _files.Count * (8 + INFOGroupEntry.Size);
         }

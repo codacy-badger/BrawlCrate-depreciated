@@ -189,7 +189,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = (Version == 5 ? SRT0v5.Size : SRT0v4.Size) + 0x18 + Children.Count * 0x10;
             foreach (SRT0EntryNode entry in Children)
@@ -485,7 +485,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             //File.Delete(temp2);
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             _texIndices = 0;
             _indIndices = 0;
@@ -658,7 +658,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         internal SRT0Code Code => _code;
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             _dataLength = AnimationConverter.CalculateSRT0Size(Keyframes, out _entryLength, out _code);
             return _dataLength + _entryLength;

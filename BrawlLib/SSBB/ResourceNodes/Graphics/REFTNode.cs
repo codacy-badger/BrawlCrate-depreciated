@@ -28,7 +28,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         int _tableLen = 0;
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = 0x60;
             _tableLen = 0x8;

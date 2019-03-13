@@ -222,8 +222,9 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="OpenTK, Version=3.0.1.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <HintPath>..\packages\OpenTK.3.0.1\lib\net20\OpenTK.dll</HintPath>
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BrawlLib\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="RazorEngine, Version=3.10.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
       <HintPath>..\packages\RazorEngine.3.10.0\lib\net40\RazorEngine.dll</HintPath>
@@ -416,7 +417,13 @@
       <DependentUpon>StageInfoControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Managers\StageManager\TEX0Extension.cs" />
+    <Compile Include="Discord\DiscordRpc.cs" />
+    <Compile Include="Discord\DiscordController.cs" />
+    <Compile Include="Discord\DiscordSettings.cs" />
     <Compile Include="NodeWrappers\Audio\RSARGroupWrapper.cs" />
+    <Compile Include="UI\TwoStringInputDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UI\SplashForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -577,8 +584,6 @@
     <Compile Include="UI\SettingsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <None Include="OpenTK.dll.config" />
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -717,6 +722,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ModelForm.resx">
       <DependentUpon>ModelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TwoStringInputDialog.resx">
+      <DependentUpon>TwoStringInputDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
@@ -864,11 +873,15 @@
     <EmbeddedResource Include="Managers\StageManager\button-z.png" />
     <Content Include="Managers\StageManager\icon.ico" />
     <EmbeddedResource Include="Managers\StageManager\XX.png" />
+    <Content Include="discord-rpc.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\GCAM.png" />
     <Content Include="Resources\GIB2.png" />
     <Content Include="Resources\GITM.png" />
     <Content Include="Resources\GWAT.png" />
     <Content Include="Stagebox.ico" />
+    <Content Include="OpenTK.dll" />
     <None Include="Resources\SharedTEX0.png" />
     <None Include="Resources\BGMG.png" />
     <None Include="Resources\REL.png" />
@@ -928,18 +941,12 @@
 )
 if $(ConfigurationName) == Debug (
   RD /S /Q "$(TargetDir)"
-  cd $(SolutionDir)ColorSmash\
-  cargo build
 )
 if $(ConfigurationName) == Release (
   RD /S /Q "$(TargetDir)"
-  cd $(SolutionDir)ColorSmash\
-  cargo build --release
 )
 if $(ConfigurationName) == TestRelease (
   RD /S /Q "$(TargetDir)"
-  cd $(SolutionDir)ColorSmash\
-  cargo build --release
 )
 if $(ConfigurationName) == Documentation (
   RD /S /Q "$(TargetDir)"
@@ -956,8 +963,8 @@ del CustomLists\StageList.txt
 if EXIST "$(SolutionDir)sawndz\bin\Release\sawndz.exe" (
   %25windir%25\system32\xcopy "$(SolutionDir)sawndz\bin\Release\sawndz.exe" "$(TargetDir)" /Y /I
 )
-if EXIST "$(SolutionDir)ColorSmash\target\release\color_smash.exe" (
-  %25windir%25\system32\xcopy "$(SolutionDir)ColorSmash\target\release\color_smash.exe" "$(TargetDir)" /Y /I
+if EXIST "$(SolutionDir)ColorSmash\color_smash.exe" (
+  %25windir%25\system32\xcopy "$(SolutionDir)ColorSmash\color_smash.exe" "$(TargetDir)" /Y /I
 )
 if $(ConfigurationName) == Debug (
   del sawndz.exe

@@ -24,7 +24,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 new RWAVNode().Initialize(this, d->GetEntry(table->Entries[i].waveFileRef), 0);
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = RWAR.Size + (12 + Children.Count * 12).Align(0x20) + RWARDataBlock.Size;
             foreach (RWAVNode n in Children)

@@ -16,13 +16,19 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.21Hotfix2";
-        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.21 Hotfix 2! This release:\n" +
-            "\n- Fixes issues with the old Color Smash method" +
-            "\n- Fixes issues where module buffers would be removed if Module Compression was off, rather than on" +
+        public static readonly string TagName = "BrawlCrate_v0.23Hotfix2";
+        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.23 Hotfix 1! This release:\n" +
+            "\n- Adds ability to sort items from MDL0 groups and animation entries" +
+            "\n- Adds uncompressed size display for all resource nodes" +
+            "\n- Improve material culling description to be more user-friendly" +
+            "\n- Fix VIS0 context menu having incorrect seperator placement" +
+            "\n- Fully fix color smash utility to definitively have all functionality of the original tool" +
+            "\n- Should fix various issues where rich presence would not terminate correctly" +
+            "\n- (Hotfix 2) Fixes REL Nodes not populating properly" +
             "\n\nFull changelog can be found in the installation folder:\n" + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
         public static readonly string AssemblyTitle;
+        public static readonly string AssemblyVersion;
         public static readonly string AssemblyDescription;
         public static readonly string AssemblyCopyright;
         public static readonly string FullPath;
@@ -43,6 +49,7 @@ namespace BrawlCrate
 
             AssemblyTitle = ((AssemblyTitleAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
             AssemblyDescription = ((AssemblyDescriptionAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false)[0]).Description;
+            AssemblyVersion = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).FileVersion;
             AssemblyCopyright = ((AssemblyCopyrightAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false)[0]).Copyright;
             FullPath = Process.GetCurrentProcess().MainModule.FileName;
             BrawlLibTitle = ((AssemblyTitleAttribute)Assembly.GetAssembly(typeof(ResourceNode)).GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
@@ -101,6 +108,7 @@ namespace BrawlCrate
             s.Show();
             s.Focus();
             firstBoot = false;
+#if !DEBUG
             if (BrawlCrate.Properties.Settings.Default.UpdateSettings)
             {
                 foreach (var _Assembly in AppDomain.CurrentDomain.GetAssemblies())
@@ -173,7 +181,7 @@ namespace BrawlCrate
             {
 
             }
-
+#endif
             string path = "";
             if (args.Length >= 1)
             {
@@ -237,6 +245,11 @@ namespace BrawlCrate
                 }
             }
             finally {
+                //if (CanRunDiscordRPC())
+                //{
+                    Discord.DiscordRpc.ClearPresence();
+                    Discord.DiscordRpc.Shutdown();
+                //}
                 try
                 {
                     Generate1to1Stages.clearTmpDir(Generate1to1Stages.tmpDirectory);
@@ -411,6 +424,13 @@ REGEN:
                     _rootPath = path;
                     if(!setRoot)
                         _rootPath = null;
+                    else if (_rootNode is ARCNode && ((ARCNode)_rootNode).IsCharacter)
+                    {
+                        if (Program.RootPath.EndsWith(".pcs", StringComparison.OrdinalIgnoreCase) && (_rootNode.Compression.Equals("LZ77", StringComparison.OrdinalIgnoreCase) || _rootNode.Compression.Equals("None", StringComparison.OrdinalIgnoreCase)) && BrawlLib.Properties.Settings.Default.AutoCompressFighterPCS)
+                            _rootNode.Compression = "ExtendedLZ77";
+                        else if (Program.RootPath.EndsWith(".pac", StringComparison.OrdinalIgnoreCase) && !_rootNode.Compression.Equals("None", StringComparison.OrdinalIgnoreCase) && BrawlLib.Properties.Settings.Default.AutoDecompressFighterPAC)
+                            _rootNode.Compression = "None";
+                    }
                     MainForm.Instance.Reset();
                     return true;
                 }
@@ -532,7 +552,7 @@ REGEN:
 
                 _rootNode.Merge(force);
                 _rootNode.IsDirty = false;
-                _rootNode.Export(saveTemp ? openTempFile : _rootPath);
+                _rootNode.Export(saveTemp ? openTempFile : _rootPath, saveTemp);
                 
                 if (restoreHex)
                 {
@@ -712,6 +732,12 @@ REGEN:
                     return false;
             }
             return true;
+        }
+
+        public static bool CanRunDiscordRPC()
+        {
+            string path = System.Windows.Forms.Application.StartupPath + "\\discord-rpc.dll";
+            return File.Exists(path);
         }
     }
 }

@@ -45,7 +45,7 @@ namespace BrawlCrate
         private RadioButton rdoAutoUpdate;
         private RadioButton rdoCheckManual;
         private RadioButton rdoCheckStartup;
-        private GroupBox groupBox4;
+        private GroupBox grpBoxMainFormGeneral;
         private Label lblAdminApproval;
         private TabPage tabCompression;
         private GroupBox groupBoxFighterCompression;
@@ -57,8 +57,17 @@ namespace BrawlCrate
         private CheckBox chkBoxModuleCompress;
         private GroupBox grpBoxAudioGeneral;
         private CheckBox chkBoxAutoPlayAudio;
-        private GroupBox grpBoxMDL0;
+        private GroupBox grpBoxMDL0General;
         private CheckBox chkBoxMDL0Compatibility;
+        private TabPage tabDiscord;
+        private GroupBox grpBoxDiscordRPC;
+        private CheckBox chkBoxEnableDiscordRPC;
+        private GroupBox grpBoxDiscordRPCType;
+        private RadioButton rdoDiscordRPCNameInternal;
+        private RadioButton rdoDiscordRPCNameDisabled;
+        private TextBox DiscordRPCCustomName;
+        private RadioButton rdoDiscordRPCNameCustom;
+        private RadioButton rdoDiscordRPCNameExternal;
         private CheckBox chkShowPropDesc;
 
         public SettingsDialog()
@@ -160,6 +169,20 @@ namespace BrawlCrate
             chkBoxAutoPlayAudio.Checked = MainForm.Instance.AutoPlayAudio;
             chkBoxMDL0Compatibility.Checked = MainForm.Instance.CompatibilityMode;
 
+            Discord.DiscordSettings.LoadSettings();
+            grpBoxDiscordRPCType.Enabled = chkBoxEnableDiscordRPC.Checked = Discord.DiscordSettings.enabled;
+            if (Discord.DiscordSettings.modNameType == Discord.DiscordSettings.ModNameType.Disabled)
+                rdoDiscordRPCNameDisabled.Checked = true;
+            else if (Discord.DiscordSettings.modNameType == Discord.DiscordSettings.ModNameType.UserDefined)
+                rdoDiscordRPCNameCustom.Checked = true;
+            else if (Discord.DiscordSettings.modNameType == Discord.DiscordSettings.ModNameType.AutoInternal)
+                rdoDiscordRPCNameInternal.Checked = true;
+            else if (Discord.DiscordSettings.modNameType == Discord.DiscordSettings.ModNameType.AutoExternal)
+                rdoDiscordRPCNameExternal.Checked = true;
+            DiscordRPCCustomName.Text = Discord.DiscordSettings.userNamedMod;
+            DiscordRPCCustomName.Enabled = rdoDiscordRPCNameCustom.Checked;
+            DiscordRPCCustomName.ReadOnly = !rdoDiscordRPCNameCustom.Checked;
+
             _updating = false;
             checkAdminAccess();
             btnApply.Enabled = false;
@@ -249,11 +272,11 @@ namespace BrawlCrate
             this.chkCanary = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
-            this.grpBoxMDL0 = new System.Windows.Forms.GroupBox();
+            this.grpBoxMDL0General = new System.Windows.Forms.GroupBox();
             this.chkBoxMDL0Compatibility = new System.Windows.Forms.CheckBox();
             this.grpBoxAudioGeneral = new System.Windows.Forms.GroupBox();
             this.chkBoxAutoPlayAudio = new System.Windows.Forms.CheckBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.grpBoxMainFormGeneral = new System.Windows.Forms.GroupBox();
             this.tabCompression = new System.Windows.Forms.TabPage();
             this.groupBoxModuleCompression = new System.Windows.Forms.GroupBox();
             this.chkBoxModuleCompress = new System.Windows.Forms.CheckBox();
@@ -269,6 +292,15 @@ namespace BrawlCrate
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabDiscord = new System.Windows.Forms.TabPage();
+            this.grpBoxDiscordRPC = new System.Windows.Forms.GroupBox();
+            this.chkBoxEnableDiscordRPC = new System.Windows.Forms.CheckBox();
+            this.grpBoxDiscordRPCType = new System.Windows.Forms.GroupBox();
+            this.DiscordRPCCustomName = new System.Windows.Forms.TextBox();
+            this.rdoDiscordRPCNameCustom = new System.Windows.Forms.RadioButton();
+            this.rdoDiscordRPCNameExternal = new System.Windows.Forms.RadioButton();
+            this.rdoDiscordRPCNameInternal = new System.Windows.Forms.RadioButton();
+            this.rdoDiscordRPCNameDisabled = new System.Windows.Forms.RadioButton();
             this.tabUpdater = new System.Windows.Forms.TabPage();
             this.grpBoxCanary = new System.Windows.Forms.GroupBox();
             this.btnCanaryBranch = new System.Windows.Forms.Button();
@@ -278,15 +310,18 @@ namespace BrawlCrate
             this.rdoCheckStartup = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabGeneral.SuspendLayout();
-            this.grpBoxMDL0.SuspendLayout();
+            this.grpBoxMDL0General.SuspendLayout();
             this.grpBoxAudioGeneral.SuspendLayout();
-            this.groupBox4.SuspendLayout();
+            this.grpBoxMainFormGeneral.SuspendLayout();
             this.tabCompression.SuspendLayout();
             this.groupBoxModuleCompression.SuspendLayout();
             this.groupBoxStageCompression.SuspendLayout();
             this.groupBoxFighterCompression.SuspendLayout();
             this.tabFileAssociations.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabDiscord.SuspendLayout();
+            this.grpBoxDiscordRPC.SuspendLayout();
+            this.grpBoxDiscordRPCType.SuspendLayout();
             this.tabUpdater.SuspendLayout();
             this.grpBoxCanary.SuspendLayout();
             this.updaterBehaviorGroupbox.SuspendLayout();
@@ -341,38 +376,39 @@ namespace BrawlCrate
             this.tabControl1.Controls.Add(this.tabGeneral);
             this.tabControl1.Controls.Add(this.tabCompression);
             this.tabControl1.Controls.Add(this.tabFileAssociations);
+            this.tabControl1.Controls.Add(this.tabDiscord);
             this.tabControl1.Controls.Add(this.tabUpdater);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(289, 345);
+            this.tabControl1.Size = new System.Drawing.Size(326, 345);
             this.tabControl1.TabIndex = 48;
             // 
             // tabGeneral
             // 
             this.tabGeneral.BackColor = System.Drawing.SystemColors.Control;
-            this.tabGeneral.Controls.Add(this.grpBoxMDL0);
+            this.tabGeneral.Controls.Add(this.grpBoxMDL0General);
             this.tabGeneral.Controls.Add(this.grpBoxAudioGeneral);
-            this.tabGeneral.Controls.Add(this.groupBox4);
+            this.tabGeneral.Controls.Add(this.grpBoxMainFormGeneral);
             this.tabGeneral.Location = new System.Drawing.Point(4, 22);
             this.tabGeneral.Name = "tabGeneral";
             this.tabGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGeneral.Size = new System.Drawing.Size(281, 319);
+            this.tabGeneral.Size = new System.Drawing.Size(318, 319);
             this.tabGeneral.TabIndex = 0;
             this.tabGeneral.Text = "General";
             // 
-            // grpBoxMDL0
+            // grpBoxMDL0General
             // 
-            this.grpBoxMDL0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpBoxMDL0General.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpBoxMDL0.Controls.Add(this.chkBoxMDL0Compatibility);
-            this.grpBoxMDL0.Location = new System.Drawing.Point(8, 146);
-            this.grpBoxMDL0.Name = "grpBoxMDL0";
-            this.grpBoxMDL0.Size = new System.Drawing.Size(265, 53);
-            this.grpBoxMDL0.TabIndex = 19;
-            this.grpBoxMDL0.TabStop = false;
-            this.grpBoxMDL0.Text = "Models";
+            this.grpBoxMDL0General.Controls.Add(this.chkBoxMDL0Compatibility);
+            this.grpBoxMDL0General.Location = new System.Drawing.Point(8, 146);
+            this.grpBoxMDL0General.Name = "grpBoxMDL0General";
+            this.grpBoxMDL0General.Size = new System.Drawing.Size(302, 53);
+            this.grpBoxMDL0General.TabIndex = 19;
+            this.grpBoxMDL0General.TabStop = false;
+            this.grpBoxMDL0General.Text = "Models";
             // 
             // chkBoxMDL0Compatibility
             // 
@@ -392,7 +428,7 @@ namespace BrawlCrate
             this.grpBoxAudioGeneral.Controls.Add(this.chkBoxAutoPlayAudio);
             this.grpBoxAudioGeneral.Location = new System.Drawing.Point(8, 87);
             this.grpBoxAudioGeneral.Name = "grpBoxAudioGeneral";
-            this.grpBoxAudioGeneral.Size = new System.Drawing.Size(265, 53);
+            this.grpBoxAudioGeneral.Size = new System.Drawing.Size(302, 53);
             this.grpBoxAudioGeneral.TabIndex = 18;
             this.grpBoxAudioGeneral.TabStop = false;
             this.grpBoxAudioGeneral.Text = "Audio";
@@ -408,18 +444,18 @@ namespace BrawlCrate
             this.chkBoxAutoPlayAudio.UseVisualStyleBackColor = true;
             this.chkBoxAutoPlayAudio.CheckedChanged += new System.EventHandler(this.chkBoxAutoPlayAudio_CheckedChanged);
             // 
-            // groupBox4
+            // grpBoxMainFormGeneral
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpBoxMainFormGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.chkShowPropDesc);
-            this.groupBox4.Controls.Add(this.chkShowHex);
-            this.groupBox4.Location = new System.Drawing.Point(8, 6);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(265, 75);
-            this.groupBox4.TabIndex = 15;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Main Form";
+            this.grpBoxMainFormGeneral.Controls.Add(this.chkShowPropDesc);
+            this.grpBoxMainFormGeneral.Controls.Add(this.chkShowHex);
+            this.grpBoxMainFormGeneral.Location = new System.Drawing.Point(8, 6);
+            this.grpBoxMainFormGeneral.Name = "grpBoxMainFormGeneral";
+            this.grpBoxMainFormGeneral.Size = new System.Drawing.Size(302, 75);
+            this.grpBoxMainFormGeneral.TabIndex = 15;
+            this.grpBoxMainFormGeneral.TabStop = false;
+            this.grpBoxMainFormGeneral.Text = "Main Form";
             // 
             // tabCompression
             // 
@@ -430,7 +466,7 @@ namespace BrawlCrate
             this.tabCompression.Location = new System.Drawing.Point(4, 22);
             this.tabCompression.Name = "tabCompression";
             this.tabCompression.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCompression.Size = new System.Drawing.Size(281, 319);
+            this.tabCompression.Size = new System.Drawing.Size(318, 319);
             this.tabCompression.TabIndex = 3;
             this.tabCompression.Text = "Compression";
             // 
@@ -441,7 +477,7 @@ namespace BrawlCrate
             this.groupBoxModuleCompression.Controls.Add(this.chkBoxModuleCompress);
             this.groupBoxModuleCompression.Location = new System.Drawing.Point(8, 146);
             this.groupBoxModuleCompression.Name = "groupBoxModuleCompression";
-            this.groupBoxModuleCompression.Size = new System.Drawing.Size(265, 53);
+            this.groupBoxModuleCompression.Size = new System.Drawing.Size(302, 53);
             this.groupBoxModuleCompression.TabIndex = 18;
             this.groupBoxModuleCompression.TabStop = false;
             this.groupBoxModuleCompression.Text = "Modules";
@@ -464,7 +500,7 @@ namespace BrawlCrate
             this.groupBoxStageCompression.Controls.Add(this.chkBoxStageCompress);
             this.groupBoxStageCompression.Location = new System.Drawing.Point(8, 87);
             this.groupBoxStageCompression.Name = "groupBoxStageCompression";
-            this.groupBoxStageCompression.Size = new System.Drawing.Size(265, 53);
+            this.groupBoxStageCompression.Size = new System.Drawing.Size(302, 53);
             this.groupBoxStageCompression.TabIndex = 17;
             this.groupBoxStageCompression.TabStop = false;
             this.groupBoxStageCompression.Text = "Stages";
@@ -488,7 +524,7 @@ namespace BrawlCrate
             this.groupBoxFighterCompression.Controls.Add(this.chkBoxFighterPcsCompress);
             this.groupBoxFighterCompression.Location = new System.Drawing.Point(8, 6);
             this.groupBoxFighterCompression.Name = "groupBoxFighterCompression";
-            this.groupBoxFighterCompression.Size = new System.Drawing.Size(265, 75);
+            this.groupBoxFighterCompression.Size = new System.Drawing.Size(302, 75);
             this.groupBoxFighterCompression.TabIndex = 16;
             this.groupBoxFighterCompression.TabStop = false;
             this.groupBoxFighterCompression.Text = "Fighters";
@@ -522,7 +558,7 @@ namespace BrawlCrate
             this.tabFileAssociations.Controls.Add(this.groupBox1);
             this.tabFileAssociations.Location = new System.Drawing.Point(4, 22);
             this.tabFileAssociations.Name = "tabFileAssociations";
-            this.tabFileAssociations.Size = new System.Drawing.Size(281, 319);
+            this.tabFileAssociations.Size = new System.Drawing.Size(318, 319);
             this.tabFileAssociations.TabIndex = 2;
             this.tabFileAssociations.Text = "File Associations";
             // 
@@ -534,7 +570,7 @@ namespace BrawlCrate
             this.lblAdminApproval.ForeColor = System.Drawing.Color.Red;
             this.lblAdminApproval.Location = new System.Drawing.Point(3, 293);
             this.lblAdminApproval.Name = "lblAdminApproval";
-            this.lblAdminApproval.Size = new System.Drawing.Size(275, 18);
+            this.lblAdminApproval.Size = new System.Drawing.Size(312, 18);
             this.lblAdminApproval.TabIndex = 5;
             this.lblAdminApproval.Text = "Administrator access required to make changes";
             this.lblAdminApproval.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -542,7 +578,7 @@ namespace BrawlCrate
             // btnApply
             // 
             this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnApply.Location = new System.Drawing.Point(203, 291);
+            this.btnApply.Location = new System.Drawing.Point(240, 291);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(75, 23);
             this.btnApply.TabIndex = 4;
@@ -559,14 +595,14 @@ namespace BrawlCrate
             this.groupBox1.Controls.Add(this.listView1);
             this.groupBox1.Location = new System.Drawing.Point(8, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(265, 282);
+            this.groupBox1.Size = new System.Drawing.Size(302, 282);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
             // checkBox1
             // 
             this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox1.Location = new System.Drawing.Point(158, 256);
+            this.checkBox1.Location = new System.Drawing.Point(195, 256);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.checkBox1.Size = new System.Drawing.Size(104, 20);
@@ -660,7 +696,7 @@ namespace BrawlCrate
             this.listView1.Location = new System.Drawing.Point(3, 11);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(256, 239);
+            this.listView1.Size = new System.Drawing.Size(293, 239);
             this.listView1.TabIndex = 6;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -671,6 +707,114 @@ namespace BrawlCrate
             this.columnHeader1.Text = "Name";
             this.columnHeader1.Width = 300;
             // 
+            // tabDiscord
+            // 
+            this.tabDiscord.BackColor = System.Drawing.SystemColors.Control;
+            this.tabDiscord.Controls.Add(this.grpBoxDiscordRPC);
+            this.tabDiscord.Location = new System.Drawing.Point(4, 22);
+            this.tabDiscord.Name = "tabDiscord";
+            this.tabDiscord.Padding = new System.Windows.Forms.Padding(3);
+            this.tabDiscord.Size = new System.Drawing.Size(318, 319);
+            this.tabDiscord.TabIndex = 4;
+            this.tabDiscord.Text = "Discord";
+            // 
+            // grpBoxDiscordRPC
+            // 
+            this.grpBoxDiscordRPC.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpBoxDiscordRPC.Controls.Add(this.chkBoxEnableDiscordRPC);
+            this.grpBoxDiscordRPC.Controls.Add(this.grpBoxDiscordRPCType);
+            this.grpBoxDiscordRPC.Location = new System.Drawing.Point(8, 6);
+            this.grpBoxDiscordRPC.Name = "grpBoxDiscordRPC";
+            this.grpBoxDiscordRPC.Size = new System.Drawing.Size(302, 171);
+            this.grpBoxDiscordRPC.TabIndex = 0;
+            this.grpBoxDiscordRPC.TabStop = false;
+            this.grpBoxDiscordRPC.Text = "Rich Presence";
+            // 
+            // chkBoxEnableDiscordRPC
+            // 
+            this.chkBoxEnableDiscordRPC.AutoSize = true;
+            this.chkBoxEnableDiscordRPC.Location = new System.Drawing.Point(10, 22);
+            this.chkBoxEnableDiscordRPC.Name = "chkBoxEnableDiscordRPC";
+            this.chkBoxEnableDiscordRPC.Size = new System.Drawing.Size(171, 17);
+            this.chkBoxEnableDiscordRPC.TabIndex = 1;
+            this.chkBoxEnableDiscordRPC.Text = "Enable Discord Rich Presence";
+            this.chkBoxEnableDiscordRPC.UseVisualStyleBackColor = true;
+            this.chkBoxEnableDiscordRPC.CheckedChanged += new System.EventHandler(this.ChkBoxEnableDiscordRPC_CheckedChanged);
+            // 
+            // grpBoxDiscordRPCType
+            // 
+            this.grpBoxDiscordRPCType.Controls.Add(this.DiscordRPCCustomName);
+            this.grpBoxDiscordRPCType.Controls.Add(this.rdoDiscordRPCNameCustom);
+            this.grpBoxDiscordRPCType.Controls.Add(this.rdoDiscordRPCNameExternal);
+            this.grpBoxDiscordRPCType.Controls.Add(this.rdoDiscordRPCNameInternal);
+            this.grpBoxDiscordRPCType.Controls.Add(this.rdoDiscordRPCNameDisabled);
+            this.grpBoxDiscordRPCType.Location = new System.Drawing.Point(6, 45);
+            this.grpBoxDiscordRPCType.Name = "grpBoxDiscordRPCType";
+            this.grpBoxDiscordRPCType.Size = new System.Drawing.Size(290, 119);
+            this.grpBoxDiscordRPCType.TabIndex = 0;
+            this.grpBoxDiscordRPCType.TabStop = false;
+            this.grpBoxDiscordRPCType.Text = "Mod Name Detection";
+            // 
+            // DiscordRPCCustomName
+            // 
+            this.DiscordRPCCustomName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DiscordRPCCustomName.Location = new System.Drawing.Point(30, 88);
+            this.DiscordRPCCustomName.Name = "DiscordRPCCustomName";
+            this.DiscordRPCCustomName.Size = new System.Drawing.Size(254, 20);
+            this.DiscordRPCCustomName.TabIndex = 2;
+            this.DiscordRPCCustomName.Text = "My Mod";
+            this.DiscordRPCCustomName.TextChanged += new System.EventHandler(this.DiscordRPCCustomName_TextChanged);
+            // 
+            // rdoDiscordRPCNameCustom
+            // 
+            this.rdoDiscordRPCNameCustom.AutoSize = true;
+            this.rdoDiscordRPCNameCustom.Location = new System.Drawing.Point(10, 91);
+            this.rdoDiscordRPCNameCustom.Name = "rdoDiscordRPCNameCustom";
+            this.rdoDiscordRPCNameCustom.Size = new System.Drawing.Size(14, 13);
+            this.rdoDiscordRPCNameCustom.TabIndex = 3;
+            this.rdoDiscordRPCNameCustom.TabStop = true;
+            this.rdoDiscordRPCNameCustom.UseVisualStyleBackColor = true;
+            this.rdoDiscordRPCNameCustom.CheckedChanged += new System.EventHandler(this.DiscordRPCNameSettings_CheckedChanged);
+            // 
+            // rdoDiscordRPCNameExternal
+            // 
+            this.rdoDiscordRPCNameExternal.AutoSize = true;
+            this.rdoDiscordRPCNameExternal.Location = new System.Drawing.Point(10, 68);
+            this.rdoDiscordRPCNameExternal.Name = "rdoDiscordRPCNameExternal";
+            this.rdoDiscordRPCNameExternal.Size = new System.Drawing.Size(126, 17);
+            this.rdoDiscordRPCNameExternal.TabIndex = 2;
+            this.rdoDiscordRPCNameExternal.TabStop = true;
+            this.rdoDiscordRPCNameExternal.Text = "Use external filename";
+            this.rdoDiscordRPCNameExternal.UseVisualStyleBackColor = true;
+            this.rdoDiscordRPCNameExternal.CheckedChanged += new System.EventHandler(this.DiscordRPCNameSettings_CheckedChanged);
+            // 
+            // rdoDiscordRPCNameInternal
+            // 
+            this.rdoDiscordRPCNameInternal.AutoSize = true;
+            this.rdoDiscordRPCNameInternal.Location = new System.Drawing.Point(10, 45);
+            this.rdoDiscordRPCNameInternal.Name = "rdoDiscordRPCNameInternal";
+            this.rdoDiscordRPCNameInternal.Size = new System.Drawing.Size(123, 17);
+            this.rdoDiscordRPCNameInternal.TabIndex = 1;
+            this.rdoDiscordRPCNameInternal.TabStop = true;
+            this.rdoDiscordRPCNameInternal.Text = "Use internal filename";
+            this.rdoDiscordRPCNameInternal.UseVisualStyleBackColor = true;
+            this.rdoDiscordRPCNameInternal.CheckedChanged += new System.EventHandler(this.DiscordRPCNameSettings_CheckedChanged);
+            // 
+            // rdoDiscordRPCNameDisabled
+            // 
+            this.rdoDiscordRPCNameDisabled.AutoSize = true;
+            this.rdoDiscordRPCNameDisabled.Location = new System.Drawing.Point(10, 22);
+            this.rdoDiscordRPCNameDisabled.Name = "rdoDiscordRPCNameDisabled";
+            this.rdoDiscordRPCNameDisabled.Size = new System.Drawing.Size(66, 17);
+            this.rdoDiscordRPCNameDisabled.TabIndex = 0;
+            this.rdoDiscordRPCNameDisabled.TabStop = true;
+            this.rdoDiscordRPCNameDisabled.Text = "Disabled";
+            this.rdoDiscordRPCNameDisabled.UseVisualStyleBackColor = true;
+            this.rdoDiscordRPCNameDisabled.CheckedChanged += new System.EventHandler(this.DiscordRPCNameSettings_CheckedChanged);
+            // 
             // tabUpdater
             // 
             this.tabUpdater.Controls.Add(this.grpBoxCanary);
@@ -678,7 +822,7 @@ namespace BrawlCrate
             this.tabUpdater.Location = new System.Drawing.Point(4, 22);
             this.tabUpdater.Name = "tabUpdater";
             this.tabUpdater.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUpdater.Size = new System.Drawing.Size(281, 319);
+            this.tabUpdater.Size = new System.Drawing.Size(318, 319);
             this.tabUpdater.TabIndex = 1;
             this.tabUpdater.Text = "Updater";
             // 
@@ -690,7 +834,7 @@ namespace BrawlCrate
             this.grpBoxCanary.Controls.Add(this.chkCanary);
             this.grpBoxCanary.Location = new System.Drawing.Point(8, 132);
             this.grpBoxCanary.Name = "grpBoxCanary";
-            this.grpBoxCanary.Size = new System.Drawing.Size(265, 71);
+            this.grpBoxCanary.Size = new System.Drawing.Size(302, 71);
             this.grpBoxCanary.TabIndex = 15;
             this.grpBoxCanary.TabStop = false;
             this.grpBoxCanary.Text = "BrawlCrate Canary";
@@ -698,7 +842,7 @@ namespace BrawlCrate
             // btnCanaryBranch
             // 
             this.btnCanaryBranch.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnCanaryBranch.Location = new System.Drawing.Point(60, 42);
+            this.btnCanaryBranch.Location = new System.Drawing.Point(79, 42);
             this.btnCanaryBranch.Name = "btnCanaryBranch";
             this.btnCanaryBranch.Size = new System.Drawing.Size(138, 23);
             this.btnCanaryBranch.TabIndex = 14;
@@ -716,7 +860,7 @@ namespace BrawlCrate
             this.updaterBehaviorGroupbox.Controls.Add(this.chkDocUpdates);
             this.updaterBehaviorGroupbox.Location = new System.Drawing.Point(8, 6);
             this.updaterBehaviorGroupbox.Name = "updaterBehaviorGroupbox";
-            this.updaterBehaviorGroupbox.Size = new System.Drawing.Size(265, 120);
+            this.updaterBehaviorGroupbox.Size = new System.Drawing.Size(302, 120);
             this.updaterBehaviorGroupbox.TabIndex = 14;
             this.updaterBehaviorGroupbox.TabStop = false;
             this.updaterBehaviorGroupbox.Text = "Updater Behavior";
@@ -758,7 +902,7 @@ namespace BrawlCrate
             // 
             // SettingsDialog
             // 
-            this.ClientSize = new System.Drawing.Size(289, 345);
+            this.ClientSize = new System.Drawing.Size(326, 345);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -768,12 +912,12 @@ namespace BrawlCrate
             this.Shown += new System.EventHandler(this.SettingsDialog_Shown);
             this.tabControl1.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
-            this.grpBoxMDL0.ResumeLayout(false);
-            this.grpBoxMDL0.PerformLayout();
+            this.grpBoxMDL0General.ResumeLayout(false);
+            this.grpBoxMDL0General.PerformLayout();
             this.grpBoxAudioGeneral.ResumeLayout(false);
             this.grpBoxAudioGeneral.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
+            this.grpBoxMainFormGeneral.ResumeLayout(false);
+            this.grpBoxMainFormGeneral.PerformLayout();
             this.tabCompression.ResumeLayout(false);
             this.groupBoxModuleCompression.ResumeLayout(false);
             this.groupBoxModuleCompression.PerformLayout();
@@ -783,6 +927,11 @@ namespace BrawlCrate
             this.groupBoxFighterCompression.PerformLayout();
             this.tabFileAssociations.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.tabDiscord.ResumeLayout(false);
+            this.grpBoxDiscordRPC.ResumeLayout(false);
+            this.grpBoxDiscordRPC.PerformLayout();
+            this.grpBoxDiscordRPCType.ResumeLayout(false);
+            this.grpBoxDiscordRPCType.PerformLayout();
             this.tabUpdater.ResumeLayout(false);
             this.grpBoxCanary.ResumeLayout(false);
             this.grpBoxCanary.PerformLayout();
@@ -839,6 +988,7 @@ namespace BrawlCrate
                     "If you select yes, the update will begin immediately, so make sure your work is saved.", "BrawlCrate Canary Updater", MessageBoxButtons.YesNo);
                 if(dc == DialogResult.Yes)
                 {
+                    MainForm.Instance.Canary = true;
                     Program.ForceDownloadCanary();
                 }
             }
@@ -850,6 +1000,7 @@ namespace BrawlCrate
                     "If you select yes, the downgrade will begin immediately, so make sure your work is saved.", "BrawlCrate Canary Updater", MessageBoxButtons.YesNo);
                 if (dc == DialogResult.Yes)
                 {
+                    MainForm.Instance.Canary = false;
                     Program.ForceDownloadStable();
                 }
             }
@@ -873,14 +1024,17 @@ namespace BrawlCrate
 
         private void btnCanaryBranch_Click(object sender, EventArgs e)
         {
-            if(MessageBox.Show(this, "Warning: Changing Branches can be unstable unless you know what you're doing. You should generally stay on the brawlcrate-master branch unless directed otherwise for testing purposes", "Warning", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if(MessageBox.Show(this, "Warning: Switching branches or repositories can be unstable unless you know what you're doing. You should generally stay on the brawlcrate-master branch unless directed otherwise for testing purposes. You can reset to the default for either field by leaving it blank.", "Warning", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
+                string cRepo = MainForm.currentRepo;
                 string cBranch = MainForm.currentBranch;
-                RenameDialog d = new RenameDialog();
-                if(d.ShowDialog(this, "Enter new branch to track", cBranch) == DialogResult.OK)
+                TwoInputStringDialog d = new TwoInputStringDialog();
+                if(d.ShowDialog(this, "Enter new repo/branch to track", "Repo:", cRepo, "Branch:", cBranch) == DialogResult.OK)
                 {
-                    if(d.NewName != cBranch)
-                        MainForm.currentBranch = d.NewName;
+                    if (!d.InputText1.Equals(cRepo, StringComparison.OrdinalIgnoreCase) || !d.InputText2.Equals(cBranch, StringComparison.OrdinalIgnoreCase))
+                    {
+                        MainForm.SetCanaryTracking(d.InputText1, d.InputText2);
+                    }
                 }
             }
         }
@@ -931,6 +1085,44 @@ namespace BrawlCrate
         {
             if (!_updating)
                 MainForm.Instance.CompatibilityMode = chkBoxMDL0Compatibility.Checked;
+        }
+
+        private void ChkBoxEnableDiscordRPC_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!_updating)
+            {
+                BrawlCrate.Properties.Settings.Default.DiscordRPCEnabled = chkBoxEnableDiscordRPC.Checked;
+                BrawlCrate.Properties.Settings.Default.Save();
+                grpBoxDiscordRPCType.Enabled = chkBoxEnableDiscordRPC.Checked;
+                BrawlCrate.Discord.DiscordSettings.LoadSettings(true);
+            }
+        }
+
+        private void DiscordRPCNameSettings_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!_updating)
+            {
+                if (rdoDiscordRPCNameDisabled.Checked)
+                    BrawlCrate.Properties.Settings.Default.DiscordRPCNameType = Discord.DiscordSettings.ModNameType.Disabled;
+                else if (rdoDiscordRPCNameInternal.Checked)
+                    BrawlCrate.Properties.Settings.Default.DiscordRPCNameType = Discord.DiscordSettings.ModNameType.AutoInternal;
+                else if (rdoDiscordRPCNameExternal.Checked)
+                    BrawlCrate.Properties.Settings.Default.DiscordRPCNameType = Discord.DiscordSettings.ModNameType.AutoExternal;
+                else if (rdoDiscordRPCNameCustom.Checked)
+                    BrawlCrate.Properties.Settings.Default.DiscordRPCNameType = Discord.DiscordSettings.ModNameType.UserDefined;
+                DiscordRPCCustomName.Enabled = rdoDiscordRPCNameCustom.Checked;
+                DiscordRPCCustomName.ReadOnly = !rdoDiscordRPCNameCustom.Checked;
+                BrawlCrate.Properties.Settings.Default.Save();
+                Discord.DiscordSettings.LoadSettings(true);
+            }
+        }
+
+        private void DiscordRPCCustomName_TextChanged(object sender, EventArgs e)
+        {
+            BrawlCrate.Properties.Settings.Default.DiscordRPCNameCustom = DiscordRPCCustomName.Text;
+            BrawlCrate.Properties.Settings.Default.Save();
+            if (rdoDiscordRPCNameCustom.Checked)
+                Discord.DiscordSettings.LoadSettings(true);
         }
     }
 }

@@ -85,7 +85,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         //groups, entries, keys, colors, vis
         public int[] _dataLengths = { 0, 0, 0, 0, 0 };
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             //Calculate resource group length.
             //Null nodes are not included in the resource group.

@@ -173,7 +173,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         SCN0FogNode _match;
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             //If a previous fog node has the same exact color array as this one,
             //both offsets will point to only the first color array.

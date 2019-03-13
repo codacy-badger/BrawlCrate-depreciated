@@ -196,7 +196,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         SCN0AmbientLightNode _match;
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             for (int i = 0; i < 3; i++)
                 _dataLengths[i] = 0;
