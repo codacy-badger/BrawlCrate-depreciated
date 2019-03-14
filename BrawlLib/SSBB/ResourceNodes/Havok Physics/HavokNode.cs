@@ -18,7 +18,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         protected override string GetName()
         {
-            return String.Format("HavokData[{0}]", _fileIndex);
+            return base.GetName("Havok Data");
         }
 
         public int _userTag;
