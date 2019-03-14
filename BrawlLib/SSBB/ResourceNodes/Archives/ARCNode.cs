@@ -586,11 +586,6 @@ namespace BrawlLib.SSBB.ResourceNodes
             } 
         }
 
-        protected virtual string GetName()
-        {
-            return String.Format("{0} [{1}]", fullTypeName(), _fileIndex);
-        }
-        
         // Makes everything use spaces
         protected virtual string fullTypeName()
         {
@@ -618,11 +613,16 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
+        protected virtual string GetName()
+        {
+            return GetName(fullTypeName());
+        }
+
         protected virtual string GetName(string fileType)
         {
             string s = string.Format("{0} [{1}]", fileType, _fileIndex);
             if (_group != 0)
-                s += "[Group " + _group + "]";
+                s += " [Group " + _group + "]";
             return s;
         }
 
