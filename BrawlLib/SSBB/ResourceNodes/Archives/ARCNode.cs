@@ -659,6 +659,8 @@ namespace BrawlLib.SSBB.ResourceNodes
                     {
                         _resourceType = ResourceType.Redirect;
                         _name = "Redirect → " + _redirectIndex;
+                        if (_group != 0)
+                            _name += " [Group " + _group + "]";
                     }
                     else
                         _name = GetName();
