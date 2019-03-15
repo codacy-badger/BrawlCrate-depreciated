@@ -264,13 +264,15 @@ namespace BrawlLib.SSBB.ResourceNodes
                         }
                         if(n.GroupID == parentBRRES.GroupID && n.RedirectIndex != -1)
                         {
+                            ARCEntryNode target = n.RedirectTargetNode;
+                            RedirectStart:
                             try
                             {
-                                if (n.Parent.Children[n.RedirectIndex] is BRRESNode)
+                                if (target is BRRESNode)
                                 {
                                     try
                                     {
-                                        if ((tNode = n.Parent.Children[n.RedirectIndex].SearchForTextures("Textures(NW4R)/" + Name, true, false) as TEX0Node) != null)
+                                        if ((tNode = target.SearchForTextures("Textures(NW4R)/" + Name, true, false) as TEX0Node) != null)
                                         {
                                             Source = tNode;
                                             Texture.Attach(tNode, _palette);
@@ -280,6 +282,11 @@ namespace BrawlLib.SSBB.ResourceNodes
                                             bmp = SearchDirectory(n.Parent.Children[n.RedirectIndex]._origPath);
                                     }
                                     catch { }
+                                } else if(target.RedirectIndex != -1)
+                                {
+                                    // Redirect again
+                                    target = target.RedirectTargetNode;
+                                    goto RedirectStart;
                                 }
                             }
                             catch { }
