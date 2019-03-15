@@ -245,9 +245,49 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 if(usingARC)
                 {
-                    foreach (ResourceNode n in nodes)
+                    foreach (ARCEntryNode n in nodes)
                     {
                         if (n is BRRESNode && ((BRRESNode)n).GroupID == parentBRRES.GroupID)// && n.IsLoaded)
+                        {
+                            try
+                            {
+                                if ((tNode = n.SearchForTextures("Textures(NW4R)/" + Name, true, false) as TEX0Node) != null)
+                                {
+                                    Source = tNode;
+                                    Texture.Attach(tNode, _palette);
+                                    return;
+                                }
+                                else //Then search the directory
+                                    bmp = SearchDirectory(n._origPath);
+                            }
+                            catch { }
+                        }
+                        if(n.GroupID == parentBRRES.GroupID && n.RedirectIndex != -1)
+                        {
+                            try
+                            {
+                                if (n.Parent.Children[n.RedirectIndex] is BRRESNode)
+                                {
+                                    try
+                                    {
+                                        if ((tNode = n.Parent.Children[n.RedirectIndex].SearchForTextures("Textures(NW4R)/" + Name, true, false) as TEX0Node) != null)
+                                        {
+                                            Source = tNode;
+                                            Texture.Attach(tNode, _palette);
+                                            return;
+                                        }
+                                        else //Then search the directory
+                                            bmp = SearchDirectory(n.Parent.Children[n.RedirectIndex]._origPath);
+                                    }
+                                    catch { }
+                                }
+                            }
+                            catch { }
+                        }
+                    }
+                    foreach (ResourceNode n in nodes)
+                    {
+                        if (n is BRRESNode && ((BRRESNode)n).GroupID == 0)// && n.IsLoaded)
                         {
                             try
                             {
