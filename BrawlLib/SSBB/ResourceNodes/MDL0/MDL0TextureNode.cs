@@ -203,27 +203,26 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             if (_folderWatcher.EnableRaisingEvents && !String.IsNullOrEmpty(_folderWatcher.Path))
                 bmp = SearchDirectory(_folderWatcher.Path + Name);
-
             BRRESNode parentBRRES = null;
-            // Safely search for whether this is part of a BRRES
-            if (_parent != null)
+            try
             {
-                if (_parent._parent != null)
-                {
-                    if (_parent._parent._parent != null)
-                    {
-                        if (_parent._parent._parent._parent != null)
-                        {
-                            if (_parent._parent._parent._parent is BRRESNode)
-                            {
-                                parentBRRES = (BRRESNode)_parent._parent._parent._parent;
-                            }
-                        }
-                    }
-                }
+                parentBRRES = this.BRESNode;
             }
-
-            List<ResourceNode> nodes = TKContext.CurrentContext._states["_Node_Refs"] as List<ResourceNode>;
+            catch
+            {
+                parentBRRES = null;
+            }
+            List<ResourceNode> nodes = new List<ResourceNode>();
+            bool usingARC = true;
+            try
+            {
+                nodes = parentBRRES.Parent.Children;
+            }
+            catch
+            {
+                nodes = TKContext.CurrentContext._states["_Node_Refs"] as List<ResourceNode>;
+                usingARC = false;
+            }
             List<ResourceNode> searched = new List<ResourceNode>(nodes.Count);
             TEX0Node tNode = null;
             if (bmp == null && TKContext.CurrentContext._states.ContainsKey("_Node_Refs") && parentBRRES != null)
@@ -242,35 +241,59 @@ namespace BrawlLib.SSBB.ResourceNodes
                     bmp = SearchDirectory(node._origPath);
             }
 
-            if (bmp == null && TKContext.CurrentContext._states.ContainsKey("_Node_Refs"))
+            if (bmp == null && TKContext.CurrentContext._states.ContainsKey("_Node_Refs") && nodes.Count > 0)
             {
-                foreach (ResourceNode n in nodes)
+                if(usingARC)
                 {
-                    ResourceNode node = n.RootNode;
-                    // Console.WriteLine("N:    " + n.Name);
-                    // Console.WriteLine("Node: " + node.Name);
-                    if (searched.Contains(node))
+                    foreach (ResourceNode n in nodes)
                     {
-                        // Console.WriteLine("  Already found");
-                        continue;
+                        if (n is BRRESNode && ((BRRESNode)n).GroupID == parentBRRES.GroupID)// && n.IsLoaded)
+                        {
+                            try
+                            {
+                                if ((tNode = n.SearchForTextures("Textures(NW4R)/" + Name, true, false) as TEX0Node) != null)
+                                {
+                                    Source = tNode;
+                                    Texture.Attach(tNode, _palette);
+                                    return;
+                                }
+                                else //Then search the directory
+                                    bmp = SearchDirectory(n._origPath);
+                            }
+                            catch { }
+                        }
                     }
-                    searched.Add(node);
-                    // Console.WriteLine("  Searching...");
-
-                    //Search node itself first
-                    if ((tNode = node.SearchForTextures("Textures(NW4R)/" + Name, true, isStage) as TEX0Node) != null)
-                    {
-                        Source = tNode;
-                        Texture.Attach(tNode, _palette);
-                        return;
-                    }
-                    else //Then search the directory
-                        bmp = SearchDirectory(node._origPath);
-
-                    if (bmp != null)
-                        break;
                 }
-                searched.Clear();
+                else
+                {
+                    foreach (ResourceNode n in nodes)
+                    {
+                        ResourceNode node = n.RootNode;
+                        // Console.WriteLine("N:    " + n.Name);
+                        // Console.WriteLine("Node: " + node.Name);
+                        if (searched.Contains(node))
+                        {
+                            // Console.WriteLine("  Already found");
+                            continue;
+                        }
+                        searched.Add(node);
+                        // Console.WriteLine("  Searching...");
+
+                        //Search node itself first
+                        if ((tNode = node.SearchForTextures("Textures(NW4R)/" + Name, true, isStage) as TEX0Node) != null)
+                        {
+                            Source = tNode;
+                            Texture.Attach(tNode, _palette);
+                            return;
+                        }
+                        else //Then search the directory
+                            bmp = SearchDirectory(node._origPath);
+
+                        if (bmp != null)
+                            break;
+                    }
+                    searched.Clear();
+                }
             }
 
             if (bmp != null)

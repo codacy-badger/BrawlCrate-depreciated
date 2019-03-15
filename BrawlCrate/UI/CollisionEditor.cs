@@ -1490,7 +1490,7 @@ namespace System.Windows.Forms
             _models.Clear();
 
             if ((_targetNode != null) && (_targetNode._parent != null))
-                foreach (MDL0Node n in _targetNode._parent.FindChildrenByType(null, ResourceType.MDL0))
+                foreach (MDL0Node n in _targetNode._parent.FindChildrenByTypeInGroup(null, ResourceType.MDL0, _targetNode.GroupID))
                 {
                     TreeNode modelNode = new TreeNode(n._name) { Tag = n, Checked = true };
                     modelTree.Nodes.Add(modelNode);

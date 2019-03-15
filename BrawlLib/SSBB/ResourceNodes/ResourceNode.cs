@@ -1118,6 +1118,34 @@ namespace BrawlLib.SSBB.ResourceNodes
             this.EnumTypeInternal(nodes, type);
             return nodes.ToArray();
         }
+
+        public ResourceNode[] FindChildrenByTypeInGroup(string path, ResourceType type, byte group)
+        {
+            if (!String.IsNullOrEmpty(path))
+            {
+                ResourceNode node = FindChild(path, false);
+                if (node != null)
+                    if(!(node is ARCEntryNode && ((ARCEntryNode)node).GroupID != group))
+                        return node.FindChildrenByTypeInGroup(null, type, group);
+            }
+
+            List<ResourceNode> nodes = new List<ResourceNode>();
+            this.EnumTypeInternal(nodes, type);
+            for(int i = 0; i < nodes.Count; i++)
+            {
+                if(nodes[i] is ARCEntryNode && ((ARCEntryNode)nodes[i]).GroupID != group)
+                {
+                    nodes.Remove(nodes[i]);
+                    i--;
+                }
+                else if(nodes[i] is BRESEntryNode && ((BRESEntryNode)nodes[i]).BRESNode.GroupID != group)
+                {
+                    nodes.Remove(nodes[i]);
+                    i--;
+                }
+            }
+            return nodes.ToArray();
+        }
         private void EnumTypeInternal(List<ResourceNode> list, ResourceType type)
         {
             if (this.ResourceType == type)
