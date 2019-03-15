@@ -296,7 +296,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             ARCFileHeader* entry = header->First;
             foreach (ARCEntryNode node in Children)
             {
-                *entry = new ARCFileHeader(node.FileType, node.FileIndex, node._calcSize, node.GroupID, node._redirectIndex);
+                *entry = new ARCFileHeader(node.FileType, node.FileIndex, node._calcSize, node.GroupID, node.CalculateRedirect());
                 node.Rebuild(entry->Data, entry->Length, force);
                 entry = entry->Next;
             }
@@ -564,7 +564,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         internal short _redirectIndex = -1;
 
-        [Category("ARC Entry")]
+        [Category("ARC Entry"), Browsable(false)]
         public short RedirectIndex
         {
             get { return _redirectIndex; }
@@ -581,34 +581,72 @@ namespace BrawlLib.SSBB.ResourceNodes
                 {
                     _resourceType = ResourceType.Redirect;
                 }
-                Name = GetName();
+                UpdateRedirectTarget();
+                UpdateName();
             }
         }
 
-        [Category("ARC Entry")]
-        public string RedirectTarget
+        public short CalculateRedirect()
+        {
+            try
+            {
+                if (RedirectTargetNode == null || RedirectTargetNode.Parent != Parent)
+                    return -1;
+                else
+                    return (short)RedirectTargetNode.AbsoluteIndex;
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+
+        [Category("ARC Entry"), Browsable(false)]
+        public string RedirectTargetName
         {
             get { if (RedirectTargetNode == null) { return "None"; } return RedirectTargetNode.Name; }
         }
 
-        [Category("ARC Entry"), Browsable(false)]
-        public ResourceNode RedirectTargetNode
+        [Category("ARC Entry")]
+        [TypeConverter(typeof(DropDownListARCEntry))]
+        public string RedirectTarget
         {
-            get
+            get { return RedirectTargetName; }
+            set
             {
                 try
                 {
-                    if (RedirectIndex == -1 || Parent == null || Parent.Children.Count <= RedirectIndex)
-                    {
-                        return null;
-                    }
-                    return Parent.Children[RedirectIndex];
+                    RedirectTargetNode = (ARCEntryNode)Parent.FindChildrenByName(value)[0];
+                    SignalPropertyChange();
+                    UpdateName();
                 }
                 catch
                 {
-                    return null;
+                    RedirectTargetNode = null;
+                    RedirectIndex = -1;
+                    SignalPropertyChange();
+                    UpdateName();
                 }
             }
+        }
+
+        public ARCEntryNode RedirectTargetNode = null;
+        public ARCEntryNode UpdateRedirectTarget()
+        {
+            try
+            {
+                if (RedirectIndex == -1 || Parent == null || Parent.Children.Count <= RedirectIndex)
+                {
+                    RedirectTargetNode = null;
+                }
+                RedirectTargetNode = (ARCEntryNode)Parent.Children[RedirectIndex];
+            }
+            catch
+            {
+                RedirectTargetNode = null;
+            }
+            UpdateProperties();
+            return RedirectTargetNode;
         }
 
         // Makes everything use spaces
@@ -683,9 +721,12 @@ namespace BrawlLib.SSBB.ResourceNodes
 
                 if (_name == null)
                 {
-                    _name = GetName();
                     if (_redirectIndex != -1 && _resourceType != ResourceType.MSBin)
+                    {
                         _resourceType = ResourceType.Redirect;
+                        UpdateRedirectTarget();
+                    }
+                    _name = GetName();
                 }
             }
             else if (_name == null)
