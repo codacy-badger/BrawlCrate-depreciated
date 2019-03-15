@@ -24,6 +24,7 @@ namespace BrawlCrate
                 new ToolStripMenuItem("BLOC", null, NewBLOCAction),
                 new ToolStripMenuItem("Collision", null, NewCollisionAction),
                 new ToolStripMenuItem("MSBin", null, NewMSBinAction),
+                new ToolStripMenuItem("Redirect", null, NewRedirectAction),
                 new ToolStripMenuItem("SCLA", null,
                     new ToolStripMenuItem("Empty", null, NewSCLAAction),
                     new ToolStripMenuItem("Full", null, NewSCLAFullAction),
@@ -136,7 +137,7 @@ namespace BrawlCrate
             if (entryCount.ShowDialog("TBST Generation", "Number of Entries:") == DialogResult.OK)
                 GetInstance<ARCWrapper>().NewTBST(entryCount.NewValue);
         }
-        
+        protected static void NewRedirectAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewRedirect(); }
         protected static void ImportBRESAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportBRES(); }
         protected static void ImportARCAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportARC(); }
         protected static void ImportBLOCAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportBLOC(); }
@@ -212,6 +213,19 @@ namespace BrawlCrate
         {
             ARCNode node = new ARCNode() { Name = _resource.FindName("NewARChive"), FileType = ARCFileType.MiscData };
             _resource.AddChild(node);
+
+            BaseWrapper w = this.FindResource(node, false);
+            w.EnsureVisible();
+            w.TreeView.SelectedNode = w;
+            return node;
+        }
+        public ARCEntryNode NewRedirect()
+        {
+            ARCEntryNode node = new ARCEntryNode() { };
+            node.FileType = ARCFileType.MiscData;
+            node._resourceType = ResourceType.Redirect;
+            _resource.AddChild(node);
+            node.RedirectIndex = 0;
 
             BaseWrapper w = this.FindResource(node, false);
             w.EnsureVisible();

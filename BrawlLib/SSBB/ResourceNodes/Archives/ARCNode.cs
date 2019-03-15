@@ -572,18 +572,43 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 if (value == Index || value == _redirectIndex)
                     return;
-
-                if ((_redirectIndex = (short)((int)value).Clamp(-1, Parent.Children.Count - 1)) < 0)
+                
+                if (Parent == null || (_redirectIndex = (short)((int)value).Clamp(-1, Parent.Children.Count - 1)) < 0)
                 {
                     _resourceType = ResourceType.ARCEntry;
-                    Name = GetName();
                 }
                 else
                 {
                     _resourceType = ResourceType.Redirect;
-                    Name = "Redirect → " + _redirectIndex;
                 }
-            } 
+                Name = GetName();
+            }
+        }
+
+        [Category("ARC Entry")]
+        public string RedirectTarget
+        {
+            get { if (RedirectTargetNode == null) { return "None"; } return RedirectTargetNode.Name; }
+        }
+
+        [Category("ARC Entry"), Browsable(false)]
+        public ResourceNode RedirectTargetNode
+        {
+            get
+            {
+                try
+                {
+                    if (RedirectIndex == -1 || Parent == null || Parent.Children.Count <= RedirectIndex)
+                    {
+                        return null;
+                    }
+                    return Parent.Children[RedirectIndex];
+                }
+                catch
+                {
+                    return null;
+                }
+            }
         }
 
         // Makes everything use spaces
@@ -605,7 +630,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 case "Type6":
                     return "Type 6";
                 case "GroupedArchive":
-                    return "Grouped Archive";
+                    return "ARC";
                 case "EffectData":
                     return "Effect Data";
                 default:
@@ -623,10 +648,12 @@ namespace BrawlLib.SSBB.ResourceNodes
             string s = string.Format("{0} [{1}]", fileType, _fileIndex);
             if (_group != 0)
                 s += " [Group " + _group + "]";
+            if (_redirectIndex != -1)
+                s += " (Redirect → " + ((RedirectTargetNode == null && _resourceType != ResourceType.MSBin) ? _redirectIndex.ToString() : (string)RedirectTarget) + ")";
             return s;
         }
 
-        protected void UpdateName()
+        public void UpdateName()
         {
             if (!(this is ARCNode))
                 Name = GetName();
@@ -655,15 +682,11 @@ namespace BrawlLib.SSBB.ResourceNodes
                 _redirectIndex = header->_redirectIndex;
 
                 if (_name == null)
-                    if (_redirectIndex != -1)
-                    {
+                {
+                    _name = GetName();
+                    if (_redirectIndex != -1 && _resourceType != ResourceType.MSBin)
                         _resourceType = ResourceType.Redirect;
-                        _name = "Redirect → " + _redirectIndex;
-                        if (_group != 0)
-                            _name += " [Group " + _group + "]";
-                    }
-                    else
-                        _name = GetName();
+                }
             }
             else if (_name == null)
                 _name = Path.GetFileName(_origPath);
