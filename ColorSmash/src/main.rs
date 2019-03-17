@@ -44,6 +44,11 @@ fn main() {
         print!("color_smash {}", env!("CARGO_PKG_VERSION"));
         return;
     }
+    
+    let appPath = options::get_path(matches.opt_str("path")).unwrap_or_else(|error| {
+        println!("{}", error);
+        std::process::exit(1);
+    });
 
     let colortype = options::color_type(matches.opt_str("colortype")).unwrap_or_else(|error| {
         println!("{}", error);
@@ -55,9 +60,10 @@ fn main() {
     //}
 
     let verbose = matches.opt_present("verbose");
-
+    
     let mut input_files: Vec<String> = Vec::new();
-	let paths = fs::read_dir("./cs").unwrap();
+    let inPath = appPath.to_owned() + "cs";
+	let paths = fs::read_dir(inPath).unwrap();
     for path in paths {
 		//println!("{}", path.unwrap().path().display().to_string());
 		let temp = String::from(path.unwrap().path().display().to_string());
@@ -95,6 +101,10 @@ fn initialize_options() -> Options {
                    "suffix",
                    "set custom suffix for output filenames.",
                    "SUFFIX");
+    options.optopt("p",
+                   "path",
+                   "set custom path for input/output",
+                   "PATH");
     options.optopt("c",
                    "colortype",
                    "set output to RGBA8 (default) or RGB5A3.",

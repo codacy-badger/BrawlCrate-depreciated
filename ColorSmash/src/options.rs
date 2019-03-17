@@ -24,3 +24,10 @@ pub fn color_type(input: Option<String>) -> Result<ColorType, String> {
         None => Ok(ColorType::Rgba8),
     }
 }
+
+pub fn get_path(input: Option<String>) -> Result<String, String> {
+    match input {
+        Some(string) => Ok(string),
+        None => Ok("./".to_string()),
+    }
+}
