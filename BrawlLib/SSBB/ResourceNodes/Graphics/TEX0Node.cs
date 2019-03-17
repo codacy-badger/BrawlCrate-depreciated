@@ -219,7 +219,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 foreach (FileInfo tex in outputDir.GetFiles())
                     try { tex.Delete(); } catch { }
-                outputDir.Delete();
+                try { outputDir.Delete(); } catch { }
                 foreach (FileInfo tex in Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\").GetFiles())
                     try { tex.Delete(); } catch { }
                 Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\");
