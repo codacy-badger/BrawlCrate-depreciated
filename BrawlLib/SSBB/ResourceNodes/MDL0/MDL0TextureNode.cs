@@ -217,6 +217,9 @@ namespace BrawlLib.SSBB.ResourceNodes
             try
             {
                 nodes = parentBRRES.Parent.Children;
+                if(!(parentBRRES.Parent is ARCNode)) {
+                    throw (new ArgumentException());
+                }
             }
             catch
             {
