@@ -681,6 +681,16 @@ namespace BrawlLib.SSBB.ResourceNodes
             return GetName(fullTypeName());
         }
 
+        public bool isModelData()
+        {
+            return (FileType == ARCFileType.ModelData);
+        }
+
+        public bool isTextureData()
+        {
+            return (FileType == ARCFileType.TextureData);
+        }
+
         protected virtual string GetName(string fileType)
         {
             string s = string.Format("{0} [{1}]", fileType, _fileIndex);
