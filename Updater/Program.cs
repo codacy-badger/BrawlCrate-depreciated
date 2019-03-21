@@ -232,6 +232,26 @@ namespace Net
                             sw.WriteLine("del OpenTK.dll /s /f /q");
                         if (File.Exists(AppPath + "/discord-rpc.dll"))
                             sw.WriteLine("del discord-rpc.dll /s /f /q");
+                        if (File.Exists(AppPath + "/IronPython.dll"))
+                            sw.WriteLine("del IronPython.dll /s /f /q");
+                        if (File.Exists(AppPath + "/IronPython.Modules.dll"))
+                            sw.WriteLine("del IronPython.Modules.dll /s /f /q");
+                        if (File.Exists(AppPath + "/IronPython.SQLite.dll"))
+                            sw.WriteLine("del IronPython.SQLite.dll /s /f /q");
+                        if (File.Exists(AppPath + "/IronPython.Wpf.dll"))
+                            sw.WriteLine("del OpenTK.dll /s /f /q");
+                        if (File.Exists(AppPath + "/IronPython.Wpf.dll"))
+                            sw.WriteLine("del IronPython.Wpf.dll /s /f /q");
+                        if (File.Exists(AppPath + "/Microsoft.Dynamic.dll"))
+                            sw.WriteLine("del Microsoft.Dynamic.dll /s /f /q");
+                        if (File.Exists(AppPath + "/Microsoft.Scripting.AspNet.dll"))
+                            sw.WriteLine("del Microsoft.Scripting.AspNet.dll /s /f /q");
+                        if (File.Exists(AppPath + "/Microsoft.Scripting.dll"))
+                            sw.WriteLine("del Microsoft.Scripting.dll /s /f /q");
+                        if (File.Exists(AppPath + "/Microsoft.Scripting.dll"))
+                            sw.WriteLine("del Microsoft.Scripting.dll /s /f /q");
+                        if (File.Exists(AppPath + "/Microsoft.Scripting.Metadata.dll"))
+                            sw.WriteLine("del Microsoft.Scripting.Metadata.dll /s /f /q");
 
                         sw.WriteLine("START /wait temp.exe -y");
                         sw.WriteLine("del temp.exe /s /f /q");
@@ -562,6 +582,26 @@ namespace Net
                             sw.WriteLine("del OpenTK.dll /s /f /q");
                         if (File.Exists(AppPath + "/discord-rpc.dll"))
                             sw.WriteLine("del discord-rpc.dll /s /f /q");
+                        if (File.Exists(AppPath + "/IronPython.dll"))
+                            sw.WriteLine("del IronPython.dll /s /f /q");
+                        if (File.Exists(AppPath + "/IronPython.Modules.dll"))
+                            sw.WriteLine("del IronPython.Modules.dll /s /f /q");
+                        if (File.Exists(AppPath + "/IronPython.SQLite.dll"))
+                            sw.WriteLine("del IronPython.SQLite.dll /s /f /q");
+                        if (File.Exists(AppPath + "/IronPython.Wpf.dll"))
+                            sw.WriteLine("del OpenTK.dll /s /f /q");
+                        if (File.Exists(AppPath + "/IronPython.Wpf.dll"))
+                            sw.WriteLine("del IronPython.Wpf.dll /s /f /q");
+                        if (File.Exists(AppPath + "/Microsoft.Dynamic.dll"))
+                            sw.WriteLine("del Microsoft.Dynamic.dll /s /f /q");
+                        if (File.Exists(AppPath + "/Microsoft.Scripting.AspNet.dll"))
+                            sw.WriteLine("del Microsoft.Scripting.AspNet.dll /s /f /q");
+                        if (File.Exists(AppPath + "/Microsoft.Scripting.dll"))
+                            sw.WriteLine("del Microsoft.Scripting.dll /s /f /q");
+                        if (File.Exists(AppPath + "/Microsoft.Scripting.dll"))
+                            sw.WriteLine("del Microsoft.Scripting.dll /s /f /q");
+                        if (File.Exists(AppPath + "/Microsoft.Scripting.Metadata.dll"))
+                            sw.WriteLine("del Microsoft.Scripting.Metadata.dll /s /f /q");
 
                         sw.WriteLine("START /wait temp.exe -y");
                         sw.WriteLine("del temp.exe /s /f /q");
@@ -810,6 +850,26 @@ namespace Net
                             sw.WriteLine("del OpenTK.dll /s /f /q");
                         if (File.Exists(AppPath + "/discord-rpc.dll"))
                             sw.WriteLine("del discord-rpc.dll /s /f /q");
+                        if (File.Exists(AppPath + "/IronPython.dll"))
+                            sw.WriteLine("del IronPython.dll /s /f /q");
+                        if (File.Exists(AppPath + "/IronPython.Modules.dll"))
+                            sw.WriteLine("del IronPython.Modules.dll /s /f /q");
+                        if (File.Exists(AppPath + "/IronPython.SQLite.dll"))
+                            sw.WriteLine("del IronPython.SQLite.dll /s /f /q");
+                        if (File.Exists(AppPath + "/IronPython.Wpf.dll"))
+                            sw.WriteLine("del OpenTK.dll /s /f /q");
+                        if (File.Exists(AppPath + "/IronPython.Wpf.dll"))
+                            sw.WriteLine("del IronPython.Wpf.dll /s /f /q");
+                        if (File.Exists(AppPath + "/Microsoft.Dynamic.dll"))
+                            sw.WriteLine("del Microsoft.Dynamic.dll /s /f /q");
+                        if (File.Exists(AppPath + "/Microsoft.Scripting.AspNet.dll"))
+                            sw.WriteLine("del Microsoft.Scripting.AspNet.dll /s /f /q");
+                        if (File.Exists(AppPath + "/Microsoft.Scripting.dll"))
+                            sw.WriteLine("del Microsoft.Scripting.dll /s /f /q");
+                        if (File.Exists(AppPath + "/Microsoft.Scripting.dll"))
+                            sw.WriteLine("del Microsoft.Scripting.dll /s /f /q");
+                        if (File.Exists(AppPath + "/Microsoft.Scripting.Metadata.dll"))
+                            sw.WriteLine("del Microsoft.Scripting.Metadata.dll /s /f /q");
 
                         sw.WriteLine("START /wait temp.exe -y");
                         sw.WriteLine("del temp.exe /s /f /q");
