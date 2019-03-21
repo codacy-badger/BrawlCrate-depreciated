@@ -14,7 +14,7 @@ namespace BrawlBox
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "v0.78_h1";
+        public static readonly string TagName = "v0.BUTT";
 
         public static readonly string AssemblyTitle;
         public static readonly string AssemblyDescription;
@@ -452,6 +452,64 @@ namespace BrawlBox
                     return false;
             }
             return true;
+        }
+
+        public static void ForceDownloadCanary(bool manual = true)
+        {
+            try
+            {
+                string path;
+                if (!MainForm.CheckForInternetConnection())
+                {
+                    if (manual)
+                        MessageBox.Show("Could not connect to internet");
+                    return;
+                }
+                if (Program.CanRunGithubApp(true, out path))
+                {
+                    Process git = Process.Start(new ProcessStartInfo()
+                    {
+                        FileName = path,
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        Arguments = String.Format("-dlCanary \"{0}\"", Program.RootPath == null ? "<null>" : Program.RootPath),
+                    });
+                    git.WaitForExit();
+                }
+            }
+            catch (Exception e)
+            {
+                if (manual)
+                    MessageBox.Show(e.Message);
+            }
+        }
+
+        public static void ForceDownloadStable(bool manual = true)
+        {
+            try
+            {
+                string path;
+                if (!MainForm.CheckForInternetConnection())
+                {
+                    if (manual)
+                        MessageBox.Show("Could not connect to internet");
+                    return;
+                }
+                if (Program.CanRunGithubApp(true, out path))
+                {
+                    Process git = Process.Start(new ProcessStartInfo()
+                    {
+                        FileName = path,
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        Arguments = String.Format("-dlStable \"{0}\"", Program.RootPath == null ? "<null>" : Program.RootPath),
+                    });
+                    git.WaitForExit();
+                }
+            }
+            catch (Exception e)
+            {
+                if (manual)
+                    MessageBox.Show(e.Message);
+            }
         }
     }
 }

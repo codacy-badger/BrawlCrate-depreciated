@@ -116,6 +116,51 @@ namespace BrawlBox.Properties {
 
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("true")]
+        public bool UpdateAutomatically
+        {
+            get
+            {
+                return ((bool)(this["UpdateAutomatically"]));
+            }
+            set
+            {
+                this["UpdateAutomatically"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("false")]
+        public bool GetDocumentationUpdates
+        {
+            get
+            {
+                return ((bool)(this["GetDocumentationUpdates"]));
+            }
+            set
+            {
+                this["GetDocumentationUpdates"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("false")]
+        public bool DownloadCanaryBuilds
+        {
+            get
+            {
+                return ((bool)(this["DownloadCanaryBuilds"]));
+            }
+            set
+            {
+                this["DownloadCanaryBuilds"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("false")]
         public bool PixelLighting
         {
@@ -126,6 +171,21 @@ namespace BrawlBox.Properties {
             set
             {
                 this["PixelLighting"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("true")]
+        public bool UpdateSettings
+        {
+            get
+            {
+                return ((bool)(this["UpdateSettings"]));
+            }
+            set
+            {
+                this["UpdateSettings"] = value;
             }
         }
     }
