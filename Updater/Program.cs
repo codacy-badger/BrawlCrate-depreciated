@@ -169,9 +169,11 @@ namespace Net
                     }
                     dlTrack.Close();
                     dlTrack.Dispose();
-                    if (!File.Exists(AppPath + "/temp.exe"))
+                    if (!File.Exists(AppPath + "/temp.exe") || (new FileInfo(AppPath + "/temp.exe")).Length != (long)DLProgressWindow.MaxValue || (new FileInfo(AppPath + "/temp.exe")).Length == 0)
                     {
                         MessageBox.Show("Error downloading update");
+                        if (File.Exists(AppPath + "/temp.exe"))
+                            File.Delete(AppPath + "/temp.exe");
                         return;
                     }
 
@@ -527,9 +529,11 @@ namespace Net
                     }
                     dlTrack.Close();
                     dlTrack.Dispose();
-                    if (!File.Exists(AppPath + "/temp.exe"))
+                    if (!File.Exists(AppPath + "/temp.exe") || (new FileInfo(AppPath + "/temp.exe")).Length != (long)DLProgressWindow.MaxValue || (new FileInfo(AppPath + "/temp.exe")).Length == 0)
                     {
                         MessageBox.Show("Error downloading update");
+                        if (File.Exists(AppPath + "/temp.exe"))
+                            File.Delete(AppPath + "/temp.exe");
                         return;
                     }
                     
@@ -784,9 +788,11 @@ namespace Net
                     }
                     dlTrack.Close();
                     dlTrack.Dispose();
-                    if (!File.Exists(AppPath + "/temp.exe"))
+                    if (!File.Exists(AppPath + "/temp.exe") || (new FileInfo(AppPath + "/temp.exe")).Length != (long)DLProgressWindow.MaxValue || (new FileInfo(AppPath + "/temp.exe")).Length == 0)
                     {
                         MessageBox.Show("Error downloading update");
+                        if (File.Exists(AppPath + "/temp.exe"))
+                            File.Delete(AppPath + "/temp.exe");
                         return;
                     }
                     DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
@@ -937,9 +943,11 @@ namespace Net
                     }
                     dlTrack.Close();
                     dlTrack.Dispose();
-                    if (!File.Exists(AppPath + "/temp.exe"))
+                    if (!File.Exists(AppPath + "/temp.exe") || (new FileInfo(AppPath + "/temp.exe")).Length != (long)DLProgressWindow.MaxValue || (new FileInfo(AppPath + "/temp.exe")).Length == 0)
                     {
                         MessageBox.Show("Error downloading update");
+                        if (File.Exists(AppPath + "/temp.exe"))
+                            File.Delete(AppPath + "/temp.exe");
                         return;
                     }
                     
