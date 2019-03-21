@@ -1033,17 +1033,10 @@
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>cd $(TargetDir)
-mkdir Lib
 mkdir Python
-%25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Octokit.dll" "$(TargetDir)/Lib" /Y /I
-%25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Updater.exe" "$(TargetDir)/Lib" /Y /I
-%25windir%25\system32\xcopy "$(SolutionDir)$(ProjectName)\Lib" "$(TargetDir)/Python" /Y /I /E
-%25windir%25\system32\xcopy "$(TargetDir)*.dll" "$(TargetDir)/Lib" /Y /I
-%25windir%25\system32\xcopy "$(TargetDir)*.dll" "$(TargetDir)/lib" /Y /I
-%25windir%25\system32\xcopy "$(TargetDir)*.dll.config" "$(TargetDir)/lib" /Y /I
-del *.dll
-del *.dll.config
-del updater.exe</PostBuildEvent>
+%25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Octokit.dll" "$(TargetDir)" /Y /I
+%25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Updater.exe" "$(TargetDir)" /Y /I
+%25windir%25\system32\xcopy "$(SolutionDir)$(ProjectName)\Lib" "$(TargetDir)/Python" /Y /I /E</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

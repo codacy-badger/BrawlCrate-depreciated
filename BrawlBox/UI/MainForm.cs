@@ -260,7 +260,7 @@ namespace BrawlBox
             Text += " DEBUG";
 #endif
 
-            foreach (string filename in new string[] {
+            /*foreach (string filename in new string[] {
                 "BrawlLib.dll",
                 "OpenTK.dll",
                 "Octokit.dll",
@@ -276,7 +276,7 @@ newer versions of these files should be located in the Lib directory.");
                         break;
                     }
                 }
-            }
+            }*/
 
             soundPackControl1._grid = propertyGrid1;
             soundPackControl1.lstSets.SmallImageList = ResourceTree.Images;
