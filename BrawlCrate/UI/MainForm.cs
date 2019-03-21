@@ -138,7 +138,7 @@ namespace BrawlCrate
             ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
             try
             {
-                string url = "https://github.com/soopercool101/BrawlCrate/blob/" + cBranch + "/CanaryBuild/CanaryREADME.md";
+                string url = "https://github.com/" + newRepo + "/blob/" + cBranch + "/CanaryBuild/CanaryREADME.md";
                 using (WebClient x = new WebClient())
                 {
                     string source = x.DownloadString(url);
@@ -181,7 +181,7 @@ namespace BrawlCrate
             ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
             try
             {
-                string url = "https://github.com/soopercool101/BrawlCrate/blob/" + newBranch + "/CanaryBuild/CanaryREADME.md";
+                string url = "https://github.com/" + newRepo + "/blob/" + newBranch + "/CanaryBuild/CanaryREADME.md";
                 using (WebClient x = new WebClient())
                 {
                     string source = x.DownloadString(url);
