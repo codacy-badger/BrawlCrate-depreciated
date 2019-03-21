@@ -19,7 +19,7 @@ namespace BrawlCrate.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -96,6 +96,16 @@ namespace BrawlCrate.Properties {
         public static System.Drawing.Bitmap ARC {
             get {
                 object obj = ResourceManager.GetObject("ARC", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ARCOff {
+            get {
+                object obj = ResourceManager.GetObject("ARCOff", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -203,6 +213,16 @@ namespace BrawlCrate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap CHROff {
+            get {
+                object obj = ResourceManager.GetObject("CHROff", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap CLR {
             get {
                 object obj = ResourceManager.GetObject("CLR", resourceCulture);
@@ -216,6 +236,16 @@ namespace BrawlCrate.Properties {
         public static System.Drawing.Bitmap Coll {
             get {
                 object obj = ResourceManager.GetObject("Coll", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap CollOff {
+            get {
+                object obj = ResourceManager.GetObject("CollOff", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -423,9 +453,29 @@ namespace BrawlCrate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap MDL0Off {
+            get {
+                object obj = ResourceManager.GetObject("MDL0Off", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap MSG {
             get {
                 object obj = ResourceManager.GetObject("MSG", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap MSGOff {
+            get {
+                object obj = ResourceManager.GetObject("MSGOff", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -453,6 +503,16 @@ namespace BrawlCrate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap PATOff {
+            get {
+                object obj = ResourceManager.GetObject("PATOff", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap PLT0 {
             get {
                 object obj = ResourceManager.GetObject("PLT0", resourceCulture);
@@ -466,6 +526,16 @@ namespace BrawlCrate.Properties {
         public static System.Drawing.Bitmap Redirect {
             get {
                 object obj = ResourceManager.GetObject("Redirect", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap RedirectOff {
+            get {
+                object obj = ResourceManager.GetObject("RedirectOff", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -553,9 +623,29 @@ namespace BrawlCrate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap SCLAOff {
+            get {
+                object obj = ResourceManager.GetObject("SCLAOff", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap SCN0 {
             get {
                 object obj = ResourceManager.GetObject("SCN0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap SCN0Off {
+            get {
+                object obj = ResourceManager.GetObject("SCN0Off", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -573,9 +663,29 @@ namespace BrawlCrate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap SharedTEX0Off {
+            get {
+                object obj = ResourceManager.GetObject("SharedTEX0Off", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap SHP {
             get {
                 object obj = ResourceManager.GetObject("SHP", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap SHPOff {
+            get {
+                object obj = ResourceManager.GetObject("SHPOff", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -593,6 +703,16 @@ namespace BrawlCrate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap SRTOff {
+            get {
+                object obj = ResourceManager.GetObject("SRTOff", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap STDT {
             get {
                 object obj = ResourceManager.GetObject("STDT", resourceCulture);
@@ -603,9 +723,29 @@ namespace BrawlCrate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap STDTOff {
+            get {
+                object obj = ResourceManager.GetObject("STDTOff", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap STPM {
             get {
                 object obj = ResourceManager.GetObject("STPM", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap STPMOff {
+            get {
+                object obj = ResourceManager.GetObject("STPMOff", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -626,6 +766,16 @@ namespace BrawlCrate.Properties {
         public static System.Drawing.Bitmap TEX0 {
             get {
                 object obj = ResourceManager.GetObject("TEX0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap TEX0Off {
+            get {
+                object obj = ResourceManager.GetObject("TEX0Off", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -666,6 +816,16 @@ namespace BrawlCrate.Properties {
         public static System.Drawing.Bitmap VIS {
             get {
                 object obj = ResourceManager.GetObject("VIS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap VISOff {
+            get {
+                object obj = ResourceManager.GetObject("VISOff", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

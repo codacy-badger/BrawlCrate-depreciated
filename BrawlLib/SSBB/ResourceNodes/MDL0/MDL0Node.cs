@@ -47,7 +47,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public InfluenceManager Influences { get { return _influences; } }
 
         public string metalMat = "metal00";
-        [Browsable(true), Description(
+        [Category("G3D Model"), Browsable(true), Description(
         @"This feature is for Super Smash Bros Brawl models specifically.
         When true, metal materials and shaders will be added and modulated as you edit your own custom materials and shaders.")]
         public bool AutoMetalMaterials { get { return _autoMetal; } set { _autoMetal = value; GenerateMetalMaterials(metalMat); } }

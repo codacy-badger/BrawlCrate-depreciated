@@ -301,4 +301,52 @@
   <data name="BrawlCrateLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BrawlCrateLogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ARCOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\greyscale\ARCOff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CHROff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\greyscale\CHROff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CollOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\greyscale\CollOff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MDL0Off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\greyscale\MDL0Off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MSGOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\greyscale\MSGOff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PATOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\greyscale\PATOff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RedirectOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\greyscale\RedirectOff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SCLAOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\greyscale\SCLAOff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SCN0Off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\greyscale\SCN0Off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SharedTEX0Off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\greyscale\SharedTEX0Off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SHPOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\greyscale\SHPOff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SRTOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\greyscale\SRTOff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="STDTOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\greyscale\STDTOff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="STPMOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\greyscale\STPMOff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TEX0Off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\greyscale\TEX0Off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VISOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\greyscale\VISOff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
