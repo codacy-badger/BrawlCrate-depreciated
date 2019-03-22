@@ -31,7 +31,7 @@ namespace BrawlCrate
                 ));
             _menu.Items.Add(new ToolStripMenuItem("&Import", null,
                 new ToolStripMenuItem("Texture", null, ImportTextureAction),
-                new ToolStripMenuItem("Color Smashable Textures", null, ImportCSTexturesAction),
+                new ToolStripMenuItem("Color Smashable Textures", null, ImportColorSmashableTexturesAction),
                 new ToolStripMenuItem("Model", null, ImportModelAction),
                 new ToolStripMenuItem("Model Animation", null, ImportChrAction),
                 new ToolStripMenuItem("Texture Animation", null, ImportSrtAction),
@@ -73,7 +73,7 @@ namespace BrawlCrate
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
-        protected static void ImportCSTexturesAction(object sender, EventArgs e) { GetInstance<BRESWrapper>().ImportCSTextures(); }
+        protected static void ImportColorSmashableTexturesAction(object sender, EventArgs e) { GetInstance<BRESWrapper>().ImportColorSmashableTextures(); }
         protected static void ImportTextureAction(object sender, EventArgs e) { GetInstance<BRESWrapper>().ImportTexture(); }
         protected static void ImportModelAction(object sender, EventArgs e) { GetInstance<BRESWrapper>().ImportModel(); }
         protected static void ImportChrAction(object sender, EventArgs e) { GetInstance<BRESWrapper>().ImportChr(); }
@@ -185,7 +185,7 @@ namespace BrawlCrate
                 }
         }
         
-        public void ImportCSTextures()
+        public void ImportColorSmashableTextures()
         {
             OpenFileDialog _openDlg = new OpenFileDialog();
             _openDlg.Multiselect = true;
