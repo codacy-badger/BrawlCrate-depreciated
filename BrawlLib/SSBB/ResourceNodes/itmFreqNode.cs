@@ -9,12 +9,12 @@ namespace BrawlLib.SSBB.ResourceNodes
     public unsafe class ItmFreqNode : ARCEntryNode
     {
         public override ResourceType ResourceType { get { return ResourceType.ItemFreqNode; } }
-        internal ItmFreqHeader* Header { get { return (ItmFreqHeader*)WorkingUncompressed.Address; } }
+        //internal ItmFreqHeader* Header { get { return (ItmFreqHeader*)WorkingUncompressed.Address; } }
         internal ItmFreqTableList* TList
         {
             get
             {
-                return (ItmFreqTableList*)(WorkingUncompressed.Address + Header->_DataLength - 0x08);
+                return (ItmFreqTableList*)(WorkingUncompressed.Address + _dataLength - 0x08);
             }
         }
         ItmFreqOffEntry _t1, _t2, _t3, _t4, _t5;
@@ -42,6 +42,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             base.OnInitialize();
 
+            ItmFreqHeader* Header = (ItmFreqHeader*)WorkingUncompressed.Address;
             _dataLength = Header->_DataLength;
             _fileSize = Header->_Length;
             _DTableCount = Header->_DataTable;
@@ -159,7 +160,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
     public unsafe class TableNode : ItmFreqBaseNode
     {
-        internal ItmFreqOffEntry* Header { get { return (ItmFreqOffEntry*)WorkingUncompressed.Address; } }
+        //internal ItmFreqOffEntry* Header { get { return (ItmFreqOffEntry*)WorkingUncompressed.Address; } }
         public override ResourceType ResourceType { get { return ResourceType.ItemFreqTableNode; } }
 
         private int _entryOffset;
@@ -174,6 +175,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             base.OnInitialize();
 
+            ItmFreqOffEntry* Header = (ItmFreqOffEntry*)WorkingUncompressed.Address;
             _entryOffset = Header->_offset;
             _count = Header->_count;
 
@@ -212,7 +214,7 @@ namespace BrawlLib.SSBB.ResourceNodes
     }
     public unsafe class TableGroupNode : ItmFreqBaseNode
     {
-        internal ItmFreqGroup* Header { get { return (ItmFreqGroup*)WorkingUncompressed.Address; } }
+        //internal ItmFreqGroup* Header { get { return (ItmFreqGroup*)WorkingUncompressed.Address; } }
         public override ResourceType ResourceType { get { return ResourceType.ItemFreqTableGroupNode; } }
 
         private bint _unk0;
@@ -243,6 +245,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             base.OnInitialize();
 
+            ItmFreqGroup* Header = (ItmFreqGroup*)WorkingUncompressed.Address;
             _unk0 = Header->_unknown0;
             _unk1 = Header->_unknown1;
             _unk2 = Header->_unknown2;
@@ -290,7 +293,7 @@ namespace BrawlLib.SSBB.ResourceNodes
     }
     public unsafe class ItmFreqEntryNode : ItmFreqBaseNode
     {
-        internal ItmFreqEntry* Header { get { return (ItmFreqEntry*)WorkingUncompressed.Address; } }
+        //internal ItmFreqEntry* Header { get { return (ItmFreqEntry*)WorkingUncompressed.Address; } }
         public override ResourceType ResourceType { get { return ResourceType.ItemFreqEntryNode; } }
 
         private int _id;
@@ -340,7 +343,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override bool OnInitialize()
         {
             base.OnInitialize();
-
+            ItmFreqEntry* Header = (ItmFreqEntry*)WorkingUncompressed.Address;
             _id = Header->_ID;
             _costumeID = Header->_subItem;
             _frequency = Header->_frequency;
