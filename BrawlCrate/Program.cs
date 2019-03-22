@@ -16,15 +16,13 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.23Hotfix2";
-        public static readonly string UpdateMessage = @"Updated to BrawlCrate v0.23 Hotfix 2! This release:
-- Adds ability to sort items from MDL0 groups and animation entries
-- Adds uncompressed size display for all resource nodes
-- Improve material culling description to be more user-friendly
-- Fix VIS0 context menu having incorrect seperator placement
-- Fully fix color smash utility to definitively have all functionality of the original tool
-- Should fix various issues where rich presence would not terminate correctly
-- (Hotfix 2) Fixes REL Nodes not populating properly
+        public static readonly string TagName = "BrawlCrate_v0.24";
+        public static readonly string UpdateMessage = @"Updated to BrawlCrate v0.24! This release:
+- Redirect Nodes now display more information, and now will redirect to a static node rather than a static index to prevent corruption
+- Can now add Redirect Nodes to an ARC
+- Texture Renderer is now more Brawl-accurate
+- ARCEntry Groups now display more information
+- Fix bugs in which Color Smash wouldn't work under common circumstances
 
 Full changelog can be found in the installation folder: " + '\n' + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 

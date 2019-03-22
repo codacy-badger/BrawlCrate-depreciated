@@ -16,6 +16,22 @@ they be held accountable for the manner in which it is used.
 |************ BrawlCrate Change Log ************|
  ===============================================
  
+ - BrawlCrate v0.24 - (3/21/2019)
+ . ArcEntry Groups are now reflected in the node name for all automatically named ArcEntries
+ . Redirect Nodes now redirect to a specific node, rather than a static index (helps prevent Redirect corruption)
+ . Add ability to add new Redirect Nodes to an ARC
+ . Redirect Nodes are given better names to more properly show what they do
+ . Texture renderer updated to be more Brawl accurate
+   - Textures are now loaded locally from the containing ARC
+   - Textures now only load from BRRES's of the same group
+   - If textures aren't found in an MDL0's containing BRRES, textures now only load from Texture Datas (or Texture Data Redirects)
+ . Previewing a Collision Data now only shows models from the same ARCEntry Group (with redirect support)
+ . HavokData is now parsed as "Havok Data"
+ . AutoMetal setting for models moved to the "G3D Model" section
+ . Fix bug in which the Color Smash Utility wouldn't work if the program wasn't opened directly from the executable
+ . Fix bug where disabling documentation updates would prevent any future updates from being recieved by the program
+ . Fix bug in which if an in-progress download of update files was interrupted, your installation would be deleted
+ 
  - BrawlCrate v0.23 Hotfix 2 - (3/8/2019)
  . Update documentation to v0.23.1
  . Size calculation is now disabled in Compatibility mode
