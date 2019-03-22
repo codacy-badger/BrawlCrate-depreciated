@@ -45,7 +45,7 @@ fn main() {
         return;
     }
     
-    let appPath = options::get_path(matches.opt_str("path")).unwrap_or_else(|error| {
+    let appPath = options::get_path().unwrap_or_else(|error| {
         println!("{}", error);
         std::process::exit(1);
     });
@@ -62,7 +62,7 @@ fn main() {
     let verbose = matches.opt_present("verbose");
     
     let mut input_files: Vec<String> = Vec::new();
-    let inPath = appPath.to_owned() + "cs";
+    let inPath = appPath.to_owned() + "/cs";
 	let paths = fs::read_dir(inPath).unwrap();
     for path in paths {
 		//println!("{}", path.unwrap().path().display().to_string());

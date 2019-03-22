@@ -142,7 +142,7 @@ namespace BrawlCrate.NodeWrappers
             {
                 FileName = AppDomain.CurrentDomain.BaseDirectory + "color_smash.exe",
                 WindowStyle = ProcessWindowStyle.Hidden,
-                Arguments = String.Format("-p " + AppDomain.CurrentDomain.BaseDirectory + " -c RGB5A3"),
+                Arguments = String.Format("-c RGB5A3"),
             });
             csmash.WaitForExit();
             List<int> remainingIDs = new List<int>();
