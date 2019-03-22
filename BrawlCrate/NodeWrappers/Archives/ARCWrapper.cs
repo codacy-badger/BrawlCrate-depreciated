@@ -23,7 +23,7 @@ namespace BrawlCrate
                 new ToolStripMenuItem("BRResource Pack", null, NewBRESAction),
                 new ToolStripMenuItem("BLOC", null, NewBLOCAction),
                 new ToolStripMenuItem("Collision", null, NewCollisionAction),
-                new ToolStripMenuItem("Item Generation", null, NewItemGenerationAction),
+                //new ToolStripMenuItem("Item Generation", null, NewItemGenerationAction),
                 new ToolStripMenuItem("MSBin", null, NewMSBinAction),
                 new ToolStripMenuItem("Redirect", null, NewRedirectAction),
                 new ToolStripMenuItem("SCLA", null,
