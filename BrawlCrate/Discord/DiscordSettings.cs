@@ -46,6 +46,20 @@ namespace BrawlCrate.Discord
             {
                 DiscordController.presence.details = "Idling";
             }
+            else if(Program.RootPath == null)
+            {
+                if (MainForm.Instance.RootNode.ResourceNode is ARCNode && ((ARCNode)MainForm.Instance.RootNode.ResourceNode).IsStage)
+                {
+                    if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("STGRESULT", StringComparison.OrdinalIgnoreCase))
+                        DiscordController.presence.details = workString + " " + "the results screen";
+                    else
+                        DiscordController.presence.details = workString + " " + "a stage";
+                }
+                else
+                {
+                    DiscordController.presence.details = workString + " " + "a new mod";
+                }
+            }
             else if(MainForm.Instance.RootNode.ResourceNode is ARCNode)
             {
                 if (((ARCNode)MainForm.Instance.RootNode.ResourceNode).IsStage)

@@ -23,6 +23,7 @@ namespace BrawlCrate
                 new ToolStripMenuItem("BRResource Pack", null, NewBRESAction),
                 new ToolStripMenuItem("BLOC", null, NewBLOCAction),
                 new ToolStripMenuItem("Collision", null, NewCollisionAction),
+                new ToolStripMenuItem("Item Generation", null, NewItemGenerationAction),
                 new ToolStripMenuItem("MSBin", null, NewMSBinAction),
                 new ToolStripMenuItem("Redirect", null, NewRedirectAction),
                 new ToolStripMenuItem("SCLA", null,
@@ -84,6 +85,7 @@ namespace BrawlCrate
         protected static void NewARCAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewARC(); }
         protected static void NewMSBinAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewMSBin(); }
         protected static void NewCollisionAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewCollision(); }
+        protected static void NewItemGenerationAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewItemGeneration(); }
         protected static void NewBLOCAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewBLOC(); }
         protected static void NewSCLAAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewSCLA(0); }
         protected static void NewSCLAFullAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewSCLA(32); }
@@ -245,6 +247,17 @@ namespace BrawlCrate
         public CollisionNode NewCollision()
         {
             CollisionNode node = new CollisionNode() { FileType = ARCFileType.MiscData };
+            _resource.AddChild(node);
+
+            BaseWrapper w = this.FindResource(node, false);
+            w.EnsureVisible();
+            w.TreeView.SelectedNode = w;
+            return node;
+        }
+        public ItmFreqNode NewItemGeneration()
+        {
+            ItmFreqNode node = new ItmFreqNode() { FileType = ARCFileType.MiscData };
+            node.Name = "Item Generation";
             _resource.AddChild(node);
 
             BaseWrapper w = this.FindResource(node, false);

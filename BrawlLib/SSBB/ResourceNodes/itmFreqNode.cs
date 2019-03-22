@@ -19,6 +19,11 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
         ItmFreqOffEntry _t1, _t2, _t3, _t4, _t5;
 
+        public ItmFreqNode()
+        {
+            for (int i = 0; i < 5; i++)
+                Children.Add(new TableNode() { Name = ("Table [" + i + "]") });
+        }
 
         // Header variables
         bint _dataLength, _fileSize, _DTableCount, _offCount = 0;
@@ -298,12 +303,12 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                return Header->_ID;
+                return _id;
             }
             set
             {
-                if (Header->_ID < 0 || value < 0) return;
-                Header->_ID = value;
+                if (_id < 0 || value < 0) return;
+                _id = value;
                 SignalPropertyChange(); UpdateName();
             }
         }
