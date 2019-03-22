@@ -10,7 +10,7 @@ namespace BrawlLib.SSBB.ResourceNodes
     {
         public override ResourceType ResourceType { get { return ResourceType.ItemFreqNode; } }
         //internal ItmFreqHeader* Header { get { return (ItmFreqHeader*)WorkingUncompressed.Address; } }
-        internal ItmFreqTableList* TList
+        internal ItmFreqTableList* TableList
         {
             get
             {
@@ -52,14 +52,14 @@ namespace BrawlLib.SSBB.ResourceNodes
             _pPointerList = (VoidPtr)BaseAddress + _dataLength;
             _strings.Add("genParamSet");
 
-            _t1 = TList->_table1;
-            _t2 = TList->_table2;
-            _t3 = TList->_table3;
-            _t4 = TList->_table4;
-            _t5 = TList->_table5;
+            _t1 = TableList->_table1;
+            _t2 = TableList->_table2;
+            _t3 = TableList->_table3;
+            _t4 = TableList->_table4;
+            _t5 = TableList->_table5;
 
             for (int i = 0; i < 5; i++)
-                if (TList->Entries[i]._count > 0)
+                if (TableList->Entries[i]._count > 0)
                     _numTables++;
 
             // Add the offsets to the pointers list, then the offset to the table list.
@@ -85,7 +85,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 // if they are not initialized, the size of the file will be thrown off by the
                 // size of the missing entries.
 
-                ItmFreqOffEntry* table = (ItmFreqOffEntry*)((int)TList + (int)(i * 8));
+                ItmFreqOffEntry* table = (ItmFreqOffEntry*)((int)TableList + (int)(i * 8));
                 DataSource TableSource = new DataSource(table, 0x08);
                 new TableNode().Initialize(this, TableSource);
             }
@@ -164,11 +164,11 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override ResourceType ResourceType { get { return ResourceType.ItemFreqTableNode; } }
 
         private int _entryOffset;
-        [Browsable(false)]
+        //[Browsable(false)]
         public int Offset { get { return _entryOffset; } set { _entryOffset = value; SignalPropertyChange(); } }
 
         private int _count;
-        [Browsable(false)]
+        //[Browsable(false)]
         public int Count { get { return _count; } set { _count = value; SignalPropertyChange(); } }
 
         public override bool OnInitialize()

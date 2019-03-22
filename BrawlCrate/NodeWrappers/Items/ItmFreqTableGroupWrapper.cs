@@ -12,8 +12,8 @@ namespace BrawlCrate.NodeWrappers
         static ItmFreqTableGroupWrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("&New Entry", null, NewEntryAction, Keys.Control | Keys.H));
-            _menu.Items.Add(new ToolStripSeparator());
+            //_menu.Items.Add(new ToolStripMenuItem("&New Entry", null, NewEntryAction, Keys.Control | Keys.H));
+            //_menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Export", null, ExportAction, Keys.Control | Keys.E));
             _menu.Items.Add(new ToolStripMenuItem("&Replace", null, ReplaceAction, Keys.Control | Keys.R));
             _menu.Opening += MenuOpening;
