@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.23 Hotfix 2
+BrawlCrate - v0.24 Hotfix 1
 Copyright © 2018 - 2019 soopercool101, MarioDox, Syvkal
 BrawlBox  © 2009 - 2019 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,9 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.24 Hotfix 1 - (3/21/2019)
+ . Fixes bug in which installation paths with spaces would always fail Color Smashing
  
  - BrawlCrate v0.24 - (3/21/2019)
  . ArcEntry Groups are now reflected in the node name for all automatically named ArcEntries

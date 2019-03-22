@@ -16,13 +16,14 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.24";
-        public static readonly string UpdateMessage = @"Updated to BrawlCrate v0.24! This release:
+        public static readonly string TagName = "BrawlCrate_v0.24Hotfix1";
+        public static readonly string UpdateMessage = @"Updated to BrawlCrate v0.24 Hotfix 1! This release:
 - Redirect Nodes now display more information, and now will redirect to a static node rather than a static index to prevent corruption
 - Can now add Redirect Nodes to an ARC
 - Texture Renderer is now more Brawl-accurate
 - ARCEntry Groups now display more information
 - Fix bugs in which Color Smash wouldn't work under common circumstances
+- (Hotfix 1) Fixes bug in which Color Smash would never work if your installation path for BrawlCrate had a space in it
 
 Full changelog can be found in the installation folder: " + '\n' + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
