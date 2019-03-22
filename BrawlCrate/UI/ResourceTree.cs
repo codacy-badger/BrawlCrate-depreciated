@@ -79,6 +79,7 @@ namespace BrawlCrate
                         Resources.GCAM,//55
                         Resources.GITM,
                         Resources.GIB2,
+                        Resources.itembox,
                     });
                 }
                 return _imgList;

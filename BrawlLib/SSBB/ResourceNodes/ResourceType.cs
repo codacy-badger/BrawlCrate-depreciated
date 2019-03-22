@@ -197,5 +197,11 @@
         RSTC = 0x8900,
         RSTCGroup = 0x8901,
         SLTC = 0x8A00,
+
+        // Items
+        ItemFreqNode = 0x8B01,
+        ItemFreqTableNode = 0x8C01,
+        ItemFreqTableGroupNode = 0x8D01,
+        ItemFreqEntryNode = 0x8D3A,
     }
 }

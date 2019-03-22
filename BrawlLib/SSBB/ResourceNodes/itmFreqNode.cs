@@ -8,7 +8,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class ItmFreqNode : ARCEntryNode
     {
-        public override ResourceType ResourceType { get { return ResourceType.NoEditFolder; } }
+        public override ResourceType ResourceType { get { return ResourceType.ItemFreqNode; } }
         internal ItmFreqHeader* Header { get { return (ItmFreqHeader*)WorkingUncompressed.Address; } }
         internal ItmFreqTableList* TList
         {
@@ -155,7 +155,7 @@ namespace BrawlLib.SSBB.ResourceNodes
     public unsafe class TableNode : ItmFreqBaseNode
     {
         internal ItmFreqOffEntry* Header { get { return (ItmFreqOffEntry*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.NoEditFolder; } }
+        public override ResourceType ResourceType { get { return ResourceType.ItemFreqTableNode; } }
 
         private int _entryOffset;
         [Browsable(false)]
@@ -173,7 +173,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             _count = Header->_count;
 
             if (_name == null)
-                _name = String.Format("Table[{0}]", Index);
+                _name = String.Format("Table [{0}]", Index);
 
             return _count > 0;
         }
@@ -208,23 +208,23 @@ namespace BrawlLib.SSBB.ResourceNodes
     public unsafe class TableGroupNode : ItmFreqBaseNode
     {
         internal ItmFreqGroup* Header { get { return (ItmFreqGroup*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.NoEditFolder; } }
+        public override ResourceType ResourceType { get { return ResourceType.ItemFreqTableGroupNode; } }
 
         private bint _unk0;
         [Category("Group Node")]
-        public bint Unknown0 { get { return _unk0; } set { _unk0 = value; SignalPropertyChange(); } }
+        public int Unknown0 { get { return _unk0; } set { _unk0 = value; SignalPropertyChange(); } }
 
         private bint _unk1;
         [Category("Group Node")]
-        public bint Unknown1 { get { return _unk1; } set { _unk1 = value; SignalPropertyChange(); } }
+        public int Unknown1 { get { return _unk1; } set { _unk1 = value; SignalPropertyChange(); } }
 
         private bint _unk2;
         [Category("Group Node")]
-        public bint Unknown2 { get { return _unk2; } set { _unk2 = value; SignalPropertyChange(); } }
+        public int Unknown2 { get { return _unk2; } set { _unk2 = value; SignalPropertyChange(); } }
 
         private bint _unk3;
         [Category("Group Node")]
-        public bint Unknown3 { get { return _unk3; } set { _unk3 = value; SignalPropertyChange(); } }
+        public int Unknown3 { get { return _unk3; } set { _unk3 = value; SignalPropertyChange(); } }
 
         private bint _Offset;
         [Browsable(false)]
@@ -246,7 +246,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             _count = Header->_entryCount;
 
             if (_name == null)
-                _name = String.Format("Group[{0}]", Index);
+                _name = String.Format("Group [{0}]", Index);
 
             return Header->_entryCount > 0;
         }
@@ -286,7 +286,7 @@ namespace BrawlLib.SSBB.ResourceNodes
     public unsafe class ItmFreqEntryNode : ItmFreqBaseNode
     {
         internal ItmFreqEntry* Header { get { return (ItmFreqEntry*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.Unknown; } }
+        public override ResourceType ResourceType { get { return ResourceType.ItemFreqEntryNode; } }
 
         private int _id;
         private Item _item;

@@ -618,6 +618,7 @@
     <None Include="Resources\greyscale\RedirectOff.png" />
     <None Include="Resources\greyscale\SharedTEX0Off.png" />
     <Content Include="Resources\GWAT.png" />
+    <None Include="Resources\itembox.png" />
     <Content Include="Stagebox.ico" />
     <Content Include="OpenTK.dll" />
     <None Include="Resources\SharedTEX0.png" />
