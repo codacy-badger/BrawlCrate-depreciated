@@ -1132,22 +1132,21 @@ namespace BrawlLib.SSBB.ResourceNodes
             List<ResourceNode> nodes = new List<ResourceNode>();
             ResourceNode attemptedArc = null;
             this.EnumTypeInternal(nodes, type);
-            for (int i = 0; i < nodes.Count; i++)
+            if (nodes[0] is BRESEntryNode)
             {
-                if (nodes[i] is ARCEntryNode && ((ARCEntryNode)nodes[i]).GroupID != group)
-                {
-                    nodes.Remove(nodes[i]);
-                    i--;
-                }
-                else if (nodes[i] is BRESEntryNode && ((BRESEntryNode)nodes[i]).BRESNode.GroupID != group)
-                {
-                    nodes.Remove(nodes[i]);
-                    i--;
-                }
+                attemptedArc = ((BRESEntryNode)nodes[0]).BRESNode.Parent;
+            }
+            else if (nodes[0] is ARCEntryNode)
+            {
+                attemptedArc = nodes[0].Parent;
             }
             try
             {
-                if (nodes[0] is BRESEntryNode)
+                if(this is ARCNode)
+                {
+                    attemptedArc = this;
+                }
+                else if (nodes[0] is BRESEntryNode)
                 {
                     attemptedArc = ((BRESEntryNode)nodes[0]).BRESNode.Parent;
                 }
@@ -1155,17 +1154,26 @@ namespace BrawlLib.SSBB.ResourceNodes
                 {
                     attemptedArc = nodes[0].Parent;
                 }
-                if (attemptedArc != null && nodes[0] is MDL0Node)
+                nodes = new List<ResourceNode>();
+                if (attemptedArc != null && type == ResourceType.MDL0)
                 {
                     foreach (ARCEntryNode a in attemptedArc.Children)
                     {
                         if (a.GroupID == group)
                         {
-                            if (a.RedirectIndex != -1)
+                            if (a is BRRESNode)
+                            {
+                                foreach (MDL0Node m in ((BRRESNode)a).GetFolder<MDL0Node>().Children)
+                                {
+                                    nodes.Add(m);
+                                }
+                            }
+                            else if (a.RedirectTargetNode != null)
                             {
                                 try
                                 {
-                                    ARCEntryNode tempBres = ((ARCEntryNode)attemptedArc.Children[a.RedirectIndex]);
+                                    ARCEntryNode tempBres = a.RedirectTargetNode;
+                                    RedirectStart:
                                     if (tempBres.GroupID != group)
                                     {
                                         if (tempBres is BRRESNode)
@@ -1174,6 +1182,11 @@ namespace BrawlLib.SSBB.ResourceNodes
                                             {
                                                 nodes.Add(m);
                                             }
+                                        }
+                                        else if(tempBres.RedirectTargetNode != null)
+                                        {
+                                            tempBres = tempBres.RedirectTargetNode;
+                                            goto RedirectStart;
                                         }
                                     }
                                 }
@@ -1185,9 +1198,8 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
             catch
             {
-                attemptedArc = null;
+
             }
-            List<ResourceNode> allNodes = new List<ResourceNode>();
 
             return nodes.ToArray();
         }
