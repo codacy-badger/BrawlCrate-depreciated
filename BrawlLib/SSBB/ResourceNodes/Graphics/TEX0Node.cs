@@ -493,8 +493,19 @@ namespace BrawlLib.SSBB.ResourceNodes
                 using (Bitmap bmp = GetImage(0)) bmp.Save(outPath, ImageFormat.Jpeg);
             else if (outPath.EndsWith(".gif"))
                 using (Bitmap bmp = GetImage(0)) bmp.Save(outPath, ImageFormat.Gif);
+            else if (outPath.EndsWith(".brres"))
+                ExportBrres(outPath);
             else
                 base.Export(outPath);
+        }
+
+        public void ExportBrres(string outPath)
+        {
+            BRRESNode export = new BRRESNode();
+            export.GetOrCreateFolder<TEX0Node>().AddChild(NodeFactory.FromAddress(null, WorkingUncompressed.Address, WorkingUncompressed.Length));
+            if (HasPalette && GetPaletteNode() != null)
+                export.GetOrCreateFolder<PLT0Node>().AddChild(NodeFactory.FromAddress(null, GetPaletteNode().WorkingUncompressed.Address, GetPaletteNode().WorkingUncompressed.Length));
+            export.Export(outPath);
         }
 
         internal static ResourceNode TryParse(DataSource source) { return ((TEX0v1*)source.Address)->_header._tag == TEX0v1.Tag ? new TEX0Node() : null; }

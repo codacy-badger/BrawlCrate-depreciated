@@ -1063,7 +1063,14 @@ namespace BrawlCrate
 
         private void recentFilesToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            Program.Open(((RecentFileHandler.FileMenuItem)e.ClickedItem).FileName);
+            if (File.Exists(((RecentFileHandler.FileMenuItem)e.ClickedItem).FileName))
+            {
+                Program.Open(((RecentFileHandler.FileMenuItem)e.ClickedItem).FileName);
+            }
+            else
+            {
+                MessageBox.Show("File does not exist.");
+            }
         }
 
         private void checkForUpdatesToolStripMenuItem_Click_1(object sender, EventArgs e)

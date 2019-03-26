@@ -11,7 +11,7 @@ namespace BrawlLib
         public static string MDL0Export = 
             SupportedFilesHandler.GetCompleteFilter("mdl0", "dae");
         public static string TEX0 =
-            SupportedFilesHandler.GetCompleteFilter("png", "tga", "tif", "bmp", "jpg", "gif", "tex0");
+            SupportedFilesHandler.GetCompleteFilter("png", "tga", "tif", "bmp", "jpg", "gif", "tex0", "brres");
         public static string PLT0 =
             SupportedFilesHandler.GetCompleteFilter("plt0");
         public static string CHR0Import = 
