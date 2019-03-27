@@ -103,10 +103,15 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         [Category("STPM Data")]
+        [LocalizedDisplayName("Echo")]
         public byte Echo { get { return echo; } set { echo = value; SignalPropertyChange(); } }
+
         [Category("STPM Data")]
+        [LocalizedDisplayName("ID1")]
         public ushort Id1 { get { return id; } set { id = value; SignalPropertyChange(); } }
+
         [Category("STPM Data")]
+        [LocalizedDisplayName("ID2")]
         public byte Id2 { get { return id2; } set { id2 = value; SignalPropertyChange(); } }
         
         [Category("STPM Values")]
@@ -130,6 +135,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [Category("STPM Values")]
         public float CameraFOV { get { return _values.GetFloat(9); } set { _values.SetFloat(9, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
+        [LocalizedDisplayName("STPMVal10")]
         public float MinimumZ { get { return _values.GetFloat(10); } set { _values.SetFloat(10, value); SignalPropertyChange(); } }
         [Category("STPM Values")]
         public float MaximumZ { get { return _values.GetFloat(11); } set { _values.SetFloat(11, value); SignalPropertyChange(); } }

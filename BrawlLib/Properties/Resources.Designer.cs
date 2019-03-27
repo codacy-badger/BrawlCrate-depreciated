@@ -401,5 +401,41 @@ namespace BrawlLib.Properties {
                 return ResourceManager.GetString("CollisionTypeRightWall", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Echo.
+        /// </summary>
+        public static string Echo {
+            get {
+                return ResourceManager.GetString("Echo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID 1.
+        /// </summary>
+        public static string ID1 {
+            get {
+                return ResourceManager.GetString("ID1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID 2.
+        /// </summary>
+        public static string ID2 {
+            get {
+                return ResourceManager.GetString("ID2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum Z.
+        /// </summary>
+        public static string STPMVal10 {
+            get {
+                return ResourceManager.GetString("STPMVal10", resourceCulture);
+            }
+        }
     }
 }

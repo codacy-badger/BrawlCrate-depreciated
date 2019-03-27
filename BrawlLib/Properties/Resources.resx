@@ -269,4 +269,8 @@
     <value>Right Wall</value>
     <comment>Right Wall</comment>
   </data>
+  <data name="STPMVal10" xml:space="preserve">
+    <value>Minimum Z</value>
+    <comment>Minimum Z</comment>
+  </data>
 </root>
