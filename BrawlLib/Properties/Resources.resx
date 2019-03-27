@@ -269,6 +269,18 @@
     <value>Right Wall</value>
     <comment>Right Wall</comment>
   </data>
+  <data name="Echo" xml:space="preserve">
+    <value>Echo</value>
+    <comment>Echo</comment>
+  </data>
+  <data name="ID1" xml:space="preserve">
+    <value>ID 1</value>
+    <comment>ID 1</comment>
+  </data>
+  <data name="ID2" xml:space="preserve">
+    <value>ID 2</value>
+    <comment>ID 2</comment>
+  </data>
   <data name="STPMVal10" xml:space="preserve">
     <value>Minimum Z</value>
     <comment>Minimum Z</comment>
