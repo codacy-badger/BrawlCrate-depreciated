@@ -281,8 +281,284 @@
     <value>ID 2</value>
     <comment>ID 2</comment>
   </data>
+  <data name="STPMData" xml:space="preserve">
+    <value>STPM Data</value>
+    <comment>STPM Data (Category)</comment>
+  </data>
+  <data name="STPMEntry" xml:space="preserve">
+    <value>STPM Entry</value>
+    <comment>STPM Entry</comment>
+  </data>
+  <data name="STPMVal01" xml:space="preserve">
+    <value>Value 1</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal02" xml:space="preserve">
+    <value>Value 2</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal03" xml:space="preserve">
+    <value>Value 3</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal04" xml:space="preserve">
+    <value>Value 4</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal05" xml:space="preserve">
+    <value>Value 5</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal06" xml:space="preserve">
+    <value>Shadow Vertical Angle</value>
+    <comment>Shadow Vertical Angle</comment>
+  </data>
+  <data name="STPMVal07" xml:space="preserve">
+    <value>Shadow Horizontal Angle</value>
+    <comment>Shadow Horizontal Angle</comment>
+  </data>
+  <data name="STPMVal08" xml:space="preserve">
+    <value>Value 8</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal09" xml:space="preserve">
+    <value>Value 9</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
   <data name="STPMVal10" xml:space="preserve">
-    <value>Minimum Z</value>
-    <comment>Minimum Z</comment>
+    <value>Camera FOV</value>
+    <comment>Camera FOV</comment>
+  </data>
+  <data name="STPMVal11" xml:space="preserve">
+    <value>Camera Minimum Z</value>
+    <comment>Camera Minimum Z</comment>
+  </data>
+  <data name="STPMVal12" xml:space="preserve">
+    <value>Camera Maximum Z</value>
+    <comment>Camera Maximum Z</comment>
+  </data>
+  <data name="STPMVal13" xml:space="preserve">
+    <value>Camera Minimum Tilt</value>
+    <comment>Camera Minimum Tilt</comment>
+  </data>
+  <data name="STPMVal14" xml:space="preserve">
+    <value>Camera Maximum Tilt</value>
+    <comment>Camera Maximum Tilt</comment>
+  </data>
+  <data name="STPMVal15" xml:space="preserve">
+    <value>Horizontal Rotation Factor</value>
+    <comment>Horizontal Rotation Factor</comment>
+  </data>
+  <data name="STPMVal16" xml:space="preserve">
+    <value>Vertical Rotation Factor</value>
+    <comment>Vertical Rotation Factor</comment>
+  </data>
+  <data name="STPMVal17" xml:space="preserve">
+    <value>Character Bubble Buffer Multiplier</value>
+    <comment>Character Bubble Buffer Multiplier</comment>
+  </data>
+  <data name="STPMVal18" xml:space="preserve">
+    <value>Value 18</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal19" xml:space="preserve">
+    <value>Camera Speed</value>
+    <comment>Camera Speed</comment>
+  </data>
+  <data name="STPMVal20" xml:space="preserve">
+    <value>Star KO Camera Tilt</value>
+    <comment>Star KO Camera Tilt</comment>
+  </data>
+  <data name="STPMVal21" xml:space="preserve">
+    <value>Final Smash Camera Tilt</value>
+    <comment>Final Smash Camera Tilt</comment>
+  </data>
+  <data name="STPMVal22" xml:space="preserve">
+    <value>Camera Right Boundary</value>
+    <comment>Camera Right Boundary</comment>
+  </data>
+  <data name="STPMVal23" xml:space="preserve">
+    <value>Camera Left Boundary</value>
+    <comment>Camera Left Boundary</comment>
+  </data>
+  <data name="STPMVal24" xml:space="preserve">
+    <value>Pause Camera Default X</value>
+    <comment>Default X-Value for the Pause Camera</comment>
+  </data>
+  <data name="STPMVal25" xml:space="preserve">
+    <value>Pause Camera Default Y</value>
+    <comment>Default Y-Value for the Pause Camera</comment>
+  </data>
+  <data name="STPMVal26" xml:space="preserve">
+    <value>Pause Camera Default Z</value>
+    <comment>Default Z-Value for the Pause Camera</comment>
+  </data>
+  <data name="STPMVal27" xml:space="preserve">
+    <value>Pause Camera Default Angle</value>
+    <comment>Default Angle for the Pause Camera</comment>
+  </data>
+  <data name="STPMVal28" xml:space="preserve">
+    <value>Pause Camera Zoom In</value>
+    <comment>Maximum zoom-in for the Pause Camera</comment>
+  </data>
+  <data name="STPMVal29" xml:space="preserve">
+    <value>Pause Camera Default Zoom</value>
+    <comment>Default zoom for the Pause Camera</comment>
+  </data>
+  <data name="STPMVal30" xml:space="preserve">
+    <value>Pause Camera Zoom Out</value>
+    <comment>Maximum zoom-out for the Pause Camera</comment>
+  </data>
+  <data name="STPMVal31" xml:space="preserve">
+    <value>Value 31</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal32" xml:space="preserve">
+    <value>Value 32</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal33" xml:space="preserve">
+    <value>Value 33</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal34" xml:space="preserve">
+    <value>Value 34</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal35" xml:space="preserve">
+    <value>Value 35</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal36" xml:space="preserve">
+    <value>Value 36</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal37" xml:space="preserve">
+    <value>Value 37</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal38" xml:space="preserve">
+    <value>Value 38</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal39" xml:space="preserve">
+    <value>Value 39</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal40" xml:space="preserve">
+    <value>Value 40</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal41" xml:space="preserve">
+    <value>Value 41</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal42" xml:space="preserve">
+    <value>Value 42</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal43" xml:space="preserve">
+    <value>Value 43</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal44" xml:space="preserve">
+    <value>Value 44</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal45" xml:space="preserve">
+    <value>Value 45</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal46" xml:space="preserve">
+    <value>Value 46</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal47" xml:space="preserve">
+    <value>Value 47</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal48" xml:space="preserve">
+    <value>Value 48</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal49" xml:space="preserve">
+    <value>Value 49</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal50a" xml:space="preserve">
+    <value>Value 50a</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal50b" xml:space="preserve">
+    <value>Value 50b</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal50c" xml:space="preserve">
+    <value>Value 50c</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal50d" xml:space="preserve">
+    <value>Value 50d</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal51" xml:space="preserve">
+    <value>Value 51</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal52" xml:space="preserve">
+    <value>Value 52</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal53" xml:space="preserve">
+    <value>Value 53</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal54" xml:space="preserve">
+    <value>Value 54</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal55" xml:space="preserve">
+    <value>Value 55</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal56" xml:space="preserve">
+    <value>Value 56</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal57" xml:space="preserve">
+    <value>Value 57</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal58" xml:space="preserve">
+    <value>Value 58</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal59" xml:space="preserve">
+    <value>Value 59</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal60" xml:space="preserve">
+    <value>Value 60</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal61" xml:space="preserve">
+    <value>Value 61</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal62" xml:space="preserve">
+    <value>Value 62</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal63" xml:space="preserve">
+    <value>Value 63</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMVal64" xml:space="preserve">
+    <value>Value 64</value>
+    <comment>Unknown STPM Value</comment>
+  </data>
+  <data name="STPMValues" xml:space="preserve">
+    <value>STPM Values</value>
+    <comment>STPM Values (Category)</comment>
   </data>
 </root>

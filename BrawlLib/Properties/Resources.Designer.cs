@@ -430,11 +430,632 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Minimum Z.
+        ///   Looks up a localized string similar to STPM Data.
+        /// </summary>
+        public static string STPMData {
+            get {
+                return ResourceManager.GetString("STPMData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to STPM Entry.
+        /// </summary>
+        public static string STPMEntry {
+            get {
+                return ResourceManager.GetString("STPMEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 1.
+        /// </summary>
+        public static string STPMVal01 {
+            get {
+                return ResourceManager.GetString("STPMVal01", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 2.
+        /// </summary>
+        public static string STPMVal02 {
+            get {
+                return ResourceManager.GetString("STPMVal02", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 3.
+        /// </summary>
+        public static string STPMVal03 {
+            get {
+                return ResourceManager.GetString("STPMVal03", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 4.
+        /// </summary>
+        public static string STPMVal04 {
+            get {
+                return ResourceManager.GetString("STPMVal04", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 5.
+        /// </summary>
+        public static string STPMVal05 {
+            get {
+                return ResourceManager.GetString("STPMVal05", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shadow Vertical Angle.
+        /// </summary>
+        public static string STPMVal06 {
+            get {
+                return ResourceManager.GetString("STPMVal06", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shadow Horizontal Angle.
+        /// </summary>
+        public static string STPMVal07 {
+            get {
+                return ResourceManager.GetString("STPMVal07", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 8.
+        /// </summary>
+        public static string STPMVal08 {
+            get {
+                return ResourceManager.GetString("STPMVal08", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 9.
+        /// </summary>
+        public static string STPMVal09 {
+            get {
+                return ResourceManager.GetString("STPMVal09", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Camera FOV.
         /// </summary>
         public static string STPMVal10 {
             get {
                 return ResourceManager.GetString("STPMVal10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Camera Minimum Z.
+        /// </summary>
+        public static string STPMVal11 {
+            get {
+                return ResourceManager.GetString("STPMVal11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Camera Maximum Z.
+        /// </summary>
+        public static string STPMVal12 {
+            get {
+                return ResourceManager.GetString("STPMVal12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Camera Minimum Tilt.
+        /// </summary>
+        public static string STPMVal13 {
+            get {
+                return ResourceManager.GetString("STPMVal13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Camera Maximum Tilt.
+        /// </summary>
+        public static string STPMVal14 {
+            get {
+                return ResourceManager.GetString("STPMVal14", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Horizontal Rotation Factor.
+        /// </summary>
+        public static string STPMVal15 {
+            get {
+                return ResourceManager.GetString("STPMVal15", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vertical Rotation Factor.
+        /// </summary>
+        public static string STPMVal16 {
+            get {
+                return ResourceManager.GetString("STPMVal16", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Character Bubble Buffer Multiplier.
+        /// </summary>
+        public static string STPMVal17 {
+            get {
+                return ResourceManager.GetString("STPMVal17", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 18.
+        /// </summary>
+        public static string STPMVal18 {
+            get {
+                return ResourceManager.GetString("STPMVal18", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Camera Speed.
+        /// </summary>
+        public static string STPMVal19 {
+            get {
+                return ResourceManager.GetString("STPMVal19", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Star KO Camera Tilt.
+        /// </summary>
+        public static string STPMVal20 {
+            get {
+                return ResourceManager.GetString("STPMVal20", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Final Smash Camera Tilt.
+        /// </summary>
+        public static string STPMVal21 {
+            get {
+                return ResourceManager.GetString("STPMVal21", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Camera Right Boundary.
+        /// </summary>
+        public static string STPMVal22 {
+            get {
+                return ResourceManager.GetString("STPMVal22", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Camera Left Boundary.
+        /// </summary>
+        public static string STPMVal23 {
+            get {
+                return ResourceManager.GetString("STPMVal23", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause Camera Default X.
+        /// </summary>
+        public static string STPMVal24 {
+            get {
+                return ResourceManager.GetString("STPMVal24", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause Camera Default Y.
+        /// </summary>
+        public static string STPMVal25 {
+            get {
+                return ResourceManager.GetString("STPMVal25", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause Camera Default Z.
+        /// </summary>
+        public static string STPMVal26 {
+            get {
+                return ResourceManager.GetString("STPMVal26", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause Camera Default Angle.
+        /// </summary>
+        public static string STPMVal27 {
+            get {
+                return ResourceManager.GetString("STPMVal27", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause Camera Zoom In.
+        /// </summary>
+        public static string STPMVal28 {
+            get {
+                return ResourceManager.GetString("STPMVal28", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause Camera Default Zoom.
+        /// </summary>
+        public static string STPMVal29 {
+            get {
+                return ResourceManager.GetString("STPMVal29", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause Camera Zoom Out.
+        /// </summary>
+        public static string STPMVal30 {
+            get {
+                return ResourceManager.GetString("STPMVal30", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 31.
+        /// </summary>
+        public static string STPMVal31 {
+            get {
+                return ResourceManager.GetString("STPMVal31", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 32.
+        /// </summary>
+        public static string STPMVal32 {
+            get {
+                return ResourceManager.GetString("STPMVal32", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 33.
+        /// </summary>
+        public static string STPMVal33 {
+            get {
+                return ResourceManager.GetString("STPMVal33", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 34.
+        /// </summary>
+        public static string STPMVal34 {
+            get {
+                return ResourceManager.GetString("STPMVal34", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 35.
+        /// </summary>
+        public static string STPMVal35 {
+            get {
+                return ResourceManager.GetString("STPMVal35", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 36.
+        /// </summary>
+        public static string STPMVal36 {
+            get {
+                return ResourceManager.GetString("STPMVal36", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 37.
+        /// </summary>
+        public static string STPMVal37 {
+            get {
+                return ResourceManager.GetString("STPMVal37", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 38.
+        /// </summary>
+        public static string STPMVal38 {
+            get {
+                return ResourceManager.GetString("STPMVal38", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 39.
+        /// </summary>
+        public static string STPMVal39 {
+            get {
+                return ResourceManager.GetString("STPMVal39", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 40.
+        /// </summary>
+        public static string STPMVal40 {
+            get {
+                return ResourceManager.GetString("STPMVal40", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 41.
+        /// </summary>
+        public static string STPMVal41 {
+            get {
+                return ResourceManager.GetString("STPMVal41", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 42.
+        /// </summary>
+        public static string STPMVal42 {
+            get {
+                return ResourceManager.GetString("STPMVal42", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 43.
+        /// </summary>
+        public static string STPMVal43 {
+            get {
+                return ResourceManager.GetString("STPMVal43", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 44.
+        /// </summary>
+        public static string STPMVal44 {
+            get {
+                return ResourceManager.GetString("STPMVal44", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 45.
+        /// </summary>
+        public static string STPMVal45 {
+            get {
+                return ResourceManager.GetString("STPMVal45", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 46.
+        /// </summary>
+        public static string STPMVal46 {
+            get {
+                return ResourceManager.GetString("STPMVal46", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 47.
+        /// </summary>
+        public static string STPMVal47 {
+            get {
+                return ResourceManager.GetString("STPMVal47", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 48.
+        /// </summary>
+        public static string STPMVal48 {
+            get {
+                return ResourceManager.GetString("STPMVal48", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 49.
+        /// </summary>
+        public static string STPMVal49 {
+            get {
+                return ResourceManager.GetString("STPMVal49", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 50a.
+        /// </summary>
+        public static string STPMVal50a {
+            get {
+                return ResourceManager.GetString("STPMVal50a", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 50b.
+        /// </summary>
+        public static string STPMVal50b {
+            get {
+                return ResourceManager.GetString("STPMVal50b", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 50c.
+        /// </summary>
+        public static string STPMVal50c {
+            get {
+                return ResourceManager.GetString("STPMVal50c", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 50d.
+        /// </summary>
+        public static string STPMVal50d {
+            get {
+                return ResourceManager.GetString("STPMVal50d", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 51.
+        /// </summary>
+        public static string STPMVal51 {
+            get {
+                return ResourceManager.GetString("STPMVal51", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 52.
+        /// </summary>
+        public static string STPMVal52 {
+            get {
+                return ResourceManager.GetString("STPMVal52", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 53.
+        /// </summary>
+        public static string STPMVal53 {
+            get {
+                return ResourceManager.GetString("STPMVal53", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 54.
+        /// </summary>
+        public static string STPMVal54 {
+            get {
+                return ResourceManager.GetString("STPMVal54", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 55.
+        /// </summary>
+        public static string STPMVal55 {
+            get {
+                return ResourceManager.GetString("STPMVal55", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 56.
+        /// </summary>
+        public static string STPMVal56 {
+            get {
+                return ResourceManager.GetString("STPMVal56", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 57.
+        /// </summary>
+        public static string STPMVal57 {
+            get {
+                return ResourceManager.GetString("STPMVal57", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 58.
+        /// </summary>
+        public static string STPMVal58 {
+            get {
+                return ResourceManager.GetString("STPMVal58", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 59.
+        /// </summary>
+        public static string STPMVal59 {
+            get {
+                return ResourceManager.GetString("STPMVal59", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 60.
+        /// </summary>
+        public static string STPMVal60 {
+            get {
+                return ResourceManager.GetString("STPMVal60", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 61.
+        /// </summary>
+        public static string STPMVal61 {
+            get {
+                return ResourceManager.GetString("STPMVal61", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 62.
+        /// </summary>
+        public static string STPMVal62 {
+            get {
+                return ResourceManager.GetString("STPMVal62", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 63.
+        /// </summary>
+        public static string STPMVal63 {
+            get {
+                return ResourceManager.GetString("STPMVal63", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value 64.
+        /// </summary>
+        public static string STPMVal64 {
+            get {
+                return ResourceManager.GetString("STPMVal64", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to STPM Values.
+        /// </summary>
+        public static string STPMValues {
+            get {
+                return ResourceManager.GetString("STPMValues", resourceCulture);
             }
         }
     }
