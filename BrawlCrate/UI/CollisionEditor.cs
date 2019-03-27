@@ -687,6 +687,8 @@ namespace System.Windows.Forms
             this.cboMaterial.Size = new System.Drawing.Size(139, 21);
             this.cboMaterial.TabIndex = 12;
             this.cboMaterial.SelectedIndexChanged += new System.EventHandler(this.cboMaterial_SelectedIndexChanged);
+            this.cboMaterial.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)
+            | System.Windows.Forms.AnchorStyles.Left)));
             // 
             // cboType
             // 
@@ -697,6 +699,8 @@ namespace System.Windows.Forms
             this.cboType.Size = new System.Drawing.Size(139, 21);
             this.cboType.TabIndex = 5;
             this.cboType.SelectedIndexChanged += new System.EventHandler(this.cboType_SelectedIndexChanged);
+            this.cboType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)
+            | System.Windows.Forms.AnchorStyles.Left)));
             // 
             // label5
             // 

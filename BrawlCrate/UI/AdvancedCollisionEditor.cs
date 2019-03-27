@@ -167,6 +167,8 @@ namespace System.Windows.Forms
             this.cboMaterial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboMaterial.Location = new System.Drawing.Point(59, 4);
             this.cboMaterial.Name = "cboMaterial";
+            this.cboMaterial.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)
+            | System.Windows.Forms.AnchorStyles.Left)));
             // 
             // label5
             // 
