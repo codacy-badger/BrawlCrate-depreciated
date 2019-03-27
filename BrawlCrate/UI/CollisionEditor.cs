@@ -1355,7 +1355,7 @@ namespace System.Windows.Forms
             pnlPointProps.Dock = DockStyle.Fill;
 
             _updating = true;
-            cboMaterial.DataSource = Enum.GetValues(typeof(CollisionPlaneMaterialUnexpanded));
+            cboMaterial.DataSource = CollisionTerrain.Terrains.Take(0x20).ToList(); // Take unexpanded collisions
             cboType.DataSource = Enum.GetValues(typeof(CollisionPlaneType));
             _updating = false;
         }
@@ -1427,17 +1427,11 @@ namespace System.Windows.Forms
                 }
                 CollisionPlane p = _selectedPlanes[0];
 
-                //Material
-                if((byte)p._material >= 32)
-                {
-                    // Select basic by default (currently cannot display expanded collisions in default previewer)
-                    cboMaterial.SelectedItem = (CollisionPlaneMaterialUnexpanded)(0x0);
-                }
-                else
-                {
-                    // Otherwise convert to the proper place in the unexpanded list
-                    cboMaterial.SelectedItem = (CollisionPlaneMaterialUnexpanded)((byte)p._material);
-                }
+                if ((byte)p._material >= 32 && cboMaterial.Items.Count <= 32)
+                    cboMaterial.DataSource = CollisionTerrain.Terrains.ToList(); // Get the expanded collisions if they're used
+                else if (cboMaterial.Items.Count > 32)
+                    cboMaterial.DataSource = CollisionTerrain.Terrains.Take(0x20).ToList(); // Take unexpanded collisions
+                cboMaterial.SelectedItem = cboMaterial.Items[p._material];
                 //Type
                 cboType.SelectedItem = p.Type;
                 //Flags
@@ -2590,7 +2584,7 @@ namespace System.Windows.Forms
         {
             if (_updating) return;
             foreach (CollisionPlane plane in _selectedPlanes)
-                plane._material = (CollisionPlaneMaterial)((byte)cboMaterial.SelectedItem);
+                plane._material = ((CollisionTerrain)cboMaterial.SelectedItem).ID;
             TargetNode.SignalPropertyChange();
         }
         protected void cboType_SelectedIndexChanged(object sender, EventArgs e)

@@ -791,6 +791,15 @@ namespace BrawlCrate.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BrawlCrate.
+        /// </summary>
+        public static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap TPL {

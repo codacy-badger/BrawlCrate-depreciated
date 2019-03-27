@@ -59,7 +59,17 @@ namespace BrawlLib.SSBB.ResourceNodes
                 offset += _entrySize;
             }
         }
-        
+
+        public SCLAEntryNode FindSCLAEntry(uint id)
+        {
+            if (Children == null || Children.Count == 0)
+                return null;
+            foreach (SCLAEntryNode se in Children)
+                if (se.CollisionMaterialID == id)
+                    return se;
+            return null;
+        }
+
         // Fill missing SCLA entries with default values
         public void FillSCLA(uint amount)
         {
@@ -88,6 +98,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         internal static ResourceNode TryParse(DataSource source) { return ((SCLA*)source.Address)->_tag == SCLA.Tag ? new SCLANode() : null; }
+
     }
 
     public unsafe class SCLAEntryNode : ResourceNode
@@ -172,32 +183,20 @@ namespace BrawlLib.SSBB.ResourceNodes
             return false;
         }
         
-        private void generateSCLAEntry_name() {
-            if(_index >= 0 && _index <= 255)
-            {
-                byte _indexTest;
-                _indexTest = (byte)_index;
-                if (Enum.IsDefined(typeof(CollisionPlaneMaterial), _indexTest))
-                {
-                    _name = ((CollisionPlaneMaterial)_index).ToString() + " [" + _index + "]";
-                    return;
-                }
-            }
-            _name = "Entry [" + _index + "]";
+        private void generateSCLAEntry_name()
+        {
+            if (_index >= 0 && _index <= 255)
+                _name = CollisionTerrain.Terrains[_index].Name + " [" + _index + "]";
+            else
+                _name = "Entry [" + _index + "]";
         }
         
-        private void generateSCLAEntryName() {
-            if(_index >= 0 && _index <= 255)
-            {
-                byte _indexTest;
-                _indexTest = (byte)_index;
-                if (Enum.IsDefined(typeof(CollisionPlaneMaterial), _indexTest))
-                {
-                    Name = ((CollisionPlaneMaterial)_index).ToString() + " [" + _index + "]";
-                    return;
-                }
-            }
-            Name = "Entry [" + _index + "]";
+        private void generateSCLAEntryName()
+        {
+            if (_index >= 0 && _index <= 255)
+                Name = CollisionTerrain.Terrains[_index].Name + " [" + _index + "]";
+            else
+                Name = "Entry [" + _index + "]";
         }
 
         public override int OnCalculateSize(bool force, bool rebuilding = true)
