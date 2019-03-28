@@ -313,6 +313,50 @@
     <value>None</value>
     <comment>None (As in ArcEntryType)</comment>
   </data>
+  <data name="NW4R3DModels" xml:space="preserve">
+    <value>3D Models (NW4R)</value>
+    <comment>Models BRRES Group</comment>
+  </data>
+  <data name="NW4RAnmChr" xml:space="preserve">
+    <value>Bone Animations (NW4R)</value>
+    <comment>CHR0 BRRES Group</comment>
+  </data>
+  <data name="NW4RAnmClr" xml:space="preserve">
+    <value>Color Animations (NW4R)</value>
+    <comment>CLR0 BRRES Group</comment>
+  </data>
+  <data name="NW4RAnmPat" xml:space="preserve">
+    <value>Texture Pattern Animations (NW4R)</value>
+    <comment>PAT0 BRRES Group</comment>
+  </data>
+  <data name="NW4RAnmScn" xml:space="preserve">
+    <value>Scene Animations (NW4R)</value>
+    <comment>SCN0 BRRES Group</comment>
+  </data>
+  <data name="NW4RAnmShp" xml:space="preserve">
+    <value>Vertex Animations (NW4R)</value>
+    <comment>SHP0 BRRES Group</comment>
+  </data>
+  <data name="NW4RAnmTexSrt" xml:space="preserve">
+    <value>Texture Animations (NW4R)</value>
+    <comment>SRT0 BRRES Group</comment>
+  </data>
+  <data name="NW4RAnmVis" xml:space="preserve">
+    <value>Visibility Animations (NW4R)</value>
+    <comment>VIS0 BRRES Group</comment>
+  </data>
+  <data name="NW4RExternal" xml:space="preserve">
+    <value>External References</value>
+    <comment>External BRRES Group</comment>
+  </data>
+  <data name="NW4RPalettes" xml:space="preserve">
+    <value>Palettes</value>
+    <comment>Palette BRRES Group</comment>
+  </data>
+  <data name="NW4RTextures" xml:space="preserve">
+    <value>Textures</value>
+    <comment>Texture BRRES Group</comment>
+  </data>
   <data name="Redirect" xml:space="preserve">
     <value>Redirect</value>
     <comment>Redirect Node</comment>
@@ -624,6 +668,10 @@
   <data name="Type6" xml:space="preserve">
     <value>Type 6</value>
     <comment>Type 6 ArcEntry (unknown usage)</comment>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unknown</value>
+    <comment>Unknown</comment>
   </data>
   <data name="UnknownData" xml:space="preserve">
     <value>Unknown Data</value>

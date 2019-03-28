@@ -730,6 +730,37 @@ namespace BrawlLib.SSBB.ResourceNodes
             return Group->_numEntries > 0;
         }
 
+        public override string DisplayName
+        {
+            get
+            {
+                if (_name == "Textures(NW4R)" || Children[0] is TEX0Node)
+                    return BrawlLib.Properties.Resources.NW4RTextures;
+                else if (_name == "Palettes(NW4R)" || Children[0] is PLT0Node)
+                    return BrawlLib.Properties.Resources.NW4RPalettes;
+                else if (_name == "3DModels(NW4R)" || Children[0] is MDL0Node)
+                    return BrawlLib.Properties.Resources.NW4R3DModels;
+                else if (_name == "AnmChr(NW4R)" || Children[0] is CHR0Node)
+                    return BrawlLib.Properties.Resources.NW4RAnmChr;
+                else if (_name == "AnmClr(NW4R)" || Children[0] is CLR0Node)
+                    return BrawlLib.Properties.Resources.NW4RAnmClr;
+                else if (_name == "AnmTexSrt(NW4R)" || Children[0] is SRT0Node)
+                    return BrawlLib.Properties.Resources.NW4RAnmTexSrt;
+                else if (_name == "AnmShp(NW4R)" || Children[0] is SHP0Node)
+                    return BrawlLib.Properties.Resources.NW4RAnmShp;
+                else if (_name == "AnmVis(NW4R)" || Children[0] is VIS0Node)
+                    return BrawlLib.Properties.Resources.NW4RAnmVis;
+                else if (_name == "AnmScn(NW4R)" || Children[0] is SCN0Node)
+                    return BrawlLib.Properties.Resources.NW4RAnmScn;
+                else if (_name == "AnmPat(NW4R)" || Children[0] is PAT0Node)
+                    return BrawlLib.Properties.Resources.NW4RAnmPat;
+                else if (_name == "External" || Children[0] is RASDNode)
+                    return BrawlLib.Properties.Resources.NW4RExternal;
+                else
+                    return BrawlLib.Properties.Resources.Unknown;
+            }
+        }
+
         public void GetFileType()
         {
             if (_name == "Textures(NW4R)" || Children[0] is TEX0Node)

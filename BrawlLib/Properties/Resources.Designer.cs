@@ -502,6 +502,105 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 3D Models (NW4R).
+        /// </summary>
+        public static string NW4R3DModels {
+            get {
+                return ResourceManager.GetString("NW4R3DModels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bone Animations (NW4R).
+        /// </summary>
+        public static string NW4RAnmChr {
+            get {
+                return ResourceManager.GetString("NW4RAnmChr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color Animations (NW4R).
+        /// </summary>
+        public static string NW4RAnmClr {
+            get {
+                return ResourceManager.GetString("NW4RAnmClr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Texture Pattern Animations (NW4R).
+        /// </summary>
+        public static string NW4RAnmPat {
+            get {
+                return ResourceManager.GetString("NW4RAnmPat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scene Animations (NW4R).
+        /// </summary>
+        public static string NW4RAnmScn {
+            get {
+                return ResourceManager.GetString("NW4RAnmScn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vertex Animations (NW4R).
+        /// </summary>
+        public static string NW4RAnmShp {
+            get {
+                return ResourceManager.GetString("NW4RAnmShp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Texture Animations (NW4R).
+        /// </summary>
+        public static string NW4RAnmTexSrt {
+            get {
+                return ResourceManager.GetString("NW4RAnmTexSrt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visibility Animations (NW4R).
+        /// </summary>
+        public static string NW4RAnmVis {
+            get {
+                return ResourceManager.GetString("NW4RAnmVis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to External References.
+        /// </summary>
+        public static string NW4RExternal {
+            get {
+                return ResourceManager.GetString("NW4RExternal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Palettes.
+        /// </summary>
+        public static string NW4RPalettes {
+            get {
+                return ResourceManager.GetString("NW4RPalettes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Textures.
+        /// </summary>
+        public static string NW4RTextures {
+            get {
+                return ResourceManager.GetString("NW4RTextures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Redirect.
         /// </summary>
         public static string Redirect {
@@ -1200,6 +1299,15 @@ namespace BrawlLib.Properties {
         public static string Type6 {
             get {
                 return ResourceManager.GetString("Type6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        public static string Unknown {
+            get {
+                return ResourceManager.GetString("Unknown", resourceCulture);
             }
         }
         
