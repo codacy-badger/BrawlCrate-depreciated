@@ -282,5 +282,20 @@ namespace BrawlCrate.Properties {
                 this["DiscordRPCNameCustom"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("none")]
+        public string SelectedLanguage
+        {
+            get
+            {
+                return ((string)(this["SelectedLanguage"]));
+            }
+            set
+            {
+                this["SelectedLanguage"] = value;
+            }
+        }
     }
 }

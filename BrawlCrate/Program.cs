@@ -144,6 +144,15 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                 BrawlCrate.Properties.Settings.Default.UpdateSettings = false;
                 BrawlCrate.Properties.Settings.Default.Save();
             }
+            // Check language
+            if(BrawlCrate.Properties.Settings.Default.SelectedLanguage.Equals("none", StringComparison.OrdinalIgnoreCase))
+            {
+                AutoSelectLanguage();
+            } else
+            {
+                ApplyLanguage();
+            }
+
             // Ensure canary status updated correctly
             if ((Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active")) != BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds)
             {
@@ -262,6 +271,31 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             }
         }
         
+        public static void AutoSelectLanguage()
+        {
+            Console.WriteLine(System.Threading.Thread.CurrentThread.CurrentUICulture);
+            if(System.Threading.Thread.CurrentThread.CurrentUICulture.ToString().StartsWith("es", StringComparison.OrdinalIgnoreCase)) // Spanish
+            {
+                System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("es");
+                BrawlCrate.Properties.Settings.Default.SelectedLanguage = "es";
+                BrawlCrate.Properties.Settings.Default.Save();
+            }
+            else // English (Default)
+            {
+                System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
+                BrawlCrate.Properties.Settings.Default.SelectedLanguage = "en";
+                BrawlCrate.Properties.Settings.Default.Save();
+            }
+        }
+
+        public static void ApplyLanguage()
+        {
+            if(BrawlCrate.Properties.Settings.Default.SelectedLanguage.Equals("es", StringComparison.OrdinalIgnoreCase))
+                System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("es");    // Spanish
+            else
+                System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");    // English
+        }
+
         public static void ForceDownloadCanary(bool manual = true)
         {
             try
