@@ -72,7 +72,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 _DataTable.Add(new ItmFreqOffPair(*(bint*)(_pDataTable + (i * 8)), *(bint*)((_pDataTable + (i * 8)) + 4)));
 
             if (_name == null)
-                _name = "Item Generation";
+                _name = BrawlLib.Properties.Resources.ItemGeneration;
 
             return _numTables > 0;
         }

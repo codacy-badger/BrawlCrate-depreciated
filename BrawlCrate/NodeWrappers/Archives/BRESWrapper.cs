@@ -19,7 +19,7 @@ namespace BrawlCrate
         static BRESWrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("Ne&w", null,
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.New, null,
                 new ToolStripMenuItem("Model", null, NewModelAction),
                 new ToolStripMenuItem("Model Animation", null, NewChrAction),
                 new ToolStripMenuItem("Texture Animation", null, NewSrtAction),
@@ -29,7 +29,7 @@ namespace BrawlCrate
                 new ToolStripMenuItem("Color Sequence", null, NewClrAction),
                 new ToolStripMenuItem("Scene Settings", null, NewScnAction)
                 ));
-            _menu.Items.Add(new ToolStripMenuItem("&Import", null,
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Import, null,
                 new ToolStripMenuItem("Texture", null, ImportTextureAction),
                 new ToolStripMenuItem("Color Smashable Textures", null, ImportColorSmashableTexturesAction),
                 new ToolStripMenuItem("Model", null, ImportModelAction),
@@ -56,20 +56,20 @@ namespace BrawlCrate
                 )
                 ));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("Preview All Models", null, PreviewAllAction));
-            _menu.Items.Add(new ToolStripMenuItem("Export All", null, ExportAllAction));
-            _menu.Items.Add(new ToolStripMenuItem("Replace All", null, ReplaceAllAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.PreviewAllModels, null, PreviewAllAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ExportAll, null, ExportAllAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ReplaceAll, null, ReplaceAllAction));
             _menu.Items.Add(new ToolStripMenuItem("Edit All", null, EditAllAction));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("&Export", null, ExportAction, Keys.Control | Keys.E));
-            _menu.Items.Add(new ToolStripMenuItem("&Replace", null, ReplaceAction, Keys.Control | Keys.R));
-            _menu.Items.Add(new ToolStripMenuItem("Res&tore", null, RestoreAction, Keys.Control | Keys.T));
-            _menu.Items.Add(new ToolStripMenuItem("&Duplicate", null, DuplicateAction, Keys.Control | Keys.D));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Export, null, ExportAction, Keys.Control | Keys.E));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Replace, null, ReplaceAction, Keys.Control | Keys.R));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Restore, null, RestoreAction, Keys.Control | Keys.T));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Duplicate, null, DuplicateAction, Keys.Control | Keys.D));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("Move &Up", null, MoveUpAction, Keys.Control | Keys.Up));
-            _menu.Items.Add(new ToolStripMenuItem("Move D&own", null, MoveDownAction, Keys.Control | Keys.Down));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MoveUp, null, MoveUpAction, Keys.Control | Keys.Up));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MoveDown, null, MoveDownAction, Keys.Control | Keys.Down));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteAction, Keys.Control | Keys.Delete));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Delete, null, DeleteAction, Keys.Control | Keys.Delete));
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
@@ -574,8 +574,8 @@ namespace BrawlCrate
                 return;
 
             ExportAllFormatDialog dialog = new ExportAllFormatDialog();
-            dialog.Text = "Replace All";
-            dialog.label1.Text = "Input format for textures:";
+            dialog.Text = BrawlLib.Properties.Resources.ReplaceAll;
+            dialog.label1.Text = BrawlLib.Properties.Resources.InputFormatTextures;
 
             if (dialog.ShowDialog() == DialogResult.OK)
                 ((BRRESNode)_resource).ReplaceFromFolder(path, dialog.SelectedExtension);

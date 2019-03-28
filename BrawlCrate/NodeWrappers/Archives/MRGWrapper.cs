@@ -16,29 +16,29 @@ namespace BrawlCrate
         static MRGWrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("Ne&w", null,
-                new ToolStripMenuItem("ARChive", null, NewARCAction),
-                new ToolStripMenuItem("BRResource Pack", null, NewBRESAction),
-                new ToolStripMenuItem("MSBin", null, NewMSBinAction)
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.New, null,
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Archive, null, NewARCAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.BRRESourcePack, null, NewBRESAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.MSBin, null, NewMSBinAction)
                 ));
-            _menu.Items.Add(new ToolStripMenuItem("&Import", null,
-                new ToolStripMenuItem("ARChive", null, ImportARCAction),
-                new ToolStripMenuItem("BRResource Pack", null, ImportBRESAction),
-                new ToolStripMenuItem("MSBin", null, ImportMSBinAction)
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Import, null,
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Archive, null, ImportARCAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.BRRESourcePack, null, ImportBRESAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.MSBin, null, ImportMSBinAction)
                 ));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("Export All", null, ExportAllAction));
-            _menu.Items.Add(new ToolStripMenuItem("Replace All", null, ReplaceAllAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ExportAll, null, ExportAllAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ReplaceAll, null, ReplaceAllAction));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("&Export", null, ExportAction, Keys.Control | Keys.E));
-            _menu.Items.Add(new ToolStripMenuItem("&Replace", null, ReplaceAction, Keys.Control | Keys.R));
-            _menu.Items.Add(new ToolStripMenuItem("Res&tore", null, RestoreAction, Keys.Control | Keys.T));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Export, null, ExportAction, Keys.Control | Keys.E));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Replace, null, ReplaceAction, Keys.Control | Keys.R));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Restore, null, RestoreAction, Keys.Control | Keys.T));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("Move &Up", null, MoveUpAction, Keys.Control | Keys.Up));
-            _menu.Items.Add(new ToolStripMenuItem("Move D&own", null, MoveDownAction, Keys.Control | Keys.Down));
-            _menu.Items.Add(new ToolStripMenuItem("Re&name", null, RenameAction, Keys.Control | Keys.N));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MoveUp, null, MoveUpAction, Keys.Control | Keys.Up));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MoveDown, null, MoveDownAction, Keys.Control | Keys.Down));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Rename, null, RenameAction, Keys.Control | Keys.N));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteAction, Keys.Control | Keys.Delete));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Delete, null, DeleteAction, Keys.Control | Keys.Delete));
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }

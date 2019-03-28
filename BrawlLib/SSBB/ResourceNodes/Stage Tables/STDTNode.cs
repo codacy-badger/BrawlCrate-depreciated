@@ -17,13 +17,13 @@ namespace BrawlLib.SSBB.ResourceNodes
         // Internal buffer for editing - changes written back to WorkingUncompressed on rebuild
         internal UnsafeBuffer entries;
 
-        [Category("Stage Trap Data Table")]
+        [LocalizedCategory("STDT")]
         public int NumEntries { get { return entries.Length / 4; } }
-        [Category("Stage Trap Data Table")]
+        [LocalizedCategory("STDT")]
         public int Version { get { return version; } set { version = value; SignalPropertyChange(); } }
-        [Category("Stage Trap Data Table")]
+        [LocalizedCategory("STDT")]
         public int Unk1 { get { return unk1; } set { unk1 = value; SignalPropertyChange(); } }
-        [Category("Stage Trap Data Table")]
+        [LocalizedCategory("STDT")]
         public int Unk2 { get { return unk2; } set { unk2 = value; SignalPropertyChange(); } }
 
         public STDTNode() { }
@@ -60,7 +60,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         protected override string GetName() {
-            return base.GetName("Stage Trap Data Table");
+            return base.GetName(BrawlLib.Properties.Resources.STDT);
         }
 
         public override void OnRebuild(VoidPtr address, int length, bool force) {

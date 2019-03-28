@@ -735,7 +735,7 @@ namespace System.Windows.Forms
             this.resizeToolStripMenuItem1.CheckOnClick = true;
             this.resizeToolStripMenuItem1.Name = "resizeToolStripMenuItem1";
             this.resizeToolStripMenuItem1.Size = new System.Drawing.Size(130, 26);
-            this.resizeToolStripMenuItem1.Text = "Resize";
+            this.resizeToolStripMenuItem1.Text = BrawlLib.Properties.Resources.Resize;
             this.resizeToolStripMenuItem1.Click += new System.EventHandler(this.resizeToolStripMenuItem1_Click);
             // 
             // editControlToolStripMenuItem
@@ -1292,7 +1292,7 @@ namespace System.Windows.Forms
             this.resizeToolStripMenuItem.Enabled = false;
             this.resizeToolStripMenuItem.Name = "resizeToolStripMenuItem";
             this.resizeToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
-            this.resizeToolStripMenuItem.Text = "Resize";
+            this.resizeToolStripMenuItem.Text = BrawlLib.Properties.Resources.Resize;
             this.resizeToolStripMenuItem.Click += new System.EventHandler(this.resizeToolStripMenuItem_Click);
             // 
             // interpolationToolStripMenuItem

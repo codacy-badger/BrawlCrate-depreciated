@@ -677,4 +677,252 @@
     <value>Unknown Data</value>
     <comment>Unknown ArcEntryType</comment>
   </data>
+  <data name="AnimationLooper" xml:space="preserve">
+    <value>Animation Looper</value>
+    <comment>Animation Looper</comment>
+  </data>
+  <data name="AppendAnimation" xml:space="preserve">
+    <value>Append Animation</value>
+    <comment>Append Animation</comment>
+  </data>
+  <data name="Archive" xml:space="preserve">
+    <value>ARC Archive</value>
+    <comment>ARC Archive</comment>
+  </data>
+  <data name="BLOC" xml:space="preserve">
+    <value>Subspace Resource BLOC</value>
+    <comment>Subspace Resource BLOC</comment>
+  </data>
+  <data name="BRRESourcePack" xml:space="preserve">
+    <value>BRRES Resource Pack</value>
+    <comment>BRRES Resource Pack</comment>
+  </data>
+  <data name="Collision" xml:space="preserve">
+    <value>Collision</value>
+    <comment>Collision</comment>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="Duplicate" xml:space="preserve">
+    <value>Duplicate</value>
+    <comment>Duplicate</comment>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="Empty" xml:space="preserve">
+    <value>Empty</value>
+    <comment>Empty</comment>
+  </data>
+  <data name="Expanded" xml:space="preserve">
+    <value>Expanded</value>
+    <comment>Expanded</comment>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
+    <comment>Export</comment>
+  </data>
+  <data name="ExportAll" xml:space="preserve">
+    <value>Export All</value>
+    <comment>Export All</comment>
+  </data>
+  <data name="Full" xml:space="preserve">
+    <value>Full</value>
+    <comment>Full</comment>
+  </data>
+  <data name="GenerateKeyframe" xml:space="preserve">
+    <value>Generate Keyframe from Bone Position</value>
+    <comment>Generate Keyframe From Bone Position</comment>
+  </data>
+  <data name="GenerateKeyframesAll" xml:space="preserve">
+    <value>Generate Keyframes From All Bone Positions</value>
+    <comment>Generate Keyframes From All Bone Positions</comment>
+  </data>
+  <data name="HavokData" xml:space="preserve">
+    <value>Havok Data</value>
+    <comment>Havok Data</comment>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Import</value>
+    <comment>Import</comment>
+  </data>
+  <data name="InputFormatTextures" xml:space="preserve">
+    <value>Input format for textures:</value>
+    <comment>Input format for textures:</comment>
+  </data>
+  <data name="ItemGeneration" xml:space="preserve">
+    <value>Item Generation</value>
+    <comment>Item Generation</comment>
+  </data>
+  <data name="MergeAnimation" xml:space="preserve">
+    <value>Merge Animation</value>
+    <comment>Merge Animation</comment>
+  </data>
+  <data name="MoveDown" xml:space="preserve">
+    <value>Move Down</value>
+    <comment>Move Down</comment>
+  </data>
+  <data name="MoveUp" xml:space="preserve">
+    <value>Move Up</value>
+    <comment>Move Up</comment>
+  </data>
+  <data name="MSBin" xml:space="preserve">
+    <value>MSBin Text File</value>
+    <comment>MSBin Text File</comment>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
+    <comment>New</comment>
+  </data>
+  <data name="NewBoneTarget" xml:space="preserve">
+    <value>New Bone Target</value>
+    <comment>New Bone Target</comment>
+  </data>
+  <data name="NewColorSequence" xml:space="preserve">
+    <value>New Color Sequence</value>
+    <comment>New Color Sequence</comment>
+  </data>
+  <data name="NewEntry" xml:space="preserve">
+    <value>New Entry</value>
+    <comment>New Entry</comment>
+  </data>
+  <data name="NewMaterialEntry" xml:space="preserve">
+    <value>New Material Entry</value>
+    <comment>New Material Entry</comment>
+  </data>
+  <data name="NumberOfEntries" xml:space="preserve">
+    <value>Number of Entries:</value>
+    <comment>Number of Entries</comment>
+  </data>
+  <data name="NumberRunthroughs" xml:space="preserve">
+    <value>Number of runthroughs:</value>
+    <comment>Number of runthroughs</comment>
+  </data>
+  <data name="OffsetFrame" xml:space="preserve">
+    <value>Offset Frame</value>
+    <comment>Offset Frame</comment>
+  </data>
+  <data name="PreviewAllModels" xml:space="preserve">
+    <value>Preview All Models</value>
+    <comment>Preview All Models</comment>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Rename</value>
+    <comment>Rename</comment>
+  </data>
+  <data name="RepeatAnimation" xml:space="preserve">
+    <value>Repeat Animation</value>
+    <comment>Repeat Animation</comment>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Replace</value>
+    <comment>Replace</comment>
+  </data>
+  <data name="ReplaceAll" xml:space="preserve">
+    <value>Replace All</value>
+    <comment>Replace All</comment>
+  </data>
+  <data name="Resize" xml:space="preserve">
+    <value>Resize</value>
+    <comment>Resize</comment>
+  </data>
+  <data name="Restore" xml:space="preserve">
+    <value>Restore</value>
+    <comment>Restore</comment>
+  </data>
+  <data name="ReverseAnimation" xml:space="preserve">
+    <value>Reverse Animation</value>
+    <comment>Reverse Animation</comment>
+  </data>
+  <data name="ReverseToLoop" xml:space="preserve">
+    <value>Reverse to Loop</value>
+    <comment>Reverse to Loop</comment>
+  </data>
+  <data name="SCLA" xml:space="preserve">
+    <value>Stage Collision Attributes</value>
+    <comment>Stage Collision Attributes</comment>
+  </data>
+  <data name="SortEntries" xml:space="preserve">
+    <value>Sort Entries</value>
+    <comment>Sort Entries</comment>
+  </data>
+  <data name="StageTable" xml:space="preserve">
+    <value>Stage Table</value>
+    <comment>Stage Table</comment>
+  </data>
+  <data name="STDT" xml:space="preserve">
+    <value>Stage Trap Data Table</value>
+    <comment>Stage Trap Data Table</comment>
+  </data>
+  <data name="STDTGeneration" xml:space="preserve">
+    <value>Stage Trap Data Table Generation</value>
+    <comment>Stage Trap Data Table Generation</comment>
+  </data>
+  <data name="STPM" xml:space="preserve">
+    <value>Stage Parameters</value>
+    <comment>Stage Parameters</comment>
+  </data>
+  <data name="TBCL" xml:space="preserve">
+    <value>TBCL</value>
+    <comment>TBCL</comment>
+  </data>
+  <data name="TBCLGeneration" xml:space="preserve">
+    <value>TBCL Generation</value>
+    <comment>TBCL Generation</comment>
+  </data>
+  <data name="TBGC" xml:space="preserve">
+    <value>TBGC</value>
+    <comment>TBGC</comment>
+  </data>
+  <data name="TBGCGeneration" xml:space="preserve">
+    <value>TBGC Generation</value>
+    <comment>TBGC Generation</comment>
+  </data>
+  <data name="TBGD" xml:space="preserve">
+    <value>TBGD</value>
+    <comment>TBGD</comment>
+  </data>
+  <data name="TBGDGeneration" xml:space="preserve">
+    <value>TBGD Generation</value>
+    <comment>TBGD Generation</comment>
+  </data>
+  <data name="TBGM" xml:space="preserve">
+    <value>TBGM</value>
+    <comment>TBGM</comment>
+  </data>
+  <data name="TBGMGeneration" xml:space="preserve">
+    <value>TBGM Generation</value>
+    <comment>TBGM Generation</comment>
+  </data>
+  <data name="TBLV" xml:space="preserve">
+    <value>TBLV</value>
+    <comment>TBLV</comment>
+  </data>
+  <data name="TBLVGeneration" xml:space="preserve">
+    <value>TBLV Generation</value>
+    <comment>TBLV Generation</comment>
+  </data>
+  <data name="TBRM" xml:space="preserve">
+    <value>TBRM</value>
+    <comment>TBRM</comment>
+  </data>
+  <data name="TBRMGeneration" xml:space="preserve">
+    <value>TBRM Generation</value>
+    <comment>TBRM Generation</comment>
+  </data>
+  <data name="TBST" xml:space="preserve">
+    <value>TBST</value>
+    <comment>TBST</comment>
+  </data>
+  <data name="TBSTGeneration" xml:space="preserve">
+    <value>TBST Generation</value>
+    <comment>TBST Generation</comment>
+  </data>
+  <data name="ViewInterpolation" xml:space="preserve">
+    <value>View Interpolation</value>
+    <comment>View Interpolation</comment>
+  </data>
 </root>

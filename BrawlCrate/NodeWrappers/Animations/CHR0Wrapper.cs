@@ -16,28 +16,28 @@ namespace BrawlCrate.NodeWrappers
         static CHR0Wrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("Ne&w Bone Target", null, NewBoneAction, Keys.Control | Keys.W));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.NewBoneTarget, null, NewBoneAction, Keys.Control | Keys.W));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("Edit", null,
-                new ToolStripMenuItem("Generate Keyframes From All Bone Positions", null, KeyframeGenAction),
-                new ToolStripMenuItem("Merge Animation", null, MergeAction),
-                new ToolStripMenuItem("Append Animation", null, AppendAction),
-                new ToolStripMenuItem("Repeat Animation", null, LoopAction),
-                new ToolStripMenuItem("Reverse Animation", null, ReverseAction),
-                new ToolStripMenuItem("Reverse to Loop", null, ReverseLoopAction),
-                new ToolStripMenuItem("Sort Entries", null, SortAction),
-                new ToolStripMenuItem("Resize", null, ResizeAction)));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Edit, null,
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.GenerateKeyframesAll, null, KeyframeGenAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.MergeAnimation, null, MergeAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.AppendAnimation, null, AppendAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.RepeatAnimation, null, LoopAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.ReverseAnimation, null, ReverseAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.ReverseToLoop, null, ReverseLoopAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.SortEntries, null, SortAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Resize, null, ResizeAction)));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("&Export", null, ExportAction, Keys.Control | Keys.E));
-            _menu.Items.Add(new ToolStripMenuItem("&Replace", null, ReplaceAction, Keys.Control | Keys.R));
-            _menu.Items.Add(new ToolStripMenuItem("Res&tore", null, RestoreAction, Keys.Control | Keys.T));
-            _menu.Items.Add(new ToolStripMenuItem("&Duplicate", null, DuplicateAction, Keys.Control | Keys.D));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Export, null, ExportAction, Keys.Control | Keys.E));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Replace, null, ReplaceAction, Keys.Control | Keys.R));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Restore, null, RestoreAction, Keys.Control | Keys.T));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Duplicate, null, DuplicateAction, Keys.Control | Keys.D));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("Move &Up", null, MoveUpAction, Keys.Control | Keys.Up));
-            _menu.Items.Add(new ToolStripMenuItem("Move &Down", null, MoveDownAction, Keys.Control | Keys.Down));
-            _menu.Items.Add(new ToolStripMenuItem("Re&name", null, RenameAction, Keys.Control | Keys.N));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MoveUp, null, MoveUpAction, Keys.Control | Keys.Up));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MoveDown, null, MoveDownAction, Keys.Control | Keys.Down));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Rename, null, RenameAction, Keys.Control | Keys.N));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteAction, Keys.Control | Keys.Delete));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Delete, null, DeleteAction, Keys.Control | Keys.Delete));
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
@@ -49,7 +49,7 @@ namespace BrawlCrate.NodeWrappers
         protected static void ResizeAction(object sender, EventArgs e) { GetInstance<CHR0Wrapper>().Resize(); }
         protected static void LoopAction(object sender, EventArgs e) {
             StageBoxNumericEntry entryCount = new StageBoxNumericEntry();
-            if (entryCount.ShowDialog("Animation Looper", "Number of runthroughs:") == DialogResult.OK)
+            if (entryCount.ShowDialog(BrawlLib.Properties.Resources.AnimationLooper, BrawlLib.Properties.Resources.NumberRunthroughs) == DialogResult.OK)
                 GetInstance<CHR0Wrapper>().Loop((entryCount.NewValue)-1);
         }
 
@@ -142,19 +142,19 @@ namespace BrawlCrate.NodeWrappers
         static CHR0EntryWrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("View Interpolation", null, ViewInterp, Keys.Control | Keys.T));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ViewInterpolation, null, ViewInterp, Keys.Control | Keys.T));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("&Export", null, ExportAction, Keys.Control | Keys.E));
-            _menu.Items.Add(new ToolStripMenuItem("&Replace", null, ReplaceAction, Keys.Control | Keys.R));
-            _menu.Items.Add(new ToolStripMenuItem("Res&tore", null, RestoreAction, Keys.Control | Keys.T));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Export, null, ExportAction, Keys.Control | Keys.E));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Replace, null, ReplaceAction, Keys.Control | Keys.R));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Restore, null, RestoreAction, Keys.Control | Keys.T));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("Move &Up", null, MoveUpAction, Keys.Control | Keys.Up));
-            _menu.Items.Add(new ToolStripMenuItem("Move D&own", null, MoveDownAction, Keys.Control | Keys.Down));
-            _menu.Items.Add(new ToolStripMenuItem("Re&name", null, RenameAction, Keys.Control | Keys.N));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MoveUp, null, MoveUpAction, Keys.Control | Keys.Up));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MoveDown, null, MoveDownAction, Keys.Control | Keys.Down));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Rename, null, RenameAction, Keys.Control | Keys.N));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("Generate Keyframe From Bone Position", null, KeyframeGenFromBoneAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.GenerateKeyframe, null, KeyframeGenFromBoneAction));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteAction, Keys.Control | Keys.Delete));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Delete, null, DeleteAction, Keys.Control | Keys.Delete));
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }

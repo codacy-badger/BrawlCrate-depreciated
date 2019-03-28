@@ -82,7 +82,7 @@
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label1);
             this.Name = "ExportAllAskFormat";
-            this.Text = "Export All";
+            this.Text = BrawlLib.Properties.Resources.ExportAll;
             this.ResumeLayout(false);
             this.PerformLayout();
 

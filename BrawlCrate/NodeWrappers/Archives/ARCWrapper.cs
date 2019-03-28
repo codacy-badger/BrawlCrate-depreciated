@@ -18,66 +18,66 @@ namespace BrawlCrate
         static ARCWrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("Ne&w", null,
-                new ToolStripMenuItem("ARChive", null, NewARCAction),
-                new ToolStripMenuItem("BRResource Pack", null, NewBRESAction),
-                new ToolStripMenuItem("BLOC", null, NewBLOCAction),
-                new ToolStripMenuItem("Collision", null, NewCollisionAction),
-                //new ToolStripMenuItem("Item Generation", null, NewItemGenerationAction),
-                new ToolStripMenuItem("MSBin", null, NewMSBinAction),
-                new ToolStripMenuItem("Redirect", null, NewRedirectAction),
-                new ToolStripMenuItem("SCLA", null,
-                    new ToolStripMenuItem("Empty", null, NewSCLAAction),
-                    new ToolStripMenuItem("Full", null, NewSCLAFullAction),
-                    new ToolStripMenuItem("Expanded", null, NewSCLAExpandedAction)
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.New, null,
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Archive, null, NewARCAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.BRRESourcePack, null, NewBRESAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.BLOC, null, NewBLOCAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Collision, null, NewCollisionAction),
+                //new ToolStripMenuItem(BrawlLib.Properties.Resources.ItemGeneration, null, NewItemGenerationAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.MSBin, null, NewMSBinAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Redirect, null, NewRedirectAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.SCLA, null,
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.Empty, null, NewSCLAAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.Full, null, NewSCLAFullAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.Expanded, null, NewSCLAExpandedAction)
                     ),
-                new ToolStripMenuItem("STDT", null, NewSTDTAction),
-                new ToolStripMenuItem("STPM", null, NewSTPMAction),
-                new ToolStripMenuItem("Stage Table", null,
-                    new ToolStripMenuItem("TBCL", null, NewTBCLAction),
-                    new ToolStripMenuItem("TBGC", null, NewTBGCAction),
-                    new ToolStripMenuItem("TBGD", null, NewTBGDAction),
-                    new ToolStripMenuItem("TBGM", null, NewTBGMAction),
-                    new ToolStripMenuItem("TBLV", null, NewTBLVAction),
-                    new ToolStripMenuItem("TBRM", null, NewTBRMAction),
-                    new ToolStripMenuItem("TBST", null, NewTBSTAction)
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.STDT, null, NewSTDTAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.STPM, null, NewSTPMAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.StageTable, null,
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.TBCL, null, NewTBCLAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.TBGC, null, NewTBGCAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.TBGD, null, NewTBGDAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.TBGM, null, NewTBGMAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.TBLV, null, NewTBLVAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.TBRM, null, NewTBRMAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.TBST, null, NewTBSTAction)
                     )
                 ));
-            _menu.Items.Add(new ToolStripMenuItem("&Import", null,
-                new ToolStripMenuItem("ARChive", null, ImportARCAction),
-                new ToolStripMenuItem("BRResource Pack", null, ImportBRESAction),
-                new ToolStripMenuItem("BLOC", null, ImportBLOCAction),
-                new ToolStripMenuItem("Collision", null, ImportCollisionAction),
-                new ToolStripMenuItem("MSBin", null, ImportMSBinAction),
-                new ToolStripMenuItem("SCLA", null, ImportSCLAAction),
-                new ToolStripMenuItem("STDT", null, ImportSTDTAction),
-                new ToolStripMenuItem("STPM", null, ImportSTPMAction),
-                new ToolStripMenuItem("Stage Table", null,
-                    new ToolStripMenuItem("TBCL", null, ImportTBCLAction),
-                    new ToolStripMenuItem("TBGC", null, ImportTBGCAction),
-                    new ToolStripMenuItem("TBGD", null, ImportTBGDAction),
-                    new ToolStripMenuItem("TBGM", null, ImportTBGMAction),
-                    new ToolStripMenuItem("TBLV", null, ImportTBLVAction),
-                    new ToolStripMenuItem("TBRM", null, ImportTBRMAction),
-                    new ToolStripMenuItem("TBST", null, ImportTBSTAction)
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Import, null,
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Archive, null, ImportARCAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.BRRESourcePack, null, ImportBRESAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Collision, null, ImportCollisionAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.HavokData, null, ImportHavokAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.MSBin, null, ImportMSBinAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.SCLA, null, ImportSCLAAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.STDT, null, ImportSTDTAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.STPM, null, ImportSTPMAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.StageTable, null,
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.TBCL, null, ImportTBCLAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.TBGC, null, ImportTBGCAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.TBGD, null, ImportTBGDAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.TBGM, null, ImportTBGMAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.TBLV, null, ImportTBLVAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.TBRM, null, ImportTBRMAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.TBST, null, ImportTBSTAction)
                     ),
-                new ToolStripMenuItem("Havok Data", null, ImportHavokAction)
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.BLOC, null, ImportBLOCAction)
                 ));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("Preview All Models", null, PreviewAllAction));
-            _menu.Items.Add(new ToolStripMenuItem("Export All", null, ExportAllAction));
-            _menu.Items.Add(new ToolStripMenuItem("Replace All", null, ReplaceAllAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.PreviewAllModels, null, PreviewAllAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ExportAll, null, ExportAllAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ReplaceAll, null, ReplaceAllAction));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("&Export", null, ExportAction, Keys.Control | Keys.E));
-            _menu.Items.Add(new ToolStripMenuItem("&Replace", null, ReplaceAction, Keys.Control | Keys.R));
-            _menu.Items.Add(new ToolStripMenuItem("Res&tore", null, RestoreAction, Keys.Control | Keys.T));
-            _menu.Items.Add(new ToolStripMenuItem("&Duplicate", null, DuplicateAction, Keys.Control | Keys.D));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Export, null, ExportAction, Keys.Control | Keys.E));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Replace, null, ReplaceAction, Keys.Control | Keys.R));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Restore, null, RestoreAction, Keys.Control | Keys.T));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Duplicate, null, DuplicateAction, Keys.Control | Keys.D));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("Move &Up", null, MoveUpAction, Keys.Control | Keys.Up));
-            _menu.Items.Add(new ToolStripMenuItem("Move D&own", null, MoveDownAction, Keys.Control | Keys.Down));
-            _menu.Items.Add(new ToolStripMenuItem("Re&name", null, RenameAction, Keys.Control | Keys.N));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MoveUp, null, MoveUpAction, Keys.Control | Keys.Up));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MoveDown, null, MoveDownAction, Keys.Control | Keys.Down));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Rename, null, RenameAction, Keys.Control | Keys.N));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteAction, Keys.Control | Keys.Delete));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Delete, null, DeleteAction, Keys.Control | Keys.Delete));
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
@@ -93,50 +93,50 @@ namespace BrawlCrate
         protected static void NewSTDTAction(object sender, EventArgs e)
         {
             StageBoxNumericEntry entryCount = new StageBoxNumericEntry();
-            if (entryCount.ShowDialog("STDT Generation", "Number of Entries:") == DialogResult.OK)
+            if (entryCount.ShowDialog(BrawlLib.Properties.Resources.ReplaceAll, BrawlLib.Properties.Resources.NumberOfEntries) == DialogResult.OK)
                 GetInstance<ARCWrapper>().NewSTDT(entryCount.NewValue);
         }
         protected static void NewSTPMAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewSTPM(); }
         protected static void NewTBCLAction(object sender, EventArgs e)
         {
             StageBoxNumericEntry entryCount = new StageBoxNumericEntry();
-            if (entryCount.ShowDialog("TBCL Generation", "Number of Entries:") == DialogResult.OK)
+            if (entryCount.ShowDialog(BrawlLib.Properties.Resources.TBCLGeneration, BrawlLib.Properties.Resources.NumberOfEntries) == DialogResult.OK)
                 GetInstance<ARCWrapper>().NewTBCL(entryCount.NewValue);
         }
         protected static void NewTBGCAction(object sender, EventArgs e)
         {
             StageBoxNumericEntry entryCount = new StageBoxNumericEntry();
-            if (entryCount.ShowDialog("TBGC Generation", "Number of Entries:") == DialogResult.OK)
+            if (entryCount.ShowDialog("TBGC Generation", BrawlLib.Properties.Resources.NumberOfEntries) == DialogResult.OK)
                 GetInstance<ARCWrapper>().NewTBGC(entryCount.NewValue);
         }
         protected static void NewTBGDAction(object sender, EventArgs e)
         {
             StageBoxNumericEntry entryCount = new StageBoxNumericEntry();
-            if (entryCount.ShowDialog("TBGD Generation", "Number of Entries:") == DialogResult.OK)
+            if (entryCount.ShowDialog("TBGD Generation", BrawlLib.Properties.Resources.NumberOfEntries) == DialogResult.OK)
                 GetInstance<ARCWrapper>().NewTBGD(entryCount.NewValue);
         }
         protected static void NewTBGMAction(object sender, EventArgs e)
         {
             StageBoxNumericEntry entryCount = new StageBoxNumericEntry();
-            if (entryCount.ShowDialog("TBGM Generation", "Number of Entries:") == DialogResult.OK)
+            if (entryCount.ShowDialog("TBGM Generation", BrawlLib.Properties.Resources.NumberOfEntries) == DialogResult.OK)
                 GetInstance<ARCWrapper>().NewTBGM(entryCount.NewValue);
         }
         protected static void NewTBLVAction(object sender, EventArgs e)
         {
             StageBoxNumericEntry entryCount = new StageBoxNumericEntry();
-            if (entryCount.ShowDialog("TBLV Generation", "Number of Entries:") == DialogResult.OK)
+            if (entryCount.ShowDialog("TBLV Generation", BrawlLib.Properties.Resources.NumberOfEntries) == DialogResult.OK)
                 GetInstance<ARCWrapper>().NewTBLV(entryCount.NewValue);
         }
         protected static void NewTBRMAction(object sender, EventArgs e)
         {
             StageBoxNumericEntry entryCount = new StageBoxNumericEntry();
-            if (entryCount.ShowDialog("TBRM Generation", "Number of Entries:") == DialogResult.OK)
+            if (entryCount.ShowDialog("TBRM Generation", BrawlLib.Properties.Resources.NumberOfEntries) == DialogResult.OK)
                 GetInstance<ARCWrapper>().NewTBRM(entryCount.NewValue);
         }
         protected static void NewTBSTAction(object sender, EventArgs e)
         {
             StageBoxNumericEntry entryCount = new StageBoxNumericEntry();
-            if (entryCount.ShowDialog("TBST Generation", "Number of Entries:") == DialogResult.OK)
+            if (entryCount.ShowDialog("TBST Generation", BrawlLib.Properties.Resources.NumberOfEntries) == DialogResult.OK)
                 GetInstance<ARCWrapper>().NewTBST(entryCount.NewValue);
         }
         protected static void NewRedirectAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewRedirect(); }
@@ -257,7 +257,7 @@ namespace BrawlCrate
         public ItmFreqNode NewItemGeneration()
         {
             ItmFreqNode node = new ItmFreqNode() { FileType = ARCFileType.MiscData };
-            node.Name = "Item Generation";
+            node.Name = BrawlLib.Properties.Resources.ItemGeneration;
             _resource.AddChild(node);
 
             BaseWrapper w = this.FindResource(node, false);
@@ -636,8 +636,8 @@ namespace BrawlCrate
             if (path == null)
                 return;
             ExportAllFormatDialog dialog = new ExportAllFormatDialog();
-            dialog.Text = "Replace All";
-            dialog.label1.Text = "Input format for textures:";
+            dialog.Text = BrawlLib.Properties.Resources.ReplaceAll;
+            dialog.label1.Text = BrawlLib.Properties.Resources.InputFormatTextures;
 
             if (dialog.ShowDialog() == DialogResult.OK)
                 ((ARCNode)_resource).ReplaceFromFolder(path, dialog.SelectedExtension);

@@ -18,13 +18,13 @@ namespace BrawlLib.SSBB.ResourceNodes
         // Internal buffer for editing - changes written back to WorkingUncompressed on rebuild
         internal UnsafeBuffer entries;
 
-        [Category("TBST")]
+        [LocalizedCategory("TBST")]
         public int NumEntries { get { return entries.Length / 4; } }
-        [Category("TBST")]
+        [LocalizedCategory("TBST")]
         public int Unk0 { get { return unk0; } set { unk0 = value; SignalPropertyChange(); } }
-        [Category("TBST")]
+        [LocalizedCategory("TBST")]
         public int Unk1 { get { return unk1; } set { unk1 = value; SignalPropertyChange(); } }
-        [Category("TBST")]
+        [LocalizedCategory("TBST")]
         public int Unk2 { get { return unk2; } set { unk2 = value; SignalPropertyChange(); } }
 
         public TBSTNode() { }
@@ -64,7 +64,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         protected override string GetName()
         {
-            return base.GetName("TBST");
+            return base.GetName(BrawlLib.Properties.Resources.TBST);
         }
 
         public override void OnRebuild(VoidPtr address, int length, bool force)

@@ -17,13 +17,13 @@ namespace BrawlLib.SSBB.ResourceNodes
         // Internal buffer for editing - changes written back to WorkingUncompressed on rebuild
         internal UnsafeBuffer entries;
 
-        [Category("TBCL")]
+        [LocalizedCategory("TBCL")]
         public int NumEntries{get{return entries.Length / 4;}}
-        [Category("TBCL")]
+        [LocalizedCategory("TBCL")]
         public int Version { get { return version; } set { version = value; SignalPropertyChange(); } }
-        [Category("TBCL")]
+        [LocalizedCategory("TBCL")]
         public int Unk1 { get { return unk1; } set { unk1 = value; SignalPropertyChange(); } }
-        [Category("TBCL")]
+        [LocalizedCategory("TBCL")]
         public int Unk2 { get { return unk2; } set { unk2 = value; SignalPropertyChange(); } }
         
         public TBCLNode() {  }
@@ -60,7 +60,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         protected override string GetName() {
-            return base.GetName("TBCL");
+            return base.GetName(BrawlLib.Properties.Resources.TBCL);
         }
 
         public override void OnRebuild(VoidPtr address, int length, bool force) {

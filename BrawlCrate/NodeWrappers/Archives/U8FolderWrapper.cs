@@ -16,14 +16,14 @@ namespace BrawlCrate
         static U8FolderWrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("Ne&w", null,
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.New, null,
                 //new ToolStripMenuItem("RLYT", null, NewRlytAction),
                 new ToolStripMenuItem("TPL", null, NewTplAction),
                 //new ToolStripMenuItem("RFNT", null, NewRfntAction),
                 //new ToolStripMenuItem("WAV", null, NewWavAction),
                 new ToolStripMenuItem("BRRES", null, NewBrresAction),
                 new ToolStripMenuItem("Folder", null, NewFolderAction)));
-            _menu.Items.Add(new ToolStripMenuItem("&Import", null,
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Import, null,
                 //new ToolStripMenuItem("RLYT", null, ImportRlytAction),
                 new ToolStripMenuItem("TPL", null, ImportTplAction),
                 //new ToolStripMenuItem("RFNT", null, ImportRfntAction),
@@ -31,19 +31,19 @@ namespace BrawlCrate
                 new ToolStripMenuItem("BRRES", null, ImportBrresAction),
                 new ToolStripMenuItem("U8 Archive", null, ImportU8Action)));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("Preview All Models", null, PreviewAllAction));
-            _menu.Items.Add(new ToolStripMenuItem("Export All", null, ExportAllAction));
-            _menu.Items.Add(new ToolStripMenuItem("Replace All", null, ReplaceAllAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.PreviewAllModels, null, PreviewAllAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ExportAll, null, ExportAllAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ReplaceAll, null, ReplaceAllAction));
             _menu.Items.Add(new ToolStripMenuItem("Edit All", null, EditAllAction));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("&Export", null, ExportAction, Keys.Control | Keys.E));
-            _menu.Items.Add(new ToolStripMenuItem("&Replace", null, ReplaceAction, Keys.Control | Keys.R));
-            _menu.Items.Add(new ToolStripMenuItem("Res&tore", null, RestoreAction, Keys.Control | Keys.T));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Export, null, ExportAction, Keys.Control | Keys.E));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Replace, null, ReplaceAction, Keys.Control | Keys.R));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Restore, null, RestoreAction, Keys.Control | Keys.T));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("Move &Up", null, MoveUpAction, Keys.Control | Keys.Up));
-            _menu.Items.Add(new ToolStripMenuItem("Move D&own", null, MoveDownAction, Keys.Control | Keys.Down));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MoveUp, null, MoveUpAction, Keys.Control | Keys.Up));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MoveDown, null, MoveDownAction, Keys.Control | Keys.Down));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteAction, Keys.Control | Keys.Delete));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Delete, null, DeleteAction, Keys.Control | Keys.Delete));
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
@@ -337,7 +337,7 @@ namespace BrawlCrate
                 return;
 
             ExportAllFormatDialog dialog = new ExportAllFormatDialog();
-            dialog.label1.Text = "Input format for textures:";
+            dialog.label1.Text = BrawlLib.Properties.Resources.InputFormatTextures;
 
             if (dialog.ShowDialog() == DialogResult.OK)
                 ((BRRESNode)_resource).ReplaceFromFolder(path, dialog.SelectedExtension);
