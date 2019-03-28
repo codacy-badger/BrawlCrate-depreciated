@@ -794,12 +794,12 @@
     <comment>New Material Entry</comment>
   </data>
   <data name="NumberOfEntries" xml:space="preserve">
-    <value>Number of Entries:</value>
-    <comment>Number of Entries</comment>
+    <value>Number of entries:</value>
+    <comment>Number of entries (used when generating a new Stage Table)</comment>
   </data>
   <data name="NumberRunthroughs" xml:space="preserve">
     <value>Number of runthroughs:</value>
-    <comment>Number of runthroughs</comment>
+    <comment>Number of runthroughs (used when looping an animation)</comment>
   </data>
   <data name="OffsetFrame" xml:space="preserve">
     <value>Offset Frame</value>
@@ -924,5 +924,15 @@
   <data name="ViewInterpolation" xml:space="preserve">
     <value>View Interpolation</value>
     <comment>View Interpolation</comment>
+  </data>
+  <data name="Null" xml:space="preserve">
+    <value>&lt;null&gt;</value>
+    <comment>Used for unnamed nodes</comment>
+  </data>
+  <data name="WelcomeMessage" xml:space="preserve">
+    <value>Welcome to BrawlCrate v0.24!
+
+A full English-language changelog can be found here:</value>
+    <comment>Shown on update</comment>
   </data>
 </root>

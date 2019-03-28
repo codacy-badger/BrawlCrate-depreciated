@@ -763,7 +763,16 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Number of Entries:.
+        ///   Looks up a localized string similar to &lt;null&gt;.
+        /// </summary>
+        public static string Null {
+            get {
+                return ResourceManager.GetString("Null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of entries:.
         /// </summary>
         public static string NumberOfEntries {
             get {
@@ -1875,6 +1884,17 @@ namespace BrawlLib.Properties {
         public static string ViewInterpolation {
             get {
                 return ResourceManager.GetString("ViewInterpolation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to BrawlCrate v0.24!
+        ///
+        ///A full English-language changelog can be found here:.
+        /// </summary>
+        public static string WelcomeMessage {
+            get {
+                return ResourceManager.GetString("WelcomeMessage", resourceCulture);
             }
         }
     }

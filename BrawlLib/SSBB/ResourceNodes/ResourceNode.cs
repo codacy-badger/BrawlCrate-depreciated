@@ -140,7 +140,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [Browsable(false)]
         public virtual string Name
         {
-            get { return String.IsNullOrEmpty(_name) ? _name = "<null>" : _name; }
+            get { return _name; }
             set
             {
                 if (_name == value)
@@ -153,7 +153,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
         [Browsable(false)]
-        public virtual string DisplayName { get { return Name; } }
+        public virtual string DisplayName { get { return String.IsNullOrEmpty(Name) ? BrawlLib.Properties.Resources.Null : Name; ; } }
 
         [Browsable(false)]
         public ResourceNode Parent
