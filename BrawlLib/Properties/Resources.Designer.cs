@@ -862,7 +862,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Palettes.
+        ///   Looks up a localized string similar to Palettes (NW4R).
         /// </summary>
         public static string NW4RPalettes {
             get {
@@ -871,7 +871,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Textures.
+        ///   Looks up a localized string similar to Textures (NW4R).
         /// </summary>
         public static string NW4RTextures {
             get {

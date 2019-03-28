@@ -350,11 +350,11 @@
     <comment>External BRRES Group</comment>
   </data>
   <data name="NW4RPalettes" xml:space="preserve">
-    <value>Palettes</value>
+    <value>Palettes (NW4R)</value>
     <comment>Palette BRRES Group</comment>
   </data>
   <data name="NW4RTextures" xml:space="preserve">
-    <value>Textures</value>
+    <value>Textures (NW4R)</value>
     <comment>Texture BRRES Group</comment>
   </data>
   <data name="Redirect" xml:space="preserve">
