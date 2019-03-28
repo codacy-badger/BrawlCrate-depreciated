@@ -243,7 +243,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             string temp = "";
             if (root != this)
                 temp = "[" + FileIndex + "]";
-            string filename = AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\TBCL\\" + root.Name.Replace("STG", "") + temp + ".txt";
+            string filename = AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation\\" +  System.Threading.Thread.CurrentThread.CurrentUICulture.ToString().Substring(0, 2) + "\\TBCL\\" + root.Name.Replace("STG", "") + temp + ".txt";
             return new AttributeInterpretation(arr, filename);
         }
 
@@ -252,11 +252,11 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         private static void ReadConfig()
         {
-            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation"))
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation\\" +  System.Threading.Thread.CurrentThread.CurrentUICulture.ToString().Substring(0, 2)))
             {
-                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\TBCL"))
+                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation\\" +  System.Threading.Thread.CurrentThread.CurrentUICulture.ToString().Substring(0, 2) + "\\TBCL"))
                 {
-                    foreach (string path in Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\TBCL", "*.txt"))
+                    foreach (string path in Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation\\" +  System.Threading.Thread.CurrentThread.CurrentUICulture.ToString().Substring(0, 2) + "\\TBCL", "*.txt"))
                     {
                         if (configpaths_read.Contains(path)) continue;
                         configpaths_read.Add(path);

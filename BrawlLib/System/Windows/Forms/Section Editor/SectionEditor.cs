@@ -124,15 +124,15 @@ namespace System.Windows.Forms
                 chkAnnotations.Checked = false;
                 return;
             }
-            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation"))
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation\\" +  System.Threading.Thread.CurrentThread.CurrentUICulture.ToString().Substring(0, 2)))
             {
-                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module"))
+                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation\\" +  System.Threading.Thread.CurrentThread.CurrentUICulture.ToString().Substring(0, 2) + "\\Module"))
                 {
-                    if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module\\" + _section.Root.Name))
+                    if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation\\" +  System.Threading.Thread.CurrentThread.CurrentUICulture.ToString().Substring(0, 2) + "\\Module\\" + _section.Root.Name))
                     {
-                        if(File.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module\\" + _section.Root.Name + '\\' + _section.Name + ".txt"))
+                        if(File.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation\\" +  System.Threading.Thread.CurrentThread.CurrentUICulture.ToString().Substring(0, 2) + "\\Module\\" + _section.Root.Name + '\\' + _section.Name + ".txt"))
                         {
-                            LoadAnnotationsFromFile(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module\\" + _section.Root.Name + '\\' + _section.Name + ".txt");
+                            LoadAnnotationsFromFile(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation\\" +  System.Threading.Thread.CurrentThread.CurrentUICulture.ToString().Substring(0, 2) + "\\Module\\" + _section.Root.Name + '\\' + _section.Name + ".txt");
                             return;
                         }
                     }
@@ -1462,10 +1462,10 @@ namespace System.Windows.Forms
 
         public void SaveAnnotation()
         {
-            Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation");
-            Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module");
-            Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module\\" + _section.Root.Name);
-            string Filename = AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module\\" + _section.Root.Name + '\\' + _section.Name + ".txt";
+            Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation\\" +  System.Threading.Thread.CurrentThread.CurrentUICulture.ToString().Substring(0, 2));
+            Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation\\" +  System.Threading.Thread.CurrentThread.CurrentUICulture.ToString().Substring(0, 2) + "\\Module");
+            Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation\\" +  System.Threading.Thread.CurrentThread.CurrentUICulture.ToString().Substring(0, 2) + "\\Module\\" + _section.Root.Name);
+            string Filename = AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation\\" +  System.Threading.Thread.CurrentThread.CurrentUICulture.ToString().Substring(0, 2) + "\\Module\\" + _section.Root.Name + '\\' + _section.Name + ".txt";
             string dir = Path.GetDirectoryName(Filename);
             if (File.Exists(Filename))
             {
