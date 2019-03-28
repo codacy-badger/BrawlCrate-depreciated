@@ -53,7 +53,7 @@ namespace BrawlCrate
             Unlink();
             if (res != null)
             {
-                this.Text = res.Name;
+                this.Text = res.ToString();
                 TreeNodeCollection nodes = Nodes;
 
                 //Should we continue down the tree?
@@ -64,7 +64,7 @@ namespace BrawlCrate
                     {
                         bool found = false;
                         foreach (BaseWrapper tn in nodes)
-                            if (tn.Text == n.Name)
+                            if (tn.Text == n.ToString())
                             {
                                 tn.Link(n);
                                 found = true;
@@ -195,7 +195,7 @@ namespace BrawlCrate
         {
             RefreshView(node);
         }
-        internal protected virtual void OnRenamed(ResourceNode node) { Text = node.Name; }
+        internal protected virtual void OnRenamed(ResourceNode node) { Text = node.ToString(); }
 
         internal protected virtual void OnMovedUp(ResourceNode node, bool select)
         {
