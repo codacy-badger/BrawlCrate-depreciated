@@ -294,7 +294,6 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("es");    // Spanish
             else
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");    // English
-            System.Threading.Thread.CurrentThread.CurrentUICulture.ToString().Substring(0, 2);
         }
 
         public static void ForceDownloadCanary(bool manual = true)

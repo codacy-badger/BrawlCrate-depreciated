@@ -1337,104 +1337,104 @@
     <Content Include="CustomLists\StageList.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\Module\st_mariopast\Section [1].txt">
+    <Content Include="InternalDocumentation\Module\st_mariopast\Section [1].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\Module\st_plankton\Section [1].txt">
+    <Content Include="InternalDocumentation\Module\st_plankton\Section [1].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\Module\st_donkey\Section [1].txt">
+    <Content Include="InternalDocumentation\Module\st_donkey\Section [1].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\Module\st_donkey\Section [4].txt">
+    <Content Include="InternalDocumentation\Module\st_donkey\Section [4].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\Module\st_dxpstadium\Section [4].txt">
+    <Content Include="InternalDocumentation\Module\st_dxpstadium\Section [4].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\Module\st_dxrcruise\Section [4].txt">
+    <Content Include="InternalDocumentation\Module\st_dxrcruise\Section [4].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\Module\st_dxzebes\Section [1].txt">
+    <Content Include="InternalDocumentation\Module\st_dxzebes\Section [1].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\Module\st_famicom\Section [1].txt">
+    <Content Include="InternalDocumentation\Module\st_famicom\Section [1].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\Module\st_tbreak\Section [1].txt">
+    <Content Include="InternalDocumentation\Module\st_tbreak\Section [1].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\Module\st_tbreak\Section [4].txt">
+    <Content Include="InternalDocumentation\Module\st_tbreak\Section [4].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\Module\st_tengan\Section [1].txt">
+    <Content Include="InternalDocumentation\Module\st_tengan\Section [1].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\STDT\CRAYON[20].txt">
+    <Content Include="InternalDocumentation\STDT\CRAYON[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\STDT\DOLPIC[20].txt">
+    <Content Include="InternalDocumentation\STDT\DOLPIC[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\STDT\DXBIGBLUE[20].txt">
+    <Content Include="InternalDocumentation\STDT\DXBIGBLUE[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\STDT\DXGARDEN[20].txt">
+    <Content Include="InternalDocumentation\STDT\DXGARDEN[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\STDT\DXONETT[20].txt">
+    <Content Include="InternalDocumentation\STDT\DXONETT[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\STDT\FAMICOM[20].txt">
+    <Content Include="InternalDocumentation\STDT\FAMICOM[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\STDT\GREENHILL[20].txt">
+    <Content Include="InternalDocumentation\STDT\GREENHILL[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\STDT\HALBERD[20].txt">
+    <Content Include="InternalDocumentation\STDT\HALBERD[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\STDT\HOMERUN[20].txt">
+    <Content Include="InternalDocumentation\STDT\HOMERUN[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\STDT\MANSION[20].txt">
+    <Content Include="InternalDocumentation\STDT\MANSION[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\STDT\MARIOPAST[20].txt">
+    <Content Include="InternalDocumentation\STDT\MARIOPAST[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\STDT\METALGEAR[20].txt">
+    <Content Include="InternalDocumentation\STDT\METALGEAR[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\STDT\NORFAIR[20].txt">
+    <Content Include="InternalDocumentation\STDT\NORFAIR[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\STDT\PALUTENA[20].txt">
+    <Content Include="InternalDocumentation\STDT\PALUTENA[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\STDT\PICTCHAT[4].txt">
+    <Content Include="InternalDocumentation\STDT\PICTCHAT[4].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\STDT\PLANKTON[20].txt">
+    <Content Include="InternalDocumentation\STDT\PLANKTON[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\STDT\TENGAN[20].txt">
+    <Content Include="InternalDocumentation\STDT\TENGAN[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\STDT\VILLAGE[20].txt">
+    <Content Include="InternalDocumentation\STDT\VILLAGE[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="InternalDocumentation\version.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="OpenTK.dll" />
-    <Content Include="InternalDocumentation\en\STDT\DONKEY[20].txt">
+    <Content Include="InternalDocumentation\STDT\DONKEY[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\STDT\DXGREENS[20].txt">
+    <Content Include="InternalDocumentation\STDT\DXGREENS[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InternalDocumentation\en\STDT\STADIUM[20].txt">
+    <Content Include="InternalDocumentation\STDT\STADIUM[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="System\Windows\Controls\Hex Editor\HexBox.bmp" />
