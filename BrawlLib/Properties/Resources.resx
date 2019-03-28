@@ -385,6 +385,10 @@
     <value>Pause Camera Default X</value>
     <comment>Default X-Value for the Pause Camera</comment>
   </data>
+  <data name="STPMVal24-25-26" xml:space="preserve">
+    <value>Pause Camera Neutral Position</value>
+    <comment>Pause Camera Default Position</comment>
+  </data>
   <data name="STPMVal25" xml:space="preserve">
     <value>Pause Camera Default Y</value>
     <comment>Default Y-Value for the Pause Camera</comment>
@@ -429,6 +433,10 @@
     <value>Fixed Camera X-Position</value>
     <comment>The X-Location of the Fixed Camera</comment>
   </data>
+  <data name="STPMVal35-36-37" xml:space="preserve">
+    <value>Fixed Camera Position</value>
+    <comment>Fixed Camera Position</comment>
+  </data>
   <data name="STPMVal36" xml:space="preserve">
     <value>Fixed Camera Y-Position</value>
     <comment>The Y-Location of the Fixed Camera</comment>
@@ -461,6 +469,10 @@
     <value>Ice Climbers Final Smash X-Position</value>
     <comment>Affects the X-Position of Ice Climbers Final Smash</comment>
   </data>
+  <data name="STPMVal43-44-45" xml:space="preserve">
+    <value>Ice Climbers Final Smash Position</value>
+    <comment>Ice Climbers Final Smash Position</comment>
+  </data>
   <data name="STPMVal44" xml:space="preserve">
     <value>Ice Climbers Final Smash Y-Position</value>
     <comment>Affects the Y-Position of Ice Climbers Final Smash</comment>
@@ -472,6 +484,10 @@
   <data name="STPMVal46" xml:space="preserve">
     <value>Ice Climbers Final Smash X-Scale</value>
     <comment>Affects the X-Scale of Ice Climbers Final Smash</comment>
+  </data>
+  <data name="STPMVal46-47" xml:space="preserve">
+    <value>Ice Climbers Final Smash Scale</value>
+    <comment>Ice Climbers Final Smash Scale</comment>
   </data>
   <data name="STPMVal47" xml:space="preserve">
     <value>Ice Climbers Final Smash Y-Scale</value>

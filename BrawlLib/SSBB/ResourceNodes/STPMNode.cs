@@ -207,15 +207,37 @@ namespace BrawlLib.SSBB.ResourceNodes
         public float CameraLeft { get { return _values.GetFloat(22); } set { _values.SetFloat(22, value); SignalPropertyChange(); } }
 
         [LocalizedCategory("STPMValues")]
+        [LocalizedDisplayName("STPMVal24-25-26")]
+        [TypeConverter(typeof(Vector3StringConverter))]
+        public Vector3 PauseCameraPosition
+        {
+            get
+            {
+                return new Vector3(_values.GetFloat(23), _values.GetFloat(24), _values.GetFloat(25));
+            }
+
+            set
+            {
+                _values.SetFloat(23, value[0]);
+                _values.SetFloat(24, value[1]);
+                _values.SetFloat(25, value[2]);
+                SignalPropertyChange();
+            }
+        }
+
+        [LocalizedCategory("STPMValues")]
         [LocalizedDisplayName("STPMVal24")]
+        [Browsable(false)]
         public float PauseCamX { get { return _values.GetFloat(23); } set { _values.SetFloat(23, value); SignalPropertyChange(); } }
 
         [LocalizedCategory("STPMValues")]
         [LocalizedDisplayName("STPMVal25")]
+        [Browsable(false)]
         public float PauseCamY { get { return _values.GetFloat(24); } set { _values.SetFloat(24, value); SignalPropertyChange(); } }
 
         [LocalizedCategory("STPMValues")]
         [LocalizedDisplayName("STPMVal26")]
+        [Browsable(false)]
         public float PauseCamZ { get { return _values.GetFloat(25); } set { _values.SetFloat(25, value); SignalPropertyChange(); } }
 
         [LocalizedCategory("STPMValues")]
@@ -251,15 +273,36 @@ namespace BrawlLib.SSBB.ResourceNodes
         public float PauseCamRotXMax { get { return _values.GetFloat(33); } set { _values.SetFloat(33, value); SignalPropertyChange(); } }
 
         [LocalizedCategory("STPMValues")]
+        [LocalizedDisplayName("STPMVal35-36-37")]
+        [TypeConverter(typeof(Vector3StringConverter))]
+        public Vector3 FixedCameraPosition
+        {
+            get
+            {
+                return new Vector3(_values.GetFloat(34), _values.GetFloat(35), _values.GetFloat(36));
+            }
+            set
+            {
+                _values.SetFloat(34, value[0]);
+                _values.SetFloat(35, value[1]);
+                _values.SetFloat(36, value[2]);
+                SignalPropertyChange();
+            }
+        }
+
+        [LocalizedCategory("STPMValues")]
         [LocalizedDisplayName("STPMVal35")]
+        [Browsable(false)]
         public float FixedCamX { get { return _values.GetFloat(34); } set { _values.SetFloat(34, value); SignalPropertyChange(); } }
 
         [LocalizedCategory("STPMValues")]
         [LocalizedDisplayName("STPMVal36")]
+        [Browsable(false)]
         public float FixedCamY { get { return _values.GetFloat(35); } set { _values.SetFloat(35, value); SignalPropertyChange(); } }
 
         [LocalizedCategory("STPMValues")]
         [LocalizedDisplayName("STPMVal37")]
+        [Browsable(false)]
         public float FixedCamZ { get { return _values.GetFloat(36); } set { _values.SetFloat(36, value); SignalPropertyChange(); } }
 
         [LocalizedCategory("STPMValues")]
@@ -283,23 +326,63 @@ namespace BrawlLib.SSBB.ResourceNodes
         public float OlimarFinalCamAngle { get { return _values.GetFloat(41); } set { _values.SetFloat(41, value); SignalPropertyChange(); } }
 
         [LocalizedCategory("STPMValues")]
+        [LocalizedDisplayName("STPMVal43-44-45")]
+        [TypeConverter(typeof(Vector3StringConverter))]
+        public Vector3 IceClimbersFinalPosition
+        {
+            get
+            {
+                return new Vector3(_values.GetFloat(42), _values.GetFloat(43), _values.GetFloat(44));
+            }
+            set
+            {
+                _values.SetFloat(42, value[0]);
+                _values.SetFloat(43, value[1]);
+                _values.SetFloat(44, value[2]);
+                SignalPropertyChange();
+            }
+        }
+
+        [LocalizedCategory("STPMValues")]
         [LocalizedDisplayName("STPMVal43")]
+        [Browsable(false)]
         public float IceClimbersFinalPosX { get { return _values.GetFloat(42); } set { _values.SetFloat(42, value); SignalPropertyChange(); } }
 
         [LocalizedCategory("STPMValues")]
         [LocalizedDisplayName("STPMVal44")]
+        [Browsable(false)]
         public float IceClimbersFinalPosY { get { return _values.GetFloat(43); } set { _values.SetFloat(43, value); SignalPropertyChange(); } }
 
         [LocalizedCategory("STPMValues")]
         [LocalizedDisplayName("STPMVal45")]
+        [Browsable(false)]
         public float IceClimbersFinalPosZ { get { return _values.GetFloat(44); } set { _values.SetFloat(44, value); SignalPropertyChange(); } }
 
         [LocalizedCategory("STPMValues")]
+        [LocalizedDisplayName("STPMVal46-47")]
+        [TypeConverter(typeof(Vector2StringConverter))]
+        public Vector2 IceClimbersFinalScale
+        {
+            get
+            {
+                return new Vector2(_values.GetFloat(45), _values.GetFloat(46));
+            }
+            set
+            {
+                _values.SetFloat(45, value._x);
+                _values.SetFloat(46, value._y);
+                SignalPropertyChange();
+            }
+        }
+
+        [LocalizedCategory("STPMValues")]
         [LocalizedDisplayName("STPMVal46")]
+        [Browsable(false)]
         public float IceClimbersFinalScaleX { get { return _values.GetFloat(45); } set { _values.SetFloat(45, value); SignalPropertyChange(); } }
 
         [LocalizedCategory("STPMValues")]
         [LocalizedDisplayName("STPMVal47")]
+        [Browsable(false)]
         public float IceClimbersFinalScaleY { get { return _values.GetFloat(46); } set { _values.SetFloat(46, value); SignalPropertyChange(); } }
 
         [LocalizedCategory("STPMValues")]

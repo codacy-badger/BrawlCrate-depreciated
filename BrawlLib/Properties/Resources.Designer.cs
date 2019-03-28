@@ -664,6 +664,15 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pause Camera Neutral Position.
+        /// </summary>
+        public static string STPMVal24_25_26 {
+            get {
+                return ResourceManager.GetString("STPMVal24-25-26", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pause Camera Default Y.
         /// </summary>
         public static string STPMVal25 {
@@ -763,6 +772,15 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fixed Camera Position.
+        /// </summary>
+        public static string STPMVal35_36_37 {
+            get {
+                return ResourceManager.GetString("STPMVal35-36-37", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fixed Camera Y-Position.
         /// </summary>
         public static string STPMVal36 {
@@ -835,6 +853,15 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ice Climbers Final Smash Position.
+        /// </summary>
+        public static string STPMVal43_44_45 {
+            get {
+                return ResourceManager.GetString("STPMVal43-44-45", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ice Climbers Final Smash Y-Position.
         /// </summary>
         public static string STPMVal44 {
@@ -858,6 +885,15 @@ namespace BrawlLib.Properties {
         public static string STPMVal46 {
             get {
                 return ResourceManager.GetString("STPMVal46", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ice Climbers Final Smash Scale.
+        /// </summary>
+        public static string STPMVal46_47 {
+            get {
+                return ResourceManager.GetString("STPMVal46-47", resourceCulture);
             }
         }
         
