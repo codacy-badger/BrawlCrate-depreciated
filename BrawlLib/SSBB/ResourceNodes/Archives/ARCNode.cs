@@ -654,25 +654,25 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             switch(String.Format("{0}", _fileType)) {
                 case "None":
-                    return "None";
+                    return BrawlLib.Properties.Resources.None;
                 case "MiscData":
-                    return "Misc Data";
+                    return BrawlLib.Properties.Resources.MiscData;
                 case "ModelData":
-                    return "Model Data";
+                    return BrawlLib.Properties.Resources.ModelData;
                 case "TextureData":
-                    return "Texture Data";
+                    return BrawlLib.Properties.Resources.TextureData;
                 case "AnimationData":
-                    return "Animation Data";
+                    return BrawlLib.Properties.Resources.AnimationData;
                 case "SceneData":
-                    return "Scene Data";
+                    return BrawlLib.Properties.Resources.SceneData;
                 case "Type6":
-                    return "Type 6";
+                    return BrawlLib.Properties.Resources.EffectData;
                 case "GroupedArchive":
-                    return "ARC";
+                    return BrawlLib.Properties.Resources.GroupedArchive;
                 case "EffectData":
-                    return "Effect Data";
+                    return BrawlLib.Properties.Resources.EffectData;
                 default:
-                    return "Error Parsing Filetype";
+                    return BrawlLib.Properties.Resources.UnknownData;
             }
         }
 
@@ -695,9 +695,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             string s = string.Format("{0} [{1}]", fileType, _fileIndex);
             if (_group != 0)
-                s += " [Group " + _group + "]";
-            if (_redirectIndex != -1)
-                s += " (Redirect → " + ((RedirectTargetNode == null && _resourceType != ResourceType.MSBin) ? _redirectIndex.ToString() : (string)RedirectTarget) + ")";
+                s += " [" + BrawlLib.Properties.Resources.Group + " " + _group + "]";
+            if (RedirectTargetNode != null)
+                s += " (" + BrawlLib.Properties.Resources.Redirect + " → " + ((RedirectTargetNode == null && _resourceType != ResourceType.MSBin) ? _redirectIndex.ToString() : (string)RedirectTarget) + ")";
             return s;
         }
 

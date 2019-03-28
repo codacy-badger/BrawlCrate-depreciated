@@ -61,6 +61,15 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Animation Data.
+        /// </summary>
+        public static string AnimationData {
+            get {
+                return ResourceManager.GetString("AnimationData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Basic.
         /// </summary>
         public static string Collision0x00 {
@@ -358,6 +367,15 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Collision Object.
+        /// </summary>
+        public static string CollisionObject {
+            get {
+                return ResourceManager.GetString("CollisionObject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ceiling.
         /// </summary>
         public static string CollisionTypeCeiling {
@@ -412,6 +430,33 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Effect Data.
+        /// </summary>
+        public static string EffectData {
+            get {
+                return ResourceManager.GetString("EffectData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group.
+        /// </summary>
+        public static string Group {
+            get {
+                return ResourceManager.GetString("Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Archive.
+        /// </summary>
+        public static string GroupedArchive {
+            get {
+                return ResourceManager.GetString("GroupedArchive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ID 1.
         /// </summary>
         public static string ID1 {
@@ -426,6 +471,51 @@ namespace BrawlLib.Properties {
         public static string ID2 {
             get {
                 return ResourceManager.GetString("ID2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Misc Data.
+        /// </summary>
+        public static string MiscData {
+            get {
+                return ResourceManager.GetString("MiscData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Model Data.
+        /// </summary>
+        public static string ModelData {
+            get {
+                return ResourceManager.GetString("ModelData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Redirect.
+        /// </summary>
+        public static string Redirect {
+            get {
+                return ResourceManager.GetString("Redirect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scene Data.
+        /// </summary>
+        public static string SceneData {
+            get {
+                return ResourceManager.GetString("SceneData", resourceCulture);
             }
         }
         
@@ -1092,6 +1182,33 @@ namespace BrawlLib.Properties {
         public static string STPMValues {
             get {
                 return ResourceManager.GetString("STPMValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Texture Data.
+        /// </summary>
+        public static string TextureData {
+            get {
+                return ResourceManager.GetString("TextureData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type 6.
+        /// </summary>
+        public static string Type6 {
+            get {
+                return ResourceManager.GetString("Type6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown Data.
+        /// </summary>
+        public static string UnknownData {
+            get {
+                return ResourceManager.GetString("UnknownData", resourceCulture);
             }
         }
     }

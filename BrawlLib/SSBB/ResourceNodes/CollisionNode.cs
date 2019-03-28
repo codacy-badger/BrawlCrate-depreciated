@@ -339,7 +339,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override string ToString()
         {
-            return "Collision Object";
+            return BrawlLib.Properties.Resources.CollisionObject;
         }
 
         public void resetFlip()

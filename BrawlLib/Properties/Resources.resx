@@ -117,6 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AnimationData" xml:space="preserve">
+    <value>Animation Data</value>
+    <comment>Animation Data (ArcEntryType)</comment>
+  </data>
   <data name="Collision0x00" xml:space="preserve">
     <value>Basic</value>
     <comment>Default collision, used for many different objects</comment>
@@ -249,6 +253,10 @@
     <value>CollEx</value>
     <comment>Expanded collisions. Require SCLA edits or they won't work properly</comment>
   </data>
+  <data name="CollisionObject" xml:space="preserve">
+    <value>Collision Object</value>
+    <comment>Collision Object</comment>
+  </data>
   <data name="CollisionTypeCeiling" xml:space="preserve">
     <value>Ceiling</value>
     <comment>Ceiling</comment>
@@ -273,6 +281,18 @@
     <value>Echo</value>
     <comment>Echo</comment>
   </data>
+  <data name="EffectData" xml:space="preserve">
+    <value>Effect Data</value>
+    <comment>Effect Data (ArcEntryType)</comment>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>Group</value>
+    <comment>Group (as in ARC Groups)</comment>
+  </data>
+  <data name="GroupedArchive" xml:space="preserve">
+    <value>Archive</value>
+    <comment>Grouped Archive (ArcEntryType)</comment>
+  </data>
   <data name="ID1" xml:space="preserve">
     <value>ID 1</value>
     <comment>ID 1</comment>
@@ -280,6 +300,26 @@
   <data name="ID2" xml:space="preserve">
     <value>ID 2</value>
     <comment>ID 2</comment>
+  </data>
+  <data name="MiscData" xml:space="preserve">
+    <value>Misc Data</value>
+    <comment>Misc Data (ArcEntryType)</comment>
+  </data>
+  <data name="ModelData" xml:space="preserve">
+    <value>Model Data</value>
+    <comment>Model Data (ArcEntryType)</comment>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+    <comment>None (As in ArcEntryType)</comment>
+  </data>
+  <data name="Redirect" xml:space="preserve">
+    <value>Redirect</value>
+    <comment>Redirect Node</comment>
+  </data>
+  <data name="SceneData" xml:space="preserve">
+    <value>Scene Data</value>
+    <comment>Scene Data (ArcEntryType)</comment>
   </data>
   <data name="STPMData" xml:space="preserve">
     <value>STPM Data</value>
@@ -576,5 +616,17 @@
   <data name="STPMValues" xml:space="preserve">
     <value>STPM Values</value>
     <comment>STPM Values (Category)</comment>
+  </data>
+  <data name="TextureData" xml:space="preserve">
+    <value>Texture Data</value>
+    <comment>Texture Data (ArcEntryType)</comment>
+  </data>
+  <data name="Type6" xml:space="preserve">
+    <value>Type 6</value>
+    <comment>Type 6 ArcEntry (unknown usage)</comment>
+  </data>
+  <data name="UnknownData" xml:space="preserve">
+    <value>Unknown Data</value>
+    <comment>Unknown ArcEntryType</comment>
   </data>
 </root>
