@@ -410,75 +410,75 @@
     <comment>Maximum zoom-out for the Pause Camera</comment>
   </data>
   <data name="STPMVal31" xml:space="preserve">
-    <value>Value 31</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Pause Camera Y-Rotation Minimum</value>
+    <comment>The lowest allowed Y-Rotation Value for the Pause Camera</comment>
   </data>
   <data name="STPMVal32" xml:space="preserve">
-    <value>Value 32</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Pause Camera Y-Rotation Maximum</value>
+    <comment>The highest allowed Y-Rotation Value for the Pause Camera</comment>
   </data>
   <data name="STPMVal33" xml:space="preserve">
-    <value>Value 33</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Pause Camera X-Rotation Minimum</value>
+    <comment>The lowest allowed X-Rotation Value for the Pause Camera</comment>
   </data>
   <data name="STPMVal34" xml:space="preserve">
-    <value>Value 34</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Pause Camera X-Rotation Maximum</value>
+    <comment>The highest allowed X-Rotation Value for the Pause Camera</comment>
   </data>
   <data name="STPMVal35" xml:space="preserve">
-    <value>Value 35</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Fixed Camera X-Position</value>
+    <comment>The X-Location of the Fixed Camera</comment>
   </data>
   <data name="STPMVal36" xml:space="preserve">
-    <value>Value 36</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Fixed Camera Y-Position</value>
+    <comment>The Y-Location of the Fixed Camera</comment>
   </data>
   <data name="STPMVal37" xml:space="preserve">
-    <value>Value 37</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Fixed Camera Z-Position</value>
+    <comment>The Z-Location of the Fixed Camera</comment>
   </data>
   <data name="STPMVal38" xml:space="preserve">
-    <value>Value 38</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Fixed Camera Angle</value>
+    <comment>Affects the angle of the fixed camera</comment>
   </data>
   <data name="STPMVal39" xml:space="preserve">
-    <value>Value 39</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Fixed Camera Horizontal Angle</value>
+    <comment>Affects the angle of the fixed camera</comment>
   </data>
   <data name="STPMVal40" xml:space="preserve">
-    <value>Value 40</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Fixed Camera Vertical Angle</value>
+    <comment>Affects the angle of the fixed camera</comment>
   </data>
   <data name="STPMVal41" xml:space="preserve">
     <value>Value 41</value>
     <comment>Unknown STPM Value</comment>
   </data>
   <data name="STPMVal42" xml:space="preserve">
-    <value>Value 42</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Olimar Final Smash Camera Angle</value>
+    <comment>Affects the angle of Olimar's Final Smash Camera</comment>
   </data>
   <data name="STPMVal43" xml:space="preserve">
-    <value>Value 43</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Ice Climbers Final Smash X-Position</value>
+    <comment>Affects the X-Position of Ice Climbers Final Smash</comment>
   </data>
   <data name="STPMVal44" xml:space="preserve">
-    <value>Value 44</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Ice Climbers Final Smash Y-Position</value>
+    <comment>Affects the Y-Position of Ice Climbers Final Smash</comment>
   </data>
   <data name="STPMVal45" xml:space="preserve">
-    <value>Value 45</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Ice Climbers Final Smash Z-Position</value>
+    <comment>Affects the Z-Position of Ice Climbers Final Smash</comment>
   </data>
   <data name="STPMVal46" xml:space="preserve">
-    <value>Value 46</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Ice Climbers Final Smash X-Scale</value>
+    <comment>Affects the X-Scale of Ice Climbers Final Smash</comment>
   </data>
   <data name="STPMVal47" xml:space="preserve">
-    <value>Value 47</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Ice Climbers Final Smash Y-Scale</value>
+    <comment>Affects the Y-Scale of Ice Climbers Final Smash</comment>
   </data>
   <data name="STPMVal48" xml:space="preserve">
-    <value>Value 48</value>
+    <value>Pit Final Smash Palutena Scale</value>
     <comment>Unknown STPM Value</comment>
   </data>
   <data name="STPMVal49" xml:space="preserve">
@@ -486,12 +486,12 @@
     <comment>Unknown STPM Value</comment>
   </data>
   <data name="STPMVal50a" xml:space="preserve">
-    <value>Value 50a</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Stage Wind Enabled</value>
+    <comment>Whether wind is active</comment>
   </data>
   <data name="STPMVal50b" xml:space="preserve">
-    <value>Value 50b</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Character Wind Enabled</value>
+    <comment>Whether wind is active on characters</comment>
   </data>
   <data name="STPMVal50c" xml:space="preserve">
     <value>Value 50c</value>
@@ -502,16 +502,16 @@
     <comment>Unknown STPM Value</comment>
   </data>
   <data name="STPMVal51" xml:space="preserve">
-    <value>Value 51</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Wind Strength</value>
+    <comment>Strength of Wind</comment>
   </data>
   <data name="STPMVal52" xml:space="preserve">
-    <value>Value 52</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Horizontal Wind Rotation</value>
+    <comment>Horizontal Wind Rotation</comment>
   </data>
   <data name="STPMVal53" xml:space="preserve">
-    <value>Value 53</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Vertical Wind Rotation</value>
+    <comment>Vertical Wind Rotation</comment>
   </data>
   <data name="STPMVal54" xml:space="preserve">
     <value>Value 54</value>
@@ -534,8 +534,8 @@
     <comment>Unknown STPM Value</comment>
   </data>
   <data name="STPMVal59" xml:space="preserve">
-    <value>Value 59</value>
-    <comment>Unknown STPM Value</comment>
+    <value>Echo Multiplier</value>
+    <comment>Echo Multiplier</comment>
   </data>
   <data name="STPMVal60" xml:space="preserve">
     <value>Value 60</value>

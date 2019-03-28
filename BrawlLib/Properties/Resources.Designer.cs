@@ -718,7 +718,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 31.
+        ///   Looks up a localized string similar to Pause Camera Y-Rotation Minimum.
         /// </summary>
         public static string STPMVal31 {
             get {
@@ -727,7 +727,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 32.
+        ///   Looks up a localized string similar to Pause Camera Y-Rotation Maximum.
         /// </summary>
         public static string STPMVal32 {
             get {
@@ -736,7 +736,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 33.
+        ///   Looks up a localized string similar to Pause Camera X-Rotation Minimum.
         /// </summary>
         public static string STPMVal33 {
             get {
@@ -745,7 +745,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 34.
+        ///   Looks up a localized string similar to Pause Camera X-Rotation Maximum.
         /// </summary>
         public static string STPMVal34 {
             get {
@@ -754,7 +754,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 35.
+        ///   Looks up a localized string similar to Fixed Camera X-Position.
         /// </summary>
         public static string STPMVal35 {
             get {
@@ -763,7 +763,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 36.
+        ///   Looks up a localized string similar to Fixed Camera Y-Position.
         /// </summary>
         public static string STPMVal36 {
             get {
@@ -772,7 +772,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 37.
+        ///   Looks up a localized string similar to Fixed Camera Z-Position.
         /// </summary>
         public static string STPMVal37 {
             get {
@@ -781,7 +781,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 38.
+        ///   Looks up a localized string similar to Fixed Camera Angle.
         /// </summary>
         public static string STPMVal38 {
             get {
@@ -790,7 +790,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 39.
+        ///   Looks up a localized string similar to Fixed Camera Horizontal Angle.
         /// </summary>
         public static string STPMVal39 {
             get {
@@ -799,7 +799,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 40.
+        ///   Looks up a localized string similar to Fixed Camera Vertical Angle.
         /// </summary>
         public static string STPMVal40 {
             get {
@@ -817,7 +817,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 42.
+        ///   Looks up a localized string similar to Olimar Final Smash Camera Angle.
         /// </summary>
         public static string STPMVal42 {
             get {
@@ -826,7 +826,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 43.
+        ///   Looks up a localized string similar to Ice Climbers Final Smash X-Position.
         /// </summary>
         public static string STPMVal43 {
             get {
@@ -835,7 +835,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 44.
+        ///   Looks up a localized string similar to Ice Climbers Final Smash Y-Position.
         /// </summary>
         public static string STPMVal44 {
             get {
@@ -844,7 +844,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 45.
+        ///   Looks up a localized string similar to Ice Climbers Final Smash Z-Position.
         /// </summary>
         public static string STPMVal45 {
             get {
@@ -853,7 +853,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 46.
+        ///   Looks up a localized string similar to Ice Climbers Final Smash X-Scale.
         /// </summary>
         public static string STPMVal46 {
             get {
@@ -862,7 +862,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 47.
+        ///   Looks up a localized string similar to Ice Climbers Final Smash Y-Scale.
         /// </summary>
         public static string STPMVal47 {
             get {
@@ -871,7 +871,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 48.
+        ///   Looks up a localized string similar to Pit Final Smash Palutena Scale.
         /// </summary>
         public static string STPMVal48 {
             get {
@@ -889,7 +889,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 50a.
+        ///   Looks up a localized string similar to Stage Wind Enabled.
         /// </summary>
         public static string STPMVal50a {
             get {
@@ -898,7 +898,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 50b.
+        ///   Looks up a localized string similar to Character Wind Enabled.
         /// </summary>
         public static string STPMVal50b {
             get {
@@ -925,7 +925,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 51.
+        ///   Looks up a localized string similar to Wind Strength.
         /// </summary>
         public static string STPMVal51 {
             get {
@@ -934,7 +934,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 52.
+        ///   Looks up a localized string similar to Horizontal Wind Rotation.
         /// </summary>
         public static string STPMVal52 {
             get {
@@ -943,7 +943,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 53.
+        ///   Looks up a localized string similar to Vertical Wind Rotation.
         /// </summary>
         public static string STPMVal53 {
             get {
@@ -997,7 +997,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value 59.
+        ///   Looks up a localized string similar to Echo Multiplier.
         /// </summary>
         public static string STPMVal59 {
             get {
