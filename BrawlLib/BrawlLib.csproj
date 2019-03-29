@@ -1328,15 +1328,15 @@
     <Content Include="CustomLists\AboutCustomLists.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="CustomLists\FighterList.txt">
+    <EmbeddedResource Include="CustomLists\FighterList.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
     <Content Include="CustomLists\Project M 3.6 Stage List - Move to the main folder if you wish to use it\StageList.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="CustomLists\StageList.txt">
+    <EmbeddedResource Include="CustomLists\StageList.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
     <Content Include="InternalDocumentation\Module\st_mariopast\Section [1].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
