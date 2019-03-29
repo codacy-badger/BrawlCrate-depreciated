@@ -128,7 +128,7 @@
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(75, 23);
             this.btnNew.TabIndex = 0;
-            this.btnNew.Text = "New";
+            this.btnNew.Text = BrawlLib.Properties.Resources.New;
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 

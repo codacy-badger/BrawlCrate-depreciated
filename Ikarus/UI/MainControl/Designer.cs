@@ -873,7 +873,7 @@ namespace Ikarus.UI
             this.boundingBoxToolStripMenuItem});
             this.modelToolStripMenuItem.Name = "modelToolStripMenuItem";
             this.modelToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.modelToolStripMenuItem.Text = "Model";
+            this.modelToolStripMenuItem.Text = BrawlLib.Properties.Resources.Model;
             // 
             // toggleBones
             // 

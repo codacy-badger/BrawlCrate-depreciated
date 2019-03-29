@@ -15,7 +15,7 @@ namespace BrawlCrate.NodeWrappers
         static TPLWrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("Import Texture", null, NewEntryAction, Keys.Control | Keys.I));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ImportTexture, null, NewEntryAction, Keys.Control | Keys.I));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Export, null, ExportAction, Keys.Control | Keys.E));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Replace, null, ReplaceAction, Keys.Control | Keys.R));
@@ -54,7 +54,7 @@ namespace BrawlCrate.NodeWrappers
             int index = Program.OpenFile(FileFilters.Images, out path);
             if (index == 8)
             {
-                TPLTextureNode t = new TPLTextureNode() { Name = "Texture" };
+                TPLTextureNode t = new TPLTextureNode() { Name = BrawlLib.Properties.Resources.Texture };
                 _resource.AddChild(t);
                 t.Replace(path);
 
@@ -83,7 +83,7 @@ namespace BrawlCrate.NodeWrappers
         static TPLTextureNodeWrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("&Re-Encode", null, ReEncodeAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ReEncode, null, ReEncodeAction));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Export, null, ExportAction, Keys.Control | Keys.E));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Replace, null, ReplaceAction, Keys.Control | Keys.R));

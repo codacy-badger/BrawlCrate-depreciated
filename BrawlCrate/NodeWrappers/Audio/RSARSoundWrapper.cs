@@ -19,8 +19,8 @@ namespace BrawlCrate.NodeWrappers
         static RSARSoundWrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("Change Sound", null, ChangeSoundAction, Keys.Control | Keys.W));
-            _menu.Items.Add(new ToolStripMenuItem("View File", null, ViewFileAction, Keys.Control | Keys.I));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ChangeSound, null, ChangeSoundAction, Keys.Control | Keys.W));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ViewFile, null, ViewFileAction, Keys.Control | Keys.I));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Export, null, ExportAction, Keys.Control | Keys.E));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Replace, null, ReplaceAction));
@@ -64,11 +64,11 @@ namespace BrawlCrate.NodeWrappers
             {
                 if (n._waveDataNode._refs.Count > 1)
                 {
-                    string s = "The following entries also use this sound:\n";
+                    string s = BrawlLib.Properties.Resources.EntriesUseSound + '\n';
                     foreach (RSARSoundNode x in n._waveDataNode._refs)
                         s += x.TreePath + "\n";
-                    s += "\nDo you still want to replace this sound?";
-                    if (MessageBox.Show(s, "Continue?", MessageBoxButtons.YesNo) == DialogResult.No)
+                    s += '\n' + BrawlLib.Properties.Resources.ConfirmReplaceSound;
+                    if (MessageBox.Show(s, BrawlLib.Properties.Resources.Continue, MessageBoxButtons.YesNo) == DialogResult.No)
                         return;
                 }
                 string inPath;

@@ -163,7 +163,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 MDL0NormalNode oldNode = _normalNode;
                 if (String.IsNullOrEmpty(value))
-                    if (oldNode != null && MessageBox.Show(RootNode._mainForm, "Are you sure you want to remove this reference?", "Continue?", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    if (oldNode != null && MessageBox.Show(RootNode._mainForm, "Are you sure you want to remove this reference?", BrawlLib.Properties.Resources.Continue, MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
                         if (oldNode._objects.Contains(this))
                             oldNode._objects.Remove(this);
@@ -226,7 +226,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                     _elementIndices[id + 2] = -1;
                     _forceRebuild = true;
                 }
-                else if (oldNode != null && MessageBox.Show(RootNode._mainForm, "Are you sure you want to remove this reference?", "Continue?", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                else if (oldNode != null && MessageBox.Show(RootNode._mainForm, "Are you sure you want to remove this reference?", BrawlLib.Properties.Resources.Continue, MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
                     if (oldNode._objects.Contains(this))
                         oldNode._objects.Remove(this);
@@ -305,7 +305,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                     _elementIndices[id + 4] = -1;
                     _forceRebuild = true;
                 }
-                else if (oldNode != null && MessageBox.Show(RootNode._mainForm, "Are you sure you want to remove this reference?", "Continue?", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                else if (oldNode != null && MessageBox.Show(RootNode._mainForm, "Are you sure you want to remove this reference?", BrawlLib.Properties.Resources.Continue, MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
                     if (oldNode._objects.Contains(this))
                         oldNode._objects.Remove(this);

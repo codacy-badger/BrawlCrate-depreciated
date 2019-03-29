@@ -50,7 +50,7 @@ namespace BrawlCrate.NodeWrappers
                 new ToolStripMenuItem("Colors", null, SortColorAction),
                 new ToolStripMenuItem("UVs", null, SortUVAction),
                 new ToolStripMenuItem("Objects", null, SortObjectAction),
-                new ToolStripMenuItem("Textures", null, SortObjectAction)
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Textures, null, SortObjectAction)
                 ));
             _menu.Items.Add(new ToolStripMenuItem("&Auto Name Assets", null,
                 new ToolStripMenuItem("Vertices", null, NameVertexAction),

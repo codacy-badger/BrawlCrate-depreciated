@@ -56,7 +56,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 }
                 bool needsSmashing = false;
                 Bitmap bmp = GetImage(0);
-                if (MessageBox.Show("Would you like to attempt to automatically change Color Smash state of this texture as well?" + (value ? " (Choose no if you're using the old Color Smash method)" : ""), "Color Smasher", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                if (MessageBox.Show("Would you like to attempt to automatically change Color Smash state of this texture as well?" + (value ? " (Choose no if you're using the old Color Smash method)" : ""), BrawlLib.Properties.Resources.ColorSmasher, MessageBoxButtons.YesNo) != DialogResult.Yes)
                 {
                     _sharesData = value;
                     SignalPropertyChange();
@@ -177,7 +177,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                     if (!errorThrown)
                     {
                         errorThrown = true;
-                        attemptRegardless = false;//(MessageBox.Show("One or more images threw an error when converting. Would you like to try to color smash these regardless? (As opposed to keeping them seperate)\n" + AppDomain.CurrentDomain.BaseDirectory + "\\cs\\out\\" + j + ".png", "Color Smash", MessageBoxButtons.YesNo) == DialogResult.Yes);
+                        attemptRegardless = false;//(MessageBox.Show("One or more images threw an error when converting. Would you like to try to color smash these regardless? (As opposed to keeping them seperate)\n" + AppDomain.CurrentDomain.BaseDirectory + "\\cs\\out\\" + j + ".png", BrawlLib.Properties.Resources.ColorSmash, MessageBoxButtons.YesNo) == DialogResult.Yes);
                     }
                     if (attemptRegardless)
                     {

@@ -20,7 +20,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override ResourceType ResourceType { get { return ResourceType.BRES; } }
 
-        [Category("Models")]
+        [LocalizedCategory("Models")]
         public int NumModels
         {
             get
@@ -36,7 +36,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 return count;
             }
         }
-        [Category("Models"), Description("How many points are stored in the models in this BRRES and sent to the GPU every frame. A lower value is better.")]
+        [LocalizedCategory("Models"), Description("How many points are stored in the models in this BRRES and sent to the GPU every frame. A lower value is better.")]
         public int NumFacepoints
         {
             get
@@ -53,7 +53,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
         [Browsable(true)]
-        [Category("Models"), Description("How many individual vertices models in this BRRES have. A vertex in this case is only a point in space with its associated influence.")]
+        [LocalizedCategory("Models"), Description("How many individual vertices models in this BRRES have. A vertex in this case is only a point in space with its associated influence.")]
         public int NumVertices
         {
             get
@@ -69,7 +69,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 return count;
             }
         }
-        [Category("Models"), Description("The total number of individual triangle faces models in this BRRES have.")]
+        [LocalizedCategory("Models"), Description("The total number of individual triangle faces models in this BRRES have.")]
         public int NumTriangles
         {
             get
@@ -85,7 +85,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 return count;
             }
         }
-        [Category("Models"), Description("The total number of matrices used in this BRRES (bones + weighted influences).")]
+        [LocalizedCategory("Models"), Description("The total number of matrices used in this BRRES (bones + weighted influences).")]
         public int NumNodes
         {
             get

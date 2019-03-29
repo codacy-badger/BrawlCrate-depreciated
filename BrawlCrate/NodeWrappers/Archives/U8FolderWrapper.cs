@@ -21,20 +21,20 @@ namespace BrawlCrate
                 new ToolStripMenuItem("TPL", null, NewTplAction),
                 //new ToolStripMenuItem("RFNT", null, NewRfntAction),
                 //new ToolStripMenuItem("WAV", null, NewWavAction),
-                new ToolStripMenuItem("BRRES", null, NewBrresAction),
-                new ToolStripMenuItem("Folder", null, NewFolderAction)));
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.BRRESourcePack, null, NewBrresAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Folder, null, NewFolderAction)));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Import, null,
                 //new ToolStripMenuItem("RLYT", null, ImportRlytAction),
                 new ToolStripMenuItem("TPL", null, ImportTplAction),
                 //new ToolStripMenuItem("RFNT", null, ImportRfntAction),
                 //new ToolStripMenuItem("WAV", null, ImportWavAction),
-                new ToolStripMenuItem("BRRES", null, ImportBrresAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.BRRESourcePack, null, ImportBrresAction),
                 new ToolStripMenuItem("U8 Archive", null, ImportU8Action)));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.PreviewAllModels, null, PreviewAllAction));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ExportAll, null, ExportAllAction));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ReplaceAll, null, ReplaceAllAction));
-            _menu.Items.Add(new ToolStripMenuItem("Edit All", null, EditAllAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.EditAll, null, EditAllAction));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Export, null, ExportAction, Keys.Control | Keys.E));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Replace, null, ReplaceAction, Keys.Control | Keys.R));

@@ -779,21 +779,21 @@ namespace BrawlLib.Modeling
                 Stage
             }
 
-            [DisplayName("Model Type"), Category("Model"), Description("Determines the default settings for materials and shaders.")]
+            [DisplayName("Model Type"), LocalizedCategory("Model"), Description("Determines the default settings for materials and shaders.")]
             public MDLType ModelType { get { return _mdlType; } set { _mdlType = value; } }
-            [DisplayName("Force Counterclockwise Primitives"), Category("Model"), Description("If true, object primitives will be culled in reverse. This means the outside of the object will be the inside, and the inside will be the outside. It is not recommended to change this to true as you can change the culling later using the object's material.")]
+            [DisplayName("Force Counterclockwise Primitives"), LocalizedCategory("Model"), Description("If true, object primitives will be culled in reverse. This means the outside of the object will be the inside, and the inside will be the outside. It is not recommended to change this to true as you can change the culling later using the object's material.")]
             public bool ForceCounterClockwisePrimitives { get { return _forceCCW; } set { _forceCCW = value; } }
-            [DisplayName("Blender FBX Bone Fix"), Category("Model"), Description("Removes bones added by blender fbx exports (armature and end bones).")]
+            [DisplayName("Blender FBX Bone Fix"), LocalizedCategory("Model"), Description("Removes bones added by blender fbx exports (armature and end bones).")]
             public bool BlenderFBXBoneFix { get { return _blenderBoneFix; } set { _blenderBoneFix = value; } }
-            [DisplayName("Set Original Path"), Category("Model"), Description("If true, the file path of the imported model will be written to the model's header.")]
+            [DisplayName("Set Original Path"), LocalizedCategory("Model"), Description("If true, the file path of the imported model will be written to the model's header.")]
             public bool SetOriginalPath { get { return _setOrigPath; } set { _setOrigPath = value; } }
-            [DisplayName("Weight Precision"), Category("Model"), Description("Determines how precise weights will be compared. A smaller value means more accuracy but also more influences, resulting in a larger file size. A larger value means the weighting will be less accurate but there will be less influences.")]
+            [DisplayName("Weight Precision"), LocalizedCategory("Model"), Description("Determines how precise weights will be compared. A smaller value means more accuracy but also more influences, resulting in a larger file size. A larger value means the weighting will be less accurate but there will be less influences.")]
             public float WeightPrecision { get { return _weightPrecision; } set { _weightPrecision = value.Clamp(0.0000001f, 0.999999f); } }
-            [DisplayName("Model Version"), Category("Model"), Description("Sets the model version number, which affects how some parts of the model are written. Only versions 8, 9, 10 and 11 are supported.")]
+            [DisplayName("Model Version"), LocalizedCategory("Model"), Description("Sets the model version number, which affects how some parts of the model are written. Only versions 8, 9, 10 and 11 are supported.")]
             public int ModelVersion { get { return _modelVersion; } set { _modelVersion = value.Clamp(8, 11); } }
-            //[Category("Model"), TypeConverter(typeof(Vector3StringConverter)), Description("Rotates the entire model before importing. This can be used to fix a model's up axis, as BrawlCrate uses Y-up while some other 3D programs use Z-up.")]
+            //[LocalizedCategory("Model"), TypeConverter(typeof(Vector3StringConverter)), Description("Rotates the entire model before importing. This can be used to fix a model's up axis, as BrawlCrate uses Y-up while some other 3D programs use Z-up.")]
             //public Vector3 ModifyRotation { get { return _modifyRotation; } set { _modifyRotation = value; } }
-            //[Category("Model"), TypeConverter(typeof(Vector3StringConverter)), Description("Scales the entire model before importing. This can be used to fix a model's units, as BrawlCrate uses centimeters while other 3D programs uses units such as meters or inches.")]
+            //[LocalizedCategory("Model"), TypeConverter(typeof(Vector3StringConverter)), Description("Scales the entire model before importing. This can be used to fix a model's units, as BrawlCrate uses centimeters while other 3D programs uses units such as meters or inches.")]
             //public Vector3 ModifyScale { get { return _modifyScale; } set { _modifyScale = value; } }
             
             [DisplayName("Default Texture Wrapping"), Category("Materials"), Description("The default texture wrap for material texture references.")]

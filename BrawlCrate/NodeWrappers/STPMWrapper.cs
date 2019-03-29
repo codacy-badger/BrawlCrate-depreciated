@@ -17,7 +17,7 @@ namespace BrawlCrate.NodeWrappers
             _menu = new ContextMenuStrip();
 
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("Add New Entry", null, NewEntryAction, Keys.Control | Keys.J));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.AddNewEntry, null, NewEntryAction, Keys.Control | Keys.J));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("Replace Camera", null, ReplaceCameraAction, null));
             _menu.Items.Add(new ToolStripSeparator());

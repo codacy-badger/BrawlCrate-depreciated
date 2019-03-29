@@ -86,7 +86,7 @@ namespace System.Windows.Forms
             this.lblNew.Name = "lblNew";
             this.lblNew.Size = new System.Drawing.Size(35, 15);
             this.lblNew.TabIndex = 5;
-            this.lblNew.Text = "New";
+            this.lblNew.Text = BrawlLib.Properties.Resources.New;
             this.lblNew.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // chkAlpha

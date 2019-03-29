@@ -20,38 +20,38 @@ namespace BrawlCrate
         {
             _menu = new ContextMenuStrip();
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.New, null,
-                new ToolStripMenuItem("Model", null, NewModelAction),
-                new ToolStripMenuItem("Model Animation", null, NewChrAction),
-                new ToolStripMenuItem("Texture Animation", null, NewSrtAction),
-                new ToolStripMenuItem("Texture Pattern", null, NewPatAction),
-                new ToolStripMenuItem("Visibility Sequence", null, NewVisAction),
-                new ToolStripMenuItem("Vertex Morph", null, NewShpAction),
-                new ToolStripMenuItem("Color Sequence", null, NewClrAction),
-                new ToolStripMenuItem("Scene Settings", null, NewScnAction)
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Model, null, NewModelAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.ModelAnimation, null, NewChrAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.TextureAnimation, null, NewSrtAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.TexturePattern, null, NewPatAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.VisibilitySequence, null, NewVisAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.VertexMorph, null, NewShpAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.ColorSequence, null, NewClrAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.SceneSettings, null, NewScnAction)
                 ));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Import, null,
-                new ToolStripMenuItem("Texture", null, ImportTextureAction),
-                new ToolStripMenuItem("Color Smashable Textures", null, ImportColorSmashableTexturesAction),
-                new ToolStripMenuItem("Model", null, ImportModelAction),
-                new ToolStripMenuItem("Model Animation", null, ImportChrAction),
-                new ToolStripMenuItem("Texture Animation", null, ImportSrtAction),
-                new ToolStripMenuItem("Texture Pattern", null, ImportPatAction),
-                new ToolStripMenuItem("Visibility Sequence", null, ImportVisAction),
-                new ToolStripMenuItem("Vertex Morph", null, ImportShpAction),
-                new ToolStripMenuItem("Color Sequence", null, ImportClrAction),
-                new ToolStripMenuItem("Scene Settings", null, ImportScnAction),
-                new ToolStripMenuItem("Folder", null, ImportFolderAction),
-                new ToolStripMenuItem("Animated GIF", null, ImportGIFAction),
-                new ToolStripMenuItem("Common Files (From Internet)", null,
-                    new ToolStripMenuItem("Static (Empty) Model", null, ImportCommonModelStaticAction),
-                    new ToolStripMenuItem("Character Spy Textures", null, ImportCommonTextureSpyAction),
-                    new ToolStripMenuItem("Stage Shadow Texture", null, ImportCommonTextureShadowAction)
-                    /*new ToolStripMenuItem("Models", null,
-                        new ToolStripMenuItem("Static (Empty) Model", null, ImportCommonModelStaticAction)
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Texture, null, ImportTextureAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.ColorSmashableTextures, null, ImportColorSmashableTexturesAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Model, null, ImportModelAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.ModelAnimation, null, ImportChrAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.TextureAnimation, null, ImportSrtAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.TexturePattern, null, ImportPatAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.VisibilitySequence, null, ImportVisAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.VertexMorph, null, ImportShpAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.ColorSequence, null, ImportClrAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.SceneSettings, null, ImportScnAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Folder, null, ImportFolderAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.AnimatedGIF, null, ImportGIFAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.CommonFilesFromInternet, null,
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.StaticEmptyModel, null, ImportCommonModelStaticAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.CharacterSpyTextures, null, ImportCommonTextureSpyAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.StageShadowTexture, null, ImportCommonTextureShadowAction)
+                    /*new ToolStripMenuItem(BrawlLib.Properties.Resources.Models, null,
+                        new ToolStripMenuItem(BrawlLib.Properties.Resources.StaticEmptyModel, null, ImportCommonModelStaticAction)
                         ),
-                    new ToolStripMenuItem("Textures", null,
-                        new ToolStripMenuItem("Spy", null, ImportCommonTextureSpyAction),
-                        new ToolStripMenuItem("Stage Shadow", null, ImportCommonTextureShadowAction)
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.Textures, null,
+                        new ToolStripMenuItem(BrawlLib.Properties.Resources.Spy, null, ImportCommonTextureSpyAction),
+                        new ToolStripMenuItem(BrawlLib.Properties.Resources.StageShadow, null, ImportCommonTextureShadowAction)
                     )*/
                 )
                 ));
@@ -59,7 +59,7 @@ namespace BrawlCrate
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.PreviewAllModels, null, PreviewAllAction));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ExportAll, null, ExportAllAction));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ReplaceAll, null, ReplaceAllAction));
-            _menu.Items.Add(new ToolStripMenuItem("Edit All", null, EditAllAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.EditAll, null, EditAllAction));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Export, null, ExportAction, Keys.Control | Keys.E));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Replace, null, ReplaceAction, Keys.Control | Keys.R));
@@ -194,7 +194,7 @@ namespace BrawlCrate
             if (_openDlg.ShowDialog() == DialogResult.OK)
             {
                 TEX0Node._updating = true;
-                DialogResult dr = MessageBox.Show("Would you like to send these through the color smash tool now?", "Color Smash", MessageBoxButtons.YesNoCancel);
+                DialogResult dr = MessageBox.Show(BrawlLib.Properties.Resources.SendThroughColorSmashTool, BrawlLib.Properties.Resources.ColorSmash, MessageBoxButtons.YesNoCancel);
                 if (dr == DialogResult.No)
                 {
                     // Don't color smash them again
@@ -271,7 +271,7 @@ namespace BrawlCrate
                             if (!errorThrown)
                             {
                                 errorThrown = true;
-                                attemptRegardless = (MessageBox.Show("One or more images threw an error when converting. Would you like to try to color smash these regardless? (As opposed to keeping them seperate)", "Color Smash", MessageBoxButtons.YesNo) == DialogResult.Yes);
+                                attemptRegardless = (MessageBox.Show(BrawlLib.Properties.Resources.ColorSmashError, BrawlLib.Properties.Resources.ColorSmash, MessageBoxButtons.YesNo) == DialogResult.Yes);
                             }
                             if (attemptRegardless)
                             {
@@ -443,7 +443,7 @@ namespace BrawlCrate
 
         public void NewChr()
         {
-            CHR0Node node = ((BRRESNode)_resource).CreateResource<CHR0Node>("NewCHR");
+            CHR0Node node = ((BRRESNode)_resource).CreateResource<CHR0Node>(BrawlLib.Properties.Resources.New + "CHR");
             node.Version = 4;
             BaseWrapper res = this.FindResource(node, true);
             res = res.FindResource(node, false);
@@ -453,7 +453,7 @@ namespace BrawlCrate
 
         public void NewSrt()
         {
-            SRT0Node node = ((BRRESNode)_resource).CreateResource<SRT0Node>("NewSRT");
+            SRT0Node node = ((BRRESNode)_resource).CreateResource<SRT0Node>(BrawlLib.Properties.Resources.New + "SRT");
             node.Version = 4;
             BaseWrapper res = this.FindResource(node, true);
             res = res.FindResource(node, false);
@@ -463,7 +463,7 @@ namespace BrawlCrate
 
         public void NewPat()
         {
-            PAT0Node node = ((BRRESNode)_resource).CreateResource<PAT0Node>("NewPAT");
+            PAT0Node node = ((BRRESNode)_resource).CreateResource<PAT0Node>(BrawlLib.Properties.Resources.New + "PAT");
             node.Version = 3;
             BaseWrapper res = this.FindResource(node, true);
             res = res.FindResource(node, false);
@@ -473,7 +473,7 @@ namespace BrawlCrate
 
         public void NewShp()
         {
-            SHP0Node node = ((BRRESNode)_resource).CreateResource<SHP0Node>("NewSHP");
+            SHP0Node node = ((BRRESNode)_resource).CreateResource<SHP0Node>(BrawlLib.Properties.Resources.New + "SHP");
             node.Version = 3;
             BaseWrapper res = this.FindResource(node, true);
             res = res.FindResource(node, false);
@@ -483,7 +483,7 @@ namespace BrawlCrate
 
         public void NewVis()
         {
-            VIS0Node node = ((BRRESNode)_resource).CreateResource<VIS0Node>("NewVIS");
+            VIS0Node node = ((BRRESNode)_resource).CreateResource<VIS0Node>(BrawlLib.Properties.Resources.New + "VIS");
             node.Version = 3;
             BaseWrapper res = this.FindResource(node, true);
             res = res.FindResource(node, false);
@@ -493,7 +493,7 @@ namespace BrawlCrate
 
         public void NewScn()
         {
-            SCN0Node node = ((BRRESNode)_resource).CreateResource<SCN0Node>("NewSCN");
+            SCN0Node node = ((BRRESNode)_resource).CreateResource<SCN0Node>(BrawlLib.Properties.Resources.New + "SCN");
             BaseWrapper res = this.FindResource(node, true);
             res = res.FindResource(node, false);
             res.EnsureVisible();
@@ -502,7 +502,7 @@ namespace BrawlCrate
 
         public void NewClr()
         {
-            CLR0Node node = ((BRRESNode)_resource).CreateResource<CLR0Node>("NewCLR");
+            CLR0Node node = ((BRRESNode)_resource).CreateResource<CLR0Node>(BrawlLib.Properties.Resources.New + "CLR");
             node.Version = 3;
             BaseWrapper res = this.FindResource(node, true);
             res = res.FindResource(node, false);
@@ -512,7 +512,7 @@ namespace BrawlCrate
 
         public void NewModel()
         {
-            MDL0Node node = ((BRRESNode)_resource).CreateResource<MDL0Node>("NewModel");
+            MDL0Node node = ((BRRESNode)_resource).CreateResource<MDL0Node>(BrawlLib.Properties.Resources.New + "Model");
             BaseWrapper res = this.FindResource(node, true);
             res = res.FindResource(node, false);
             res.EnsureVisible();
@@ -613,8 +613,8 @@ namespace BrawlCrate
         public void ImportCommonModelStatic()
         {
             Directory.CreateDirectory(commonDirectory);
-            Directory.CreateDirectory(commonDirectory + '\\' + "Models");
-            string endLocation = (commonDirectory + '\\' + "Models" + '\\' + "Static.mdl0");
+            Directory.CreateDirectory(commonDirectory + '\\' + BrawlLib.Properties.Resources.Models);
+            string endLocation = (commonDirectory + '\\' + BrawlLib.Properties.Resources.Models + '\\' + "Static.mdl0");
             if(!File.Exists(endLocation))
             {
                 // Use TLS 1.2, used by GitHub
@@ -644,8 +644,8 @@ namespace BrawlCrate
         public void ImportCommonTextureShadow()
         {
             Directory.CreateDirectory(commonDirectory);
-            Directory.CreateDirectory(commonDirectory + '\\' + "Textures");
-            string endLocation = (commonDirectory + '\\' + "Textures" + '\\' + "TShadow1.tex0");
+            Directory.CreateDirectory(commonDirectory + '\\' + BrawlLib.Properties.Resources.Textures);
+            string endLocation = (commonDirectory + '\\' + BrawlLib.Properties.Resources.Textures + '\\' + "TShadow1.tex0");
             if (!File.Exists(endLocation))
             {
                 // Use TLS 1.2, used by GitHub
@@ -682,9 +682,9 @@ namespace BrawlCrate
         public void ImportCommonTextureSpy()
         {
             Directory.CreateDirectory(commonDirectory);
-            Directory.CreateDirectory(commonDirectory + '\\' + "Textures");
-            string endLocationFB = (commonDirectory + '\\' + "Textures" + '\\' + "FB.tex0");
-            string endLocationSpyCloak = (commonDirectory + '\\' + "Textures" + '\\' + "spycloak00.tex0");
+            Directory.CreateDirectory(commonDirectory + '\\' + BrawlLib.Properties.Resources.Textures);
+            string endLocationFB = (commonDirectory + '\\' + BrawlLib.Properties.Resources.Textures + '\\' + "FB.tex0");
+            string endLocationSpyCloak = (commonDirectory + '\\' + BrawlLib.Properties.Resources.Textures + '\\' + "spycloak00.tex0");
             if (!File.Exists(endLocationFB))
             {
                 // Use TLS 1.2, used by GitHub

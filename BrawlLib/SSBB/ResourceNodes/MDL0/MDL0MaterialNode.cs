@@ -1121,7 +1121,7 @@ Those properties can use this color as an argument. This color is referred to as
                     //    _objects[i].EvalMaterials(ref message);
 
                     //if (message.Length != 0)
-                    //    if (MessageBox.Show(null, "Are you sure you want to continue?\nThe following objects will no longer use this material:\n" + message, "Continue?", MessageBoxButtons.YesNo) == DialogResult.No)
+                    //    if (MessageBox.Show(null, "Are you sure you want to continue?\nThe following objects will no longer use this material:\n" + message, BrawlLib.Properties.Resources.Continue, MessageBoxButtons.YesNo) == DialogResult.No)
                     //    {
                     //        _changed = false;
                     //        _usageFlags[31] = prev;

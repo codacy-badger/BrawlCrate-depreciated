@@ -935,4 +935,300 @@
 A full English-language changelog can be found here:</value>
     <comment>Shown on update</comment>
   </data>
+  <data name="AnimatedGIF" xml:space="preserve">
+    <value>Animated GIF</value>
+    <comment>Animated GIF</comment>
+  </data>
+  <data name="CharacterSpyTextures" xml:space="preserve">
+    <value>Character Spy Textures</value>
+    <comment>Character Spy Textures</comment>
+  </data>
+  <data name="ColorSequence" xml:space="preserve">
+    <value>Color Sequence</value>
+    <comment>Color Sequence</comment>
+  </data>
+  <data name="ColorSmash" xml:space="preserve">
+    <value>Color Smash</value>
+    <comment>Color Smash</comment>
+  </data>
+  <data name="ColorSmashableTextures" xml:space="preserve">
+    <value>Color Smashable Textures</value>
+    <comment>Color Smashable Textures</comment>
+  </data>
+  <data name="ColorSmashError" xml:space="preserve">
+    <value>One or more images threw an error when converting. Would you like to try to color smash these regardless? (As opposed to keeping them seperate)</value>
+    <comment>One or more images threw an error when converting. Would you like to try to color smash these regardless? (As opposed to keeping them seperate)</comment>
+  </data>
+  <data name="CommonFilesFromInternet" xml:space="preserve">
+    <value>Common Files (From Internet)</value>
+    <comment>Common Files (From Internet)</comment>
+  </data>
+  <data name="DefaultName" xml:space="preserve">
+    <value>Default Name</value>
+    <comment>Default Name</comment>
+  </data>
+  <data name="EditAll" xml:space="preserve">
+    <value>Edit All</value>
+    <comment>Edit All</comment>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Folder</value>
+    <comment>Folder</comment>
+  </data>
+  <data name="FromExisting" xml:space="preserve">
+    <value>From Existing</value>
+    <comment>From Existing</comment>
+  </data>
+  <data name="FromFile" xml:space="preserve">
+    <value>From File</value>
+    <comment>From File</comment>
+  </data>
+  <data name="Model" xml:space="preserve">
+    <value>Model</value>
+    <comment>Model</comment>
+  </data>
+  <data name="ModelAnimation" xml:space="preserve">
+    <value>Model Animation</value>
+    <comment>Model Animation</comment>
+  </data>
+  <data name="Models" xml:space="preserve">
+    <value>Models</value>
+    <comment>Models</comment>
+  </data>
+  <data name="PlayerInfo" xml:space="preserve">
+    <value>Player Info</value>
+    <comment>Player Info</comment>
+  </data>
+  <data name="SceneSettings" xml:space="preserve">
+    <value>Scene Settings</value>
+    <comment>Scene Settings</comment>
+  </data>
+  <data name="SendThroughColorSmashTool" xml:space="preserve">
+    <value>Would you like to send these through the color smash tool now?</value>
+    <comment>Would you like to send these through the color smash tool now?</comment>
+  </data>
+  <data name="SortItems" xml:space="preserve">
+    <value>Sort Items</value>
+    <comment>Sort Items</comment>
+  </data>
+  <data name="Sound" xml:space="preserve">
+    <value>Sound</value>
+    <comment>Sound</comment>
+  </data>
+  <data name="SoundBank" xml:space="preserve">
+    <value>Sound Bank</value>
+    <comment>Sound Bank</comment>
+  </data>
+  <data name="Spy" xml:space="preserve">
+    <value>Spy</value>
+    <comment>Spy</comment>
+  </data>
+  <data name="StageShadow" xml:space="preserve">
+    <value>Stage Shadow</value>
+    <comment>Stage Shadow</comment>
+  </data>
+  <data name="StageShadowTexture" xml:space="preserve">
+    <value>Stage Shadow Texture</value>
+    <comment>Stage Shadow Texture</comment>
+  </data>
+  <data name="StaticEmptyModel" xml:space="preserve">
+    <value>Static (Empty) Model</value>
+    <comment>Static (Empty) Model</comment>
+  </data>
+  <data name="Texture" xml:space="preserve">
+    <value>Texture</value>
+    <comment>Texture</comment>
+  </data>
+  <data name="TextureAnimation" xml:space="preserve">
+    <value>Texture Animation</value>
+    <comment>Texture Animation</comment>
+  </data>
+  <data name="TexturePattern" xml:space="preserve">
+    <value>Texture Pattern</value>
+    <comment>Texture Pattern</comment>
+  </data>
+  <data name="Textures" xml:space="preserve">
+    <value>Textures</value>
+    <comment>Textures</comment>
+  </data>
+  <data name="VertexMorph" xml:space="preserve">
+    <value>Vertex Morph</value>
+    <comment>Vertex Morph</comment>
+  </data>
+  <data name="VisibilitySequence" xml:space="preserve">
+    <value>Visibility Sequence</value>
+    <comment>Visibility Sequence</comment>
+  </data>
+  <data name="AddEntryBothLists" xml:space="preserve">
+    <value>Add New Entry (Both Lists)</value>
+    <comment>Add New Entry (Both Lists)</comment>
+  </data>
+  <data name="AddNewChild" xml:space="preserve">
+    <value>Add New Child</value>
+    <comment>Add New Child</comment>
+  </data>
+  <data name="AddNewEntry" xml:space="preserve">
+    <value>Add New Entry</value>
+    <comment>Add New Entry</comment>
+  </data>
+  <data name="AddToNextDown" xml:space="preserve">
+    <value>Add To Next Down</value>
+    <comment>Add To Next Down</comment>
+  </data>
+  <data name="AddToNextUp" xml:space="preserve">
+    <value>Add To Next Up</value>
+    <comment>Add To Next Up</comment>
+  </data>
+  <data name="AddToParent" xml:space="preserve">
+    <value>Add To Parent</value>
+    <comment>Add To Parent</comment>
+  </data>
+  <data name="AlsoConvertInfFacePortraits" xml:space="preserve">
+    <value>Would you like to convert the InfFace portraits to the new system as well at this time?</value>
+    <comment>Would you like to convert the InfFace portraits to the new system as well at this time?</comment>
+  </data>
+  <data name="Bone" xml:space="preserve">
+    <value>Bone</value>
+    <comment>Bone</comment>
+  </data>
+  <data name="ChangeSound" xml:space="preserve">
+    <value>Change Sound</value>
+    <comment>Change Sound</comment>
+  </data>
+  <data name="ClearList" xml:space="preserve">
+    <value>Clear List</value>
+    <comment>Clear List</comment>
+  </data>
+  <data name="ColorSmasher" xml:space="preserve">
+    <value>Color Smasher</value>
+    <comment>Color Smasher</comment>
+  </data>
+  <data name="ConfirmReplaceSound" xml:space="preserve">
+    <value>Do you still want to replace this sound?</value>
+    <comment>Do you still want to replace this sound?</comment>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue</value>
+    <comment>Continue</comment>
+  </data>
+  <data name="ConvertInfFace" xml:space="preserve">
+    <value>Convert InfFace?</value>
+    <comment>Convert InfFace?</comment>
+  </data>
+  <data name="ConvertStockSystem" xml:space="preserve">
+    <value>Convert Stock System</value>
+    <comment>Convert Stock System</comment>
+  </data>
+  <data name="CreateNewNode" xml:space="preserve">
+    <value>Create New Node</value>
+    <comment>Create New Node</comment>
+  </data>
+  <data name="CSSSlotID" xml:space="preserve">
+    <value>CSS Slot ID:</value>
+    <comment>CSS Slot ID:</comment>
+  </data>
+  <data name="CSSToRandomList" xml:space="preserve">
+    <value>From CSS List to Random List</value>
+    <comment>From CSS List to Random List</comment>
+  </data>
+  <data name="DeleteAssociatedPLT0" xml:space="preserve">
+    <value>Would you like to delete the associated PLT0?</value>
+    <comment>Would you like to delete the associated PLT0?</comment>
+  </data>
+  <data name="DeletedTEX0" xml:space="preserve">
+    <value>Deleting TEX0</value>
+    <comment>Deleting TEX0</comment>
+  </data>
+  <data name="EntriesUseSound" xml:space="preserve">
+    <value>The following entries also use this sound:</value>
+    <comment>The following entries also use this sound</comment>
+  </data>
+  <data name="ExportSawnd" xml:space="preserve">
+    <value>Export Sawnd</value>
+    <comment>Export Sawnd</comment>
+  </data>
+  <data name="FolderInfFaceDetected" xml:space="preserve">
+    <value>The folder for InfFace was autodetected to be:</value>
+    <comment>The folder for InfFace was autodetected to be</comment>
+  </data>
+  <data name="GeneratePAT0" xml:space="preserve">
+    <value>Generate PAT0</value>
+    <comment>Generate PAT0</comment>
+  </data>
+  <data name="HowManyTextures" xml:space="preserve">
+    <value>How many textures?</value>
+    <comment>How many textures?</comment>
+  </data>
+  <data name="ImportNewSound" xml:space="preserve">
+    <value>Import New Sound</value>
+    <comment>Import New Sound</comment>
+  </data>
+  <data name="ImportSawnd" xml:space="preserve">
+    <value>Import Sawnd</value>
+    <comment>Import Sawnd</comment>
+  </data>
+  <data name="ImportTexture" xml:space="preserve">
+    <value>Import Texture</value>
+    <comment>Import Texture</comment>
+  </data>
+  <data name="InfFaceConversionSuccessful" xml:space="preserve">
+    <value>InfFace conversion successful!</value>
+    <comment>InfFace conversion successful!</comment>
+  </data>
+  <data name="InfFaceConverter" xml:space="preserve">
+    <value>InfFace Converter</value>
+    <comment>InfFace Converter</comment>
+  </data>
+  <data name="IsThisCorrect" xml:space="preserve">
+    <value>Is this correct?</value>
+    <comment>Is this correct?</comment>
+  </data>
+  <data name="MoveEndBoneArray" xml:space="preserve">
+    <value>Move to end of bone array</value>
+    <comment>Move to end of bone array</comment>
+  </data>
+  <data name="NewFighter" xml:space="preserve">
+    <value>New Fighter</value>
+    <comment>New Fighter</comment>
+  </data>
+  <data name="NewGroup" xml:space="preserve">
+    <value>New Group</value>
+    <comment>New Group</comment>
+  </data>
+  <data name="NewRE3DEntry" xml:space="preserve">
+    <value>Add New RE3D Entry</value>
+    <comment>Add New RE3D Entry</comment>
+  </data>
+  <data name="NoConvertibleInfFacePortrait" xml:space="preserve">
+    <value>No convertable InfFace portraits found in</value>
+    <comment>No convertable InfFace portraits found in</comment>
+  </data>
+  <data name="PAT0Generator" xml:space="preserve">
+    <value>PAT0 Generator</value>
+    <comment>PAT0 Generator</comment>
+  </data>
+  <data name="RandomToCSSList" xml:space="preserve">
+    <value>From Random List to CSS List</value>
+    <comment>From Random List to CSS List</comment>
+  </data>
+  <data name="ReEncode" xml:space="preserve">
+    <value>Re-Encode</value>
+    <comment>Re-Encode</comment>
+  </data>
+  <data name="RegenerateBoneArray" xml:space="preserve">
+    <value>Regenerate bone array</value>
+    <comment>Regenerate bone array</comment>
+  </data>
+  <data name="ReplaceCurrentlyExisting" xml:space="preserve">
+    <value>Would you like to replace the currently existing</value>
+    <comment>Would you like to replace the currently existing</comment>
+  </data>
+  <data name="SyncLists" xml:space="preserve">
+    <value>Sync Lists</value>
+    <comment>Sync Lists</comment>
+  </data>
+  <data name="ViewFile" xml:space="preserve">
+    <value>View File</value>
+    <comment>View File</comment>
+  </data>
 </root>

@@ -526,7 +526,7 @@ namespace System.Windows.Forms
             this.btnTextures.Name = "btnTextures";
             this.btnTextures.Size = new System.Drawing.Size(170, 26);
             this.btnTextures.TabIndex = 9;
-            this.btnTextures.Text = "Textures";
+            this.btnTextures.Text = BrawlLib.Properties.Resources.Textures;
             this.btnTextures.UseVisualStyleBackColor = true;
             this.btnTextures.Click += new System.EventHandler(this.btnTextures_Click);
             // 
@@ -1741,7 +1741,7 @@ namespace System.Windows.Forms
             Type t = ModelEditorBase.AnimTypeList[(int)TargetAnimType];
             var method = typeof(BRRESNode).GetMethod("CreateResource");
             var generic = method.MakeGenericMethod(t);
-            generic.Invoke(target, new object[] { "New" + TargetAnimType.ToString() });
+            generic.Invoke(target, new object[] { BrawlLib.Properties.Resources.New + TargetAnimType.ToString() });
             UpdateAnimations();
             listAnims.Items[listAnims.Items.Count - 1].Selected = true;
         }
