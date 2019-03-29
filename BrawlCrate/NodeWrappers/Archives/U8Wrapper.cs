@@ -17,7 +17,7 @@ namespace BrawlCrate
         {
             _menu = new ContextMenuStrip();
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.New, null,
-                new ToolStripMenuItem("Folder", null, NewFolderAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Folder, null, NewFolderAction),
                 new ToolStripMenuItem(BrawlLib.Properties.Resources.Archive, null, NewARCAction),
                 new ToolStripMenuItem(BrawlLib.Properties.Resources.BRRESourcePack, null, NewBRESAction),
                 new ToolStripMenuItem(BrawlLib.Properties.Resources.MSBin, null, NewMSBinAction)

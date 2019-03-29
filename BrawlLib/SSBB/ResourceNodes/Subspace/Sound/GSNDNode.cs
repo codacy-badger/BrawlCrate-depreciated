@@ -63,12 +63,12 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override ResourceType ResourceType { get { return ResourceType.Unknown; } }
 
         internal string _Bname;
-        [Category("Sound")]
+        [LocalizedCategory("Sound")]
         [DisplayName("Bone Name")]
         public string BName { get { return _Bname; } set {_Bname = value; SignalPropertyChange(); } }
 
         internal int _infoindex;
-        [Category("Sound")]
+        [LocalizedCategory("Sound")]
         [DisplayName("Info Index")]
         public int infoIndex { get { return _infoindex; } set {_infoindex = value; SignalPropertyChange(); } }
 

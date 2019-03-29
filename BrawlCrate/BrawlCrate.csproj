@@ -683,7 +683,6 @@
 if $(ConfigurationName) == Debug (
   RD /S /Q "$(TargetDir)"
   cd $(SolutionDir)ColorSmash\
-  cargo build
 )
 if $(ConfigurationName) == Release (
   RD /S /Q "$(TargetDir)"

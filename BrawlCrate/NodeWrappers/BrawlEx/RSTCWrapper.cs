@@ -18,11 +18,11 @@ namespace BrawlCrate.NodeWrappers
             _menu = new ContextMenuStrip();
 
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("Add New Entry (Both Lists)", null, NewEntryAction, Keys.Control | Keys.J));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.AddEntryBothLists, null, NewEntryAction, Keys.Control | Keys.J));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("Sync Lists", null,
-                new ToolStripMenuItem("From CSS List to Random List", null, SyncRandomAction),
-                new ToolStripMenuItem("From Random List to CSS List", null, SyncCSSAction)));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.SyncLists, null,
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.CSSToRandomList, null, SyncRandomAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.RandomToCSSList, null, SyncCSSAction)));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Export, null, ExportAction, Keys.Control | Keys.E));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Replace, null, ReplaceAction, Keys.Control | Keys.R));
@@ -30,7 +30,7 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Rename, null, RenameAction, Keys.Control | Keys.N));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("Clear Lists", null, ClearAction, Keys.Control | Keys.Delete));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ClearList, null, ClearAction, Keys.Control | Keys.Delete));
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
@@ -41,7 +41,7 @@ namespace BrawlCrate.NodeWrappers
             if (((RSTCNode)r).cssList.Children.Count >= 100 || (((RSTCNode)r).randList.Children.Count >= 100))
                 return;
             StageBoxHexEntry entryID = new StageBoxHexEntry();
-            if (entryID.ShowDialog("New Fighter", "CSS Slot ID:", 2) == DialogResult.OK)
+            if (entryID.ShowDialog(BrawlLib.Properties.Resources.NewFighter, BrawlLib.Properties.Resources.CSSSlotID, 2) == DialogResult.OK)
                 if(entryID.NewValue != -1)
                     GetInstance<RSTCWrapper>().NewEntry((byte)entryID.NewValue);
         }

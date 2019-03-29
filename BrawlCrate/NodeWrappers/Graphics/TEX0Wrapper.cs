@@ -20,10 +20,10 @@ namespace BrawlCrate.NodeWrappers
         static TEX0Wrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("&Re-Encode", null, ReEncodeAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ReEncode, null, ReEncodeAction));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("Generate &PAT0", null, GeneratePAT0Action));
-            _menu.Items.Add(new ToolStripMenuItem("Color Smash", null, ColorSmashAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.GeneratePAT0, null, GeneratePAT0Action));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ColorSmash, null, ColorSmashAction));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Export, null, ExportAction, Keys.Control | Keys.E));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Replace, null, ReplaceAction, Keys.Control | Keys.R));
@@ -35,7 +35,7 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Delete, null, DeleteTEX0Action, Keys.Control | Keys.Delete));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("Convert Stock System", null, ConvertStockAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ConvertStockSystem, null, ConvertStockAction));
             _menu.Items[2].Visible = _menu.Items[14].Visible = _menu.Items[15].Visible = false;
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
@@ -107,7 +107,7 @@ namespace BrawlCrate.NodeWrappers
         public void ColorSmash()
         {
             StageBoxNumericEntry colorsmashcount = new StageBoxNumericEntry();
-            if (colorsmashcount.ShowDialog("Color Smasher", "How many textures?") == DialogResult.OK)
+            if (colorsmashcount.ShowDialog(BrawlLib.Properties.Resources.ColorSmasher, BrawlLib.Properties.Resources.HowManyTextures) == DialogResult.OK)
                 ColorSmash(colorsmashcount.NewValue);
         }
 
@@ -168,7 +168,7 @@ namespace BrawlCrate.NodeWrappers
                     if(!errorThrown)
                     {
                         errorThrown = true;
-                        attemptRegardless = (MessageBox.Show("One or more images threw an error when converting. Would you like to try to color smash these regardless? (As opposed to keeping them seperate)", "Color Smash", MessageBoxButtons.YesNo) == DialogResult.Yes);
+                        attemptRegardless = (MessageBox.Show(BrawlLib.Properties.Resources.ColorSmashError, BrawlLib.Properties.Resources.ColorSmash, MessageBoxButtons.YesNo) == DialogResult.Yes);
                     }
                     if (attemptRegardless)
                     {
@@ -295,7 +295,7 @@ namespace BrawlCrate.NodeWrappers
                         }
                         else
                         {
-                            DialogResult d = MessageBox.Show("Would you like to replace the currently existing \"" + newPat0.Name + "\" PAT0 animation?", "PAT0 Generator", MessageBoxButtons.YesNoCancel);
+                            DialogResult d = MessageBox.Show(BrawlLib.Properties.Resources.ReplaceCurrentlyExisting + ' ' + '"' + newPat0.Name + '"' + ' ' + BrawlLib.Properties.Resources.TexturePattern + '?', BrawlLib.Properties.Resources.PAT0Generator, MessageBoxButtons.YesNoCancel);
                             if (d == DialogResult.Cancel || d == DialogResult.Abort)
                                 return null;
                             if (d == DialogResult.Yes)
@@ -392,7 +392,7 @@ namespace BrawlCrate.NodeWrappers
             if (((TEX0Node)_resource).HasPalette && ((TEX0Node)_resource).GetPaletteNode() != null)
             {
                 PLT0Node plt0 = ((TEX0Node)_resource).GetPaletteNode();
-                if (MessageBox.Show("Would you like to delete the associated PLT0?", "Deleting TEX0", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show(BrawlLib.Properties.Resources.DeleteAssociatedPLT0, BrawlLib.Properties.Resources.DeletedTEX0, MessageBoxButtons.YesNo) == DialogResult.Yes)
                     plt0.Parent.RemoveChild(plt0);
             }
 
@@ -495,7 +495,7 @@ namespace BrawlCrate.NodeWrappers
                         cn.FrameCount = newPat0.FrameCount;
                     }
             }
-            if (MessageBox.Show("Would you like to convert the InfFace portraits to the new system as well at this time?", "Convert InfFace?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(BrawlLib.Properties.Resources.AlsoConvertInfFacePortraits, BrawlLib.Properties.Resources.ConvertInfFace, MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 string infFaceFolder = "";
                 bool autoFoundFolder = false;
@@ -504,7 +504,7 @@ namespace BrawlCrate.NodeWrappers
                     string autoFolder = Program.RootPath.Substring(0, Program.RootPath.LastIndexOf("\\info2\\info.pac")) + "\\info\\portrite";
                     if (Directory.Exists(autoFolder))
                     {
-                        if(MessageBox.Show("The folder for InfFace was autodetected to be: \n" + autoFolder + "\n\nIs this correct?", "InfFace Converter", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        if(MessageBox.Show(BrawlLib.Properties.Resources.FolderInfFaceDetected + " \n" + autoFolder + "\n\n" + BrawlLib.Properties.Resources.IsThisCorrect, BrawlLib.Properties.Resources.InfFaceConverter, MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             infFaceFolder = autoFolder;
                             autoFoundFolder = true;
@@ -565,9 +565,9 @@ namespace BrawlCrate.NodeWrappers
                         infFace.MoveTo(infFaceFolder + '\\' + infFace.Name + (infFace.Name.EndsWith(".brres", StringComparison.OrdinalIgnoreCase) ? "" : ".brres"));
                     d2.Delete();
                     if (count > 0)
-                        MessageBox.Show("InfFace conversion successful!");
+                        MessageBox.Show(BrawlLib.Properties.Resources.InfFaceConversionSuccessful);
                     else
-                        MessageBox.Show("No convertable InfFace portraits found in " + infFaceFolder);
+                        MessageBox.Show(BrawlLib.Properties.Resources.NoConvertibleInfFacePortrait + infFaceFolder);
                 }
                 catch(Exception e)
                 {
@@ -664,7 +664,7 @@ namespace BrawlCrate.NodeWrappers
                         cn.FrameCount = newPat0.FrameCount;
                     }
             }
-            if (MessageBox.Show("Would you like to convert the InfFace portraits to the new system as well at this time?", "Convert InfFace?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(BrawlLib.Properties.Resources.AlsoConvertInfFacePortraits, BrawlLib.Properties.Resources.ConvertInfFace, MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 string infFaceFolder = "";
                 bool autoFoundFolder = false;
@@ -673,7 +673,7 @@ namespace BrawlCrate.NodeWrappers
                     string autoFolder = Program.RootPath.Substring(0, Program.RootPath.LastIndexOf("\\info2\\info.pac")) + "\\info\\portrite";
                     if (Directory.Exists(autoFolder))
                     {
-                        if (MessageBox.Show("The folder for InfFace was autodetected to be: \n" + autoFolder + "\n\nIs this correct?", "InfFace Converter", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        if (MessageBox.Show(BrawlLib.Properties.Resources.FolderInfFaceDetected +" \n" + autoFolder + "\n\n" + BrawlLib.Properties.Resources.IsThisCorrect, BrawlLib.Properties.Resources.InfFaceConverter, MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             infFaceFolder = autoFolder;
                             autoFoundFolder = true;
@@ -744,9 +744,9 @@ namespace BrawlCrate.NodeWrappers
                         infFace.MoveTo(infFaceFolder + '\\' + infFace.Name + (infFace.Name.EndsWith(".brres", StringComparison.OrdinalIgnoreCase) ? "" : ".brres"));
                     d2.Delete();
                     if (count > 0)
-                        MessageBox.Show("InfFace conversion successful!");
+                        MessageBox.Show(BrawlLib.Properties.Resources.InfFaceConversionSuccessful);
                     else
-                        MessageBox.Show("No convertable InfFace portraits found in " + infFaceFolder);
+                        MessageBox.Show(BrawlLib.Properties.Resources.NoConvertibleInfFacePortrait + infFaceFolder);
                 }
                 catch(Exception e)
                 {

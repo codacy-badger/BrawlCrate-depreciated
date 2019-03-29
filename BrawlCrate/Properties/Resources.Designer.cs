@@ -285,7 +285,7 @@ namespace BrawlCrate.Properties {
         /// </summary>
         public static System.Drawing.Bitmap Folder {
             get {
-                object obj = ResourceManager.GetObject("Folder", resourceCulture);
+                object obj = ResourceManager.GetObject(BrawlLib.Properties.Resources.Folder, resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

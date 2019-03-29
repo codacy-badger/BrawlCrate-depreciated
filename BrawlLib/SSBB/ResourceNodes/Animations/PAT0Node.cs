@@ -650,7 +650,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
                 _textureIndex = value > 7 ? 7 : value < 0 ? 0 : value;
 
-                Name = "Texture" + _textureIndex;
+                Name = BrawlLib.Properties.Resources.Texture + _textureIndex;
 
                 CheckNext();
                 CheckPrev();
@@ -794,7 +794,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             _hasTex = _texFlags.HasFlag(PAT0Flags.HasTexture);
             _hasPlt = _texFlags.HasFlag(PAT0Flags.HasPalette);
             _textureIndex = index;
-            _name = "Texture" + _textureIndex;
+            _name = BrawlLib.Properties.Resources.Texture + _textureIndex;
         }
 
         public override bool OnInitialize()

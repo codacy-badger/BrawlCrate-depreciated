@@ -21,14 +21,14 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MoveUp, null, MoveUpAction, Keys.Control | Keys.Up));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MoveDown, null, MoveDownAction, Keys.Control | Keys.Down));
-            _menu.Items.Add(new ToolStripMenuItem("Add To &Parent", null, AddToParentAction, Keys.Control | Keys.Shift | Keys.Up));
-            _menu.Items.Add(new ToolStripMenuItem("Add To Next &Up", null, AddUpAction, Keys.Control | Keys.Alt | Keys.Up));
-            _menu.Items.Add(new ToolStripMenuItem("Add To Next D&own", null, AddDownAction, Keys.Control | Keys.Alt | Keys.Down));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.AddToParent, null, AddToParentAction, Keys.Control | Keys.Shift | Keys.Up));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.AddToNextUp, null, AddUpAction, Keys.Control | Keys.Alt | Keys.Up));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.AddToNextDown, null, AddDownAction, Keys.Control | Keys.Alt | Keys.Down));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("Move to end of bone array", null, RemapAction));
-            _menu.Items.Add(new ToolStripMenuItem("Regenerate bone array", null, RegenAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MoveEndBoneArray, null, RemapAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.RegenerateBoneArray, null, RegenAction));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("Add New Child", null, CreateAction, Keys.Control | Keys.Alt | Keys.N));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.AddNewChild, null, CreateAction, Keys.Control | Keys.Alt | Keys.N));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Delete, null, DeleteAction, Keys.Control | Keys.Delete));
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
@@ -161,14 +161,14 @@ namespace BrawlCrate.NodeWrappers
             TreeView.BeginUpdate();
 
             int id = 1;
-            string name = "NewBone0";
+            string name = BrawlLib.Properties.Resources.New + BrawlLib.Properties.Resources.Bone + "0";
             MDL0Node model = ((MDL0BoneNode)_resource).Model;
             Top:
             foreach (MDL0BoneNode b in model._linker.BoneCache)
             {
                 if (b.Name == name)
                 {
-                    name = "NewBone" + id++;
+                    name = BrawlLib.Properties.Resources.New + BrawlLib.Properties.Resources.Bone + id++;
                     goto Top;
                 }
             }

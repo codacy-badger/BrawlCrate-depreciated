@@ -15,7 +15,7 @@ namespace BrawlCrate.NodeWrappers
         static MDL0GroupWrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("&Create New Node", null, CreateAction, Keys.Control | Keys.N));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.CreateNewNode, null, CreateAction, Keys.Control | Keys.N));
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
@@ -36,7 +36,7 @@ namespace BrawlCrate.NodeWrappers
             switch (group._type.ToString("g"))
             {
                 case "Bones":
-                    MDL0BoneNode bone = new MDL0BoneNode() { Name = "NewBone" };
+                    MDL0BoneNode bone = new MDL0BoneNode() { Name = BrawlLib.Properties.Resources.New + BrawlLib.Properties.Resources.Bone };
                     model._boneGroup.InsertChild(bone, false, 0);
                     bone._boneFlags = (BoneFlags)284;
                     bone.Scale = new Vector3(1, 1, 1);

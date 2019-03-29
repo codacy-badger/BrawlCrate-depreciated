@@ -1019,7 +1019,7 @@ namespace System.Windows.Forms
             this.chkBillboardBones});
             this.modelToolStripMenuItem.Name = "modelToolStripMenuItem";
             this.modelToolStripMenuItem.Size = new System.Drawing.Size(159, 26);
-            this.modelToolStripMenuItem.Text = "Model";
+            this.modelToolStripMenuItem.Text = BrawlLib.Properties.Resources.Model;
             // 
             // toggleBones
             // 
@@ -1089,7 +1089,7 @@ namespace System.Windows.Forms
             // 
             this.chkBBModels.Name = "chkBBModels";
             this.chkBBModels.Size = new System.Drawing.Size(184, 26);
-            this.chkBBModels.Text = "Models";
+            this.chkBBModels.Text = BrawlLib.Properties.Resources.Models;
             this.chkBBModels.Click += new System.EventHandler(this.modelToolStripMenuItem1_Click);
             // 
             // chkBBObjects
@@ -1377,7 +1377,7 @@ namespace System.Windows.Forms
             // 
             this.chkEditAll.Name = "chkEditAll";
             this.chkEditAll.Size = new System.Drawing.Size(299, 26);
-            this.chkEditAll.Text = "Edit All";
+            this.chkEditAll.Text = BrawlLib.Properties.Resources.EditAll;
             this.chkEditAll.Click += new System.EventHandler(this.chkEditAll_Click);
             // 
             // hideFromSceneToolStripMenuItem

@@ -17,7 +17,7 @@ namespace BrawlCrate.NodeWrappers
         static RSARGroupWrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("Export Sawnd", null, ExportSawndzAction, Keys.Control | Keys.I));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ExportSawnd, null, ExportSawndzAction, Keys.Control | Keys.I));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Export, null, ExportAction, Keys.Control | Keys.E));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Replace, null, ReplaceAction, Keys.Control | Keys.R));

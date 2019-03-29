@@ -313,7 +313,7 @@ namespace Ikarus.UI
             this.btnTextures.Name = "btnTextures";
             this.btnTextures.Size = new System.Drawing.Size(154, 21);
             this.btnTextures.TabIndex = 9;
-            this.btnTextures.Text = "Textures";
+            this.btnTextures.Text = BrawlLib.Properties.Resources.Textures;
             this.btnTextures.UseVisualStyleBackColor = true;
             this.btnTextures.Click += new System.EventHandler(this.btnTextures_Click);
             // 
@@ -597,7 +597,7 @@ namespace Ikarus.UI
             //    foreach (MDL0MaterialRefNode tref in _selectedPolygon.UsableMaterialNode.Children)
             //        lstTextures.Items.Add(tref.TextureNode, tref.TextureNode.Enabled);
             //else 
-            if (TargetModel != null && (n = TargetModel.FindChild("Textures", false)) != null)
+            if (TargetModel != null && (n = TargetModel.FindChild(BrawlLib.Properties.Resources.Textures, false)) != null)
                 foreach (MDL0TextureNode tref in n.Children)
                     lstTextures.Items.Add(tref, tref.Enabled);
             
@@ -637,7 +637,7 @@ namespace Ikarus.UI
                     foreach (MDL0ObjectNode poly in n.Children)
                         lstObjects.Items.Add(poly, poly.IsRendering);
 
-                if ((n = TargetModel.FindChild("Textures", false)) != null)
+                if ((n = TargetModel.FindChild(BrawlLib.Properties.Resources.Textures, false)) != null)
                     foreach (MDL0TextureNode tref in n.Children)
                         lstTextures.Items.Add(tref, tref.Enabled);
             }

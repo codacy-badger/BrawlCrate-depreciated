@@ -17,7 +17,7 @@ namespace BrawlCrate.NodeWrappers
             _menu = new ContextMenuStrip();
 
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("Add New Entry", null, NewEntryAction, Keys.Control | Keys.J));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.AddNewEntry, null, NewEntryAction, Keys.Control | Keys.J));
             _menu.Items.Add(new ToolStripMenuItem("Fill", null, FillAction, Keys.Control | Keys.F));
             _menu.Items.Add(new ToolStripMenuItem("Fill (Expanded)", null, FillExpandedAction, Keys.Control | Keys.Alt | Keys.F));
             _menu.Items.Add(new ToolStripSeparator());

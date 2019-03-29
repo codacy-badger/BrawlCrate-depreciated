@@ -202,7 +202,7 @@ namespace System.Windows.Forms
             this.dataNewIndex});
             this.dataNew.Name = "dataNew";
             this.dataNew.Size = new System.Drawing.Size(181, 26);
-            this.dataNew.Text = "New";
+            this.dataNew.Text = BrawlLib.Properties.Resources.New;
             this.dataNew.Click += new System.EventHandler(this.dataNew_Click);
             // 
             // dataNewNullEntry
@@ -316,7 +316,7 @@ namespace System.Windows.Forms
             // 
             this.sndNew.Name = "sndNew";
             this.sndNew.Size = new System.Drawing.Size(137, 26);
-            this.sndNew.Text = "New";
+            this.sndNew.Text = BrawlLib.Properties.Resources.New;
             this.sndNew.Click += new System.EventHandler(this.sndNew_Click);
             // 
             // sndDelete

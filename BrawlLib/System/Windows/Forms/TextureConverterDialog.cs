@@ -734,7 +734,7 @@ namespace System.Windows.Forms
             }
             else if (_tplParent != null)
             {
-                _origTPL = new TPLTextureNode() { Name = "Texture" };
+                _origTPL = new TPLTextureNode() { Name = BrawlLib.Properties.Resources.Texture };
                 _tplParent.AddChild(_origTPL);
                 _origTPL.ReplaceRaw(_textureData);
                 if (_paletteData != null)

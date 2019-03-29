@@ -174,25 +174,25 @@ namespace BrawlLib.SSBB.ResourceNodes
         internal int _lod;
         internal int _enableEdgeLod;
 
-        [Category("Texture")]
+        [LocalizedCategory("Texture")]
         public int Width { get { return _width; } }
-        [Category("Texture")]
+        [LocalizedCategory("Texture")]
         public int Height { get { return _height; } }
-        [Category("Texture")]
+        [LocalizedCategory("Texture")]
         public WiiPixelFormat Format { get { return _format; } }
-        [Category("Texture")]
+        [LocalizedCategory("Texture")]
         public MatWrapMode UWrapMode { get { return _uWrap; } set { _uWrap = value; SignalPropertyChange(); } }
-        [Category("Texture")]
+        [LocalizedCategory("Texture")]
         public MatWrapMode VWrapMode { get { return _vWrap; } set { _vWrap = value; SignalPropertyChange(); } }
-        [Category("Texture")]
+        [LocalizedCategory("Texture")]
         public MatTextureMinFilter MinFilter { get { return _minFltr; } set { _minFltr = value; SignalPropertyChange(); } }
-        [Category("Texture")]
+        [LocalizedCategory("Texture")]
         public MatTextureMagFilter MagFilter { get { return _magFltr; } set { _magFltr = value; SignalPropertyChange(); } }
-        [Category("Texture")]
+        [LocalizedCategory("Texture")]
         public float LODBias { get { return _lodBias; } set { _lodBias = value; SignalPropertyChange(); } }
-        [Category("Texture")]
+        [LocalizedCategory("Texture")]
         public int EnableEdgeLOD { get { return _enableEdgeLod; } set { _enableEdgeLod = value; SignalPropertyChange(); } }
-        [Category("Texture")]
+        [LocalizedCategory("Texture")]
         public int LevelOfDetail { get { return _lod; } }
 
         public TPLPaletteNode GetPaletteNode() { return Children.Count > 0 ? Children[0] as TPLPaletteNode : null; }
@@ -201,7 +201,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             base.OnInitialize();
 
-            _name = "Texture";
+            _name = BrawlLib.Properties.Resources.Texture;
 
             _width = Header->_width;
             _height = Header->_height;

@@ -14,15 +14,15 @@ namespace BrawlCrate.NodeWrappers
         static RSARFolderWrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("New", null,
-                new ToolStripMenuItem("Folder", null, NewFolderAction),
-                new ToolStripMenuItem("Sound", null,
-                    new ToolStripMenuItem("New", null, NewSoundAction),
-                    //new ToolStripMenuItem("From File", null, ImportSoundAction),
-                    new ToolStripMenuItem("From Existing", null, CopySoundAction)),
-                new ToolStripMenuItem("Bank", null, NewBankAction),
-                new ToolStripMenuItem("PlayerInfo", null, NewTypeAction),
-                new ToolStripMenuItem("Group", null, NewGroupAction)
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.New, null,
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Folder, null, NewFolderAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Sound, null,
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.New, null, NewSoundAction),
+                    //new ToolStripMenuItem(BrawlLib.Properties.Resources.FromFile, null, ImportSoundAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.FromExisting, null, CopySoundAction)),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.SoundBank, null, NewBankAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.PlayerInfo, null, NewTypeAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Group, null, NewGroupAction)
                 ));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MoveUp, null, MoveUpAction, Keys.Control | Keys.Up));
@@ -61,14 +61,14 @@ namespace BrawlCrate.NodeWrappers
         public void NewFolder()
         {
             RSARFolderNode node = new RSARFolderNode();
-            node.Name = _resource.FindName("NewFolder");
+            node.Name = _resource.FindName(BrawlLib.Properties.Resources.New + BrawlLib.Properties.Resources.Folder);
             _resource.AddChild(node);
         }
 
         public void NewSound()
         {
             RSARSoundNode node = new RSARSoundNode();
-            node.Name = _resource.FindName("NewSound");
+            node.Name = _resource.FindName(BrawlLib.Properties.Resources.New + BrawlLib.Properties.Resources.Sound);
             RSARFolderNode folder = _resource as RSARFolderNode;
             RSARNode rsar = folder.RSARNode;
             if (rsar != null)
@@ -88,7 +88,7 @@ namespace BrawlCrate.NodeWrappers
         public void NewBank()
         {
             RSARBankNode node = new RSARBankNode();
-            node.Name = _resource.FindName("NewBank");
+            node.Name = _resource.FindName(BrawlLib.Properties.Resources.New + BrawlLib.Properties.Resources.SoundBank);
             RSARFolderNode folder = _resource as RSARFolderNode;
             RSARNode rsar = folder.RSARNode;
             if (rsar != null)
@@ -102,7 +102,7 @@ namespace BrawlCrate.NodeWrappers
         public void NewType()
         {
             RSARPlayerInfoNode node = new RSARPlayerInfoNode();
-            node.Name = _resource.FindName("NewPlayerInfo");
+            node.Name = _resource.FindName(BrawlLib.Properties.Resources.New + BrawlLib.Properties.Resources.PlayerInfo);
             RSARFolderNode folder = _resource as RSARFolderNode;
             RSARNode rsar = folder.RSARNode;
             if (rsar != null)
@@ -116,7 +116,7 @@ namespace BrawlCrate.NodeWrappers
         public void NewGroup()
         {
             RSARGroupNode node = new RSARGroupNode();
-            node.Name = _resource.FindName("NewGroup");
+            node.Name = _resource.FindName(BrawlLib.Properties.Resources.New + BrawlLib.Properties.Resources.Group);
             RSARFolderNode folder = _resource as RSARFolderNode;
             RSARNode rsar = folder.RSARNode;
             if (rsar != null)

@@ -308,7 +308,7 @@ namespace System.Windows.Forms
         }
         private void newSceneToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(this, "Are you sure you want to clear the current scene?\nYou will lose any unsaved data.", "Continue?", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+            if (MessageBox.Show(this, "Are you sure you want to clear the current scene?\nYou will lose any unsaved data.", BrawlLib.Properties.Resources.Continue, MessageBoxButtons.OKCancel) == DialogResult.Cancel)
                 return;
 
             TargetModel = null;

@@ -56,7 +56,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        [Category("Sound")]
+        [LocalizedCategory("Sound")]
         [DisplayName("Info Index")]
         public bint InfoIndex { get { return *(bint*)(WorkingUncompressed.Address+0x118); } }
         public override bool OnInitialize()

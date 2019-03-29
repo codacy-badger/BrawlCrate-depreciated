@@ -549,7 +549,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
                 _indirect = value;
 
-                Name = (_indirect ? "Ind" : "") + "Texture" + _textureIndex;
+                Name = (_indirect ? "Ind" : "") + BrawlLib.Properties.Resources.Texture + _textureIndex;
 
                 CheckNext();
                 CheckPrev();
@@ -569,7 +569,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
                 _textureIndex = val;
 
-                Name = (_indirect ? "Ind" : "") + "Texture" + _textureIndex;
+                Name = (_indirect ? "Ind" : "") + BrawlLib.Properties.Resources.Texture + _textureIndex;
 
                 CheckNext();
                 CheckPrev();
@@ -580,7 +580,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public SRT0TextureNode(int index, bool indirect)
         {
             _textureIndex = index; 
-            _name = (indirect ? "Ind" : "") + "Texture" + index;
+            _name = (indirect ? "Ind" : "") + BrawlLib.Properties.Resources.Texture + index;
             _indirect = indirect;
         }
 
@@ -641,7 +641,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override bool OnInitialize()
         {
             if (_name == null)
-                _name = (_indirect ? "Ind" : "") + "Texture" + _textureIndex;
+                _name = (_indirect ? "Ind" : "") + BrawlLib.Properties.Resources.Texture + _textureIndex;
 
             _code = Header->Code;
 

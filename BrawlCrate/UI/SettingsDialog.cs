@@ -408,7 +408,7 @@ namespace BrawlCrate
             this.grpBoxMDL0General.Size = new System.Drawing.Size(302, 53);
             this.grpBoxMDL0General.TabIndex = 19;
             this.grpBoxMDL0General.TabStop = false;
-            this.grpBoxMDL0General.Text = "Models";
+            this.grpBoxMDL0General.Text = BrawlLib.Properties.Resources.Models;
             // 
             // chkBoxMDL0Compatibility
             // 
