@@ -1231,4 +1231,208 @@ A full English-language changelog can be found here:</value>
     <value>View File</value>
     <comment>View File</comment>
   </data>
+  <data name="AddNewMaterial" xml:space="preserve">
+    <value>Add New Material</value>
+    <comment>Add New Material</comment>
+  </data>
+  <data name="AddNewReference" xml:space="preserve">
+    <value>Add New Reference</value>
+    <comment>Add New Reference</comment>
+  </data>
+  <data name="AddNewShader" xml:space="preserve">
+    <value>Add New Shader</value>
+    <comment>Add New Shader</comment>
+  </data>
+  <data name="AddNewStage" xml:space="preserve">
+    <value>Add New Stage</value>
+    <comment>Add New Stage</comment>
+  </data>
+  <data name="AddShadowDiffuse" xml:space="preserve">
+    <value>Add shadow diffuse</value>
+    <comment>Add shadow diffuse</comment>
+  </data>
+  <data name="AutoNameAssets" xml:space="preserve">
+    <value>Auto Name Assets</value>
+    <comment>Auto Name Assets</comment>
+  </data>
+  <data name="Characters" xml:space="preserve">
+    <value>Characters</value>
+    <comment>Characters</comment>
+  </data>
+  <data name="Colors" xml:space="preserve">
+    <value>Colors</value>
+    <comment>Colors</comment>
+  </data>
+  <data name="ConvertToShadowModel" xml:space="preserve">
+    <value>Convert To Shadow Model</value>
+    <comment>Convert To Shadow Model</comment>
+  </data>
+  <data name="ConvertToSpyModel" xml:space="preserve">
+    <value>Convert To Spy Model</value>
+    <comment>Convert To Spy Model</comment>
+  </data>
+  <data name="Culling" xml:space="preserve">
+    <value>Culling</value>
+    <comment>Culling</comment>
+  </data>
+  <data name="DeleteAllButBones" xml:space="preserve">
+    <value>Delete All But Bones</value>
+    <comment>Delete All But Bones</comment>
+  </data>
+  <data name="EditMaterials" xml:space="preserve">
+    <value>Edit Materials</value>
+    <comment>Edit Materials</comment>
+  </data>
+  <data name="ExportGLSLShader" xml:space="preserve">
+    <value>Export GLSL Shader</value>
+    <comment>Export GLSL Shader</comment>
+  </data>
+  <data name="FailIfMoreThan255Characters" xml:space="preserve">
+    <value>This option will fail if the rename would cause a model name to be more than 255 characters.</value>
+    <comment>This option will fail if the rename would cause a model name to be more than 255 characters.</comment>
+  </data>
+  <data name="FixTransparencyWithCharacters" xml:space="preserve">
+    <value>Fix Transparency With Characters</value>
+    <comment>Fix Transparency With Characters</comment>
+  </data>
+  <data name="ForceDelete" xml:space="preserve">
+    <value>Force Delete</value>
+    <comment>Force Delete</comment>
+  </data>
+  <data name="ImportAsset" xml:space="preserve">
+    <value>Import Asset</value>
+    <comment>Import Asset</comment>
+  </data>
+  <data name="InvertCulling" xml:space="preserve">
+    <value>Invert Culling</value>
+    <comment>Invert Culling</comment>
+  </data>
+  <data name="MerelyRenamesModel" xml:space="preserve">
+    <value>This merely renames the model. Proper transparency must be set up for this to work fully.</value>
+    <comment>This merely renames the model. Proper transparency must be set up for this to work fully.</comment>
+  </data>
+  <data name="MetalMatsShadersReset" xml:space="preserve">
+    <value>All existing metal materials and shaders will be reset.</value>
+    <comment>All existing metal materials and shaders will be reset.</comment>
+  </data>
+  <data name="MirrorModel" xml:space="preserve">
+    <value>Mirror Model</value>
+    <comment>Mirror Model</comment>
+  </data>
+  <data name="NewAsset" xml:space="preserve">
+    <value>New Asset</value>
+    <comment>New Asset</comment>
+  </data>
+  <data name="Normals" xml:space="preserve">
+    <value>Normals</value>
+    <comment>Normals</comment>
+  </data>
+  <data name="Objects" xml:space="preserve">
+    <value>Objects</value>
+    <comment>Objects</comment>
+  </data>
+  <data name="OptimizeMesh" xml:space="preserve">
+    <value>Optimize Mesh</value>
+    <comment>Optimize Mesh</comment>
+  </data>
+  <data name="OptimizeMeshes" xml:space="preserve">
+    <value>Optimize Meshes</value>
+    <comment>Optimize Meshes</comment>
+  </data>
+  <data name="OptionWillFixTransparentModel" xml:space="preserve">
+    <value>This option will fix a transparent model to render correctly relative to characters.</value>
+    <comment>This option will fix a transparent model to render correctly relative to characters.</comment>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Preview</value>
+    <comment>Preview</comment>
+  </data>
+  <data name="RecalculateBoundingBoxes" xml:space="preserve">
+    <value>Recalculate Bounding Boxes</value>
+    <comment>Recalculate Bounding Boxes</comment>
+  </data>
+  <data name="RegenerateCustomMetalMaterials" xml:space="preserve">
+    <value>(Re)generate Custom Metal Materials</value>
+    <comment>(Re)generate Custom Metal Materials</comment>
+  </data>
+  <data name="RegenerateMetalMaterials" xml:space="preserve">
+    <value>(Re)generate Metal Materials</value>
+    <comment>(Re)generate Metal Materials</comment>
+  </data>
+  <data name="ReimportMeshes" xml:space="preserve">
+    <value>Reimport Meshes</value>
+    <comment>Reimport Meshes</comment>
+  </data>
+  <data name="SelectModelReimportMeshes" xml:space="preserve">
+    <value>Please select a model to reimport meshes from.</value>
+    <comment>Please select a model to reimport meshes from.</comment>
+  </data>
+  <data name="SetCullAll" xml:space="preserve">
+    <value>Set all (Cull All)</value>
+    <comment>Set all (Cull All)</comment>
+  </data>
+  <data name="SetCullInside" xml:space="preserve">
+    <value>Set all (Cull Inside)</value>
+    <comment>Set all (Cull Inside)</comment>
+  </data>
+  <data name="SetCullNone" xml:space="preserve">
+    <value>Set all (Cull None)</value>
+    <comment>Set all (Cull None)</comment>
+  </data>
+  <data name="SetCullOutside" xml:space="preserve">
+    <value>Set all (Cull Outside)</value>
+    <comment>Set all (Cull Outside)</comment>
+  </data>
+  <data name="Shader" xml:space="preserve">
+    <value>Shader</value>
+    <comment>Shader</comment>
+  </data>
+  <data name="SortAssets" xml:space="preserve">
+    <value>Sort Assets</value>
+    <comment>Sort Assets</comment>
+  </data>
+  <data name="Stages" xml:space="preserve">
+    <value>Stages</value>
+    <comment>Stages</comment>
+  </data>
+  <data name="SureYouWantRegenerateMetal" xml:space="preserve">
+    <value>Are you sure you want to regenerate metal materials for Brawl?</value>
+    <comment>Are you sure you want to regenerate metal materials for Brawl?</comment>
+  </data>
+  <data name="UsePerPixelLighting" xml:space="preserve">
+    <value>Use per-pixel lighting?</value>
+    <comment>Use per-pixel lighting?</comment>
+  </data>
+  <data name="UVs" xml:space="preserve">
+    <value>UVs</value>
+    <comment>UVs</comment>
+  </data>
+  <data name="Vertices" xml:space="preserve">
+    <value>Vertices</value>
+    <comment>Vertices</comment>
+  </data>
+  <data name="XAxisScale" xml:space="preserve">
+    <value>X-Axis (Scale)</value>
+    <comment>X-Axis (Scale)</comment>
+  </data>
+  <data name="XAxisTransZRot" xml:space="preserve">
+    <value>X-Axis (Translation/Z-Rotation)</value>
+    <comment>X-Axis (Translation/Z-Rotation)</comment>
+  </data>
+  <data name="YAxisScale" xml:space="preserve">
+    <value>Y-Axis (Scale)</value>
+    <comment>Y-Axis (Scale)</comment>
+  </data>
+  <data name="YAxisTransZRot" xml:space="preserve">
+    <value>Y-Axis (Translation/Z-Rotation)</value>
+    <comment>Y-Axis (Translation/Z-Rotation)</comment>
+  </data>
+  <data name="ZAxisScale" xml:space="preserve">
+    <value>Z-Axis (Scale)</value>
+    <comment>Z-Axis (Scale)</comment>
+  </data>
+  <data name="ZAxisTransZRot" xml:space="preserve">
+    <value>Z-Axis (Translation/Z-Rotation)</value>
+    <comment>Z-Axis (Translation/Z-Rotation)</comment>
+  </data>
 </root>

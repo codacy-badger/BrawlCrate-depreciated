@@ -88,6 +88,51 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add New Material.
+        /// </summary>
+        public static string AddNewMaterial {
+            get {
+                return ResourceManager.GetString("AddNewMaterial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New Reference.
+        /// </summary>
+        public static string AddNewReference {
+            get {
+                return ResourceManager.GetString("AddNewReference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New Shader.
+        /// </summary>
+        public static string AddNewShader {
+            get {
+                return ResourceManager.GetString("AddNewShader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New Stage.
+        /// </summary>
+        public static string AddNewStage {
+            get {
+                return ResourceManager.GetString("AddNewStage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add shadow diffuse.
+        /// </summary>
+        public static string AddShadowDiffuse {
+            get {
+                return ResourceManager.GetString("AddShadowDiffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add To Next Down.
         /// </summary>
         public static string AddToNextDown {
@@ -169,6 +214,15 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auto Name Assets.
+        /// </summary>
+        public static string AutoNameAssets {
+            get {
+                return ResourceManager.GetString("AutoNameAssets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Subspace Resource BLOC.
         /// </summary>
         public static string BLOC {
@@ -201,6 +255,15 @@ namespace BrawlLib.Properties {
         public static string ChangeSound {
             get {
                 return ResourceManager.GetString("ChangeSound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Characters.
+        /// </summary>
+        public static string Characters {
+            get {
+                return ResourceManager.GetString("Characters", resourceCulture);
             }
         }
         
@@ -583,6 +646,15 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Colors.
+        /// </summary>
+        public static string Colors {
+            get {
+                return ResourceManager.GetString("Colors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Color Sequence.
         /// </summary>
         public static string ColorSequence {
@@ -673,6 +745,24 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Convert To Shadow Model.
+        /// </summary>
+        public static string ConvertToShadowModel {
+            get {
+                return ResourceManager.GetString("ConvertToShadowModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert To Spy Model.
+        /// </summary>
+        public static string ConvertToSpyModel {
+            get {
+                return ResourceManager.GetString("ConvertToSpyModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create New Node.
         /// </summary>
         public static string CreateNewNode {
@@ -700,6 +790,15 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Culling.
+        /// </summary>
+        public static string Culling {
+            get {
+                return ResourceManager.GetString("Culling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default Name.
         /// </summary>
         public static string DefaultName {
@@ -714,6 +813,15 @@ namespace BrawlLib.Properties {
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete All But Bones.
+        /// </summary>
+        public static string DeleteAllButBones {
+            get {
+                return ResourceManager.GetString("DeleteAllButBones", resourceCulture);
             }
         }
         
@@ -772,6 +880,15 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Materials.
+        /// </summary>
+        public static string EditMaterials {
+            get {
+                return ResourceManager.GetString("EditMaterials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Effect Data.
         /// </summary>
         public static string EffectData {
@@ -826,11 +943,38 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export GLSL Shader.
+        /// </summary>
+        public static string ExportGLSLShader {
+            get {
+                return ResourceManager.GetString("ExportGLSLShader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export Sawnd.
         /// </summary>
         public static string ExportSawnd {
             get {
                 return ResourceManager.GetString("ExportSawnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This option will fail if the rename would cause a model name to be more than 255 characters..
+        /// </summary>
+        public static string FailIfMoreThan255Characters {
+            get {
+                return ResourceManager.GetString("FailIfMoreThan255Characters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fix Transparency With Characters.
+        /// </summary>
+        public static string FixTransparencyWithCharacters {
+            get {
+                return ResourceManager.GetString("FixTransparencyWithCharacters", resourceCulture);
             }
         }
         
@@ -849,6 +993,15 @@ namespace BrawlLib.Properties {
         public static string FolderInfFaceDetected {
             get {
                 return ResourceManager.GetString("FolderInfFaceDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Force Delete.
+        /// </summary>
+        public static string ForceDelete {
+            get {
+                return ResourceManager.GetString("ForceDelete", resourceCulture);
             }
         }
         
@@ -970,6 +1123,15 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Import Asset.
+        /// </summary>
+        public static string ImportAsset {
+            get {
+                return ResourceManager.GetString("ImportAsset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Import New Sound.
         /// </summary>
         public static string ImportNewSound {
@@ -1024,6 +1186,15 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invert Culling.
+        /// </summary>
+        public static string InvertCulling {
+            get {
+                return ResourceManager.GetString("InvertCulling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is this correct?.
         /// </summary>
         public static string IsThisCorrect {
@@ -1042,11 +1213,38 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This merely renames the model. Proper transparency must be set up for this to work fully..
+        /// </summary>
+        public static string MerelyRenamesModel {
+            get {
+                return ResourceManager.GetString("MerelyRenamesModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Merge Animation.
         /// </summary>
         public static string MergeAnimation {
             get {
                 return ResourceManager.GetString("MergeAnimation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All existing metal materials and shaders will be reset..
+        /// </summary>
+        public static string MetalMatsShadersReset {
+            get {
+                return ResourceManager.GetString("MetalMatsShadersReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mirror Model.
+        /// </summary>
+        public static string MirrorModel {
+            get {
+                return ResourceManager.GetString("MirrorModel", resourceCulture);
             }
         }
         
@@ -1141,6 +1339,15 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Asset.
+        /// </summary>
+        public static string NewAsset {
+            get {
+                return ResourceManager.GetString("NewAsset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Bone Target.
         /// </summary>
         public static string NewBoneTarget {
@@ -1218,6 +1425,15 @@ namespace BrawlLib.Properties {
         public static string None {
             get {
                 return ResourceManager.GetString("None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normals.
+        /// </summary>
+        public static string Normals {
+            get {
+                return ResourceManager.GetString("Normals", resourceCulture);
             }
         }
         
@@ -1348,11 +1564,47 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Objects.
+        /// </summary>
+        public static string Objects {
+            get {
+                return ResourceManager.GetString("Objects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Offset Frame.
         /// </summary>
         public static string OffsetFrame {
             get {
                 return ResourceManager.GetString("OffsetFrame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optimize Mesh.
+        /// </summary>
+        public static string OptimizeMesh {
+            get {
+                return ResourceManager.GetString("OptimizeMesh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optimize Meshes.
+        /// </summary>
+        public static string OptimizeMeshes {
+            get {
+                return ResourceManager.GetString("OptimizeMeshes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This option will fix a transparent model to render correctly relative to characters..
+        /// </summary>
+        public static string OptionWillFixTransparentModel {
+            get {
+                return ResourceManager.GetString("OptionWillFixTransparentModel", resourceCulture);
             }
         }
         
@@ -1375,6 +1627,15 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Preview.
+        /// </summary>
+        public static string Preview {
+            get {
+                return ResourceManager.GetString("Preview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preview All Models.
         /// </summary>
         public static string PreviewAllModels {
@@ -1389,6 +1650,15 @@ namespace BrawlLib.Properties {
         public static string RandomToCSSList {
             get {
                 return ResourceManager.GetString("RandomToCSSList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recalculate Bounding Boxes.
+        /// </summary>
+        public static string RecalculateBoundingBoxes {
+            get {
+                return ResourceManager.GetString("RecalculateBoundingBoxes", resourceCulture);
             }
         }
         
@@ -1416,6 +1686,33 @@ namespace BrawlLib.Properties {
         public static string RegenerateBoneArray {
             get {
                 return ResourceManager.GetString("RegenerateBoneArray", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Re)generate Custom Metal Materials.
+        /// </summary>
+        public static string RegenerateCustomMetalMaterials {
+            get {
+                return ResourceManager.GetString("RegenerateCustomMetalMaterials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Re)generate Metal Materials.
+        /// </summary>
+        public static string RegenerateMetalMaterials {
+            get {
+                return ResourceManager.GetString("RegenerateMetalMaterials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reimport Meshes.
+        /// </summary>
+        public static string ReimportMeshes {
+            get {
+                return ResourceManager.GetString("ReimportMeshes", resourceCulture);
             }
         }
         
@@ -1528,11 +1825,74 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please select a model to reimport meshes from..
+        /// </summary>
+        public static string SelectModelReimportMeshes {
+            get {
+                return ResourceManager.GetString("SelectModelReimportMeshes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Would you like to send these through the color smash tool now?.
         /// </summary>
         public static string SendThroughColorSmashTool {
             get {
                 return ResourceManager.GetString("SendThroughColorSmashTool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set all (Cull All).
+        /// </summary>
+        public static string SetCullAll {
+            get {
+                return ResourceManager.GetString("SetCullAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set all (Cull Inside).
+        /// </summary>
+        public static string SetCullInside {
+            get {
+                return ResourceManager.GetString("SetCullInside", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set all (Cull None).
+        /// </summary>
+        public static string SetCullNone {
+            get {
+                return ResourceManager.GetString("SetCullNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set all (Cull Outside).
+        /// </summary>
+        public static string SetCullOutside {
+            get {
+                return ResourceManager.GetString("SetCullOutside", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shader.
+        /// </summary>
+        public static string Shader {
+            get {
+                return ResourceManager.GetString("Shader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort Assets.
+        /// </summary>
+        public static string SortAssets {
+            get {
+                return ResourceManager.GetString("SortAssets", resourceCulture);
             }
         }
         
@@ -1578,6 +1938,15 @@ namespace BrawlLib.Properties {
         public static string Spy {
             get {
                 return ResourceManager.GetString("Spy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stages.
+        /// </summary>
+        public static string Stages {
+            get {
+                return ResourceManager.GetString("Stages", resourceCulture);
             }
         }
         
@@ -2311,6 +2680,15 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to regenerate metal materials for Brawl?.
+        /// </summary>
+        public static string SureYouWantRegenerateMetal {
+            get {
+                return ResourceManager.GetString("SureYouWantRegenerateMetal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sync Lists.
         /// </summary>
         public static string SyncLists {
@@ -2518,11 +2896,38 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use per-pixel lighting?.
+        /// </summary>
+        public static string UsePerPixelLighting {
+            get {
+                return ResourceManager.GetString("UsePerPixelLighting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UVs.
+        /// </summary>
+        public static string UVs {
+            get {
+                return ResourceManager.GetString("UVs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vertex Morph.
         /// </summary>
         public static string VertexMorph {
             get {
                 return ResourceManager.GetString("VertexMorph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vertices.
+        /// </summary>
+        public static string Vertices {
+            get {
+                return ResourceManager.GetString("Vertices", resourceCulture);
             }
         }
         
@@ -2561,6 +2966,60 @@ namespace BrawlLib.Properties {
         public static string WelcomeMessage {
             get {
                 return ResourceManager.GetString("WelcomeMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X-Axis (Scale).
+        /// </summary>
+        public static string XAxisScale {
+            get {
+                return ResourceManager.GetString("XAxisScale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X-Axis (Translation/Z-Rotation).
+        /// </summary>
+        public static string XAxisTransZRot {
+            get {
+                return ResourceManager.GetString("XAxisTransZRot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Y-Axis (Scale).
+        /// </summary>
+        public static string YAxisScale {
+            get {
+                return ResourceManager.GetString("YAxisScale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Y-Axis (Translation/Z-Rotation).
+        /// </summary>
+        public static string YAxisTransZRot {
+            get {
+                return ResourceManager.GetString("YAxisTransZRot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z-Axis (Scale).
+        /// </summary>
+        public static string ZAxisScale {
+            get {
+                return ResourceManager.GetString("ZAxisScale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z-Axis (Translation/Z-Rotation).
+        /// </summary>
+        public static string ZAxisTransZRot {
+            get {
+                return ResourceManager.GetString("ZAxisTransZRot", resourceCulture);
             }
         }
     }

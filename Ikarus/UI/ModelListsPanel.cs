@@ -177,7 +177,7 @@ namespace Ikarus.UI
             this.btnObjects.Name = "btnObjects";
             this.btnObjects.Size = new System.Drawing.Size(154, 21);
             this.btnObjects.TabIndex = 6;
-            this.btnObjects.Text = "Objects";
+            this.btnObjects.Text = BrawlLib.Properties.Resources.Objects;
             this.btnObjects.UseVisualStyleBackColor = true;
             this.btnObjects.Click += new System.EventHandler(this.btnObjects_Click);
             // 
@@ -633,7 +633,7 @@ namespace Ikarus.UI
             {
                 ResourceNode n;
 
-                if ((n = TargetModel.FindChild("Objects", false)) != null)
+                if ((n = TargetModel.FindChild(BrawlLib.Properties.Resources.Objects, false)) != null)
                     foreach (MDL0ObjectNode poly in n.Children)
                         lstObjects.Items.Add(poly, poly.IsRendering);
 

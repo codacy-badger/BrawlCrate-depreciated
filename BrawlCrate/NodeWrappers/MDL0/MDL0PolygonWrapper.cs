@@ -15,7 +15,7 @@ namespace BrawlCrate.NodeWrappers
         static MDL0PolygonWrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("O&ptimize Mesh", null, OptimizeAction, Keys.Control | Keys.P));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.OptimizeMesh, null, OptimizeAction, Keys.Control | Keys.P));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Duplicate, null, DuplicateAction, Keys.Control | Keys.D));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Export, null, ExportAction, Keys.Control | Keys.E));
@@ -26,7 +26,7 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MoveDown, null, MoveDownAction, Keys.Control | Keys.Down));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Delete, null, DeleteAction, Keys.Control | Keys.Delete));
-            _menu.Items.Add(new ToolStripMenuItem("&Force Delete", null, DeleteAction, Keys.Control | Keys.Shift | Keys.Delete));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ForceDelete, null, DeleteAction, Keys.Control | Keys.Shift | Keys.Delete));
         }
 
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)

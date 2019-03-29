@@ -23,9 +23,9 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MoveUp, null, MoveUpAction, Keys.Control | Keys.Up));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MoveDown, null, MoveDownAction, Keys.Control | Keys.Down));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("Add New Reference", null, CreateAction, Keys.Control | Keys.Alt | Keys.N));
-            _menu.Items.Add(new ToolStripMenuItem("Export GLSL Shader", null, ExportShaderAction));
-            //_menu.Items.Add(new ToolStripMenuItem("Add shadow diffuse", null, AddShadowDiffuseAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.AddNewReference, null, CreateAction, Keys.Control | Keys.Alt | Keys.N));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ExportGLSLShader, null, ExportShaderAction));
+            //_menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.AddShadowDiffuse, null, AddShadowDiffuseAction));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Delete, null, DeleteAction, Keys.Control | Keys.Delete));
             _menu.Opening += MenuOpening;
@@ -74,7 +74,7 @@ namespace BrawlCrate.NodeWrappers
 
             ShaderGenerator.SetTarget(mat);
 
-            ShaderGenerator.UsePixelLighting = MessageBox.Show(MainForm.Instance, "Use per-pixel lighting?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+            ShaderGenerator.UsePixelLighting = MessageBox.Show(MainForm.Instance, BrawlLib.Properties.Resources.UsePerPixelLighting, "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
 
             SaveFileDialog s = new SaveFileDialog();
 

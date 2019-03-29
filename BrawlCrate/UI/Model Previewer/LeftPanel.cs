@@ -225,7 +225,7 @@ namespace System.Windows.Forms
             this.btnObjects.Name = "btnObjects";
             this.btnObjects.Size = new System.Drawing.Size(170, 26);
             this.btnObjects.TabIndex = 6;
-            this.btnObjects.Text = "Objects";
+            this.btnObjects.Text = BrawlLib.Properties.Resources.Objects;
             this.btnObjects.UseVisualStyleBackColor = true;
             this.btnObjects.Click += new System.EventHandler(this.btnObjects_Click);
             // 

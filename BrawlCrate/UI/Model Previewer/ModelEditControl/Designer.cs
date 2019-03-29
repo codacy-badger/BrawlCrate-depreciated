@@ -1048,7 +1048,7 @@ namespace System.Windows.Forms
             this.toggleVertices.Name = "toggleVertices";
             this.toggleVertices.ShortcutKeyDisplayString = "V Key";
             this.toggleVertices.Size = new System.Drawing.Size(189, 26);
-            this.toggleVertices.Text = "Vertices";
+            this.toggleVertices.Text = BrawlLib.Properties.Resources.Vertices;
             this.toggleVertices.Click += new System.EventHandler(this.toggleRenderVertices_Event);
             // 
             // toggleCollisions
@@ -1072,7 +1072,7 @@ namespace System.Windows.Forms
             // 
             this.toggleNormals.Name = "toggleNormals";
             this.toggleNormals.Size = new System.Drawing.Size(189, 26);
-            this.toggleNormals.Text = "Normals";
+            this.toggleNormals.Text = BrawlLib.Properties.Resources.Normals;
             this.toggleNormals.Click += new System.EventHandler(this.toggleNormals_Click);
             // 
             // boundingBoxToolStripMenuItem
@@ -1096,7 +1096,7 @@ namespace System.Windows.Forms
             // 
             this.chkBBObjects.Name = "chkBBObjects";
             this.chkBBObjects.Size = new System.Drawing.Size(184, 26);
-            this.chkBBObjects.Text = "Objects";
+            this.chkBBObjects.Text = BrawlLib.Properties.Resources.Objects;
             this.chkBBObjects.Click += new System.EventHandler(this.objectsToolStripMenuItem_Click);
             // 
             // chkBBVisBones
@@ -1545,7 +1545,7 @@ namespace System.Windows.Forms
             this.chkVertices.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.chkVertices.Name = "chkVertices";
             this.chkVertices.Size = new System.Drawing.Size(64, 23);
-            this.chkVertices.Text = "Vertices";
+            this.chkVertices.Text = BrawlLib.Properties.Resources.Vertices;
             this.chkVertices.Click += new System.EventHandler(this.toggleRenderVertices_Event);
             // 
             // chkCollisions

@@ -18,7 +18,7 @@ namespace BrawlCrate.NodeWrappers
         static MDL0Wrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("&Preview", null, PreviewAction, Keys.Control | Keys.P));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Preview, null, PreviewAction, Keys.Control | Keys.P));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Export, null, ExportAction, Keys.Control | Keys.E));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Replace, null, ReplaceAction, Keys.Control | Keys.R));
@@ -29,69 +29,69 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MoveDown, null, MoveDownAction, Keys.Control | Keys.Down));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Rename, null, RenameAction, Keys.Control | Keys.N));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("Add New S&hader", null, NewShaderAction, Keys.Control | Keys.H));
-            _menu.Items.Add(new ToolStripMenuItem("Add New &Material", null, NewMaterialAction, Keys.Control | Keys.M));
-            _menu.Items.Add(new ToolStripMenuItem("Ne&w Asset", null,
-                new ToolStripMenuItem("Vertices", null, NewVertexAction),
-                new ToolStripMenuItem("Normals", null, NewNormalAction),
-                new ToolStripMenuItem("Colors", null, NewColorAction),
-                new ToolStripMenuItem("UVs", null, NewUVAction)
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.AddNewShader, null, NewShaderAction, Keys.Control | Keys.H));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.AddNewMaterial, null, NewMaterialAction, Keys.Control | Keys.M));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.NewAsset, null,
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Vertices, null, NewVertexAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Normals, null, NewNormalAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Colors, null, NewColorAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.UVs, null, NewUVAction)
                 ));
-            _menu.Items.Add(new ToolStripMenuItem("&Import Asset", null,
-                new ToolStripMenuItem("Vertices", null, ImportVertexAction),
-                new ToolStripMenuItem("Normals", null, ImportNormalAction),
-                new ToolStripMenuItem("Colors", null, ImportColorAction),
-                new ToolStripMenuItem("UVs", null, ImportUVAction),
-                new ToolStripMenuItem("Objects", null, ImportObjectAction)
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ImportAsset, null,
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Vertices, null, ImportVertexAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Normals, null, ImportNormalAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Colors, null, ImportColorAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.UVs, null, ImportUVAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Objects, null, ImportObjectAction)
                 ));
-            _menu.Items.Add(new ToolStripMenuItem("&Sort Assets", null,
-                new ToolStripMenuItem("Vertices", null, SortVertexAction),
-                new ToolStripMenuItem("Normals", null, SortNormalAction),
-                new ToolStripMenuItem("Colors", null, SortColorAction),
-                new ToolStripMenuItem("UVs", null, SortUVAction),
-                new ToolStripMenuItem("Objects", null, SortObjectAction),
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.SortAssets, null,
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Vertices, null, SortVertexAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Normals, null, SortNormalAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Colors, null, SortColorAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.UVs, null, SortUVAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Objects, null, SortObjectAction),
                 new ToolStripMenuItem(BrawlLib.Properties.Resources.Textures, null, SortObjectAction)
                 ));
-            _menu.Items.Add(new ToolStripMenuItem("&Auto Name Assets", null,
-                new ToolStripMenuItem("Vertices", null, NameVertexAction),
-                new ToolStripMenuItem("Normals", null, NameNormalAction),
-                new ToolStripMenuItem("Colors", null, NameColorAction),
-                new ToolStripMenuItem("UVs", null, NameUVAction),
-                new ToolStripMenuItem("Objects", null, NameObjectAction)
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.AutoNameAssets, null,
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Vertices, null, NameVertexAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Normals, null, NameNormalAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Colors, null, NameColorAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.UVs, null, NameUVAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Objects, null, NameObjectAction)
                 ));
             _menu.Items.Add(new ToolStripSeparator());
-            _menu.Items.Add(new ToolStripMenuItem("&Mirror Model", null,
-                new ToolStripMenuItem("X-Axis (Scale)", null, MirrorXAction),
-                new ToolStripMenuItem("Y-Axis (Scale)", null, MirrorYAction),
-                new ToolStripMenuItem("Z-Axis (Scale)", null, MirrorZAction),
-                new ToolStripMenuItem("X-Axis (Translation/Z-Rotation)", null, FlipXAction),
-                new ToolStripMenuItem("Y-Axis (Translation/Z-Rotation)", null, FlipYAction)
-                //new ToolStripMenuItem("Z-Axis (Translation/Rotation)", null, FlipZAction)
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MirrorModel, null,
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.XAxisScale, null, MirrorXAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.YAxisScale, null, MirrorYAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.ZAxisScale, null, MirrorZAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.XAxisTransZRot, null, FlipXAction),
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.YAxisTransZRot, null, FlipYAction)
+                //new ToolStripMenuItem(BrawlLib.Properties.Resources.ZAxisTransZRot, null, FlipZAction)
                 ));
-            _menu.Items.Add(new ToolStripMenuItem("&Edit Materials", null,
-                new ToolStripMenuItem("&Characters", null,
-                    new ToolStripMenuItem("&Convert To Spy Model", null, SpyConvertAction),
-                    new ToolStripMenuItem("(&Re)generate Metal Materials", null, MetalAction),
-                    new ToolStripMenuItem("(Re)generate Custom Metal Materials", null, CustomMetalAction)
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.EditMaterials, null,
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Characters, null,
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.ConvertToSpyModel, null, SpyConvertAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.RegenerateMetalMaterials, null, MetalAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.RegenerateCustomMetalMaterials, null, CustomMetalAction)
                 ),
-                new ToolStripMenuItem("&Stages", null,
-                    new ToolStripMenuItem("&Convert To Shadow Model", null, ShadowConvertAction),
-                    new ToolStripMenuItem("&Fix Transparency With Characters", null, TransparencyFixAction)
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Stages, null,
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.ConvertToShadowModel, null, ShadowConvertAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.FixTransparencyWithCharacters, null, TransparencyFixAction)
                 ),
-                new ToolStripMenuItem("&Culling", null,
-                    new ToolStripMenuItem("Invert &Culling", null, InvertMaterialsAction),
-                    new ToolStripMenuItem("Set all (Cull &None)", null, CullNoneAction),
-                    new ToolStripMenuItem("Set all (Cull &Outside)", null, CullOutsideAction),
-                    new ToolStripMenuItem("Set all (Cull &Inside)", null, CullInsideAction),
-                    new ToolStripMenuItem("Set all (Cull &All)", null, CullAllAction)
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Culling, null,
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.InvertCulling, null, InvertMaterialsAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.SetCullNone, null, CullNoneAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.SetCullOutside, null, CullOutsideAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.SetCullInside, null, CullInsideAction),
+                    new ToolStripMenuItem(BrawlLib.Properties.Resources.SetCullAll, null, CullAllAction)
                 )
                 ));
-            _menu.Items.Add(new ToolStripMenuItem("&Reimport Meshes", null, ReimportAction));
-            _menu.Items.Add(new ToolStripMenuItem("&Optimize Meshes", null, OptimizeAction));
-            _menu.Items.Add(new ToolStripMenuItem("&Recalculate Bounding Boxes", null, RecalcBBsOption));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ReimportMeshes, null, ReimportAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.OptimizeMeshes, null, OptimizeAction));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.RecalculateBoundingBoxes, null, RecalcBBsOption));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Delete, null, DeleteAction, Keys.Control | Keys.Delete));
-            _menu.Items.Add(new ToolStripMenuItem("Delete All But Bones", null, StripAction, Keys.Control | Keys.Shift | Keys.Delete));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.DeleteAllButBones, null, StripAction, Keys.Control | Keys.Shift | Keys.Delete));
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
@@ -176,7 +176,7 @@ namespace BrawlCrate.NodeWrappers
 
         public void StartTransparencyFix()
         {
-            if (MessageBox.Show(null, "This option will fix a transparent model to render correctly relative to characters.\nThis merely renames the model. Proper transparency must be set up for this to work fully.\nThis option will fail if the rename would cause a model name to be more than 255 characters.", "", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (MessageBox.Show(null, BrawlLib.Properties.Resources.OptionWillFixTransparentModel + "\n" + BrawlLib.Properties.Resources.MerelyRenamesModel + "\n" + BrawlLib.Properties.Resources.FailIfMoreThan255Characters, "", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 ((MDL0Node)_resource).GR2Fix();
             _resource.Rebuild(true);
         }
@@ -583,7 +583,7 @@ namespace BrawlCrate.NodeWrappers
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = SupportedFilesHandler.GetCompleteFilter("mdl0", "dae");
-            ofd.Title = "Please select a model to reimport meshes from.";
+            ofd.Title = BrawlLib.Properties.Resources.SelectModelReimportMeshes;
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 MDL0Node replacement = MDL0Node.FromFile(ofd.FileName);
@@ -678,7 +678,7 @@ namespace BrawlCrate.NodeWrappers
 
         public void AutoMetal(string metalTextureName)
         {
-            if (MessageBox.Show(null, "Are you sure you want to regenerate metal materials for Brawl?\nAll existing metal materials and shaders will be reset.", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(null, BrawlLib.Properties.Resources.SureYouWantRegenerateMetal + "\n" + BrawlLib.Properties.Resources.MetalMatsShadersReset, "", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 ((MDL0Node)_resource).GenerateMetalMaterials(metalTextureName);
         }
 

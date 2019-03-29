@@ -1125,7 +1125,7 @@ namespace BrawlCrate.NodeWrappers
         static MDefRefListWrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("Add New Reference", null, NewRefAction, Keys.Control | Keys.A));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.AddNewReference, null, NewRefAction, Keys.Control | Keys.A));
         }
         protected static void NewRefAction(object sender, EventArgs e) { GetInstance<MDefRefListWrapper>().NewRef(); }
         #endregion
