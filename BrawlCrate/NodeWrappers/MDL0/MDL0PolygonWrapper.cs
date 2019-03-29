@@ -26,7 +26,7 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.MoveDown, null, MoveDownAction, Keys.Control | Keys.Down));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.Delete, null, DeleteAction, Keys.Control | Keys.Delete));
-            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ForceDelete, null, DeleteAction, Keys.Control | Keys.Shift | Keys.Delete));
+            _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.ForceDelete, null, ForceDeleteAction, Keys.Control | Keys.Shift | Keys.Delete));
         }
 
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
