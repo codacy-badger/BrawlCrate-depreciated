@@ -1058,9 +1058,12 @@ namespace BrawlLib.Modeling
             writer.WriteStartElement("instance_controller");
             writer.WriteAttributeString("url", String.Format("#{0}_Controller", obj.Name));
             
-            writer.WriteStartElement("skeleton");
-            writer.WriteString("#" + obj.Model._linker.BoneCache[0].Name);
-            writer.WriteEndElement();
+            if(obj.Model._linker.BoneCache.Length > 0)
+            {
+                writer.WriteStartElement("skeleton");
+                writer.WriteString("#" + obj.Model._linker.BoneCache[0].Name);
+                writer.WriteEndElement();
+            }
 
             if (c.MaterialNode != null)
             {
