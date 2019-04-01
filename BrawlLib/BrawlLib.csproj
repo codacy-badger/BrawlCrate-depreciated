@@ -231,6 +231,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
+    <EmbeddedResource Include="HardcodedFiles\metal00.tex0" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
     <None Include="System\ComponentModel\CustomPropertyDescriptor.cs" />

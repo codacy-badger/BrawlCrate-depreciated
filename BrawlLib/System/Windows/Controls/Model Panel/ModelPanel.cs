@@ -615,6 +615,7 @@ namespace System.Windows.Forms
             RenderFloorChanged,
             FirstPersonCameraChanged,
             RenderBonesChanged,
+            RenderMetalChanged,
             RenderModelBoxChanged,
             RenderObjectBoxChanged,
             RenderVisBoneBoxChanged,
@@ -674,6 +675,21 @@ namespace System.Windows.Forms
 
                 if (RenderBonesChanged != null)
                     RenderBonesChanged(this, value);
+            }
+        }
+
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool RenderMetal
+        {
+            get { return CurrentViewport._renderAttrib._renderMetal; }
+            set
+            {
+                CurrentViewport._renderAttrib._renderMetal = value;
+
+                Invalidate();
+
+                if (RenderMetalChanged != null)
+                    RenderMetalChanged(this, value);
             }
         }
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]

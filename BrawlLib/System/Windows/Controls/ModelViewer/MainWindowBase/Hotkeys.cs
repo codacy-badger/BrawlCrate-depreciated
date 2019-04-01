@@ -111,6 +111,7 @@ namespace System.Windows.Forms
                 new HotKeyInfo(Keys.B, false, false, false, HotkeyRenderBones),
                 new HotKeyInfo(Keys.F, false, false, false, HotkeyRenderFloor),
                 new HotKeyInfo(Keys.P, false, false, false, HotkeyRenderPolygons),
+                new HotKeyInfo(Keys.M, false, false, false, HotkeyRenderMetals),
                 new HotKeyInfo(Keys.C, true, false, true, HotkeyCopyWholeFrame),
                 new HotKeyInfo(Keys.C, true, false, false, HotkeyCopyEntryFrame),
                 new HotKeyInfo(Keys.Space, false, false, false, HotkeyPlayAnim),
@@ -133,8 +134,8 @@ namespace System.Windows.Forms
                 new HotKeyInfo(Keys.Y, true, false, false, HotkeyRedo),
 
 #if DEBUG
-                new HotKeyInfo(Keys.M, false, false, false, HotkeyRenderDepthPressed),
-                new HotKeyInfo(Keys.M, false, false, false, HotkeyRenderDepthReleased, false, true),
+                new HotKeyInfo(Keys.NumPad0, false, false, false, HotkeyRenderDepthPressed),
+                new HotKeyInfo(Keys.NumPad0, false, false, false, HotkeyRenderDepthReleased, false, true),
 #endif
             };
         }
@@ -315,6 +316,15 @@ namespace System.Windows.Forms
             if (ModelPanel.Focused)
             {
                 RenderPolygons = !RenderPolygons;
+                return true;
+            }
+            return false;
+        }
+        private bool HotkeyRenderMetals()
+        {
+            if (ModelPanel.Focused)
+            {
+                RenderMetal = !RenderMetal;
                 return true;
             }
             return false;

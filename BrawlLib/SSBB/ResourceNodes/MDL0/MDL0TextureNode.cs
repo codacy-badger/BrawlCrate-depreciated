@@ -7,6 +7,7 @@ using System.IO;
 using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
 using System.Linq;
+using System.Reflection;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
@@ -187,6 +188,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 return;
 
             bool isStage = false;
+            bool isFighter = false;
             Source = null;
 
             if (Texture != null)
@@ -199,6 +201,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             if(RootNode is ARCNode)
             {
                 isStage = ((ARCNode)RootNode).IsStage;
+                isFighter = ((ARCNode)RootNode).IsCharacter;
+            } else if (RootNode is MDL0Node)
+            {
+                isFighter = RootNode.Name.StartsWith("Fit", StringComparison.OrdinalIgnoreCase);
             }
 
             if (_folderWatcher.EnableRaisingEvents && !String.IsNullOrEmpty(_folderWatcher.Path))
@@ -334,6 +340,24 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             if (bmp != null)
                 Texture.Attach(bmp);
+            else if (isFighter && Name.Equals("metal00"))
+            {
+                var assembly = Assembly.GetExecutingAssembly();
+                try
+                {
+                    var resourceName = ("BrawlLib.HardcodedFiles.metal00.tex0");
+                    string listDefault = "";
+                    using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+                    {
+                        string file;
+                        FileStream fstream = new FileStream((file = Path.GetTempFileName()), FileMode.OpenOrCreate);
+                        stream.CopyTo(fstream);
+                        tNode = NodeFactory.FromFile(null, file) as TEX0Node;
+                        Texture.Attach(tNode, _palette);
+                    }
+                }
+                catch { }
+            }
             else
                 Texture.Default();
         }

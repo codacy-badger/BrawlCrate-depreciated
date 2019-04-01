@@ -55,6 +55,11 @@ namespace System.Windows.Forms
             if (!_updating)
                 RenderBones = !RenderBones;
         }
+        private void toggleMetals_Event(object sender, EventArgs e)
+        {
+            if (!_updating)
+                RenderMetal = !RenderMetal;
+        }
         private void toggleRenderPolygons_Event(object sender, EventArgs e)
         {
             if (!_updating)
