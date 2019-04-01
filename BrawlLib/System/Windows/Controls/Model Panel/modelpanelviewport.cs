@@ -259,6 +259,16 @@ namespace System.Windows.Forms
             }
         }
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool RenderMetal
+        {
+            get { return _renderAttrib._renderMetal; }
+            set
+            {
+                _renderAttrib._renderBones = value;
+                Invalidate();
+            }
+        }
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool RenderVertices
         {
             get { return _renderAttrib._renderVertices; }

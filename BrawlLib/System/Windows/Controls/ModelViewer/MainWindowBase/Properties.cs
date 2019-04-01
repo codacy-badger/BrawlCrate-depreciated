@@ -28,6 +28,12 @@ namespace System.Windows.Forms
             set { ModelPanel.RenderBones = value; }
         }
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool RenderMetal
+        {
+            get { return ModelPanel.RenderMetal; }
+            set { ModelPanel.RenderMetal = value; }
+        }
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool ApplyBillboardBones
         {
             get { return ModelPanel.ApplyBillboardBones; }
