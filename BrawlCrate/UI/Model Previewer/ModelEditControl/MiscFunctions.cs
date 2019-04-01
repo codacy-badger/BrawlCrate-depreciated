@@ -716,7 +716,7 @@ namespace System.Windows.Forms
             btnSaveCam.Text = camDefaultSet ? "Clear Camera" : "Save Camera";
 
             modelPanel_RenderBonesChanged(ModelPanel, v.RenderBones);
-            modelPanel_RenderBonesChanged(ModelPanel, v.RenderMetal);
+            modelPanel_RenderMetalsChanged(ModelPanel, v.RenderMetal);
             modelPanel_RenderFloorChanged(ModelPanel, v.RenderFloor);
             modelPanel_RenderModelBoxChanged(ModelPanel, v.RenderModelBox);
             modelPanel_RenderNormalsChanged(ModelPanel, v.RenderNormals);
@@ -955,7 +955,7 @@ namespace System.Windows.Forms
             if (ModelPanel == panel && !_updating)
             {
                 _updating = true;
-                toggleMetals.Checked = chkBones.Checked = value;
+                toggleMetals.Checked = value;
                 _updating = false;
             }
         }

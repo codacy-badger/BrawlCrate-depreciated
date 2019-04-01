@@ -264,7 +264,7 @@ namespace System.Windows.Forms
             get { return _renderAttrib._renderMetal; }
             set
             {
-                _renderAttrib._renderBones = value;
+                _renderAttrib._renderMetal = value;
                 Invalidate();
             }
         }

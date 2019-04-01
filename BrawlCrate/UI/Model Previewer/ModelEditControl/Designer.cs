@@ -1733,6 +1733,7 @@ namespace System.Windows.Forms
             this.modelPanel.RenderFloorChanged += new System.Windows.Forms.ModelPanel.RenderStateEvent(this.modelPanel_RenderFloorChanged);
             this.modelPanel.FirstPersonCameraChanged += new System.Windows.Forms.ModelPanel.RenderStateEvent(this.modelPanel_FirstPersonCameraChanged);
             this.modelPanel.RenderBonesChanged += new System.Windows.Forms.ModelPanel.RenderStateEvent(this.modelPanel_RenderBonesChanged);
+            this.modelPanel.RenderMetalChanged += new System.Windows.Forms.ModelPanel.RenderStateEvent(this.modelPanel_RenderMetalsChanged);
             this.modelPanel.RenderModelBoxChanged += new System.Windows.Forms.ModelPanel.RenderStateEvent(this.modelPanel_RenderModelBoxChanged);
             this.modelPanel.RenderObjectBoxChanged += new System.Windows.Forms.ModelPanel.RenderStateEvent(this.modelPanel_RenderObjectBoxChanged);
             this.modelPanel.RenderVisBoneBoxChanged += new System.Windows.Forms.ModelPanel.RenderStateEvent(this.modelPanel_RenderVisBoneBoxChanged);
