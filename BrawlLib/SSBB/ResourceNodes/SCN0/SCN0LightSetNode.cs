@@ -172,7 +172,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                     table.Add(GetLightName(i));
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return SCN0LightSet.Size;
         }

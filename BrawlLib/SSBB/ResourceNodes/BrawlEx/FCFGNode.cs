@@ -831,7 +831,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             set { _characterLoadFlags = (_characterLoadFlags & ~CharacterLoadFlags.WorkManageFlag) | (value ? CharacterLoadFlags.WorkManageFlag : 0); SignalPropertyChange(); }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return FCFG.Size;
         }

@@ -34,7 +34,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             return false;
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int len = (_strings.Count + 1) << 2;
             foreach (string s in _strings)

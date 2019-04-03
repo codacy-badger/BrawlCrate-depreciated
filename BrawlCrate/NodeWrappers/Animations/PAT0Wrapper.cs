@@ -19,6 +19,7 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items.Add(new ToolStripMenuItem("Edit", null,
                 //new ToolStripMenuItem("&Merge Animation", null, MergeAction),
                 new ToolStripMenuItem("&Append Animation", null, AppendAction),
+                new ToolStripMenuItem("Sort Entries", null, SortAction),
                 new ToolStripMenuItem("Res&ize", null, ResizeAction)));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Export", null, ExportAction, Keys.Control | Keys.E));

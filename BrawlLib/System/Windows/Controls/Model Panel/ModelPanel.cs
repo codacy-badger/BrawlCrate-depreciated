@@ -495,7 +495,7 @@ namespace System.Windows.Forms
             GL.Hint(HintTarget.GenerateMipmapHint, HintMode.Nicest);
 
             GL.Enable(EnableCap.Blend);
-            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
             GL.Enable(EnableCap.AlphaTest);
             GL.AlphaFunc(AlphaFunction.Gequal, 0.1f);
@@ -539,7 +539,7 @@ namespace System.Windows.Forms
             GL.MatrixMode(MatrixMode.Modelview);
 
             GL.Enable(EnableCap.Blend);
-            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
             GL.Enable(EnableCap.Lighting);
             GL.Enable(EnableCap.DepthTest);
 
@@ -615,6 +615,7 @@ namespace System.Windows.Forms
             RenderFloorChanged,
             FirstPersonCameraChanged,
             RenderBonesChanged,
+            RenderMetalChanged,
             RenderModelBoxChanged,
             RenderObjectBoxChanged,
             RenderVisBoneBoxChanged,
@@ -674,6 +675,21 @@ namespace System.Windows.Forms
 
                 if (RenderBonesChanged != null)
                     RenderBonesChanged(this, value);
+            }
+        }
+
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool RenderMetal
+        {
+            get { return CurrentViewport._renderAttrib._renderMetal; }
+            set
+            {
+                CurrentViewport._renderAttrib._renderMetal = value;
+
+                Invalidate();
+
+                if (RenderMetalChanged != null)
+                    RenderMetalChanged(this, value);
             }
         }
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]

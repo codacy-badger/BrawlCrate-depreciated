@@ -56,7 +56,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = 0x10;//AIPD header
             int type2OffsetSize = 0;
@@ -242,7 +242,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             #endregion
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return 0x60;
         }
@@ -360,7 +360,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             #endregion
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return 0x30;
         }
@@ -388,7 +388,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 ((byte*)address)[i] = padding[i];
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return 0x40;
         }
@@ -432,7 +432,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return 0x70;
         }
@@ -479,7 +479,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 *(byte*)address = 0x0;
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = 0;
             foreach (AIPDType1EntryNode n in Children)
@@ -522,7 +522,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             header->_control2 = control2;
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return 0x3;
         }
@@ -564,7 +564,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = 0x0;
             size += Children.Count * 0x4;//Offsets size
@@ -619,7 +619,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             { n.Rebuild(entry, 0x6, true); entry++; }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = 0x4;//id and flag, numEntries
             size += Entries.Count * 0x6;
@@ -666,7 +666,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             header->_unk5 = unk5;
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return 0x6;
         }

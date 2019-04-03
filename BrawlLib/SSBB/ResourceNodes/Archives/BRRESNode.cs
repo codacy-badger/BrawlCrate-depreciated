@@ -102,16 +102,6 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
         
-        public bool isModelData()
-        {
-            return (FileType == ARCFileType.ModelData);
-        }
-        
-        public bool isTextureData()
-        {
-            return (FileType == ARCFileType.TextureData);
-        }
-
         public override Type[] AllowedChildTypes
         {
             get
@@ -277,7 +267,11 @@ namespace BrawlLib.SSBB.ResourceNodes
             return group;
         }
 
-        public T CreateResource<T>(string name, int index = -1) where T : BRESEntryNode
+        public T CreateResource<T>(string name) where T : BRESEntryNode
+        {
+            return CreateResourceInPlace<T>(name, -1);
+        }
+        public T CreateResourceInPlace<T>(string name, int index) where T : BRESEntryNode
         {
             BRESGroupNode group = GetOrCreateFolder<T>();
             if (group == null)
@@ -441,7 +435,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         private int _numEntries, _strOffset, _rootSize;
         StringTable _stringTable = new StringTable();
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = BRESHeader.Size;
             _rootSize = 0x20 + (Children.Count * 0x10);
@@ -645,6 +639,22 @@ namespace BrawlLib.SSBB.ResourceNodes
     {
         internal ResourceGroup* Group { get { return (ResourceGroup*)WorkingUncompressed.Address; } }
         public override ResourceType ResourceType { get { return ResourceType.BRESGroup; } }
+
+        public override uint uncompSize
+        {
+            get
+            {
+                if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
+                    return 0;
+                uint calcSize = 0;
+                for(int i = 0; i < Children.Count; i++)
+                {
+                    calcSize += Children[i].uncompSize;
+                }
+                return calcSize;
+            }
+        }
+
         public override Type[] AllowedChildTypes
         {
             get
@@ -758,9 +768,9 @@ namespace BrawlLib.SSBB.ResourceNodes
             if (Type == BRESGroupType.None) GetFileType();
         }
 
-        public void SortChildren()
+        public override void SortChildren()
         {
-            if (Children.Count <= 0)
+            if (Children == null || Children.Count <= 0)
                 return;
             if (Children[0].Name.StartsWith("InfStc", StringComparison.OrdinalIgnoreCase) && Children[0] is TEX0Node)
             {

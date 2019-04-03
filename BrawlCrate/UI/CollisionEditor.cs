@@ -687,6 +687,8 @@ namespace System.Windows.Forms
             this.cboMaterial.Size = new System.Drawing.Size(139, 21);
             this.cboMaterial.TabIndex = 12;
             this.cboMaterial.SelectedIndexChanged += new System.EventHandler(this.cboMaterial_SelectedIndexChanged);
+            this.cboMaterial.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)
+            | System.Windows.Forms.AnchorStyles.Left)));
             // 
             // cboType
             // 
@@ -697,6 +699,8 @@ namespace System.Windows.Forms
             this.cboType.Size = new System.Drawing.Size(139, 21);
             this.cboType.TabIndex = 5;
             this.cboType.SelectedIndexChanged += new System.EventHandler(this.cboType_SelectedIndexChanged);
+            this.cboType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)
+            | System.Windows.Forms.AnchorStyles.Left)));
             // 
             // label5
             // 
@@ -1355,7 +1359,7 @@ namespace System.Windows.Forms
             pnlPointProps.Dock = DockStyle.Fill;
 
             _updating = true;
-            cboMaterial.DataSource = Enum.GetValues(typeof(CollisionPlaneMaterialUnexpanded));
+            cboMaterial.DataSource = CollisionTerrain.Terrains.Take(0x20).ToList(); // Take unexpanded collisions
             cboType.DataSource = Enum.GetValues(typeof(CollisionPlaneType));
             _updating = false;
         }
@@ -1427,17 +1431,11 @@ namespace System.Windows.Forms
                 }
                 CollisionPlane p = _selectedPlanes[0];
 
-                //Material
-                if((byte)p._material >= 32)
-                {
-                    // Select basic by default (currently cannot display expanded collisions in default previewer)
-                    cboMaterial.SelectedItem = (CollisionPlaneMaterialUnexpanded)(0x0);
-                }
-                else
-                {
-                    // Otherwise convert to the proper place in the unexpanded list
-                    cboMaterial.SelectedItem = (CollisionPlaneMaterialUnexpanded)((byte)p._material);
-                }
+                if ((byte)p._material >= 32 && cboMaterial.Items.Count <= 32)
+                    cboMaterial.DataSource = CollisionTerrain.Terrains.ToList(); // Get the expanded collisions if they're used
+                else if (cboMaterial.Items.Count > 32)
+                    cboMaterial.DataSource = CollisionTerrain.Terrains.Take(0x20).ToList(); // Take unexpanded collisions
+                cboMaterial.SelectedItem = cboMaterial.Items[p._material];
                 //Type
                 cboType.SelectedItem = p.Type;
                 //Flags
@@ -1490,7 +1488,7 @@ namespace System.Windows.Forms
             _models.Clear();
 
             if ((_targetNode != null) && (_targetNode._parent != null))
-                foreach (MDL0Node n in _targetNode._parent.FindChildrenByType(null, ResourceType.MDL0))
+                foreach (MDL0Node n in _targetNode._parent.FindChildrenByTypeInGroup(null, ResourceType.MDL0, _targetNode.GroupID))
                 {
                     TreeNode modelNode = new TreeNode(n._name) { Tag = n, Checked = true };
                     modelTree.Nodes.Add(modelNode);
@@ -2590,7 +2588,7 @@ namespace System.Windows.Forms
         {
             if (_updating) return;
             foreach (CollisionPlane plane in _selectedPlanes)
-                plane._material = (CollisionPlaneMaterial)((byte)cboMaterial.SelectedItem);
+                plane._material = ((CollisionTerrain)cboMaterial.SelectedItem).ID;
             TargetNode.SignalPropertyChange();
         }
         protected void cboType_SelectedIndexChanged(object sender, EventArgs e)

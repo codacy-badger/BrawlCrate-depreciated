@@ -370,7 +370,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         SCN0LightNode[] _matches = { null, null };
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             _matches[0] = null;
             _matches[1] = null;

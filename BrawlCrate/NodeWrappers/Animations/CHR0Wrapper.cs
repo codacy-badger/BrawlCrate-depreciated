@@ -25,6 +25,7 @@ namespace BrawlCrate.NodeWrappers
                 new ToolStripMenuItem("Repeat Animation", null, LoopAction),
                 new ToolStripMenuItem("Reverse Animation", null, ReverseAction),
                 new ToolStripMenuItem("Reverse to Loop", null, ReverseLoopAction),
+                new ToolStripMenuItem("Sort Entries", null, SortAction),
                 new ToolStripMenuItem("Resize", null, ResizeAction)));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Export", null, ExportAction, Keys.Control | Keys.E));

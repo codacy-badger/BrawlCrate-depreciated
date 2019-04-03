@@ -30,7 +30,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         int _tableLen = 0;
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = 0x28 + (Name.Length + 1).Align(4);
             _tableLen = 0x8;
@@ -127,7 +127,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             .Initialize(this, Header->Animations, WorkingUncompressed.Length - ((int)Header->Animations - (int)Header));
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = 8;
             foreach (ResourceNode r in Children)

@@ -35,7 +35,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             // Copy the data back to the address
             *(EventMatchDifficultyData*)address = data;
         }
-        public override int OnCalculateSize(bool force) {
+        public override int OnCalculateSize(bool force, bool rebuilding = true) {
             // Constant size (14 bytes)
             return sizeof(EventMatchDifficultyData);
         }
@@ -110,7 +110,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             // Constant size (48 bytes)
             return sizeof(EventMatchFighterData);
@@ -392,7 +392,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = sizeof(EventMatchTblHeader);
             foreach (ResourceNode node in Children)

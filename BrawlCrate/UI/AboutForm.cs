@@ -11,10 +11,14 @@ namespace BrawlCrate
         public AboutForm()
         {
             InitializeComponent();
-            this.lblName.Text = MainForm.Instance.Canary ? "Canary@" + MainForm.currentBranch + MainForm.Instance.commitIDshort : Program.AssemblyTitle;
+            this.lblName.Text = "BrawlCrate" + (MainForm.Instance.Canary ? " Canary" : "");
+            this.lblVersion.Text = MainForm.Instance.Canary ? MainForm.currentRepo + "@" + MainForm.currentBranch + MainForm.Instance.commitIDshort : "Version " + Program.AssemblyVersion;
+#if DEBUG
+            this.lblVersion.Text += " DEBUG";
+#endif
             this.txtDescription.Text = Program.AssemblyDescription;
             this.lblCopyright.Text = Program.AssemblyCopyright;
-            this.lblBrawlLib.Text = "Using " + (MainForm.Instance.Canary ? ("BrawlCrateLib Canary@" + MainForm.currentBranch + MainForm.Instance.commitIDshort) : Program.BrawlLibTitle);
+            this.lblBrawlLib.Text = "Using " + (MainForm.Instance.Canary ? ("BrawlCrateLib Canary" + MainForm.Instance.commitIDlong) : Program.BrawlLibTitle);
         }
 
         private void btnClose_Click(object sender, EventArgs e)

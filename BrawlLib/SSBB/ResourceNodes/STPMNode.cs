@@ -32,7 +32,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             return base.GetName("Stage Parameters");
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return 0x10 + Children.Count * 4 + Children.Count * _entrySize;
         }

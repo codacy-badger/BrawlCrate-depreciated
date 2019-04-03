@@ -49,6 +49,7 @@ namespace BrawlLib.Modeling
         public bool _renderShaders = true;
         public bool _scaleBones = false;
         public bool _renderBonesAsPoints = false;
+        public bool _renderMetal = false;
 
         public ModelRenderAttributes() { }
         public ModelRenderAttributes(SerializationInfo info, StreamingContext ctxt)

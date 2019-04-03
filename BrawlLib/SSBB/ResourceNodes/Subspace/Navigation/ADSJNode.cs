@@ -35,7 +35,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 _name = String.Format("Stepjumps[{0}]", index);
             return Header->_count > 0;
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = ADSJ.Size + (Children.Count * 4);
             foreach (ResourceNode node in Children)
@@ -109,7 +109,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 _name = JumpBone;
             return false;
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return ADSJEntry.Size;
         }

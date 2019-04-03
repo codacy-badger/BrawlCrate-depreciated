@@ -199,8 +199,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OpenTK, Version=3.0.1.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <HintPath>..\packages\OpenTK.3.0.1\lib\net20\OpenTK.dll</HintPath>
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
@@ -221,6 +222,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
+    <EmbeddedResource Include="HardcodedFiles\metal00.tex0" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
     <None Include="System\ComponentModel\CustomPropertyDescriptor.cs" />
@@ -1089,7 +1091,7 @@
       <DependentUpon>GLPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="System\Windows\Controls\AttributeGrid.resx">
@@ -1326,6 +1328,9 @@
     <Content Include="CustomLists\StageList.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="InternalDocumentation\Module\st_mariopast\Section [1].txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="InternalDocumentation\Module\st_plankton\Section [1].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1413,6 +1418,7 @@
     <Content Include="InternalDocumentation\version.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="OpenTK.dll" />
     <Content Include="InternalDocumentation\STDT\DONKEY[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

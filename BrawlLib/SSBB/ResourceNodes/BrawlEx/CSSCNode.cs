@@ -230,7 +230,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }*/
         }
         
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int extraBytes = 0;
             while ((0x20 + ((Children.Count + 1) * 2) + extraBytes) % 16 != 0)
@@ -318,7 +318,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return CSSCEntry.Size;
         }

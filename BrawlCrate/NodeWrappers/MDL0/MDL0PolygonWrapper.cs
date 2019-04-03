@@ -26,6 +26,7 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items.Add(new ToolStripMenuItem("Move D&own", null, MoveDownAction, Keys.Control | Keys.Down));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteAction, Keys.Control | Keys.Delete));
+            _menu.Items.Add(new ToolStripMenuItem("&Force Delete", null, ForceDeleteAction, Keys.Control | Keys.Shift | Keys.Delete));
         }
 
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
@@ -40,6 +41,7 @@ namespace BrawlCrate.NodeWrappers
         }
 
         protected static void OptimizeAction(object sender, EventArgs e) { GetInstance<MDL0PolygonWrapper>().Optimize(); }
+        protected static void ForceDeleteAction(object sender, EventArgs e) { GetInstance<MDL0PolygonWrapper>().ForceDelete(); }
         #endregion
 
         public override string ExportFilter { get { return FileFilters.Object; } }
@@ -59,6 +61,15 @@ namespace BrawlCrate.NodeWrappers
         public void Optimize()
         {
             new ObjectOptimizerForm().ShowDialog((MDL0ObjectNode)_resource);
+        }
+
+        public void ForceDelete()
+        {
+            if (Parent == null || (MainForm.Instance != null && Form.ActiveForm != null && Form.ActiveForm != MainForm.Instance))
+                return;
+
+            _resource.Dispose();
+            ((MDL0ObjectNode)_resource).Remove(true);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         protected override string GetName()
         {
-            return String.Format("HavokData[{0}]", _fileIndex);
+            return base.GetName("Havok Data");
         }
 
         public int _userTag;
@@ -349,7 +349,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 base.Export(outPath);
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return _buffer.Length;
         }

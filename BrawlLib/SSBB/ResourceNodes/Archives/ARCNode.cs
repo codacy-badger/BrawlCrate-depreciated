@@ -273,11 +273,18 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = ARCHeader.Size + (Children.Count * 0x20);
             foreach (ResourceNode node in Children)
-                size += node.CalculateSize(force).Align(0x20);
+            {
+                if (rebuilding)
+                    size += node.CalculateSize(force).Align(0x20);
+                else if (!(node is RELNode))
+                    size += node.OnCalculateSize(force).Align(0x20);
+                else
+                    size += (int)node.uncompSize.Align(0x20);
+            }
             return size;
         }
 
@@ -289,7 +296,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             ARCFileHeader* entry = header->First;
             foreach (ARCEntryNode node in Children)
             {
-                *entry = new ARCFileHeader(node.FileType, node.FileIndex, node._calcSize, node.GroupID, node._redirectIndex);
+                *entry = new ARCFileHeader(node.FileType, node.FileIndex, node._calcSize, node.GroupID, node.CalculateRedirect());
                 node.Rebuild(entry->Data, entry->Length, force);
                 entry = entry->Next;
             }
@@ -557,7 +564,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         internal short _redirectIndex = -1;
 
-        [Category("ARC Entry")]
+        [Category("ARC Entry"), Browsable(false)]
         public short RedirectIndex
         {
             get { return _redirectIndex; }
@@ -565,25 +572,83 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 if (value == Index || value == _redirectIndex)
                     return;
-
-                if ((_redirectIndex = (short)((int)value).Clamp(-1, Parent.Children.Count - 1)) < 0)
+                
+                if (Parent == null || (_redirectIndex = (short)((int)value).Clamp(-1, Parent.Children.Count - 1)) < 0)
                 {
                     _resourceType = ResourceType.ARCEntry;
-                    Name = GetName();
                 }
                 else
                 {
                     _resourceType = ResourceType.Redirect;
-                    Name = "Redirect → " + _redirectIndex;
                 }
-            } 
+                UpdateRedirectTarget();
+                UpdateName();
+            }
         }
 
-        protected virtual string GetName()
+        public short CalculateRedirect()
         {
-            return String.Format("{0} [{1}]", fullTypeName(), _fileIndex);
+            try
+            {
+                if (RedirectTargetNode == null || RedirectTargetNode.Parent != Parent)
+                    return -1;
+                else
+                    return (short)RedirectTargetNode.AbsoluteIndex;
+            }
+            catch
+            {
+                return -1;
+            }
         }
-        
+
+        [Category("ARC Entry"), Browsable(false)]
+        public string RedirectTargetName
+        {
+            get { if (RedirectTargetNode == null) { return "None"; } return RedirectTargetNode.Name; }
+        }
+
+        [Category("ARC Entry")]
+        [TypeConverter(typeof(DropDownListARCEntry))]
+        public string RedirectTarget
+        {
+            get { return RedirectTargetName; }
+            set
+            {
+                try
+                {
+                    RedirectTargetNode = (ARCEntryNode)Parent.FindChildrenByName(value)[0];
+                    SignalPropertyChange();
+                    UpdateName();
+                }
+                catch
+                {
+                    RedirectTargetNode = null;
+                    RedirectIndex = -1;
+                    SignalPropertyChange();
+                    UpdateName();
+                }
+            }
+        }
+
+        public ARCEntryNode RedirectTargetNode = null;
+        public ARCEntryNode UpdateRedirectTarget()
+        {
+            try
+            {
+                if (RedirectIndex == -1 || Parent == null || Parent.Children.Count <= RedirectIndex)
+                {
+                    RedirectTargetNode = null;
+                }
+                RedirectTargetNode = (ARCEntryNode)Parent.Children[RedirectIndex];
+            }
+            catch
+            {
+                RedirectTargetNode = null;
+            }
+            UpdateProperties();
+            return RedirectTargetNode;
+        }
+
         // Makes everything use spaces
         protected virtual string fullTypeName()
         {
@@ -603,7 +668,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 case "Type6":
                     return "Type 6";
                 case "GroupedArchive":
-                    return "Grouped Archive";
+                    return "ARC";
                 case "EffectData":
                     return "Effect Data";
                 default:
@@ -611,15 +676,32 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
+        protected virtual string GetName()
+        {
+            return GetName(fullTypeName());
+        }
+
+        public bool isModelData()
+        {
+            return (FileType == ARCFileType.ModelData);
+        }
+
+        public bool isTextureData()
+        {
+            return (FileType == ARCFileType.TextureData);
+        }
+
         protected virtual string GetName(string fileType)
         {
             string s = string.Format("{0} [{1}]", fileType, _fileIndex);
             if (_group != 0)
-                s += "[Group " + _group + "]";
+                s += " [Group " + _group + "]";
+            if (_redirectIndex != -1)
+                s += " (Redirect → " + ((RedirectTargetNode == null && _resourceType != ResourceType.MSBin) ? _redirectIndex.ToString() : (string)RedirectTarget) + ")";
             return s;
         }
 
-        protected void UpdateName()
+        public void UpdateName()
         {
             if (!(this is ARCNode))
                 Name = GetName();
@@ -648,13 +730,14 @@ namespace BrawlLib.SSBB.ResourceNodes
                 _redirectIndex = header->_redirectIndex;
 
                 if (_name == null)
-                    if (_redirectIndex != -1)
+                {
+                    if (_redirectIndex != -1 && _resourceType != ResourceType.MSBin)
                     {
                         _resourceType = ResourceType.Redirect;
-                        _name = "Redirect → " + _redirectIndex;
+                        UpdateRedirectTarget();
                     }
-                    else
-                        _name = GetName();
+                    _name = GetName();
+                }
             }
             else if (_name == null)
                 _name = Path.GetFileName(_origPath);

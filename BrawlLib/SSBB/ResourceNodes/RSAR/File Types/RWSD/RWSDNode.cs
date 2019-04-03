@@ -135,7 +135,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             _audioLen = 0;
             _headerLen = RWSDHeader.Size;

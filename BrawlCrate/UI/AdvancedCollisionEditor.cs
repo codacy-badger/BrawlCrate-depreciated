@@ -167,6 +167,8 @@ namespace System.Windows.Forms
             this.cboMaterial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboMaterial.Location = new System.Drawing.Point(59, 4);
             this.cboMaterial.Name = "cboMaterial";
+            this.cboMaterial.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)
+            | System.Windows.Forms.AnchorStyles.Left)));
             // 
             // label5
             // 
@@ -193,7 +195,7 @@ namespace System.Windows.Forms
         {
             InitializeComponent();
             _errorChecking = false;
-            cboMaterial.DataSource = Enum.GetValues(typeof(CollisionPlaneMaterial));
+            cboMaterial.DataSource = CollisionTerrain.Terrains.ToList();
         }
 
         protected override void SelectionModified()
@@ -239,7 +241,7 @@ namespace System.Windows.Forms
                 CollisionPlane p = _selectedPlanes[0];
 
                 //Material
-                cboMaterial.SelectedItem = p._material;
+                cboMaterial.SelectedItem = cboMaterial.Items[p._material];
                 //Type
                 chkTypeFloor.Checked = p.IsFloor;
                 chkTypeCeiling.Checked = p.IsCeiling;

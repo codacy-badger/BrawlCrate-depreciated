@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.21
+BrawlCrate - v0.24 Hotfix 1
 Copyright © 2018 - 2019 soopercool101, MarioDox, Syvkal
 BrawlBox  © 2009 - 2019 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -16,12 +16,102 @@ they be held accountable for the manner in which it is used.
 |************ BrawlCrate Change Log ************|
  ===============================================
  
+ - BrawlCrate v0.24 Hotfix 1 - (3/21/2019)
+ . Fixes bug in which installation paths with spaces would always fail Color Smashing
+ 
+ - BrawlCrate v0.24 - (3/21/2019)
+ . ArcEntry Groups are now reflected in the node name for all automatically named ArcEntries
+ . Redirect Nodes now redirect to a specific node, rather than a static index (helps prevent Redirect corruption)
+ . Add ability to add new Redirect Nodes to an ARC
+ . Redirect Nodes are given better names to more properly show what they do
+ . Texture renderer updated to be more Brawl accurate
+   - Textures are now loaded locally from the containing ARC
+   - Textures now only load from BRRES's of the same group
+   - If textures aren't found in an MDL0's containing BRRES, textures now only load from Texture Datas (or Texture Data Redirects)
+ . Previewing a Collision Data now only shows models from the same ARCEntry Group (with redirect support)
+ . HavokData is now parsed as "Havok Data"
+ . AutoMetal setting for models moved to the "G3D Model" section
+ . Fix bug in which the Color Smash Utility wouldn't work if the program wasn't opened directly from the executable
+ . Fix bug where disabling documentation updates would prevent any future updates from being recieved by the program
+ . Fix bug in which if an in-progress download of update files was interrupted, your installation would be deleted
+ 
+ - BrawlCrate v0.23 Hotfix 2 - (3/8/2019)
+ . Update documentation to v0.23.1
+ . Size calculation is now disabled in Compatibility mode
+ . Size calculation no longer breaks REL Section 5 population
+ . Size calculation for ARCs no longer rebuilds certain ARC Entries
+ 
+ - BrawlCrate v0.23 Hotfix 1 - (2/27/2019)
+ . Add sorting option to MDL0 Groups as well as animations
+ . Add uncompressed size listing in bytes for all resource nodes
+ . Import Existing Object for MDL0s moved into Import Asset submenu
+ . Cull Mode is now set to Cull_Inside for new materials
+ . Color Smash import uses new method by default
+ . Update documentation to v0.23.0
+ . Material Culling description updated to a more detailed one by Xen
+ . Rich Presence DLL now deleted by the updater
+ . Fix bug where Color Smash utility would be corrupted in certain builds
+ . Fix bug in which subsequent color smash temp files would not be deleted if any output file failed
+ . Add various cases to ensure Discord Rich Presence terminates properly
+   - Always clear presence before shutting down
+   - Shutdown when crash reporter sends a force close
+   - If there's only one BrawlCrate process, attempts to refresh presence to prevent doubling up
+ 
+ - BrawlCrate v0.23 - (2/23/2019)
+ . Add Discord Rich Presence (customizable via the settings menu)
+ . Add experimental AutoMetal option, which automatically updates metal materials as you work on a model
+ . Add force delete option to MDL0 Objects
+ . Can now switch forks with Canary
+ . Stock icons now always suggest CI4 encoding
+ . Switching branches or repos with Canary now prompts to update
+ . Update text for blender bone fix
+ . About form now shows additional information
+ . Model stripping no longer prompts to remove shaders (done automatically again)
+ . Fix bug where switching to/from Canary would update twice
+ 
+ - BrawlCrate v0.22 - (2/6/2019)
+ . Add Blender Bone Fix setting when importing DAE files (Removes armature and end bones)
+ . Fighter PACs and PCSs now immediately set proper compression and flag as changed when settings are active for it
+ . When deleting a material from a model, prompts to delete the relevant shader if it would go unused
+ . When deleting an object, now prompts to delete the relevant material if it would go unused
+ . When deleting an object, now properly deletes vertices and normals
+ . Updated info on SubItem ID to reflect current understanding
+ . OpenTK reverted to v1.1.0.0 to increase compatibility
+ . Updater's batch file cmd window is now hidden
+ . Improve texture importing's detection of inverted alpha
+ . Speed up and improve CHR0 from bone position generation
+ . No longer imports null bones that don't have a skin wrap
+ . Fixes in-game crashes with the metal generation script
+ . Files are now deleted before export to  potentially prevent overwriting issues
+ . Fix crashes when adding animations from the preview window
+ 
+ - BrawlCrate v0.21 Hotfix 3 - (1/29/2019)
+ . Add direct import for Color-Smashable textures
+ . Allow DAE imports to have user-defined defaults for wrapping and filtering
+ . Fix major issue where exes could potentially get corrupted when overwritten by the updater
+ . Replacing textures from the model preview window no longer throws an error
+ . Deleting a PLT0 before deleting the related TEX0 no longer prompts to delete the PLT0 again
+ . Fix minor issues with the Canary branch-switching functionality
+ 
+ - BrawlCrate v0.21 Hotfix 2 - (1/24/2019)
+ . Fixes issue where old Color Smash method no longer worked
+ . Fixes module compression setting having the opposite effect as intended
+ 
+ - BrawlCrate v0.21 Hotfix 1 - (1/20/2019)
+ . Adds warning to module compressor setting
+ . Fixes issue where creating a new Classic Stage Table would add two (hiding one until reopening)
+ . Fixes issue where FCFG/FITC names were pulled from Kirby hat rather than fighter pac
+ . Fixes issue where materials in daes with undefined wrapping and filtering would lose their texture references upon import
+ . Fixes issue where changelog would display separate from main window
+ 
  - BrawlCrate v0.21 - (1/14/2019)
  . Add support for native Color Smashing of files
    - Color Smashing can now be properly reverted
  . Added support for BrawlEx 50CC
    - Improved support for CSSC
  . (Re)Add compatibility mode which prevents breaking for older models
+ . Adds various settings related to compression
+ . Adds setting to auto-play audio nodes
  . Interpolation Editor now saves selected type when scrolling between nodes
  . Dragging in an image to replace a TEX0 now shows the texture conversion options
  . Re-encoding a TEX0 in a way that makes it no longer use a palette now deletes unused palettes

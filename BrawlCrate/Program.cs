@@ -16,14 +16,19 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.21";
-        public static readonly string UpdateMessage = "Updated to BrawlCrate v0.21! This release:\n" +
-            "\n- Adds native support for Color Smashing textures" +
-            "\n- Fixes various bugs and adds various improvements to 50CC support" +
-            "\n- Fixes crashes associated with sawndz import/export" +
-            "\n\nFull changelog can be found in the installation folder:\n" + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
+        public static readonly string TagName = "BrawlCrate_v0.24Hotfix1";
+        public static readonly string UpdateMessage = @"Updated to BrawlCrate v0.24 Hotfix 1! This release:
+- Redirect Nodes now display more information, and now will redirect to a static node rather than a static index to prevent corruption
+- Can now add Redirect Nodes to an ARC
+- Texture Renderer is now more Brawl-accurate
+- ARCEntry Groups now display more information
+- Fix bugs in which Color Smash wouldn't work under common circumstances
+- (Hotfix 1) Fixes bug in which Color Smash would never work if your installation path for BrawlCrate had a space in it
+
+Full changelog can be found in the installation folder: " + '\n' + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
         public static readonly string AssemblyTitle;
+        public static readonly string AssemblyVersion;
         public static readonly string AssemblyDescription;
         public static readonly string AssemblyCopyright;
         public static readonly string FullPath;
@@ -44,6 +49,7 @@ namespace BrawlCrate
 
             AssemblyTitle = ((AssemblyTitleAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
             AssemblyDescription = ((AssemblyDescriptionAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false)[0]).Description;
+            AssemblyVersion = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).FileVersion;
             AssemblyCopyright = ((AssemblyCopyrightAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false)[0]).Copyright;
             FullPath = Process.GetCurrentProcess().MainModule.FileName;
             BrawlLibTitle = ((AssemblyTitleAttribute)Assembly.GetAssembly(typeof(ResourceNode)).GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
@@ -94,13 +100,15 @@ namespace BrawlCrate
             return dirty;
         }
 
+        public static bool firstBoot = false;
         [STAThread]
         public static void Main(string[] args)
         {
             SplashForm s = new SplashForm();
             s.Show();
             s.Focus();
-            bool firstBoot = false;
+            firstBoot = false;
+#if !DEBUG
             if (BrawlCrate.Properties.Settings.Default.UpdateSettings)
             {
                 foreach (var _Assembly in AppDomain.CurrentDomain.GetAssemblies())
@@ -173,7 +181,7 @@ namespace BrawlCrate
             {
 
             }
-
+#endif
             string path = "";
             if (args.Length >= 1)
             {
@@ -221,14 +229,6 @@ namespace BrawlCrate
                     if(Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old"))
                         MainForm.Instance.ShowCanaryChangelog();
                 }
-                else if (BrawlCrate.Properties.Settings.Default.UpdateAutomatically && firstBoot)
-                {
-                    Task.Factory.StartNew(() =>
-                    {
-                        System.Threading.Thread.Sleep(1000);
-                        MessageBox.Show(Program.UpdateMessage);
-                    });
-                }
 #endif
                 s.Close();
                 Application.Run(MainForm.Instance);
@@ -245,6 +245,11 @@ namespace BrawlCrate
                 }
             }
             finally {
+                //if (CanRunDiscordRPC())
+                //{
+                    Discord.DiscordRpc.ClearPresence();
+                    Discord.DiscordRpc.Shutdown();
+                //}
                 try
                 {
                     Generate1to1Stages.clearTmpDir(Generate1to1Stages.tmpDirectory);
@@ -419,6 +424,13 @@ REGEN:
                     _rootPath = path;
                     if(!setRoot)
                         _rootPath = null;
+                    else if (_rootNode is ARCNode && ((ARCNode)_rootNode).IsCharacter)
+                    {
+                        if (Program.RootPath.EndsWith(".pcs", StringComparison.OrdinalIgnoreCase) && (_rootNode.Compression.Equals("LZ77", StringComparison.OrdinalIgnoreCase) || _rootNode.Compression.Equals("None", StringComparison.OrdinalIgnoreCase)) && BrawlLib.Properties.Settings.Default.AutoCompressFighterPCS)
+                            _rootNode.Compression = "ExtendedLZ77";
+                        else if (Program.RootPath.EndsWith(".pac", StringComparison.OrdinalIgnoreCase) && !_rootNode.Compression.Equals("None", StringComparison.OrdinalIgnoreCase) && BrawlLib.Properties.Settings.Default.AutoDecompressFighterPAC)
+                            _rootNode.Compression = "None";
+                    }
                     MainForm.Instance.Reset();
                     return true;
                 }
@@ -540,7 +552,7 @@ REGEN:
 
                 _rootNode.Merge(force);
                 _rootNode.IsDirty = false;
-                _rootNode.Export(saveTemp ? openTempFile : _rootPath);
+                _rootNode.Export(saveTemp ? openTempFile : _rootPath, saveTemp);
                 
                 if (restoreHex)
                 {
@@ -720,6 +732,12 @@ REGEN:
                     return false;
             }
             return true;
+        }
+
+        public static bool CanRunDiscordRPC()
+        {
+            string path = System.Windows.Forms.Application.StartupPath + "\\discord-rpc.dll";
+            return File.Exists(path);
         }
     }
 }

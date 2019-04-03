@@ -145,7 +145,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 table.Add(_originalPath);
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = (_version == 5 ? CHR0v5.Size : CHR0v4_3.Size) + 0x18 + (Children.Count * 0x10);
             foreach (CHR0EntryNode n in Children)
@@ -299,12 +299,12 @@ namespace BrawlLib.SSBB.ResourceNodes
             foreach(MDL0Node m in temp.GetFolder<MDL0Node>().Children)
             {
                 //Console.WriteLine("  " + m);
-                // For every bone in a model
+                // Ensures bones are built
+                int i = 1;
                 MDL0BoneNode b = m.FindBoneByIndex(0);
-                j = 0;
+                // For every bone in a model
                 while(b != null)
                 {
-                    ++j;
                     bool alreadyAdded = false;
                     if (b != null)
                     {
@@ -328,7 +328,8 @@ namespace BrawlLib.SSBB.ResourceNodes
                             CreateEntryFromBone(b, framesToGenerate, generateOrigin);
                         }
                     }
-                    b = m.FindBoneByIndex(j);
+                    b = m.FindBoneByIndex(i);
+                    ++i;
                 }
             }
         }
@@ -759,7 +760,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         internal int _dataLen;
         internal int _entryLen;
         internal VoidPtr _dataAddr;
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             _dataLen = AnimationConverter.CalculateCHR0Size(Keyframes, out _entryLen, out _code);
             return _dataLen + _entryLen;

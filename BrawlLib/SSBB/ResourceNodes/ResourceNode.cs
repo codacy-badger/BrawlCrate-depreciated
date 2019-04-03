@@ -7,6 +7,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Security.Cryptography;
 using System.Text;
+using System.Linq;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
@@ -89,6 +90,12 @@ namespace BrawlLib.SSBB.ResourceNodes
         public event ResourceEventHandler Disposing, Renamed, PropertyChanged, Replaced, Restored;
         public event ResourceChildEventHandler ChildAdded, ChildRemoved;
         public event ResourceChildInsertEventHandler ChildInserted;
+
+        [Browsable(true), DisplayName("Uncompressed Size (Bytes)")]
+        public virtual uint uncompSize
+        {
+            get { return BrawlLib.Properties.Settings.Default.CompatibilityMode ? 0 : ((uint)OnCalculateSize(false, false)); }
+        }
 
         public virtual void FindUnloadedChildren() { }
 
@@ -620,11 +627,20 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public unsafe virtual void Export(string outPath)
         {
+            Export(outPath, false);
+        }
+
+        public unsafe virtual void Export(string outPath, bool tempFile)
+        {
             Rebuild(); //Apply changes the user has made by rebuilding.
 #if !DEBUG
             try
             {
 #endif
+                if(!tempFile && File.Exists(outPath))
+                {
+                    try { File.Delete(outPath); } catch { }
+                }
                 using (FileStream stream = new FileStream(outPath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite, 8, FileOptions.SequentialScan))
                     Export(stream);
 #if !DEBUG
@@ -821,7 +837,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         //Returns uncompressed size of node data.
         //It's up to the child nodes to return compressed sizes.
         //If this has been called, it means a rebuild must happen.
-        public virtual int OnCalculateSize(bool force)
+        public virtual int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return WorkingUncompressed.Length;
         }
@@ -1102,6 +1118,91 @@ namespace BrawlLib.SSBB.ResourceNodes
             this.EnumTypeInternal(nodes, type);
             return nodes.ToArray();
         }
+
+        public ResourceNode[] FindChildrenByTypeInGroup(string path, ResourceType type, byte group)
+        {
+            if (!String.IsNullOrEmpty(path))
+            {
+                ResourceNode node = FindChild(path, false);
+                if (node != null)
+                    if (!(node is ARCEntryNode && ((ARCEntryNode)node).GroupID != group))
+                        return node.FindChildrenByTypeInGroup(null, type, group);
+            }
+
+            List<ResourceNode> nodes = new List<ResourceNode>();
+            ResourceNode attemptedArc = null;
+            this.EnumTypeInternal(nodes, type);
+            if (nodes[0] is BRESEntryNode)
+            {
+                attemptedArc = ((BRESEntryNode)nodes[0]).BRESNode.Parent;
+            }
+            else if (nodes[0] is ARCEntryNode)
+            {
+                attemptedArc = nodes[0].Parent;
+            }
+            try
+            {
+                if(this is ARCNode)
+                {
+                    attemptedArc = this;
+                }
+                else if (nodes[0] is BRESEntryNode)
+                {
+                    attemptedArc = ((BRESEntryNode)nodes[0]).BRESNode.Parent;
+                }
+                else if (nodes[0] is ARCEntryNode)
+                {
+                    attemptedArc = nodes[0].Parent;
+                }
+                nodes = new List<ResourceNode>();
+                if (attemptedArc != null && type == ResourceType.MDL0)
+                {
+                    foreach (ARCEntryNode a in attemptedArc.Children)
+                    {
+                        if (a.GroupID == group)
+                        {
+                            if (a is BRRESNode)
+                            {
+                                foreach (MDL0Node m in ((BRRESNode)a).GetFolder<MDL0Node>().Children)
+                                {
+                                    nodes.Add(m);
+                                }
+                            }
+                            else if (a.RedirectTargetNode != null)
+                            {
+                                try
+                                {
+                                    ARCEntryNode tempBres = a.RedirectTargetNode;
+                                    RedirectStart:
+                                    if (tempBres.GroupID != group)
+                                    {
+                                        if (tempBres is BRRESNode)
+                                        {
+                                            foreach (MDL0Node m in ((BRRESNode)tempBres).GetFolder<MDL0Node>().Children)
+                                            {
+                                                nodes.Add(m);
+                                            }
+                                        }
+                                        else if(tempBres.RedirectTargetNode != null)
+                                        {
+                                            tempBres = tempBres.RedirectTargetNode;
+                                            goto RedirectStart;
+                                        }
+                                    }
+                                }
+                                catch { }
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+
+            return nodes.ToArray();
+        }
         private void EnumTypeInternal(List<ResourceNode> list, ResourceType type)
         {
             if (this.ResourceType == type)
@@ -1261,6 +1362,14 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override string ToString()
         {
             return Name;
+        }
+
+        public virtual void SortChildren()
+        {
+            if (Children == null || Children.Count <= 0)
+                return;
+            _children = _children.OrderBy(o => o.Name).ToList();
+            SignalPropertyChange();
         }
     }
 

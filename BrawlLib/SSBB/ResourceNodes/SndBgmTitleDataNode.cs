@@ -31,7 +31,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 Children[i].Rebuild(address + (i * sizeof(SndBgmTitleEntry)), sizeof(SndBgmTitleEntry), true);
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = 0;
             foreach (SndBgmTitleEntryNode node in Children)
@@ -118,7 +118,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             // Copy the data back to the address
             *(SndBgmTitleEntry*)address = Data;
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             // Constant size (48 bytes)
             return sizeof(SndBgmTitleEntry);

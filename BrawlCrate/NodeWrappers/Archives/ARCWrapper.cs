@@ -23,7 +23,9 @@ namespace BrawlCrate
                 new ToolStripMenuItem("BRResource Pack", null, NewBRESAction),
                 new ToolStripMenuItem("BLOC", null, NewBLOCAction),
                 new ToolStripMenuItem("Collision", null, NewCollisionAction),
+                //new ToolStripMenuItem("Item Generation", null, NewItemGenerationAction),
                 new ToolStripMenuItem("MSBin", null, NewMSBinAction),
+                new ToolStripMenuItem("Redirect", null, NewRedirectAction),
                 new ToolStripMenuItem("SCLA", null,
                     new ToolStripMenuItem("Empty", null, NewSCLAAction),
                     new ToolStripMenuItem("Full", null, NewSCLAFullAction),
@@ -83,6 +85,7 @@ namespace BrawlCrate
         protected static void NewARCAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewARC(); }
         protected static void NewMSBinAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewMSBin(); }
         protected static void NewCollisionAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewCollision(); }
+        protected static void NewItemGenerationAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewItemGeneration(); }
         protected static void NewBLOCAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewBLOC(); }
         protected static void NewSCLAAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewSCLA(0); }
         protected static void NewSCLAFullAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewSCLA(32); }
@@ -136,7 +139,7 @@ namespace BrawlCrate
             if (entryCount.ShowDialog("TBST Generation", "Number of Entries:") == DialogResult.OK)
                 GetInstance<ARCWrapper>().NewTBST(entryCount.NewValue);
         }
-        
+        protected static void NewRedirectAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewRedirect(); }
         protected static void ImportBRESAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportBRES(); }
         protected static void ImportARCAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportARC(); }
         protected static void ImportBLOCAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportBLOC(); }
@@ -218,6 +221,19 @@ namespace BrawlCrate
             w.TreeView.SelectedNode = w;
             return node;
         }
+        public ARCEntryNode NewRedirect()
+        {
+            ARCEntryNode node = new ARCEntryNode() { };
+            node.FileType = ARCFileType.MiscData;
+            node._resourceType = ResourceType.Redirect;
+            _resource.AddChild(node);
+            node.RedirectIndex = 0;
+
+            BaseWrapper w = this.FindResource(node, false);
+            w.EnsureVisible();
+            w.TreeView.SelectedNode = w;
+            return node;
+        }
         public BRRESNode NewBRES()
         {
             BRRESNode node = new BRRESNode() { FileType = ARCFileType.MiscData };
@@ -231,6 +247,17 @@ namespace BrawlCrate
         public CollisionNode NewCollision()
         {
             CollisionNode node = new CollisionNode() { FileType = ARCFileType.MiscData };
+            _resource.AddChild(node);
+
+            BaseWrapper w = this.FindResource(node, false);
+            w.EnsureVisible();
+            w.TreeView.SelectedNode = w;
+            return node;
+        }
+        public ItmFreqNode NewItemGeneration()
+        {
+            ItmFreqNode node = new ItmFreqNode() { FileType = ARCFileType.MiscData };
+            node.Name = "Item Generation";
             _resource.AddChild(node);
 
             BaseWrapper w = this.FindResource(node, false);

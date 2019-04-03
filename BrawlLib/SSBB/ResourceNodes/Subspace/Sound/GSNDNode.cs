@@ -32,7 +32,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             _count = Header->_count;
             return Header->_count > 0;
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = 0x08 + (Children.Count * 4);
             foreach (ResourceNode node in Children)
@@ -100,7 +100,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             _trigger = Header->Trigger;
             return false;
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return 0x50;
         }

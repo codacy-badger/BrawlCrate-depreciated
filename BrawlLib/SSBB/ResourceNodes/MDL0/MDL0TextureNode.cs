@@ -7,6 +7,7 @@ using System.IO;
 using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
 using System.Linq;
+using System.Reflection;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
@@ -187,6 +188,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 return;
 
             bool isStage = false;
+            bool isFighter = false;
             Source = null;
 
             if (Texture != null)
@@ -199,31 +201,37 @@ namespace BrawlLib.SSBB.ResourceNodes
             if(RootNode is ARCNode)
             {
                 isStage = ((ARCNode)RootNode).IsStage;
+                isFighter = ((ARCNode)RootNode).IsCharacter;
+            } else if (RootNode is MDL0Node)
+            {
+                isFighter = RootNode.Name.StartsWith("Fit", StringComparison.OrdinalIgnoreCase);
             }
 
             if (_folderWatcher.EnableRaisingEvents && !String.IsNullOrEmpty(_folderWatcher.Path))
                 bmp = SearchDirectory(_folderWatcher.Path + Name);
-
             BRRESNode parentBRRES = null;
-            // Safely search for whether this is part of a BRRES
-            if (_parent != null)
+            try
             {
-                if (_parent._parent != null)
-                {
-                    if (_parent._parent._parent != null)
-                    {
-                        if (_parent._parent._parent._parent != null)
-                        {
-                            if (_parent._parent._parent._parent is BRRESNode)
-                            {
-                                parentBRRES = (BRRESNode)_parent._parent._parent._parent;
-                            }
-                        }
-                    }
+                parentBRRES = this.BRESNode;
+            }
+            catch
+            {
+                parentBRRES = null;
+            }
+            List<ResourceNode> nodes = new List<ResourceNode>();
+            bool usingARC = true;
+            try
+            {
+                nodes = parentBRRES.Parent.Children;
+                if(!(parentBRRES.Parent is ARCNode)) {
+                    throw (new ArgumentException());
                 }
             }
-
-            List<ResourceNode> nodes = TKContext.CurrentContext._states["_Node_Refs"] as List<ResourceNode>;
+            catch
+            {
+                nodes = TKContext.CurrentContext._states["_Node_Refs"] as List<ResourceNode>;
+                usingARC = false;
+            }
             List<ResourceNode> searched = new List<ResourceNode>(nodes.Count);
             TEX0Node tNode = null;
             if (bmp == null && TKContext.CurrentContext._states.ContainsKey("_Node_Refs") && parentBRRES != null)
@@ -242,39 +250,114 @@ namespace BrawlLib.SSBB.ResourceNodes
                     bmp = SearchDirectory(node._origPath);
             }
 
-            if (bmp == null && TKContext.CurrentContext._states.ContainsKey("_Node_Refs"))
+            if (bmp == null && TKContext.CurrentContext._states.ContainsKey("_Node_Refs") && nodes.Count > 0)
             {
-                foreach (ResourceNode n in nodes)
+                if(usingARC)
                 {
-                    ResourceNode node = n.RootNode;
-                    // Console.WriteLine("N:    " + n.Name);
-                    // Console.WriteLine("Node: " + node.Name);
-                    if (searched.Contains(node))
+                    foreach (ARCEntryNode n in nodes)
                     {
-                        // Console.WriteLine("  Already found");
-                        continue;
+                        if(n.GroupID == parentBRRES.GroupID && n.isTextureData())
+                        {
+                            if (n.RedirectTargetNode != null)
+                            {
+                                ARCEntryNode target = n.RedirectTargetNode;
+                                RedirectStart:
+                                try
+                                {
+                                    if (target is BRRESNode)
+                                    {
+                                        try
+                                        {
+                                            if ((tNode = target.SearchForTextures("Textures(NW4R)/" + Name, true, false) as TEX0Node) != null)
+                                            {
+                                                Source = tNode;
+                                                Texture.Attach(tNode, _palette);
+                                                return;
+                                            }
+                                            else //Then search the directory
+                                                bmp = SearchDirectory(n.Parent.Children[n.RedirectIndex]._origPath);
+                                        }
+                                        catch { }
+                                    }
+                                    else if (target.RedirectIndex != -1)
+                                    {
+                                        // Redirect again
+                                        target = target.RedirectTargetNode;
+                                        goto RedirectStart;
+                                    }
+                                }
+                                catch { }
+                            }
+                            else if (n is BRRESNode)// && n.IsLoaded)
+                            {
+                                try
+                                {
+                                    if ((tNode = n.SearchForTextures("Textures(NW4R)/" + Name, true, false) as TEX0Node) != null)
+                                    {
+                                        Source = tNode;
+                                        Texture.Attach(tNode, _palette);
+                                        return;
+                                    }
+                                    else //Then search the directory
+                                        bmp = SearchDirectory(n._origPath);
+                                }
+                                catch { }
+                            }
+                        }
                     }
-                    searched.Add(node);
-                    // Console.WriteLine("  Searching...");
-
-                    //Search node itself first
-                    if ((tNode = node.SearchForTextures("Textures(NW4R)/" + Name, true, isStage) as TEX0Node) != null)
-                    {
-                        Source = tNode;
-                        Texture.Attach(tNode, _palette);
-                        return;
-                    }
-                    else //Then search the directory
-                        bmp = SearchDirectory(node._origPath);
-
-                    if (bmp != null)
-                        break;
                 }
-                searched.Clear();
+                else
+                {
+                    foreach (ResourceNode n in nodes)
+                    {
+                        ResourceNode node = n.RootNode;
+                        // Console.WriteLine("N:    " + n.Name);
+                        // Console.WriteLine("Node: " + node.Name);
+                        if (searched.Contains(node))
+                        {
+                            // Console.WriteLine("  Already found");
+                            continue;
+                        }
+                        searched.Add(node);
+                        // Console.WriteLine("  Searching...");
+
+                        //Search node itself first
+                        if ((tNode = node.SearchForTextures("Textures(NW4R)/" + Name, true, isStage) as TEX0Node) != null)
+                        {
+                            Source = tNode;
+                            Texture.Attach(tNode, _palette);
+                            return;
+                        }
+                        else //Then search the directory
+                            bmp = SearchDirectory(node._origPath);
+
+                        if (bmp != null)
+                            break;
+                    }
+                    searched.Clear();
+                }
             }
 
             if (bmp != null)
                 Texture.Attach(bmp);
+            else if (isFighter && Name.Equals("metal00"))
+            {
+                var assembly = Assembly.GetExecutingAssembly();
+                try
+                {
+                    var resourceName = ("BrawlLib.HardcodedFiles.metal00.tex0");
+                    string listDefault = "";
+                    using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+                    {
+                        string file;
+                        FileStream fstream = new FileStream((file = Path.GetTempFileName()), FileMode.OpenOrCreate);
+                        stream.CopyTo(fstream);
+                        tNode = NodeFactory.FromFile(null, file) as TEX0Node;
+                        Texture.Attach(tNode, _palette);
+                    }
+                }
+                catch { }
+            }
             else
                 Texture.Default();
         }

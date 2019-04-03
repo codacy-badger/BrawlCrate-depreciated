@@ -231,7 +231,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         private RSAREntryList _entryList = new RSAREntryList();
         private RSARConverter _converter = new RSARConverter();
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             _entryList.Clear();
             _entryList._files = Files;

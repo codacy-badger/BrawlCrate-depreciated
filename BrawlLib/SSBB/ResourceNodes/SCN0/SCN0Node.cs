@@ -193,7 +193,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             //Reset specular light count so it can be recounted
             _specLights = 0;

@@ -41,7 +41,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             // Copy the data back to the address
             *(AllstarDifficultyData*)address = data;
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return sizeof(AllstarDifficultyData);
         }
@@ -110,7 +110,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return sizeof(AllstarFighterData);
         }
@@ -177,7 +177,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 ptr++;
             }
         }
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return sizeof(AllstarStageTbl);
         }

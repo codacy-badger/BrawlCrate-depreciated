@@ -132,7 +132,9 @@ Default (Float): 180 (0x43340000)
 	/EndDescription
 0
 
-0x07C
+Platform Respawn Timer
+The amount of frames it takes for broken platforms to respawn (May be delayed by about a second or 2)
+
 Default (Float): 480 (0x43F00000)
 	/EndDescription
 0

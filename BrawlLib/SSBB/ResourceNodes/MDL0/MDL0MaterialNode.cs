@@ -1170,7 +1170,11 @@ For example, if the shader has two stages but this number is 1, the second stage
                 }
             }
         }
-        [Category("Material"), Description("This will make one, neither or both sides of the linked objects' mesh invisible.")]
+        [Category("Material"), Description("This will make one, neither or both sides of the linked objects' mesh invisible." +
+            "\n- Cull_Inside: Makes inside (back faces) of model invisible" +
+            "\n- Cull_Outside: Makes outside(front faces) of model invisible" +
+            "\n- Cull_None: Makes both sides visible" +
+            "\n- Cull_All: Makes both sides invisible")]
         public CullMode CullMode
         {
             get { return _cull; }
@@ -1428,17 +1432,17 @@ For example, if the shader has two stages but this number is 1, the second stage
 
         public bool CheckIfMetal()
         {
-            //if (Model != null && Model._autoMetal)
-            //{
-            //    if (!_updating)
-            //    {
-            //        if (IsMetal)
-            //            if (MessageBox.Show(null, "This model is currently set to automatically modify metal materials.\nYou cannot make changes unless you turn it off.\nDo you want to turn it off?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            //                Model._autoMetal = false;
-            //            else
-            //                return true;
-            //    }
-            //}
+            if (Model != null && Model._autoMetal)
+            {
+                if (!_updating)
+                {
+                    if (IsMetal)
+                        if (MessageBox.Show(null, "This model is currently set to automatically modify metal materials.\nYou cannot make changes unless you turn it off.\nDo you want to turn it off?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            Model._autoMetal = false;
+                        else
+                            return true;
+                }
+            }
 
             return false;
         }
@@ -1550,7 +1554,7 @@ For example, if the shader has two stages but this number is 1, the second stage
         }
 
         internal int _dataAlign = 0, _mdlOffset = 0;
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int temp, size;
 
@@ -1800,6 +1804,8 @@ For example, if the shader has two stages but this number is 1, the second stage
         {
             _fragShaderSource = null;
             _vertexShaderSource = null;
+            if (Model.AutoMetalMaterials && !IsMetal)
+                Model.GenerateMetalMaterials(Model.metalMat);
             base.SignalPropertyChange();
         }
 
@@ -2131,8 +2137,17 @@ For example, if the shader has two stages but this number is 1, the second stage
 
         public override void Remove()
         {
+            Remove(false);
+        }
+        
+        public void Remove(bool force)
+        {
             if (Parent != null)
             {
+                if (ShaderNode != null && ShaderNode.Materials.Length == 1)
+                    if (force || MessageBox.Show("Do you want to remove this material's shader?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        ShaderNode.Remove();
+
                 ShaderNode = null;
 
                 foreach (MDL0MaterialRefNode r in Children)

@@ -41,7 +41,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         private int _pointCount, _planeCount;
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             _pointCount = _planeCount = 0;
             foreach (CollisionObject obj in _objects)
@@ -571,7 +571,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public CollisionLink _linkLeft, _linkRight;
         
-        public CollisionPlaneMaterial _material;
+        public byte _material;
         public CollisionPlaneFlags _flags;
         public CollisionPlaneType _type;
         public CollisionPlaneFlags2 _flags2;

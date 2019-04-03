@@ -73,7 +73,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             Memory.Move(header->Entries, entries.Address, (uint)entries.Length);
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return 0x14 + entries.Length;
         }

@@ -63,7 +63,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 new RWARNode() { _name = "Audio" }.Initialize(this, _audioSource.Address, _audioSource.Length);
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             _audioLen = 0;
             _headerLen = RBNKHeader.Size;

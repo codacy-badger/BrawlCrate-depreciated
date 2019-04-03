@@ -39,7 +39,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         private LabelBuilder builder;
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             builder = new LabelBuilder();
             foreach (RSEQLabelNode node in Children)

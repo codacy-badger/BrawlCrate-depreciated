@@ -57,7 +57,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         public ushort ptcl, emit;
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             ptcl = 0;
             emit = 0;
@@ -377,7 +377,7 @@ namespace BrawlLib.SSBB.ResourceNodes
            
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return base.OnCalculateSize(force);
         }

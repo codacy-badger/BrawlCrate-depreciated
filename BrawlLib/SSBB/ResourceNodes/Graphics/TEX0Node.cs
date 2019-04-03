@@ -55,10 +55,23 @@ namespace BrawlLib.SSBB.ResourceNodes
                     return;
                 }
                 bool needsSmashing = false;
+                Bitmap bmp = GetImage(0);
+                if (MessageBox.Show("Would you like to attempt to automatically change Color Smash state of this texture as well?" + (value ? " (Choose no if you're using the old Color Smash method)" : ""), "Color Smasher", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                {
+                    _sharesData = value;
+                    SignalPropertyChange();
+                    if (value == false)
+                    {
+                        using (System.Windows.Forms.TextureConverterDialog dlg = new System.Windows.Forms.TextureConverterDialog())
+                        {
+                            dlg.LoadImages(bmp);
+                            dlg.ShowDialog(null, this, true, true);
+                        }
+                    }
+                    return;
+                }
                 if (value == true)
                 {
-                    if (MessageBox.Show("Are you sure you want to attempt to color smash this CSP?", "Color Smasher", MessageBoxButtons.YesNo) != DialogResult.Yes)
-                        return;
                     needsSmashing = true;
                     TEX0Node t = this;
                     List<TEX0Node> texList = new List<TEX0Node>();
@@ -94,7 +107,6 @@ namespace BrawlLib.SSBB.ResourceNodes
                         ColorSmash(texList);
                     }
                 }
-                Bitmap bmp = GetImage(0);
                 _sharesData = value;
                 if (value == false)
                 {
@@ -207,7 +219,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 foreach (FileInfo tex in outputDir.GetFiles())
                     try { tex.Delete(); } catch { }
-                outputDir.Delete();
+                try { outputDir.Delete(); } catch { }
                 foreach (FileInfo tex in Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\").GetFiles())
                     try { tex.Delete(); } catch { }
                 Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\");
@@ -350,7 +362,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             return false;
         }
 
-        public override int OnCalculateSize(bool force)
+        public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             return ExclusiveEntrySize();
         }
@@ -481,8 +493,19 @@ namespace BrawlLib.SSBB.ResourceNodes
                 using (Bitmap bmp = GetImage(0)) bmp.Save(outPath, ImageFormat.Jpeg);
             else if (outPath.EndsWith(".gif"))
                 using (Bitmap bmp = GetImage(0)) bmp.Save(outPath, ImageFormat.Gif);
+            else if (outPath.EndsWith(".brres"))
+                ExportBrres(outPath);
             else
                 base.Export(outPath);
+        }
+
+        public void ExportBrres(string outPath)
+        {
+            BRRESNode export = new BRRESNode();
+            export.GetOrCreateFolder<TEX0Node>().AddChild(NodeFactory.FromAddress(null, WorkingUncompressed.Address, WorkingUncompressed.Length));
+            if (HasPalette && GetPaletteNode() != null)
+                export.GetOrCreateFolder<PLT0Node>().AddChild(NodeFactory.FromAddress(null, GetPaletteNode().WorkingUncompressed.Address, GetPaletteNode().WorkingUncompressed.Length));
+            export.Export(outPath);
         }
 
         internal static ResourceNode TryParse(DataSource source) { return ((TEX0v1*)source.Address)->_header._tag == TEX0v1.Tag ? new TEX0Node() : null; }
