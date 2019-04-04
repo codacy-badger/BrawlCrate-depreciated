@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Security.Cryptography;
 using System.Text;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
@@ -24,6 +25,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public int Length;
         public FileMap Map;
         public CompressionType Compression;
+        private byte[] allocatedData;
 
         public DataSource(VoidPtr addr, int len) : this(addr, len, CompressionType.None) { }
         public DataSource(VoidPtr addr, int len, CompressionType compression)
@@ -32,6 +34,8 @@ namespace BrawlLib.SSBB.ResourceNodes
             Length = len;
             Map = null;
             Compression = compression;
+            allocatedData = null;
+
         }
         public DataSource(FileMap map) : this(map, CompressionType.None) { }
         public DataSource(FileMap map, CompressionType compression)
@@ -40,11 +44,28 @@ namespace BrawlLib.SSBB.ResourceNodes
             Length = map.Length;
             Map = map;
             Compression = compression;
+            allocatedData = null;
+        }
+
+        public DataSource(MemoryStream ms) : this(ms, CompressionType.None) { }
+        public DataSource(MemoryStream ms, CompressionType compression)
+        {
+            ms.Position = 0;
+            allocatedData = ms.ToArray();
+            Address = Marshal.AllocHGlobal((int)ms.Length);
+            Marshal.Copy(allocatedData, 0, Address, (int)ms.Length);
+            Length = (int)ms.Length;
+            Map = null;
+            Compression = compression;
         }
 
         public void Close()
         {
             if (Map != null) { Map.Dispose(); Map = null; }
+            //if (allocatedData != null && allocatedData.Length != 0)
+            //    if (Address != null)
+            //        Marshal.FreeHGlobal(Address);
+            allocatedData = null;
             Address = null;
             Length = 0;
             Compression = CompressionType.None;

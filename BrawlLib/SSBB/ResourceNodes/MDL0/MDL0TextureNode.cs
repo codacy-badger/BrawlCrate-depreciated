@@ -343,20 +343,16 @@ namespace BrawlLib.SSBB.ResourceNodes
             else if (isFighter && Name.Equals("metal00"))
             {
                 var assembly = Assembly.GetExecutingAssembly();
-                try
+                var resourceName = ("BrawlLib.HardcodedFiles.metal00.tex0");
+                using (Stream stream = assembly.GetManifestResourceStream(resourceName))
                 {
-                    var resourceName = ("BrawlLib.HardcodedFiles.metal00.tex0");
-                    string listDefault = "";
-                    using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+                    using (MemoryStream ms = new MemoryStream())
                     {
-                        string file;
-                        FileStream fstream = new FileStream((file = Path.GetTempFileName()), FileMode.OpenOrCreate);
-                        stream.CopyTo(fstream);
-                        tNode = NodeFactory.FromFile(null, file) as TEX0Node;
+                        stream.CopyTo(ms);
+                        tNode = NodeFactory.FromSource(null, new DataSource(ms)) as TEX0Node;
                         Texture.Attach(tNode, _palette);
                     }
                 }
-                catch { }
             }
             else
                 Texture.Default();
