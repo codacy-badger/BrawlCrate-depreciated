@@ -43,6 +43,7 @@ namespace System
         public static implicit operator bool(VoidPtr ptr) { return ptr.address != null; }
 
         public static implicit operator void*(VoidPtr ptr) { return ptr.address; }
+        public static implicit operator byte* (VoidPtr ptr) { return (byte*)ptr.address; }
         public static implicit operator VoidPtr(void* ptr) { return new VoidPtr() { address = ptr }; }
 
         public static implicit operator uint(VoidPtr ptr) { return checked((uint)ptr.address); }
