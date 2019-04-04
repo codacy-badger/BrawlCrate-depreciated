@@ -1002,6 +1002,7 @@
     <Compile Include="Wii\Audio\CSTMConverter.cs" />
     <Compile Include="Wii\Audio\RWAVConverter.cs" />
     <Compile Include="Wii\Audio\RSARSoundConverter.cs" />
+    <Compile Include="Wii\BrawlEncryption.cs" />
     <Compile Include="Wii\Compression\Huffman.cs" />
     <Compile Include="Wii\Compression\Differential.cs" />
     <Compile Include="Wii\Compression\RunLength.cs" />

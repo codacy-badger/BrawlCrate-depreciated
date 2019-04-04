@@ -14,6 +14,7 @@ namespace BrawlLib.Wii
             byte[] newRaw;
             using (Aes aesAlg = Aes.Create())
             {
+                aesAlg.Padding = PaddingMode.Zeros;
                 aesAlg.Key = Key;
                 aesAlg.IV = IV;
                 ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
@@ -43,6 +44,7 @@ namespace BrawlLib.Wii
             byte[] newRaw;
             using (Aes aesAlg = Aes.Create())
             {
+                aesAlg.Padding = PaddingMode.Zeros;
                 aesAlg.Key = Key;
                 aesAlg.IV = IV;
                 ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
