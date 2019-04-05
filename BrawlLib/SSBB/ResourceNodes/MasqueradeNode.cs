@@ -129,10 +129,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 // Ensure Wario's Costume isn't put in a corrupted ID
                 if (_cosmeticSlot == 21 && (
-                    offset == 0x0F ||
-                    offset == 0x1F ||
-                    offset == 0x2F ||
-                    offset == 0x3F
+                    offset == 0x0E ||
+                    offset == 0x1E ||
+                    offset == 0x2E ||
+                    offset == 0x3E
                     ))
                 {
                     MasqueradeEntryNode blank = new MasqueradeEntryNode(false);
@@ -148,10 +148,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
             // Ensure Wario's End Slot isn't put in a corrupted ID
             if(_cosmeticSlot == 21 && (
-                    offset == 0x0F ||
-                    offset == 0x1F ||
-                    offset == 0x2F ||
-                    offset == 0x3F))
+                    offset == 0x0E ||
+                    offset == 0x1E ||
+                    offset == 0x2E ||
+                    offset == 0x3E))
             {
                 MasqueradeEntryNode blank = new MasqueradeEntryNode(false);
                 blank.Rebuild((VoidPtr)address + offset, 2, true);
