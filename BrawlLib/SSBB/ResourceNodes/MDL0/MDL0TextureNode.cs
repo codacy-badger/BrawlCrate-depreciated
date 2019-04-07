@@ -254,9 +254,11 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 if(usingARC)
                 {
+                    int groupID = parentBRRES.GroupID;
+                    TryGroup0:
                     foreach (ARCEntryNode n in nodes)
                     {
-                        if(n.GroupID == parentBRRES.GroupID && n.isTextureData())
+                        if(n.GroupID == groupID && n.isTextureData())
                         {
                             if (n.RedirectTargetNode != null)
                             {
@@ -279,7 +281,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                                         }
                                         catch { }
                                     }
-                                    else if (target.RedirectIndex != -1)
+                                    else if (target.RedirectTargetNode != null)
                                     {
                                         // Redirect again
                                         target = target.RedirectTargetNode;
@@ -304,6 +306,11 @@ namespace BrawlLib.SSBB.ResourceNodes
                                 catch { }
                             }
                         }
+                    }
+                    if(groupID != 0)
+                    {
+                        groupID = 0;
+                        goto TryGroup0;
                     }
                 }
                 else
@@ -339,7 +346,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
 
             if (bmp != null)
+            {
                 Texture.Attach(bmp);
+                return;
+            }
             else if (isFighter && Name.Equals("metal00"))
             {
                 var assembly = Assembly.GetExecutingAssembly();
@@ -353,9 +363,13 @@ namespace BrawlLib.SSBB.ResourceNodes
                         Texture.Attach(tNode, _palette);
                     }
                 }
+                return;
             }
-            else
-                Texture.Default();
+            else if (!(parentBRRES is null) && parentBRRES.GroupID != 0)
+            {
+
+            }
+            Texture.Default();
         }
 
         private Bitmap SearchDirectory(string path)
