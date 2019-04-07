@@ -1154,7 +1154,15 @@ namespace Net
                         continue;
                     }
                     changelog += "\n\n========================================================\n\n";
-                    changelog += "#" + c.Sha.Substring(0, 7) + "@" + currentRepo + '\\' + currentBranch + " by " + c.Author.Login + "\n";
+                    try
+                    {
+                        string s = ("#" + c.Sha.Substring(0, 7) + "@" + currentRepo + '\\' + currentBranch + " by " + c.Author.Login + "\n");
+                        changelog += s;
+                    }
+                    catch
+                    {
+                        changelog += ("#" + c.Sha.Substring(0, 7) + "@" + currentRepo + '\\' + currentBranch + "\n");
+                    }
                     changelog += c.Commit.Message;
                 }
                 changelog += "\n\n========================================================";
@@ -1375,7 +1383,7 @@ namespace Net
                         Task t6 = Updater.ForceDownloadRelease(args[1]);
                         t6.Wait();
                         break;
-                    case "-canarylog": // Force download the latest Stable build
+                    case "-canarylog": // Show changelog for canary
                         somethingDone = true;
                         Task t7 = Updater.ShowCanaryChangelog();
                         t7.Wait();
