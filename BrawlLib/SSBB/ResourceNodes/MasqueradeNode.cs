@@ -127,34 +127,8 @@ namespace BrawlLib.SSBB.ResourceNodes
             uint offset = (uint)(0x00);
             for (int i = 0; i < Children.Count; i++)
             {
-                // Ensure Wario's Costume isn't put in a corrupted ID
-                if (_cosmeticSlot == 21 && (
-                    offset == 0x0E ||
-                    offset == 0x1E ||
-                    offset == 0x2E ||
-                    offset == 0x3E
-                    ))
-                {
-                    MasqueradeEntryNode blank = new MasqueradeEntryNode(false);
-                    blank.Rebuild((VoidPtr)address + offset, 2, true);
-                    offset += 2;
-                }
-                else
-                {
-                    ResourceNode r = Children[i];
-                    r.Rebuild((VoidPtr)address + offset, 2, true);
-                    offset += 2;
-                }
-            }
-            // Ensure Wario's End Slot isn't put in a corrupted ID
-            if(_cosmeticSlot == 21 && (
-                    offset == 0x0E ||
-                    offset == 0x1E ||
-                    offset == 0x2E ||
-                    offset == 0x3E))
-            {
-                MasqueradeEntryNode blank = new MasqueradeEntryNode(false);
-                blank.Rebuild((VoidPtr)address + offset, 2, true);
+                ResourceNode r = Children[i];
+                r.Rebuild((VoidPtr)address + offset, 2, true);
                 offset += 2;
             }
             MasqueradeEntryNode end = new MasqueradeEntryNode(true);
@@ -213,6 +187,13 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
             set
             {
+                if (((MasqueradeNode)Parent)._cosmeticSlot == 21 && (
+                    value == 15 ||
+                    value == 31 ||
+                    value == 47 ||
+                    value == 63))
+                    if (System.Windows.Forms.MessageBox.Show("Costume slot " + value + " is known to be bugged for Wario. Are you sure you'd like to proceed?", "Warning", System.Windows.Forms.MessageBoxButtons.YesNo) != System.Windows.Forms.DialogResult.Yes)
+                        return;
                 _costumeID = value;
                 regenName();
                 SignalPropertyChange();

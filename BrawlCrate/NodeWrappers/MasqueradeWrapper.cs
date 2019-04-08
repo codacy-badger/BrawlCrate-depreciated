@@ -52,13 +52,20 @@ namespace BrawlCrate.NodeWrappers
 
         public void NewEntry()
         {
-            if (_resource.Children.Count > 50)
+            if (_resource.Children.Count >= 50)
                 return;
             MasqueradeEntryNode node = new MasqueradeEntryNode();
             node._colorID = 0x0B;
             if (_resource.HasChildren)
             {
-                node._costumeID = (byte)(((MasqueradeEntryNode)(_resource.Children[_resource.Children.Count - 1]))._costumeID + 1);
+                byte nextID = (byte)(((MasqueradeEntryNode)(_resource.Children[_resource.Children.Count - 1]))._costumeID + 1);
+                if (((MasqueradeNode)_resource)._cosmeticSlot == 21 && (
+                    nextID == 15 ||
+                    nextID == 31 ||
+                    nextID == 47 ||
+                    nextID == 63))
+                    ++nextID; // Prevent wario edge cases
+                node._costumeID = nextID;
             }
             _resource.AddChild(node);
             node.regenName();
