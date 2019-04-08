@@ -296,7 +296,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             set
             {
                 _costumeID = value;
-                Name = "Fit" + BrawlLib.BrawlCrate.FighterNameGenerators.InternalNameFromID(((CSSCNode)Parent)._cosmeticSlot, BrawlLib.BrawlCrate.FighterNameGenerators.cosmeticIDIndex, "+S") + _costumeID.ToString("00") + (BrawlExColorID.Colors.Length > _colorID ? " - " + BrawlExColorID.Colors[_colorID].Name : "");
+                regenName();
                 SignalPropertyChange();
             }
         }
@@ -313,7 +313,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             set
             {
                 _colorID = value;
-                Name = "Fit" + BrawlLib.BrawlCrate.FighterNameGenerators.InternalNameFromID(((CSSCNode)Parent)._cosmeticSlot, BrawlLib.BrawlCrate.FighterNameGenerators.cosmeticIDIndex, "+S") + _costumeID.ToString("00") + (BrawlExColorID.Colors.Length > _colorID ? " - " + BrawlExColorID.Colors[_colorID].Name : "");
+                regenName();
                 SignalPropertyChange();
             }
         }
