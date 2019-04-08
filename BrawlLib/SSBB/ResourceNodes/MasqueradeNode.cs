@@ -109,7 +109,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override void OnPopulate()
         {
             MasqueradeEntryNode end = new MasqueradeEntryNode(true);
-            for (int i = 0; i < MasqueradeNode.Size; i++)
+            for (int i = 0; i < MasqueradeNode.Size/2; i++)
             {
                 new MasqueradeEntryNode().Initialize(this, new DataSource((Header)[i, 2], 2));
                 MasqueradeEntryNode m = (MasqueradeEntryNode)Children[Children.Count - 1];
@@ -192,7 +192,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                     value == 31 ||
                     value == 47 ||
                     value == 63))
-                    if (System.Windows.Forms.MessageBox.Show("Costume slot " + value + " is known to be bugged for Wario. Are you sure you'd like to proceed?", "Warning", System.Windows.Forms.MessageBoxButtons.YesNo) != System.Windows.Forms.DialogResult.Yes)
+                    if (System.Windows.Forms.MessageBox.Show("Costume slot " + value + " is known to be bugged for WarioMan. Are you sure you'd like to proceed?", "Warning", System.Windows.Forms.MessageBoxButtons.YesNo) != System.Windows.Forms.DialogResult.Yes)
                         return;
                 _costumeID = value;
                 regenName();
