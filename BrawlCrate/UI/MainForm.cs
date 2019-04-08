@@ -644,6 +644,8 @@ namespace BrawlCrate
                 Text = String.Format("{0} - {1}", _canary ? "BrawlCrate Canary" + (currentRepo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase) ? (currentBranch.Equals(mainBranch, StringComparison.OrdinalIgnoreCase) ? "" : ("@" + currentBranch)) : "@" + currentRepo + "@" + currentBranch) + commitIDshort : Program.AssemblyTitle, Program.RootPath);
             else
                 Text = _canary ? "BrawlCrate Canary" + (currentRepo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase) ? (currentBranch.Equals(mainBranch, StringComparison.OrdinalIgnoreCase) ? "" : ("@" + currentBranch)) : "@" + currentRepo + "@" + currentBranch) + commitIDlong : Program.AssemblyTitle;
+            if(Program.IsBirthday)
+                Text = "PartyBrawl" + Text.Substring(Text.IndexOf(' '));
         }
 
         public void TargetResource(ResourceNode n)

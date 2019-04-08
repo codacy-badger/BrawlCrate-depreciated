@@ -165,6 +165,8 @@ namespace BrawlCrate.Properties {
         /// </summary>
         public static System.Drawing.Bitmap BrawlCrateLogo {
             get {
+                if (Program.IsBirthday)
+                    return PartyBall;
                 object obj = ResourceManager.GetObject("BrawlCrateLogo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
@@ -496,6 +498,16 @@ namespace BrawlCrate.Properties {
         public static System.Drawing.Bitmap Palette {
             get {
                 object obj = ResourceManager.GetObject("Palette", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap PartyBall {
+            get {
+                object obj = ResourceManager.GetObject("PartyBall", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

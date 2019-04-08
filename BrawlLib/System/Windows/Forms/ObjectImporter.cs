@@ -422,7 +422,7 @@ namespace System.Windows.Forms
             this.ClientSize = new System.Drawing.Size(429, 166);
             this.Controls.Add(this.modelPanel1);
             this.Controls.Add(this.panel1);
-            //this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            //this.Icon = BrawlLib.Properties.Resources.BrawlCrateIcon;
             this.MinimumSize = new System.Drawing.Size(242, 204);
             this.Name = "ObjectImporter";
             this.ShowIcon = false;

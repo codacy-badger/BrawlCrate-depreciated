@@ -61,6 +61,16 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon BrawlCrateIcon {
+            get {
+                object obj = ResourceManager.GetObject("BrawlCrateIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Basic.
         /// </summary>
         public static string Collision0x00 {

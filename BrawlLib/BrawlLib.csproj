@@ -1318,6 +1318,7 @@
     <Folder Include="WiiU\Models\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="BrawlCrateIcon.ico" />
     <Content Include="CustomLists\AboutCustomLists.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1430,6 +1431,7 @@
     <Content Include="InternalDocumentation\STDT\STADIUM[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\BrawlCrate.ico" />
     <Content Include="System\Windows\Controls\Hex Editor\HexBox.bmp" />
     <Content Include="BrawlLib.txt" />
   </ItemGroup>
