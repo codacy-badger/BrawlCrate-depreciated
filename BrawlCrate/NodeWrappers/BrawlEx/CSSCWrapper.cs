@@ -103,10 +103,16 @@ namespace BrawlCrate.NodeWrappers
             CSSCEntryWrapper w = GetInstance<CSSCEntryWrapper>();
             List<string> files = ((CSSCEntryNode)w._resource).GetCostumeFilePath(Program.RootPath);
             _menu.Items[0].Enabled = _menu.Items[1].Visible = _menu.Items[0].Visible = files.Count != 0;
-            if (files.Count > 1)
-                _menu.Items[0].Text = "Open Costume Files";
-            else
-                _menu.Items[0].Text = "Open Costume File";
+            if (files.Count >= 1)
+            {
+                _menu.Items[0].Text = "Open ";
+                for (int i = 0; i < files.Count; i++)
+                {
+                    _menu.Items[0].Text += files[i].Substring(files[i].LastIndexOf('\\') + 1);
+                    if (i + 1 < files.Count)
+                        _menu.Items[0].Text += " and ";
+                }
+            }
             _menu.Items[3].Enabled = _menu.Items[9].Enabled = w.Parent != null;
             _menu.Items[4].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
             _menu.Items[6].Enabled = w.PrevNode != null;
