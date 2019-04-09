@@ -365,11 +365,8 @@ namespace BrawlLib.SSBB.ResourceNodes
                 }
                 return;
             }
-            else if (!(parentBRRES is null) && parentBRRES.GroupID != 0)
-            {
-
-            }
-            Texture.Default();
+            else
+                Texture.Default();
         }
 
         private Bitmap SearchDirectory(string path)
