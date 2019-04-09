@@ -162,7 +162,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override void OnPopulate()
         {
             CSSCEntryNode end = new CSSCEntryNode(true);
-            for (int i = 0; i+0x20 < Header->_size; i++)
+            for (int i = 0; i < ((_size - 0x20) / 2); i++)
             {
                 new CSSCEntryNode().Initialize(this, new DataSource((*Header)[i], 2));
                 CSSCEntryNode c = (CSSCEntryNode)Children[Children.Count - 1];
@@ -296,7 +296,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             set
             {
                 _costumeID = value;
-                Name = "Fit" + BrawlLib.BrawlCrate.FighterNameGenerators.InternalNameFromID(((CSSCNode)Parent)._cosmeticSlot, BrawlLib.BrawlCrate.FighterNameGenerators.cosmeticIDIndex, "+S") + _costumeID.ToString("00") + (BrawlExColorID.Colors.Length > _colorID ? " - " + BrawlExColorID.Colors[_colorID].Name : "");
+                regenName();
                 SignalPropertyChange();
             }
         }
@@ -313,7 +313,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             set
             {
                 _colorID = value;
-                Name = "Fit" + BrawlLib.BrawlCrate.FighterNameGenerators.InternalNameFromID(((CSSCNode)Parent)._cosmeticSlot, BrawlLib.BrawlCrate.FighterNameGenerators.cosmeticIDIndex, "+S") + _costumeID.ToString("00") + (BrawlExColorID.Colors.Length > _colorID ? " - " + BrawlExColorID.Colors[_colorID].Name : "");
+                regenName();
                 SignalPropertyChange();
             }
         }

@@ -17,7 +17,7 @@ namespace BrawlCrate
                 if (info._forEditing)
                     foreach (string s in info._extensions)
                     {
-                        if (s != "dat")
+                        if (!s.Equals("dat", StringComparison.OrdinalIgnoreCase) && !s.Equals("bin", StringComparison.OrdinalIgnoreCase))
                         {
                             _assocList.Add(FileAssociation.Get("." + s));
                             _typeList.Add(FileType.Get("SSBB." + s.ToUpper()));

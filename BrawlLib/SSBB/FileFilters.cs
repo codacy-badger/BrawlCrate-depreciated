@@ -121,5 +121,8 @@ namespace BrawlLib
             SupportedFilesHandler.GetCompleteFilter("bx", "dat");
         public static string SLTC =
             SupportedFilesHandler.GetCompleteFilter("dat", "bx");
+
+        public static string MASQ =
+            SupportedFilesHandler.GetCompleteFilter("bin", "dat", "*");
     }
 }

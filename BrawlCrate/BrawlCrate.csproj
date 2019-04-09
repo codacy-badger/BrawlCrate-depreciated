@@ -243,6 +243,7 @@
     <Compile Include="NodeWrappers\Items\ItmFreqTableGroupWrapper.cs" />
     <Compile Include="NodeWrappers\Items\ItmFreqTableWrapper.cs" />
     <Compile Include="NodeWrappers\Items\ItmFreqWrapper.cs" />
+    <Compile Include="NodeWrappers\MasqueradeWrapper.cs" />
     <Compile Include="UI\TwoStringInputDialog.cs">
       <SubType>Form</SubType>
     </Compile>

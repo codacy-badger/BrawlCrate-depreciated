@@ -198,6 +198,10 @@
         RSTCGroup = 0x8901,
         SLTC = 0x8A00,
 
+        // Project M
+        MASQ = 0x8B00,
+        MASQEntry = 0x8C00,
+
         // Items
         ItemFreqNode = 0x8B01,
         ItemFreqTableNode = 0x8C01,

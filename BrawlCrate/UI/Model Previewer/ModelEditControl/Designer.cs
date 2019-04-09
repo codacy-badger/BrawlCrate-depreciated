@@ -1021,13 +1021,8 @@ namespace System.Windows.Forms
             this.chkBillboardBones,
             this.toggleMetals});
             this.modelToolStripMenuItem.Name = "modelToolStripMenuItem";
-<<<<<<< HEAD
             this.modelToolStripMenuItem.Size = new System.Drawing.Size(159, 26);
             this.modelToolStripMenuItem.Text = BrawlLib.Properties.Resources.Model;
-=======
-            this.modelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.modelToolStripMenuItem.Text = "Model";
->>>>>>> origin/brawlcrate-master
             // 
             // toggleBones
             // 
@@ -1055,13 +1050,8 @@ namespace System.Windows.Forms
             this.toggleVertices.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toggleVertices.Name = "toggleVertices";
             this.toggleVertices.ShortcutKeyDisplayString = "V Key";
-<<<<<<< HEAD
             this.toggleVertices.Size = new System.Drawing.Size(189, 26);
             this.toggleVertices.Text = BrawlLib.Properties.Resources.Vertices;
-=======
-            this.toggleVertices.Size = new System.Drawing.Size(180, 22);
-            this.toggleVertices.Text = "Vertices";
->>>>>>> origin/brawlcrate-master
             this.toggleVertices.Click += new System.EventHandler(this.toggleRenderVertices_Event);
             // 
             // toggleCollisions
@@ -1084,13 +1074,8 @@ namespace System.Windows.Forms
             // toggleNormals
             // 
             this.toggleNormals.Name = "toggleNormals";
-<<<<<<< HEAD
             this.toggleNormals.Size = new System.Drawing.Size(189, 26);
             this.toggleNormals.Text = BrawlLib.Properties.Resources.Normals;
-=======
-            this.toggleNormals.Size = new System.Drawing.Size(180, 22);
-            this.toggleNormals.Text = "Normals";
->>>>>>> origin/brawlcrate-master
             this.toggleNormals.Click += new System.EventHandler(this.toggleNormals_Click);
             // 
             // boundingBoxToolStripMenuItem
@@ -1106,25 +1091,15 @@ namespace System.Windows.Forms
             // chkBBModels
             // 
             this.chkBBModels.Name = "chkBBModels";
-<<<<<<< HEAD
             this.chkBBModels.Size = new System.Drawing.Size(184, 26);
             this.chkBBModels.Text = BrawlLib.Properties.Resources.Models;
-=======
-            this.chkBBModels.Size = new System.Drawing.Size(153, 22);
-            this.chkBBModels.Text = "Models";
->>>>>>> origin/brawlcrate-master
             this.chkBBModels.Click += new System.EventHandler(this.modelToolStripMenuItem1_Click);
             // 
             // chkBBObjects
             // 
             this.chkBBObjects.Name = "chkBBObjects";
-<<<<<<< HEAD
             this.chkBBObjects.Size = new System.Drawing.Size(184, 26);
             this.chkBBObjects.Text = BrawlLib.Properties.Resources.Objects;
-=======
-            this.chkBBObjects.Size = new System.Drawing.Size(153, 22);
-            this.chkBBObjects.Text = "Objects";
->>>>>>> origin/brawlcrate-master
             this.chkBBObjects.Click += new System.EventHandler(this.objectsToolStripMenuItem_Click);
             // 
             // chkBBVisBones
@@ -1319,13 +1294,8 @@ namespace System.Windows.Forms
             // 
             this.resizeToolStripMenuItem.Enabled = false;
             this.resizeToolStripMenuItem.Name = "resizeToolStripMenuItem";
-<<<<<<< HEAD
             this.resizeToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
             this.resizeToolStripMenuItem.Text = BrawlLib.Properties.Resources.Resize;
-=======
-            this.resizeToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
-            this.resizeToolStripMenuItem.Text = "Resize";
->>>>>>> origin/brawlcrate-master
             this.resizeToolStripMenuItem.Click += new System.EventHandler(this.resizeToolStripMenuItem_Click);
             // 
             // interpolationToolStripMenuItem
@@ -1409,13 +1379,8 @@ namespace System.Windows.Forms
             // chkEditAll
             // 
             this.chkEditAll.Name = "chkEditAll";
-<<<<<<< HEAD
             this.chkEditAll.Size = new System.Drawing.Size(299, 26);
             this.chkEditAll.Text = BrawlLib.Properties.Resources.EditAll;
-=======
-            this.chkEditAll.Size = new System.Drawing.Size(244, 22);
-            this.chkEditAll.Text = "Edit All";
->>>>>>> origin/brawlcrate-master
             this.chkEditAll.Click += new System.EventHandler(this.chkEditAll_Click);
             // 
             // hideFromSceneToolStripMenuItem
@@ -1582,13 +1547,8 @@ namespace System.Windows.Forms
             this.chkVertices.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.chkVertices.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.chkVertices.Name = "chkVertices";
-<<<<<<< HEAD
             this.chkVertices.Size = new System.Drawing.Size(64, 23);
             this.chkVertices.Text = BrawlLib.Properties.Resources.Vertices;
-=======
-            this.chkVertices.Size = new System.Drawing.Size(51, 23);
-            this.chkVertices.Text = "Vertices";
->>>>>>> origin/brawlcrate-master
             this.chkVertices.Click += new System.EventHandler(this.toggleRenderVertices_Event);
             // 
             // chkCollisions
