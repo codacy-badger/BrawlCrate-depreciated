@@ -20,7 +20,7 @@ namespace BrawlLib.BrawlCrate
         public static List<Fighter> cosmeticIDList = new List<Fighter>();
         public static string directory
         {
-            get { return AppDomain.CurrentDomain.BaseDirectory + "CustomLists"; }
+            get { return AppDomain.CurrentDomain.BaseDirectory + (System.Threading.Thread.CurrentThread.CurrentUICulture.ToString().Substring(0, 2).Equals("en", StringComparison.OrdinalIgnoreCase) ? "" : (System.Threading.Thread.CurrentThread.CurrentUICulture.ToString().Substring(0, 2).ToLower() + '\\')) + "CustomLists"; }
         }
         public static string listName
         {
@@ -194,7 +194,7 @@ namespace BrawlLib.BrawlCrate
         public static List<Stage> stageList = new List<Stage>();
         public static string directory
         {
-            get { return AppDomain.CurrentDomain.BaseDirectory + "CustomLists"; }
+            get { return AppDomain.CurrentDomain.BaseDirectory + (System.Threading.Thread.CurrentThread.CurrentUICulture.ToString().Substring(0, 2).Equals("en", StringComparison.OrdinalIgnoreCase) ? "" : (System.Threading.Thread.CurrentThread.CurrentUICulture.ToString().Substring(0, 2).ToLower() + '\\')) + "CustomLists"; }
         }
         public static string listName
         {
