@@ -193,6 +193,7 @@
         //BrawlEx
         COSC = 0x8600,
         CSSC = 0x8700,
+        CSSCEntry = 0x8D00,
         FCFG = 0x8800,
         RSTC = 0x8900,
         RSTCGroup = 0x8901,

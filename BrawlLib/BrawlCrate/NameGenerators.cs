@@ -59,12 +59,10 @@ namespace BrawlLib.BrawlCrate
                     if (!s.ToUpper().Substring(flagIndex).StartsWith("X") && !s.ToUpper().Substring(flagIndex).StartsWith(flagToIgnore))
                     {
                         string intName = s.Substring(internalNameIndex, (nameIndex- internalNameIndex) - 1).Trim(trimChars);
-                        if(intName.Length > 1)
-                            return char.ToUpper(intName.First()) + intName.Substring(1);
-                        if (intName.Length > 0)
-                            return intName.ToUpper();
+                        if(intName.Length > 0)
+                            return intName;
                     }
-            return "Fighter 0x" + id.ToString("X2");
+            return "Fighter0x" + id.ToString("X2");
         }
 
         public static string FromPacName(string pacName)

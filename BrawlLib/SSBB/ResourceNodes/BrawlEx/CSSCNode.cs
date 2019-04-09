@@ -3,6 +3,8 @@ using BrawlLib.SSBBTypes;
 using System.ComponentModel;
 using System.IO;
 using System.BrawlEx;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
@@ -22,9 +24,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _secondaryCharSlot;     // 0x11 - Secondary Character Slot: Only used when set in _editFlag4
         public byte _recordSlot;            // 0x12 - Record Bank
         public byte _cosmeticSlot;          // 0x13 - Only used when set in _editFlag4
-        public uint _wiimoteSFX;             // 0x14
+        public uint _wiimoteSFX;            // 0x14
         public uint _unknown0x18;           // 0x18 - Seemingly padding
-        public uint _status;                 // 0x1C - I have no idea what this is
+        public uint _status;                // 0x1C - I have no idea what this is
         
 
         private bool _primarySecondarySet;
@@ -267,7 +269,7 @@ namespace BrawlLib.SSBB.ResourceNodes
     public unsafe class CSSCEntryNode : ResourceNode
     {
         internal CSSCEntry* Header { get { return (CSSCEntry*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.Unknown; } }
+        public override ResourceType ResourceType { get { return ResourceType.CSSCEntry; } }
 
         public byte _colorID;
         public byte _costumeID;
@@ -342,6 +344,24 @@ namespace BrawlLib.SSBB.ResourceNodes
             CSSCEntry* hdr = (CSSCEntry*)address;
             hdr->_colorID = _colorID;
             hdr->_costumeID = _costumeID;
+        }
+
+        public List<string> GetCostumeFilePath(string currentPath)
+        {
+            List<string> files = new List<string>();
+            if ((currentPath = currentPath.Substring(0, currentPath.LastIndexOf('\\'))).EndsWith("pf\\BrawlEx\\CSSSlotConfig", StringComparison.OrdinalIgnoreCase))
+            {
+                currentPath = currentPath.Substring(0, currentPath.LastIndexOf("brawlex", StringComparison.OrdinalIgnoreCase));
+                List<string> internalNames = BrawlLib.BrawlCrate.FighterNameGenerators.InternalNameFromID(((CSSCNode)Parent)._cosmeticSlot, BrawlLib.BrawlCrate.FighterNameGenerators.cosmeticIDIndex, "+S").Split('/').ToList<string>();
+                foreach (string s in internalNames)
+                {
+                    if (File.Exists(currentPath + "fighter\\" + s + '\\' + "Fit" + s + _costumeID.ToString("00") + ".pac"))
+                    {
+                        files.Add(currentPath + "fighter\\" + s + '\\' + "Fit" + s + _costumeID.ToString("00") + ".pac");
+                    }
+                }
+            }
+            return files;
         }
     }
 }
