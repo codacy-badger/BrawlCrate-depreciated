@@ -3,6 +3,8 @@ using BrawlLib.SSBBTypes;
 using System.ComponentModel;
 using System.IO;
 using System.BrawlEx;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
@@ -159,7 +161,7 @@ namespace BrawlLib.SSBB.ResourceNodes
     public unsafe class MasqueradeEntryNode : ResourceNode
     {
         internal CSSCEntry* Header { get { return (CSSCEntry*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.Unknown; } }
+        public override ResourceType ResourceType { get { return ResourceType.MASQEntry; } }
 
         public byte _colorID;
         public byte _costumeID;
@@ -241,6 +243,24 @@ namespace BrawlLib.SSBB.ResourceNodes
             CSSCEntry* hdr = (CSSCEntry*)address;
             hdr->_colorID = _colorID;
             hdr->_costumeID = _costumeID;
+        }
+
+        public List<string> GetCostumeFilePath(string currentPath)
+        {
+            List<string> files = new List<string>();
+            if((currentPath = currentPath.Substring(0, currentPath.LastIndexOf('\\'))).EndsWith("pf\\info\\costumeslots", StringComparison.OrdinalIgnoreCase))
+            {
+                currentPath = currentPath.Substring(0, currentPath.LastIndexOf("info", StringComparison.OrdinalIgnoreCase));
+                List<string> internalNames = MasqueradeNode.MasqueradeInternalNames[((MasqueradeNode)Parent)._cosmeticSlot].Split('/').ToList<string>();
+                foreach(string s in internalNames)
+                {
+                    if(File.Exists(currentPath + "fighter\\" + s + '\\' + "Fit" + s + _costumeID.ToString("00") + ".pac"))
+                    {
+                        files.Add(currentPath + "fighter\\" + s + '\\' + "Fit" + s + _costumeID.ToString("00") + ".pac");
+                    }
+                }
+            }
+            return files;
         }
     }
 }

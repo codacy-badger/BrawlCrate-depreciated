@@ -200,6 +200,7 @@
 
         // Project M
         MASQ = 0x8B00,
+        MASQEntry = 0x8C00,
 
         // Items
         ItemFreqNode = 0x8B01,
