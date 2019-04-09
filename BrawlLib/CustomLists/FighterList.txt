@@ -13,7 +13,7 @@ Flag   |SlotID |FighterID  |CSSSlotID  |CosmeticID |Internal Name   |Fighter Nam
        |0x09   |0x08       |0x09       |0x08       |luigi           |Luigi
        |0x0A   |0x09       |0x0A       |0x09       |captain         |Captain Falcon
        |0x0B   |0x0A       |0x0B       |0x0A       |ness            |Ness
-       |0x0C   |0x0B       |0x0C       |0x0B       |bowser          |Bowser
+       |0x0C   |0x0B       |           |           |koopa           |Bowser
        |0x0D   |0x0C       |0x0D       |0x0C       |peach           |Peach
        |       |           |           |0x26       |zelda/sheik     |Zelda/Sheik
 +s     |0x4A   |           |           |           |zelda/sheik     |Zelda/Sheik // Single player only
@@ -26,7 +26,7 @@ Flag   |SlotID |FighterID  |CSSSlotID  |CosmeticID |Internal Name   |Fighter Nam
        |0x14   |0x12       |0x12       |0x11       |gamewatch       |Mr. Game & Watch
        |0x15   |0x13       |0x13       |0x12       |falco           |Falco
        |0x16   |0x14       |0x14       |0x13       |ganon           |Ganondorf
-       |0x17   |0x15       |0x15       |0x14       |wario           |Wario
+       |0x17   |0x15       |           |           |wario           |Wario
        |0x18   |0x16       |0x16       |0x15       |metaknight      |Meta Knight
        |0x19   |0x17       |0x17       |0x16       |pit             |Pit
        |0x1A   |0x19       |0x18       |0x18       |pikmin          |Olimar & Pikmin
@@ -49,6 +49,8 @@ Flag   |SlotID |FighterID  |CSSSlotID  |CosmeticID |Internal Name   |Fighter Nam
        |0x29   |0x2C       |0x25       |0x27       |wolf            |Wolf
        |0x2A   |0x2E       |0x26       |0x28       |snake           |Snake
        |0x2B   |0x2F       |0x27       |0x29       |sonic           |Sonic
+       |       |           |0x15       |0x14       |wario/warioman  |Wario/Wario-Man
+       |       |           |0x0C       |0x0B       |koopa/gkoopa    |Bowser/Giga Bowser
        |0x2C   |0x30       |           |           |gkoopa          |Giga Bowser
        |0x2D   |0x31       |           |           |warioman        |Wario-Man
        |0x2E   |0x32       |0x38       |0x38       |zakoboy         |Red Alloy (Don't use in event matches)
