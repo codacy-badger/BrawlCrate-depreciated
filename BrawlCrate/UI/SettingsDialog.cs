@@ -84,7 +84,7 @@ namespace BrawlCrate
             foreach (SupportedFileInfo info in SupportedFilesHandler.Files)
                 if (info._forEditing)
                     foreach (string s in info._extensions)
-                        if(s != "dat")
+                        if(s != "dat" && s != "bin")
                             listView1.Items.Add(new ListViewItem() { Text = String.Format("{0} (*.{1})", info._name, s) });
         }
 
