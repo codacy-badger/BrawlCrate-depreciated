@@ -121,6 +121,10 @@
     <value>Animation Data</value>
     <comment>Animation Data (ArcEntryType)</comment>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="BrawlCrateIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\BrawlCrateIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Collision0x00" xml:space="preserve">
     <value>Basic</value>
     <comment>Default collision, used for many different objects</comment>
@@ -1434,5 +1438,8 @@ A full English-language changelog can be found here:</value>
   <data name="ZAxisTransZRot" xml:space="preserve">
     <value>Z-Axis (Translation/Z-Rotation)</value>
     <comment>Z-Axis (Translation/Z-Rotation)</comment>
+  </data>
+  <data name="PartyBallIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PartyBallIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -602,6 +602,8 @@
     <Content Include="discord-rpc.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="PartyBallFullRes.png" />
+    <None Include="PartyBall.png" />
     <Content Include="Resources\GCAM.png" />
     <Content Include="Resources\GIB2.png" />
     <Content Include="Resources\GITM.png" />
@@ -623,6 +625,7 @@
     <None Include="Resources\greyscale\SharedTEX0Off.png" />
     <Content Include="Resources\GWAT.png" />
     <None Include="Resources\itembox.png" />
+    <None Include="Resources\Image1.bmp" />
     <Content Include="Stagebox.ico" />
     <Content Include="OpenTK.dll" />
     <None Include="Resources\SharedTEX0.png" />

@@ -28,7 +28,7 @@ namespace System.Windows.Forms
             // 
             this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.collisionEditor1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = BrawlLib.Properties.Resources.BrawlCrateIcon;
             this.MinimizeBox = false;
             this.Name = "CollisionForm";
             this.Text = "Collision Editor";

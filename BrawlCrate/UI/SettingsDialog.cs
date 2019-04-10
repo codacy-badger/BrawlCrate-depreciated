@@ -905,7 +905,7 @@ namespace BrawlCrate
             this.ClientSize = new System.Drawing.Size(326, 345);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = BrawlLib.Properties.Resources.BrawlCrateIcon;
             this.Name = "SettingsDialog";
             this.Text = "Settings";
             this.Load += new System.EventHandler(this.SettingsDialog_Load);

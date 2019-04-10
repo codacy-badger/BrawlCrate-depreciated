@@ -294,6 +294,17 @@ namespace BrawlLib.Properties {
             }
         }
         
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon BrawlCrateIcon {
+            get {
+                if (BrawlLib.BrawlCrate.PerSessionSettings.Birthday)
+                    return PartyBallIcon;
+                object obj = ResourceManager.GetObject("BrawlCrateIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Basic.
         /// </summary>
@@ -3020,6 +3031,15 @@ namespace BrawlLib.Properties {
         public static string ZAxisTransZRot {
             get {
                 return ResourceManager.GetString("ZAxisTransZRot", resourceCulture);
+            }
+        }
+        
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon PartyBallIcon {
+            get {
+                object obj = ResourceManager.GetObject("PartyBallIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
     }

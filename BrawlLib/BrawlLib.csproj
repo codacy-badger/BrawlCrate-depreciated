@@ -237,6 +237,7 @@
     <None Include="System\ComponentModel\CustomPropertyDescriptor.cs" />
     <None Include="System\ComponentModel\DelegatePropertyDescriptor.cs" />
     <Compile Include="BrawlCrate\Generate1to1Stages.cs" />
+    <Compile Include="BrawlCrate\PerSessionSettings.cs" />
     <Compile Include="Localization.cs" />
     <Compile Include="Modeling\Collada\ColladaImportDialog.cs">
       <SubType>Form</SubType>
@@ -1440,6 +1441,8 @@
     <Content Include="InternalDocumentation\STDT\STADIUM[20].txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\BrawlCrate.ico" />
+    <None Include="PartyBallIcon.ico" />
     <Content Include="System\Windows\Controls\Hex Editor\HexBox.bmp" />
     <Content Include="BrawlLib.txt" />
   </ItemGroup>

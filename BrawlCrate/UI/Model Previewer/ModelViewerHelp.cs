@@ -70,7 +70,7 @@
             this.ClientSize = new System.Drawing.Size(681, 610);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.btnOkay);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = BrawlLib.Properties.Resources.BrawlCrateIcon;
             this.Name = "ModelViewerHelp";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

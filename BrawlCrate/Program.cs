@@ -43,11 +43,16 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
         internal static string _rootPath;
         public static string RootPath { get { return _rootPath; } }
 
+        internal static bool _birthday;
+        public static bool IsBirthday { get { return _birthday; } }
+
         static Program()
         {
             Application.EnableVisualStyles();
-
+            _birthday = BrawlLib.BrawlCrate.PerSessionSettings.Birthday = (DateTime.Now.Month == 4 && DateTime.Now.Day == 8);
             AssemblyTitle = ((AssemblyTitleAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
+            if (_birthday)
+                AssemblyTitle = "PartyBrawl" + AssemblyTitle.Substring(AssemblyTitle.IndexOf(' '));
             AssemblyDescription = ((AssemblyDescriptionAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false)[0]).Description;
             AssemblyVersion = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).FileVersion;
             AssemblyCopyright = ((AssemblyCopyrightAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false)[0]).Copyright;
