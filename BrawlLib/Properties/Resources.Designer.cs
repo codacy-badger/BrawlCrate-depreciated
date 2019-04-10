@@ -65,6 +65,8 @@ namespace BrawlLib.Properties {
         /// </summary>
         public static System.Drawing.Icon BrawlCrateIcon {
             get {
+                if (BrawlLib.BrawlCrate.PerSessionSettings.Birthday)
+                    return PartyBallIcon;
                 object obj = ResourceManager.GetObject("BrawlCrateIcon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
@@ -409,6 +411,16 @@ namespace BrawlLib.Properties {
         public static string CollisionTypeRightWall {
             get {
                 return ResourceManager.GetString("CollisionTypeRightWall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon PartyBallIcon {
+            get {
+                object obj = ResourceManager.GetObject("PartyBallIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
     }
