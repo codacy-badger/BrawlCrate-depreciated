@@ -34,6 +34,7 @@
             this.lblCopyright = new System.Windows.Forms.Label();
             this.lblBrawlLib = new System.Windows.Forms.Label();
             this.lblVersion = new System.Windows.Forms.Label();
+            this.lblSpecialMessage = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnClose
@@ -107,17 +108,30 @@
             this.lblVersion.TabIndex = 6;
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lblSpecialMessage
+            // 
+            this.lblSpecialMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSpecialMessage.Font = new System.Drawing.Font("Georgia", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSpecialMessage.ForeColor = System.Drawing.Color.Black;
+            this.lblSpecialMessage.Location = new System.Drawing.Point(12, 58);
+            this.lblSpecialMessage.Name = "lblSpecialMessage";
+            this.lblSpecialMessage.Size = new System.Drawing.Size(454, 20);
+            this.lblSpecialMessage.TabIndex = 7;
+            this.lblSpecialMessage.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // AboutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(478, 400);
+            this.Controls.Add(this.txtDescription);
+            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.lblSpecialMessage);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.lblBrawlLib);
             this.Controls.Add(this.lblCopyright);
-            this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.lblName);
-            this.Controls.Add(this.btnClose);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -140,5 +154,6 @@
         private System.Windows.Forms.Label lblCopyright;
 		private System.Windows.Forms.Label lblBrawlLib;
         private System.Windows.Forms.Label lblVersion;
+        private System.Windows.Forms.Label lblSpecialMessage;
     }
 }
