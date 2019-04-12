@@ -19,7 +19,7 @@ namespace BrawlCrate
             this.txtDescription.Text = Program.AssemblyDescription;
             this.lblCopyright.Text = Program.AssemblyCopyright;
             this.lblBrawlLib.Text = "Using " + (MainForm.Instance.Canary ? ("BrawlCrateLib Canary" + MainForm.Instance.commitIDlong) : Program.BrawlLibTitle);
-            if(true)
+            if(Program.IsBirthday)
             {
                 this.txtDescription.Location = new System.Drawing.Point(12, 81);
                 this.txtDescription.Size = new System.Drawing.Size(454, 218);
