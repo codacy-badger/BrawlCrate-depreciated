@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.25
+BrawlCrate - v0.25 Hotfix 1
 Copyright © 2018 - 2019 soopercool101, MarioDox, Syvkal
 BrawlBox  © 2009 - 2019 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -16,7 +16,10 @@ they be held accountable for the manner in which it is used.
 |************ BrawlCrate Change Log ************|
  ===============================================
  
- - BrawlCrate v0.25
+ - BrawlCrate v0.25 Hotfix 1 - (4/15/2019)
+ . Fix bug in which directly opening a file would cause crashes
+ 
+ - BrawlCrate v0.25 - (4/15/2019)
  . Improve parsing and editing of ItmGeneration tables
    - ItmFreq nodes now use a new icon
    - Swap action and subaction (were parsed as the opposite of what they are)
