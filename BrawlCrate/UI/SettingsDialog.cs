@@ -319,6 +319,9 @@ namespace BrawlCrate
             this.chkBoxFighterPacDecompress = new System.Windows.Forms.CheckBox();
             this.chkBoxFighterPcsCompress = new System.Windows.Forms.CheckBox();
             this.tabFileAssociations = new System.Windows.Forms.TabPage();
+            this.genericFileAssociationBox = new System.Windows.Forms.GroupBox();
+            this.binFileAssociation = new System.Windows.Forms.CheckBox();
+            this.datFileAssociation = new System.Windows.Forms.CheckBox();
             this.lblAdminApproval = new System.Windows.Forms.Label();
             this.btnApply = new System.Windows.Forms.Button();
             this.associatiedFilesBox = new System.Windows.Forms.GroupBox();
@@ -341,9 +344,6 @@ namespace BrawlCrate
             this.rdoAutoUpdate = new System.Windows.Forms.RadioButton();
             this.rdoCheckManual = new System.Windows.Forms.RadioButton();
             this.rdoCheckStartup = new System.Windows.Forms.RadioButton();
-            this.genericFileAssociationBox = new System.Windows.Forms.GroupBox();
-            this.datFileAssociation = new System.Windows.Forms.CheckBox();
-            this.binFileAssociation = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.grpBoxMDL0General.SuspendLayout();
@@ -354,6 +354,7 @@ namespace BrawlCrate
             this.groupBoxStageCompression.SuspendLayout();
             this.groupBoxFighterCompression.SuspendLayout();
             this.tabFileAssociations.SuspendLayout();
+            this.genericFileAssociationBox.SuspendLayout();
             this.associatiedFilesBox.SuspendLayout();
             this.tabDiscord.SuspendLayout();
             this.grpBoxDiscordRPC.SuspendLayout();
@@ -361,7 +362,6 @@ namespace BrawlCrate
             this.tabUpdater.SuspendLayout();
             this.grpBoxCanary.SuspendLayout();
             this.updaterBehaviorGroupbox.SuspendLayout();
-            this.genericFileAssociationBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkShowPropDesc
@@ -600,6 +600,41 @@ namespace BrawlCrate
             this.tabFileAssociations.TabIndex = 2;
             this.tabFileAssociations.Text = "File Associations";
             // 
+            // genericFileAssociationBox
+            // 
+            this.genericFileAssociationBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.genericFileAssociationBox.Controls.Add(this.binFileAssociation);
+            this.genericFileAssociationBox.Controls.Add(this.datFileAssociation);
+            this.genericFileAssociationBox.Location = new System.Drawing.Point(8, 290);
+            this.genericFileAssociationBox.Name = "genericFileAssociationBox";
+            this.genericFileAssociationBox.Size = new System.Drawing.Size(302, 75);
+            this.genericFileAssociationBox.TabIndex = 6;
+            this.genericFileAssociationBox.TabStop = false;
+            this.genericFileAssociationBox.Text = "Generic File Types";
+            // 
+            // binFileAssociation
+            // 
+            this.binFileAssociation.AutoSize = true;
+            this.binFileAssociation.Location = new System.Drawing.Point(10, 45);
+            this.binFileAssociation.Name = "binFileAssociation";
+            this.binFileAssociation.Size = new System.Drawing.Size(135, 17);
+            this.binFileAssociation.TabIndex = 9;
+            this.binFileAssociation.Text = "Associate with .bin files";
+            this.binFileAssociation.UseVisualStyleBackColor = true;
+            this.binFileAssociation.CheckedChanged += new System.EventHandler(this.BinFileAssociation_CheckedChanged);
+            // 
+            // datFileAssociation
+            // 
+            this.datFileAssociation.AutoSize = true;
+            this.datFileAssociation.Location = new System.Drawing.Point(10, 22);
+            this.datFileAssociation.Name = "datFileAssociation";
+            this.datFileAssociation.Size = new System.Drawing.Size(136, 17);
+            this.datFileAssociation.TabIndex = 8;
+            this.datFileAssociation.Text = "Associate with .dat files";
+            this.datFileAssociation.UseVisualStyleBackColor = true;
+            this.datFileAssociation.CheckedChanged += new System.EventHandler(this.DatFileAssociation_CheckedChanged);
+            // 
             // lblAdminApproval
             // 
             this.lblAdminApproval.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -725,10 +760,10 @@ namespace BrawlCrate
             listViewItem27,
             listViewItem28,
             listViewItem29});
-            this.listView1.Location = new System.Drawing.Point(3, 19);
+            this.listView1.Location = new System.Drawing.Point(6, 19);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(293, 227);
+            this.listView1.Size = new System.Drawing.Size(290, 227);
             this.listView1.TabIndex = 6;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -931,41 +966,6 @@ namespace BrawlCrate
             this.rdoCheckStartup.Text = "Manual, but check for updates on startup";
             this.rdoCheckStartup.UseVisualStyleBackColor = true;
             // 
-            // genericFileAssociationBox
-            // 
-            this.genericFileAssociationBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.genericFileAssociationBox.Controls.Add(this.binFileAssociation);
-            this.genericFileAssociationBox.Controls.Add(this.datFileAssociation);
-            this.genericFileAssociationBox.Location = new System.Drawing.Point(8, 290);
-            this.genericFileAssociationBox.Name = "genericFileAssociationBox";
-            this.genericFileAssociationBox.Size = new System.Drawing.Size(302, 75);
-            this.genericFileAssociationBox.TabIndex = 6;
-            this.genericFileAssociationBox.TabStop = false;
-            this.genericFileAssociationBox.Text = "Generic File Types";
-            // 
-            // datFileAssociation
-            // 
-            this.datFileAssociation.AutoSize = true;
-            this.datFileAssociation.Location = new System.Drawing.Point(10, 22);
-            this.datFileAssociation.Name = "datFileAssociation";
-            this.datFileAssociation.Size = new System.Drawing.Size(136, 17);
-            this.datFileAssociation.TabIndex = 8;
-            this.datFileAssociation.Text = "Associate with .dat files";
-            this.datFileAssociation.UseVisualStyleBackColor = true;
-            this.datFileAssociation.CheckedChanged += new System.EventHandler(this.DatFileAssociation_CheckedChanged);
-            // 
-            // binFileAssociation
-            // 
-            this.binFileAssociation.AutoSize = true;
-            this.binFileAssociation.Location = new System.Drawing.Point(10, 45);
-            this.binFileAssociation.Name = "binFileAssociation";
-            this.binFileAssociation.Size = new System.Drawing.Size(135, 17);
-            this.binFileAssociation.TabIndex = 9;
-            this.binFileAssociation.Text = "Associate with .bin files";
-            this.binFileAssociation.UseVisualStyleBackColor = true;
-            this.binFileAssociation.CheckedChanged += new System.EventHandler(this.BinFileAssociation_CheckedChanged);
-            // 
             // SettingsDialog
             // 
             this.ClientSize = new System.Drawing.Size(326, 427);
@@ -992,6 +992,8 @@ namespace BrawlCrate
             this.groupBoxFighterCompression.ResumeLayout(false);
             this.groupBoxFighterCompression.PerformLayout();
             this.tabFileAssociations.ResumeLayout(false);
+            this.genericFileAssociationBox.ResumeLayout(false);
+            this.genericFileAssociationBox.PerformLayout();
             this.associatiedFilesBox.ResumeLayout(false);
             this.tabDiscord.ResumeLayout(false);
             this.grpBoxDiscordRPC.ResumeLayout(false);
@@ -1003,8 +1005,6 @@ namespace BrawlCrate
             this.grpBoxCanary.PerformLayout();
             this.updaterBehaviorGroupbox.ResumeLayout(false);
             this.updaterBehaviorGroupbox.PerformLayout();
-            this.genericFileAssociationBox.ResumeLayout(false);
-            this.genericFileAssociationBox.PerformLayout();
             this.ResumeLayout(false);
 
         }

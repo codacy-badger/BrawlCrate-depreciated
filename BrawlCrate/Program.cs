@@ -115,7 +115,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             s.Show();
             s.Focus();
             firstBoot = false;
-//#if !DEBUG
+#if !DEBUG
             if (BrawlCrate.Properties.Settings.Default.UpdateSettings)
             {
                 foreach (var _Assembly in AppDomain.CurrentDomain.GetAssemblies())
@@ -188,7 +188,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             {
 
             }
-//#endif
+#endif
             string path = "";
             if (args.Length >= 1)
             {
