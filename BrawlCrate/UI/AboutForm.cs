@@ -26,7 +26,7 @@ namespace BrawlCrate
 
                 this.lblSpecialMessage.Text = "Happy ";
                 this.lblSpecialMessage.Text += (DateTime.Now.Year - 2018);
-                if (this.lblSpecialMessage.Text.Substring(0, this.lblSpecialMessage.Text.Length - 1).Equals("1"))
+                if (this.lblSpecialMessage.Text.Substring(0, this.lblSpecialMessage.Text.Length - 1).EndsWith("1"))
                     this.lblSpecialMessage.Text += "th";
                 else if (this.lblSpecialMessage.Text.EndsWith("1"))
                     this.lblSpecialMessage.Text += "st";
