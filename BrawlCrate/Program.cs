@@ -16,12 +16,13 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.25";
+        public static readonly string TagName = "BrawlCrate_v0.25Hotfix1";
         public static readonly string UpdateMessage = @"Updated to BrawlCrate v0.25! This release:
 - Adds ability to preview metal materials (press the 'M' key in the model previewer)
 - Adds improved ItmGeneration parsing
 - Improves CSSC implementation
 - Fixes a multitude of issues with Discord Rich Presence
+- (Hotfix 1) Fixes issue with directly opening a file
 
 Full changelog can be found in the installation folder: " + '\n' + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
