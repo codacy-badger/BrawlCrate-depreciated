@@ -55,6 +55,10 @@ namespace BrawlCrate
         // Canary stuff
         public string commitIDshort = "";
         public string commitIDlong = "";
+        public static string getCommitId(bool longID = false)
+        {
+            return (" #" + File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "new")[longID ? 2 : 1]);
+        }
         public static readonly string mainRepo = "soopercool101/BrawlCrate";
         public static readonly string mainBranch = "brawlcrate-master";
         public static string currentBranch { get { return GetCurrentBranch(); } set { SetCurrentBranch(value); } }
@@ -246,8 +250,7 @@ namespace BrawlCrate
                     }
                 }
             }
-            Text = _canary ? "BrawlCrate Canary" + (currentRepo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase) ? (currentBranch.Equals(mainBranch, StringComparison.OrdinalIgnoreCase) ? "" : ("@" + currentBranch)) : "@" + currentRepo + "@" + currentBranch) + commitIDlong : Program.AssemblyTitle;
-            
+            UpdateName();            
             // Slight space saving by deleting unused/unnecessary branch identifier
             if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary"))
             {
@@ -641,11 +644,11 @@ namespace BrawlCrate
         public void UpdateName()
         {
             if (Program.RootPath != null)
-                Text = String.Format("{0} - {1}", _canary ? "BrawlCrate Canary" + (currentRepo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase) ? (currentBranch.Equals(mainBranch, StringComparison.OrdinalIgnoreCase) ? "" : ("@" + currentBranch)) : "@" + currentRepo + "@" + currentBranch) + commitIDshort : Program.AssemblyTitle, Program.RootPath);
+                Text = String.Format("{0} - {1}", Program.AssemblyTitle, Program.RootPath);
+            else if (Canary)
+                Text = Program.AssemblyTitle.Substring(0, Program.AssemblyTitle.LastIndexOf(" #")) + commitIDlong;
             else
-                Text = _canary ? "BrawlCrate Canary" + (currentRepo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase) ? (currentBranch.Equals(mainBranch, StringComparison.OrdinalIgnoreCase) ? "" : ("@" + currentBranch)) : "@" + currentRepo + "@" + currentBranch) + commitIDlong : Program.AssemblyTitle;
-            if(Program.IsBirthday)
-                Text = "PartyBrawl" + Text.Substring(Text.IndexOf(' '));
+                Text = Program.AssemblyTitle;
         }
 
         public void TargetResource(ResourceNode n)

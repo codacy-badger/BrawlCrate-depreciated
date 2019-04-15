@@ -51,6 +51,8 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             Application.EnableVisualStyles();
             _birthday = BrawlLib.BrawlCrate.PerSessionSettings.Birthday = (DateTime.Now.Month == 4 && DateTime.Now.Day == 8);
             AssemblyTitle = ((AssemblyTitleAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
+            if (BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds)
+                AssemblyTitle = "BrawlCrate Canary" + (MainForm.currentRepo.Equals(MainForm.mainRepo, StringComparison.OrdinalIgnoreCase) ? (MainForm.currentBranch.Equals(MainForm.mainBranch, StringComparison.OrdinalIgnoreCase) ? "" : ("@" + MainForm.currentBranch)) : "@" + MainForm.currentRepo + "@" + MainForm.currentBranch) + MainForm.getCommitId(false);
             if (_birthday)
                 AssemblyTitle = "PartyBrawl" + AssemblyTitle.Substring(AssemblyTitle.IndexOf(' '));
             AssemblyDescription = ((AssemblyDescriptionAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false)[0]).Description;
