@@ -13,14 +13,14 @@ fn load_test_image() -> RgbaImage {
 }
 
 #[test]
-fn has_256_colors() {
+fn has_64_colors() {
     let image = load_test_image();
-    let quantization_map = quantization_map_from_images::<Rgb5a3>(&vec![image], false);
+    let quantization_map = quantization_map_from_images::<Rgb5a8>(&vec![image], false);
     let mut colors = HashSet::new();
     for color in quantization_map.values() {
         colors.insert(color);
     }
-    assert_eq!(colors.len(), 256);
+    assert_eq!(colors.len(), 64);
 }
 
 #[test]
