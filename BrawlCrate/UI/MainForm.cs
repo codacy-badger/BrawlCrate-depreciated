@@ -227,7 +227,6 @@ namespace BrawlCrate
         public MainForm()
         {
             InitializeComponent();
-
             _autoUpdate = BrawlCrate.Properties.Settings.Default.UpdateAutomatically;
             _displayPropertyDescription = BrawlCrate.Properties.Settings.Default.DisplayPropertyDescriptionWhenAvailable;
             _updatesOnStartup = BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup;
@@ -282,7 +281,7 @@ namespace BrawlCrate
             RecentFileHandler = new RecentFileHandler(this.components);
             RecentFileHandler.RecentFileToolStripItem = this.recentFilesToolStripMenuItem;
 
-            if (Program.CanRunDiscordRPC())
+            if (Program.CanRunDiscordRPC() && !_updatesOnStartup)
             {
                 Process[] px = Process.GetProcessesByName("BrawlCrate");
                 if(px.Length == 1)
@@ -290,7 +289,7 @@ namespace BrawlCrate
                 BrawlCrate.Discord.DiscordSettings.startTime = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
                 BrawlCrate.Discord.DiscordSettings.DiscordController = new BrawlCrate.Discord.DiscordController();
                 BrawlCrate.Discord.DiscordSettings.DiscordController.Initialize();
-                BrawlCrate.Discord.DiscordSettings.Update();
+                BrawlCrate.Discord.DiscordSettings.LoadSettings(true);
             }
         }
 
@@ -382,6 +381,16 @@ namespace BrawlCrate
             {
                 if (manual)
                     MessageBox.Show(e.Message);
+            }
+            if (!manual && Program.CanRunDiscordRPC())
+            {
+                Process[] px = Process.GetProcessesByName("BrawlCrate");
+                if (px.Length == 1)
+                    BrawlCrate.Discord.DiscordRpc.ClearPresence();
+                BrawlCrate.Discord.DiscordSettings.startTime = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+                BrawlCrate.Discord.DiscordSettings.DiscordController = new BrawlCrate.Discord.DiscordController();
+                BrawlCrate.Discord.DiscordSettings.DiscordController.Initialize();
+                BrawlCrate.Discord.DiscordSettings.LoadSettings(true);
             }
         }
 
