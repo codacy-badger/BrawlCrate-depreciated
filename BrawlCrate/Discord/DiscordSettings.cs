@@ -182,7 +182,12 @@ namespace BrawlCrate.Discord
 
         public static void LoadSettings(bool update = false)
         {
-            if (enabled != BrawlCrate.Properties.Settings.Default.DiscordRPCEnabled && enabled == false)
+            if(BrawlCrate.Properties.Settings.Default.DiscordRPCEnabled && DiscordController == null)
+            {
+                DiscordController = new BrawlCrate.Discord.DiscordController();
+                DiscordController.Initialize();
+            }
+            else if ((enabled != BrawlCrate.Properties.Settings.Default.DiscordRPCEnabled && enabled == false))
                 DiscordController.Initialize();
             enabled = BrawlCrate.Properties.Settings.Default.DiscordRPCEnabled;
             modNameType = BrawlCrate.Properties.Settings.Default.DiscordRPCNameType;
