@@ -1,11 +1,11 @@
 ﻿namespace System.Windows.Forms
 {
-    public partial class StageBoxNumericEntry : Form
+    public partial class NumericEntryBox : Form
     {
-        public string title = "StageBox Numeric Entry Box";
+        public string title = "Numeric Entry Box";
         public string lowerText = "Error; No arguments given";
 
-        public StageBoxNumericEntry()
+        public NumericEntryBox()
         {
             InitializeComponent();
         }

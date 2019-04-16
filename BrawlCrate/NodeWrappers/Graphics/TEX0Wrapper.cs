@@ -106,7 +106,7 @@ namespace BrawlCrate.NodeWrappers
 
         public void ColorSmash()
         {
-            StageBoxNumericEntry colorsmashcount = new StageBoxNumericEntry();
+            NumericEntryBox colorsmashcount = new NumericEntryBox();
             if (colorsmashcount.ShowDialog("Color Smasher", "How many textures?") == DialogResult.OK)
                 ColorSmash(colorsmashcount.NewValue);
         }

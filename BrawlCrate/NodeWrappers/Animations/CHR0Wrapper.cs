@@ -48,7 +48,7 @@ namespace BrawlCrate.NodeWrappers
         protected static void ReverseLoopAction(object sender, EventArgs e) { GetInstance<CHR0Wrapper>().Reverse(true); }
         protected static void ResizeAction(object sender, EventArgs e) { GetInstance<CHR0Wrapper>().Resize(); }
         protected static void LoopAction(object sender, EventArgs e) {
-            StageBoxNumericEntry entryCount = new StageBoxNumericEntry();
+            NumericEntryBox entryCount = new NumericEntryBox();
             if (entryCount.ShowDialog("Animation Looper", "Number of runthroughs:") == DialogResult.OK)
                 GetInstance<CHR0Wrapper>().Loop((entryCount.NewValue)-1);
         }
