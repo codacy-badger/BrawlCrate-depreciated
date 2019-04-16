@@ -2,14 +2,14 @@
 
 namespace System.Windows.Forms
 {
-    public partial class StageBoxHexEntry : Form
+    public partial class HexEntryBox : Form
     {
         public string title = "StageBox Hex Entry Box";
         public string lowerText = "Enter hex:";
         public int numBytes = 0;
         static readonly Regex hexCheck = new Regex(@"^[0-9A-Fa-f\r\n]+$");
 
-        public StageBoxHexEntry()
+        public HexEntryBox()
         {
             InitializeComponent();
         }

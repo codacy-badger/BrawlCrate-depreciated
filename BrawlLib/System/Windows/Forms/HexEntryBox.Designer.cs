@@ -1,6 +1,6 @@
 ﻿namespace System.Windows.Forms
 {
-    partial class StageBoxHexEntry
+    partial class HexEntryBox
     {
         /// <summary>
         /// Required designer variable.
