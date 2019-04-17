@@ -34,7 +34,12 @@ namespace BrawlCrate.Discord
                 DiscordRpc.Shutdown();
                 return;
             }
-            
+
+            if (enabled && DiscordController == null)
+            {
+                DiscordController = new BrawlCrate.Discord.DiscordController();
+                DiscordController.Initialize();
+            }
             DiscordController.presence = new DiscordRpc.RichPresence()
             {
                 smallImageKey = "",
