@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using System.Configuration;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Reflection;
 
 namespace BrawlCrate
 {
@@ -654,12 +655,42 @@ namespace BrawlCrate
         {
             try
             {
+                if (Canary && !Program.AssemblyTitle.Contains("canary", StringComparison.OrdinalIgnoreCase))
+                    throw new InvalidEnumArgumentException();
                 if (Program.RootPath != null)
                     Text = String.Format("{0} - {1}", Program.AssemblyTitle, Program.RootPath);
                 else if (Canary)
                     Text = Program.AssemblyTitle.Substring(0, Program.AssemblyTitle.LastIndexOf(" #")) + commitIDlong;
                 else
                     Text = Program.AssemblyTitle;
+            }
+            catch (InvalidEnumArgumentException)
+            {
+                try
+                {
+                    if (Program.RootPath != null)
+                        Text = String.Format("{0} - {1}", _canary ? "BrawlCrate Canary" + (currentRepo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase) ? (currentBranch.Equals(mainBranch, StringComparison.OrdinalIgnoreCase) ? "" : ("@" + currentBranch)) : "@" + currentRepo + "@" + currentBranch) + commitIDshort : Program.AssemblyTitle, Program.RootPath);
+                    else
+                        Text = _canary ? "BrawlCrate Canary" + (currentRepo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase) ? (currentBranch.Equals(mainBranch, StringComparison.OrdinalIgnoreCase) ? "" : ("@" + currentBranch)) : "@" + currentRepo + "@" + currentBranch) + commitIDlong : Program.AssemblyTitle;
+                    if (Program.IsBirthday)
+                        Text = "PartyBrawl" + Text.Substring(Text.IndexOf(' '));
+                    Program.AssemblyTitle = ((AssemblyTitleAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
+                    try
+                    {
+                        if (BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds)
+                            Program.AssemblyTitle = "BrawlCrate Canary" + (MainForm.currentRepo.Equals(MainForm.mainRepo, StringComparison.OrdinalIgnoreCase) ? (MainForm.currentBranch.Equals(MainForm.mainBranch, StringComparison.OrdinalIgnoreCase) ? "" : ("@" + MainForm.currentBranch)) : "@" + MainForm.currentRepo + "@" + MainForm.currentBranch) + MainForm.getCommitId(false);
+                    }
+                    catch
+                    {
+                        Program.AssemblyTitle = ((AssemblyTitleAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
+                    }
+                    if (Program.IsBirthday)
+                        Program.AssemblyTitle = "PartyBrawl" + Program.AssemblyTitle.Substring(Program.AssemblyTitle.IndexOf(' '));
+                }
+                catch
+                {
+                    Text = Program.AssemblyTitle;
+                }
             }
             catch
             {

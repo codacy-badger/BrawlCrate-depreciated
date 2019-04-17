@@ -26,7 +26,7 @@ namespace BrawlCrate
 
 Full changelog can be found in the installation folder: " + '\n' + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
-        public static readonly string AssemblyTitle;
+        public static string AssemblyTitle;
         public static readonly string AssemblyVersion;
         public static readonly string AssemblyDescription;
         public static readonly string AssemblyCopyright;
