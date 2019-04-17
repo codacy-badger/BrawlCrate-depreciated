@@ -221,6 +221,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="System\Windows\Forms\TwoNumberEntryBox.resx">
+      <DependentUpon>TwoNumberEntryBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="System\Windows\Forms\TwoStringInputDialog.resx">
       <DependentUpon>TwoStringInputDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -778,6 +781,12 @@
     </Compile>
     <Compile Include="System\Windows\Controls\GoodColorControl2.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="System\Windows\Forms\TwoNumberEntryBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\Windows\Forms\TwoNumberEntryBox.Designer.cs">
+      <DependentUpon>TwoNumberEntryBox.cs</DependentUpon>
     </Compile>
     <Compile Include="System\Windows\Forms\StringInputDialog.cs">
       <SubType>Form</SubType>

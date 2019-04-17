@@ -106,12 +106,12 @@ namespace BrawlCrate.NodeWrappers
 
         public void ColorSmash()
         {
-            NumericEntryBox colorsmashcount = new NumericEntryBox();
-            if (colorsmashcount.ShowDialog("Color Smasher", "How many textures?") == DialogResult.OK)
-                ColorSmash(colorsmashcount.NewValue);
+            TwoNumberEntryBox colorsmashcount = new TwoNumberEntryBox();
+            if (colorsmashcount.ShowDialog("Color Smasher", "How many textures?", "How many colors?", 1, 256) == DialogResult.OK)
+                ColorSmash(colorsmashcount.Value1, colorsmashcount.Value2);
         }
 
-        public void ColorSmash(int textureCount)
+        public void ColorSmash(int textureCount, int numColors = 255)
         {
             if (TEX0Node._updating)
                 return;
@@ -142,7 +142,7 @@ namespace BrawlCrate.NodeWrappers
             {
                 FileName = AppDomain.CurrentDomain.BaseDirectory + "color_smash.exe",
                 WindowStyle = ProcessWindowStyle.Hidden,
-                Arguments = String.Format("-c RGB5A3"),
+                Arguments = String.Format("-c RGB5A3 -n {0}", numColors),
             });
             csmash.WaitForExit();
             List<int> remainingIDs = new List<int>();
