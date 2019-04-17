@@ -220,7 +220,7 @@ namespace BrawlCrate
                 {
                     NumericEntryBox paletteCounter = new NumericEntryBox();
                     paletteCounter.ShowDialog("Palette Selector", "How many colors?", 256);
-                    if (paletteCounter.DialogResult != DialogResult.Yes)
+                    if (paletteCounter.DialogResult != DialogResult.OK)
                         return;
                     int numColors = paletteCounter.NewValue;
                     // Color Smash them
