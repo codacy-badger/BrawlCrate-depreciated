@@ -18,7 +18,7 @@ namespace BrawlCrate
         //Make sure this matches the tag name of the release on github exactly
         public static readonly string TagName = "BrawlCrate_v0.25b";
         public static readonly string UpdateMessage = @"Updated to BrawlCrate v0.25b! This release:
-- Integrates Color Smash 3.0 functionality, allowing for images with
+- Integrates Color Smash 3.0 functionality, allowing for images with less than 256 colors to be properly color smashed
 
 In case you missed it, BrawlCrate v0.25:
 - Added ability to preview metal materials (press the 'M' key in the model previewer)
