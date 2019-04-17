@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.label2 = new System.Windows.Forms.Label();
-            this.numericInputBox1 = new System.Windows.Forms.NumericInputBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOkay = new System.Windows.Forms.Button();
-            this.numericInputBox2 = new System.Windows.Forms.NumericInputBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.numericInputBox2 = new System.Windows.Forms.NumericInputBox();
+            this.numericInputBox1 = new System.Windows.Forms.NumericInputBox();
             this.SuspendLayout();
             // 
             // label2
@@ -43,17 +43,6 @@
             this.label2.Size = new System.Drawing.Size(134, 20);
             this.label2.TabIndex = 1;
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // numericInputBox1
-            // 
-            this.numericInputBox1.Integral = true;
-            this.numericInputBox1.Location = new System.Drawing.Point(146, 12);
-            this.numericInputBox1.MaximumValue = 65535F;
-            this.numericInputBox1.MinimumValue = 1F;
-            this.numericInputBox1.Name = "numericInputBox1";
-            this.numericInputBox1.Size = new System.Drawing.Size(100, 20);
-            this.numericInputBox1.TabIndex = 3;
-            this.numericInputBox1.Text = "1";
             // 
             // btnCancel
             // 
@@ -78,6 +67,14 @@
             this.btnOkay.UseVisualStyleBackColor = true;
             this.btnOkay.Click += new System.EventHandler(this.btnOkay_Click);
             // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(6, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(134, 20);
+            this.label1.TabIndex = 8;
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // numericInputBox2
             // 
             this.numericInputBox2.Integral = true;
@@ -86,16 +83,19 @@
             this.numericInputBox2.MinimumValue = 1F;
             this.numericInputBox2.Name = "numericInputBox2";
             this.numericInputBox2.Size = new System.Drawing.Size(100, 20);
-            this.numericInputBox2.TabIndex = 7;
+            this.numericInputBox2.TabIndex = 4;
             this.numericInputBox2.Text = "1";
             // 
-            // label1
+            // numericInputBox1
             // 
-            this.label1.Location = new System.Drawing.Point(6, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(134, 20);
-            this.label1.TabIndex = 8;
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.numericInputBox1.Integral = true;
+            this.numericInputBox1.Location = new System.Drawing.Point(146, 12);
+            this.numericInputBox1.MaximumValue = 65535F;
+            this.numericInputBox1.MinimumValue = 1F;
+            this.numericInputBox1.Name = "numericInputBox1";
+            this.numericInputBox1.Size = new System.Drawing.Size(100, 20);
+            this.numericInputBox1.TabIndex = 3;
+            this.numericInputBox1.Text = "1";
             // 
             // TwoNumberEntryBox
             // 
