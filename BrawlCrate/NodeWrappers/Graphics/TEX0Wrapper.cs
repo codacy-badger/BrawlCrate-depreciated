@@ -107,7 +107,10 @@ namespace BrawlCrate.NodeWrappers
         public void ColorSmash()
         {
             TwoNumberEntryBox colorsmashcount = new TwoNumberEntryBox();
-            if (colorsmashcount.ShowDialog("Color Smasher", "How many textures?", "How many colors?", 1, 256) == DialogResult.OK)
+            int paletteCount = 256;
+            if (((TEX0Node)_resource).HasPalette && ((TEX0Node)_resource).GetPaletteNode() != null)
+                paletteCount = ((TEX0Node)_resource).GetPaletteNode().Palette.Entries.Length;
+            if (colorsmashcount.ShowDialog("Color Smasher", "How many textures?", "How many colors?", 1, paletteCount) == DialogResult.OK)
                 ColorSmash(colorsmashcount.Value1, colorsmashcount.Value2);
         }
 
@@ -131,13 +134,12 @@ namespace BrawlCrate.NodeWrappers
                 tex.Export(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + j + ".png");
                 j++;
                 if (tex.HasPalette)
-                {
                     tex.GetPaletteNode().Remove();
-                }
-                if (tex.Format != BrawlLib.Wii.Textures.WiiPixelFormat.CI4)
-                    usesOnlyCI4 = false;
+                //if (tex.Format != BrawlLib.Wii.Textures.WiiPixelFormat.CI4)
+                //    usesOnlyCI4 = false;
                 tex.Remove();
             }
+            usesOnlyCI4 = false;
             Process csmash = Process.Start(new ProcessStartInfo()
             {
                 FileName = AppDomain.CurrentDomain.BaseDirectory + "color_smash.exe",

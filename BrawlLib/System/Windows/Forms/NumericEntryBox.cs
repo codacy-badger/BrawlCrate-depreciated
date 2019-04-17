@@ -25,6 +25,13 @@
             this.label2.Text = newLower;
             return base.ShowDialog();
         }
+        public DialogResult ShowDialog(string newTitle, string newLower, int val)
+        {
+            this.Text = newTitle;
+            this.label2.Text = newLower;
+            this.numNewCount.Value = val;
+            return base.ShowDialog();
+        }
 
         private void btnOkay_Click(object sender, EventArgs e)
         {

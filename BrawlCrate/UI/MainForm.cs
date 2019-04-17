@@ -652,12 +652,19 @@ namespace BrawlCrate
 
         public void UpdateName()
         {
-            if (Program.RootPath != null)
-                Text = String.Format("{0} - {1}", Program.AssemblyTitle, Program.RootPath);
-            else if (Canary)
-                Text = Program.AssemblyTitle.Substring(0, Program.AssemblyTitle.LastIndexOf(" #")) + commitIDlong;
-            else
+            try
+            {
+                if (Program.RootPath != null)
+                    Text = String.Format("{0} - {1}", Program.AssemblyTitle, Program.RootPath);
+                else if (Canary)
+                    Text = Program.AssemblyTitle.Substring(0, Program.AssemblyTitle.LastIndexOf(" #")) + commitIDlong;
+                else
+                    Text = Program.AssemblyTitle;
+            }
+            catch
+            {
                 Text = Program.AssemblyTitle;
+            }
         }
 
         public void TargetResource(ResourceNode n)
