@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.25 Hotfix 1
+BrawlCrate - v0.25b
 Copyright © 2018 - 2019 soopercool101, MarioDox, Syvkal
 BrawlBox  © 2009 - 2019 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,10 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.25b - (4/17/2019)
+ . Integrate Color Smash 3.0's variable palette count system
+ . Fix tab behavior for two-string input dialog box
  
  - BrawlCrate v0.25 Hotfix 1 - (4/15/2019)
  . Fix bug in which directly opening a file would cause crashes

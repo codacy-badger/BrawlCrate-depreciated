@@ -16,13 +16,16 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.25Hotfix1";
-        public static readonly string UpdateMessage = @"Updated to BrawlCrate v0.25! This release:
-- Adds ability to preview metal materials (press the 'M' key in the model previewer)
-- Adds improved ItmGeneration parsing
-- Improves CSSC implementation
-- Fixes a multitude of issues with Discord Rich Presence
-- (Hotfix 1) Fixes issue with directly opening a file
+        public static readonly string TagName = "BrawlCrate_v0.25b";
+        public static readonly string UpdateMessage = @"Updated to BrawlCrate v0.25b! This release:
+- Integrates Color Smash 3.0 functionality, allowing for images with
+
+In case you missed it, BrawlCrate v0.25:
+- Added ability to preview metal materials (press the 'M' key in the model previewer)
+- Added improved ItmGeneration parsing
+- Improved CSSC implementation
+- Fixed a multitude of issues with Discord Rich Presence
+- (Hotfix 1) Fixed issue with directly opening a file
 
 Full changelog can be found in the installation folder: " + '\n' + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
