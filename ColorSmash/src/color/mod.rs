@@ -5,20 +5,20 @@ use std::marker::PhantomData;
 use image_lib;
 use num::{FromPrimitive, Zero};
 
-use k_means::{SimpleInput, Input, Output, Grouped};
+use k_means::{Grouped, Input, Output, SimpleInput};
 
 pub mod combination;
-mod rgba8;
 mod rgb5a3;
-pub use self::rgba8::Rgba8;
+mod rgba8;
 pub use self::rgb5a3::Rgb5a3;
+pub use self::rgba8::Rgba8;
 
 #[cfg(test)]
 mod tests;
 
 pub type Pixel = image_lib::Rgba<u8>;
 
-pub trait Color : Output {
+pub trait Color: Output {
     fn new(components: (f64, f64, f64, f64)) -> Self;
 
     fn as_pixel(&self) -> Pixel;
@@ -72,10 +72,10 @@ impl<I: Color, O: Color> SimpleInput for ConvertibleColor<I, O> {
         let distance = self.distance_to(other);
 
         if distance < closest_possible_distance {
-            println!("Distance from {:?} to {:?} is closer than to output version {:?}",
-                     self,
-                     other,
-                     output);
+            println!(
+                "Distance from {:?} to {:?} is closer than to output version {:?}",
+                self, other, output
+            );
             return Self::Distance::zero();
         }
 
@@ -88,15 +88,20 @@ impl<I: Color, O: Color> SimpleInput for ConvertibleColor<I, O> {
 }
 
 impl<I: Color, O: Color> Input for Grouped<ConvertibleColor<I, O>> {
-    fn mean_of(grouped_colors: &Vec<&Grouped<ConvertibleColor<I, O>>>) -> Self::Output {
-        mean_of_colors(grouped_colors.iter().map(|&group| (&group.data, group.count)))
+    fn mean_of(grouped_colors: &[&Grouped<ConvertibleColor<I, O>>]) -> Self::Output {
+        mean_of_colors(
+            grouped_colors
+                .iter()
+                .map(|&group| (&group.data, group.count)),
+        )
     }
 }
 
 fn mean_of_colors<'a, I, C, O>(colors_with_counts: I) -> O
-    where I: Iterator<Item = (&'a ConvertibleColor<C, O>, u32)>,
-          C: 'a + Color,
-          O: 'a + Color
+where
+    I: Iterator<Item = (&'a ConvertibleColor<C, O>, u32)>,
+    C: 'a + Color,
+    O: 'a + Color,
 {
     let mut r_sum = 0.0;
     let mut g_sum = 0.0;
@@ -106,7 +111,7 @@ fn mean_of_colors<'a, I, C, O>(colors_with_counts: I) -> O
 
     for (data, count) in colors_with_counts {
         let (r, g, b, a) = data.color.components();
-        let weighted_a = a * (count as f64);
+        let weighted_a = a * f64::from(count);
 
         r_sum += r * weighted_a;
         g_sum += g * weighted_a;
@@ -119,7 +124,7 @@ fn mean_of_colors<'a, I, C, O>(colors_with_counts: I) -> O
         let r = r_sum / a_sum;
         let g = g_sum / a_sum;
         let b = b_sum / a_sum;
-        let a = a_sum / (total_count as f64);
+        let a = a_sum / f64::from(total_count);
 
         O::new((r, g, b, a))
     } else {
