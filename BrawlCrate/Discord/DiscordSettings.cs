@@ -45,7 +45,7 @@ namespace BrawlCrate.Discord
                 smallImageKey = "",
                 smallImageText = "",
                 largeImageKey = "brawlcrate",
-                largeImageText = ""
+                largeImageText = Program.AssemblyTitle
             };
             if(MainForm.Instance.RootNode == null)
             {
