@@ -16,7 +16,7 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.25b";
+        public static readonly string TagName = "BrawlCrate_v0.25bHotfix1";
         public static readonly string UpdateMessage = @"Updated to BrawlCrate v0.25b Hotfix 1! This release:
 - Integrates Color Smash 3.0 functionality, allowing for images with less than 256 colors to be properly color smashed
 - (Hotfix 1) Fix issue where modules with buffers between their final data section and first import would get corrupted
