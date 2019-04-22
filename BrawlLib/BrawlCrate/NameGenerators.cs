@@ -112,8 +112,18 @@ namespace BrawlLib.BrawlCrate
                     using (var stream = File.OpenRead(listName))
                     {
                         byte[] hash = md5.ComputeHash(stream);
-                        if(hash == listV1Hash)
+                        if (hash.Length == listV1Hash.Length)
+                        {
                             fileOutdated = true;
+                            for (int i = 0; i < hash.Length; i++)
+                            {
+                                if (hash[i] != listV1Hash[i])
+                                {
+                                    fileOutdated = false;
+                                    break;
+                                }
+                            }
+                        }
                     }
                 }
             }
