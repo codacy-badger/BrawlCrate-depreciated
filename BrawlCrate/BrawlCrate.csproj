@@ -680,17 +680,17 @@
 if $(ConfigurationName) == Debug (
   RD /S /Q "$(TargetDir)"
   cd $(SolutionDir)ColorSmash\
-  cargo build
+  cargo build --release --target i686-pc-windows-gnu
 )
 if $(ConfigurationName) == Release (
   RD /S /Q "$(TargetDir)"
   cd $(SolutionDir)ColorSmash\
-  cargo build --release
+  cargo build --release --target i686-pc-windows-gnu
 )
 if $(ConfigurationName) == TestRelease (
   RD /S /Q "$(TargetDir)"
   cd $(SolutionDir)ColorSmash\
-  cargo build --release
+  cargo build --release --target i686-pc-windows-gnu
 )
 if $(ConfigurationName) == Documentation (
   RD /S /Q "$(TargetDir)"
