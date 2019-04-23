@@ -55,8 +55,8 @@ namespace System.Windows.Forms
                     //if (o._drawCalls.Count > 0)
                     //    lstDrawCalls.SelectedIndex = 0;
                     modelPanel.SetCamWithBox(o.GetBox());
+                    return true;
                 }
-                return true;
             }
             catch
             {
@@ -69,8 +69,8 @@ namespace System.Windows.Forms
                 modelPanel.ClearAll();
                 cboMaterial.Items.Clear();
                 cboVisBone.Items.Clear();
-                return false;
             }
+            return false;
         }
 
         bool _updating = false;
