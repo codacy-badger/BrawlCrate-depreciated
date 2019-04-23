@@ -32,7 +32,7 @@ namespace System.Windows.Forms
             floorToolStripMenuItem.Checked = value;
         }
 
-        public void SetTarget(MDL0ObjectNode o)
+        public bool SetTarget(MDL0ObjectNode o)
         {
             //lstDrawCalls.Items.Clear();
             lstDrawCalls.DataSource = null;
@@ -56,6 +56,7 @@ namespace System.Windows.Forms
                     //    lstDrawCalls.SelectedIndex = 0;
                     modelPanel.SetCamWithBox(o.GetBox());
                 }
+                return true;
             }
             catch
             {
@@ -68,6 +69,7 @@ namespace System.Windows.Forms
                 modelPanel.ClearAll();
                 cboMaterial.Items.Clear();
                 cboVisBone.Items.Clear();
+                return false;
             }
         }
 

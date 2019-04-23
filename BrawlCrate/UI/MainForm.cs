@@ -996,7 +996,10 @@ namespace BrawlCrate
                 modelPanel1.SetCamWithBox(o.GetBox());
             }
             else if (_currentControl is MDL0ObjectControl)
-                mdL0ObjectControl1.SetTarget(node as MDL0ObjectNode);
+            {
+                if(!mdL0ObjectControl1.SetTarget(node as MDL0ObjectNode))
+                    _currentControl = null;
+            }
             else if (_currentControl is TexCoordControl)
                 texCoordControl1.TargetNode = ((MDL0MaterialRefNode)node);
         }
