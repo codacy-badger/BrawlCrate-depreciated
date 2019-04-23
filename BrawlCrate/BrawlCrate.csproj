@@ -753,7 +753,7 @@ if $(ConfigurationName) == Release (
   del OpenTK.pdb
   del OpenTK.xml
   "Updater.exe" -canaryOn
- "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName)Canary.exe
+  "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName)Canary.exe
   %25windir%25\system32\xcopy "$(TargetDir)$(TargetName)Canary.exe" "$(SolutionDir)CanaryBuild\" /Y /I
   rename "$(SolutionDir)CanaryBuild\$(TargetName)Canary.exe" "Canary"
   del $(TargetName)Canary.exe

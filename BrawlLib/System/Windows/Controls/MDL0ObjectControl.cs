@@ -39,21 +39,35 @@ namespace System.Windows.Forms
             modelPanel.ClearAll();
             cboMaterial.Items.Clear();
             cboVisBone.Items.Clear();
-
-            if ((_targetObject = o) != null)
+            try
             {
-                _targetObject.IsRendering = true;
+                if ((_targetObject = o) != null)
+                {
+                    _targetObject.IsRendering = true;
 
-                cboMaterial.Items.AddRange(o.Model.MaterialList.ToArray());
-                cboVisBone.Items.AddRange(o.Model._linker.BoneCache.ToArray());
-                lstDrawCalls.DataSource = o._drawCalls;
-                //lstDrawCalls.DisplayMember = "";
-                //lstDrawCalls.ValueMember = "_isXLU";
+                    cboMaterial.Items.AddRange(o.Model.MaterialList.ToArray());
+                    cboVisBone.Items.AddRange(o.Model._linker.BoneCache.ToArray());
+                    lstDrawCalls.DataSource = o._drawCalls;
+                    //lstDrawCalls.DisplayMember = "";
+                    //lstDrawCalls.ValueMember = "_isXLU";
 
-                modelPanel.AddTarget(o);
-                //if (o._drawCalls.Count > 0)
-                //    lstDrawCalls.SelectedIndex = 0;
-                modelPanel.SetCamWithBox(o.GetBox());
+                    modelPanel.AddTarget(o);
+                    //if (o._drawCalls.Count > 0)
+                    //    lstDrawCalls.SelectedIndex = 0;
+                    modelPanel.SetCamWithBox(o.GetBox());
+                }
+            }
+            catch
+            {
+                if(_targetObject != null)
+                {
+                    try { _targetObject.IsRendering = false; } catch { }
+                }
+                _targetObject = null;
+                lstDrawCalls.DataSource = null;
+                modelPanel.ClearAll();
+                cboMaterial.Items.Clear();
+                cboVisBone.Items.Clear();
             }
         }
 
