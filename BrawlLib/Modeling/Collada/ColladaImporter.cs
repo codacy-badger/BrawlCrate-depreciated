@@ -462,6 +462,21 @@ namespace BrawlLib.Modeling
                         bone._parent = parent;
 
                         bone.RecalcBindState(false, false);
+
+                        // Fix NaN issues
+                        bone.Scale = new Vector3(
+                            float.IsNaN(bone.Scale._x) ? 1 : bone.Scale._x,
+                            float.IsNaN(bone.Scale._y) ? 1 : bone.Scale._y,
+                            float.IsNaN(bone.Scale._z) ? 1 : bone.Scale._z);
+                        bone.Rotation = new Vector3(
+                            float.IsNaN(bone.Rotation._x) ? 0 : bone.Rotation._x,
+                            float.IsNaN(bone.Rotation._y) ? 0 : bone.Rotation._y,
+                            float.IsNaN(bone.Rotation._z) ? 0 : bone.Rotation._z);
+                        bone.Translation = new Vector3(
+                            float.IsNaN(bone.Translation._x) ? 0 : bone.Translation._x,
+                            float.IsNaN(bone.Translation._y) ? 0 : bone.Translation._y,
+                            float.IsNaN(bone.Translation._z) ? 0 : bone.Translation._z);
+
                         bone.CalcFlags();
 
                         parent = bone;
