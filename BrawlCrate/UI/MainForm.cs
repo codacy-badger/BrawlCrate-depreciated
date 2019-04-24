@@ -250,6 +250,7 @@ namespace BrawlCrate
                     }
                 }
             }
+            _showFullPath = BrawlCrate.Properties.Settings.Default.ShowFullPath;
             UpdateName();            
             // Slight space saving by deleting unused/unnecessary branch identifier
             if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary"))
@@ -260,9 +261,9 @@ namespace BrawlCrate
                 /*if(Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary").GetFiles().Length == 0)
                     Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");*/
             }
+            _compatibilityMode = BrawlLib.Properties.Settings.Default.CompatibilityMode;
 
             // Currently depreciated settings
-            _compatibilityMode = BrawlLib.Properties.Settings.Default.CompatibilityMode;
             _importPNGwPalette = BrawlLib.Properties.Settings.Default.ImportPNGsWithPalettes;
 
             soundPackControl1._grid = propertyGrid1;
@@ -599,6 +600,20 @@ namespace BrawlCrate
             }
         }
         bool _importPNGwPalette;
+        
+        public bool ShowFullPath
+        {
+            get { return _showFullPath; }
+            set
+            {
+                _showFullPath = value;
+
+                BrawlCrate.Properties.Settings.Default.ShowFullPath = _showFullPath;
+                BrawlCrate.Properties.Settings.Default.Save();
+                UpdateName();
+            }
+        }
+        bool _showFullPath;
 
         private void UpdatePropertyDescriptionBox(GridItem item)
         {
@@ -658,7 +673,7 @@ namespace BrawlCrate
                 if (Canary && !Program.AssemblyTitle.Contains("canary", StringComparison.OrdinalIgnoreCase))
                     throw new InvalidEnumArgumentException();
                 if (Program.RootPath != null)
-                    Text = String.Format("{0} - {1}", Program.AssemblyTitle, Program.RootPath);
+                    Text = String.Format("{0} - {1}", Program.AssemblyTitle, ShowFullPath ? Program.RootPath : Program.FileName);
                 else if (Canary)
                     Text = Program.AssemblyTitle.Substring(0, Program.AssemblyTitle.LastIndexOf(" #")) + commitIDlong;
                 else

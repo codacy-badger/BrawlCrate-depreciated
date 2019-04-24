@@ -45,6 +45,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
         public static ResourceNode RootNode { get { return _rootNode; } set { _rootNode = value; MainForm.Instance.Reset(); } }
         internal static string _rootPath;
         public static string RootPath { get { return _rootPath; } }
+        public static string FileName { get { return _rootPath == null ? null : _rootPath.Substring(_rootPath.LastIndexOf('\\') + 1); } }
 
         internal static bool _birthday;
         public static bool IsBirthday { get { return _birthday; } }

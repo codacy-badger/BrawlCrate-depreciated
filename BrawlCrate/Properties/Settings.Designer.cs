@@ -282,5 +282,20 @@ namespace BrawlCrate.Properties {
                 this["DiscordRPCNameCustom"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("true")]
+        public bool ShowFullPath
+        {
+            get
+            {
+                return ((bool)(this["ShowFullPath"]));
+            }
+            set
+            {
+                this["ShowFullPath"] = value;
+            }
+        }
     }
 }
