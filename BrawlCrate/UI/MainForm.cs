@@ -998,7 +998,7 @@ namespace BrawlCrate
             else if (_currentControl is MDL0ObjectControl)
             {
                 if(!mdL0ObjectControl1.SetTarget(node as MDL0ObjectNode))
-                    _currentControl = null;
+                    _currentControl = _secondaryControl = null;
             }
             else if (_currentControl is TexCoordControl)
                 texCoordControl1.TargetNode = ((MDL0MaterialRefNode)node);

@@ -943,6 +943,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             if (path == null)
                 return null;
+            ResourceType? type2 = null;
+            if (type == ResourceType.TEX0)
+                type2 = ResourceType.SharedTEX0;
 
             ResourceNode node = null;
             if (path.Contains("/"))
@@ -950,20 +953,20 @@ namespace BrawlLib.SSBB.ResourceNodes
                 string next = path.Substring(0, path.IndexOf('/'));
                 foreach (ResourceNode n in Children)
                     if (n.Name != null && n.Name.Equals(next, StringComparison.OrdinalIgnoreCase))
-                        if ((node = FindNode(n, path.Substring(next.Length + 1), searchChildren)) != null && node.ResourceType == type)
+                        if ((node = FindNode(n, path.Substring(next.Length + 1), searchChildren)) != null && (node.ResourceType == type || (type2 != null && node.ResourceType == type2)))
                             return node;
             }
             else
             {
                 //Search direct children first
                 foreach (ResourceNode n in Children)
-                    if (n.Name != null && n.Name.Equals(path, StringComparison.OrdinalIgnoreCase) && n.ResourceType == type)
+                    if (n.Name != null && n.Name.Equals(path, StringComparison.OrdinalIgnoreCase) && (n.ResourceType == type || (type2 != null && n.ResourceType == type2)))
                         return n;
 
             }
             if (searchChildren)
                 foreach (ResourceNode n in Children)
-                    if ((node = n.FindChildByType(path, true, type)) != null && node.ResourceType == type)
+                    if ((node = n.FindChildByType(path, true, type)) != null && (node.ResourceType == type || (type2 != null && node.ResourceType == type2)))
                         return node;
 
             return null;
