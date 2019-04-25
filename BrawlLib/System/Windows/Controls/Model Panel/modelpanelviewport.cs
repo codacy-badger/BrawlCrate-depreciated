@@ -99,7 +99,7 @@ namespace System.Windows.Forms
 
         private ScreenTextHandler _text;
 
-        public bool _textEnabled = false;
+        public bool _textEnabled = true;
         public bool _allowSelection = false;
         public bool _selecting = false;
         public bool _showCamCoords = false;

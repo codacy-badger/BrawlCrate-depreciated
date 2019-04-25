@@ -2204,21 +2204,24 @@ namespace System.Windows.Forms
                     else if (bone.Name == "CamLimit1N") { CamBone1 = bone; }
                     else if (bone.Name == "Dead0N") { DeathBone0 = bone; }
                     else if (bone.Name == "Dead1N") { DeathBone1 = bone; }
-                    else if (bone._name.Contains("Player") && btnSpawns.Checked)
+                    else if (bone._name.StartsWith("Player") && bone._name.Length == 8 && btnSpawns.Checked)
                     {
                         Vector3 position = bone._frameMatrix.GetPoint();
-
                         if (PointCollides(position))
                             GL.Color4(0.0f, 1.0f, 0.0f, 0.5f);
                         else
                             GL.Color4(1.0f, 0.0f, 0.0f, 0.5f);
 
                         TKContext.DrawSphere(position, 5.0f, 32);
+                        if (int.TryParse(bone._name.Substring(6, 1), out int playernum))
+                            _modelPanel.CurrentViewport.ScreenText[(playernum).ToString()] = _modelPanel.CurrentViewport.Camera.Project(position) - new Vector3(8.0f, 8.0f, 0);
                     }
-                    else if (bone._name.Contains("Rebirth") && btnSpawns.Checked)
+                    else if (bone._name.StartsWith("Rebirth") && bone._name.Length == 9 && btnSpawns.Checked)
                     {
                         GL.Color4(1.0f, 1.0f, 1.0f, 0.1f);
                         TKContext.DrawSphere(bone._frameMatrix.GetPoint(), 5.0f, 32);
+                        if (int.TryParse(bone._name.Substring(7, 1), out int playernum))
+                            _modelPanel.CurrentViewport.ScreenText[(playernum).ToString()] = _modelPanel.CurrentViewport.Camera.Project(bone._frameMatrix.GetPoint()) - new Vector3(8.0f, 8.0f, 0);
                     }
                     else if (bone._name.Contains("Item"))
                         ItemBones.Add(bone);
