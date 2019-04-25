@@ -64,14 +64,14 @@ namespace System.Windows.Forms
 
                         TKContext.DrawSphere(position, 5.0f, 32);
                         if(int.TryParse(bone._name.Substring(6, 1), out int playernum))
-                            panel.ScreenText[(playernum).ToString()] = panel.Camera.Project(position) - new Vector3(8.0f, 8.0f, 0);
+                            panel.NoSettingsScreenText[(playernum).ToString()] = panel.Camera.Project(position) - new Vector3(8.0f, 8.0f, 0);
                     }
                     else if (bone._name.StartsWith("Rebirth") && bone._name.Length == 9 && chkSpawns.Checked)
                     {
                         GL.Color4(1.0f, 1.0f, 1.0f, 0.1f);
                         TKContext.DrawSphere(bone._frameMatrix.GetPoint(), 5.0f, 32);
                         if (int.TryParse(bone._name.Substring(7, 1), out int playernum))
-                            panel.ScreenText[(playernum).ToString()] = panel.Camera.Project(bone._frameMatrix.GetPoint()) - new Vector3(8.0f, 8.0f, 0);
+                            panel.NoSettingsScreenText[(playernum).ToString()] = panel.Camera.Project(bone._frameMatrix.GetPoint()) - new Vector3(8.0f, 8.0f, 0);
                     }
                     else if (bone._name.StartsWith("Item"))
                         ItemBones.Add(bone);
