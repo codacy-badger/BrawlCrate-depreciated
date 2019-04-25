@@ -45,6 +45,13 @@ namespace BrawlCrate
                     this.lblSpecialMessage.Text += "th";
                 this.lblSpecialMessage.Text += " Birthday BrawlCrate!";
             }
+            else if(DateTime.Now.Month == 7 && DateTime.Now.Day == 4)
+            {
+                this.txtDescription.Location = new System.Drawing.Point(12, 81);
+                this.txtDescription.Size = new System.Drawing.Size(454, 218);
+
+                this.lblSpecialMessage.Text = "Happy Birthday soopercool101!";
+            }
         }
 
         private void btnClose_Click(object sender, EventArgs e)
