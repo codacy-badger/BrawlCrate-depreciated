@@ -36,6 +36,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
         public static readonly string AssemblyCopyright;
         public static readonly string FullPath;
         public static readonly string BrawlLibTitle;
+        public static readonly string BrawlLibVersion;
 
         private static OpenFileDialog _openDlg;
         private static SaveFileDialog _saveDlg;
@@ -71,6 +72,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             AssemblyCopyright = ((AssemblyCopyrightAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false)[0]).Copyright;
             FullPath = Process.GetCurrentProcess().MainModule.FileName;
             BrawlLibTitle = ((AssemblyTitleAttribute)Assembly.GetAssembly(typeof(ResourceNode)).GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
+            BrawlLibVersion = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetAssembly(typeof(ResourceNode)).Location).FileVersion;
 
             _openDlg = new OpenFileDialog();
             _saveDlg = new SaveFileDialog();
