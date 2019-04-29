@@ -53,6 +53,7 @@ namespace BrawlCrate.NodeWrappers
                 new ToolStripMenuItem("Textures", null, SortObjectAction)
                 ));
             _menu.Items.Add(new ToolStripMenuItem("&Auto Name Assets", null,
+                new ToolStripMenuItem("Materials", null, NameMaterialAction),
                 new ToolStripMenuItem("Vertices", null, NameVertexAction),
                 new ToolStripMenuItem("Normals", null, NameNormalAction),
                 new ToolStripMenuItem("Colors", null, NameColorAction),
@@ -131,6 +132,7 @@ namespace BrawlCrate.NodeWrappers
         protected static void NewColorAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NewColor(); }
         protected static void NewUVAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NewUV(); }
 
+        protected static void NameMaterialAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NameMaterial(); }
         protected static void NameVertexAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NameVertex(); }
         protected static void NameNormalAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NameNormal(); }
         protected static void NameColorAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NameColor(); }
@@ -680,6 +682,16 @@ namespace BrawlCrate.NodeWrappers
         {
             if (MessageBox.Show(null, "Are you sure you want to regenerate metal materials for Brawl?\nAll existing metal materials and shaders will be reset.", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 ((MDL0Node)_resource).GenerateMetalMaterials(metalTextureName);
+        }
+
+        public void NameMaterial()
+        {
+            MDL0Node model = ((MDL0Node)_resource);
+            MDL0GroupNode g = model._matGroup;
+            int i = 0;
+            if (g != null)
+                foreach (MDL0MaterialNode m in g.Children)
+                    m.Name = "Material_" + i++;
         }
 
         public void NameVertex()
