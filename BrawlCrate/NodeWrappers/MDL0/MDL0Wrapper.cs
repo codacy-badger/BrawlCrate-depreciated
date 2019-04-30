@@ -45,6 +45,7 @@ namespace BrawlCrate.NodeWrappers
                 new ToolStripMenuItem("Objects", null, ImportObjectAction)
                 ));
             _menu.Items.Add(new ToolStripMenuItem("&Sort Assets", null,
+                new ToolStripMenuItem("Materials", null, SortMaterialAction),
                 new ToolStripMenuItem("Vertices", null, SortVertexAction),
                 new ToolStripMenuItem("Normals", null, SortNormalAction),
                 new ToolStripMenuItem("Colors", null, SortColorAction),
@@ -144,6 +145,7 @@ namespace BrawlCrate.NodeWrappers
         protected static void ImportColorAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().ImportColor(); }
         protected static void ImportUVAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().ImportUV(); }
 
+        protected static void SortMaterialAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortMaterial(); }
         protected static void SortVertexAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortVertex(); }
         protected static void SortNormalAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortNormal(); }
         protected static void SortColorAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortColor(); }
@@ -927,6 +929,12 @@ namespace BrawlCrate.NodeWrappers
                     new ObjectImporter().ShowDialog((MDL0Node)_resource, external);
         }
 
+        public void SortMaterial()
+        {
+            int index = Index;
+            ((MDL0Node)_resource).MaterialGroup.SortChildren();
+            RefreshView(_resource);
+        }
         public void SortVertex()
         {
             int index = Index;
