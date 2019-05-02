@@ -196,6 +196,8 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                     File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.bat");
                 if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "StageBox.exe"))
                     File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "StageBox.exe");
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "BrawlBox.exe"))
+                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "BrawlBox.exe");
             }
             catch
             {
