@@ -202,7 +202,6 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
 
             }
 #endif
-            string path = "";
             if (args.Length >= 1)
             {
                 if (args[0].Equals("/gct", StringComparison.InvariantCultureIgnoreCase))
