@@ -1082,8 +1082,12 @@ namespace Net
                 options.PageCount = 1;
                 var commits = await github.Repository.Commit.GetAll(repoData[0], repoData[1], options);
                 int i = -1;
+                bool foundCurrentCommit = false;
                 foreach (GitHubCommit c in commits)
                 {
+                    if (!foundCurrentCommit && c.Sha != newSha)
+                        continue;
+                    foundCurrentCommit = true;
                     //var c = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
                     if (c.Sha == oldSha || i >= 99)
                         break;
