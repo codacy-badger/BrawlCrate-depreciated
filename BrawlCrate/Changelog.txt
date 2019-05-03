@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.25b Hotfix 1
+BrawlCrate - v0.25c
 Copyright © 2018 - 2019 soopercool101, MarioDox, Syvkal
 BrawlBox  © 2009 - 2019 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,21 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.25c - (5/3/2019)
+ . Spawns and Respawns now render the spawn number on top of them
+ . Rich presence now shows the BrawlCrate program title on the tooltip
+ . Add auto-name materials option for MDL0
+ . Add sort materials option for MDL0
+ . Add more detailed information to the about form
+ . Add setting to change the max number of recent files to track
+ . Canary now uses AppVeyor deployment
+ . Outdated unedited fighter lists now automatically rebuild
+ . PAT0 now properly shows SharedTEX0s in the preview
+ . Fix crash when importing Indexed8 pngs which do not have valid palettes
+ . Fix crashes when previewing a MDL0 Object that has been recently edited
+ . Fix bug where importing a DAE could instantiate bones with NaN transform values
+ . Fix bug where recent files list only populated when opening from File > Open rather than opening a file directly
  
  - BrawlCrate v0.25b Hotfix 1 - (4/18/2019)
  . Fix issue where buffers between a module's last data section and imports section wouldn't be respected

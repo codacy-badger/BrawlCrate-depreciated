@@ -16,17 +16,13 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.25bHotfix1";
-        public static readonly string UpdateMessage = @"Updated to BrawlCrate v0.25b Hotfix 1! This release:
-- Integrates Color Smash 3.0 functionality, allowing for images with less than 256 colors to be properly color smashed
-- (Hotfix 1) Fix issue where modules with buffers between their final data section and first import would get corrupted
-
-In case you missed it, BrawlCrate v0.25:
-- Added ability to preview metal materials (press the 'M' key in the model previewer)
-- Added improved ItmGeneration parsing
-- Improved CSSC implementation
-- Fixed a multitude of issues with Discord Rich Presence
-- (Hotfix 1) Fixed issue with directly opening a file
+        public static readonly string TagName = "BrawlCrate_v0.25c";
+        public static readonly string UpdateMessage = @"Updated to BrawlCrate v0.25c! This release:
+- Fixes and improves the recent files handler (new settings are found in the settings menu)
+- PAT0 now properly respects SharedTEX0 when previewing
+- Adds numbers to spawn overlays
+- Adds a much-needed overhaul to the Canary system
+- Fixes various crashes and import bugs
 
 Full changelog can be found in the installation folder: " + '\n' + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
