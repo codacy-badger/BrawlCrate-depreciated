@@ -1325,8 +1325,10 @@ namespace Net
                         break;
                     case "-bcommitTime": //Called on build to ensure time is saved
                         somethingDone = true;
-                        string t4arg = args[1] != null ? args[1] : "";
-                        Task t4 = Updater.WriteCanaryTime(args[1]);
+                        string t4arg = null;
+                        if(args.Length > 1)
+                            t4arg = args[1];
+                        Task t4 = Updater.WriteCanaryTime(t4arg);
                         t4.Wait();
                         break;
                     case "-dlCanary": // Force download the latest Canary build
