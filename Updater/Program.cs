@@ -1078,15 +1078,18 @@ namespace Net
                     currentRepo = mainRepo;
                 }
                 ApiOptions options = new ApiOptions();
-                options.PageSize = 100;
+                options.PageSize = 120;
                 options.PageCount = 1;
-                var commits = await github.Repository.Commit.GetAll(repoData[0], repoData[1], options);
+                var commits = (await github.Repository.Commit.GetAll(repoData[0], repoData[1], options)).ToList<GitHubCommit>();
                 int i = -1;
                 bool foundCurrentCommit = false;
                 foreach (GitHubCommit c in commits)
                 {
                     if (!foundCurrentCommit && c.Sha != newSha)
+                    {
+                        commits.Remove(c);
                         continue;
+                    }
                     foundCurrentCommit = true;
                     //var c = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
                     if (c.Sha == oldSha || i >= 99)
