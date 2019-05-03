@@ -943,6 +943,8 @@ namespace Net
         {
             try
             {
+                if(commitid != null)
+                    Console.WriteLine("Attempting to set Canary using sha: " + commitid);
                 Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
                 GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
                 Branch branch;
@@ -970,6 +972,7 @@ namespace Net
                     sw.Write(currentRepo);
                     sw.Close();
                 }
+                Console.WriteLine("Canary commit set. Sha was detected to be: " + result.Sha);
             }
             catch(Exception e)
             {
