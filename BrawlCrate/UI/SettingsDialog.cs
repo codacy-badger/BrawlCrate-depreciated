@@ -73,6 +73,8 @@ namespace BrawlCrate
         private GroupBox grpBoxFileNameDisplayGeneral;
         private RadioButton rdoShowShortName;
         private RadioButton rdoShowFullPath;
+        private Label lblRecentFiles;
+        private NumericInputBox recentFileCountBox;
         private CheckBox chkShowPropDesc;
 
         public SettingsDialog()
@@ -207,6 +209,7 @@ namespace BrawlCrate
             chkBoxModuleCompress.Checked = MainForm.Instance.AutoCompressModules;
             chkBoxAutoPlayAudio.Checked = MainForm.Instance.AutoPlayAudio;
             chkBoxMDL0Compatibility.Checked = MainForm.Instance.CompatibilityMode;
+            recentFileCountBox.Value = BrawlCrate.Properties.Settings.Default.RecentFilesMax;
 
             Discord.DiscordSettings.LoadSettings();
             grpBoxDiscordRPCType.Enabled = chkBoxEnableDiscordRPC.Checked = Discord.DiscordSettings.enabled;
@@ -314,6 +317,8 @@ namespace BrawlCrate
             this.grpBoxAudioGeneral = new System.Windows.Forms.GroupBox();
             this.chkBoxAutoPlayAudio = new System.Windows.Forms.CheckBox();
             this.grpBoxMainFormGeneral = new System.Windows.Forms.GroupBox();
+            this.lblRecentFiles = new System.Windows.Forms.Label();
+            this.recentFileCountBox = new System.Windows.Forms.NumericInputBox();
             this.grpBoxFileNameDisplayGeneral = new System.Windows.Forms.GroupBox();
             this.rdoShowShortName = new System.Windows.Forms.RadioButton();
             this.rdoShowFullPath = new System.Windows.Forms.RadioButton();
@@ -447,7 +452,7 @@ namespace BrawlCrate
             this.grpBoxMDL0General.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpBoxMDL0General.Controls.Add(this.chkBoxMDL0Compatibility);
-            this.grpBoxMDL0General.Location = new System.Drawing.Point(8, 220);
+            this.grpBoxMDL0General.Location = new System.Drawing.Point(8, 241);
             this.grpBoxMDL0General.Name = "grpBoxMDL0General";
             this.grpBoxMDL0General.Size = new System.Drawing.Size(302, 53);
             this.grpBoxMDL0General.TabIndex = 19;
@@ -470,7 +475,7 @@ namespace BrawlCrate
             this.grpBoxAudioGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpBoxAudioGeneral.Controls.Add(this.chkBoxAutoPlayAudio);
-            this.grpBoxAudioGeneral.Location = new System.Drawing.Point(8, 161);
+            this.grpBoxAudioGeneral.Location = new System.Drawing.Point(8, 182);
             this.grpBoxAudioGeneral.Name = "grpBoxAudioGeneral";
             this.grpBoxAudioGeneral.Size = new System.Drawing.Size(302, 53);
             this.grpBoxAudioGeneral.TabIndex = 18;
@@ -492,21 +497,47 @@ namespace BrawlCrate
             // 
             this.grpBoxMainFormGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpBoxMainFormGeneral.Controls.Add(this.lblRecentFiles);
+            this.grpBoxMainFormGeneral.Controls.Add(this.recentFileCountBox);
             this.grpBoxMainFormGeneral.Controls.Add(this.grpBoxFileNameDisplayGeneral);
             this.grpBoxMainFormGeneral.Controls.Add(this.chkShowPropDesc);
             this.grpBoxMainFormGeneral.Controls.Add(this.chkShowHex);
             this.grpBoxMainFormGeneral.Location = new System.Drawing.Point(8, 6);
             this.grpBoxMainFormGeneral.Name = "grpBoxMainFormGeneral";
-            this.grpBoxMainFormGeneral.Size = new System.Drawing.Size(302, 149);
+            this.grpBoxMainFormGeneral.Size = new System.Drawing.Size(302, 170);
             this.grpBoxMainFormGeneral.TabIndex = 15;
             this.grpBoxMainFormGeneral.TabStop = false;
             this.grpBoxMainFormGeneral.Text = "Main Form";
             // 
+            // lblRecentFiles
+            // 
+            this.lblRecentFiles.AutoSize = true;
+            this.lblRecentFiles.Location = new System.Drawing.Point(8, 68);
+            this.lblRecentFiles.Name = "lblRecentFiles";
+            this.lblRecentFiles.Size = new System.Drawing.Size(120, 13);
+            this.lblRecentFiles.TabIndex = 12;
+            this.lblRecentFiles.Text = "Max Recent Files Count";
+            // 
+            // recentFileCountBox
+            // 
+            this.recentFileCountBox.Integer = true;
+            this.recentFileCountBox.Integral = true;
+            this.recentFileCountBox.Location = new System.Drawing.Point(134, 65);
+            this.recentFileCountBox.MaximumValue = 3.402823E+38F;
+            this.recentFileCountBox.MinimumValue = -3.402823E+38F;
+            this.recentFileCountBox.Name = "recentFileCountBox";
+            this.recentFileCountBox.Size = new System.Drawing.Size(100, 20);
+            this.recentFileCountBox.TabIndex = 11;
+            this.recentFileCountBox.Text = "0";
+            this.recentFileCountBox.TextChanged += new System.EventHandler(this.RecentFileCountBox_TextChanged);
+            // 
             // grpBoxFileNameDisplayGeneral
             // 
+            this.grpBoxFileNameDisplayGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpBoxFileNameDisplayGeneral.Controls.Add(this.rdoShowShortName);
             this.grpBoxFileNameDisplayGeneral.Controls.Add(this.rdoShowFullPath);
-            this.grpBoxFileNameDisplayGeneral.Location = new System.Drawing.Point(6, 68);
+            this.grpBoxFileNameDisplayGeneral.Location = new System.Drawing.Point(6, 89);
             this.grpBoxFileNameDisplayGeneral.Name = "grpBoxFileNameDisplayGeneral";
             this.grpBoxFileNameDisplayGeneral.Size = new System.Drawing.Size(290, 75);
             this.grpBoxFileNameDisplayGeneral.TabIndex = 10;
@@ -1245,6 +1276,17 @@ namespace BrawlCrate
             if (_updating)
                 return;
             MainForm.Instance.ShowFullPath = rdoShowFullPath.Checked;
+        }
+
+        private void RecentFileCountBox_TextChanged(object sender, EventArgs e)
+        {
+            if (_updating)
+                return;
+            if(int.TryParse(recentFileCountBox.Text, out int i))
+            {
+                BrawlCrate.Properties.Settings.Default.RecentFilesMax = i;
+                BrawlCrate.Properties.Settings.Default.Save();
+            }
         }
     }
 }
