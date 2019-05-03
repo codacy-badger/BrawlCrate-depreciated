@@ -651,7 +651,7 @@ namespace Net
                         MessageBox.Show("No updates found.");
                     return;
                 }
-                await ForceDownloadCanary(openFile);
+                await ForceDownloadCanary(openFile, newID.Substring(0, 7));
             }
             catch (Exception e)
             {
