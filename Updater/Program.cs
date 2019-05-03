@@ -637,51 +637,21 @@ namespace Net
             }
             try
             {
-                string oldDate = "";
-                oldDate = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[0];
-
+                string oldID = "";
+                oldID = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[2];
                 Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
                 var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
-                string newDate;
                 char[] slashes = { '\\', '/' };
                 string[] repoData = currentRepo.Split(slashes);
-                Branch branch;
-                GitHubCommit result;
-                DateTimeOffset commitDate;
-                try
-                {
-                    branch = await github.Repository.Branch.Get(repoData[0], repoData[1], currentBranch);
-                    result = await github.Repository.Commit.Get(repoData[0], repoData[1], branch.Commit.Sha);
-					string url = "https://github.com/" + currentRepo + "/blob/" + currentBranch + "/CanaryBuild/CanaryREADME.md";
-					using (WebClient x = new WebClient())
-					{
-						string source = x.DownloadString(url);
-						string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
-						if (title.ToLower().Contains("not found"))
-						{
-							throw new Exception();
-						}
-					}
-                    commitDate = result.Commit.Author.Date;
-                    newDate = commitDate.ToUniversalTime().ToString("O");
-                }
-                catch
-                {
-                    repoData = mainRepo.Split(slashes);
-                    branch = await github.Repository.Branch.Get(repoData[0], repoData[1], mainBranch);
-                    result = await github.Repository.Commit.Get(repoData[0], repoData[1], branch.Commit.Sha);
-                    commitDate = result.Commit.Author.Date;
-                    newDate = commitDate.ToUniversalTime().ToString("O");
-                    currentRepo = mainRepo;
-                    currentBranch = mainBranch;
-                }
-                if (oldDate.Equals(newDate, StringComparison.OrdinalIgnoreCase))
+                Release release = await github.Repository.Release.Get("soopercool101", "BrawlCrate", "Canary");
+                string newID = release.TargetCommitish;
+                if (oldID.Equals(newID, StringComparison.OrdinalIgnoreCase))
                 {
                     if (manual)
                         MessageBox.Show("No updates found.");
                     return;
                 }
-                await ForceDownloadCanary(openFile, result.Sha.ToString().Substring(0, 7));
+                await ForceDownloadCanary(openFile);
             }
             catch (Exception e)
             {
@@ -710,27 +680,14 @@ namespace Net
 
                 char[] slashes = { '\\', '/' };
                 string[] repoData = currentRepo.Split(slashes);
+                
+                // Initiate the github client.
+                Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
+                GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
 
-                if (commitID == null)
-                {
-                    Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
-                    var github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
-                    try
-                    {
-                        var branch = await github.Repository.Branch.Get(repoData[0], repoData[1], currentBranch);
-                        var result = await github.Repository.Commit.Get(repoData[0], repoData[1], branch.Commit.Sha);
-                        commitID = result.Sha.ToString().Substring(0, 7);
-                    }
-                    catch
-                    {
-                        repoData = mainRepo.Split(slashes);
-                        var branch = await github.Repository.Branch.Get(repoData[0], repoData[1], mainBranch);
-                        var result = await github.Repository.Commit.Get(repoData[0], repoData[1], branch.Commit.Sha);
-                        commitID = result.Sha.ToString().Substring(0, 7);
-                        currentRepo = mainRepo;
-                        currentBranch = mainBranch;
-                    }
-                }
+                Release release = await github.Repository.Release.Get("soopercool101", "BrawlCrate", "Canary");
+                // Get Release Assets
+                ReleaseAsset Asset = (await github.Repository.Release.GetAllAssets("soopercool101", "BrawlCrate", release.Id))[0];
 
                 //Find and close the BrawlCrate application that will be overwritten
                 TRY_AGAIN:
@@ -776,8 +733,11 @@ namespace Net
                     // Add the user agent header, otherwise we will get access denied.
                     client.Headers.Add("User-Agent: Other");
 
+                    // Full asset streamed into a single string
+                    string html = client.DownloadString(Asset.Url);
+
                     // The browser download link to the self extracting archive, hosted on github
-                    string URL = "https://github.com/" + currentRepo + "/raw/" + currentBranch + "/CanaryBuild/Canary";
+                    string URL = html.Substring(html.IndexOf(BaseURL)).TrimEnd(new char[] { '}', '"' });
 
                     //client.DownloadFile(URL, AppPath + "/temp.exe");
                     DLProgressWindow.finished = false;
@@ -806,7 +766,7 @@ namespace Net
                         if(File.Exists(Filename))
                             File.Delete(Filename);
                     }
-                    await WriteCanaryTime();
+                    //await WriteCanaryTime();
                     // Case 1: Wine (Batch files won't work, use old methodology)
                     if (Process.GetProcessesByName("winlogon").Count<Process>() == 0)
                     {
@@ -973,7 +933,7 @@ namespace Net
             }
         }
         // Used when building for releases
-        public static async Task WriteCanaryTime()
+        public static async Task WriteCanaryTime(string commitid)
         {
             try
             {
@@ -982,19 +942,10 @@ namespace Net
                 Branch branch;
                 GitHubCommit result;
                 DateTimeOffset commitDate;
-                try
-                {
-                    branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", currentBranch);
-                    result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
-                    commitDate = result.Commit.Author.Date;
-                }
-                catch
-                {
-                    branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", mainBranch);
-                    result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", branch.Commit.Sha);
-                    commitDate = result.Commit.Author.Date;
-                    currentBranch = mainBranch;
-                }
+                branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", mainBranch);
+                result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", commitid == null ? branch.Commit.Sha : commitid);
+                commitDate = result.Commit.Author.Date;
+                currentBranch = mainBranch;
                 commitDate = commitDate.ToUniversalTime();
                 DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
                 CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
@@ -1370,7 +1321,8 @@ namespace Net
                         break;
                     case "-bcommitTime": //Called on build to ensure time is saved
                         somethingDone = true;
-                        Task t4 = Updater.WriteCanaryTime();
+                        string t4arg = args[1] != null ? args[1] : "";
+                        Task t4 = Updater.WriteCanaryTime(args[1]);
                         t4.Wait();
                         break;
                     case "-dlCanary": // Force download the latest Canary build
