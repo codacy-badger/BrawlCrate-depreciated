@@ -41,7 +41,6 @@ namespace BrawlCrate
         private ListView listView1;
         private ColumnHeader columnHeader1;
         private GroupBox grpBoxCanary;
-        private Button btnCanaryBranch;
         private RadioButton rdoAutoUpdate;
         private RadioButton rdoCheckManual;
         private RadioButton rdoCheckStartup;
@@ -315,6 +314,9 @@ namespace BrawlCrate
             this.grpBoxAudioGeneral = new System.Windows.Forms.GroupBox();
             this.chkBoxAutoPlayAudio = new System.Windows.Forms.CheckBox();
             this.grpBoxMainFormGeneral = new System.Windows.Forms.GroupBox();
+            this.grpBoxFileNameDisplayGeneral = new System.Windows.Forms.GroupBox();
+            this.rdoShowShortName = new System.Windows.Forms.RadioButton();
+            this.rdoShowFullPath = new System.Windows.Forms.RadioButton();
             this.tabCompression = new System.Windows.Forms.TabPage();
             this.groupBoxModuleCompression = new System.Windows.Forms.GroupBox();
             this.chkBoxModuleCompress = new System.Windows.Forms.CheckBox();
@@ -344,19 +346,16 @@ namespace BrawlCrate
             this.rdoDiscordRPCNameDisabled = new System.Windows.Forms.RadioButton();
             this.tabUpdater = new System.Windows.Forms.TabPage();
             this.grpBoxCanary = new System.Windows.Forms.GroupBox();
-            this.btnCanaryBranch = new System.Windows.Forms.Button();
             this.updaterBehaviorGroupbox = new System.Windows.Forms.GroupBox();
             this.rdoAutoUpdate = new System.Windows.Forms.RadioButton();
             this.rdoCheckManual = new System.Windows.Forms.RadioButton();
             this.rdoCheckStartup = new System.Windows.Forms.RadioButton();
-            this.grpBoxFileNameDisplayGeneral = new System.Windows.Forms.GroupBox();
-            this.rdoShowFullPath = new System.Windows.Forms.RadioButton();
-            this.rdoShowShortName = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.grpBoxMDL0General.SuspendLayout();
             this.grpBoxAudioGeneral.SuspendLayout();
             this.grpBoxMainFormGeneral.SuspendLayout();
+            this.grpBoxFileNameDisplayGeneral.SuspendLayout();
             this.tabCompression.SuspendLayout();
             this.groupBoxModuleCompression.SuspendLayout();
             this.groupBoxStageCompression.SuspendLayout();
@@ -370,7 +369,6 @@ namespace BrawlCrate
             this.tabUpdater.SuspendLayout();
             this.grpBoxCanary.SuspendLayout();
             this.updaterBehaviorGroupbox.SuspendLayout();
-            this.grpBoxFileNameDisplayGeneral.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkShowPropDesc
@@ -411,9 +409,9 @@ namespace BrawlCrate
             this.chkCanary.AutoSize = true;
             this.chkCanary.Location = new System.Drawing.Point(10, 22);
             this.chkCanary.Name = "chkCanary";
-            this.chkCanary.Size = new System.Drawing.Size(231, 17);
+            this.chkCanary.Size = new System.Drawing.Size(263, 17);
             this.chkCanary.TabIndex = 13;
-            this.chkCanary.Text = "Opt into BrawlCrate Canary (BETA) updates";
+            this.chkCanary.Text = "Opt into BrawlCrate Canary (Experimental) updates";
             this.chkCanary.UseVisualStyleBackColor = true;
             this.chkCanary.CheckedChanged += new System.EventHandler(this.chkCanary_CheckedChanged);
             // 
@@ -503,6 +501,41 @@ namespace BrawlCrate
             this.grpBoxMainFormGeneral.TabIndex = 15;
             this.grpBoxMainFormGeneral.TabStop = false;
             this.grpBoxMainFormGeneral.Text = "Main Form";
+            // 
+            // grpBoxFileNameDisplayGeneral
+            // 
+            this.grpBoxFileNameDisplayGeneral.Controls.Add(this.rdoShowShortName);
+            this.grpBoxFileNameDisplayGeneral.Controls.Add(this.rdoShowFullPath);
+            this.grpBoxFileNameDisplayGeneral.Location = new System.Drawing.Point(6, 68);
+            this.grpBoxFileNameDisplayGeneral.Name = "grpBoxFileNameDisplayGeneral";
+            this.grpBoxFileNameDisplayGeneral.Size = new System.Drawing.Size(290, 75);
+            this.grpBoxFileNameDisplayGeneral.TabIndex = 10;
+            this.grpBoxFileNameDisplayGeneral.TabStop = false;
+            this.grpBoxFileNameDisplayGeneral.Text = "Filename Display";
+            // 
+            // rdoShowShortName
+            // 
+            this.rdoShowShortName.AutoSize = true;
+            this.rdoShowShortName.Location = new System.Drawing.Point(10, 45);
+            this.rdoShowShortName.Name = "rdoShowShortName";
+            this.rdoShowShortName.Size = new System.Drawing.Size(94, 17);
+            this.rdoShowShortName.TabIndex = 1;
+            this.rdoShowShortName.TabStop = true;
+            this.rdoShowShortName.Text = "Show filename";
+            this.rdoShowShortName.UseVisualStyleBackColor = true;
+            this.rdoShowShortName.CheckedChanged += new System.EventHandler(this.RdoPathDisplay_CheckedChanged);
+            // 
+            // rdoShowFullPath
+            // 
+            this.rdoShowFullPath.AutoSize = true;
+            this.rdoShowFullPath.Location = new System.Drawing.Point(10, 22);
+            this.rdoShowFullPath.Name = "rdoShowFullPath";
+            this.rdoShowFullPath.Size = new System.Drawing.Size(92, 17);
+            this.rdoShowFullPath.TabIndex = 0;
+            this.rdoShowFullPath.TabStop = true;
+            this.rdoShowFullPath.Text = "Show full path";
+            this.rdoShowFullPath.UseVisualStyleBackColor = true;
+            this.rdoShowFullPath.CheckedChanged += new System.EventHandler(this.RdoPathDisplay_CheckedChanged);
             // 
             // tabCompression
             // 
@@ -906,25 +939,13 @@ namespace BrawlCrate
             // 
             this.grpBoxCanary.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpBoxCanary.Controls.Add(this.btnCanaryBranch);
             this.grpBoxCanary.Controls.Add(this.chkCanary);
             this.grpBoxCanary.Location = new System.Drawing.Point(8, 132);
             this.grpBoxCanary.Name = "grpBoxCanary";
-            this.grpBoxCanary.Size = new System.Drawing.Size(302, 71);
+            this.grpBoxCanary.Size = new System.Drawing.Size(302, 53);
             this.grpBoxCanary.TabIndex = 15;
             this.grpBoxCanary.TabStop = false;
             this.grpBoxCanary.Text = "BrawlCrate Canary";
-            // 
-            // btnCanaryBranch
-            // 
-            this.btnCanaryBranch.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnCanaryBranch.Location = new System.Drawing.Point(79, 42);
-            this.btnCanaryBranch.Name = "btnCanaryBranch";
-            this.btnCanaryBranch.Size = new System.Drawing.Size(138, 23);
-            this.btnCanaryBranch.TabIndex = 14;
-            this.btnCanaryBranch.Text = "Change Canary Branch";
-            this.btnCanaryBranch.UseVisualStyleBackColor = true;
-            this.btnCanaryBranch.Click += new System.EventHandler(this.btnCanaryBranch_Click);
             // 
             // updaterBehaviorGroupbox
             // 
@@ -976,41 +997,6 @@ namespace BrawlCrate
             this.rdoCheckStartup.Text = "Manual, but check for updates on startup";
             this.rdoCheckStartup.UseVisualStyleBackColor = true;
             // 
-            // grpBoxFileNameDisplayGeneral
-            // 
-            this.grpBoxFileNameDisplayGeneral.Controls.Add(this.rdoShowShortName);
-            this.grpBoxFileNameDisplayGeneral.Controls.Add(this.rdoShowFullPath);
-            this.grpBoxFileNameDisplayGeneral.Location = new System.Drawing.Point(6, 68);
-            this.grpBoxFileNameDisplayGeneral.Name = "grpBoxFileNameDisplayGeneral";
-            this.grpBoxFileNameDisplayGeneral.Size = new System.Drawing.Size(290, 75);
-            this.grpBoxFileNameDisplayGeneral.TabIndex = 10;
-            this.grpBoxFileNameDisplayGeneral.TabStop = false;
-            this.grpBoxFileNameDisplayGeneral.Text = "Filename Display";
-            // 
-            // rdoShowFullPath
-            // 
-            this.rdoShowFullPath.AutoSize = true;
-            this.rdoShowFullPath.Location = new System.Drawing.Point(10, 22);
-            this.rdoShowFullPath.Name = "rdoShowFullPath";
-            this.rdoShowFullPath.Size = new System.Drawing.Size(92, 17);
-            this.rdoShowFullPath.TabIndex = 0;
-            this.rdoShowFullPath.TabStop = true;
-            this.rdoShowFullPath.Text = "Show full path";
-            this.rdoShowFullPath.UseVisualStyleBackColor = true;
-            this.rdoShowFullPath.CheckedChanged += new System.EventHandler(this.RdoPathDisplay_CheckedChanged);
-            // 
-            // rdoShowShortName
-            // 
-            this.rdoShowShortName.AutoSize = true;
-            this.rdoShowShortName.Location = new System.Drawing.Point(10, 45);
-            this.rdoShowShortName.Name = "rdoShowShortName";
-            this.rdoShowShortName.Size = new System.Drawing.Size(94, 17);
-            this.rdoShowShortName.TabIndex = 1;
-            this.rdoShowShortName.TabStop = true;
-            this.rdoShowShortName.Text = "Show filename";
-            this.rdoShowShortName.UseVisualStyleBackColor = true;
-            this.rdoShowShortName.CheckedChanged += new System.EventHandler(this.RdoPathDisplay_CheckedChanged);
-            // 
             // SettingsDialog
             // 
             this.ClientSize = new System.Drawing.Size(326, 427);
@@ -1029,6 +1015,8 @@ namespace BrawlCrate
             this.grpBoxAudioGeneral.PerformLayout();
             this.grpBoxMainFormGeneral.ResumeLayout(false);
             this.grpBoxMainFormGeneral.PerformLayout();
+            this.grpBoxFileNameDisplayGeneral.ResumeLayout(false);
+            this.grpBoxFileNameDisplayGeneral.PerformLayout();
             this.tabCompression.ResumeLayout(false);
             this.groupBoxModuleCompression.ResumeLayout(false);
             this.groupBoxModuleCompression.PerformLayout();
@@ -1050,8 +1038,6 @@ namespace BrawlCrate
             this.grpBoxCanary.PerformLayout();
             this.updaterBehaviorGroupbox.ResumeLayout(false);
             this.updaterBehaviorGroupbox.PerformLayout();
-            this.grpBoxFileNameDisplayGeneral.ResumeLayout(false);
-            this.grpBoxFileNameDisplayGeneral.PerformLayout();
             this.ResumeLayout(false);
 
         }
