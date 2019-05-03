@@ -1,5 +1,1 @@
-Canary Update Package
-==========
-
-End users should disregard this file.
-To activate BrawlCrate Canary, download the latest stable build and activate Canary updates from the settings menu.
+This is an outdated file. Please download BrawlCrate Canary via the settings menu or through https://github.com/soopercool101/BrawlCrate/releases/tag/Canary
