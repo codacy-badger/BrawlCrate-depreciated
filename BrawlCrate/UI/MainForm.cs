@@ -31,7 +31,7 @@ namespace BrawlCrate
         private SettingsDialog _settings;
         private SettingsDialog Settings { get { return _settings == null ? _settings = new SettingsDialog() : _settings; } }
 
-        RecentFileHandler RecentFileHandler;
+        public RecentFileHandler recentFileHandler;
 
         private InterpolationForm _interpolationForm = null;
         public InterpolationForm InterpolationForm
@@ -280,8 +280,8 @@ namespace BrawlCrate
 
             modelPanel1.CurrentViewport._allowSelection = false;
 
-            RecentFileHandler = new RecentFileHandler(this.components);
-            RecentFileHandler.RecentFileToolStripItem = this.recentFilesToolStripMenuItem;
+            recentFileHandler = new RecentFileHandler(this.components);
+            recentFileHandler.RecentFileToolStripItem = this.recentFilesToolStripMenuItem;
 
             if (Program.CanRunDiscordRPC() && !_updatesOnStartup)
             {
@@ -1031,8 +1031,8 @@ namespace BrawlCrate
         {
             string inFile;
             int i = Program.OpenFile(SupportedFilesHandler.CompleteFilterEditableOnly, out inFile);
-            if (i != 0 && Program.Open(inFile))
-                RecentFileHandler.AddFile(inFile);
+            if(i != 0)
+                Program.Open(inFile);
         }
 
         #region File Menu
@@ -1230,8 +1230,6 @@ namespace BrawlCrate
             }
         }
 
-        public const int MaxRecentFiles = 24;
-
         public RecentFileHandler()
         {
             InitializeComponent();
@@ -1276,8 +1274,6 @@ namespace BrawlCrate
                 recentFileToolStripItem.DropDownItems.Insert(0, new FileMenuItem(fileName));
 
                 // remove the last one, if max size is reached
-                if (Settings.Default.RecentFiles.Count > MaxRecentFiles)
-                    Settings.Default.RecentFiles.RemoveAt(MaxRecentFiles);
                 if (Settings.Default.RecentFiles.Count > Settings.Default.RecentFilesMax)
                     recentFileToolStripItem.DropDownItems.RemoveAt(Settings.Default.RecentFilesMax);
 

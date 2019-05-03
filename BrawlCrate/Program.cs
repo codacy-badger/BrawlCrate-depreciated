@@ -418,6 +418,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                 GCTEditor editor = new GCTEditor();
                 editor.TargetNode = GCTEditor.LoadGCT(path);
                 editor.Show();
+                MainForm.Instance.recentFileHandler.AddFile(path);
                 return true;
             }
 
@@ -453,6 +454,7 @@ REGEN:
                             _rootNode.Compression = "None";
                     }
                     MainForm.Instance.Reset();
+                    MainForm.Instance.recentFileHandler.AddFile(path);
                     return true;
                 }
                 else
