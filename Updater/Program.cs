@@ -1092,8 +1092,9 @@ namespace Net
                 var commits = (await github.Repository.Commit.GetAll(repoData[0], repoData[1], options)).ToList<GitHubCommit>();
                 int i = -1;
                 bool foundCurrentCommit = false;
-                foreach (GitHubCommit c in commits)
+                for(i = 0; i < commits.Count; )
                 {
+                    GitHubCommit c = commits[i];
                     if (!foundCurrentCommit && c.Sha != newSha)
                     {
                         commits.Remove(c);
