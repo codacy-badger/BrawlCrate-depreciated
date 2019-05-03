@@ -1273,8 +1273,10 @@ namespace BrawlCrate
                 Settings.Default.RecentFiles.Insert(0, fileName);
                 recentFileToolStripItem.DropDownItems.Insert(0, new FileMenuItem(fileName));
 
-                // remove the last one, if max size is reached
-                if (Settings.Default.RecentFiles.Count > Settings.Default.RecentFilesMax)
+                // remove any beyond the max size, if max size is reached
+                while (Settings.Default.RecentFiles.Count > Settings.Default.RecentFilesMax)
+                    Settings.Default.RecentFiles.RemoveAt(Settings.Default.RecentFilesMax);
+                while (recentFileToolStripItem.DropDownItems.Count > Settings.Default.RecentFilesMax)
                     recentFileToolStripItem.DropDownItems.RemoveAt(Settings.Default.RecentFilesMax);
 
                 // enable the menu item if it´s disabled
