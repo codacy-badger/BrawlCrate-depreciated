@@ -690,7 +690,7 @@ namespace BrawlCrate
                 try
                 {
                     if (Program.RootPath != null)
-                        Text = String.Format("{0} - {1}", _canary ? "BrawlCrate Canary" + commitIDlong + Program.RootPath);
+                        Text = String.Format("{0} - {1}", _canary ? "BrawlCrate Canary" + commitIDlong + Program.RootPath : Program.AssemblyTitle);
                     else
                         Text = Program.AssemblyTitle;
                     if (Program.IsBirthday)
