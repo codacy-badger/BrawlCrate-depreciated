@@ -26,8 +26,8 @@ namespace BrawlLib.Modeling
                 stream.Position = 0;
 
                 writer.WriteStartDocument();
-                writer.WriteStartElement("COLLADA", "http://www.collada.org/2008/03/COLLADASchema");
-                writer.WriteAttributeString("version", "1.5.0");
+                writer.WriteStartElement("COLLADA", "http://www.collada.org/2005/11/COLLADASchema");
+                writer.WriteAttributeString("version", "1.4.1");
 
                 writer.WriteStartElement("asset");
                 {
