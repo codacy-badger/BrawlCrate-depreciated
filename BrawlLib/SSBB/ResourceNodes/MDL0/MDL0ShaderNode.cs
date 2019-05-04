@@ -130,7 +130,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override void SignalPropertyChange()
         {
             _fragShaderSource = null;
-            if(Model.AutoMetalMaterials && Materials.Length > 0 && !Materials[0].IsMetal)
+            if(Model != null && Model.AutoMetalMaterials && Materials.Length > 0 && !Materials[0].IsMetal)
                 Model.GenerateMetalMaterials(Model.metalMat);
             base.SignalPropertyChange();
         }
