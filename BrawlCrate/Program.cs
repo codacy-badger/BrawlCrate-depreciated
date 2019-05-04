@@ -55,7 +55,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             try
             {
                 if (BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds)
-                    AssemblyTitle = "BrawlCrate Canary" + (MainForm.currentRepo.Equals(MainForm.mainRepo, StringComparison.OrdinalIgnoreCase) ? (MainForm.currentBranch.Equals(MainForm.mainBranch, StringComparison.OrdinalIgnoreCase) ? "" : ("@" + MainForm.currentBranch)) : "@" + MainForm.currentRepo + "@" + MainForm.currentBranch) + MainForm.getCommitId(false);
+                    AssemblyTitle = "BrawlCrate Canary" + MainForm.getCommitId(false);
             }
             catch
             {
