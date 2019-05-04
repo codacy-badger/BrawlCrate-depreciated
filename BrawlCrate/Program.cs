@@ -54,7 +54,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             AssemblyTitle = ((AssemblyTitleAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
             try
             {
-                if (BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds)
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Canary\\Active"))
                     AssemblyTitle = "BrawlCrate Canary" + MainForm.getCommitId(false);
             }
             catch

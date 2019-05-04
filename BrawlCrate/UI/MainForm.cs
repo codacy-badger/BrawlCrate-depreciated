@@ -690,9 +690,9 @@ namespace BrawlCrate
                 try
                 {
                     if (Program.RootPath != null)
-                        Text = String.Format("{0} - {1}", _canary ? "BrawlCrate Canary" + commitIDlong + Program.RootPath : Program.AssemblyTitle, ShowFullPath ? Program.RootPath : Program.FileName);
+                        Text = String.Format("{0} - {1}", _canary ? "BrawlCrate Canary" + commitIDshort : Program.AssemblyTitle, ShowFullPath ? Program.RootPath : Program.FileName);
                     else
-                        Text = Program.AssemblyTitle;
+                        Text = _canary ? "BrawlCrate Canary" + commitIDlong : Program.AssemblyTitle;
                     if (Program.IsBirthday)
                         Text = "PartyBrawl" + Text.Substring(Text.IndexOf(' '));
                     Program.AssemblyTitle = ((AssemblyTitleAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
