@@ -127,7 +127,7 @@ namespace BrawlCrate
             {
                 if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
                     File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
-                return mainBranch;
+                return mainRepo;
                 string temp = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch")[1];
                 if (temp == null || temp == "")
                     throw (new ArgumentNullException());
