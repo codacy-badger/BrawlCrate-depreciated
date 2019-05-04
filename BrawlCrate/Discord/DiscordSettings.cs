@@ -34,13 +34,18 @@ namespace BrawlCrate.Discord
                 DiscordRpc.Shutdown();
                 return;
             }
-            
+
+            if (enabled && DiscordController == null)
+            {
+                DiscordController = new BrawlCrate.Discord.DiscordController();
+                DiscordController.Initialize();
+            }
             DiscordController.presence = new DiscordRpc.RichPresence()
             {
                 smallImageKey = "",
                 smallImageText = "",
                 largeImageKey = "brawlcrate",
-                largeImageText = ""
+                largeImageText = Program.AssemblyTitle
             };
             if(MainForm.Instance.RootNode == null)
             {
@@ -182,7 +187,12 @@ namespace BrawlCrate.Discord
 
         public static void LoadSettings(bool update = false)
         {
-            if (enabled != BrawlCrate.Properties.Settings.Default.DiscordRPCEnabled && enabled == true)
+            if(BrawlCrate.Properties.Settings.Default.DiscordRPCEnabled && DiscordController == null)
+            {
+                DiscordController = new BrawlCrate.Discord.DiscordController();
+                DiscordController.Initialize();
+            }
+            else if ((enabled != BrawlCrate.Properties.Settings.Default.DiscordRPCEnabled && enabled == false))
                 DiscordController.Initialize();
             enabled = BrawlCrate.Properties.Settings.Default.DiscordRPCEnabled;
             modNameType = BrawlCrate.Properties.Settings.Default.DiscordRPCNameType;

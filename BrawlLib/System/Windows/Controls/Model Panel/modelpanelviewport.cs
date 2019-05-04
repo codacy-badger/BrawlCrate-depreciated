@@ -15,7 +15,8 @@ namespace System.Windows.Forms
     {
         public ModelPanelViewport()
         {
-            _text = new ScreenTextHandler(this);
+            _settingsText = new ScreenTextHandler(this);
+            _noSettingsText = new ScreenTextHandler(this);
             _camera = new GLCamera();
             LightPosition = new Vector4(100.0f, 45.0f, 45.0f, 1.0f);
 
@@ -97,7 +98,8 @@ namespace System.Windows.Forms
         public bool _shiftSelecting;
         public Drawing.Point _selStart, _selEnd;
 
-        private ScreenTextHandler _text;
+        private ScreenTextHandler _settingsText;
+        private ScreenTextHandler _noSettingsText;
 
         public bool _textEnabled = false;
         public bool _allowSelection = false;
@@ -120,7 +122,9 @@ namespace System.Windows.Forms
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Selecting { get { return _selecting; } }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public ScreenTextHandler ScreenText { get { return _text; } }
+        public ScreenTextHandler SettingsScreenText { get { return _settingsText; } }
+        public ScreenTextHandler NoSettingsScreenText { get { return _noSettingsText; } }
+
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Drawing.Point SelectionStart { get { return _selStart; } set { _selStart = value; } }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -433,11 +437,11 @@ namespace System.Windows.Forms
             {
                 Vector3 point = Camera.GetPoint().Round(3);
                 Vector3 rot = Camera._rotation.Round(3);
-                _text[String.Format("Position\nX: {0}\nY: {1}\nZ: {2}\n\nRotation\nX: {3}\nY: {4}\nZ: {5}", point._x, point._y, point._z, rot._x, rot._y, rot._z)] = new Vector3(5.0f, 5.0f, 0.5f);
+                _noSettingsText[String.Format("Position\nX: {0}\nY: {1}\nZ: {2}\n\nRotation\nX: {3}\nY: {4}\nZ: {5}", point._x, point._y, point._z, rot._x, rot._y, rot._z)] = new Vector3(5.0f, 5.0f, 0.5f);
             }
 
             //Render selection overlay and/or text overlays
-            if ((_selecting && _allowSelection) || (_text.Count != 0 && _textEnabled) || !only)
+            if ((_selecting && _allowSelection) || (_settingsText.Count != 0 && _textEnabled) || _noSettingsText.Count != 0 || !only)
             {
                 GL.PushAttrib(AttribMask.AllAttribBits);
                 {
@@ -471,8 +475,11 @@ namespace System.Windows.Forms
                             }
 
                             GL.Color4(Color.White);
-                            if (_text.Count != 0 && _textEnabled)
-                                _text.Draw();
+                            if (_settingsText.Count != 0 && _textEnabled)
+                                _settingsText.Draw();
+
+                            if (_noSettingsText.Count != 0)
+                                _noSettingsText.Draw();
 
                             if (_selecting && _allowSelection)
                                 RenderSelection();
@@ -486,7 +493,8 @@ namespace System.Windows.Forms
 
                 //Clear text values
                 //This will be filled until the next render
-                _text.Clear();
+                _settingsText.Clear();
+                _noSettingsText.Clear();
             }
         }
 

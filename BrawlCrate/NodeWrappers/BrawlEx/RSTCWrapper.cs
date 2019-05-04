@@ -40,7 +40,7 @@ namespace BrawlCrate.NodeWrappers
             ResourceNode r = w._resource;
             if (((RSTCNode)r).cssList.Children.Count >= 100 || (((RSTCNode)r).randList.Children.Count >= 100))
                 return;
-            StageBoxHexEntry entryID = new StageBoxHexEntry();
+            HexEntryBox entryID = new HexEntryBox();
             if (entryID.ShowDialog(BrawlLib.Properties.Resources.NewFighter, BrawlLib.Properties.Resources.CSSSlotID, 2) == DialogResult.OK)
                 if(entryID.NewValue != -1)
                     GetInstance<RSTCWrapper>().NewEntry((byte)entryID.NewValue);

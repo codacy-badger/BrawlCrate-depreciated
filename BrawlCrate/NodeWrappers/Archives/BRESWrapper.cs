@@ -184,7 +184,7 @@ namespace BrawlCrate
                     }
                 }
         }
-        
+        private static int numColors = 256;
         public void ImportColorSmashableTextures()
         {
             OpenFileDialog _openDlg = new OpenFileDialog();
@@ -218,6 +218,11 @@ namespace BrawlCrate
                 }
                 else if (dr == DialogResult.Yes)
                 {
+                    NumericEntryBox paletteCounter = new NumericEntryBox();
+                    paletteCounter.ShowDialog("Palette Selector", "How many colors?", numColors);
+                    if (paletteCounter.DialogResult != DialogResult.OK)
+                        return;
+                    numColors = paletteCounter.NewValue;
                     // Color Smash them
                     DirectoryInfo inputDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\");
                     DirectoryInfo outputDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\out\\");
@@ -244,7 +249,7 @@ namespace BrawlCrate
                     {
                         FileName = AppDomain.CurrentDomain.BaseDirectory + "color_smash.exe",
                         WindowStyle = ProcessWindowStyle.Hidden,
-                        Arguments = String.Format("-c RGB5A3"),
+                        Arguments = String.Format("-c RGB5A3 -n {0}", numColors),
                     });
                     csmash.WaitForExit();
                     List<int> remainingIDs = new List<int>();

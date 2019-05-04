@@ -1,11 +1,11 @@
 ﻿namespace System.Windows.Forms
 {
-    public partial class StageBoxNumericEntry : Form
+    public partial class NumericEntryBox : Form
     {
-        public string title = "StageBox Numeric Entry Box";
+        public string title = "Numeric Entry Box";
         public string lowerText = "Error; No arguments given";
 
-        public StageBoxNumericEntry()
+        public NumericEntryBox()
         {
             InitializeComponent();
         }
@@ -23,6 +23,13 @@
         {
             this.Text = newTitle;
             this.label2.Text = newLower;
+            return base.ShowDialog();
+        }
+        public DialogResult ShowDialog(string newTitle, string newLower, int val)
+        {
+            this.Text = newTitle;
+            this.label2.Text = newLower;
+            this.numNewCount.Value = val;
             return base.ShowDialog();
         }
 

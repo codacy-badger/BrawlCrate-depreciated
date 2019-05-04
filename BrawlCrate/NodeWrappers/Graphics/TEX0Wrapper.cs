@@ -106,12 +106,15 @@ namespace BrawlCrate.NodeWrappers
 
         public void ColorSmash()
         {
-            StageBoxNumericEntry colorsmashcount = new StageBoxNumericEntry();
-            if (colorsmashcount.ShowDialog(BrawlLib.Properties.Resources.ColorSmasher, BrawlLib.Properties.Resources.HowManyTextures) == DialogResult.OK)
-                ColorSmash(colorsmashcount.NewValue);
+            TwoNumberEntryBox colorsmashcount = new TwoNumberEntryBox();
+            int paletteCount = 256;
+            if (((TEX0Node)_resource).HasPalette && ((TEX0Node)_resource).GetPaletteNode() != null)
+                paletteCount = ((TEX0Node)_resource).GetPaletteNode().Palette.Entries.Length;
+            if (colorsmashcount.ShowDialog(BrawlLib.Properties.Resources.ColorSmasher, BrawlLib.Properties.Resources.HowManyTextures, BrawlLib.Properties.Resources.HowManyColors, 1, paletteCount) == DialogResult.OK)
+                ColorSmash(colorsmashcount.Value1, colorsmashcount.Value2);
         }
 
-        public void ColorSmash(int textureCount)
+        public void ColorSmash(int textureCount, int numColors = 255)
         {
             if (TEX0Node._updating)
                 return;
@@ -131,18 +134,17 @@ namespace BrawlCrate.NodeWrappers
                 tex.Export(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + j + ".png");
                 j++;
                 if (tex.HasPalette)
-                {
                     tex.GetPaletteNode().Remove();
-                }
-                if (tex.Format != BrawlLib.Wii.Textures.WiiPixelFormat.CI4)
-                    usesOnlyCI4 = false;
+                //if (tex.Format != BrawlLib.Wii.Textures.WiiPixelFormat.CI4)
+                //    usesOnlyCI4 = false;
                 tex.Remove();
             }
+            usesOnlyCI4 = false;
             Process csmash = Process.Start(new ProcessStartInfo()
             {
                 FileName = AppDomain.CurrentDomain.BaseDirectory + "color_smash.exe",
                 WindowStyle = ProcessWindowStyle.Hidden,
-                Arguments = String.Format("-c RGB5A3"),
+                Arguments = String.Format("-c RGB5A3 -n {0}", numColors),
             });
             csmash.WaitForExit();
             List<int> remainingIDs = new List<int>();

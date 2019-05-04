@@ -98,9 +98,37 @@ namespace BrawlLib.BrawlCrate
             }
         }
 
+        static readonly byte[] listV1Hash = { 0xD2, 0x03, 0xA9, 0x9E, 0x92, 0xD4, 0xCC, 0xCB, 0xD4, 0xBD, 0x85, 0x28, 0xD8, 0x7C, 0x72, 0xB4 };
+
         public static bool GenerateLists()
         {
             Directory.CreateDirectory(directory);
+            bool fileOutdated = false;
+            // Ensure unmodified files get updated properly
+            if(File.Exists(listName))
+            {
+                using (var md5 = System.Security.Cryptography.MD5.Create())
+                {
+                    using (var stream = File.OpenRead(listName))
+                    {
+                        byte[] hash = md5.ComputeHash(stream);
+                        if (hash.Length == listV1Hash.Length)
+                        {
+                            fileOutdated = true;
+                            for (int i = 0; i < hash.Length; i++)
+                            {
+                                if (hash[i] != listV1Hash[i])
+                                {
+                                    fileOutdated = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (fileOutdated)
+                File.Delete(listName);
             if (!File.Exists(listName))
                 GenerateDefaultList();
             if (!File.Exists(listName))

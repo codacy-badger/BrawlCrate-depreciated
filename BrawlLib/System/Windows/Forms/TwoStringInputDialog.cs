@@ -47,7 +47,6 @@ namespace System.Windows.Forms
 
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TwoInputStringDialog));
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOkay = new System.Windows.Forms.Button();
@@ -71,7 +70,7 @@ namespace System.Windows.Forms
             this.btnCancel.Location = new System.Drawing.Point(197, 66);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 2;
+            this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -82,7 +81,7 @@ namespace System.Windows.Forms
             this.btnOkay.Location = new System.Drawing.Point(116, 66);
             this.btnOkay.Name = "btnOkay";
             this.btnOkay.Size = new System.Drawing.Size(75, 23);
-            this.btnOkay.TabIndex = 1;
+            this.btnOkay.TabIndex = 2;
             this.btnOkay.Text = "&Okay";
             this.btnOkay.UseVisualStyleBackColor = true;
             this.btnOkay.Click += new System.EventHandler(this.btnOkay_Click);
@@ -93,7 +92,7 @@ namespace System.Windows.Forms
             this.textBox2.Location = new System.Drawing.Point(62, 38);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(210, 20);
-            this.textBox2.TabIndex = 3;
+            this.textBox2.TabIndex = 1;
             // 
             // label1
             // 
@@ -127,7 +126,7 @@ namespace System.Windows.Forms
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Icon = BrawlLib.Properties.Resources.BrawlCrateIcon;
+            this.Icon = global::BrawlLib.Properties.Resources.BrawlCrateIcon;
             this.Name = "TwoInputStringDialog";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

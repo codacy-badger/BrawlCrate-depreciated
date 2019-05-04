@@ -1804,7 +1804,7 @@ For example, if the shader has two stages but this number is 1, the second stage
         {
             _fragShaderSource = null;
             _vertexShaderSource = null;
-            if (Model.AutoMetalMaterials && !IsMetal)
+            if (Model != null && Model.AutoMetalMaterials && !IsMetal)
                 Model.GenerateMetalMaterials(Model.metalMat);
             base.SignalPropertyChange();
         }

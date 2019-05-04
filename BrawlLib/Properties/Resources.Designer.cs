@@ -241,6 +241,16 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon BrawlCrateIcon {
+            get {
+                object obj = ResourceManager.GetObject("BrawlCrateIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BRRES Resource Pack.
         /// </summary>
         public static string BRRESourcePack {
@@ -291,17 +301,6 @@ namespace BrawlLib.Properties {
         public static string Collision {
             get {
                 return ResourceManager.GetString("Collision", resourceCulture);
-            }
-        }
-        
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        public static System.Drawing.Icon BrawlCrateIcon {
-            get {
-                if (BrawlLib.BrawlCrate.PerSessionSettings.Birthday)
-                    return PartyBallIcon;
-                object obj = ResourceManager.GetObject("BrawlCrateIcon", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -1098,6 +1097,15 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to How many colors?.
+        /// </summary>
+        public static string HowManyColors {
+            get {
+                return ResourceManager.GetString("HowManyColors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to How many textures?.
         /// </summary>
         public static string HowManyTextures {
@@ -1220,6 +1228,15 @@ namespace BrawlLib.Properties {
         public static string ItemGeneration {
             get {
                 return ResourceManager.GetString("ItemGeneration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Materials.
+        /// </summary>
+        public static string Materials {
+            get {
+                return ResourceManager.GetString("Materials", resourceCulture);
             }
         }
         
@@ -1616,6 +1633,16 @@ namespace BrawlLib.Properties {
         public static string OptionWillFixTransparentModel {
             get {
                 return ResourceManager.GetString("OptionWillFixTransparentModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon PartyBallIcon {
+            get {
+                object obj = ResourceManager.GetObject("PartyBallIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -2970,7 +2997,7 @@ namespace BrawlLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to BrawlCrate v0.24!
+        ///   Looks up a localized string similar to Welcome to the latest version of BrawlCrate!
         ///
         ///A full English-language changelog can be found here:.
         /// </summary>
@@ -3031,15 +3058,6 @@ namespace BrawlLib.Properties {
         public static string ZAxisTransZRot {
             get {
                 return ResourceManager.GetString("ZAxisTransZRot", resourceCulture);
-            }
-        }
-        
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        public static System.Drawing.Icon PartyBallIcon {
-            get {
-                object obj = ResourceManager.GetObject("PartyBallIcon", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
             }
         }
     }

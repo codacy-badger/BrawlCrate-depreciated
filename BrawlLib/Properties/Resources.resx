@@ -934,7 +934,7 @@
     <comment>Used for unnamed nodes</comment>
   </data>
   <data name="WelcomeMessage" xml:space="preserve">
-    <value>Welcome to BrawlCrate v0.24!
+    <value>Welcome to the latest version of BrawlCrate!
 
 A full English-language changelog can be found here:</value>
     <comment>Shown on update</comment>
@@ -1441,5 +1441,13 @@ A full English-language changelog can be found here:</value>
   </data>
   <data name="PartyBallIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\PartyBallIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HowManyColors" xml:space="preserve">
+    <value>How many colors?</value>
+    <comment>How many colors?</comment>
+  </data>
+  <data name="Materials" xml:space="preserve">
+    <value>Materials</value>
+    <comment>Materials</comment>
   </data>
 </root>

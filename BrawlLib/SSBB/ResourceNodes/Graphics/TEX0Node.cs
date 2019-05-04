@@ -133,6 +133,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\");
             DirectoryInfo outputDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\out\\");
             bool usesOnlyCI4 = true;
+            int numColors = 256;
             for (int i = 0; i < texList.Count; i++)
             {
                 TEX0Node tex = texList[i];
@@ -140,17 +141,20 @@ namespace BrawlLib.SSBB.ResourceNodes
                 tex.Export(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + i + ".png");
                 if (tex.HasPalette)
                 {
+                    if (i == 0 && tex.GetPaletteNode() != null && tex.GetPaletteNode().Palette.Entries.Length < 256)
+                        numColors = tex.GetPaletteNode().Palette.Entries.Length;
                     tex.GetPaletteNode().Remove();
                 }
-                if (tex.Format != BrawlLib.Wii.Textures.WiiPixelFormat.CI4)
-                    usesOnlyCI4 = false;
+                //if (tex.Format != BrawlLib.Wii.Textures.WiiPixelFormat.CI4)
+                //    usesOnlyCI4 = false;
                 tex.Remove();
             }
+            usesOnlyCI4 = false;
             Process csmash = Process.Start(new ProcessStartInfo()
             {
                 FileName = AppDomain.CurrentDomain.BaseDirectory + "color_smash.exe",
                 WindowStyle = ProcessWindowStyle.Hidden,
-                Arguments = String.Format("-c RGB5A3"),
+                Arguments = String.Format("-c RGB5A3 -n {0}", numColors),
             });
             csmash.WaitForExit();
             List<int> remainingIDs = new List<int>();

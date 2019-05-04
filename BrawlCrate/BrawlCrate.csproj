@@ -152,41 +152,14 @@
     <Prefer32Bit>true</Prefer32Bit>
     <DefineConstants>DEBUG</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Prerelease|x86'">
-    <OutputPath>bin\Prerelease\</OutputPath>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Prerelease|AnyCPU'">
-    <OutputPath>bin\Prerelease\</OutputPath>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Prerelease|x64'">
-    <OutputPath>bin\x64\Prerelease\</OutputPath>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
   <PropertyGroup>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'TestRelease|x86'">
-    <OutputPath>bin\TestRelease\</OutputPath>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'FullRelease|x86'">
+    <OutputPath>bin\Release\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -195,8 +168,8 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'TestRelease|AnyCPU'">
-    <OutputPath>bin\TestRelease\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'FullRelease|AnyCPU'">
+    <OutputPath>bin\FullRelease\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -205,8 +178,8 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'TestRelease|x64'">
-    <OutputPath>bin\x64\TestRelease\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'FullRelease|x64'">
+    <OutputPath>bin\x64\FullRelease\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -244,9 +217,6 @@
     <Compile Include="NodeWrappers\Items\ItmFreqTableWrapper.cs" />
     <Compile Include="NodeWrappers\Items\ItmFreqWrapper.cs" />
     <Compile Include="NodeWrappers\MasqueradeWrapper.cs" />
-    <Compile Include="UI\TwoStringInputDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="UI\SplashForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -468,10 +438,6 @@
     <EmbeddedResource Include="UI\ModelForm.resx">
       <DependentUpon>ModelForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\TwoStringInputDialog.resx">
-      <DependentUpon>TwoStringInputDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -684,85 +650,51 @@
     <PreBuildEvent>if EXIST "$(TargetDir)Updater.exe" (
   "$(TargetDir)Updater.exe" -killAll
 )
-if $(ConfigurationName) == Debug (
+if not '$(ConfigurationName)' == 'Debug' (
   RD /S /Q "$(TargetDir)"
-  cd $(SolutionDir)ColorSmash\
 )
-if $(ConfigurationName) == Release (
-  RD /S /Q "$(TargetDir)"
+if not '$(ConfigurationName)' == 'Documentation' (
   cd $(SolutionDir)ColorSmash\
-  cargo build --release
-)
-if $(ConfigurationName) == TestRelease (
-  RD /S /Q "$(TargetDir)"
-  cd $(SolutionDir)ColorSmash\
-  cargo build --release
-)
-if $(ConfigurationName) == Documentation (
-  RD /S /Q "$(TargetDir)"
+  cargo build --release --target i686-pc-windows-gnu
 )</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>cd $(TargetDir)
-del Octokit.dll
-del updater.exe
 del CustomLists\FighterList.txt
 del CustomLists\StageList.txt
-%25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Octokit.dll" "$(TargetDir)" /Y /I
-%25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\$(PlatformName)\$(ConfigurationName)\Updater.exe" "$(TargetDir)" /Y /I
-if EXIST "$(SolutionDir)sawndz\bin\Release\sawndz.exe" (
-  %25windir%25\system32\xcopy "$(SolutionDir)sawndz\bin\Release\sawndz.exe" "$(TargetDir)" /Y /I
-)
-if EXIST "$(SolutionDir)ColorSmash\target\release\color_smash.exe" (
-  %25windir%25\system32\xcopy "$(SolutionDir)ColorSmash\target\release\color_smash.exe" "$(TargetDir)" /Y /I
-)
-if $(ConfigurationName) == Debug (
-  del sawndz.exe
-  %25windir%25\system32\xcopy "$(SolutionDir)sawndz\bin\Debug\sawndz.exe" "$(TargetDir)" /Y /I
-  %25windir%25\system32\xcopy "$(SolutionDir)sawndz\bin\Debug\sawndz.pdb" "$(TargetDir)" /Y /I
+if not '$(ConfigurationName)' == 'Documentation' (
+  %25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\Octokit.dll" "$(TargetDir)" /Y /I
+  %25windir%25\system32\xcopy "$(SolutionDir)Updater\bin\Updater.exe" "$(TargetDir)" /Y /I
+  if not '$(ConfigurationName)' == 'Debug' (
+    if EXIST "$(SolutionDir)sawndz\bin\Release\sawndz.exe" (
+      %25windir%25\system32\xcopy "$(SolutionDir)sawndz\bin\Release\sawndz.exe" "$(TargetDir)" /Y /I
+    )
+    del BrawlCrate.exe.config
+    del BrawlCrate.pdb
+    del BrawlLib.pdb
+    del OpenTK.pdb
+    del OpenTK.xml
+  )
+  if '$(ConfigurationName)' == 'Debug' (
+    if EXIST "$(SolutionDir)sawndz\bin\Debug\sawndz.exe" (
+      %25windir%25\system32\xcopy "$(SolutionDir)sawndz\bin\Debug\sawndz.exe" "$(TargetDir)" /Y /I
+    )
+  )
+  if EXIST "$(SolutionDir)ColorSmash\target\i686-pc-windows-gnu\release\color_smash.exe" (
+    %25windir%25\system32\xcopy "$(SolutionDir)ColorSmash\target\i686-pc-windows-gnu\release\color_smash.exe" "$(TargetDir)" /Y /I
+  )
 )
 if $(ConfigurationName) == Documentation (
-  del BrawlCrate.exe.config
-  del BrawlCrate.pdb
-  del BrawlLib.pdb
-  del sawndz.exe
-  del Octokit.dll
-  del updater.exe
-  del BrawlLib.dll
-  del OpenTK.dll
-  del OpenTK.pdb
-  del OpenTK.xml
-  del BrawlCrate.exe
-  del Changelog.txt
-  del color_smash.exe
+  del *.config
+  del *.pdb
+  del *.exe
+  del *.dll
+  del *.xml
+  del *.txt
   RD /S /Q "$(TargetDir)CustomLists\"
   "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a Documentation.v@(VersionNumber).exe
 )
-if $(ConfigurationName) == TestRelease (
-  del $(SolutionDir)CanaryBuild\Canary
-  del BrawlCrate.exe.config
-  del BrawlCrate.pdb
-  del BrawlLib.pdb
-  del OpenTK.pdb
-  del OpenTK.xml
-  "Updater.exe" -canaryOn
-  "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName)Canary.exe
-  %25windir%25\system32\xcopy "$(TargetDir)$(TargetName)Canary.exe" "$(SolutionDir)CanaryBuild\" /Y /I
-  rename "$(SolutionDir)CanaryBuild\$(TargetName)Canary.exe" "Canary"
-  del $(TargetName)Canary.exe
-)
-if $(ConfigurationName) == Release (
-  del $(SolutionDir)CanaryBuild\Canary
-  del BrawlCrate.exe.config
-  del BrawlCrate.pdb
-  del BrawlLib.pdb
-  del OpenTK.pdb
-  del OpenTK.xml
-  "Updater.exe" -canaryOn
- "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName)Canary.exe
-  %25windir%25\system32\xcopy "$(TargetDir)$(TargetName)Canary.exe" "$(SolutionDir)CanaryBuild\" /Y /I
-  rename "$(SolutionDir)CanaryBuild\$(TargetName)Canary.exe" "Canary"
-  del $(TargetName)Canary.exe
+if $(ConfigurationName) == FullRelease (
   "Updater.exe" -bcommitTime
   "Updater.exe" -canaryOff
   "C:\Program Files\7-Zip\7z.exe" -sfx7z.sfx a $(TargetName).v@(VersionNumber).exe

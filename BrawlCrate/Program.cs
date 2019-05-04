@@ -16,23 +16,23 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.24Hotfix1";
-        public static readonly string UpdateMessage = @"Updated to BrawlCrate v0.24 Hotfix 1! This release:
-- Redirect Nodes now display more information, and now will redirect to a static node rather than a static index to prevent corruption
-- Can now add Redirect Nodes to an ARC
-- Texture Renderer is now more Brawl-accurate
-- ARCEntry Groups now display more information
-- Fix bugs in which Color Smash wouldn't work under common circumstances
-- (Hotfix 1) Fixes bug in which Color Smash would never work if your installation path for BrawlCrate had a space in it
+        public static readonly string TagName = "BrawlCrate_v0.25c";
+        public static readonly string UpdateMessage = @"Updated to BrawlCrate v0.25c! This release:
+- Fixes and improves the recent files handler (new settings are found in the settings menu)
+- PAT0 now properly respects SharedTEX0 when previewing
+- Adds numbers to spawn overlays
+- Adds a much-needed overhaul to the Canary system
+- Fixes various crashes and import bugs
 
 Full changelog can be found in the installation folder: " + '\n' + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
-        public static readonly string AssemblyTitle;
+        public static string AssemblyTitle;
         public static readonly string AssemblyVersion;
         public static readonly string AssemblyDescription;
         public static readonly string AssemblyCopyright;
         public static readonly string FullPath;
         public static readonly string BrawlLibTitle;
+        public static readonly string BrawlLibVersion;
 
         private static OpenFileDialog _openDlg;
         private static SaveFileDialog _saveDlg;
@@ -42,6 +42,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
         public static ResourceNode RootNode { get { return _rootNode; } set { _rootNode = value; MainForm.Instance.Reset(); } }
         internal static string _rootPath;
         public static string RootPath { get { return _rootPath; } }
+        public static string FileName { get { return _rootPath == null ? null : _rootPath.Substring(_rootPath.LastIndexOf('\\') + 1); } }
 
         internal static bool _birthday;
         public static bool IsBirthday { get { return _birthday; } }
@@ -49,8 +50,17 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
         static Program()
         {
             Application.EnableVisualStyles();
-            _birthday = BrawlLib.BrawlCrate.PerSessionSettings.Birthday = (DateTime.Now.Month == 4 && DateTime.Now.Day == 8);
+            _birthday = BrawlLib.BrawlCrate.PerSessionSettings.Birthday = (DateTime.Now.Month == 4 && DateTime.Now.Day == 8 && DateTime.Now.Year > 2018);
             AssemblyTitle = ((AssemblyTitleAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
+            try
+            {
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Canary\\Active"))
+                    AssemblyTitle = "BrawlCrate Canary" + MainForm.getCommitId(false);
+            }
+            catch
+            {
+                AssemblyTitle = ((AssemblyTitleAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
+            }
             if (_birthday)
                 AssemblyTitle = "PartyBrawl" + AssemblyTitle.Substring(AssemblyTitle.IndexOf(' '));
             AssemblyDescription = ((AssemblyDescriptionAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false)[0]).Description;
@@ -58,6 +68,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             AssemblyCopyright = ((AssemblyCopyrightAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false)[0]).Copyright;
             FullPath = Process.GetCurrentProcess().MainModule.FileName;
             BrawlLibTitle = ((AssemblyTitleAttribute)Assembly.GetAssembly(typeof(ResourceNode)).GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
+            BrawlLibVersion = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetAssembly(typeof(ResourceNode)).Location).FileVersion;
 
             _openDlg = new OpenFileDialog();
             _saveDlg = new SaveFileDialog();
@@ -190,13 +201,14 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                     File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.bat");
                 if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "StageBox.exe"))
                     File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "StageBox.exe");
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "BrawlBox.exe"))
+                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "BrawlBox.exe");
             }
             catch
             {
 
             }
 #endif
-            string path = "";
             if (args.Length >= 1)
             {
                 if (args[0].Equals("/gct", StringComparison.InvariantCultureIgnoreCase))
@@ -436,6 +448,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                 GCTEditor editor = new GCTEditor();
                 editor.TargetNode = GCTEditor.LoadGCT(path);
                 editor.Show();
+                MainForm.Instance.recentFileHandler.AddFile(path);
                 return true;
             }
 
@@ -471,6 +484,7 @@ REGEN:
                             _rootNode.Compression = "None";
                     }
                     MainForm.Instance.Reset();
+                    MainForm.Instance.recentFileHandler.AddFile(path);
                     return true;
                 }
                 else

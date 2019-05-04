@@ -41,7 +41,6 @@ namespace BrawlCrate
         private ListView listView1;
         private ColumnHeader columnHeader1;
         private GroupBox grpBoxCanary;
-        private Button btnCanaryBranch;
         private RadioButton rdoAutoUpdate;
         private RadioButton rdoCheckManual;
         private RadioButton rdoCheckStartup;
@@ -71,6 +70,11 @@ namespace BrawlCrate
         private GroupBox genericFileAssociationBox;
         private CheckBox binFileAssociation;
         private CheckBox datFileAssociation;
+        private GroupBox grpBoxFileNameDisplayGeneral;
+        private RadioButton rdoShowShortName;
+        private RadioButton rdoShowFullPath;
+        private Label lblRecentFiles;
+        private NumericInputBox recentFileCountBox;
         private CheckBox chkShowPropDesc;
 
         public SettingsDialog()
@@ -193,6 +197,8 @@ namespace BrawlCrate
                 rdoCheckStartup.Checked = true;
             else
                 rdoCheckManual.Checked = true;
+            rdoShowFullPath.Checked = MainForm.Instance.ShowFullPath;
+            rdoShowShortName.Checked = !MainForm.Instance.ShowFullPath;
             chkCanary.Checked = MainForm.Instance.Canary;
             chkShowPropDesc.Checked = MainForm.Instance.DisplayPropertyDescriptionsWhenAvailable;
             chkShowHex.Checked = MainForm.Instance.ShowHex;
@@ -203,6 +209,7 @@ namespace BrawlCrate
             chkBoxModuleCompress.Checked = MainForm.Instance.AutoCompressModules;
             chkBoxAutoPlayAudio.Checked = MainForm.Instance.AutoPlayAudio;
             chkBoxMDL0Compatibility.Checked = MainForm.Instance.CompatibilityMode;
+            recentFileCountBox.Value = BrawlCrate.Properties.Settings.Default.RecentFilesMax;
 
             Discord.DiscordSettings.LoadSettings();
             grpBoxDiscordRPCType.Enabled = chkBoxEnableDiscordRPC.Checked = Discord.DiscordSettings.enabled;
@@ -310,6 +317,11 @@ namespace BrawlCrate
             this.grpBoxAudioGeneral = new System.Windows.Forms.GroupBox();
             this.chkBoxAutoPlayAudio = new System.Windows.Forms.CheckBox();
             this.grpBoxMainFormGeneral = new System.Windows.Forms.GroupBox();
+            this.lblRecentFiles = new System.Windows.Forms.Label();
+            this.recentFileCountBox = new System.Windows.Forms.NumericInputBox();
+            this.grpBoxFileNameDisplayGeneral = new System.Windows.Forms.GroupBox();
+            this.rdoShowShortName = new System.Windows.Forms.RadioButton();
+            this.rdoShowFullPath = new System.Windows.Forms.RadioButton();
             this.tabCompression = new System.Windows.Forms.TabPage();
             this.groupBoxModuleCompression = new System.Windows.Forms.GroupBox();
             this.chkBoxModuleCompress = new System.Windows.Forms.CheckBox();
@@ -319,6 +331,9 @@ namespace BrawlCrate
             this.chkBoxFighterPacDecompress = new System.Windows.Forms.CheckBox();
             this.chkBoxFighterPcsCompress = new System.Windows.Forms.CheckBox();
             this.tabFileAssociations = new System.Windows.Forms.TabPage();
+            this.genericFileAssociationBox = new System.Windows.Forms.GroupBox();
+            this.binFileAssociation = new System.Windows.Forms.CheckBox();
+            this.datFileAssociation = new System.Windows.Forms.CheckBox();
             this.lblAdminApproval = new System.Windows.Forms.Label();
             this.btnApply = new System.Windows.Forms.Button();
             this.associatiedFilesBox = new System.Windows.Forms.GroupBox();
@@ -336,24 +351,22 @@ namespace BrawlCrate
             this.rdoDiscordRPCNameDisabled = new System.Windows.Forms.RadioButton();
             this.tabUpdater = new System.Windows.Forms.TabPage();
             this.grpBoxCanary = new System.Windows.Forms.GroupBox();
-            this.btnCanaryBranch = new System.Windows.Forms.Button();
             this.updaterBehaviorGroupbox = new System.Windows.Forms.GroupBox();
             this.rdoAutoUpdate = new System.Windows.Forms.RadioButton();
             this.rdoCheckManual = new System.Windows.Forms.RadioButton();
             this.rdoCheckStartup = new System.Windows.Forms.RadioButton();
-            this.genericFileAssociationBox = new System.Windows.Forms.GroupBox();
-            this.datFileAssociation = new System.Windows.Forms.CheckBox();
-            this.binFileAssociation = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.grpBoxMDL0General.SuspendLayout();
             this.grpBoxAudioGeneral.SuspendLayout();
             this.grpBoxMainFormGeneral.SuspendLayout();
+            this.grpBoxFileNameDisplayGeneral.SuspendLayout();
             this.tabCompression.SuspendLayout();
             this.groupBoxModuleCompression.SuspendLayout();
             this.groupBoxStageCompression.SuspendLayout();
             this.groupBoxFighterCompression.SuspendLayout();
             this.tabFileAssociations.SuspendLayout();
+            this.genericFileAssociationBox.SuspendLayout();
             this.associatiedFilesBox.SuspendLayout();
             this.tabDiscord.SuspendLayout();
             this.grpBoxDiscordRPC.SuspendLayout();
@@ -361,7 +374,6 @@ namespace BrawlCrate
             this.tabUpdater.SuspendLayout();
             this.grpBoxCanary.SuspendLayout();
             this.updaterBehaviorGroupbox.SuspendLayout();
-            this.genericFileAssociationBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkShowPropDesc
@@ -402,9 +414,9 @@ namespace BrawlCrate
             this.chkCanary.AutoSize = true;
             this.chkCanary.Location = new System.Drawing.Point(10, 22);
             this.chkCanary.Name = "chkCanary";
-            this.chkCanary.Size = new System.Drawing.Size(231, 17);
+            this.chkCanary.Size = new System.Drawing.Size(263, 17);
             this.chkCanary.TabIndex = 13;
-            this.chkCanary.Text = "Opt into BrawlCrate Canary (BETA) updates";
+            this.chkCanary.Text = "Opt into BrawlCrate Canary (Experimental) updates";
             this.chkCanary.UseVisualStyleBackColor = true;
             this.chkCanary.CheckedChanged += new System.EventHandler(this.chkCanary_CheckedChanged);
             // 
@@ -440,7 +452,7 @@ namespace BrawlCrate
             this.grpBoxMDL0General.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpBoxMDL0General.Controls.Add(this.chkBoxMDL0Compatibility);
-            this.grpBoxMDL0General.Location = new System.Drawing.Point(8, 146);
+            this.grpBoxMDL0General.Location = new System.Drawing.Point(8, 241);
             this.grpBoxMDL0General.Name = "grpBoxMDL0General";
             this.grpBoxMDL0General.Size = new System.Drawing.Size(302, 53);
             this.grpBoxMDL0General.TabIndex = 19;
@@ -463,7 +475,7 @@ namespace BrawlCrate
             this.grpBoxAudioGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpBoxAudioGeneral.Controls.Add(this.chkBoxAutoPlayAudio);
-            this.grpBoxAudioGeneral.Location = new System.Drawing.Point(8, 87);
+            this.grpBoxAudioGeneral.Location = new System.Drawing.Point(8, 182);
             this.grpBoxAudioGeneral.Name = "grpBoxAudioGeneral";
             this.grpBoxAudioGeneral.Size = new System.Drawing.Size(302, 53);
             this.grpBoxAudioGeneral.TabIndex = 18;
@@ -485,14 +497,76 @@ namespace BrawlCrate
             // 
             this.grpBoxMainFormGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpBoxMainFormGeneral.Controls.Add(this.lblRecentFiles);
+            this.grpBoxMainFormGeneral.Controls.Add(this.recentFileCountBox);
+            this.grpBoxMainFormGeneral.Controls.Add(this.grpBoxFileNameDisplayGeneral);
             this.grpBoxMainFormGeneral.Controls.Add(this.chkShowPropDesc);
             this.grpBoxMainFormGeneral.Controls.Add(this.chkShowHex);
             this.grpBoxMainFormGeneral.Location = new System.Drawing.Point(8, 6);
             this.grpBoxMainFormGeneral.Name = "grpBoxMainFormGeneral";
-            this.grpBoxMainFormGeneral.Size = new System.Drawing.Size(302, 75);
+            this.grpBoxMainFormGeneral.Size = new System.Drawing.Size(302, 170);
             this.grpBoxMainFormGeneral.TabIndex = 15;
             this.grpBoxMainFormGeneral.TabStop = false;
             this.grpBoxMainFormGeneral.Text = "Main Form";
+            // 
+            // lblRecentFiles
+            // 
+            this.lblRecentFiles.AutoSize = true;
+            this.lblRecentFiles.Location = new System.Drawing.Point(8, 68);
+            this.lblRecentFiles.Name = "lblRecentFiles";
+            this.lblRecentFiles.Size = new System.Drawing.Size(120, 13);
+            this.lblRecentFiles.TabIndex = 12;
+            this.lblRecentFiles.Text = "Max Recent Files Count";
+            // 
+            // recentFileCountBox
+            // 
+            this.recentFileCountBox.Integer = true;
+            this.recentFileCountBox.Integral = true;
+            this.recentFileCountBox.Location = new System.Drawing.Point(134, 65);
+            this.recentFileCountBox.MaximumValue = 3.402823E+38F;
+            this.recentFileCountBox.MinimumValue = -3.402823E+38F;
+            this.recentFileCountBox.Name = "recentFileCountBox";
+            this.recentFileCountBox.Size = new System.Drawing.Size(100, 20);
+            this.recentFileCountBox.TabIndex = 11;
+            this.recentFileCountBox.Text = "0";
+            this.recentFileCountBox.TextChanged += new System.EventHandler(this.RecentFileCountBox_TextChanged);
+            // 
+            // grpBoxFileNameDisplayGeneral
+            // 
+            this.grpBoxFileNameDisplayGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpBoxFileNameDisplayGeneral.Controls.Add(this.rdoShowShortName);
+            this.grpBoxFileNameDisplayGeneral.Controls.Add(this.rdoShowFullPath);
+            this.grpBoxFileNameDisplayGeneral.Location = new System.Drawing.Point(6, 89);
+            this.grpBoxFileNameDisplayGeneral.Name = "grpBoxFileNameDisplayGeneral";
+            this.grpBoxFileNameDisplayGeneral.Size = new System.Drawing.Size(290, 75);
+            this.grpBoxFileNameDisplayGeneral.TabIndex = 10;
+            this.grpBoxFileNameDisplayGeneral.TabStop = false;
+            this.grpBoxFileNameDisplayGeneral.Text = "Filename Display";
+            // 
+            // rdoShowShortName
+            // 
+            this.rdoShowShortName.AutoSize = true;
+            this.rdoShowShortName.Location = new System.Drawing.Point(10, 45);
+            this.rdoShowShortName.Name = "rdoShowShortName";
+            this.rdoShowShortName.Size = new System.Drawing.Size(94, 17);
+            this.rdoShowShortName.TabIndex = 1;
+            this.rdoShowShortName.TabStop = true;
+            this.rdoShowShortName.Text = "Show filename";
+            this.rdoShowShortName.UseVisualStyleBackColor = true;
+            this.rdoShowShortName.CheckedChanged += new System.EventHandler(this.RdoPathDisplay_CheckedChanged);
+            // 
+            // rdoShowFullPath
+            // 
+            this.rdoShowFullPath.AutoSize = true;
+            this.rdoShowFullPath.Location = new System.Drawing.Point(10, 22);
+            this.rdoShowFullPath.Name = "rdoShowFullPath";
+            this.rdoShowFullPath.Size = new System.Drawing.Size(92, 17);
+            this.rdoShowFullPath.TabIndex = 0;
+            this.rdoShowFullPath.TabStop = true;
+            this.rdoShowFullPath.Text = "Show full path";
+            this.rdoShowFullPath.UseVisualStyleBackColor = true;
+            this.rdoShowFullPath.CheckedChanged += new System.EventHandler(this.RdoPathDisplay_CheckedChanged);
             // 
             // tabCompression
             // 
@@ -599,6 +673,41 @@ namespace BrawlCrate
             this.tabFileAssociations.Size = new System.Drawing.Size(318, 401);
             this.tabFileAssociations.TabIndex = 2;
             this.tabFileAssociations.Text = "File Associations";
+            // 
+            // genericFileAssociationBox
+            // 
+            this.genericFileAssociationBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.genericFileAssociationBox.Controls.Add(this.binFileAssociation);
+            this.genericFileAssociationBox.Controls.Add(this.datFileAssociation);
+            this.genericFileAssociationBox.Location = new System.Drawing.Point(8, 290);
+            this.genericFileAssociationBox.Name = "genericFileAssociationBox";
+            this.genericFileAssociationBox.Size = new System.Drawing.Size(302, 75);
+            this.genericFileAssociationBox.TabIndex = 6;
+            this.genericFileAssociationBox.TabStop = false;
+            this.genericFileAssociationBox.Text = "Generic File Types";
+            // 
+            // binFileAssociation
+            // 
+            this.binFileAssociation.AutoSize = true;
+            this.binFileAssociation.Location = new System.Drawing.Point(10, 45);
+            this.binFileAssociation.Name = "binFileAssociation";
+            this.binFileAssociation.Size = new System.Drawing.Size(135, 17);
+            this.binFileAssociation.TabIndex = 9;
+            this.binFileAssociation.Text = "Associate with .bin files";
+            this.binFileAssociation.UseVisualStyleBackColor = true;
+            this.binFileAssociation.CheckedChanged += new System.EventHandler(this.BinFileAssociation_CheckedChanged);
+            // 
+            // datFileAssociation
+            // 
+            this.datFileAssociation.AutoSize = true;
+            this.datFileAssociation.Location = new System.Drawing.Point(10, 22);
+            this.datFileAssociation.Name = "datFileAssociation";
+            this.datFileAssociation.Size = new System.Drawing.Size(136, 17);
+            this.datFileAssociation.TabIndex = 8;
+            this.datFileAssociation.Text = "Associate with .dat files";
+            this.datFileAssociation.UseVisualStyleBackColor = true;
+            this.datFileAssociation.CheckedChanged += new System.EventHandler(this.DatFileAssociation_CheckedChanged);
             // 
             // lblAdminApproval
             // 
@@ -725,10 +834,10 @@ namespace BrawlCrate
             listViewItem27,
             listViewItem28,
             listViewItem29});
-            this.listView1.Location = new System.Drawing.Point(3, 19);
+            this.listView1.Location = new System.Drawing.Point(6, 19);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(293, 227);
+            this.listView1.Size = new System.Drawing.Size(290, 227);
             this.listView1.TabIndex = 6;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -861,25 +970,13 @@ namespace BrawlCrate
             // 
             this.grpBoxCanary.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpBoxCanary.Controls.Add(this.btnCanaryBranch);
             this.grpBoxCanary.Controls.Add(this.chkCanary);
             this.grpBoxCanary.Location = new System.Drawing.Point(8, 132);
             this.grpBoxCanary.Name = "grpBoxCanary";
-            this.grpBoxCanary.Size = new System.Drawing.Size(302, 71);
+            this.grpBoxCanary.Size = new System.Drawing.Size(302, 53);
             this.grpBoxCanary.TabIndex = 15;
             this.grpBoxCanary.TabStop = false;
             this.grpBoxCanary.Text = "BrawlCrate Canary";
-            // 
-            // btnCanaryBranch
-            // 
-            this.btnCanaryBranch.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnCanaryBranch.Location = new System.Drawing.Point(79, 42);
-            this.btnCanaryBranch.Name = "btnCanaryBranch";
-            this.btnCanaryBranch.Size = new System.Drawing.Size(138, 23);
-            this.btnCanaryBranch.TabIndex = 14;
-            this.btnCanaryBranch.Text = "Change Canary Branch";
-            this.btnCanaryBranch.UseVisualStyleBackColor = true;
-            this.btnCanaryBranch.Click += new System.EventHandler(this.btnCanaryBranch_Click);
             // 
             // updaterBehaviorGroupbox
             // 
@@ -931,47 +1028,12 @@ namespace BrawlCrate
             this.rdoCheckStartup.Text = "Manual, but check for updates on startup";
             this.rdoCheckStartup.UseVisualStyleBackColor = true;
             // 
-            // genericFileAssociationBox
-            // 
-            this.genericFileAssociationBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.genericFileAssociationBox.Controls.Add(this.binFileAssociation);
-            this.genericFileAssociationBox.Controls.Add(this.datFileAssociation);
-            this.genericFileAssociationBox.Location = new System.Drawing.Point(8, 290);
-            this.genericFileAssociationBox.Name = "genericFileAssociationBox";
-            this.genericFileAssociationBox.Size = new System.Drawing.Size(302, 75);
-            this.genericFileAssociationBox.TabIndex = 6;
-            this.genericFileAssociationBox.TabStop = false;
-            this.genericFileAssociationBox.Text = "Generic File Types";
-            // 
-            // datFileAssociation
-            // 
-            this.datFileAssociation.AutoSize = true;
-            this.datFileAssociation.Location = new System.Drawing.Point(10, 22);
-            this.datFileAssociation.Name = "datFileAssociation";
-            this.datFileAssociation.Size = new System.Drawing.Size(136, 17);
-            this.datFileAssociation.TabIndex = 8;
-            this.datFileAssociation.Text = "Associate with .dat files";
-            this.datFileAssociation.UseVisualStyleBackColor = true;
-            this.datFileAssociation.CheckedChanged += new System.EventHandler(this.DatFileAssociation_CheckedChanged);
-            // 
-            // binFileAssociation
-            // 
-            this.binFileAssociation.AutoSize = true;
-            this.binFileAssociation.Location = new System.Drawing.Point(10, 45);
-            this.binFileAssociation.Name = "binFileAssociation";
-            this.binFileAssociation.Size = new System.Drawing.Size(135, 17);
-            this.binFileAssociation.TabIndex = 9;
-            this.binFileAssociation.Text = "Associate with .bin files";
-            this.binFileAssociation.UseVisualStyleBackColor = true;
-            this.binFileAssociation.CheckedChanged += new System.EventHandler(this.BinFileAssociation_CheckedChanged);
-            // 
             // SettingsDialog
             // 
             this.ClientSize = new System.Drawing.Size(326, 427);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Icon = ((System.Drawing.Icon)(BrawlLib.Properties.Resources.BrawlCrateIcon));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsDialog";
             this.Text = "Settings";
             this.Load += new System.EventHandler(this.SettingsDialog_Load);
@@ -984,6 +1046,8 @@ namespace BrawlCrate
             this.grpBoxAudioGeneral.PerformLayout();
             this.grpBoxMainFormGeneral.ResumeLayout(false);
             this.grpBoxMainFormGeneral.PerformLayout();
+            this.grpBoxFileNameDisplayGeneral.ResumeLayout(false);
+            this.grpBoxFileNameDisplayGeneral.PerformLayout();
             this.tabCompression.ResumeLayout(false);
             this.groupBoxModuleCompression.ResumeLayout(false);
             this.groupBoxModuleCompression.PerformLayout();
@@ -992,6 +1056,8 @@ namespace BrawlCrate
             this.groupBoxFighterCompression.ResumeLayout(false);
             this.groupBoxFighterCompression.PerformLayout();
             this.tabFileAssociations.ResumeLayout(false);
+            this.genericFileAssociationBox.ResumeLayout(false);
+            this.genericFileAssociationBox.PerformLayout();
             this.associatiedFilesBox.ResumeLayout(false);
             this.tabDiscord.ResumeLayout(false);
             this.grpBoxDiscordRPC.ResumeLayout(false);
@@ -1003,8 +1069,6 @@ namespace BrawlCrate
             this.grpBoxCanary.PerformLayout();
             this.updaterBehaviorGroupbox.ResumeLayout(false);
             this.updaterBehaviorGroupbox.PerformLayout();
-            this.genericFileAssociationBox.ResumeLayout(false);
-            this.genericFileAssociationBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1205,6 +1269,24 @@ namespace BrawlCrate
             if (_updating)
                 return;
             btnApply.Enabled = true;
+        }
+
+        private void RdoPathDisplay_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_updating)
+                return;
+            MainForm.Instance.ShowFullPath = rdoShowFullPath.Checked;
+        }
+
+        private void RecentFileCountBox_TextChanged(object sender, EventArgs e)
+        {
+            if (_updating)
+                return;
+            if(int.TryParse(recentFileCountBox.Text, out int i))
+            {
+                BrawlCrate.Properties.Settings.Default.RecentFilesMax = i;
+                BrawlCrate.Properties.Settings.Default.Save();
+            }
         }
     }
 }

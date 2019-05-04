@@ -45,6 +45,7 @@ namespace BrawlCrate.NodeWrappers
                 new ToolStripMenuItem(BrawlLib.Properties.Resources.Objects, null, ImportObjectAction)
                 ));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.SortAssets, null,
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Materials, null, SortMaterialAction),
                 new ToolStripMenuItem(BrawlLib.Properties.Resources.Vertices, null, SortVertexAction),
                 new ToolStripMenuItem(BrawlLib.Properties.Resources.Normals, null, SortNormalAction),
                 new ToolStripMenuItem(BrawlLib.Properties.Resources.Colors, null, SortColorAction),
@@ -53,6 +54,7 @@ namespace BrawlCrate.NodeWrappers
                 new ToolStripMenuItem(BrawlLib.Properties.Resources.Textures, null, SortObjectAction)
                 ));
             _menu.Items.Add(new ToolStripMenuItem(BrawlLib.Properties.Resources.AutoNameAssets, null,
+                new ToolStripMenuItem(BrawlLib.Properties.Resources.Materials, null, NameMaterialAction),
                 new ToolStripMenuItem(BrawlLib.Properties.Resources.Vertices, null, NameVertexAction),
                 new ToolStripMenuItem(BrawlLib.Properties.Resources.Normals, null, NameNormalAction),
                 new ToolStripMenuItem(BrawlLib.Properties.Resources.Colors, null, NameColorAction),
@@ -131,6 +133,7 @@ namespace BrawlCrate.NodeWrappers
         protected static void NewColorAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NewColor(); }
         protected static void NewUVAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NewUV(); }
 
+        protected static void NameMaterialAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NameMaterial(); }
         protected static void NameVertexAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NameVertex(); }
         protected static void NameNormalAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NameNormal(); }
         protected static void NameColorAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NameColor(); }
@@ -142,6 +145,7 @@ namespace BrawlCrate.NodeWrappers
         protected static void ImportColorAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().ImportColor(); }
         protected static void ImportUVAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().ImportUV(); }
 
+        protected static void SortMaterialAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortMaterial(); }
         protected static void SortVertexAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortVertex(); }
         protected static void SortNormalAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortNormal(); }
         protected static void SortColorAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortColor(); }
@@ -682,6 +686,16 @@ namespace BrawlCrate.NodeWrappers
                 ((MDL0Node)_resource).GenerateMetalMaterials(metalTextureName);
         }
 
+        public void NameMaterial()
+        {
+            MDL0Node model = ((MDL0Node)_resource);
+            MDL0GroupNode g = model._matGroup;
+            int i = 0;
+            if (g != null)
+                foreach (MDL0MaterialNode m in g.Children)
+                    m.Name = "Material_" + i++;
+        }
+
         public void NameVertex()
         {
             MDL0Node model = ((MDL0Node)_resource);
@@ -915,6 +929,12 @@ namespace BrawlCrate.NodeWrappers
                     new ObjectImporter().ShowDialog((MDL0Node)_resource, external);
         }
 
+        public void SortMaterial()
+        {
+            int index = Index;
+            ((MDL0Node)_resource).MaterialGroup.SortChildren();
+            RefreshView(_resource);
+        }
         public void SortVertex()
         {
             int index = Index;

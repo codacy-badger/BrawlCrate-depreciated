@@ -25,7 +25,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public bool _isCodeSection = false;
         public bool _isBSSSection = false;
         public int _dataOffset = 0;
-        public int _endBufferSize = 0x0;
+        public uint _endBufferSize = 0x0;
         public uint _dataSize;
         public int _dataAlign;
 
@@ -84,7 +84,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
         public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
-            return _dataBuffer.Length + _endBufferSize;
+            return _dataBuffer.Length + (int)_endBufferSize;
         }
 
         public override void OnRebuild(VoidPtr address, int length, bool force)

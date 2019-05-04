@@ -115,7 +115,7 @@ namespace System.Windows.Forms
 
                     foreach (ModelPanelViewport v in ModelPanel)
                     {
-                        v.ScreenText[l.Name] = v.Camera.Project(start);
+                        v.SettingsScreenText[l.Name] = v.Camera.Project(start);
                         //v.ScreenText[l.Name] = v.Camera.Project(end);
                     }
 
@@ -186,7 +186,7 @@ namespace System.Windows.Forms
 
                 foreach (ModelPanelViewport v in ModelPanel)
                 {
-                    v.ScreenText[_SCN0Camera.Name] = v.Camera.Project(start);
+                    v.SettingsScreenText[_SCN0Camera.Name] = v.Camera.Project(start);
                     //v.ScreenText["Camera Aim"] = v.Camera.Project(end);
                 }
 
@@ -360,9 +360,9 @@ namespace System.Windows.Forms
 
             GL.PopMatrix();
 
-            panel.ScreenText["X"] = panel.Camera.Project(new Vector3(_axisLDist + 0.1f, 0, 0) * m) - new Vector3(8.0f, 8.0f, 0);
-            panel.ScreenText["Y"] = panel.Camera.Project(new Vector3(0, _axisLDist + 0.1f, 0) * m) - new Vector3(8.0f, 8.0f, 0);
-            panel.ScreenText["Z"] = panel.Camera.Project(new Vector3(0, 0, _axisLDist + 0.1f) * m) - new Vector3(8.0f, 8.0f, 0);
+            panel.SettingsScreenText["X"] = panel.Camera.Project(new Vector3(_axisLDist + 0.1f, 0, 0) * m) - new Vector3(8.0f, 8.0f, 0);
+            panel.SettingsScreenText["Y"] = panel.Camera.Project(new Vector3(0, _axisLDist + 0.1f, 0) * m) - new Vector3(8.0f, 8.0f, 0);
+            panel.SettingsScreenText["Z"] = panel.Camera.Project(new Vector3(0, 0, _axisLDist + 0.1f) * m) - new Vector3(8.0f, 8.0f, 0);
         }
         public unsafe void RenderScaleControl(Vector3 pos, float radius, Matrix rotation, ModelPanelViewport panel)
         {
@@ -375,9 +375,9 @@ namespace System.Windows.Forms
 
             GL.PopMatrix();
             
-            panel.ScreenText["X"] = panel.Camera.Project(new Vector3(_axisLDist + 0.1f, 0, 0) * m) - new Vector3(8.0f, 8.0f, 0);
-            panel.ScreenText["Y"] = panel.Camera.Project(new Vector3(0, _axisLDist + 0.1f, 0) * m) - new Vector3(8.0f, 8.0f, 0);
-            panel.ScreenText["Z"] = panel.Camera.Project(new Vector3(0, 0, _axisLDist + 0.1f) * m) - new Vector3(8.0f, 8.0f, 0);
+            panel.SettingsScreenText["X"] = panel.Camera.Project(new Vector3(_axisLDist + 0.1f, 0, 0) * m) - new Vector3(8.0f, 8.0f, 0);
+            panel.SettingsScreenText["Y"] = panel.Camera.Project(new Vector3(0, _axisLDist + 0.1f, 0) * m) - new Vector3(8.0f, 8.0f, 0);
+            panel.SettingsScreenText["Z"] = panel.Camera.Project(new Vector3(0, 0, _axisLDist + 0.1f) * m) - new Vector3(8.0f, 8.0f, 0);
         }
         public unsafe void RenderRotationControl(Vector3 position, float radius, Matrix rotation, ModelPanelViewport panel)
         {
@@ -421,9 +421,9 @@ namespace System.Windows.Forms
             //Enter local space
             m = Matrix.TransformMatrix(new Vector3(radius), new Vector3(), position) * rotation;
 
-            panel.ScreenText["X"] = panel.Camera.Project(new Vector3(1.1f, 0, 0) * m) - new Vector3(8.0f, 8.0f, 0);
-            panel.ScreenText["Y"] = panel.Camera.Project(new Vector3(0, 1.1f, 0) * m) - new Vector3(8.0f, 8.0f, 0);
-            panel.ScreenText["Z"] = panel.Camera.Project(new Vector3(0, 0, 1.1f) * m) - new Vector3(8.0f, 8.0f, 0);
+            panel.SettingsScreenText["X"] = panel.Camera.Project(new Vector3(1.1f, 0, 0) * m) - new Vector3(8.0f, 8.0f, 0);
+            panel.SettingsScreenText["Y"] = panel.Camera.Project(new Vector3(0, 1.1f, 0) * m) - new Vector3(8.0f, 8.0f, 0);
+            panel.SettingsScreenText["Z"] = panel.Camera.Project(new Vector3(0, 0, 1.1f) * m) - new Vector3(8.0f, 8.0f, 0);
 
             GL.PushMatrix();
             GL.MultMatrix((float*)&m);

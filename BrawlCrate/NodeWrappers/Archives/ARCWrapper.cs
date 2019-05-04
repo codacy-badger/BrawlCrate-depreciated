@@ -92,50 +92,50 @@ namespace BrawlCrate
         protected static void NewSCLAExpandedAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewSCLA(256); }
         protected static void NewSTDTAction(object sender, EventArgs e)
         {
-            StageBoxNumericEntry entryCount = new StageBoxNumericEntry();
+            NumericEntryBox entryCount = new NumericEntryBox();
             if (entryCount.ShowDialog(BrawlLib.Properties.Resources.ReplaceAll, BrawlLib.Properties.Resources.NumberOfEntries) == DialogResult.OK)
                 GetInstance<ARCWrapper>().NewSTDT(entryCount.NewValue);
         }
         protected static void NewSTPMAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewSTPM(); }
         protected static void NewTBCLAction(object sender, EventArgs e)
         {
-            StageBoxNumericEntry entryCount = new StageBoxNumericEntry();
+            NumericEntryBox entryCount = new NumericEntryBox();
             if (entryCount.ShowDialog(BrawlLib.Properties.Resources.TBCLGeneration, BrawlLib.Properties.Resources.NumberOfEntries) == DialogResult.OK)
                 GetInstance<ARCWrapper>().NewTBCL(entryCount.NewValue);
         }
         protected static void NewTBGCAction(object sender, EventArgs e)
         {
-            StageBoxNumericEntry entryCount = new StageBoxNumericEntry();
+            NumericEntryBox entryCount = new NumericEntryBox();
             if (entryCount.ShowDialog("TBGC Generation", BrawlLib.Properties.Resources.NumberOfEntries) == DialogResult.OK)
                 GetInstance<ARCWrapper>().NewTBGC(entryCount.NewValue);
         }
         protected static void NewTBGDAction(object sender, EventArgs e)
         {
-            StageBoxNumericEntry entryCount = new StageBoxNumericEntry();
+            NumericEntryBox entryCount = new NumericEntryBox();
             if (entryCount.ShowDialog("TBGD Generation", BrawlLib.Properties.Resources.NumberOfEntries) == DialogResult.OK)
                 GetInstance<ARCWrapper>().NewTBGD(entryCount.NewValue);
         }
         protected static void NewTBGMAction(object sender, EventArgs e)
         {
-            StageBoxNumericEntry entryCount = new StageBoxNumericEntry();
+            NumericEntryBox entryCount = new NumericEntryBox();
             if (entryCount.ShowDialog("TBGM Generation", BrawlLib.Properties.Resources.NumberOfEntries) == DialogResult.OK)
                 GetInstance<ARCWrapper>().NewTBGM(entryCount.NewValue);
         }
         protected static void NewTBLVAction(object sender, EventArgs e)
         {
-            StageBoxNumericEntry entryCount = new StageBoxNumericEntry();
+            NumericEntryBox entryCount = new NumericEntryBox();
             if (entryCount.ShowDialog("TBLV Generation", BrawlLib.Properties.Resources.NumberOfEntries) == DialogResult.OK)
                 GetInstance<ARCWrapper>().NewTBLV(entryCount.NewValue);
         }
         protected static void NewTBRMAction(object sender, EventArgs e)
         {
-            StageBoxNumericEntry entryCount = new StageBoxNumericEntry();
+            NumericEntryBox entryCount = new NumericEntryBox();
             if (entryCount.ShowDialog("TBRM Generation", BrawlLib.Properties.Resources.NumberOfEntries) == DialogResult.OK)
                 GetInstance<ARCWrapper>().NewTBRM(entryCount.NewValue);
         }
         protected static void NewTBSTAction(object sender, EventArgs e)
         {
-            StageBoxNumericEntry entryCount = new StageBoxNumericEntry();
+            NumericEntryBox entryCount = new NumericEntryBox();
             if (entryCount.ShowDialog("TBST Generation", BrawlLib.Properties.Resources.NumberOfEntries) == DialogResult.OK)
                 GetInstance<ARCWrapper>().NewTBST(entryCount.NewValue);
         }
