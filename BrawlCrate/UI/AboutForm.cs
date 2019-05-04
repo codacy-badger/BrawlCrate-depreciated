@@ -12,7 +12,7 @@ namespace BrawlCrate
         {
             InitializeComponent();
             this.lblName.Text = "BrawlCrate" + (MainForm.Instance.Canary ? " Canary" : "");
-            this.lblVersion.Text = MainForm.Instance.Canary ? MainForm.Instance.commitIDlong : "Version " + Program.AssemblyVersion;
+            this.lblVersion.Text = MainForm.Instance.Canary ? MainForm.Instance.commitIDlong.Substring(1) : "Version " + Program.AssemblyVersion;
 #if DEBUG
             this.lblVersion.Text += " DEBUG";
 #endif
