@@ -29,7 +29,6 @@ namespace System.Windows.Forms
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem editToolStripMenuItem;
         private ToolStripMenuItem openModelsToolStripMenuItem;
-        private ToolStripMenuItem kinectToolStripMenuItem;
         private ToolStripMenuItem notYetImplementedToolStripMenuItem;
         private ToolStripMenuItem newSceneToolStripMenuItem;
         private ToolStripMenuItem viewToolStripMenuItem1;
@@ -265,6 +264,7 @@ namespace System.Windows.Forms
             this.chkBBVisBones = new System.Windows.Forms.ToolStripMenuItem();
             this.shadersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chkBillboardBones = new System.Windows.Forms.ToolStripMenuItem();
+            this.toggleMetals = new System.Windows.Forms.ToolStripMenuItem();
             this.fileTypesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playCHR0ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -300,7 +300,6 @@ namespace System.Windows.Forms
             this.chkExternalAnims = new System.Windows.Forms.ToolStripMenuItem();
             this.chkBRRESAnims = new System.Windows.Forms.ToolStripMenuItem();
             this.chkNonBRRESAnims = new System.Windows.Forms.ToolStripMenuItem();
-            this.kinectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.syncKinectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notYetImplementedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startTrackingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -343,7 +342,6 @@ namespace System.Windows.Forms
             this.vertexEditor = new System.Windows.Forms.VertexEditor();
             this.rightPanel = new System.Windows.Forms.RightPanel();
             this.leftPanel = new System.Windows.Forms.LeftPanel();
-            this.toggleMetals = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.controlPanel.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -424,11 +422,10 @@ namespace System.Windows.Forms
             this.editToolStripMenuItem,
             this.viewToolStripMenuItem1,
             this.toolsToolStripMenuItem,
-            this.targetModelToolStripMenuItem,
-            this.kinectToolStripMenuItem});
+            this.targetModelToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(421, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(289, 24);
             this.menuStrip1.TabIndex = 13;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -448,14 +445,14 @@ namespace System.Windows.Forms
             // 
             this.newSceneToolStripMenuItem.Name = "newSceneToolStripMenuItem";
             this.newSceneToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newSceneToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.newSceneToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newSceneToolStripMenuItem.Text = "New Scene";
             this.newSceneToolStripMenuItem.Click += new System.EventHandler(this.newSceneToolStripMenuItem_Click);
             // 
             // openModelsToolStripMenuItem
             // 
             this.openModelsToolStripMenuItem.Name = "openModelsToolStripMenuItem";
-            this.openModelsToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.openModelsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openModelsToolStripMenuItem.Text = "Load Models";
             this.openModelsToolStripMenuItem.Click += new System.EventHandler(this.openFileToolStripMenuItem_Click);
             // 
@@ -466,7 +463,7 @@ namespace System.Windows.Forms
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem});
             this.openAnimationsToolStripMenuItem.Name = "openAnimationsToolStripMenuItem";
-            this.openAnimationsToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.openAnimationsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openAnimationsToolStripMenuItem.Text = "Animations";
             // 
             // btnOpenClose
@@ -497,14 +494,14 @@ namespace System.Windows.Forms
             // openMovesetToolStripMenuItem
             // 
             this.openMovesetToolStripMenuItem.Name = "openMovesetToolStripMenuItem";
-            this.openMovesetToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.openMovesetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openMovesetToolStripMenuItem.Text = "Load Moveset";
             this.openMovesetToolStripMenuItem.Visible = false;
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.closeToolStripMenuItem.Text = "Close Window";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -622,7 +619,7 @@ namespace System.Windows.Forms
             this.showRight,
             this.detachViewerToolStripMenuItem});
             this.editorsToolStripMenuItem.Name = "editorsToolStripMenuItem";
-            this.editorsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editorsToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.editorsToolStripMenuItem.Text = "Panels";
             // 
             // showTop
@@ -677,7 +674,7 @@ namespace System.Windows.Forms
             this.newToolStripMenuItem,
             this.removeCurrentViewportToolStripMenuItem});
             this.viewportToolStripMenuItem.Name = "viewportToolStripMenuItem";
-            this.viewportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.viewportToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.viewportToolStripMenuItem.Text = "Viewport";
             // 
             // backgroundToolStripMenuItem
@@ -1021,7 +1018,7 @@ namespace System.Windows.Forms
             this.chkBillboardBones,
             this.toggleMetals});
             this.modelToolStripMenuItem.Name = "modelToolStripMenuItem";
-            this.modelToolStripMenuItem.Size = new System.Drawing.Size(159, 26);
+            this.modelToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.modelToolStripMenuItem.Text = BrawlLib.Properties.Resources.Model;
             // 
             // toggleBones
@@ -1030,7 +1027,7 @@ namespace System.Windows.Forms
             this.toggleBones.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toggleBones.Name = "toggleBones";
             this.toggleBones.ShortcutKeyDisplayString = "B Key";
-            this.toggleBones.Size = new System.Drawing.Size(180, 22);
+            this.toggleBones.Size = new System.Drawing.Size(159, 22);
             this.toggleBones.Text = "Bones";
             this.toggleBones.Click += new System.EventHandler(this.toggleRenderBones_Event);
             // 
@@ -1040,7 +1037,7 @@ namespace System.Windows.Forms
             this.togglePolygons.CheckState = System.Windows.Forms.CheckState.Checked;
             this.togglePolygons.Name = "togglePolygons";
             this.togglePolygons.ShortcutKeyDisplayString = "P Key";
-            this.togglePolygons.Size = new System.Drawing.Size(180, 22);
+            this.togglePolygons.Size = new System.Drawing.Size(159, 22);
             this.togglePolygons.Text = "Polygons";
             this.togglePolygons.Click += new System.EventHandler(this.toggleRenderPolygons_Event);
             // 
@@ -1050,7 +1047,7 @@ namespace System.Windows.Forms
             this.toggleVertices.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toggleVertices.Name = "toggleVertices";
             this.toggleVertices.ShortcutKeyDisplayString = "V Key";
-            this.toggleVertices.Size = new System.Drawing.Size(189, 26);
+            this.toggleVertices.Size = new System.Drawing.Size(159, 22);
             this.toggleVertices.Text = BrawlLib.Properties.Resources.Vertices;
             this.toggleVertices.Click += new System.EventHandler(this.toggleRenderVertices_Event);
             // 
@@ -1059,7 +1056,7 @@ namespace System.Windows.Forms
             this.toggleCollisions.Checked = true;
             this.toggleCollisions.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toggleCollisions.Name = "toggleCollisions";
-            this.toggleCollisions.Size = new System.Drawing.Size(180, 22);
+            this.toggleCollisions.Size = new System.Drawing.Size(159, 22);
             this.toggleCollisions.Text = "Collisions";
             this.toggleCollisions.Click += new System.EventHandler(this.toggleRenderCollisions_Event);
             // 
@@ -1067,14 +1064,14 @@ namespace System.Windows.Forms
             // 
             this.wireframeToolStripMenuItem.Name = "wireframeToolStripMenuItem";
             this.wireframeToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.wireframeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.wireframeToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.wireframeToolStripMenuItem.Text = "Wireframe";
             this.wireframeToolStripMenuItem.Click += new System.EventHandler(this.wireframeToolStripMenuItem_Click);
             // 
             // toggleNormals
             // 
             this.toggleNormals.Name = "toggleNormals";
-            this.toggleNormals.Size = new System.Drawing.Size(189, 26);
+            this.toggleNormals.Size = new System.Drawing.Size(159, 22);
             this.toggleNormals.Text = BrawlLib.Properties.Resources.Normals;
             this.toggleNormals.Click += new System.EventHandler(this.toggleNormals_Click);
             // 
@@ -1085,7 +1082,7 @@ namespace System.Windows.Forms
             this.chkBBObjects,
             this.chkBBVisBones});
             this.boundingBoxToolStripMenuItem.Name = "boundingBoxToolStripMenuItem";
-            this.boundingBoxToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.boundingBoxToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.boundingBoxToolStripMenuItem.Text = "Bounding Box";
             // 
             // chkBBModels
@@ -1114,7 +1111,7 @@ namespace System.Windows.Forms
             this.shadersToolStripMenuItem.Checked = true;
             this.shadersToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.shadersToolStripMenuItem.Name = "shadersToolStripMenuItem";
-            this.shadersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.shadersToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.shadersToolStripMenuItem.Text = "Shaders";
             this.shadersToolStripMenuItem.Click += new System.EventHandler(this.shadersToolStripMenuItem_Click);
             // 
@@ -1123,9 +1120,16 @@ namespace System.Windows.Forms
             this.chkBillboardBones.Checked = true;
             this.chkBillboardBones.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBillboardBones.Name = "chkBillboardBones";
-            this.chkBillboardBones.Size = new System.Drawing.Size(180, 22);
+            this.chkBillboardBones.Size = new System.Drawing.Size(159, 22);
             this.chkBillboardBones.Text = "Billboard Bones";
             this.chkBillboardBones.Click += new System.EventHandler(this.chkBillboardBones_Click);
+            // 
+            // toggleMetals
+            // 
+            this.toggleMetals.Name = "toggleMetals";
+            this.toggleMetals.Size = new System.Drawing.Size(159, 22);
+            this.toggleMetals.Text = "Metals";
+            this.toggleMetals.Click += new System.EventHandler(this.toggleMetals_Event);
             // 
             // fileTypesToolStripMenuItem
             // 
@@ -1133,7 +1137,7 @@ namespace System.Windows.Forms
             this.playToolStripMenuItem,
             this.sCN0ToolStripMenuItem});
             this.fileTypesToolStripMenuItem.Name = "fileTypesToolStripMenuItem";
-            this.fileTypesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fileTypesToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.fileTypesToolStripMenuItem.Text = "Animations";
             // 
             // playToolStripMenuItem
@@ -1230,7 +1234,7 @@ namespace System.Windows.Forms
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
@@ -1441,11 +1445,6 @@ namespace System.Windows.Forms
             this.chkNonBRRESAnims.Text = "Display animations not in BRRES";
             this.chkNonBRRESAnims.CheckedChanged += new System.EventHandler(this.UpdateAnimList_Event);
             // 
-            // kinectToolStripMenuItem
-            // 
-            this.kinectToolStripMenuItem.Name = "kinectToolStripMenuItem";
-            this.kinectToolStripMenuItem.Size = new System.Drawing.Size(12, 20);
-            // 
             // syncKinectToolStripMenuItem
             // 
             this.syncKinectToolStripMenuItem.Name = "syncKinectToolStripMenuItem";
@@ -1463,15 +1462,16 @@ namespace System.Windows.Forms
             // 
             // models
             // 
-            this.models.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.models.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.models.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.models.FormattingEnabled = true;
             this.models.Items.AddRange(new object[] {
             "All"});
-            this.models.Location = new System.Drawing.Point(349, 1);
+            this.models.Location = new System.Drawing.Point(292, 1);
             this.models.Name = "models";
-            this.models.Size = new System.Drawing.Size(115, 21);
+            this.models.Size = new System.Drawing.Size(110, 21);
             this.models.TabIndex = 21;
             this.models.SelectedIndexChanged += new System.EventHandler(this.models_SelectedIndexChanged);
             // 
@@ -1489,7 +1489,7 @@ namespace System.Windows.Forms
             // 
             // splitter1
             // 
-            this.splitter1.Location = new System.Drawing.Point(464, 0);
+            this.splitter1.Location = new System.Drawing.Point(402, 0);
             this.splitter1.Name = "splitter1";
             this.splitter1.Size = new System.Drawing.Size(3, 26);
             this.splitter1.TabIndex = 31;
@@ -1513,10 +1513,10 @@ namespace System.Windows.Forms
             this.btnSaveCam,
             this.toolStripSeparator2,
             this.cboToolSelect});
-            this.toolStrip1.Location = new System.Drawing.Point(464, 0);
+            this.toolStrip1.Location = new System.Drawing.Point(402, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(6, 0, 0, 0);
-            this.toolStrip1.Size = new System.Drawing.Size(341, 26);
+            this.toolStrip1.Size = new System.Drawing.Size(403, 26);
             this.toolStrip1.TabIndex = 30;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -1635,7 +1635,7 @@ namespace System.Windows.Forms
             this.button1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.button1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(83, 19);
+            this.button1.Size = new System.Drawing.Size(83, 23);
             this.button1.Text = "Reset Camera";
             this.button1.Click += new System.EventHandler(this.resetCameraToolStripMenuItem_Click_1);
             // 
@@ -1682,7 +1682,7 @@ namespace System.Windows.Forms
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(464, 26);
+            this.panel2.Size = new System.Drawing.Size(402, 26);
             this.panel2.TabIndex = 29;
             // 
             // spltRight
@@ -1907,16 +1907,6 @@ namespace System.Windows.Forms
             this.leftPanel.TabIndex = 4;
             this.leftPanel.Visible = false;
             // 
-            // toggleMetals
-            // 
-            this.toggleMetals.Checked = false;
-            this.toggleMetals.CheckState = System.Windows.Forms.CheckState.Unchecked;
-            this.toggleVertices.ShortcutKeyDisplayString = "M Key";
-            this.toggleMetals.Name = "toggleMetals";
-            this.toggleMetals.Size = new System.Drawing.Size(180, 22);
-            this.toggleMetals.Text = "Metals";
-            this.toggleMetals.Click += new System.EventHandler(this.toggleMetals_Event);
-            // 
             // ModelEditControl
             // 
             this.AllowDrop = true;
@@ -1987,7 +1977,9 @@ namespace System.Windows.Forms
 
             animEditors.HorizontalScroll.Enabled = (!(animEditors.Width - animCtrlPnl.Width >= pnlPlayback.MinimumSize.Width));
 
-            string applicationFolder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            string applicationFolder = "C:";
+            try { applicationFolder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location); }
+            catch { }
             ScreenCapBgLocText.Text = applicationFolder + "\\ScreenCaptures";
             MDL0TextureNode.TextureOverrideDirectory = 
                 LiveTextureFolderPath.Text = 

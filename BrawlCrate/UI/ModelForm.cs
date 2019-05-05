@@ -25,20 +25,20 @@ namespace BrawlCrate
             this.modelEditControl1.AllowDrop = true;
             this.modelEditControl1.BackColor = System.Drawing.Color.Lavender;
             this.modelEditControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.modelEditControl1.ScreenCaptureType = 0;
             this.modelEditControl1.Location = new System.Drawing.Point(0, 0);
             this.modelEditControl1.Name = "modelEditControl1";
-            this.modelEditControl1.Size = new System.Drawing.Size(639, 528);
+            this.modelEditControl1.Size = new System.Drawing.Size(709, 686);
             this.modelEditControl1.TabIndex = 0;
             this.modelEditControl1.TargetAnimation = null;
-            this.modelEditControl1.TargetAnimType = System.Windows.Forms.NW4RAnimType.CHR;
+            this.modelEditControl1.VertexLoc = null;
+            this.modelEditControl1.VIS0Updating = false;
             this.modelEditControl1.TargetModelChanged += new System.EventHandler(this.TargetModelChanged);
             this.modelEditControl1.ModelViewerChanged += new System.EventHandler(this.ModelViewerChanged);
             // 
             // ModelForm
             // 
             this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(639, 528);
+            this.ClientSize = new System.Drawing.Size(709, 686);
             this.Controls.Add(this.modelEditControl1);
             this.Icon = BrawlLib.Properties.Resources.BrawlCrateIcon;
             this.Name = "ModelForm";

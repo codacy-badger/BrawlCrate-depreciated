@@ -106,7 +106,8 @@ namespace BrawlLib.Modeling
         {
             byte* grpAddr = (byte*)(primAddr + _offset);
             for (int i = 0; i < _nodeOffsets.Count; i++)
-                *(bushort*)(grpAddr + _nodeOffsets[i]._offset) = (ushort)_nodeOffsets[i]._node.NodeIndex;
+                if(_nodeOffsets[i]._node != null)
+                    *(bushort*)(grpAddr + _nodeOffsets[i]._offset) = (ushort)_nodeOffsets[i]._node.NodeIndex;
         }
 
         private void AddTriangle(PointTriangle t)
