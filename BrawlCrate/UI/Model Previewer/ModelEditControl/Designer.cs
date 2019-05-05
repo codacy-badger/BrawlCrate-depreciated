@@ -1987,7 +1987,9 @@ namespace System.Windows.Forms
 
             animEditors.HorizontalScroll.Enabled = (!(animEditors.Width - animCtrlPnl.Width >= pnlPlayback.MinimumSize.Width));
 
-            string applicationFolder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            string applicationFolder = "C:";
+            try { applicationFolder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location); }
+            catch { }
             ScreenCapBgLocText.Text = applicationFolder + "\\ScreenCaptures";
             MDL0TextureNode.TextureOverrideDirectory = 
                 LiveTextureFolderPath.Text = 
