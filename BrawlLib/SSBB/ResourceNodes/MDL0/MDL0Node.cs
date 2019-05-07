@@ -54,7 +54,29 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         [Category("Metal Materials"), Browsable(true), Description(
         @"The texture name used by metal materials for this model. Editing this will automatically regenerate metal materials.")]
-        public string MetalTexture { get { return _metalMat; } set { _metalMat = value; GenerateMetalMaterials(_metalMat); } }
+        public string MetalTexture
+        {
+            get
+            {
+                return _metalMat;
+            }
+            set
+            {
+                if(_matList != null)
+                    foreach(MDL0MaterialNode m in _matList)
+                    {
+                        if (m.IsMetal)
+                        {
+                            foreach(MDL0MaterialRefNode mr in m.Children)
+                            {
+                                if (mr.Name == _metalMat)
+                                    mr.Name = value;
+                            }
+                        }
+                    }
+                _metalMat = value;
+            }
+        }
         public string _metalMat;
 
         [Category("G3D Model")]
@@ -848,7 +870,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public void GenerateMetalMaterials()
         {
-            GenerateMetalMaterials("metal00");
+            GenerateMetalMaterials(_metalMat == "" ? "metal00" : _metalMat);
         }
 
         public void GenerateMetalMaterials(String metalTextureName)
