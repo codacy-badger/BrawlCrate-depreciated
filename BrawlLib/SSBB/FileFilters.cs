@@ -123,6 +123,6 @@ namespace BrawlLib
             SupportedFilesHandler.GetCompleteFilter("dat", "bx");
 
         public static string MASQ =
-            SupportedFilesHandler.GetCompleteFilter("bin", "dat", "*");
+            SupportedFilesHandler.GetCompleteFilter("masq", "bin", "dat", "*");
     }
 }
