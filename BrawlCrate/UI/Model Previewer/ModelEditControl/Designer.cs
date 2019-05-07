@@ -445,14 +445,14 @@ namespace System.Windows.Forms
             // 
             this.newSceneToolStripMenuItem.Name = "newSceneToolStripMenuItem";
             this.newSceneToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newSceneToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newSceneToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.newSceneToolStripMenuItem.Text = "New Scene";
             this.newSceneToolStripMenuItem.Click += new System.EventHandler(this.newSceneToolStripMenuItem_Click);
             // 
             // openModelsToolStripMenuItem
             // 
             this.openModelsToolStripMenuItem.Name = "openModelsToolStripMenuItem";
-            this.openModelsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openModelsToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.openModelsToolStripMenuItem.Text = "Load Models";
             this.openModelsToolStripMenuItem.Click += new System.EventHandler(this.openFileToolStripMenuItem_Click);
             // 
@@ -463,7 +463,7 @@ namespace System.Windows.Forms
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem});
             this.openAnimationsToolStripMenuItem.Name = "openAnimationsToolStripMenuItem";
-            this.openAnimationsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openAnimationsToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.openAnimationsToolStripMenuItem.Text = "Animations";
             // 
             // btnOpenClose
@@ -494,14 +494,14 @@ namespace System.Windows.Forms
             // openMovesetToolStripMenuItem
             // 
             this.openMovesetToolStripMenuItem.Name = "openMovesetToolStripMenuItem";
-            this.openMovesetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openMovesetToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.openMovesetToolStripMenuItem.Text = "Load Moveset";
             this.openMovesetToolStripMenuItem.Visible = false;
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.closeToolStripMenuItem.Text = "Close Window";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -1010,13 +1010,13 @@ namespace System.Windows.Forms
             this.toggleBones,
             this.togglePolygons,
             this.toggleVertices,
+            this.toggleMetals,
             this.toggleCollisions,
             this.wireframeToolStripMenuItem,
             this.toggleNormals,
             this.boundingBoxToolStripMenuItem,
             this.shadersToolStripMenuItem,
-            this.chkBillboardBones,
-            this.toggleMetals});
+            this.chkBillboardBones});
             this.modelToolStripMenuItem.Name = "modelToolStripMenuItem";
             this.modelToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.modelToolStripMenuItem.Text = BrawlLib.Properties.Resources.Model;
@@ -1129,6 +1129,7 @@ namespace System.Windows.Forms
             this.toggleMetals.Name = "toggleMetals";
             this.toggleMetals.Size = new System.Drawing.Size(159, 22);
             this.toggleMetals.Text = "Metals";
+            this.toggleMetals.ShortcutKeyDisplayString = "M Key";
             this.toggleMetals.Click += new System.EventHandler(this.toggleMetals_Event);
             // 
             // fileTypesToolStripMenuItem
