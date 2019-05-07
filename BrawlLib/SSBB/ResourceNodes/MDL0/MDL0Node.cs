@@ -1834,7 +1834,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                     foreach (MDL0MaterialNode m in _matGroup.Children)
                         if (m.IsMetal && m.Children != null && m.Children.Count > 0)
                         {
-                            _metalMat = m.Children[0].Name;
+                            _metalMat = m.Children[m.Children.Count - 1].Name;
                             break;
                         }
             }
