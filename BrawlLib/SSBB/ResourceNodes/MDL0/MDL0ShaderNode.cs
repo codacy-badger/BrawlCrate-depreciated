@@ -131,7 +131,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             _fragShaderSource = null;
             if(Model != null && Model.AutoMetalMaterials && Materials.Length > 0 && !Materials[0].IsMetal)
-                Model.GenerateMetalMaterials(Model.metalMat);
+                Model.GenerateMetalMaterials(Model._metalMat);
             base.SignalPropertyChange();
         }
 

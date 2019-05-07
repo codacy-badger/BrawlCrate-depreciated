@@ -46,11 +46,16 @@ namespace BrawlLib.SSBB.ResourceNodes
         [Browsable(false)]
         public InfluenceManager Influences { get { return _influences; } }
 
-        public string metalMat = "metal00";
-        [Category("G3D Model"), Browsable(true), Description(
+        [Category("Metal Materials"), Browsable(true), Description(
         @"This feature is for Super Smash Bros Brawl models specifically.
         When true, metal materials and shaders will be added and modulated as you edit your own custom materials and shaders.")]
-        public bool AutoMetalMaterials { get { return _autoMetal; } set { _autoMetal = value; GenerateMetalMaterials(metalMat); } }
+        public bool AutoMetalMaterials { get { return _autoMetal; } set { _autoMetal = value; GenerateMetalMaterials(_metalMat); } }
+
+
+        [Category("Metal Materials"), Browsable(true), Description(
+        @"The texture name used by metal materials for this model. Editing this will automatically regenerate metal materials.")]
+        public string MetalTexture { get { return _metalMat; } set { _metalMat = value; GenerateMetalMaterials(_metalMat); } }
+        public string _metalMat;
 
         [Category("G3D Model")]
         public MDLScalingRule ScalingRule { get { return (MDLScalingRule)_scalingRule; } set { _scalingRule = (int)value; SignalPropertyChange(); } }
@@ -882,7 +887,8 @@ namespace BrawlLib.SSBB.ResourceNodes
                         MDL0MaterialRefNode mr = new MDL0MaterialRefNode();
                         node.AddChild(mr);
                         mr.Texture = metalTextureName;
-
+                        mr.UWrapMode = MatWrapMode.Clamp;
+                        mr.VWrapMode = MatWrapMode.Clamp;
                         if (i == n.Children.Count || ((MDL0MaterialRefNode)n.Children[i]).HasTextureMatrix)
                         {
                             mr._minFltr = 5;
@@ -904,7 +910,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
                             mr.Normalize = true;
                             mr.MapMode = MappingMethod.EnvCamera;
-
+                            
                             break;
                         }
                     }
@@ -1815,6 +1821,14 @@ namespace BrawlLib.SSBB.ResourceNodes
 
                 _texList.Sort();
                 _pltList.Sort();
+
+                if (_matGroup != null)
+                    foreach (MDL0MaterialNode m in _matGroup.Children)
+                        if (m.IsMetal && m.Children != null && m.Children.Count > 0)
+                        {
+                            _metalMat = m.Children[0].Name;
+                            break;
+                        }
             }
             catch (Exception ex)
             {
