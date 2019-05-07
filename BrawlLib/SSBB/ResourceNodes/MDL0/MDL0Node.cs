@@ -884,11 +884,19 @@ namespace BrawlLib.SSBB.ResourceNodes
                     _matGroup.AddChild(node);
                     for (int i = 0; i <= n.Children.Count; i++)
                     {
+                        if (i != n.Children.Count && ((MDL0MaterialRefNode)n.Children[i]).MapMode == MappingMethod.EnvCamera)
+                            continue;
                         MDL0MaterialRefNode mr = new MDL0MaterialRefNode();
                         node.AddChild(mr);
                         mr.Texture = metalTextureName;
+
                         mr.UWrapMode = MatWrapMode.Clamp;
                         mr.VWrapMode = MatWrapMode.Clamp;
+                        mr.MinFilter = MatTextureMinFilter.Nearest;
+                        mr.MagFilter = MatTextureMagFilter.Nearest;
+                        mr.Coordinates = TexSourceRow.TexCoord0;
+                        mr.EmbossSource = 5;
+
                         if (i == n.Children.Count || ((MDL0MaterialRefNode)n.Children[i]).HasTextureMatrix)
                         {
                             mr._minFltr = 5;
