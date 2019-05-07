@@ -2196,7 +2196,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             if (_texList != null)
                 foreach (MDL0TextureNode t in _texList)
-                    t.Reload();
+                    t.Reload(this, true);
         }
 
         float _scn0Frame;

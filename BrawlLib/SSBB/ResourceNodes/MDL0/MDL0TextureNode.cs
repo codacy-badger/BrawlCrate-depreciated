@@ -137,7 +137,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             if (Texture != null)
                 Texture.Bind(mRef.Index, shaderProgramHandle);
             else
-                Load(mRef.Index, shaderProgramHandle);
+                Load(mRef.Index, shaderProgramHandle, mRef.Model, ((MDL0MaterialNode)mRef.Parent).IsMetal);
 
             ApplyGLTextureParameters(mRef);
 
@@ -172,17 +172,17 @@ namespace BrawlLib.SSBB.ResourceNodes
             Source = BRESNode.FindChild("Textures(NW4R)/" + Name, true) as TEX0Node;
         }
 
-        public void Reload()
+        public void Reload(MDL0Node model, bool isMetal = false)
         {
             if (TKContext.CurrentContext == null)
                 return;
 
             TKContext.CurrentContext.Capture();
-            Load();
+            Load(-1, -1, model, isMetal);
         }
 
-        private unsafe void Load() { Load(-1, -1); }
-        private unsafe void Load(int index, int program)
+        //private unsafe void Load() { Load(-1, -1, null); }
+        private unsafe void Load(int index, int program, MDL0Node model, bool isMetal = false)
         {
             if (TKContext.CurrentContext == null)
                 return;
@@ -212,7 +212,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             BRRESNode parentBRRES = null;
             try
             {
-                parentBRRES = this.BRESNode;
+                parentBRRES = model.BRESNode;
             }
             catch
             {
@@ -350,7 +350,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 Texture.Attach(bmp);
                 return;
             }
-            else if (isFighter && Name.Equals("metal00"))
+            else if (isFighter && Name.Equals("metal00") && isMetal)
             {
                 var assembly = Assembly.GetExecutingAssembly();
                 var resourceName = ("BrawlLib.HardcodedFiles.metal00.tex0");
