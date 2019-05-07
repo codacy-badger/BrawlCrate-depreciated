@@ -890,11 +890,11 @@ namespace BrawlLib.SSBB.ResourceNodes
                         node.AddChild(mr);
                         mr.Texture = metalTextureName;
 
-                        mr.UWrapMode = MatWrapMode.Clamp;
-                        mr.VWrapMode = MatWrapMode.Clamp;
-                        mr.MinFilter = MatTextureMinFilter.Nearest;
-                        mr.MagFilter = MatTextureMagFilter.Nearest;
-                        mr.Coordinates = TexSourceRow.TexCoord0;
+                        mr._uWrap = 0;
+                        mr._vWrap = 0;
+                        mr._minFltr = 0;
+                        mr._magFltr = 0;
+                        mr._texMtxFlags.SourceRow = TexSourceRow.TexCoord0;
                         mr.EmbossSource = 5;
 
                         if (i == n.Children.Count || ((MDL0MaterialRefNode)n.Children[i]).HasTextureMatrix)
@@ -916,8 +916,8 @@ namespace BrawlLib.SSBB.ResourceNodes
                                 EmbossLight = 0,
                             };
 
-                            mr.Normalize = true;
-                            mr.MapMode = MappingMethod.EnvCamera;
+                            mr._dualTexFlags._normalEnable = 1;
+                            mr._texMatrixEffect.MapMode = MappingMethod.EnvCamera;
                             
                             break;
                         }
