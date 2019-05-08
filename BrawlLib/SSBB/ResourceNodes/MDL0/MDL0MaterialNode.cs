@@ -1084,7 +1084,7 @@ Those properties can use this color as an argument. This color is referred to as
 
         #region General Material
 
-        [Category("Material"), Description(MDL0Node._textureMatrixModeDescription)]
+        [Category("Material")]
         public TexMatrixMode TextureMatrixMode
         {
             get { return (TexMatrixMode)_texMtxFlags; }
@@ -1455,15 +1455,16 @@ For example, if the shader has two stages but this number is 1, the second stage
         {
             get
             {
-                foreach (MDL0MaterialNode t in Model._matList)
-                {
-                    if (!IsMetal)
+                if(Model != null)
+                    foreach (MDL0MaterialNode t in Model._matList)
                     {
-                        if (t.Name.StartsWith(Name) && t.IsMetal && (Name.Length + 7 == t.Name.Length))
-                            return t;
+                        if (!IsMetal)
+                        {
+                            if (t.Name.StartsWith(Name) && t.IsMetal && (Name.Length + 7 == t.Name.Length))
+                                return t;
+                        }
+                        else if (Name.StartsWith(t.Name) && !t.IsMetal && (t.Name.Length + 7 == Name.Length)) return t;
                     }
-                    else if (Name.StartsWith(t.Name) && !t.IsMetal && (t.Name.Length + 7 == Name.Length)) return t;
-                }
                 return null;
             }
         }

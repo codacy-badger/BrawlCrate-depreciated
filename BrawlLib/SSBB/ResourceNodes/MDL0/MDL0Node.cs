@@ -41,7 +41,6 @@ namespace BrawlLib.SSBB.ResourceNodes
         public InfluenceManager _influences = new InfluenceManager();
         public List<string> _errors = new List<string>();
 
-        internal const string _textureMatrixModeDescription = @"";
 
         [Browsable(false)]
         public InfluenceManager Influences { get { return _influences; } }
@@ -81,7 +80,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         [Category("G3D Model")]
         public MDLScalingRule ScalingRule { get { return (MDLScalingRule)_scalingRule; } set { _scalingRule = (int)value; SignalPropertyChange(); } }
-        [Category("G3D Model"), Description(_textureMatrixModeDescription)]
+        [Category("G3D Model")]
         public TexMatrixMode TextureMatrixMode { get { return (TexMatrixMode)_texMtxMode; } set { _texMtxMode = (int)value; SignalPropertyChange(); } }
         [Category("G3D Model"), Description("How many points are stored in the model file and sent to the GPU every frame. A lower value is better.")]
         public int NumFacepoints { get { return _numFacepoints; } }
