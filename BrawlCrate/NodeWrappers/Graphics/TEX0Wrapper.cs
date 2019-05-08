@@ -20,7 +20,7 @@ namespace BrawlCrate.NodeWrappers
         static TEX0Wrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("&Re-Encode", null, ReEncodeAction));
+            _menu.Items.Add(new ToolStripMenuItem("&Re-Encode", null, ReEncodeAction, Keys.Control | Keys.Shift | Keys.R));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("Generate &PAT0", null, GeneratePAT0Action));
             _menu.Items.Add(new ToolStripMenuItem("Color Smash", null, ColorSmashAction));
