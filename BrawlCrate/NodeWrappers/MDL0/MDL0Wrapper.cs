@@ -73,7 +73,7 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items.Add(new ToolStripMenuItem("&Edit Materials", null,
                 new ToolStripMenuItem("&Characters", null,
                     new ToolStripMenuItem("&Convert To Spy Model", null, SpyConvertAction),
-                    new ToolStripMenuItem("(&Re)generate Metal Materials", null, MetalAction)
+                    new ToolStripMenuItem("(&Re)generate Metal Materials", null, MetalAction, Keys.Control | Keys.Shift | Keys.M)
                     //new ToolStripMenuItem("(Re)generate Custom Metal Materials", null, CustomMetalAction)
                 ),
                 new ToolStripMenuItem("&Stages", null,
@@ -81,11 +81,11 @@ namespace BrawlCrate.NodeWrappers
                     new ToolStripMenuItem("&Fix Transparency With Characters", null, TransparencyFixAction)
                 ),
                 new ToolStripMenuItem("&Culling", null,
-                    new ToolStripMenuItem("Invert &Culling", null, InvertMaterialsAction),
-                    new ToolStripMenuItem("Set all (Cull &None)", null, CullNoneAction),
-                    new ToolStripMenuItem("Set all (Cull &Outside)", null, CullOutsideAction),
-                    new ToolStripMenuItem("Set all (Cull &Inside)", null, CullInsideAction),
-                    new ToolStripMenuItem("Set all (Cull &All)", null, CullAllAction)
+                    new ToolStripMenuItem("Invert &Culling", null, InvertMaterialsAction, Keys.Control | Keys.Shift | Keys.I),
+                    new ToolStripMenuItem("Set all (Cull &None)", null, CullNoneAction, Keys.Control | Keys.Shift | Keys.D0),
+                    new ToolStripMenuItem("Set all (Cull &Outside)", null, CullOutsideAction, Keys.Control | Keys.Shift | Keys.D1),
+                    new ToolStripMenuItem("Set all (Cull &Inside)", null, CullInsideAction, Keys.Control | Keys.Shift | Keys.D2),
+                    new ToolStripMenuItem("Set all (Cull &All)", null, CullAllAction, Keys.Control | Keys.Shift | Keys.D3)
                 )
                 ));
             _menu.Items.Add(new ToolStripMenuItem("&Reimport Meshes", null, ReimportAction));
@@ -99,20 +99,20 @@ namespace BrawlCrate.NodeWrappers
         }
 
         // StageBox model mirroring
-        protected static void MirrorXAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().MirrorX(); }
-        protected static void MirrorYAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().MirrorY(); }
-        protected static void MirrorZAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().MirrorZ(); }
-        protected static void FlipXAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().FlipX(true); }
-        protected static void FlipYAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().FlipY(true); }
+        protected static void MirrorXAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().MirrorX(); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
+        protected static void MirrorYAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().MirrorY(); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
+        protected static void MirrorZAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().MirrorZ(); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
+        protected static void FlipXAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().FlipX(true); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
+        protected static void FlipYAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().FlipY(true); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
         //protected static void FlipZAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().FlipZ(true); }
 
         // StageBox Material settings
         protected static void InvertMaterialsAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().InvertMaterials(); }
-        protected static void CullNoneAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().CullMaterials(0); }
-        protected static void CullOutsideAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().CullMaterials(1); }
-        protected static void CullInsideAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().CullMaterials(2); }
-        protected static void CullAllAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().CullMaterials(3); }
-        protected static void ShadowConvertAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().ShadowConvert(); }
+        protected static void CullNoneAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().CullMaterials(0); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
+        protected static void CullOutsideAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().CullMaterials(1); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
+        protected static void CullInsideAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().CullMaterials(2); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
+        protected static void CullAllAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().CullMaterials(3); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
+        protected static void ShadowConvertAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().ShadowConvert(); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
         protected static void SpyConvertAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SpyConvert(); }
 
         protected static void TransparencyFixAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().StartTransparencyFix(); }
@@ -153,7 +153,7 @@ namespace BrawlCrate.NodeWrappers
         protected static void SortObjectAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortObject(); }
         protected static void SortTextureAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortTexture(); }
 
-        protected static void StripAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().StripModel(); }
+        protected static void StripAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().StripModel(); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
 
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
