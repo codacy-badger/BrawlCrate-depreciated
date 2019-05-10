@@ -353,7 +353,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             else if (isFighter && Name.Equals("metal00") && isMetal)
             {
                 var assembly = Assembly.GetExecutingAssembly();
-                var resourceName = ("BrawlLib.HardcodedFiles.metal00.tex0");
+                var resourceName = ("BrawlLib.HardcodedFiles.Textures.metal00.tex0");
                 using (Stream stream = assembly.GetManifestResourceStream(resourceName))
                 {
                     using (MemoryStream ms = new MemoryStream())
