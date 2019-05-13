@@ -872,7 +872,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             GenerateMetalMaterials(_metalMat == "" ? "metal00" : _metalMat);
         }
 
-        public void GenerateMetalMaterials(String metalTextureName)
+        public void GenerateMetalMaterials(String metalTextureName, bool hdMetals = true)
         {
             if (_children == null)
                 Populate();
@@ -902,11 +902,33 @@ namespace BrawlLib.SSBB.ResourceNodes
                         _activeStages = 4,
                     };
 
+                    if(hdMetals)
+                    {
+                        node.XLUMaterial = n.XLUMaterial;
+                        node.Ref0 = n.Ref0;
+                        node.Comp0 = n.Comp0;
+                        node.Logic = n.Logic;
+                        node.Ref1 = n.Ref1;
+                        node.Comp1 = n.Comp1;
+                        node.EnableBlend = n.EnableBlend;
+                        node.EnableBlendLogic = n.EnableBlendLogic;
+                        node.BlendLogicOp = n.BlendLogicOp;
+                    }
+
                     _matGroup.AddChild(node);
                     for (int i = 0; i <= n.Children.Count; i++)
                     {
-                        if (i != n.Children.Count && ((MDL0MaterialRefNode)n.Children[i]).MapMode == MappingMethod.EnvCamera)
-                            continue;
+                        if (i < n.Children.Count)
+                        {
+                            if (((MDL0MaterialRefNode)n.Children[i]).MapMode == MappingMethod.EnvCamera)
+                                continue;
+                            else if (hdMetals && (n.XLUMaterial || !(n.Ref0 == 0 && n.Comp0 == AlphaCompare.Always && n.Logic == AlphaOp.And && n.Ref1 == 0 && n.Comp1 == AlphaCompare.Always)))
+                            {
+                                MDL0MaterialRefNode mref = n.Children[i] as MDL0MaterialRefNode;
+                                node.AddChild(mref);
+                                continue;
+                            }
+                        }
                         MDL0MaterialRefNode mr = new MDL0MaterialRefNode();
                         node.AddChild(mr);
                         mr.Texture = metalTextureName;
