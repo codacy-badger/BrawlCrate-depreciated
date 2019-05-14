@@ -144,13 +144,6 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             return String.Format("Shader {0}", Index);
         }
-        public override string DisplayName
-        {
-            get
-            {
-                return null;
-            }
-        }
         public override string Name
         {
             get
