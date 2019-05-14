@@ -174,6 +174,9 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
         [Browsable(false)]
+        public virtual string DisplayName { get { return Name; } }
+
+        [Browsable(false)]
         public ResourceNode Parent
         {
             get { return _parent; }
@@ -1385,7 +1388,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override string ToString()
         {
-            return Name;
+            return DisplayName;
         }
 
         public virtual void SortChildren()
