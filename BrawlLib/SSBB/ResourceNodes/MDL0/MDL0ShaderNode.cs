@@ -140,15 +140,22 @@ namespace BrawlLib.SSBB.ResourceNodes
         public int _texCount = -1;
         public bool _rendered = false;
 
+        public override string ToString()
+        {
+            return String.Format("Shader {0}", Index);
+        }
+        public override string DisplayName
+        {
+            get
+            {
+                return null;
+            }
+        }
         public override string Name
         {
             get
             {
-                return String.Format("Shader{0}", Index);
-            }
-            set
-            {
-                base.Name = value;
+                return null;
             }
         }
 
@@ -275,7 +282,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 }
 
             _swapBlock = *Header->SwapBlock;
-
+            _name = null;
             return Header->_stages > 0;
         }
 
