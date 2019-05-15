@@ -218,5 +218,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             RSTCEntry* hdr = (RSTCEntry*)address;
             hdr->_fighterID = _fighterID;
         }
+
+        public override string ToString()
+        {
+            return String.Format("Slot {0} - {1}", (Index + 1), Name);
+        }
     }
 }
