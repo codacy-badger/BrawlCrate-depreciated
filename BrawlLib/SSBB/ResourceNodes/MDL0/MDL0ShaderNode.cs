@@ -29,6 +29,8 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public string[] _fragShaderSource = null;
 
+        private int _origIndex = -1;
+
         [Category("Swap Mode Table"), Browsable(true)]
         public ColorChannel Swap0Red { get { return (ColorChannel)_swapBlock._Value01.XRB; } set { _swapBlock._Value01.XRB = value; SignalPropertyChange(); } }
         [Category("Swap Mode Table"), Browsable(true)]
@@ -142,7 +144,8 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override string ToString()
         {
-            return String.Format("Shader {0}", Index);
+            return String.Format("Shader {0}", _origIndex);
+            //return String.Format("Shader {0}", Index) + ((_origIndex != -1 && _origIndex != Index) ? String.Format(" (Originally Shader {0})", _origIndex) : "");
         }
         public override string Name
         {
@@ -276,6 +279,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             _swapBlock = *Header->SwapBlock;
             _name = null;
+            _origIndex = Index;
             return Header->_stages > 0;
         }
 
