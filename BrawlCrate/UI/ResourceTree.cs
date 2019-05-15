@@ -489,6 +489,13 @@ namespace BrawlCrate
                         {
                             b.EnsureVisible();
                             SelectedNode = b;
+                            if(b.Parent != null && b.Parent is BaseWrapper)
+                            {
+                                foreach(BaseWrapper baseW in ((BaseWrapper)b.Parent).Nodes)
+                                {
+                                    baseW.Text = baseW.ResourceNode.ToString();
+                                }
+                            }
                         }
                     }
 

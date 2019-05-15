@@ -174,7 +174,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.manifest" />
-    <EmbeddedResource Include="HardcodedFiles\metal00.tex0" />
+    <EmbeddedResource Include="HardcodedFiles\Textures\metal00.tex0" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
     <None Include="System\ComponentModel\CustomPropertyDescriptor.cs" />
@@ -246,7 +246,6 @@
     <Compile Include="SSBB\Types\Subspace\Navigation\GDBF.cs" />
     <Compile Include="SSBB\Types\Subspace\Objects\GIB2.cs" />
     <Compile Include="SSBB\Types\Subspace\Objects\GITM.cs" />
-    <Compile Include="BrawlCrate\HardcodedFiles.cs" />
     <Compile Include="SSBB\ResourceNodes\AllstarStageTblNode.cs" />
     <Compile Include="SSBB\ResourceNodes\EventMatchNode.cs" />
     <Compile Include="SSBB\ResourceNodes\Havok Physics\Meta Nodes\ClassMemberInstanceNode.cs" />

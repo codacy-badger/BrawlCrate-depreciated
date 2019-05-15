@@ -173,6 +173,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                     Renamed(this);
             }
         }
+
         [Browsable(false)]
         public virtual string DisplayName { get { return String.IsNullOrEmpty(Name) ? BrawlLib.Properties.Resources.Null : Name; ; } }
 

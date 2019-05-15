@@ -32,7 +32,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             get { return base.Loop; }
             set { base.Loop = value; UpdateChildFrameLimits(); }
         }
-        [Category(_category), Description(MDL0Node._textureMatrixModeDescription)]
+        [Category(_category)]
         public TexMatrixMode MatrixMode { get { return (TexMatrixMode)_matrixMode; } set { _matrixMode = (int)value; SignalPropertyChange(); } }
 
         protected override void UpdateChildFrameLimits()

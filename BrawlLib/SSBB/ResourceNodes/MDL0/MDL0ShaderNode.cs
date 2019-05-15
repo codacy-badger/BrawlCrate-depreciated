@@ -29,6 +29,8 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public string[] _fragShaderSource = null;
 
+        private int _origIndex = -1;
+
         [Category("Swap Mode Table"), Browsable(true)]
         public ColorChannel Swap0Red { get { return (ColorChannel)_swapBlock._Value01.XRB; } set { _swapBlock._Value01.XRB = value; SignalPropertyChange(); } }
         [Category("Swap Mode Table"), Browsable(true)]
@@ -131,7 +133,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             _fragShaderSource = null;
             if(Model != null && Model.AutoMetalMaterials && Materials.Length > 0 && !Materials[0].IsMetal)
-                Model.GenerateMetalMaterials(Model.metalMat);
+                Model.GenerateMetalMaterials(Model._metalMat);
             base.SignalPropertyChange();
         }
 
@@ -140,15 +142,16 @@ namespace BrawlLib.SSBB.ResourceNodes
         public int _texCount = -1;
         public bool _rendered = false;
 
+        public override string ToString()
+        {
+            return String.Format("Shader {0}", _origIndex);
+            //return String.Format("Shader {0}", Index) + ((_origIndex != -1 && _origIndex != Index) ? String.Format(" (Originally Shader {0})", _origIndex) : "");
+        }
         public override string Name
         {
             get
             {
-                return String.Format("Shader{0}", Index);
-            }
-            set
-            {
-                base.Name = value;
+                return null;
             }
         }
 
@@ -275,7 +278,8 @@ namespace BrawlLib.SSBB.ResourceNodes
                 }
 
             _swapBlock = *Header->SwapBlock;
-
+            _name = null;
+            _origIndex = Index;
             return Header->_stages > 0;
         }
 

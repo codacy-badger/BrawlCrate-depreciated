@@ -1349,7 +1349,7 @@ namespace System.Windows.Forms
                         string fileName = _openDlg.FileName;
                         node.Replace(fileName);
                         _updating = true;
-                        _selectedTexture.Reload();
+                        _selectedTexture.Reload(_selectedTexture.Model, true);
                         lstTextures.SetItemCheckState(index, CheckState.Checked);
                         lstTextures.SetSelected(index, false);
                         _updating = false;
@@ -1417,7 +1417,7 @@ namespace System.Windows.Forms
         {
             if (_selectedTexture != null)
             {
-                _selectedTexture.Reload();
+                _selectedTexture.Reload(_selectedTexture.Model, true);
                 _mainWindow.ModelPanel.Invalidate();
             }
         }
