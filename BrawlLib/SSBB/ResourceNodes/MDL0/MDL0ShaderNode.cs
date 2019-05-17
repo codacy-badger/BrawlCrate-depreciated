@@ -142,12 +142,6 @@ namespace BrawlLib.SSBB.ResourceNodes
         public int _texCount = -1;
         public bool _rendered = false;
 
-        public override string ToString()
-        {
-            return String.Format("Shader {0}", _origIndex);
-            //return String.Format("Shader {0}", Index) + ((_origIndex != -1 && _origIndex != Index) ? String.Format(" (Originally Shader {0})", _origIndex) : "");
-        }
-
         public void Default() { Default(true); }
         public void Default(bool change)
         {
@@ -271,7 +265,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 }
 
             _swapBlock = *Header->SwapBlock;
-            _name = ToString();
+            _name = "Shader " + Index;
             _origIndex = Index;
             return Header->_stages > 0;
         }
