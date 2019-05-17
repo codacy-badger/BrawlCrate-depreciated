@@ -778,7 +778,8 @@ namespace BrawlCrate
                     }
 
                 propertyGrid1.SelectedObject = node;
-                propertyGrid1.ExpandAllGridItems();
+                if(false)
+                    propertyGrid1.ExpandAllGridItems();
                 setScrollOffset?.Invoke();
 
                 if (node is IBufferNode && MainForm.Instance.ShowHex)
