@@ -21,6 +21,10 @@ they be held accountable for the manner in which it is used.
  . Metal Texture is now saved as a property and is used when generating metals (including using AutoMetal)
  . RTSC Entries now show slot # in their name
  . Shaders now parse with a space in their name
+ . COLLADA dae files now serialize as v1.4.1 rather than v1.5.0
+ . ".masq" is now a valid filetype
+ . Property Grid now expands all submenus by default
+ . Property Grid now saves position when switching between two objects of the same type
  . Fix texture rendering to match Brawl when previewing PAT0 animations
  . Fix crash bugs on model import
  . Add various additional shortcut keys
