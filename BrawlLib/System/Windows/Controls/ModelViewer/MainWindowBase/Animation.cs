@@ -545,7 +545,7 @@ namespace System.Windows.Forms
                 n.Parent != null &&
                 (group = n.Parent.Parent as BRRESNode) != null)
             {
-                _vis0 = group.CreateResource<VIS0Node>(SelectedCHR0.Name);
+                _vis0 = group.CreateResource<VIS0Node>(SelectedCHR0 == null ? "NewVIS0" : SelectedCHR0.Name);
                 foreach (string s in VIS0Indices.Keys)
                 {
                     VIS0EntryNode node = null;
