@@ -536,12 +536,13 @@ namespace System.Windows.Forms
 
         public void CreateVIS0()
         {
-            if (!(_targetModel is MDL0Node))
+            if (_targetModel == null || TargetAnimation == null || !(_targetModel is MDL0Node))
                 return;
 
             BRRESNode group = null;
             BRESEntryNode n = null;
             if ((n = TargetAnimation as BRESEntryNode) != null &&
+                n.Parent != null &&
                 (group = n.Parent.Parent as BRRESNode) != null)
             {
                 _vis0 = group.CreateResource<VIS0Node>(SelectedCHR0.Name);
