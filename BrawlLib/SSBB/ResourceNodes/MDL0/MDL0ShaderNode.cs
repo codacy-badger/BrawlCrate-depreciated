@@ -29,8 +29,6 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public string[] _fragShaderSource = null;
 
-        private int _origIndex = -1;
-
         [Category("Swap Mode Table"), Browsable(true)]
         public ColorChannel Swap0Red { get { return (ColorChannel)_swapBlock._Value01.XRB; } set { _swapBlock._Value01.XRB = value; SignalPropertyChange(); } }
         [Category("Swap Mode Table"), Browsable(true)]
@@ -132,7 +130,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override void SignalPropertyChange()
         {
             _fragShaderSource = null;
-            if(Model != null && Model.AutoMetalMaterials && Materials.Length > 0 && !Materials[0].IsMetal)
+            if (Model != null && Model.AutoMetalMaterials && Materials.Length > 0 && !Materials[0].IsMetal)
                 Model.GenerateMetalMaterials(Model._metalMat);
             base.SignalPropertyChange();
         }
@@ -142,16 +140,15 @@ namespace BrawlLib.SSBB.ResourceNodes
         public int _texCount = -1;
         public bool _rendered = false;
 
-        public override string ToString()
-        {
-            return String.Format("Shader {0}", _origIndex);
-            //return String.Format("Shader {0}", Index) + ((_origIndex != -1 && _origIndex != Index) ? String.Format(" (Originally Shader {0})", _origIndex) : "");
-        }
         public override string Name
         {
             get
             {
-                return null;
+                return String.Format("Shader {0}", Index);
+            }
+            set
+            {
+                base.Name = value;
             }
         }
 
@@ -263,7 +260,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             _ref5 = Header->_ref5;
             _ref6 = Header->_ref6;
             _ref7 = Header->_ref7;
-            
+
             //Attach to materials
             byte* pHeader = (byte*)Header;
             if ((Model != null) && (Model._matList != null))
@@ -278,8 +275,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 }
 
             _swapBlock = *Header->SwapBlock;
-            _name = null;
-            _origIndex = Index;
+
             return Header->_stages > 0;
         }
 
