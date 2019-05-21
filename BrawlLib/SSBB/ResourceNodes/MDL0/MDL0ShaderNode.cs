@@ -130,7 +130,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override void SignalPropertyChange()
         {
             _fragShaderSource = null;
-            if(Model != null && Model.AutoMetalMaterials && Materials.Length > 0 && !Materials[0].IsMetal)
+            if (Model != null && Model.AutoMetalMaterials && Materials.Length > 0 && !Materials[0].IsMetal)
                 Model.GenerateMetalMaterials(Model._metalMat);
             base.SignalPropertyChange();
         }
@@ -144,7 +144,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                return String.Format("Shader{0}", Index);
+                return String.Format("Shader {0}", Index);
             }
             set
             {
@@ -260,7 +260,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             _ref5 = Header->_ref5;
             _ref6 = Header->_ref6;
             _ref7 = Header->_ref7;
-            
+
             //Attach to materials
             byte* pHeader = (byte*)Header;
             if ((Model != null) && (Model._matList != null))

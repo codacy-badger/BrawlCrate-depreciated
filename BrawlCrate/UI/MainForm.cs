@@ -312,6 +312,7 @@ namespace BrawlCrate
             if (!Canary && BrawlCrate.Properties.Settings.Default.UpdateAutomatically && Program.firstBoot)
                 MessageBox.Show(Program.UpdateMessage);
 #endif
+            resourceTree_SelectionChanged(null, null);
         }
 
         public static bool CheckForInternetConnection()
@@ -778,7 +779,8 @@ namespace BrawlCrate
                     }
 
                 propertyGrid1.SelectedObject = node;
-                propertyGrid1.ExpandAllGridItems();
+                if(false)
+                    propertyGrid1.ExpandAllGridItems();
                 setScrollOffset?.Invoke();
 
                 if (node is IBufferNode && MainForm.Instance.ShowHex)
@@ -875,7 +877,7 @@ namespace BrawlCrate
                         newControl = audioPlaybackPanel1;
                         if (node is RSTMNode)
                             audioPlaybackPanel1.chkLoop.Checked = ((RSTMNode)node).IsLooped;
-                        if (AutoPlayAudio)
+                        if (AutoPlayAudio && Visible)
                             audioPlaybackPanel1.Play();
                     }
                 }

@@ -16,13 +16,14 @@ namespace BrawlCrate
     static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.25c";
-        public static readonly string UpdateMessage = @"Updated to BrawlCrate v0.25c! This release:
-- Fixes and improves the recent files handler (new settings are found in the settings menu)
-- PAT0 now properly respects SharedTEX0 when previewing
-- Adds numbers to spawn overlays
-- Adds a much-needed overhaul to the Canary system
-- Fixes various crashes and import bugs
+        public static readonly string TagName = "BrawlCrate_v0.26Hotfix1";
+        public static readonly string UpdateMessage = @"Updated to BrawlCrate v0.26! This release:
+- Metal material generation should completely match Brawl
+- Metal Texture is now saved as a property and is used when generating metals
+- RTSC Entries now show slot # in their name
+- Updated organization and fixed typos on the Model Previewer
+- Add various shortcut keys
+- (Hotfix 1) Fix Shaders not being selectable
 
 Full changelog can be found in the installation folder: " + '\n' + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 

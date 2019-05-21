@@ -173,6 +173,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                     Renamed(this);
             }
         }
+
         [Browsable(false)]
         public ResourceNode Parent
         {
