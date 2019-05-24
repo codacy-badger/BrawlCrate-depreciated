@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Windows.Forms;
+﻿using BrawlLib.BrawlCrate;
 using BrawlLib.IO;
 using BrawlLib.SSBB.ResourceNodes;
-using System.IO;
-using System.Diagnostics;
 using Microsoft.Win32;
-using BrawlLib.BrawlCrate;
-using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
+using System.Windows.Forms;
 
 namespace BrawlCrate
 {
-    static class Program
+    internal static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
         public static readonly string TagName = "BrawlCrate_v0.26Hotfix1";
@@ -35,18 +34,18 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
         public static readonly string BrawlLibTitle;
         public static readonly string BrawlLibVersion;
 
-        private static OpenFileDialog _openDlg;
-        private static SaveFileDialog _saveDlg;
-        private static FolderBrowserDialog _folderDlg;
+        private static readonly OpenFileDialog _openDlg;
+        private static readonly SaveFileDialog _saveDlg;
+        private static readonly FolderBrowserDialog _folderDlg;
 
         internal static ResourceNode _rootNode;
-        public static ResourceNode RootNode { get { return _rootNode; } set { _rootNode = value; MainForm.Instance.Reset(); } }
+        public static ResourceNode RootNode { get => _rootNode; set { _rootNode = value; MainForm.Instance.Reset(); } }
         internal static string _rootPath;
-        public static string RootPath { get { return _rootPath; } }
-        public static string FileName { get { return _rootPath == null ? null : _rootPath.Substring(_rootPath.LastIndexOf('\\') + 1); } }
+        public static string RootPath => _rootPath;
+        public static string FileName => _rootPath == null ? null : _rootPath.Substring(_rootPath.LastIndexOf('\\') + 1);
 
         internal static bool _birthday;
-        public static bool IsBirthday { get { return _birthday; } }
+        public static bool IsBirthday => _birthday;
 
         static Program()
         {
@@ -56,14 +55,19 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             try
             {
                 if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Canary\\Active"))
+                {
                     AssemblyTitle = "BrawlCrate Canary" + MainForm.getCommitId(false);
+                }
             }
             catch
             {
                 AssemblyTitle = ((AssemblyTitleAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
             }
             if (_birthday)
+            {
                 AssemblyTitle = "PartyBrawl" + AssemblyTitle.Substring(AssemblyTitle.IndexOf(' '));
+            }
+
             AssemblyDescription = ((AssemblyDescriptionAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false)[0]).Description;
             AssemblyVersion = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).FileVersion;
             AssemblyCopyright = ((AssemblyCopyrightAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false)[0]).Copyright;
@@ -74,7 +78,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             _openDlg = new OpenFileDialog();
             _saveDlg = new SaveFileDialog();
             _folderDlg = new FolderBrowserDialog();
-            
+
             StageNameGenerators.GenerateList();
             FighterNameGenerators.GenerateLists();
 
@@ -83,7 +87,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
         }
 
-        static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
             List<ResourceNode> dirty = GetDirtyFiles();
             Exception ex = e.Exception;
@@ -91,7 +95,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             d.ShowDialog();
         }
 
-        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             if (e.ExceptionObject is Exception)
             {
@@ -106,13 +110,21 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
         {
             List<ResourceNode> dirty = new List<ResourceNode>();
 
-            foreach (var control in ModelEditControl.Instances)
+            foreach (ModelEditControl control in ModelEditControl.Instances)
+            {
                 foreach (ResourceNode r in control.rightPanel.pnlOpenedFiles.OpenedFiles)
+                {
                     if (r.IsDirty && !dirty.Contains(r))
+                    {
                         dirty.Add(r);
+                    }
+                }
+            }
 
             if (_rootNode != null && _rootNode.IsDirty && !dirty.Contains(_rootNode))
+            {
                 dirty.Add(_rootNode);
+            }
 
             return dirty;
         }
@@ -128,13 +140,13 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
 #if !DEBUG
             if (BrawlCrate.Properties.Settings.Default.UpdateSettings)
             {
-                foreach (var _Assembly in AppDomain.CurrentDomain.GetAssemblies())
+                foreach (Assembly _Assembly in AppDomain.CurrentDomain.GetAssemblies())
                 {
-                    foreach (var _Type in _Assembly.GetTypes())
+                    foreach (Type _Type in _Assembly.GetTypes())
                     {
                         if (_Type.Name == "Settings" && typeof(SettingsBase).IsAssignableFrom(_Type))
                         {
-                            var settings = (ApplicationSettingsBase)_Type.GetProperty("Default").GetValue(null, null);
+                            ApplicationSettingsBase settings = (ApplicationSettingsBase)_Type.GetProperty("Default").GetValue(null, null);
                             if (settings != null)
                             {
                                 settings.Upgrade();
@@ -179,22 +191,40 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                     BrawlCrate.Properties.Settings.Default.Save();
                 }
                 if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+                {
                     ForceDownloadCanary();
+                }
                 else
+                {
                     ForceDownloadStable();
+                }
             }
             try
             {
                 if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.exe"))
+                {
                     File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.exe");
+                }
+
                 if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe"))
+                {
                     File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe");
+                }
+
                 if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.bat"))
+                {
                     File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.bat");
+                }
+
                 if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "StageBox.exe"))
+                {
                     File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "StageBox.exe");
+                }
+
                 if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "BrawlBox.exe"))
+                {
                     File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "BrawlBox.exe");
+                }
             }
             catch
             {
@@ -207,15 +237,20 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                 {
                     GCTEditor editor = new GCTEditor();
                     if (args.Length >= 2)
+                    {
                         editor.TargetNode = GCTEditor.LoadGCT(args[1]);
+                    }
+
                     s.Close();
                     Application.Run(editor);
                     return;
                 }
                 else if (args[0].EndsWith(".gct", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    GCTEditor editor = new GCTEditor();
-                    editor.TargetNode = GCTEditor.LoadGCT(args[0]);
+                    GCTEditor editor = new GCTEditor
+                    {
+                        TargetNode = GCTEditor.LoadGCT(args[0])
+                    };
                     s.Close();
                     Application.Run(editor);
                     return;
@@ -227,25 +262,35 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                 if (args.Length >= 1)
                 {
                     if (args[0] != "null" && args[0] != "-Canary" && args[0] != "-Stable")
+                    {
                         Open(args[0]);
+                    }
                 }
-                if(args.Length >= 2 && args[1] != "-Canary" && args[1] != "-Stable")
+                if (args.Length >= 2 && args[1] != "-Canary" && args[1] != "-Stable")
                 {
                     ResourceNode target = ResourceNode.FindNode(RootNode, args[1], true);
                     if (target != null)
+                    {
                         MainForm.Instance.TargetResource(target);
+                    }
                     else
-                        Say(String.Format("Error: Unable to find node or path '{0}'!", args[1]));
+                    {
+                        Say(string.Format("Error: Unable to find node or path '{0}'!", args[1]));
+                    }
                 }
 
 #if !DEBUG //Don't need to see this every time a debug build is compiled
                 if (MainForm.Instance.CheckUpdatesOnStartup)
+                {
                     MainForm.Instance.CheckUpdates(false);
+                }
                 // Show changelog if this is the first time opening this release, and the message wasn't seen 
                 if (BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds)
                 {
-                    if(Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old"))
+                    if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old"))
+                    {
                         MainForm.Instance.ShowCanaryChangelog();
+                    }
                 }
 #endif
                 s.Close();
@@ -262,11 +307,12 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                     throw x;
                 }
             }
-            finally {
+            finally
+            {
                 //if (CanRunDiscordRPC())
                 //{
-                    Discord.DiscordRpc.ClearPresence();
-                    Discord.DiscordRpc.Shutdown();
+                Discord.DiscordRpc.ClearPresence();
+                Discord.DiscordRpc.Shutdown();
                 //}
                 try
                 {
@@ -279,25 +325,27 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                 Close(true);
             }
         }
-        
+
         public static void ForceDownloadCanary(bool manual = true)
         {
             try
             {
-                string path;
                 if (!MainForm.CheckForInternetConnection())
                 {
                     if (manual)
+                    {
                         MessageBox.Show("Could not connect to internet");
+                    }
+
                     return;
                 }
-                if (Program.CanRunGithubApp(true, out path))
+                if (Program.CanRunGithubApp(true, out string path))
                 {
                     Process git = Process.Start(new ProcessStartInfo()
                     {
                         FileName = path,
                         WindowStyle = ProcessWindowStyle.Hidden,
-                        Arguments = String.Format("-dlCanary \"{0}\"", Program.RootPath == null ? "<null>" : Program.RootPath),
+                        Arguments = string.Format("-dlCanary \"{0}\"", Program.RootPath == null ? "<null>" : Program.RootPath),
                     });
                     git.WaitForExit();
                 }
@@ -305,7 +353,9 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             catch (Exception e)
             {
                 if (manual)
+                {
                     MessageBox.Show(e.Message);
+                }
             }
         }
 
@@ -313,20 +363,22 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
         {
             try
             {
-                string path;
                 if (!MainForm.CheckForInternetConnection())
                 {
                     if (manual)
+                    {
                         MessageBox.Show("Could not connect to internet");
+                    }
+
                     return;
                 }
-                if (Program.CanRunGithubApp(true, out path))
+                if (Program.CanRunGithubApp(true, out string path))
                 {
                     Process git = Process.Start(new ProcessStartInfo()
                     {
                         FileName = path,
                         WindowStyle = ProcessWindowStyle.Hidden,
-                        Arguments = String.Format("-dlStable \"{0}\"", Program.RootPath == null ? "<null>" : Program.RootPath),
+                        Arguments = string.Format("-dlStable \"{0}\"", Program.RootPath == null ? "<null>" : Program.RootPath),
                     });
                     git.WaitForExit();
                 }
@@ -334,7 +386,9 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             catch (Exception e)
             {
                 if (manual)
+                {
                     MessageBox.Show(e.Message);
+                }
             }
         }
 
@@ -346,7 +400,9 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
         public static bool New<T>() where T : ResourceNode
         {
             if (!Close())
+            {
                 return false;
+            }
 
             _rootNode = Activator.CreateInstance<T>();
             _rootNode.Name = "NewTree";
@@ -361,15 +417,19 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             //Have to close external files before the root file
             while (ModelEditControl.Instances.Count > 0)
             {
-                var control = ModelEditControl.Instances[0];
+                ModelEditControl control = ModelEditControl.Instances[0];
                 if (control.ParentForm != null)
                 {
                     control.ParentForm.Close();
                     if (!control.IsDisposed)
+                    {
                         return false;
+                    }
                 }
                 else if (!control.Close())
+                {
                     return false;
+                }
             }
 
             if (_rootNode != null)
@@ -378,7 +438,9 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                 {
                     DialogResult res = MessageBox.Show("Save changes?", "Closing", MessageBoxButtons.YesNoCancel);
                     if ((res == DialogResult.Yes && !Save()) || res == DialogResult.Cancel)
+                    {
                         return false;
+                    }
                 }
 
                 _rootNode.Dispose();
@@ -401,9 +463,11 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
         public static string openTempFile = null;
         public static bool Open(string path, bool setRoot)
         {
-            if (String.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(path))
+            {
                 return false;
-            
+            }
+
             if (!File.Exists(path))
             {
                 Say("File does not exist.");
@@ -412,16 +476,21 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
 
             if (path.EndsWith(".gct", StringComparison.InvariantCultureIgnoreCase))
             {
-                GCTEditor editor = new GCTEditor();
-                editor.TargetNode = GCTEditor.LoadGCT(path);
+                GCTEditor editor = new GCTEditor
+                {
+                    TargetNode = GCTEditor.LoadGCT(path)
+                };
                 editor.Show();
                 MainForm.Instance.recentFileHandler.AddFile(path);
                 return true;
             }
 
             if (!Close())
+            {
                 return false;
-REGEN:
+            }
+
+        REGEN:
             DirectoryInfo tmp = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "tmp");
             tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             Random rand = new Random();
@@ -430,25 +499,34 @@ REGEN:
             ulong randnumgen = BitConverter.ToUInt64(buf, 0);
             string newTempFile = AppDomain.CurrentDomain.BaseDirectory + '\\' + "tmp" + '\\' + randnumgen.ToString("X16");
             if (Directory.Exists(newTempFile))
+            {
                 goto REGEN;
+            }
+
             Directory.CreateDirectory(newTempFile);
             newTempFile += '\\' + Path.GetFileName(path);
             File.Copy(path, newTempFile);
 #if !DEBUG
             try
             {
-            #endif
+#endif
                 if ((_rootNode = NodeFactory.FromFile(null, openTempFile = newTempFile)) != null)
                 {
                     _rootPath = path;
-                    if(!setRoot)
+                    if (!setRoot)
+                    {
                         _rootPath = null;
+                    }
                     else if (_rootNode is ARCNode && ((ARCNode)_rootNode).IsCharacter)
                     {
                         if (Program.RootPath.EndsWith(".pcs", StringComparison.OrdinalIgnoreCase) && (_rootNode.Compression.Equals("LZ77", StringComparison.OrdinalIgnoreCase) || _rootNode.Compression.Equals("None", StringComparison.OrdinalIgnoreCase)) && BrawlLib.Properties.Settings.Default.AutoCompressFighterPCS)
+                        {
                             _rootNode.Compression = "ExtendedLZ77";
+                        }
                         else if (Program.RootPath.EndsWith(".pac", StringComparison.OrdinalIgnoreCase) && !_rootNode.Compression.Equals("None", StringComparison.OrdinalIgnoreCase) && BrawlLib.Properties.Settings.Default.AutoDecompressFighterPAC)
+                        {
                             _rootNode.Compression = "None";
+                        }
                     }
                     MainForm.Instance.Reset();
                     MainForm.Instance.recentFileHandler.AddFile(path);
@@ -461,16 +539,16 @@ REGEN:
                     Say("Unable to recognize input file.");
                     MainForm.Instance.Reset();
                 }
-            #if !DEBUG
+#if !DEBUG
             }
             catch (Exception x) { Say(x.ToString()); }
-            #endif
+#endif
 
             Close();
 
             return false;
         }
-        
+
         public static bool Open(string path, string root, string folder = null, string openNode = null)
         {
             bool returnVal = Open(path, false);
@@ -484,17 +562,23 @@ REGEN:
                     if (target != null)
                     {
                         ResourceNode target2 = ResourceNode.FindNode(target, openNode, true);
-                        if(target2 != null)
+                        if (target2 != null)
+                        {
                             MainForm.Instance.TargetResource(target2);
+                        }
                         else
+                        {
                             MainForm.Instance.TargetResource(target);
+                        }
                     }
                 }
-                else if(folder != null)
+                else if (folder != null)
                 {
                     ResourceNode target = ResourceNode.FindNode(RootNode, folder, true);
                     if (target != null)
+                    {
                         MainForm.Instance.TargetResource(target);
+                    }
                 }
             }
             return returnVal;
@@ -524,7 +608,7 @@ REGEN:
                             }
                             catch
                             {
-                                
+
                             }
                         }
                     }
@@ -546,47 +630,52 @@ REGEN:
             bool restoreHex = false;
             if (_rootNode != null)
             {
-                #if !DEBUG
+#if !DEBUG
                 try
                 {
-                #endif
-                
-                if (_rootPath == null && (!saveTemp || openTempFile == null))
-                    return SaveAs();
+#endif
 
-                bool force = Control.ModifierKeys == (Keys.Control | Keys.Shift);
-                if (!force && !_rootNode.IsDirty)
-                {
-                    if(!saveTemp)
-                        MessageBox.Show("No changes have been made.");
-                    return false;
-                }
-                
-                if (MainForm.Instance.ShowHex == true)
-                {
-                    MainForm.Instance.ShowHex = false;
-                    MainForm.Instance.Invalidate();
-                    MainForm.Instance.resourceTree_SelectionChanged(MainForm.Instance, EventArgs.Empty);
-                    restoreHex = true;
-                }
+                    if (_rootPath == null && (!saveTemp || openTempFile == null))
+                    {
+                        return SaveAs();
+                    }
 
-                _rootNode.Merge(force);
-                _rootNode.IsDirty = false;
-                _rootNode.Export(saveTemp ? openTempFile : _rootPath, saveTemp);
-                
-                if (restoreHex)
-                {
-                    MainForm.Instance.ShowHex = true;
-                    MainForm.Instance.Invalidate();
-                    MainForm.Instance.resourceTree_SelectionChanged(MainForm.Instance, EventArgs.Empty);
-                }
+                    bool force = Control.ModifierKeys == (Keys.Control | Keys.Shift);
+                    if (!force && !_rootNode.IsDirty)
+                    {
+                        if (!saveTemp)
+                        {
+                            MessageBox.Show("No changes have been made.");
+                        }
 
-                return true;
+                        return false;
+                    }
 
-                #if !DEBUG
+                    if (MainForm.Instance.ShowHex == true)
+                    {
+                        MainForm.Instance.ShowHex = false;
+                        MainForm.Instance.Invalidate();
+                        MainForm.Instance.resourceTree_SelectionChanged(MainForm.Instance, EventArgs.Empty);
+                        restoreHex = true;
+                    }
+
+                    _rootNode.Merge(force);
+                    _rootNode.IsDirty = false;
+                    _rootNode.Export(saveTemp ? openTempFile : _rootPath, saveTemp);
+
+                    if (restoreHex)
+                    {
+                        MainForm.Instance.ShowHex = true;
+                        MainForm.Instance.Invalidate();
+                        MainForm.Instance.resourceTree_SelectionChanged(MainForm.Instance, EventArgs.Empty);
+                    }
+
+                    return true;
+
+#if !DEBUG
                 }
                 catch (Exception x) { Say(x.Message); _rootNode.SignalPropertyChange(); }
-                #endif
+#endif
             }
             return false;
         }
@@ -594,7 +683,10 @@ REGEN:
         public static string ChooseFolder()
         {
             if (_folderDlg.ShowDialog() == DialogResult.OK)
+            {
                 return _folderDlg.SelectedPath;
+            }
+
             return null;
         }
 
@@ -603,22 +695,26 @@ REGEN:
         {
             _openDlg.Filter = filter;
             //_openDlg.AutoUpgradeEnabled = false;
-            #if !DEBUG
+#if !DEBUG
             try
             {
-            #endif
+#endif
                 if (_openDlg.ShowDialog() == DialogResult.OK)
                 {
                     fileName = _openDlg.FileName;
                     if ((categorize) && (_openDlg.FilterIndex == 1))
+                    {
                         return CategorizeFilter(_openDlg.FileName, filter);
+                    }
                     else
+                    {
                         return _openDlg.FilterIndex;
+                    }
                 }
-            #if !DEBUG
+#if !DEBUG
             }
             catch (Exception ex) { Say(ex.ToString()); }
-            #endif
+#endif
             fileName = null;
             return 0;
         }
@@ -634,9 +730,13 @@ REGEN:
             if (_saveDlg.ShowDialog() == DialogResult.OK)
             {
                 if ((categorize) && (_saveDlg.FilterIndex == 1) && (Path.HasExtension(_saveDlg.FileName)))
+                {
                     fIndex = CategorizeFilter(_saveDlg.FileName, filter);
+                }
                 else
+                {
                     fIndex = _saveDlg.FilterIndex;
+                }
 
                 //Fix extension
                 fileName = ApplyExtension(_saveDlg.FileName, filter, fIndex - 1);
@@ -650,20 +750,30 @@ REGEN:
 
             string[] split = filter.Split('|');
             for (int i = 3; i < split.Length; i += 2)
+            {
                 foreach (string s in split[i].Split(';'))
+                {
                     if (s.Equals(ext, StringComparison.OrdinalIgnoreCase))
+                    {
                         return (i + 1) / 2;
+                    }
+                }
+            }
+
             return 1;
         }
         public static string ApplyExtension(string path, string filter, int filterIndex)
         {
-            int tmp;
-            if ((Path.HasExtension(path)) && (!int.TryParse(Path.GetExtension(path), out tmp)))
+            if ((Path.HasExtension(path)) && (!int.TryParse(Path.GetExtension(path), out int tmp)))
+            {
                 return path;
+            }
 
             int index = filter.IndexOfOccurance('|', filterIndex * 2);
             if (index == -1)
+            {
                 return path;
+            }
 
             index = filter.IndexOf('.', index);
             int len = Math.Max(filter.Length, filter.IndexOfAny(new char[] { ';', '|' })) - index;
@@ -671,7 +781,9 @@ REGEN:
             string ext = filter.Substring(index, len);
 
             if (ext.IndexOf('*') >= 0)
+            {
                 return path;
+            }
 
             return path + ext;
         }
@@ -681,10 +793,10 @@ REGEN:
             bool restoreHex = false;
             if (MainForm.Instance.RootNode is GenericWrapper)
             {
-                #if !DEBUG
+#if !DEBUG
                 try
                 {
-                #endif
+#endif
                     if (MainForm.Instance.ShowHex == true)
                     {
                         MainForm.Instance.ShowHex = false;
@@ -714,11 +826,11 @@ REGEN:
                         w.ResourceNode.IsDirty = true;
                         return false;
                     }
-                #if !DEBUG
+#if !DEBUG
                 }
                 catch (Exception x) { Say(x.Message); _rootNode.SignalPropertyChange(); }
                 //finally { }
-                #endif
+#endif
             }
 
             if (restoreHex)
@@ -736,7 +848,10 @@ REGEN:
             if (!File.Exists(path))
             {
                 if (showMessages)
+                {
                     MessageBox.Show("Could not find " + path);
+                }
+
                 return false;
             }
 
@@ -745,11 +860,15 @@ REGEN:
             {
                 object o = ndpKey.GetValue("Release");
                 if (o == null)
+                {
                     return false;
+                }
 
                 int releaseKey = Convert.ToInt32(o);
                 if (releaseKey < 378389)
+                {
                     return false;
+                }
             }
             return true;
         }

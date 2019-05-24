@@ -1,21 +1,20 @@
-using System;
 using BrawlLib.SSBBTypes;
+using System;
 using System.ComponentModel;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class GCAMNode : ResourceNode
     {
-        internal GCAM* Header { get { return (GCAM*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.GCAM; } }
-        
+        internal GCAM* Header => (GCAM*)WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.GCAM;
+
         [Category("GCAM")]
         [DisplayName("Entry Count")]
-        public int Count { get { return _count; } }
+        public int Count => _count;
 
         public int _count;
-
-        const int _entrySize = 0x23;    // The constant size of a child entry
+        private const int _entrySize = 0x23;    // The constant size of a child entry
 
         public override void OnPopulate()
         {
@@ -42,8 +41,8 @@ namespace BrawlLib.SSBB.ResourceNodes
             for (int i = 0; i < Children.Count; i++)
             {
                 ResourceNode r = Children[i];
-                *(buint*)((VoidPtr)address + 0x08 + i * 4) = offset;
-                r.Rebuild((VoidPtr)address + offset, _entrySize, true);
+                *(buint*)(address + 0x08 + i * 4) = offset;
+                r.Rebuild(address + offset, _entrySize, true);
                 offset += _entrySize;
             }
         }
@@ -52,7 +51,10 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             base.OnInitialize();
             if (_name == null)
+            {
                 _name = "Animated Camera";
+            }
+
             _count = Header->_count;
             return Header->_count > 0;
         }
@@ -62,8 +64,8 @@ namespace BrawlLib.SSBB.ResourceNodes
 
     public unsafe class GCAMEntryNode : ResourceNode
     {
-        internal GCAMEntry* Header { get { return (GCAMEntry*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.Unknown; } }
+        internal GCAMEntry* Header => (GCAMEntry*)WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.Unknown;
 
         public byte _unknown0x00;
         public byte _unknown0x01;
@@ -121,15 +123,12 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x35;
         public byte _unknown0x36;
         public byte _unknown0x37;
-        
+
         [Category("Camera")]
         [DisplayName("1st Model Data ID")]
         public byte ModelDataID1
         {
-            get
-            {
-                return _modeldataid1;
-            }
+            get => _modeldataid1;
             set
             {
                 _modeldataid1 = value;
@@ -141,10 +140,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("2nd Model Data ID")]
         public byte ModelDataID2
         {
-            get
-            {
-                return _modeldataid2;
-            }
+            get => _modeldataid2;
             set
             {
                 _modeldataid2 = value;
@@ -156,10 +152,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unknown Flag")]
         public byte Flag15
         {
-            get
-            {
-                return _flag0x15;
-            }
+            get => _flag0x15;
             set
             {
                 _flag0x15 = value;
@@ -226,7 +219,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             _unknown0x36 = Header->_unknown0x36;
             _unknown0x37 = Header->_unknown0x37;
             if (_name == null)
+            {
                 _name = "Camera [" + Index + "]";
+            }
+
             return false;
         }
 

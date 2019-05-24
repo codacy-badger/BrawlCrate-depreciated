@@ -1,17 +1,17 @@
-﻿using System;
-using BrawlLib;
+﻿using BrawlLib;
 using BrawlLib.SSBB.ResourceNodes;
-using System.Windows.Forms;
+using System;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.MDL0Shader)]
-    class MDL0ShaderWrapper : GenericWrapper
+    internal class MDL0ShaderWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static MDL0ShaderWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -51,7 +51,9 @@ namespace BrawlCrate.NodeWrappers
         public override void MoveUp(bool select)
         {
             if (PrevNode == null)
+            {
                 return;
+            }
 
             if (_resource.MoveUp())
             {
@@ -61,18 +63,25 @@ namespace BrawlCrate.NodeWrappers
                 Remove();
                 parent.Nodes.Insert(index, this);
                 if (select)
+                {
                     TreeView.SelectedNode = this;
+                }
+
                 TreeView.EndUpdate();
 
                 foreach (ResourceNode n in _resource.Parent.Children)
+                {
                     n.Name = "Shader" + n.Index;
+                }
             }
         }
 
         public override void MoveDown(bool select)
         {
             if (NextNode == null)
+            {
                 return;
+            }
 
             if (_resource.MoveDown())
             {
@@ -82,16 +91,21 @@ namespace BrawlCrate.NodeWrappers
                 Remove();
                 parent.Nodes.Insert(index, this);
                 if (select)
+                {
                     TreeView.SelectedNode = this;
+                }
+
                 TreeView.EndUpdate();
 
                 foreach (ResourceNode n in _resource.Parent.Children)
+                {
                     n.Name = "Shader" + n.Index;
+                }
             }
         }
         #endregion
 
-        public override string ExportFilter { get { return FileFilters.MDL0Shader; } }
+        public override string ExportFilter => FileFilters.MDL0Shader;
 
         public MDL0ShaderWrapper() { ContextMenuStrip = _menu; }
     }

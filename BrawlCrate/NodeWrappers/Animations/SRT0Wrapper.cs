@@ -1,18 +1,18 @@
-﻿using System;
+﻿using BrawlLib;
 using BrawlLib.SSBB.ResourceNodes;
-using BrawlLib;
-using System.Windows.Forms;
-using System.ComponentModel;
 using BrawlLib.Wii.Animations;
+using System;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.SRT0)]
-    class SRT0Wrapper : GenericWrapper
+    internal class SRT0Wrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static SRT0Wrapper()
         {
             _menu = new ContextMenuStrip();
@@ -57,7 +57,7 @@ namespace BrawlCrate.NodeWrappers
 
         public SRT0Wrapper() { ContextMenuStrip = _menu; }
 
-        public override string ExportFilter { get { return FileFilters.SRT0; } }
+        public override string ExportFilter => FileFilters.SRT0;
 
         private void NewEntry()
         {
@@ -70,24 +70,24 @@ namespace BrawlCrate.NodeWrappers
         private void Append()
         {
             ((SRT0Node)_resource).Append();
-            BaseWrapper res = this.FindResource(_resource, false);
+            BaseWrapper res = FindResource(_resource, false);
             res.EnsureVisible();
             res.TreeView.SelectedNode = res;
         }
         private void Resize()
         {
             ((SRT0Node)_resource).Resize();
-            BaseWrapper res = this.FindResource(_resource, false);
+            BaseWrapper res = FindResource(_resource, false);
             res.EnsureVisible();
             res.TreeView.SelectedNode = res;
         }
     }
 
     [NodeWrapper(ResourceType.SRT0Entry)]
-    class SRT0EntryWrapper : GenericWrapper
+    internal class SRT0EntryWrapper : GenericWrapper
     {
         #region Menu
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static SRT0EntryWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -131,10 +131,10 @@ namespace BrawlCrate.NodeWrappers
     }
 
     [NodeWrapper(ResourceType.SRT0Texture)]
-    class SRT0TextureWrapper : GenericWrapper
+    internal class SRT0TextureWrapper : GenericWrapper
     {
         #region Menu
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static SRT0TextureWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -156,7 +156,9 @@ namespace BrawlCrate.NodeWrappers
             {
                 InterpolationEditor e = f._interpolationEditor;
                 if (e != null)
+                {
                     e.SetTarget(_resource as IKeyframeSource);
+                }
             }
         }
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)

@@ -1,20 +1,20 @@
-using System;
 using BrawlLib.SSBBTypes;
+using System;
 using System.ComponentModel;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class GEG1Node : ResourceNode
     {
-        internal GEG1* Header { get { return (GEG1*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.GEG1; } }
+        internal GEG1* Header => (GEG1*)WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.GEG1;
 
         private int _count;
         [Category("GEG1")]
         [DisplayName("Enemy Count")]
-        public int count { get { return _count; } }
+        public int count => _count;
 
-        const int _entrySize = 0x84;    // The constant size of a child entry
+        private const int _entrySize = 0x84;    // The constant size of a child entry
 
         public override void OnPopulate()
         {
@@ -41,8 +41,8 @@ namespace BrawlLib.SSBB.ResourceNodes
             for (int i = 0; i < Children.Count; i++)
             {
                 ResourceNode r = Children[i];
-                *(buint*)((VoidPtr)address + 0x08 + i * 4) = offset;
-                r.Rebuild((VoidPtr)address + offset, _entrySize, true);
+                *(buint*)(address + 0x08 + i * 4) = offset;
+                r.Rebuild(address + offset, _entrySize, true);
                 offset += _entrySize;
             }
         }
@@ -51,7 +51,10 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             base.OnInitialize();
             if (_name == null)
+            {
                 _name = "GEG1";
+            }
+
             _count = Header->_count;
             return Header->_count > 0;
         }
@@ -126,8 +129,8 @@ namespace BrawlLib.SSBB.ResourceNodes
 
     public unsafe class GEG1EntryNode : ResourceNode
     {
-        internal GEG1Entry* Header { get { return (GEG1Entry*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.ENEMY; } }
+        internal GEG1Entry* Header => (GEG1Entry*)WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.ENEMY;
 
         // I believe these are constant values for the Header
         public const uint Header1 = 0x0000803F; // 0x00
@@ -267,10 +270,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Enemy Type")]
         public EnemyList EnemyName
         {
-            get
-            {
-                return (EnemyList)_enemyID;
-            }
+            get => (EnemyList)_enemyID;
             set
             {
                 _enemyID = (byte)value;
@@ -281,43 +281,22 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         [Category("Enemy Info")]
         [DisplayName("Enemy ID")]
-        public byte EnemyID
-        {
-            get
-            {
-                return _enemyID;
-            }
-        }
+        public byte EnemyID => _enemyID;
 
         [Category("Enemy Info")]
         [DisplayName("Enemy ARC ID")]
-        public int EnemyArcID
-        {
-            get
-            {
-                return _enemyID * 2;
-            }
-        }
+        public int EnemyArcID => _enemyID * 2;
 
         [Category("Enemy Info")]
         [DisplayName("Enemy BRRES ARC ID")]
-        public int EnemyBrresID
-        {
-            get
-            {
-                return (_enemyID * 2) + 1;
-            }
-        }
+        public int EnemyBrresID => (_enemyID * 2) + 1;
 
         [Browsable(true)]
         [Category("Spawn Info")]
         [DisplayName("Spawn Position"), TypeConverter(typeof(Vector2StringConverter))]
         public Vector2 EnemySpawnPos
         {
-            get
-            {
-                return _spawnPos;
-            }
+            get => _spawnPos;
             set
             {
                 _spawnPos = value;
@@ -330,10 +309,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Spawn ID")]
         public byte SpawnID
         {
-            get
-            {
-                return _spawnid;
-            }
+            get => _spawnid;
             set
             {
                 _spawnid = value;
@@ -346,10 +322,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Additional HP")]
         public byte ExtraHealth
         {
-            get
-            {
-                return _extrahealth;
-            }
+            get => _extrahealth;
             set
             {
                 _extrahealth = value;
@@ -362,10 +335,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Flag 0x09")]
         public byte Flag0x09
         {
-            get
-            {
-                return _flag0x09;
-            }
+            get => _flag0x09;
             set
             {
                 _flag0x09 = value;
@@ -378,10 +348,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Flag 0x0A")]
         public byte Flag0x0A
         {
-            get
-            {
-                return _flag0x0A;
-            }
+            get => _flag0x0A;
             set
             {
                 _flag0x0A = value;
@@ -394,10 +361,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Flag 0x0B")]
         public byte Flag0x0B
         {
-            get
-            {
-                return _flag0x0B;
-            }
+            get => _flag0x0B;
             set
             {
                 _flag0x0B = value;
@@ -410,10 +374,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Flag 0x0C")]
         public byte Flag0x0C
         {
-            get
-            {
-                return _flag0x0C;
-            }
+            get => _flag0x0C;
             set
             {
                 _flag0x0C = value;
@@ -426,10 +387,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Connected Enemy ID")]
         public byte ConnectedEnemyID
         {
-            get
-            {
-                return _connectedenemyid;
-            }
+            get => _connectedenemyid;
             set
             {
                 _connectedenemyid = value;
@@ -442,10 +400,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Flag 0x0E")]
         public byte Flag0x0E
         {
-            get
-            {
-                return _flag0x0E;
-            }
+            get => _flag0x0E;
             set
             {
                 _flag0x0E = value;
@@ -458,10 +413,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Flag 0x0F")]
         public byte Flag0x0F
         {
-            get
-            {
-                return _flag0x0F;
-            }
+            get => _flag0x0F;
             set
             {
                 _flag0x0F = value;
@@ -474,10 +426,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Starting Action")]
         public byte StartingAction
         {
-            get
-            {
-                return _startingaction;
-            }
+            get => _startingaction;
             set
             {
                 _startingaction = value;
@@ -490,10 +439,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Flag 0x64")]
         public byte Flag0x64
         {
-            get
-            {
-                return _flag0x64;
-            }
+            get => _flag0x64;
             set
             {
                 _flag0x64 = value;
@@ -506,10 +452,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Flag 0x67")]
         public byte Flag0x67
         {
-            get
-            {
-                return _flag0x67;
-            }
+            get => _flag0x67;
             set
             {
                 _flag0x67 = value;
@@ -522,10 +465,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Flag 0x7E")]
         public byte Flag0x7E
         {
-            get
-            {
-                return _flag0x7E;
-            }
+            get => _flag0x7E;
             set
             {
                 _flag0x7E = value;
@@ -539,10 +479,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Flag 0x80")]
         public byte Flag0x80
         {
-            get
-            {
-                return _flag0x80;
-            }
+            get => _flag0x80;
             set
             {
                 _flag0x80 = value;
@@ -555,10 +492,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Flag 0x81")]
         public byte Flag0x81
         {
-            get
-            {
-                return _flag0x81;
-            }
+            get => _flag0x81;
             set
             {
                 _flag0x81 = value;
@@ -571,10 +505,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Flag 0x82")]
         public byte Flag0x82
         {
-            get
-            {
-                return _flag0x82;
-            }
+            get => _flag0x82;
             set
             {
                 _flag0x82 = value;
@@ -587,10 +518,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Flag 0x83")]
         public byte Flag0x83
         {
-            get
-            {
-                return _flag0x83;
-            }
+            get => _flag0x83;
             set
             {
                 _flag0x83 = value;
@@ -721,7 +649,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             _flag0x82 = Header->_flag0x82;
             _flag0x83 = Header->_flag0x83;
             if (_name == null)
+            {
                 _name = EnemyNameList();
+            }
+
             return false;
         }
 

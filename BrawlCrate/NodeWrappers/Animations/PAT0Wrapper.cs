@@ -1,16 +1,16 @@
-﻿using System;
+﻿using BrawlLib;
 using BrawlLib.SSBB.ResourceNodes;
-using System.Windows.Forms;
+using System;
 using System.ComponentModel;
-using BrawlLib;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.PAT0)]
-    class PAT0Wrapper : GenericWrapper
+    internal class PAT0Wrapper : GenericWrapper
     {
         #region Menu
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static PAT0Wrapper()
         {
             _menu = new ContextMenuStrip();
@@ -55,7 +55,7 @@ namespace BrawlCrate.NodeWrappers
 
         public PAT0Wrapper() { ContextMenuStrip = _menu; }
 
-        public override string ExportFilter { get { return FileFilters.PAT0; } }
+        public override string ExportFilter => FileFilters.PAT0;
 
         public void NewEntry() { ((PAT0Node)_resource).CreateEntry(); }
         private void Merge()
@@ -65,24 +65,24 @@ namespace BrawlCrate.NodeWrappers
         private void Append()
         {
             ((PAT0Node)_resource).Append();
-            BaseWrapper res = this.FindResource(_resource, false);
+            BaseWrapper res = FindResource(_resource, false);
             res.EnsureVisible();
             res.TreeView.SelectedNode = res;
         }
         private void Resize()
         {
             ((PAT0Node)_resource).Resize();
-            BaseWrapper res = this.FindResource(_resource, false);
+            BaseWrapper res = FindResource(_resource, false);
             res.EnsureVisible();
             res.TreeView.SelectedNode = res;
         }
     }
 
     [NodeWrapper(ResourceType.PAT0Entry)]
-    class PAT0EntryWrapper : GenericWrapper
+    internal class PAT0EntryWrapper : GenericWrapper
     {
         #region Menu
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static PAT0EntryWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -126,10 +126,10 @@ namespace BrawlCrate.NodeWrappers
     }
 
     [NodeWrapper(ResourceType.PAT0Texture)]
-    class PAT0TextureWrapper : GenericWrapper
+    internal class PAT0TextureWrapper : GenericWrapper
     {
         #region Menu
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static PAT0TextureWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -166,10 +166,10 @@ namespace BrawlCrate.NodeWrappers
     }
 
     [NodeWrapper(ResourceType.PAT0TextureEntry)]
-    class PAT0TextureEntryWrapper : GenericWrapper
+    internal class PAT0TextureEntryWrapper : GenericWrapper
     {
         #region Menu
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static PAT0TextureEntryWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -211,25 +211,40 @@ namespace BrawlCrate.NodeWrappers
         {
             float currentFrame = ((PAT0TextureEntryNode)_resource).FrameIndex;
             if (offsetFrames)
+            {
                 ((PAT0Node)_resource.Parent.Parent.Parent).FrameCount += offsetValue;
+            }
+
             if (offsetOtherTextures)
             {
                 OffsetAll(currentFrame, offsetValue);
                 return;
             }
-            foreach(PAT0TextureEntryNode pte in _resource.Parent.Children)
+            foreach (PAT0TextureEntryNode pte in _resource.Parent.Children)
+            {
                 if (pte._frame >= currentFrame)
+                {
                     pte._frame += offsetValue;
+                }
+            }
         }
 
         public void OffsetAll(float currentFrame, int offsetValue)
         {
             // Go through every entry in the PAT0 and edit it as necessary
-            foreach(PAT0EntryNode pe in _resource.Parent.Parent.Parent.Children)
-                foreach(PAT0TextureNode pt in pe.Children)
-                    foreach(PAT0TextureEntryNode pte in pt.Children)
+            foreach (PAT0EntryNode pe in _resource.Parent.Parent.Parent.Children)
+            {
+                foreach (PAT0TextureNode pt in pe.Children)
+                {
+                    foreach (PAT0TextureEntryNode pte in pt.Children)
+                    {
                         if (pte._frame >= currentFrame)
+                        {
                             pte._frame += offsetValue;
+                        }
+                    }
+                }
+            }
         }
     }
 }

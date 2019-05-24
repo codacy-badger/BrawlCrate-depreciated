@@ -1,16 +1,16 @@
 ﻿using BrawlLib;
 using BrawlLib.SSBB.ResourceNodes;
-using System.Windows.Forms;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.STDT)]
-    class STDTWrapper : GenericWrapper
+    internal class STDTWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static STDTWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -42,7 +42,7 @@ namespace BrawlCrate.NodeWrappers
 
         #endregion
 
-        public override string ExportFilter { get { return FileFilters.STDT; } }
+        public override string ExportFilter => FileFilters.STDT;
 
         public override ResourceNode Duplicate()
         {

@@ -22,10 +22,10 @@ namespace BrawlLib.SSBBTypes
         public buint _wiimoteSFX;           // 0x14
         public buint _unknown0x18;          // 0x18 - Seemingly padding
         public buint _status;               // 0x1C - I have no idea what this is
-        //public fixed byte _cosmetics[32];   // 0x20 - 32 bytes
-        
-        public VoidPtr this[int index] { get { return (VoidPtr)((byte*)Address + 0x20 + (index * 2)); } }
-        private VoidPtr Address { get { fixed (void* ptr = &this) return ptr; } }
+                                            //public fixed byte _cosmetics[32];   // 0x20 - 32 bytes
+
+        public VoidPtr this[int index] => (byte*)Address + 0x20 + (index * 2);
+        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
     }
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct CSSCEntry
@@ -35,6 +35,6 @@ namespace BrawlLib.SSBBTypes
         public byte _colorID;
         public byte _costumeID;
 
-        private VoidPtr Address { get { fixed (void* ptr = &this) return ptr; } }
+        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
     }
 }

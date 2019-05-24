@@ -1,18 +1,18 @@
-﻿using System;
+﻿using BrawlLib;
 using BrawlLib.SSBB.ResourceNodes;
-using BrawlLib;
-using System.Windows.Forms;
-using System.ComponentModel;
 using BrawlLib.Wii.Animations;
+using System;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.SHP0)]
-    class SHP0Wrapper : GenericWrapper
+    internal class SHP0Wrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static SHP0Wrapper()
         {
             _menu = new ContextMenuStrip();
@@ -35,7 +35,7 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteAction, Keys.Control | Keys.Delete));
             _menu.Opening += MenuOpening;
-            _menu.Closing += MenuClosing; 
+            _menu.Closing += MenuClosing;
         }
         protected static void NewEntryAction(object sender, EventArgs e) { GetInstance<SHP0Wrapper>().NewEntry(); }
         protected static void MergeAction(object sender, EventArgs e) { GetInstance<SHP0Wrapper>().Merge(); }
@@ -58,12 +58,12 @@ namespace BrawlCrate.NodeWrappers
 
         public SHP0Wrapper() { ContextMenuStrip = _menu; }
 
-        public override string ExportFilter { get { return FileFilters.SHP0; } }
+        public override string ExportFilter => FileFilters.SHP0;
 
         public void NewEntry()
         {
             SHP0EntryNode node = ((SHP0Node)_resource).FindOrCreateEntry(_resource.FindName(null));
-            BaseWrapper res = this.FindResource(node, false);
+            BaseWrapper res = FindResource(node, false);
             res.EnsureVisible();
             res.TreeView.SelectedNode = res;
         }
@@ -74,24 +74,24 @@ namespace BrawlCrate.NodeWrappers
         private void Append()
         {
             ((SHP0Node)_resource).Append();
-            BaseWrapper res = this.FindResource(_resource, false);
+            BaseWrapper res = FindResource(_resource, false);
             res.EnsureVisible();
             res.TreeView.SelectedNode = res;
         }
         private void Resize()
         {
             ((SHP0Node)_resource).Resize();
-            BaseWrapper res = this.FindResource(_resource, false);
+            BaseWrapper res = FindResource(_resource, false);
             res.EnsureVisible();
             res.TreeView.SelectedNode = res;
         }
     }
 
     [NodeWrapper(ResourceType.SHP0Entry)]
-    class SHP0EntryWrapper : GenericWrapper
+    internal class SHP0EntryWrapper : GenericWrapper
     {
         #region Menu
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static SHP0EntryWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -134,11 +134,11 @@ namespace BrawlCrate.NodeWrappers
     }
 
     [NodeWrapper(ResourceType.SHP0VertexSet)]
-    class SHP0VertexSetNodeWrapper : GenericWrapper
+    internal class SHP0VertexSetNodeWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static SHP0VertexSetNodeWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -164,7 +164,9 @@ namespace BrawlCrate.NodeWrappers
             {
                 InterpolationEditor e = f._interpolationEditor;
                 if (e != null)
+                {
                     e.SetTarget(_resource as IKeyframeSource);
+                }
             }
         }
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)

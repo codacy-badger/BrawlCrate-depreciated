@@ -1,17 +1,17 @@
-﻿using System;
+﻿using BrawlLib;
 using BrawlLib.SSBB.ResourceNodes;
-using System.Windows.Forms;
-using BrawlLib;
+using System;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.MDL0Object)]
-    class MDL0PolygonWrapper : GenericWrapper
+    internal class MDL0PolygonWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static MDL0PolygonWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -44,8 +44,8 @@ namespace BrawlCrate.NodeWrappers
         protected static void ForceDeleteAction(object sender, EventArgs e) { GetInstance<MDL0PolygonWrapper>().ForceDelete(); }
         #endregion
 
-        public override string ExportFilter { get { return FileFilters.Object; } }
-        public override string ImportFilter { get { return FileFilters.Raw; } }
+        public override string ExportFilter => FileFilters.Object;
+        public override string ImportFilter => FileFilters.Raw;
 
         public MDL0PolygonWrapper() { ContextMenuStrip = _menu; }
 
@@ -66,7 +66,9 @@ namespace BrawlCrate.NodeWrappers
         public void ForceDelete()
         {
             if (Parent == null || (MainForm.Instance != null && Form.ActiveForm != null && Form.ActiveForm != MainForm.Instance))
+            {
                 return;
+            }
 
             _resource.Dispose();
             ((MDL0ObjectNode)_resource).Remove(true);

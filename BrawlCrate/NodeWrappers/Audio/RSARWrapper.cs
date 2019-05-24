@@ -1,19 +1,19 @@
-﻿using System;
+﻿using BrawlLib;
 using BrawlLib.SSBB.ResourceNodes;
-using BrawlLib;
-using System.Windows.Forms;
+using System;
 using System.ComponentModel;
-using System.IO;
 using System.Diagnostics;
+using System.IO;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.RSAR)]
-    class RSARWrapper : GenericWrapper
+    internal class RSARWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static RSARWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -51,15 +51,17 @@ namespace BrawlCrate.NodeWrappers
 
         public RSARWrapper() { ContextMenuStrip = _menu; }
 
-        public override string ExportFilter { get { return FileFilters.RSAR; } }
+        public override string ExportFilter => FileFilters.RSAR;
 
         public void ImportSawndz()
         {
             if (Parent != null || !File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawndz.exe"))
+            {
                 return;
+            }
+
             Program.Save(true);
-            string inPath = "";
-            int index = Program.OpenFile("Brawl SFX files (*.sawnd)|*.sawnd", out inPath);
+            int index = Program.OpenFile("Brawl SFX files (*.sawnd)|*.sawnd", out string inPath);
             if (index != 0)
             {
                 string fileRoot = Program.RootPath;
@@ -68,23 +70,31 @@ namespace BrawlCrate.NodeWrappers
                 insertSawnd(inPath, openFile);
                 MainForm.Instance.Reset();
                 Program.Open(openFile, fileRoot);
-                if(MainForm.Instance.RootNode != null && MainForm.Instance.RootNode.ResourceNode != null)
+                if (MainForm.Instance.RootNode != null && MainForm.Instance.RootNode.ResourceNode != null)
+                {
                     MainForm.Instance.RootNode.ResourceNode.SignalPropertyChange();
+                }
             }
         }
 
         public static void insertSawnd(string sawndfileName, string brsarfileName)
         {
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawnd.sawnd"))
+            {
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawnd.sawnd");
+            }
+
             File.Copy(sawndfileName, AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawnd.sawnd");
             runSawndzWithArgs("sawnd" + " \"" + brsarfileName + "\"");
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawnd.sawnd"))
+            {
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawnd.sawnd");
+            }
         }
 
         public static Process p;
-        static void runSawndzWithArgs(string args)
+
+        private static void runSawndzWithArgs(string args)
         {
             try
             {
@@ -106,7 +116,10 @@ namespace BrawlCrate.NodeWrappers
                     Console.Write(buffer);
                 }
                 if (!p.HasExited)
+                {
                     p.WaitForExit();
+                }
+
                 return;
             }
             catch (Exception e)

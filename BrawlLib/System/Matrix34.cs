@@ -3,13 +3,13 @@ using BrawlLib.OpenGL;
 using BrawlLib.SSBB.ResourceNodes;
 using BrawlLib.SSBBTypes;
 using BrawlLib.Wii.Animations;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using System.Globalization;
 
 namespace System
 {
-    [StructLayout(LayoutKind.Sequential, Pack=1)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct Matrix34
     {
         public static readonly Matrix34 Identity = ScaleMatrix(1.0f, 1.0f, 1.0f);
@@ -19,14 +19,30 @@ namespace System
         public Matrix34(params float[] values)
         {
             fixed (float* b = _data)
+            {
                 for (int i = 0; i < Math.Min(12, values.Length); i++)
+                {
                     b[i] = values[i];
+                }
+            }
         }
 
         public float this[int index]
         {
-            get { fixed (float* p = _data) return p[index]; }
-            set { fixed (float* p = _data) p[index] = value; }
+            get
+            {
+                fixed (float* p = _data)
+                {
+                    return p[index];
+                }
+            }
+            set
+            {
+                fixed (float* p = _data)
+                {
+                    p[index] = value;
+                }
+            }
         }
 
         public void Translate(float x, float y, float z)
@@ -37,20 +53,20 @@ namespace System
         internal void Rotate(float x, float y, float z)
         {
             Matrix34 m = RotationMatrix(x, y, z);
-            this.Multiply(&m);
+            Multiply(&m);
         }
 
         internal void Scale(float x, float y, float z)
         {
             Matrix34 m = ScaleMatrix(x, y, z);
-            this.Multiply(&m);
+            Multiply(&m);
         }
 
         public Matrix34 GetTranslation()
         {
             Matrix34 m = Identity;
             float* p = (float*)&m;
-            fixed(float* s = _data)
+            fixed (float* s = _data)
             {
                 p[3] = s[3];
                 p[7] = s[7];
@@ -324,8 +340,9 @@ namespace System
             return m;
         }
 
-        unsafe delegate void MtxFunc(float* d, TextureFrameState state);
-        static MtxFunc[] MtxArray = 
+        private unsafe delegate void MtxFunc(float* d, TextureFrameState state);
+
+        private static readonly MtxFunc[] MtxArray =
         {
             BasicMtx,
             MayaMtxSRT,
@@ -355,7 +372,10 @@ namespace System
         {
             Matrix34 m = Identity;
             if (state.Flags != 7)
+            {
                 MtxArray[state.Indirect ? 0 : 1 + ((int)state.MatrixMode).Clamp(0, 2) * 7 + state.Flags]((float*)&m, state);
+            }
+
             return m;
         }
 
@@ -447,7 +467,7 @@ namespace System
             float cosR = (float)Math.Cos(state.Rotate * Maths._deg2radf);
 
             float sin = 0.5f * sinR - 0.5f;
-            float cos = - 0.5f * cosR;
+            float cos = -0.5f * cosR;
 
             d[0] = state.Scale._x * cosR;
             d[1] = state.Scale._x * sinR;
@@ -631,37 +651,46 @@ namespace System
             return m;
         }
 
-        static Matrix34 ProjectionTexMtx(GLCamera c)
+        private static Matrix34 ProjectionTexMtx(GLCamera c)
         {
             if (c.Orthographic)
+            {
                 return LightMtxOrtho(
                     c._orthoDimensions[2],
                     c._orthoDimensions[3],
                     c._orthoDimensions[0],
                     c._orthoDimensions[1],
                     0.5f, -0.5f, 0.5f, 0.5f);
+            }
             else
+            {
                 return LightMtxPersp(
                     c._fovY, 1.0f,
                     0.5f, -0.5f, 0.5f, 0.5f);
+            }
         }
-        static Matrix34 ProjectionTexMtx(SCN0CameraNode c, float frame)
+
+        private static Matrix34 ProjectionTexMtx(SCN0CameraNode c, float frame)
         {
             CameraAnimationFrame f = c.GetAnimFrame(frame);
             if (c.ProjectionType == BrawlLib.Wii.Graphics.ProjectionType.Orthographic)
+            {
                 return LightMtxOrtho(
                     f.Height / 2.0f,
                     -f.Height / 2.0f,
                     -f.Height * f.Aspect / 2.0f,
                     f.Height * f.Aspect / 2.0f,
                     0.5f, -0.5f, 0.5f, 0.5f);
+            }
             else
+            {
                 return LightMtxPersp(
                     f.FovY, 1.0f,
                     0.5f, -0.5f, 0.5f, 0.5f);
+            }
         }
 
-        static Matrix34 LightMtxPersp(float fovY, float aspect, float scaleS, float scaleT, float transS, float transT)
+        private static Matrix34 LightMtxPersp(float fovY, float aspect, float scaleS, float scaleT, float transS, float transT)
         {
             // find the cotangent of half the (YZ) field of view
             float cot = 1.0f / (float)Math.Tan(Maths._deg2rad * (fovY * 0.5f));
@@ -671,7 +700,7 @@ namespace System
                 0.0f, 0.0f, -1.0f, 0.0f);
         }
 
-        static Matrix34 LightMtxOrtho(float t, float b, float l, float r, float scaleS, float scaleT, float transS, float transT)
+        private static Matrix34 LightMtxOrtho(float t, float b, float l, float r, float scaleS, float scaleT, float transS, float transT)
         {
             float tmp1 = 1.0f / (r - l), tmp2 = 1.0f / (t - b);
             return new Matrix34(
@@ -686,8 +715,7 @@ namespace System
             if (refCam >= 0 && node != null && node.CameraGroup != null && refCam < node.CameraGroup.Children.Count)
             {
                 SCN0CameraNode camNode = (SCN0CameraNode)node.CameraGroup.Children[refCam];
-                Matrix cm, cmInv;
-                camNode.GetModelViewMatrix(frame, out cm, out cmInv);
+                camNode.GetModelViewMatrix(frame, out Matrix cm, out Matrix cmInv);
                 return (Matrix)Matrix34.EnvironmentTexMtx() * cm.GetRotationMatrix();
             }
 
@@ -716,8 +744,7 @@ namespace System
             // The light position and direction needs to be transformed with the camera's inverse matrix.
             Vector3 vLook, camUp, vRight, vUp;
 
-            bool specEnabled;
-            vLook = GetLightLook(node, refLight, invCamMtx, v, frame, out specEnabled).Normalize();
+            vLook = GetLightLook(node, refLight, invCamMtx, v, frame, out bool specEnabled).Normalize();
 
             // Calculate without using a target because the margin of error for calculations must be taken into account when the light is far away.
             // Take the absolute value as a measure against transformation margin.
@@ -777,8 +804,7 @@ namespace System
                 // Set so that the image is projected from the specified camera.
                 // Transform to the viewing coordinate system of the specified camera
                 SCN0CameraNode camNode = (SCN0CameraNode)node.CameraGroup.Children[ref_camera];
-                Matrix cm, cmInv;
-                camNode.GetModelViewMatrix(frame, out cm, out cmInv);
+                camNode.GetModelViewMatrix(frame, out Matrix cm, out Matrix cmInv);
                 camMtx = cm * cam._matrix;
                 projMtx = (Matrix)(ProjectionTexMtx(camNode, frame));
             }
@@ -791,7 +817,7 @@ namespace System
             return projMtx * camMtx;
         }
 
-        static Vector3 GetHalfAngle(Vector3 a, Vector3 b)
+        private static Vector3 GetHalfAngle(Vector3 a, Vector3 b)
         {
             Vector3 aTmp, bTmp, hTmp;
 
@@ -809,9 +835,13 @@ namespace System
             hTmp = aTmp + bTmp;
 
             if (hTmp.Dot() > 0.0f)
+            {
                 return hTmp.Normalize();
+            }
             else //The singular case returns zero vector
+            {
                 return hTmp;
+            }
         }
 
         /// <summary>
@@ -841,14 +871,17 @@ namespace System
 
             if (refLight >= 0)
             {
-                bool specEnabled;
-                Vector3 lgtLook = GetLightLook(node, refLight, invCamMtx, v, frame, out specEnabled);
+                Vector3 lgtLook = GetLightLook(node, refLight, invCamMtx, v, frame, out bool specEnabled);
 
                 // Specular light is already set as a vector taking the center position.
                 if (!specEnabled)
+                {
                     vLook = GetHalfAngle(camLook, lgtLook);
+                }
                 else
+                {
                     vLook = -lgtLook;
+                }
 
                 if ((Math.Abs(vLook._x) < 0.000001f) &&
                     (Math.Abs(vLook._z) < 0.000001f))
@@ -884,8 +917,7 @@ namespace System
                     camNode = new SCN0CameraNode();
                 }
 
-                Matrix cM, cMInv;
-                camNode.GetModelViewMatrix(frame, out cM, out cMInv);
+                camNode.GetModelViewMatrix(frame, out Matrix cM, out Matrix cMInv);
 
                 // Map from the midpoint of the view camera and the specified camera.
                 Matrix34 lgtCam = (Matrix34)cM;
@@ -906,9 +938,9 @@ namespace System
 
             vUp = (vRight = vLook.Cross(camUp).Normalize()).Cross(vLook);
             m34 = new Matrix34(
-                vRight._x,  vRight._y,  vRight._z, 0.0f,
-                vUp._x,  vUp._y,  vUp._z, 0.0f,
-                vLook._x,  vLook._y,  vLook._z, 0.0f);
+                vRight._x, vRight._y, vRight._z, 0.0f,
+                vUp._x, vUp._y, vUp._z, 0.0f,
+                vLook._x, vLook._y, vLook._z, 0.0f);
 
             m34 = (Matrix34)(((Matrix)m34) * invCamMtx);
             m34[3] = 0.0f;
@@ -951,7 +983,9 @@ namespace System
             {
                 // Use light position if they are diffuse light or if light has no direction.
                 if (temp)
+                {
                     lgtLook = start;
+                }
 
                 lgtLook = -(invCamMtx.GetRotationMatrix() * lgtLook);
                 if (lgtLook._x == 0.0f &&
@@ -963,7 +997,9 @@ namespace System
                 }
             }
             else
+            {
                 lgtLook = invCamMtx.GetRotationMatrix() * lgtLook;
+            }
 
             return lgtLook;
         }
@@ -979,13 +1015,18 @@ namespace System
                 int index = 0;
                 float val;
                 for (int b = 0; b < 12; b += 4)
+                {
                     for (int a = 0; a < 4; a++)
                     {
                         val = 0.0f;
                         for (int x = b, y = a; y < 12; y += 4)
+                        {
                             val += s1[x++] * s2[y];
+                        }
+
                         p[index++] = val;
                     }
+                }
 
                 p[3] += s1[3];
                 p[7] += s1[7];
@@ -1008,15 +1049,23 @@ namespace System
         {
             float* s = (float*)m;
             fixed (float* d = _data)
+            {
                 for (int i = 0; i < 12; i++)
+                {
                     d[i] += s[i];
+                }
+            }
         }
         public void Subtract(Matrix34* m)
         {
             float* s = (float*)m;
             fixed (float* d = _data)
+            {
                 for (int i = 0; i < 12; i++)
+                {
                     d[i] -= s[i];
+                }
+            }
         }
 
         internal void Multiply(float v)
@@ -1024,7 +1073,9 @@ namespace System
             fixed (float* p = _data)
             {
                 for (int i = 0; i < 12; i++)
+                {
                     p[i] *= v;
+                }
             }
         }
 
@@ -1037,13 +1088,18 @@ namespace System
             int index = 0;
             float val;
             for (int b = 0; b < 12; b += 4)
+            {
                 for (int a = 0; a < 4; a++)
                 {
                     val = 0.0f;
                     for (int x = b, y = a; y < 12; y += 4)
+                    {
                         val += s1[x++] * s2[y];
+                    }
+
                     p[index++] = val;
                 }
+            }
 
             p[3] += s1[3];
             p[7] += s1[7];
@@ -1056,8 +1112,13 @@ namespace System
         {
             float* p1 = (float*)&m1, p2 = (float*)&m2;
             for (int i = 0; i < 12; i++)
+            {
                 if (*p1++ != *p2++)
+                {
                     return false;
+                }
+            }
+
             return true;
         }
         public static bool operator !=(Matrix34 m1, Matrix34 m2) { return !(m1 == m2); }
@@ -1065,7 +1126,10 @@ namespace System
         public override bool Equals(object obj)
         {
             if (obj is Matrix34)
+            {
                 return (Matrix34)obj == this;
+            }
+
             return base.Equals(obj);
         }
 
@@ -1079,8 +1143,11 @@ namespace System
             fixed (float* p = _data)
             {
                 if (CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.Contains(","))
-                    return String.Format("({0} {1} {2} {3})({4} {5} {6} {7})({8} {9} {10} {11})", p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10], p[11]);
-                return String.Format("({0},{1},{2},{3})({4},{5},{6},{7})({8},{9},{10},{11})", p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10], p[11]);
+                {
+                    return string.Format("({0} {1} {2} {3})({4} {5} {6} {7})({8} {9} {10} {11})", p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10], p[11]);
+                }
+
+                return string.Format("({0},{1},{2},{3})({4},{5},{6},{7})({8},{9},{10},{11})", p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10], p[11]);
             }
         }
     }

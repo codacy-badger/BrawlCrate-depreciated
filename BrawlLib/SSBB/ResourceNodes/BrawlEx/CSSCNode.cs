@@ -1,17 +1,17 @@
-﻿using System;
-using BrawlLib.SSBBTypes;
-using System.ComponentModel;
-using System.IO;
+﻿using BrawlLib.SSBBTypes;
+using System;
 using System.BrawlEx;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class CSSCNode : ResourceNode
     {
-        internal CSSC* Header { get { return (CSSC*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.CSSC; } }
+        internal CSSC* Header => (CSSC*)WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.CSSC;
 
         public uint _tag;                   // 0x00 - Uneditable; CSSC
         public uint _size;                  // 0x04 - Uneditable; Should be "40"
@@ -27,17 +27,14 @@ namespace BrawlLib.SSBB.ResourceNodes
         public uint _wiimoteSFX;            // 0x14
         public uint _unknown0x18;           // 0x18 - Seemingly padding
         public uint _status;                // 0x1C - I have no idea what this is
-        
+
 
         private bool _primarySecondarySet;
         [Category("Character")]
         [DisplayName("Set Primary/Secondary")]
         public bool SetPrimarySecondary
         {
-            get
-            {
-                return _primarySecondarySet;
-            }
+            get => _primarySecondarySet;
             set
             {
                 _primarySecondarySet = value;
@@ -50,10 +47,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Primary Character Slot")]
         public byte CharSlot1
         {
-            get
-            {
-                return _primaryCharSlot;
-            }
+            get => _primaryCharSlot;
             set
             {
                 _primaryCharSlot = value;
@@ -66,10 +60,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Secondary Character Slot")]
         public byte CharSlot2
         {
-            get
-            {
-                return _secondaryCharSlot;
-            }
+            get => _secondaryCharSlot;
             set
             {
                 _secondaryCharSlot = value;
@@ -83,10 +74,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Record Bank")]
         public byte Records
         {
-            get
-            {
-                return _recordSlot;
-            }
+            get => _recordSlot;
             set
             {
                 _recordSlot = value;
@@ -99,10 +87,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Set Cosmetic Slot")]
         public bool SetCosmeticSlot
         {
-            get
-            {
-                return _cosmeticSlotSet;
-            }
+            get => _cosmeticSlotSet;
             set
             {
                 _cosmeticSlotSet = value;
@@ -115,15 +100,15 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Cosmetic Slot")]
         public byte CosmeticSlot
         {
-            get
-            {
-                return _cosmeticSlot;
-            }
+            get => _cosmeticSlot;
             set
             {
                 _cosmeticSlot = value;
-                foreach(CSSCEntryNode c in Children)
+                foreach (CSSCEntryNode c in Children)
+                {
                     c.regenName();
+                }
+
                 SignalPropertyChange();
             }
         }
@@ -132,10 +117,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Wiimote SFX")]
         public string WiimoteSFX
         {
-            get
-            {
-                return "0x" + _wiimoteSFX.ToString("X8");
-            }
+            get => "0x" + _wiimoteSFX.ToString("X8");
             set
             {
                 string field0 = (value.ToString() ?? "").Split(' ')[0];
@@ -148,10 +130,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Status")]
         public string Status
         {
-            get
-            {
-                return "0x" + _status.ToString("X8");
-            }
+            get => "0x" + _status.ToString("X8");
             set
             {
                 string field0 = (value.ToString() ?? "").Split(' ')[0];
@@ -168,7 +147,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 new CSSCEntryNode().Initialize(this, new DataSource((*Header)[i], 2));
                 CSSCEntryNode c = (CSSCEntryNode)Children[Children.Count - 1];
-                if(c.Color == end.Color && c.CostumeID == end.CostumeID)
+                if (c.Color == end.Color && c.CostumeID == end.CostumeID)
                 {
                     RemoveChild(c);
                     _changed = false;
@@ -189,9 +168,15 @@ namespace BrawlLib.SSBB.ResourceNodes
             hdr->_editFlag3 = _editFlag3;
             _editFlag4 = 0;
             if (_primarySecondarySet)
+            {
                 _editFlag4 += 0x01;
+            }
+
             if (_cosmeticSlotSet)
+            {
                 _editFlag4 += 0x02;
+            }
+
             hdr->_editFlag4 = _editFlag4;
             hdr->_primaryCharSlot = _primaryCharSlot;
             hdr->_secondaryCharSlot = _secondaryCharSlot;
@@ -200,20 +185,20 @@ namespace BrawlLib.SSBB.ResourceNodes
             hdr->_wiimoteSFX = _wiimoteSFX;
             hdr->_unknown0x18 = _unknown0x18;
             hdr->_status = _status;
-            uint offset = (uint)(0x20);
+            uint offset = 0x20;
             for (int i = 0; i < Children.Count; i++)
             {
                 ResourceNode r = Children[i];
-                r.Rebuild((VoidPtr)address + offset, 2, true);
+                r.Rebuild(address + offset, 2, true);
                 offset += 2;
             }
             CSSCEntryNode end = new CSSCEntryNode(true);
-            end.Rebuild((VoidPtr)address + offset, 2, true);
+            end.Rebuild(address + offset, 2, true);
             offset += 2;
-            while(offset < hdr->_size)
+            while (offset < hdr->_size)
             {
                 CSSCEntryNode blank = new CSSCEntryNode(false);
-                blank.Rebuild((VoidPtr)address + offset, 2, true);
+                blank.Rebuild(address + offset, 2, true);
                 offset += 2;
             }
             /*for (int i = 0; i < Children.Count; i++)
@@ -231,12 +216,15 @@ namespace BrawlLib.SSBB.ResourceNodes
                     hdr->_cosmetics[j] = 0x0;
             }*/
         }
-        
+
         public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int extraBytes = 0;
             while ((0x20 + ((Children.Count + 1) * 2) + extraBytes) % 16 != 0)
+            {
                 extraBytes++;
+            }
+
             return (0x20 + ((Children.Count + 1) * 2) + extraBytes) < CSSC.Size ? CSSC.Size : (0x20 + ((Children.Count + 1) * 2) + extraBytes);
         }
 
@@ -259,21 +247,24 @@ namespace BrawlLib.SSBB.ResourceNodes
             _cosmeticSlotSet = ((_editFlag4 & 0x02) != 0);
             _primarySecondarySet = ((_editFlag4 & 0x01) != 0);
             if ((_name == null) && (_origPath != null))
+            {
                 _name = Path.GetFileNameWithoutExtension(_origPath);
+            }
+
             return true;
         }
-        
+
         internal static ResourceNode TryParse(DataSource source) { return ((CSSC*)source.Address)->_tag == CSSC.Tag ? new CSSCNode() : null; }
     }
 
     public unsafe class CSSCEntryNode : ResourceNode
     {
-        internal CSSCEntry* Header { get { return (CSSCEntry*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.CSSCEntry; } }
+        internal CSSCEntry* Header => (CSSCEntry*)WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.CSSCEntry;
 
         public byte _colorID;
         public byte _costumeID;
-        
+
         public CSSCEntryNode()
         {
             _colorID = 0x00;
@@ -291,10 +282,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Costume ID")]
         public byte CostumeID
         {
-            get
-            {
-                return _costumeID;
-            }
+            get => _costumeID;
             set
             {
                 _costumeID = value;
@@ -308,10 +296,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Color")]
         public byte Color
         {
-            get
-            {
-                return _colorID;
-            }
+            get => _colorID;
             set
             {
                 _colorID = value;
@@ -330,7 +315,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             _colorID = Header->_colorID;
             _costumeID = Header->_costumeID;
             if (_name == null)
+            {
                 _name = "Fit" + BrawlLib.BrawlCrate.FighterNameGenerators.InternalNameFromID(((CSSCNode)Parent)._cosmeticSlot, BrawlLib.BrawlCrate.FighterNameGenerators.cosmeticIDIndex, "+S") + _costumeID.ToString("00") + (BrawlExColorID.Colors.Length > _colorID ? " - " + BrawlExColorID.Colors[_colorID].Name : "");
+            }
+
             return false;
         }
 

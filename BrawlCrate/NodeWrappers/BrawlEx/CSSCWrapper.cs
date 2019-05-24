@@ -1,20 +1,20 @@
-﻿using System;
-using BrawlLib;
+﻿using BrawlLib;
 using BrawlLib.SSBB.ResourceNodes;
-using System.Windows.Forms;
-using System.ComponentModel;
-using System.Collections.Generic;
+using System;
 using System.BrawlEx;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.CSSC)]
-    class CSSCWrapper : GenericWrapper
+    internal class CSSCWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static CSSCWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -50,14 +50,19 @@ namespace BrawlCrate.NodeWrappers
         }
         #endregion
 
-        public override string ExportFilter { get { return FileFilters.CSSC; } }
+        public override string ExportFilter => FileFilters.CSSC;
 
         public void NewEntry()
         {
-            if(_resource.Children.Count >= 50)
+            if (_resource.Children.Count >= 50)
+            {
                 return;
-            CSSCEntryNode node = new CSSCEntryNode();
-            node._colorID = 0x0B;
+            }
+
+            CSSCEntryNode node = new CSSCEntryNode
+            {
+                _colorID = 0x0B
+            };
             if (_resource.HasChildren)
             {
                 node._costumeID = (byte)(((CSSCEntryNode)(_resource.Children[_resource.Children.Count - 1]))._costumeID + 1);
@@ -70,11 +75,11 @@ namespace BrawlCrate.NodeWrappers
     }
 
     [NodeWrapper(ResourceType.CSSCEntry)]
-    class CSSCEntryWrapper : GenericWrapper
+    internal class CSSCEntryWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static CSSCEntryWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -110,7 +115,9 @@ namespace BrawlCrate.NodeWrappers
                 {
                     _menu.Items[0].Text += files[i].Substring(files[i].LastIndexOf('\\') + 1);
                     if (i + 1 < files.Count)
+                    {
                         _menu.Items[0].Text += " and ";
+                    }
                 }
             }
             _menu.Items[3].Enabled = _menu.Items[9].Enabled = w.Parent != null;

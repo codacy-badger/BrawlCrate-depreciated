@@ -8,35 +8,45 @@ namespace System.Windows.Forms
 {
     public partial class ModelEditorBase : UserControl
     {
-        public unsafe virtual void modelPanel1_PreRender(ModelPanelViewport vp)
+        public virtual unsafe void modelPanel1_PreRender(ModelPanelViewport vp)
         {
             if (vp != null)
             {
                 if (vp._renderFloor)
+                {
                     OnRenderFloor();
+                }
 
                 GL.Enable(EnableCap.DepthTest);
                 GL.DepthFunc(DepthFunction.Lequal);
             }
         }
 
-        public unsafe virtual void modelPanel1_PostRender(ModelPanelViewport vp)
+        public virtual unsafe void modelPanel1_PostRender(ModelPanelViewport vp)
         {
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
             GL.Disable(EnableCap.Lighting);
 
             if (_targetModels != null)
+            {
                 foreach (IModel m in _targetModels)
+                {
                     PostRender(m, vp);
+                }
+            }
 
             GL.Disable(EnableCap.DepthTest);
 
             if (RenderLightDisplay/* && vp == ModelPanel.CurrentViewport*/)
+            {
                 OnRenderLightDisplay(vp);
+            }
 
             if (TargetAnimType == NW4RAnimType.SCN && vp.RenderSCN0Controls)
+            {
                 RenderSCN0Controls(vp);
+            }
 
             //For now we'll clear the depth buffer bit here.
             //We're not using the model depth in any way so it doesn't matter
@@ -53,11 +63,15 @@ namespace System.Windows.Forms
         public unsafe void RenderSCN0Controls(ModelPanelViewport vp)
         {
             if (_scn0 == null)
+            {
                 return;
+            }
 
             int frame = CurrentFrame - 1;
             if (frame < 0)
+            {
                 return;
+            }
 
             GL.Color3(Color.Blue);
             GL.Disable(EnableCap.Lighting);
@@ -83,7 +97,11 @@ namespace System.Windows.Forms
                             GL.Begin(BeginMode.Lines);
                             GL.Color3((Color)l.GetColor(frame, 0));
                             GL.Vertex3((OpenTK.Vector3)start);
-                            if (l.SpecularEnabled) GL.Color3((Color)l.GetColor(frame, 1));
+                            if (l.SpecularEnabled)
+                            {
+                                GL.Color3((Color)l.GetColor(frame, 1));
+                            }
+
                             GL.Vertex3((OpenTK.Vector3)end);
                             GL.End();
                             if (l.LightType == BrawlLib.SSBBTypes.LightType.Spotlight)
@@ -167,9 +185,11 @@ namespace System.Windows.Forms
             {
                 Vector3 start = _SCN0Camera.GetStart(frame);
                 Vector3 end = new Vector3();
-                    
+
                 if (_SCN0Camera.Type == BrawlLib.SSBBTypes.SCN0CameraType.Aim)
+                {
                     end = _SCN0Camera.GetEnd(frame);
+                }
                 else
                 {
                     Matrix r = Matrix.TranslationMatrix(new Vector3(0.0f, 0.0f, -1.0f) * Matrix.RotationMatrix(_SCN0Camera.GetRotate(frame)));
@@ -240,16 +260,24 @@ namespace System.Windows.Forms
         public virtual void PostRender(IModel model, ModelPanelViewport vp)
         {
             if (vp._renderAttrib._renderVertices)
+            {
                 model.RenderVertices(false, SelectedBone, vp.Camera);
+            }
+
             if (vp._renderAttrib._renderNormals)
+            {
                 model.RenderNormals();
+            }
+
             if (vp._renderAttrib._renderBones)
+            {
                 model.RenderBones(vp);
+            }
 
             model.RenderBoxes(
                 vp._renderAttrib._renderModelBox,
                 vp._renderAttrib._renderObjectBoxes,
-                vp._renderAttrib._renderBoneBoxes, 
+                vp._renderAttrib._renderBoneBoxes,
                 vp._renderAttrib._useBindStateBoxes);
         }
 
@@ -271,7 +299,9 @@ namespace System.Windows.Forms
         public unsafe void RenderTransformControl(ModelPanelViewport panel)
         {
             if (_playing)
+            {
                 return;
+            }
 
             bool hasBone = SelectedBone != null;
             if (hasBone || VertexLoc.HasValue)
@@ -285,6 +315,7 @@ namespace System.Windows.Forms
                     pos = BoneLoc(SelectedBone);
                     radius = OrbRadius(pos, panel.Camera);
                     if (ControlType != TransformType.None)
+                    {
                         switch (_coordinateTypes[(int)ControlType])
                         {
                             case CoordinateType.Local:
@@ -298,12 +329,14 @@ namespace System.Windows.Forms
                                 rot = Matrix.RotationMatrix(panel.Camera._rotation);
                                 break;
                         }
+                    }
                 }
                 else
                 {
                     pos = VertexLoc.Value;
                     radius = OrbRadius(pos, panel.Camera);
                     if (ControlType != TransformType.None)
+                    {
                         switch (_coordinateTypes[(int)ControlType])
                         {
                             case CoordinateType.Local:
@@ -314,6 +347,7 @@ namespace System.Windows.Forms
                                 rot = CameraFacingRotationMatrix(panel, pos);
                                 break;
                         }
+                    }
                 }
 
                 switch (ControlType)
@@ -374,7 +408,7 @@ namespace System.Windows.Forms
             GetScaleAxes().Call();
 
             GL.PopMatrix();
-            
+
             panel.SettingsScreenText["X"] = panel.Camera.Project(new Vector3(_axisLDist + 0.1f, 0, 0) * m) - new Vector3(8.0f, 8.0f, 0);
             panel.SettingsScreenText["Y"] = panel.Camera.Project(new Vector3(0, _axisLDist + 0.1f, 0) * m) - new Vector3(8.0f, 8.0f, 0);
             panel.SettingsScreenText["Z"] = panel.Camera.Project(new Vector3(0, 0, _axisLDist + 0.1f) * m) - new Vector3(8.0f, 8.0f, 0);
@@ -407,9 +441,14 @@ namespace System.Windows.Forms
 
             //Circ
             if (_snapCirc || _hiCirc)
+            {
                 GL.Color4(Color.Yellow);
+            }
             else
+            {
                 GL.Color4(1.0f, 0.8f, 0.5f, 1.0f);
+            }
+
             GL.Scale(_circOrbScale, _circOrbScale, _circOrbScale);
             circle.Call();
 
@@ -430,27 +469,39 @@ namespace System.Windows.Forms
 
             //Z
             if (_snapZ || _hiZ)
+            {
                 GL.Color4(Color.Yellow);
+            }
             else
+            {
                 GL.Color4(0.0f, 0.0f, 1.0f, 1.0f);
+            }
 
             circle.Call();
             GL.Rotate(90.0f, 0.0f, 1.0f, 0.0f);
 
             //X
             if (_snapX || _hiX)
+            {
                 GL.Color4(Color.Yellow);
+            }
             else
+            {
                 GL.Color4(Color.Red);
+            }
 
             circle.Call();
             GL.Rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
             //Y
             if (_snapY || _hiY)
+            {
                 GL.Color4(Color.Yellow);
+            }
             else
+            {
                 GL.Color4(Color.Green);
+            }
 
             circle.Call();
 
@@ -460,7 +511,7 @@ namespace System.Windows.Forms
             GL.PopAttrib();
         }
 
-#endregion
+        #endregion
 
         #region Scale/Translation Display Lists
         public const float _axisLDist = 2.0f;
@@ -482,23 +533,38 @@ namespace System.Windows.Forms
             //X
 
             if ((_snapX && _snapY) || (_hiX && _hiY))
+            {
                 GL.Color4(Color.Yellow);
+            }
             else
+            {
                 GL.Color4(Color.Red);
+            }
+
             GL.Vertex3(_axisHalfLDist, 0.0f, 0.0f);
             GL.Vertex3(_axisHalfLDist, _axisHalfLDist, 0.0f);
 
             if ((_snapX && _snapZ) || (_hiX && _hiZ))
+            {
                 GL.Color4(Color.Yellow);
+            }
             else
+            {
                 GL.Color4(Color.Red);
+            }
+
             GL.Vertex3(_axisHalfLDist, 0.0f, 0.0f);
             GL.Vertex3(_axisHalfLDist, 0.0f, _axisHalfLDist);
 
             if (_snapX || _hiX)
+            {
                 GL.Color4(Color.Yellow);
+            }
             else
+            {
                 GL.Color4(Color.Red);
+            }
+
             GL.Vertex3(0.0f, 0.0f, 0.0f);
             GL.Vertex3(_dst, 0.0f, 0.0f);
 
@@ -529,23 +595,38 @@ namespace System.Windows.Forms
             //Y
 
             if ((_snapY && _snapX) || (_hiY && _hiX))
+            {
                 GL.Color4(Color.Yellow);
+            }
             else
+            {
                 GL.Color4(Color.Green);
+            }
+
             GL.Vertex3(0.0f, _axisHalfLDist, 0.0f);
             GL.Vertex3(_axisHalfLDist, _axisHalfLDist, 0.0f);
 
             if ((_snapY && _snapZ) || (_hiY && _hiZ))
+            {
                 GL.Color4(Color.Yellow);
+            }
             else
+            {
                 GL.Color4(Color.Green);
+            }
+
             GL.Vertex3(0.0f, _axisHalfLDist, 0.0f);
             GL.Vertex3(0.0f, _axisHalfLDist, _axisHalfLDist);
 
             if (_snapY || _hiY)
+            {
                 GL.Color4(Color.Yellow);
+            }
             else
+            {
                 GL.Color4(Color.Green);
+            }
+
             GL.Vertex3(0.0f, 0.0f, 0.0f);
             GL.Vertex3(0.0f, _dst, 0.0f);
 
@@ -576,23 +657,38 @@ namespace System.Windows.Forms
             //Z
 
             if ((_snapZ && _snapX) || (_hiZ && _hiX))
+            {
                 GL.Color4(Color.Yellow);
+            }
             else
+            {
                 GL.Color4(Color.Blue);
+            }
+
             GL.Vertex3(0.0f, 0.0f, _axisHalfLDist);
             GL.Vertex3(_axisHalfLDist, 0.0f, _axisHalfLDist);
 
             if ((_snapZ && _snapY) || (_hiZ && _hiY))
+            {
                 GL.Color4(Color.Yellow);
+            }
             else
+            {
                 GL.Color4(Color.Blue);
+            }
+
             GL.Vertex3(0.0f, 0.0f, _axisHalfLDist);
             GL.Vertex3(0.0f, _axisHalfLDist, _axisHalfLDist);
 
             if (_snapZ || _hiZ)
+            {
                 GL.Color4(Color.Yellow);
+            }
             else
+            {
                 GL.Color4(Color.Blue);
+            }
+
             GL.Vertex3(0.0f, 0.0f, 0.0f);
             GL.Vertex3(0.0f, 0.0f, _dst);
 
@@ -638,18 +734,27 @@ namespace System.Windows.Forms
 
             //X
             if ((_snapY && _snapZ) || (_hiY && _hiZ))
+            {
                 GL.Color4(Color.Yellow);
+            }
             else
+            {
                 GL.Color4(Color.Red);
+            }
+
             GL.Vertex3(0.0f, _scaleHalf1LDist, 0.0f);
             GL.Vertex3(0.0f, 0.0f, _scaleHalf1LDist);
             GL.Vertex3(0.0f, _scaleHalf2LDist, 0.0f);
             GL.Vertex3(0.0f, 0.0f, _scaleHalf2LDist);
 
             if (_snapX || _hiX)
+            {
                 GL.Color4(Color.Yellow);
+            }
             else
+            {
                 GL.Color4(Color.Red);
+            }
 
             GL.Vertex3(0.0f, 0.0f, 0.0f);
             GL.Vertex3(_dst, 0.0f, 0.0f);
@@ -680,18 +785,28 @@ namespace System.Windows.Forms
 
             //Y
             if ((_snapZ && _snapX) || (_hiZ && _hiX))
+            {
                 GL.Color4(Color.Yellow);
+            }
             else
+            {
                 GL.Color4(Color.Green);
+            }
+
             GL.Vertex3(0.0f, 0.0f, _scaleHalf1LDist);
             GL.Vertex3(_scaleHalf1LDist, 0.0f, 0.0f);
             GL.Vertex3(0.0f, 0.0f, _scaleHalf2LDist);
             GL.Vertex3(_scaleHalf2LDist, 0.0f, 0.0f);
 
             if (_snapY || _hiY)
+            {
                 GL.Color4(Color.Yellow);
+            }
             else
+            {
                 GL.Color4(Color.Green);
+            }
+
             GL.Vertex3(0.0f, 0.0f, 0.0f);
             GL.Vertex3(0.0f, _dst, 0.0f);
 
@@ -721,18 +836,28 @@ namespace System.Windows.Forms
 
             //Z
             if ((_snapX && _snapY) || (_hiX && _hiY))
+            {
                 GL.Color4(Color.Yellow);
+            }
             else
+            {
                 GL.Color4(Color.Blue);
+            }
+
             GL.Vertex3(0.0f, _scaleHalf1LDist, 0.0f);
             GL.Vertex3(_scaleHalf1LDist, 0.0f, 0.0f);
             GL.Vertex3(0.0f, _scaleHalf2LDist, 0.0f);
             GL.Vertex3(_scaleHalf2LDist, 0.0f, 0.0f);
 
             if (_snapZ || _hiZ)
+            {
                 GL.Color4(Color.Yellow);
+            }
             else
+            {
                 GL.Color4(Color.Blue);
+            }
+
             GL.Vertex3(0.0f, 0.0f, 0.0f);
             GL.Vertex3(0.0f, 0.0f, _dst);
 
@@ -769,10 +894,12 @@ namespace System.Windows.Forms
 #if DEBUG
         protected bool _renderDepth;
 #endif
-        public unsafe virtual void RenderDepth(ModelPanelViewport v)
+        public virtual unsafe void RenderDepth(ModelPanelViewport v)
         {
             if (v._grabbing || v._scrolling || _playing)
+            {
                 return;
+            }
 
             GL.Enable(EnableCap.DepthTest);
             GL.DepthFunc(DepthFunction.Always);
@@ -785,11 +912,19 @@ namespace System.Windows.Forms
 #endif
 
             if (v._renderAttrib._renderVertices)
+            {
                 if (EditingAll && _targetModels != null)
+                {
                     foreach (IModel m in _targetModels)
+                    {
                         m.RenderVertices(true, SelectedBone, v.Camera);
+                    }
+                }
                 else if (TargetModel != null)
+                {
                     TargetModel.RenderVertices(true, SelectedBone, v.Camera);
+                }
+            }
 
             if (v._renderAttrib._renderBones)
             {
@@ -799,14 +934,26 @@ namespace System.Windows.Forms
                 if (EditingAll)
                 {
                     foreach (IModel m in _targetModels)
+                    {
                         foreach (IBoneNode bone in m.BoneCache)
+                        {
                             if (bone != SelectedBone)
+                            {
                                 RenderOrb(bone, list, v, doScale);
+                            }
+                        }
+                    }
                 }
                 else if (TargetModel != null)
+                {
                     foreach (IBoneNode bone in _targetModel.BoneCache)
+                    {
                         if (bone != SelectedBone)
+                        {
                             RenderOrb(bone, list, v, doScale);
+                        }
+                    }
+                }
             }
             GL.ColorMask(true, true, true, true);
         }
@@ -857,7 +1004,10 @@ namespace System.Windows.Forms
                         {
                             case CoordinateType.Screen:
                                 if (_snapX || _snapY || _snapZ)
+                                {
                                     normal = camera.Normalize(center);
+                                }
+
                                 break;
                             case CoordinateType.Local:
                                 normal = (localTransform * new Vector3(
@@ -879,9 +1029,13 @@ namespace System.Windows.Forms
                         normal = camera.Normalize(center);
                     }
                     else if (Maths.LineSphereIntersect(lineStart, lineEnd, center, radius, out point))
+                    {
                         return true;
+                    }
                     else
+                    {
                         normal = camera.Normalize(center);
+                    }
 
                     if (Maths.LinePlaneIntersect(lineStart, lineEnd, center, normal, out point))
                     {
@@ -897,7 +1051,9 @@ namespace System.Windows.Forms
                     if (axisSnap)
                     {
                         if (_snapX && _snapY && _snapZ)
+                        {
                             normal = Vector3.UnitZ * Matrix.RotationMatrix(panel.Camera._rotation);
+                        }
                         else
                         {
                             switch (coord)
@@ -910,14 +1066,22 @@ namespace System.Windows.Forms
 
                                     //Remove local rotation
                                     if (coord == CoordinateType.World)
+                                    {
                                         localTransform = Matrix.TranslationMatrix(center) * Matrix.ScaleMatrix(localTransform.GetScale());
+                                    }
 
                                     if (_snapX && _snapY)
+                                    {
                                         normal = (localTransform * Vector3.UnitZ).Normalize(center);
+                                    }
                                     else if (_snapX && _snapZ)
+                                    {
                                         normal = (localTransform * Vector3.UnitY).Normalize(center);
+                                    }
                                     else if (_snapY && _snapZ)
+                                    {
                                         normal = (localTransform * Vector3.UnitX).Normalize(center);
+                                    }
                                     else //One of the snaps
                                     {
                                         Vector3 unitSnapAxis = new Vector3(
@@ -937,48 +1101,73 @@ namespace System.Windows.Forms
                         }
                     }
                     else
+                    {
                         normal = Vector3.UnitZ * Matrix.RotationMatrix(panel.Camera._rotation);
+                    }
 
                     break;
             }
 
             return Maths.LinePlaneIntersect(lineStart, lineEnd, center, normal, out point);
         }
-        
+
         public Vertex3 CompareVertexDistance(Vector3 point)
         {
             if (TargetModel == null)
+            {
                 return null;
+            }
 
             if (TargetModel.SelectedObjectIndex != -1)
             {
                 IObject o = TargetModel.Objects[TargetModel.SelectedObjectIndex];
                 if (o.IsRendering)
+                {
                     foreach (Vertex3 v in o.Vertices)
                     {
                         float t = v.WeightedPosition.TrueDistance(point);
                         if (Math.Abs(t) < 0.02f)
+                        {
                             return v;
+                        }
                     }
+                }
                 else
+                {
                     foreach (IObject w in TargetModel.Objects)
+                    {
                         if (w.IsRendering)
+                        {
                             foreach (Vertex3 v in w.Vertices)
                             {
                                 float t = v.WeightedPosition.TrueDistance(point);
                                 if (Math.Abs(t) < 0.02f)
+                                {
                                     return v;
+                                }
                             }
+                        }
+                    }
+                }
             }
             else
+            {
                 foreach (IObject o in TargetModel.Objects)
+                {
                     if (o.IsRendering)
+                    {
                         foreach (Vertex3 v in o.Vertices)
                         {
                             float t = v.WeightedPosition.TrueDistance(point);
                             if (Math.Abs(t) < 0.02f)
+                            {
                                 return v;
+                            }
                         }
+                    }
+                }
+            }
+
             return null;
         }
         private bool CompareBoneDistanceRecursive(IBoneNode bone, Vector3 point, ref IBoneNode match, ModelPanelViewport v, bool doScale)
@@ -991,8 +1180,12 @@ namespace System.Windows.Forms
             }
 
             foreach (IBoneNode b in ((ResourceNode)bone).Children)
+            {
                 if (CompareBoneDistanceRecursive(b, point, ref match, v, doScale))
+                {
                     return true;
+                }
+            }
 
             return false;
         }
@@ -1070,7 +1263,7 @@ namespace System.Windows.Forms
                     GL.Rotate(180.0f, 1, 0, 0);
                 }
 
-                float f = (float)((int)e);
+                float f = (int)e;
                 float diff = (float)Math.Round(e - f, 1);
 
                 GL.Begin(BeginMode.Lines);
@@ -1081,12 +1274,15 @@ namespace System.Windows.Forms
                 }
                 for (x = 0; x < diff; x += 0.1f)
                 {
-                    GL.Vertex2(Math.Cos((x + (float)i) * Maths._deg2radf), Math.Sin((x + (float)i) * Maths._deg2radf));
-                    GL.Vertex2(Math.Cos((x + 0.1f + (float)i) * Maths._deg2radf), Math.Sin((x + 0.1f + (float)i) * Maths._deg2radf));
+                    GL.Vertex2(Math.Cos((x + i) * Maths._deg2radf), Math.Sin((x + i) * Maths._deg2radf));
+                    GL.Vertex2(Math.Cos((x + 0.1f + i) * Maths._deg2radf), Math.Sin((x + 0.1f + i) * Maths._deg2radf));
                 }
                 GL.End();
 
-                if (flip) GL.Rotate(-180.0f, 1, 0, 0);
+                if (flip)
+                {
+                    GL.Rotate(-180.0f, 1, 0, 0);
+                }
 
                 GL.Rotate(90.0f, 0, 1, 0);
                 GL.Rotate(90.0f, 0, 0, 1);
@@ -1101,7 +1297,7 @@ namespace System.Windows.Forms
                     GL.Rotate(180.0f, 1, 0, 0);
                 }
 
-                f = (float)((int)e);
+                f = (int)e;
                 diff = (float)Math.Round(e - f, 1);
 
                 GL.Begin(BeginMode.Lines);
@@ -1112,11 +1308,11 @@ namespace System.Windows.Forms
                 }
                 for (x = 0; x < diff; x += 0.1f)
                 {
-                    GL.Vertex2(Math.Cos((x + (float)i) * Maths._deg2radf), Math.Sin((x + (float)i) * Maths._deg2radf));
-                    GL.Vertex2(Math.Cos((x + 0.1f + (float)i) * Maths._deg2radf), Math.Sin((x + 0.1f + (float)i) * Maths._deg2radf));
+                    GL.Vertex2(Math.Cos((x + i) * Maths._deg2radf), Math.Sin((x + i) * Maths._deg2radf));
+                    GL.Vertex2(Math.Cos((x + 0.1f + i) * Maths._deg2radf), Math.Sin((x + 0.1f + i) * Maths._deg2radf));
                 }
 
-                GL.Vertex2(Math.Cos((x + (float)i) * Maths._deg2radf), Math.Sin((x + (float)i) * Maths._deg2radf));
+                GL.Vertex2(Math.Cos((x + i) * Maths._deg2radf), Math.Sin((x + i) * Maths._deg2radf));
                 GL.Color4(Color.Orange);
                 GL.Vertex3(0, 0, 0);
                 GL.End();

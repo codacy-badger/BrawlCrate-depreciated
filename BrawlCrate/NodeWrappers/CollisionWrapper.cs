@@ -1,17 +1,17 @@
-﻿using System;
+﻿using BrawlLib;
 using BrawlLib.SSBB.ResourceNodes;
-using System.Windows.Forms;
+using System;
 using System.ComponentModel;
-using BrawlLib;
+using System.Windows.Forms;
 
 namespace BrawlCrate
 {
     [NodeWrapper(ResourceType.CollisionDef)]
-    class CollisionWrapper : GenericWrapper
+    internal class CollisionWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static CollisionWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -60,13 +60,13 @@ namespace BrawlCrate
         }
         #endregion
 
-        public override string ExportFilter { get { return FileFilters.CollisionDef; } }
+        public override string ExportFilter => FileFilters.CollisionDef;
 
         public CollisionWrapper() { ContextMenuStrip = _menu; }
 
         public override ResourceNode Duplicate()
         {
-            if(_resource._parent == null)
+            if (_resource._parent == null)
             {
                 return null;
             }
@@ -92,11 +92,11 @@ namespace BrawlCrate
             CollisionNode coll = ((CollisionNode)_resource);
             //int i = 0;
             //int j = 0;
-            foreach(CollisionObject cObj in coll._objects)
+            foreach (CollisionObject cObj in coll._objects)
             {
                 //++i;
                 //Console.WriteLine("COLLISION OBJECT: " + i);
-                if(cObj.LinkedBone == null)
+                if (cObj.LinkedBone == null)
                 {
                     //j = 0;
                     //Console.WriteLine("   Not linked to a model");
@@ -140,7 +140,9 @@ namespace BrawlCrate
         private void Preview()
         {
             using (CollisionForm frm = new CollisionForm())
+            {
                 frm.ShowDialog(null, _resource as CollisionNode);
+            }
         }
 
         private void AdvancedEdit()
@@ -149,7 +151,9 @@ namespace BrawlCrate
             if (CollisionResult == DialogResult.Yes)
             {
                 using (AdvancedCollisionForm frm = new AdvancedCollisionForm())
+                {
                     frm.ShowDialog(null, _resource as CollisionNode);
+                }
             }
         }
     }

@@ -10,36 +10,36 @@
             InitializeComponent();
         }
 
-        public int Value1 { get { return (int)numericInputBox1.Value; } }
-        public int Value2 { get { return (int)numericInputBox2.Value; } }
+        public int Value1 => (int)numericInputBox1.Value;
+        public int Value2 => (int)numericInputBox2.Value;
 
         public DialogResult ShowDialog()
         {
-            this.Text = title;
-            this.label1.Text = lowerText;
-            this.label2.Text = lowerText;
-            this.numericInputBox1.Value = 0;
-            this.numericInputBox2.Value = 0;
+            Text = title;
+            label1.Text = lowerText;
+            label2.Text = lowerText;
+            numericInputBox1.Value = 0;
+            numericInputBox2.Value = 0;
             return base.ShowDialog();
         }
 
         public DialogResult ShowDialog(string newTitle, string lower1, string lower2)
         {
-            this.Text = newTitle;
-            this.label1.Text = lower1;
-            this.label2.Text = lower2;
-            this.numericInputBox1.Value = 0;
-            this.numericInputBox2.Value = 0;
+            Text = newTitle;
+            label1.Text = lower1;
+            label2.Text = lower2;
+            numericInputBox1.Value = 0;
+            numericInputBox2.Value = 0;
             return base.ShowDialog();
         }
 
         public DialogResult ShowDialog(string newTitle, string lower1, string lower2, int val1, int val2)
         {
-            this.Text = newTitle;
-            this.label1.Text = lower1;
-            this.label2.Text = lower2;
-            this.numericInputBox1.Value = val1;
-            this.numericInputBox2.Value = val2;
+            Text = newTitle;
+            label1.Text = lower1;
+            label2.Text = lower2;
+            numericInputBox1.Value = val1;
+            numericInputBox2.Value = val2;
             return base.ShowDialog();
         }
 

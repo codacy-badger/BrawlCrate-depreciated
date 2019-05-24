@@ -1,21 +1,20 @@
-using System;
 using BrawlLib.SSBBTypes;
+using System;
 using System.ComponentModel;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class GWATNode : ResourceNode
     {
-        internal GWAT* Header { get { return (GWAT*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.GWAT; } }
-        
+        internal GWAT* Header => (GWAT*)WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.GWAT;
+
         [Category("GWAT")]
         [DisplayName("Entry Count")]
-        public int Count { get { return _count; } }
+        public int Count => _count;
 
         public int _count;
-
-        const int _entrySize = 0x38;    // The constant size of a child entry
+        private const int _entrySize = 0x38;    // The constant size of a child entry
 
         public override void OnPopulate()
         {
@@ -42,8 +41,8 @@ namespace BrawlLib.SSBB.ResourceNodes
             for (int i = 0; i < Children.Count; i++)
             {
                 ResourceNode r = Children[i];
-                *(buint*)((VoidPtr)address + 0x08 + i * 4) = offset;
-                r.Rebuild((VoidPtr)address + offset, _entrySize, true);
+                *(buint*)(address + 0x08 + i * 4) = offset;
+                r.Rebuild(address + offset, _entrySize, true);
                 offset += _entrySize;
             }
         }
@@ -52,7 +51,10 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             base.OnInitialize();
             if (_name == null)
+            {
                 _name = "Swimmable Water";
+            }
+
             _count = Header->_count;
             return Header->_count > 0;
         }
@@ -62,8 +64,8 @@ namespace BrawlLib.SSBB.ResourceNodes
 
     public unsafe class GWATEntryNode : ResourceNode
     {
-        internal GWATEntry* Header { get { return (GWATEntry*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.Unknown; } }
+        internal GWATEntry* Header => (GWATEntry*)WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.Unknown;
 
         public byte _unknown0x00;
         public byte _unknown0x01;
@@ -108,15 +110,12 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x37;
 
         public Vector2 _waterPos;
-        
+
         [Category("Swimmable Water")]
         [DisplayName("Position"), TypeConverter(typeof(Vector2StringConverter))]
         public Vector2 WaterPosition
         {
-            get
-            {
-                return _waterPos;
-            }
+            get => _waterPos;
             set
             {
                 _waterPos = value;
@@ -128,10 +127,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Width")]
         public float WaterWidth
         {
-            get
-            {
-                return _width;
-            }
+            get => _width;
             set
             {
                 _width = value;
@@ -143,10 +139,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Depth")]
         public float WaterDepth
         {
-            get
-            {
-                return _float0x1C;
-            }
+            get => _float0x1C;
             set
             {
                 _float0x1C = value;
@@ -158,10 +151,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Float 0x24")]
         public float Float0x24
         {
-            get
-            {
-                return _float0x24;
-            }
+            get => _float0x24;
             set
             {
                 _float0x24 = value;
@@ -215,7 +205,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             _waterPos._x = _posX;
             _waterPos._y = _posY;
             if (_name == null)
+            {
                 _name = "Water [" + Index + "]";
+            }
+
             return false;
         }
 

@@ -1,26 +1,23 @@
-﻿using System;
+﻿using BrawlLib.IO;
+using System;
 using System.ComponentModel;
 using System.IO;
-using BrawlLib.IO;
 using System.Windows.Forms;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class ModuleSectionNode : ModuleDataNode
     {
-        ObjectParser _parser;
+        private ObjectParser _parser;
 
         [Browsable(false), DisplayName("Uncompressed Size (Bytes)")]
-        public override uint uncompSize
-        {
-            get { return _dataSize; }
-        }
+        public override uint uncompSize => _dataSize;
 
-        internal VoidPtr Header { get { return WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.RELSection; } }
-        
+        internal VoidPtr Header => WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.RELSection;
+
         [Browsable(false)]
-        public override uint ASMOffset { get { return (uint)_dataOffset; } }
+        public override uint ASMOffset => (uint)_dataOffset;
 
         public bool _isCodeSection = false;
         public bool _isBSSSection = false;
@@ -29,27 +26,31 @@ namespace BrawlLib.SSBB.ResourceNodes
         public uint _dataSize;
         public int _dataAlign;
 
-        public string DataAlign { get { return "0x" + _dataAlign.ToString("X"); } }
+        public string DataAlign => "0x" + _dataAlign.ToString("X");
 
-        public string EndBufferSize {
-            get { return "0x" + _endBufferSize.ToString("X"); }
+        public string EndBufferSize
+        {
+            get => "0x" + _endBufferSize.ToString("X");
             set
             {
                 string field0 = (value.ToString() ?? "").Split(' ')[0];
                 int fromBase = field0.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase) ? 16 : 10;
-                if(Convert.ToByte(field0, fromBase) % 4 != 0 && MessageBox.Show("Buffers should generally be multiples of 0x4, are you sure you want to set this? (It may make the module unreadable!)", "", MessageBoxButtons.YesNo) == DialogResult.No)
+                if (Convert.ToByte(field0, fromBase) % 4 != 0 && MessageBox.Show("Buffers should generally be multiples of 0x4, are you sure you want to set this? (It may make the module unreadable!)", "", MessageBoxButtons.YesNo) == DialogResult.No)
+                {
                     return;
+                }
+
                 _endBufferSize = Convert.ToByte(field0, fromBase);
                 SignalPropertyChange();
             }
         }
-        
+
         [Category("REL Section")]
-        public bool HasCommands { get { return _manager._commands.Count > 0; } }
+        public bool HasCommands => _manager._commands.Count > 0;
         [Category("REL Section"), Browsable(true)]
-        public override bool HasCode { get { return _isCodeSection; } }
+        public override bool HasCode => _isCodeSection;
         [Category("REL Section")]
-        public bool IsBSS { get { return _isBSSSection; } }
+        public bool IsBSS => _isBSSSection;
 
         public ModuleSectionNode() { }
         public ModuleSectionNode(uint size) { InitBuffer(size); }
@@ -57,10 +58,16 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override bool OnInitialize()
         {
             if (_name == null)
+            {
                 if (_dataSize > 0)
-                    _name = String.Format("Section [{0}]", Index);
+                {
+                    _name = string.Format("Section [{0}]", Index);
+                }
                 else
-                    _name = String.Format("null [{0}]", Index);
+                {
+                    _name = string.Format("null [{0}]", Index);
+                }
+            }
 
             if (_dataOffset == 0 && WorkingUncompressed.Length != 0)
             {
@@ -72,7 +79,9 @@ namespace BrawlLib.SSBB.ResourceNodes
                 _isBSSSection = false;
                 InitBuffer(_dataSize, Header);
                 if (Index == 5)
+                {
                     _parser = new ObjectParser(this);
+                }
             }
 
             return _parser != null;
@@ -91,14 +100,18 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             Memory.Move(address, _dataBuffer.Address, (uint)length);
             address += _dataBuffer.Length;
-            if(_endBufferSize > 0)
-                Memory.Fill(address, (uint)_endBufferSize, 0x00);
+            if (_endBufferSize > 0)
+            {
+                Memory.Fill(address, _endBufferSize, 0x00);
+            }
         }
 
         public override void Dispose()
         {
             if (_dataBuffer != null)
+            {
                 _dataBuffer.Dispose();
+            }
 
             base.Dispose();
         }
@@ -123,7 +136,9 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 stream.SetLength(_dataBuffer.Length);
                 using (FileMap map = FileMap.FromStream(stream))
+                {
                     Memory.Move(map.Address, _dataBuffer.Address, (uint)_dataBuffer.Length);
+                }
             }
         }
     }
@@ -171,17 +186,17 @@ namespace BrawlLib.SSBB.ResourceNodes
     //            _values[i] = values[i];
     //    }
 
-        //public override int OnCalculateSize(bool force, bool rebuilding = true)
-        //{
-        //    return _values.Length * 4;
-        //}
+    //public override int OnCalculateSize(bool force, bool rebuilding = true)
+    //{
+    //    return _values.Length * 4;
+    //}
 
-        //public override void OnRebuild(VoidPtr address, int length, bool force)
-        //{
-        //    bfloat* values = (bfloat*)address;
-        //    for (int i = 0; i < _values.Length; i++)
-        //        values[i] = _values[i];
-        //}
+    //public override void OnRebuild(VoidPtr address, int length, bool force)
+    //{
+    //    bfloat* values = (bfloat*)address;
+    //    for (int i = 0; i < _values.Length; i++)
+    //        values[i] = _values[i];
+    //}
     //}
 
     //public class RELStructorSectionNode : ModuleSectionNode

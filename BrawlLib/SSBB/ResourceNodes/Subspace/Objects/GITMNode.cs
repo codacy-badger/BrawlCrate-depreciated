@@ -1,21 +1,20 @@
-using System;
 using BrawlLib.SSBBTypes;
+using System;
 using System.ComponentModel;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class GITMNode : ResourceNode
     {
-        internal GITM* Header { get { return (GITM*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.GITM; } }
-        
+        internal GITM* Header => (GITM*)WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.GITM;
+
         [Category("GITM")]
         [DisplayName("Entry Count")]
-        public int Count { get { return _count; } }
+        public int Count => _count;
 
         public int _count;
-
-        const int _entrySize = 0x17;    // The constant size of a child entry
+        private const int _entrySize = 0x17;    // The constant size of a child entry
 
         public override void OnPopulate()
         {
@@ -42,8 +41,8 @@ namespace BrawlLib.SSBB.ResourceNodes
             for (int i = 0; i < Children.Count; i++)
             {
                 ResourceNode r = Children[i];
-                *(buint*)((VoidPtr)address + 0x08 + i * 4) = offset;
-                r.Rebuild((VoidPtr)address + offset, _entrySize, true);
+                *(buint*)(address + 0x08 + i * 4) = offset;
+                r.Rebuild(address + offset, _entrySize, true);
                 offset += _entrySize;
             }
         }
@@ -52,7 +51,10 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             base.OnInitialize();
             if (_name == null)
+            {
                 _name = "Fighter Trophies (unlock)";
+            }
+
             _count = Header->_count;
             return Header->_count > 0;
         }
@@ -62,8 +64,8 @@ namespace BrawlLib.SSBB.ResourceNodes
 
     public unsafe class GITMEntryNode : ResourceNode
     {
-        internal GITMEntry* Header { get { return (GITMEntry*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.Unknown; } }
+        internal GITMEntry* Header => (GITMEntry*)WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.Unknown;
 
         public bfloat _xpos;
         public bfloat _ypos;
@@ -121,15 +123,12 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x35;
         public byte _unknown0x36;
         public byte _unknown0x37;
-        
+
         [Category("Trophy")]
         [DisplayName("Position X")]
         public float PosX
         {
-            get
-            {
-                return _xpos;
-            }
+            get => _xpos;
             set
             {
                 _xpos = value;
@@ -141,10 +140,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Position Y")]
         public float PosY
         {
-            get
-            {
-                return _ypos;
-            }
+            get => _ypos;
             set
             {
                 _ypos = value;
@@ -156,10 +152,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unknown3")]
         public byte Unk3
         {
-            get
-            {
-                return _unknown3;
-            }
+            get => _unknown3;
             set
             {
                 _unknown3 = value;
@@ -171,10 +164,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unknown4")]
         public byte Unk4
         {
-            get
-            {
-                return _unknown4;
-            }
+            get => _unknown4;
             set
             {
                 _unknown4 = value;
@@ -186,10 +176,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unknown5")]
         public byte Unk5
         {
-            get
-            {
-                return _unknown5;
-            }
+            get => _unknown5;
             set
             {
                 _unknown5 = value;
@@ -201,10 +188,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unknown6")]
         public byte Unk6
         {
-            get
-            {
-                return _unknown6;
-            }
+            get => _unknown6;
             set
             {
                 _unknown6 = value;
@@ -216,10 +200,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unknown7")]
         public byte Unk7
         {
-            get
-            {
-                return _unknown7;
-            }
+            get => _unknown7;
             set
             {
                 _unknown7 = value;
@@ -286,7 +267,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             _unknown0x36 = Header->_unknown0x36;
             _unknown0x37 = Header->_unknown0x37;
             if (_name == null)
+            {
                 _name = "Trophy [" + Index + "]";
+            }
+
             return false;
         }
 

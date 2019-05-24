@@ -4,8 +4,8 @@ using BrawlLib.SSBB.ResourceNodes;
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.COSC)]
-    class COSCWrapper : GenericWrapper
+    internal class COSCWrapper : GenericWrapper
     {
-        public override string ExportFilter { get { return FileFilters.COSC; } }
+        public override string ExportFilter => FileFilters.COSC;
     }
 }

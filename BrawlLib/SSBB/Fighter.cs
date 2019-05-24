@@ -14,13 +14,13 @@ namespace BrawlLib.SSBB
 
         public Fighter(uint id, string name)
         {
-            this.ID = id;
-            this.Name = name;
+            ID = id;
+            Name = name;
         }
 
         public override string ToString() { return Name; }
 
-        public readonly static Fighter[] Fighters = new Fighter[] {
+        public static readonly Fighter[] Fighters = new Fighter[] {
             //          ID     Display Name     
 			new Fighter(0x00, "Mario"),
             new Fighter(0x01, "Donkey Kong"),
@@ -142,7 +142,7 @@ namespace BrawlLib.SSBB
             new Fighter(0x48, "Pokémon Trainer"),
             new Fighter(0x49, "Samus/ZSS"),
             new Fighter(0x4A, "Zelda/Sheik"),
-            
+
             new Fighter(0xFF, "None")
         };
     }

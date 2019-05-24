@@ -1,17 +1,17 @@
-﻿using System;
-using BrawlLib;
+﻿using BrawlLib;
 using BrawlLib.SSBB.ResourceNodes;
-using System.Windows.Forms;
+using System;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.STPM)]
-    class STPMWrapper : GenericWrapper
+    internal class STPMWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static STPMWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -49,8 +49,8 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items[10].Enabled = w.NextNode != null;
         }
         #endregion
-        
-        public override string ExportFilter { get { return FileFilters.STPM; } }
+
+        public override string ExportFilter => FileFilters.STPM;
 
         public override ResourceNode Duplicate()
         {
@@ -79,13 +79,16 @@ namespace BrawlCrate.NodeWrappers
         {
             bool portPauseCam = true;
             STPMNode external = null;
-            OpenFileDialog o = new OpenFileDialog();
-            o.Filter = "Stage Parameters (*.stpm)|*.stpm";
-            o.Title = "Please select an STPM file to port the camera from.";
+            OpenFileDialog o = new OpenFileDialog
+            {
+                Filter = "Stage Parameters (*.stpm)|*.stpm",
+                Title = "Please select an STPM file to port the camera from."
+            };
             if (o.ShowDialog() == DialogResult.OK)
+            {
                 if ((external = (STPMNode)NodeFactory.FromFile(null, o.FileName)) != null)
                 {
-                    if(_resource.Children.Count > 0 && external.Children.Count > 0)
+                    if (_resource.Children.Count > 0 && external.Children.Count > 0)
                     {
                         // Port exclusively camera variables
                         ((STPMEntryNode)(_resource.Children[0])).CameraFOV = ((STPMEntryNode)(external.Children[0])).CameraFOV;
@@ -133,6 +136,7 @@ namespace BrawlCrate.NodeWrappers
 
                     }
                 }
+            }
         }
 
         public STPMWrapper() { ContextMenuStrip = _menu; }

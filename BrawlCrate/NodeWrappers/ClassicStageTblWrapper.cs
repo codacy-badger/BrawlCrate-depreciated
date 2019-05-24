@@ -1,17 +1,14 @@
 using BrawlLib.SSBB.ResourceNodes;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.ClassicStageTbl)]
-    class ClassicStageTblWrapper : GenericWrapper
+    internal class ClassicStageTblWrapper : GenericWrapper
     {
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static ClassicStageTblWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -46,7 +43,7 @@ namespace BrawlCrate.NodeWrappers
         public void NewEntry()
         {
             ResourceNode n = ((ClassicStageTblNode)_resource).CreateEntry();
-            BaseWrapper w = this.FindResource(n, false);
+            BaseWrapper w = FindResource(n, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
         }

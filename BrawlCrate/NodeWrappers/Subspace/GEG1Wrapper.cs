@@ -1,17 +1,17 @@
-﻿using System;
-using BrawlLib;
+﻿using BrawlLib;
 using BrawlLib.SSBB.ResourceNodes;
-using System.Windows.Forms;
+using System;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.GEG1)]
-    class GEG1Wrapper : GenericWrapper
+    internal class GEG1Wrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static GEG1Wrapper()
         {
             _menu = new ContextMenuStrip();
@@ -46,16 +46,18 @@ namespace BrawlCrate.NodeWrappers
         }
         #endregion
 
-        public override string ExportFilter { get { return FileFilters.GEG1; } }
+        public override string ExportFilter => FileFilters.GEG1;
 
         public void NewEntry()
         {
-            GEG1EntryNode node = new GEG1EntryNode();
-            node._header1 = GEG1EntryNode.Header1;
-            node._header2 = GEG1EntryNode.Header2;
+            GEG1EntryNode node = new GEG1EntryNode
+            {
+                _header1 = GEG1EntryNode.Header1,
+                _header2 = GEG1EntryNode.Header2
+            };
             _resource.AddChild(node);
         }
-        
+
         public GEG1Wrapper() { ContextMenuStrip = _menu; }
     }
 }

@@ -1,19 +1,20 @@
-﻿using System;
-using BrawlLib.SSBBTypes;
+﻿using BrawlLib.SSBBTypes;
+using System;
 using System.ComponentModel;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class GFG1Node : ResourceNode
     {
-        internal GFG1* Header { get { return (GFG1*)WorkingUncompressed.Address; } }
+        internal GFG1* Header => (GFG1*)WorkingUncompressed.Address;
+
         //public override ResourceType ResourceType { get { return ResourceType.GFG1; } }
 
-        const int _entrySize = 0x54;    // The constant size of a child entry
+        private const int _entrySize = 0x54;    // The constant size of a child entry
 
         [Category("GFG1")]
         [DisplayName("Entries")]
-        public int count { get { return Header->_count; } }
+        public int count => Header->_count;
         public override void OnPopulate()
         {
             for (int i = 0; i < Header->_count; i++)
@@ -29,7 +30,10 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             base.OnInitialize();
             if (_name == null)
+            {
                 _name = "GFG1";
+            }
+
             return Header->_count > 0;
         }
 
@@ -46,8 +50,8 @@ namespace BrawlLib.SSBB.ResourceNodes
             for (int i = 0; i < Children.Count; i++)
             {
                 ResourceNode r = Children[i];
-                *(buint*)((VoidPtr)address + 0x08 + i * 4) = offset;
-                r.Rebuild((VoidPtr)address + offset, _entrySize, true);
+                *(buint*)(address + 0x08 + i * 4) = offset;
+                r.Rebuild(address + offset, _entrySize, true);
                 offset += _entrySize;
             }
         }
@@ -57,7 +61,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
     public unsafe class GFG1EntryNode : ResourceNode
     {
-        internal GFG1Entry* Header { get { return (GFG1Entry*)WorkingUncompressed.Address; } }
+        internal GFG1Entry* Header => (GFG1Entry*)WorkingUncompressed.Address;
         //public override ResourceType ResourceType { get { return ResourceType.GFG1ENTRY; } }
 
         public uint _header1;           // 0x00
@@ -137,13 +141,10 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Costume ID")]
         public byte EnemyID
         {
-            get
-            {
-                return _costumeID;
-            }
+            get => _costumeID;
             set
             {
-                _costumeID = (byte)value;
+                _costumeID = value;
                 SignalPropertyChange();
             }
         }
@@ -152,10 +153,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Scale")]
         public float Scale
         {
-            get
-            {
-                return _scale;
-            }
+            get => _scale;
             set
             {
                 _scale = value;
@@ -167,10 +165,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Offensive Knockback Multiplier")]
         public float OffensiveKBMult
         {
-            get
-            {
-                return _offenseKBMult;
-            }
+            get => _offenseKBMult;
             set
             {
                 _offenseKBMult = value;
@@ -182,10 +177,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Defensive Knockback Multiplier")]
         public float DefensiveKBMult
         {
-            get
-            {
-                return _defenseKBMult;
-            }
+            get => _defenseKBMult;
             set
             {
                 _defenseKBMult = value;
@@ -197,13 +189,10 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Flag 0x13")]
         public byte Flag0x13
         {
-            get
-            {
-                return _flag0x13;
-            }
+            get => _flag0x13;
             set
             {
-                _flag0x13 = (byte)value;
+                _flag0x13 = value;
                 SignalPropertyChange();
             }
         }
@@ -283,7 +272,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             _unknown0x52 = Header->_unknown0x52;
             _unknown0x53 = Header->_unknown0x53;
             if (_name == null)
+            {
                 _name = "Entry [" + Index + ']';
+            }
+
             return false;
         }
 

@@ -1,8 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
-using BrawlLib.SSBB.ResourceNodes;
-using System.IO;
+﻿using BrawlLib.SSBB.ResourceNodes;
+using System;
 using System.ComponentModel;
+using System.IO;
+using System.Windows.Forms;
 
 namespace BrawlCrate
 {
@@ -11,7 +11,7 @@ namespace BrawlCrate
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static GenericWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -53,7 +53,7 @@ namespace BrawlCrate
 
         #endregion
 
-        public GenericWrapper(IWin32Window owner) { _owner = owner;  ContextMenuStrip = _menu; }
+        public GenericWrapper(IWin32Window owner) { _owner = owner; ContextMenuStrip = _menu; }
         public GenericWrapper() { _owner = null; ContextMenuStrip = _menu; }
 
         public virtual ResourceNode Duplicate()
@@ -62,7 +62,7 @@ namespace BrawlCrate
             {
                 return null;
             }
-            if(_resource._parent.GetType() == typeof(BRESGroupNode))
+            if (_resource._parent.GetType() == typeof(BRESGroupNode))
             {
                 if (_resource._parent._parent == null)
                 {
@@ -71,7 +71,7 @@ namespace BrawlCrate
                 _resource._parent._parent.Rebuild();
                 ResourceNode newNode = NodeFactory.FromAddress(null, _resource.WorkingUncompressed.Address, _resource.WorkingUncompressed.Length);
                 int newIndex = _resource.Index + 1;
-                if(!_resource.AllowDuplicateNames)
+                if (!_resource.AllowDuplicateNames)
                 {
                     int i = 2;
                     string newName = _resource.Name + " (" + i + ")";
@@ -122,7 +122,9 @@ namespace BrawlCrate
         public virtual void MoveUp(bool select)
         {
             if (PrevVisibleNode == null)
+            {
                 return;
+            }
 
             if (_resource.MoveUp())
             {
@@ -133,7 +135,10 @@ namespace BrawlCrate
                 parent.Nodes.Insert(index, this);
                 _resource.OnMoved();
                 if (select)
+                {
                     TreeView.SelectedNode = this;
+                }
+
                 TreeView.EndUpdate();
             }
         }
@@ -142,7 +147,9 @@ namespace BrawlCrate
         public virtual void MoveDown(bool select)
         {
             if (NextVisibleNode == null)
+            {
                 return;
+            }
 
             if (_resource.MoveDown())
             {
@@ -153,14 +160,17 @@ namespace BrawlCrate
                 parent.Nodes.Insert(index, this);
                 _resource.OnMoved();
                 if (select)
+                {
                     TreeView.SelectedNode = this;
+                }
+
                 TreeView.EndUpdate();
             }
         }
 
-        public virtual string ExportFilter { get { return BrawlLib.FileFilters.Raw; } }
-        public virtual string ImportFilter { get { return ExportFilter; } }
-        public virtual string ReplaceFilter { get { return ImportFilter; } }
+        public virtual string ExportFilter => BrawlLib.FileFilters.Raw;
+        public virtual string ImportFilter => ExportFilter;
+        public virtual string ReplaceFilter => ImportFilter;
 
         public static int CategorizeFilter(string path, string filter)
         {
@@ -168,20 +178,29 @@ namespace BrawlCrate
 
             string[] split = filter.Split('|');
             for (int i = 3; i < split.Length; i += 2)
+            {
                 foreach (string s in split[i].Split(';'))
+                {
                     if (s.Equals(ext, StringComparison.OrdinalIgnoreCase))
+                    {
                         return (i + 1) / 2;
+                    }
+                }
+            }
+
             return 1;
         }
 
         public virtual string Export()
         {
-            string outPath;
-            int index = Program.SaveFile(ExportFilter, Text, out outPath);
+            int index = Program.SaveFile(ExportFilter, Text, out string outPath);
             if (index != 0)
             {
                 if (Parent == null)
+                {
                     _resource.Merge(Control.ModifierKeys == (Keys.Control | Keys.Shift));
+                }
+
                 OnExport(outPath, index);
             }
             return outPath;
@@ -191,14 +210,15 @@ namespace BrawlCrate
         public virtual void Replace()
         {
             if (Parent == null)
+            {
                 return;
+            }
 
-            string inPath;
-            int index = Program.OpenFile(ReplaceFilter, out inPath);
+            int index = Program.OpenFile(ReplaceFilter, out string inPath);
             if (index != 0)
             {
                 OnReplace(inPath, index);
-                this.Link(_resource);
+                Link(_resource);
             }
         }
 
@@ -212,7 +232,9 @@ namespace BrawlCrate
         public void Delete()
         {
             if (Parent == null || (MainForm.Instance != null && Form.ActiveForm != null && Form.ActiveForm != MainForm.Instance))
+            {
                 return;
+            }
 
             _resource.Dispose();
             _resource.Remove();
@@ -222,7 +244,9 @@ namespace BrawlCrate
         {
             using (RenameDialog dlg = new RenameDialog()) { dlg.ShowDialog(MainForm.Instance, _resource); }
             if (_resource.Parent == null && Program.CanRunDiscordRPC())
+            {
                 BrawlCrate.Discord.DiscordSettings.Update();
+            }
         }
 
         public virtual void Sort()

@@ -1,15 +1,15 @@
-﻿using System;
-using BrawlLib.SSBBTypes;
+﻿using BrawlLib.SSBBTypes;
+using System;
+using System.BrawlEx;
 using System.ComponentModel;
 using System.IO;
-using System.BrawlEx;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class FCFGNode : ResourceNode
     {
-        internal FCFG* Header { get { return (FCFG*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.FCFG; } }
+        internal FCFG* Header => (FCFG*)WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.FCFG;
 
         public uint _tag;                               // 0x00 - Uneditable; FCFG (Or FITC)
         public uint _size;                              // 0x04 - Uneditable; Should be "100"
@@ -107,7 +107,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             Single = 0x01,
             PerColor = 0x02
         }
-        
+
         // The kirby flags swap the single and per-color for whatever reason
         [Browsable(false)]
         public enum KirbyLoadFlags : byte
@@ -116,7 +116,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             Single = 0x02,
             PerColor = 0x01
         }
-        
+
         [Browsable(false)]
         public enum FinalLoadFlags : byte
         {
@@ -138,18 +138,20 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Fighter File Name")]
         public string FighterName
         {
-            get
-            {
-                return _fighterName;
-            }
+            get => _fighterName;
             set
             {
                 if (value.Length > 0)
                 {
                     if (value.Length <= 16)
+                    {
                         _fighterName = value;
+                    }
                     else
+                    {
                         _fighterName = value.Substring(0, 16);
+                    }
+
                     _pacName = AutoPacName;
                     _kirbyPacName = AutoKirbyPacName;
                     _moduleName = AutoModuleName;
@@ -158,38 +160,48 @@ namespace BrawlLib.SSBB.ResourceNodes
                 }
             }
         }
-        
+
         [Category("\t\tFighter"), Description("This is changed automatically when the fighter name is changed (So change that first)")]
         [DisplayName("Pac File Name")]
         public string PacName
         {
-            get { return _pacName; }
+            get => _pacName;
             set
             {
                 if (value.Length > 0)
                 {
                     if (value.Length <= 46)
+                    {
                         _pacName = value;
+                    }
                     else
+                    {
                         _pacName = value.Substring(0, 46);
+                    }
+
                     SignalPropertyChange();
                 }
             }
         }
-        
+
         [Category("\t\tFighter"), Description("This is changed automatically when the fighter name is changed (So change that first)")]
         [DisplayName("Kirby Pac File Name")]
         public string KirbyPacName
         {
-            get { return _kirbyPacName; }
+            get => _kirbyPacName;
             set
             {
                 if (value.Length > 0)
                 {
                     if (value.Length <= 46)
+                    {
                         _kirbyPacName = value;
+                    }
                     else
+                    {
                         _kirbyPacName = value.Substring(0, 46);
+                    }
+
                     SignalPropertyChange();
                 }
             }
@@ -199,15 +211,20 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Module File Name")]
         public string ModuleName
         {
-            get { return _moduleName; }
+            get => _moduleName;
             set
             {
                 if (value.Length > 0)
                 {
                     if (value.Length <= 30)
+                    {
                         _moduleName = value;
+                    }
                     else
+                    {
                         _moduleName = value.Substring(0, 30);
+                    }
+
                     SignalPropertyChange();
                 }
             }
@@ -219,7 +236,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Has Internal Name")]
         public bool HasInternalName
         {
-            get { return _hasInternalName; }
+            get => _hasInternalName;
             set { _hasInternalName = value; SignalPropertyChange(); }
         }
 
@@ -227,15 +244,20 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Internal Fighter Name")]
         public string InternalFighterName
         {
-            get { return _internalName; }
+            get => _internalName;
             set
             {
                 if (value.Length > 0)
                 {
                     if (value.Length <= 16)
+                    {
                         _internalName = value;
+                    }
                     else
+                    {
                         _internalName = value.Substring(0, 16);
+                    }
+
                     SignalPropertyChange();
                 }
             }
@@ -244,179 +266,137 @@ namespace BrawlLib.SSBB.ResourceNodes
         [Browsable(false)]
         [Category("\t\tFighter")]
         [DisplayName("Automatic Pac File Name")]
-        public string AutoPacName
-        {
-            get { return _fighterName.ToLower() + "/Fit" + _fighterName + ".pac"; }
-        }
+        public string AutoPacName => _fighterName.ToLower() + "/Fit" + _fighterName + ".pac";
 
         [Browsable(false)]
         [Category("\t\tFighter")]
         [DisplayName("Automatic Kirby Pac File Name")]
-        public string AutoKirbyPacName
-        {
-            get { return "kirby/FitKirby" + _fighterName + ".pac"; }
-        }
+        public string AutoKirbyPacName => "kirby/FitKirby" + _fighterName + ".pac";
 
         [Browsable(false)]
         [Category("\t\tFighter")]
         [DisplayName("Automatic Module File Name")]
-        public string AutoModuleName
-        {
-            get { return "ft_" + _fighterName.ToLower() + ".rel"; }
-        }
+        public string AutoModuleName => "ft_" + _fighterName.ToLower() + ".rel";
 
         [Browsable(false)]
         [Category("\t\tFighter")]
         [DisplayName("Automatic Internal Fighter Name")]
-        public string AutoInternalFighterName
-        {
-            get { return _fighterName.ToUpper(); }
-        }
+        public string AutoInternalFighterName => _fighterName.ToUpper();
 
         [Category("\tAbilities"), Description("Specifies whether the fighter can crawl.")]
         [DisplayName("Can Crawl")]
         public bool CanCrawl
         {
-            get
-            {
-                return Convert.ToBoolean(_canCrawl);
-            }
+            get => Convert.ToBoolean(_canCrawl);
             set
             {
                 _canCrawl = Convert.ToUInt32(value);
                 SignalPropertyChange();
             }
         }
-        
+
         [Category("\tAbilities"), Description("Specifies whether the fighter can angle their forward tilt attack.")]
         [DisplayName("Can Angle Forward Tilt")]
         public bool CanFTilt
         {
-            get
-            {
-                return Convert.ToBoolean(_canTilt);
-            }
+            get => Convert.ToBoolean(_canTilt);
             set
             {
                 _canTilt = Convert.ToUInt32(value);
                 SignalPropertyChange();
             }
         }
-        
+
         [Category("\tAbilities"), Description("Specifies whether the fighter can glide.")]
         [DisplayName("Can Glide")]
         public bool CanGlide
         {
-            get
-            {
-                return Convert.ToBoolean(_canGlide);
-            }
+            get => Convert.ToBoolean(_canGlide);
             set
             {
                 _canGlide = Convert.ToUInt32(value);
                 SignalPropertyChange();
             }
         }
-        
+
         [Category("\tAbilities"), Description("Specifies whether the fighter can cling to walls.")]
         [DisplayName("Can Wall Cling")]
         public bool CanWallCling
         {
-            get
-            {
-                return Convert.ToBoolean(_canCling);
-            }
+            get => Convert.ToBoolean(_canCling);
             set
             {
                 _canCling = Convert.ToUInt32(value);
                 SignalPropertyChange();
             }
         }
-        
+
         [Category("\tAbilities"), Description("Specifies whether the fighter can wall jump.")]
         [DisplayName("Can Wall Jump")]
         public bool CanWallJump
         {
-            get
-            {
-                return Convert.ToBoolean(_canWallJump);
-            }
+            get => Convert.ToBoolean(_canWallJump);
             set
             {
                 _canWallJump = Convert.ToUInt32(value);
                 SignalPropertyChange();
             }
         }
-        
+
         [Category("\tAbilities"), Description("Specifies whether the fighter can execute an aerial tether using Z.")]
         [DisplayName("Can Z-Air")]
         public bool CanZAir
         {
-            get
-            {
-                return Convert.ToBoolean(_canZAir);
-            }
+            get => Convert.ToBoolean(_canZAir);
             set
             {
                 _canZAir = Convert.ToUInt32(value);
                 SignalPropertyChange();
             }
         }
-        
+
         [Browsable(true)]
         [Category("\tCharacteristics"), Description("Specifies the number of mid-air jumps for the fighter.")]
         [DisplayName("Air Jump Count")]
         public AirJumpFlags AirJumpCount
         {
-            get
-            {
-                return (AirJumpFlags)_airJumpCount;
-            }
+            get => (AirJumpFlags)_airJumpCount;
             set
             {
                 _airJumpCount = (uint)value;
                 SignalPropertyChange();
             }
         }
-        
+
         [Category("\tCharacteristics"), Description("Specifies whether the fighter will enter the crouch position after a dash attack.")]
         [DisplayName("Dash Attack Into Crouch")]
         public bool DAIntoCrouch
         {
-            get
-            {
-                return Convert.ToBoolean(_dashAttackIntoCrouch);
-            }
+            get => Convert.ToBoolean(_dashAttackIntoCrouch);
             set
             {
                 _dashAttackIntoCrouch = Convert.ToUInt32(value);
                 SignalPropertyChange();
             }
         }
-        
+
         [Category("\tCharacteristics"), Description("Specifies how many times the fighter can chain their forward smash.")]
         [DisplayName("Forward Smash Count")]
         public uint FSmashCount
         {
-            get
-            {
-                return _fSmashCount;
-            }
+            get => _fSmashCount;
             set
             {
                 _fSmashCount = value;
                 SignalPropertyChange();
             }
         }
-        
+
         [Category("\tCharacteristics"), Description("Specifies whether the fighter will use a rapid jab at the end of their jab combo.")]
         [DisplayName("Has Rapid Jab")]
         public bool HasRapidJab
         {
-            get
-            {
-                return Convert.ToBoolean(_hasRapidJab);
-            }
+            get => Convert.ToBoolean(_hasRapidJab);
             set
             {
                 _hasRapidJab = Convert.ToUInt32(value);
@@ -424,30 +404,24 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        
+
         [Category("\tCharacteristics"), Description("Specifies the number of hits for the fighter's jab combo.")]
         [DisplayName("Jab Count")]
         public uint JabCount
         {
-            get
-            {
-                return _jabCount;
-            }
+            get => _jabCount;
             set
             {
                 _jabCount = value;
                 SignalPropertyChange();
             }
         }
-        
+
         [Category("\tCharacteristics"), Description("Usage Unknown.")]
         [DisplayName("Jab Flag")]
         public string JabFlag
         {
-            get
-            {
-                return "0x" + _jabFlag.ToString("X8");
-            }
+            get => "0x" + _jabFlag.ToString("X8");
             set
             {
                 string field0 = (value.ToString() ?? "").Split(' ')[0];
@@ -461,7 +435,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Has Costume00")]
         public bool HasCostume00
         {
-            get { return (_colorFlags & CostumeLoadFlags.CostumeFlag00) != 0; }
+            get => (_colorFlags & CostumeLoadFlags.CostumeFlag00) != 0;
             set { _colorFlags = (_colorFlags & ~CostumeLoadFlags.CostumeFlag00) | (value ? CostumeLoadFlags.CostumeFlag00 : 0); SignalPropertyChange(); }
         }
 
@@ -469,7 +443,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Has Costume01")]
         public bool HasCostume01
         {
-            get { return (_colorFlags & CostumeLoadFlags.CostumeFlag01) != 0; }
+            get => (_colorFlags & CostumeLoadFlags.CostumeFlag01) != 0;
             set { _colorFlags = (_colorFlags & ~CostumeLoadFlags.CostumeFlag01) | (value ? CostumeLoadFlags.CostumeFlag01 : 0); SignalPropertyChange(); }
         }
 
@@ -477,7 +451,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Has Costume02")]
         public bool HasCostume02
         {
-            get { return (_colorFlags & CostumeLoadFlags.CostumeFlag02) != 0; }
+            get => (_colorFlags & CostumeLoadFlags.CostumeFlag02) != 0;
             set { _colorFlags = (_colorFlags & ~CostumeLoadFlags.CostumeFlag02) | (value ? CostumeLoadFlags.CostumeFlag02 : 0); SignalPropertyChange(); }
         }
 
@@ -485,7 +459,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Has Costume03")]
         public bool HasCostume03
         {
-            get { return (_colorFlags & CostumeLoadFlags.CostumeFlag03) != 0; }
+            get => (_colorFlags & CostumeLoadFlags.CostumeFlag03) != 0;
             set { _colorFlags = (_colorFlags & ~CostumeLoadFlags.CostumeFlag03) | (value ? CostumeLoadFlags.CostumeFlag03 : 0); SignalPropertyChange(); }
         }
 
@@ -493,7 +467,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Has Costume04")]
         public bool HasCostume04
         {
-            get { return (_colorFlags & CostumeLoadFlags.CostumeFlag04) != 0; }
+            get => (_colorFlags & CostumeLoadFlags.CostumeFlag04) != 0;
             set { _colorFlags = (_colorFlags & ~CostumeLoadFlags.CostumeFlag04) | (value ? CostumeLoadFlags.CostumeFlag04 : 0); SignalPropertyChange(); }
         }
 
@@ -501,7 +475,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Has Costume05")]
         public bool HasCostume05
         {
-            get { return (_colorFlags & CostumeLoadFlags.CostumeFlag05) != 0; }
+            get => (_colorFlags & CostumeLoadFlags.CostumeFlag05) != 0;
             set { _colorFlags = (_colorFlags & ~CostumeLoadFlags.CostumeFlag05) | (value ? CostumeLoadFlags.CostumeFlag05 : 0); SignalPropertyChange(); }
         }
 
@@ -509,7 +483,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Has Costume06")]
         public bool HasCostume06
         {
-            get { return (_colorFlags & CostumeLoadFlags.CostumeFlag06) != 0; }
+            get => (_colorFlags & CostumeLoadFlags.CostumeFlag06) != 0;
             set { _colorFlags = (_colorFlags & ~CostumeLoadFlags.CostumeFlag06) | (value ? CostumeLoadFlags.CostumeFlag06 : 0); SignalPropertyChange(); }
         }
 
@@ -517,7 +491,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Has Costume07")]
         public bool HasCostume07
         {
-            get { return (_colorFlags & CostumeLoadFlags.CostumeFlag07) != 0; }
+            get => (_colorFlags & CostumeLoadFlags.CostumeFlag07) != 0;
             set { _colorFlags = (_colorFlags & ~CostumeLoadFlags.CostumeFlag07) | (value ? CostumeLoadFlags.CostumeFlag07 : 0); SignalPropertyChange(); }
         }
 
@@ -525,7 +499,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Has Costume08")]
         public bool HasCostume08
         {
-            get { return (_colorFlags & CostumeLoadFlags.CostumeFlag08) != 0; }
+            get => (_colorFlags & CostumeLoadFlags.CostumeFlag08) != 0;
             set { _colorFlags = (_colorFlags & ~CostumeLoadFlags.CostumeFlag08) | (value ? CostumeLoadFlags.CostumeFlag08 : 0); SignalPropertyChange(); }
         }
 
@@ -533,7 +507,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Has Costume09")]
         public bool HasCostume09
         {
-            get { return (_colorFlags & CostumeLoadFlags.CostumeFlag09) != 0; }
+            get => (_colorFlags & CostumeLoadFlags.CostumeFlag09) != 0;
             set { _colorFlags = (_colorFlags & ~CostumeLoadFlags.CostumeFlag09) | (value ? CostumeLoadFlags.CostumeFlag09 : 0); SignalPropertyChange(); }
         }
 
@@ -541,7 +515,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Has Costume10")]
         public bool HasCostume10
         {
-            get { return (_colorFlags & CostumeLoadFlags.CostumeFlag10) != 0; }
+            get => (_colorFlags & CostumeLoadFlags.CostumeFlag10) != 0;
             set { _colorFlags = (_colorFlags & ~CostumeLoadFlags.CostumeFlag10) | (value ? CostumeLoadFlags.CostumeFlag10 : 0); SignalPropertyChange(); }
         }
 
@@ -549,7 +523,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Has Costume11")]
         public bool HasCostume11
         {
-            get { return (_colorFlags & CostumeLoadFlags.CostumeFlag11) != 0; }
+            get => (_colorFlags & CostumeLoadFlags.CostumeFlag11) != 0;
             set { _colorFlags = (_colorFlags & ~CostumeLoadFlags.CostumeFlag11) | (value ? CostumeLoadFlags.CostumeFlag11 : 0); SignalPropertyChange(); }
         }
 
@@ -557,7 +531,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unknown Flag A")]
         public bool UnknownFlagA
         {
-            get { return (_colorFlags & CostumeLoadFlags.UnknownFlag_A) != 0; }
+            get => (_colorFlags & CostumeLoadFlags.UnknownFlag_A) != 0;
             set { _colorFlags = (_colorFlags & ~CostumeLoadFlags.UnknownFlag_A) | (value ? CostumeLoadFlags.UnknownFlag_A : 0); SignalPropertyChange(); }
         }
 
@@ -565,7 +539,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unknown Flag B")]
         public bool UnknownFlagB
         {
-            get { return (_colorFlags & CostumeLoadFlags.UnknownFlag_B) != 0; }
+            get => (_colorFlags & CostumeLoadFlags.UnknownFlag_B) != 0;
             set { _colorFlags = (_colorFlags & ~CostumeLoadFlags.UnknownFlag_B) | (value ? CostumeLoadFlags.UnknownFlag_B : 0); SignalPropertyChange(); }
         }
 
@@ -574,7 +548,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unknown Flag C")]
         public bool UnknownFlagC
         {
-            get { return (_colorFlags & CostumeLoadFlags.UnknownFlag_C) != 0; }
+            get => (_colorFlags & CostumeLoadFlags.UnknownFlag_C) != 0;
             set { _colorFlags = (_colorFlags & ~CostumeLoadFlags.UnknownFlag_C) | (value ? CostumeLoadFlags.UnknownFlag_C : 0); SignalPropertyChange(); }
         }
 
@@ -583,7 +557,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unknown Flag D")]
         public bool UnknownFlagD
         {
-            get { return (_colorFlags & CostumeLoadFlags.UnknownFlag_D) != 0; }
+            get => (_colorFlags & CostumeLoadFlags.UnknownFlag_D) != 0;
             set { _colorFlags = (_colorFlags & ~CostumeLoadFlags.UnknownFlag_D) | (value ? CostumeLoadFlags.UnknownFlag_D : 0); SignalPropertyChange(); }
         }
 
@@ -592,7 +566,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Has Pac")]
         public bool HasPac
         {
-            get { return _hasPac; }
+            get => _hasPac;
             set { _hasPac = value; SignalPropertyChange(); }
         }
 
@@ -601,7 +575,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Has Module")]
         public bool HasModule
         {
-            get { return _hasModule; }
+            get => _hasModule;
             set { _hasModule = value; SignalPropertyChange(); }
         }
 
@@ -609,7 +583,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Merge Motion/Etc.")]
         public bool MergeMotionEtc
         {
-            get { return (_characterLoadFlags & CharacterLoadFlags.MergeMotionEtcFlag) != 0; }
+            get => (_characterLoadFlags & CharacterLoadFlags.MergeMotionEtcFlag) != 0;
             set { _characterLoadFlags = (_characterLoadFlags & ~CharacterLoadFlags.MergeMotionEtcFlag) | (value ? CharacterLoadFlags.MergeMotionEtcFlag : 0); SignalPropertyChange(); }
         }
 
@@ -619,7 +593,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Entry Load Type")]
         public EntryResultLoadFlags EntryLoadType
         {
-            get { return (EntryResultLoadFlags)_entryColorFlags; }
+            get => (EntryResultLoadFlags)_entryColorFlags;
             set { _entryColorFlags = (byte)value; SignalPropertyChange(); }
         }
 
@@ -629,7 +603,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Results Load Type")]
         public EntryResultLoadFlags ResultLoadType
         {
-            get { return (EntryResultLoadFlags)_resultColorFlags; }
+            get => (EntryResultLoadFlags)_resultColorFlags;
             set { _resultColorFlags = (byte)value; SignalPropertyChange(); }
         }
 
@@ -640,7 +614,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Has Kirby Hat")]
         public bool HasKirbyHat
         {
-            get { return _hasKirbyHat; }
+            get => _hasKirbyHat;
             set { _hasKirbyHat = value; SignalPropertyChange(); }
         }
 
@@ -650,14 +624,19 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Kirby Hat Load Type")]
         public KirbyLoadFlags KirbyLoadType
         {
-            get { return (KirbyLoadFlags)_kirbyCopyColorFlags; }
+            get => (KirbyLoadFlags)_kirbyCopyColorFlags;
             set
             {
                 _kirbyCopyColorFlags = (byte)value;
                 if (_kirbyCopyColorFlags == 0x00)
+                {
                     HasKirbyHat = false;
+                }
                 else
+                {
                     HasKirbyHat = true;
+                }
+
                 SignalPropertyChange();
             }
         }
@@ -667,7 +646,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Load Final Smash")]
         public bool LoadFitFinal
         {
-            get { return (_characterLoadFlags & CharacterLoadFlags.FinalSmashFilesFlag) != 0; }
+            get => (_characterLoadFlags & CharacterLoadFlags.FinalSmashFilesFlag) != 0;
             set { _characterLoadFlags = (_characterLoadFlags & ~CharacterLoadFlags.FinalSmashFilesFlag) | (value ? CharacterLoadFlags.FinalSmashFilesFlag : 0); SignalPropertyChange(); }
         }
 
@@ -677,14 +656,19 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Final Load Type")]
         public FinalLoadFlags FinalLoadType
         {
-            get { return (FinalLoadFlags)_finalSmashColorFlags; }
+            get => (FinalLoadFlags)_finalSmashColorFlags;
             set
             {
                 _finalSmashColorFlags = (byte)value;
                 if (_finalSmashColorFlags == 0x00)
+                {
                     LoadFitFinal = false;
+                }
                 else
+                {
                     LoadFitFinal = true;
+                }
+
                 SignalPropertyChange();
             }
         }
@@ -693,7 +677,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Final Smash Music Flag")]
         public bool FinalSmashMusic
         {
-            get { return (_characterLoadFlags & CharacterLoadFlags.FinalSmashMusicOffFlag) != 0; }
+            get => (_characterLoadFlags & CharacterLoadFlags.FinalSmashMusicOffFlag) != 0;
             set { _characterLoadFlags = (_characterLoadFlags & ~CharacterLoadFlags.FinalSmashMusicOffFlag) | (value ? CharacterLoadFlags.FinalSmashMusicOffFlag : 0); SignalPropertyChange(); }
         }
 
@@ -701,10 +685,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Sound Bank")]
         public string SoundBank
         {
-            get
-            {
-                return "0x" + _soundbank.ToString("X8");
-            }
+            get => "0x" + _soundbank.ToString("X8");
             set
             {
                 string field0 = (value.ToString() ?? "").Split(' ')[0];
@@ -718,10 +699,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Kirby Sound Bank")]
         public string KirbySoundBank
         {
-            get
-            {
-                return "0x" + _kirbySoundbank.ToString("X8");
-            }
+            get => "0x" + _kirbySoundbank.ToString("X8");
             set
             {
                 string field0 = (value.ToString() ?? "").Split(' ')[0];
@@ -736,10 +714,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("AI Controller")]
         public uint AIController
         {
-            get
-            {
-                return _aiController;
-            }
+            get => _aiController;
             set
             {
                 _aiController = value;
@@ -751,10 +726,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Entry Flag")]
         public string EntryFlag
         {
-            get
-            {
-                return "0x" + _entryArticleFlag.ToString("X8");
-            }
+            get => "0x" + _entryArticleFlag.ToString("X8");
             set
             {
                 string field0 = (value.ToString() ?? "").Split(' ')[0];
@@ -768,7 +740,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Ik Physics Flag")]
         public bool IkPhysics
         {
-            get { return (_characterLoadFlags & CharacterLoadFlags.IkPhysicsFlag) != 0; }
+            get => (_characterLoadFlags & CharacterLoadFlags.IkPhysicsFlag) != 0;
             set { _characterLoadFlags = (_characterLoadFlags & ~CharacterLoadFlags.IkPhysicsFlag) | (value ? CharacterLoadFlags.IkPhysicsFlag : 0); SignalPropertyChange(); }
         }
 
@@ -776,10 +748,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Texture Loader")]
         public string TextureLoader
         {
-            get
-            {
-                return "0x" + _textureLoad.ToString("X8");
-            }
+            get => "0x" + _textureLoad.ToString("X8");
             set
             {
                 string field0 = (value.ToString() ?? "").Split(' ')[0];
@@ -793,10 +762,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("U12 Flag")]
         public string U12Flag
         {
-            get
-            {
-                return "0x" + _u12Flag.ToString("X8");
-            }
+            get => "0x" + _u12Flag.ToString("X8");
             set
             {
                 string field0 = (value.ToString() ?? "").Split(' ')[0];
@@ -810,10 +776,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("U13 Flag")]
         public string U13Flag
         {
-            get
-            {
-                return "0x" + _u13Flag.ToString("X8");
-            }
+            get => "0x" + _u13Flag.ToString("X8");
             set
             {
                 string field0 = (value.ToString() ?? "").Split(' ')[0];
@@ -827,7 +790,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Work Manage Flag")]
         public bool WorkManage
         {
-            get { return (_characterLoadFlags & CharacterLoadFlags.WorkManageFlag) != 0; }
+            get => (_characterLoadFlags & CharacterLoadFlags.WorkManageFlag) != 0;
             set { _characterLoadFlags = (_characterLoadFlags & ~CharacterLoadFlags.WorkManageFlag) | (value ? CharacterLoadFlags.WorkManageFlag : 0); SignalPropertyChange(); }
         }
 
@@ -860,36 +823,60 @@ namespace BrawlLib.SSBB.ResourceNodes
             hdr->_unknown0x28 = _unknown0x28;
             hdr->_unknown0x2C = _unknown0x2C;
 
-            for(int i = 0; i < 48; i++)
+            for (int i = 0; i < 48; i++)
             {
                 hdr->_pacNameArray[i] = 0x00;
                 hdr->_kirbyPacNameArray[i] = 0x00;
                 if (i < 32)
+                {
                     hdr->_moduleNameArray[i] = 0x00;
+                }
+
                 if (i < 16)
+                {
                     hdr->_internalNameArray[i] = 0x00;
+                }
             }
-            
+
             _pacNameArray = System.Text.Encoding.UTF8.GetBytes(_pacName);
             _kirbyPacNameArray = System.Text.Encoding.UTF8.GetBytes(_kirbyPacName);
             _moduleNameArray = System.Text.Encoding.UTF8.GetBytes(_moduleName);
             _internalNameArray = System.Text.Encoding.UTF8.GetBytes(_internalName);
 
             for (int i = 0; i < _pacNameArray.Length; i++)
+            {
                 hdr->_pacNameArray[i] = _pacNameArray[i];
+            }
+
             for (int i = 0; i < _kirbyPacNameArray.Length; i++)
+            {
                 hdr->_kirbyPacNameArray[i] = _kirbyPacNameArray[i];
+            }
+
             for (int i = 0; i < _moduleNameArray.Length; i++)
+            {
                 hdr->_moduleNameArray[i] = _moduleNameArray[i];
+            }
+
             for (int i = 0; i < _internalNameArray.Length; i++)
+            {
                 hdr->_internalNameArray[i] = _internalNameArray[i];
+            }
 
             if (!HasPac && _pacName.Length < 48)
+            {
                 hdr->_pacNameArray[_pacName.Length + 1] = 0x78;
+            }
+
             if (!HasKirbyHat && _kirbyPacName.Length < 48)
+            {
                 hdr->_kirbyPacNameArray[_kirbyPacName.Length + 1] = 0x78;
+            }
+
             if (!HasModule && _moduleName.Length < 32)
+            {
                 hdr->_moduleNameArray[_moduleName.Length + 1] = 0x78;
+            }
             // Seemingly unused
             /*if (!HasInternalName)
                 hdr->_internalNameArray[_internalName.Length + 1] = 0x78;*/
@@ -936,16 +923,24 @@ namespace BrawlLib.SSBB.ResourceNodes
             _unknown0x2C = Header->_unknown0x2C;
 
             for (int i = 0; i < _pacNameArray.Length; i++)
+            {
                 _pacNameArray[i] = Header->_pacNameArray[i];
+            }
 
             for (int i = 0; i < _kirbyPacNameArray.Length; i++)
+            {
                 _kirbyPacNameArray[i] = Header->_kirbyPacNameArray[i];
+            }
 
             for (int i = 0; i < _moduleNameArray.Length; i++)
+            {
                 _moduleNameArray[i] = Header->_moduleNameArray[i];
+            }
 
             for (int i = 0; i < _internalNameArray.Length; i++)
+            {
                 _internalNameArray[i] = Header->_internalNameArray[i];
+            }
 
             _pacName = System.Text.Encoding.UTF8.GetString(_pacNameArray).Substring(0, System.Text.Encoding.UTF8.GetString(_pacNameArray).IndexOf('\0')).TrimEnd(new char[] { '\0' });
             _kirbyPacName = System.Text.Encoding.UTF8.GetString(_kirbyPacNameArray).Substring(0, System.Text.Encoding.UTF8.GetString(_kirbyPacNameArray).IndexOf('\0')).TrimEnd(new char[] { '\0' });
@@ -954,22 +949,38 @@ namespace BrawlLib.SSBB.ResourceNodes
             try
             {
                 if (_pacName.ToUpper().LastIndexOf(".PAC") > 0 && _pacName.ToUpper().Contains("/FIT"))
+                {
                     _fighterName = _pacName.Substring(_pacName.ToUpper().LastIndexOf("/FIT") + 4, _pacName.ToUpper().LastIndexOf(".PAC") - (_pacName.ToUpper().LastIndexOf("/FIT") + 4));
+                }
                 else
+                {
                     _fighterName = _internalName;
+                }
             }
             catch
             {
                 _fighterName = _internalName;
             }
             if (System.Text.Encoding.UTF8.GetString(_pacNameArray).ToUpper().TrimEnd(new char[] { '\0' }).EndsWith("\0X"))
+            {
                 _hasPac = false;
+            }
+
             if (System.Text.Encoding.UTF8.GetString(_kirbyPacNameArray).ToUpper().TrimEnd(new char[] { '\0' }).EndsWith("\0X"))
+            {
                 _hasKirbyHat = false;
+            }
+
             if (System.Text.Encoding.UTF8.GetString(_moduleNameArray).ToUpper().TrimEnd(new char[] { '\0' }).EndsWith("\0X"))
+            {
                 _hasModule = false;
+            }
+
             if (System.Text.Encoding.UTF8.GetString(_internalNameArray).ToUpper().TrimEnd(new char[] { '\0' }).EndsWith("\0X"))
+            {
                 _hasInternalName = false;
+            }
+
             _jabFlag = Header->_jabFlag;
             _jabCount = Header->_jabCount;
             _hasRapidJab = Header->_hasRapidJab;
@@ -982,14 +993,16 @@ namespace BrawlLib.SSBB.ResourceNodes
             _canWallJump = Header->_canWallJump;
             _canCling = Header->_canCling;
             _canZAir = Header->_canZAir;
-            _u12Flag = (uint)Header->_u12Flag;
-            _u13Flag = (uint)Header->_u13Flag;
+            _u12Flag = Header->_u12Flag;
+            _u13Flag = Header->_u13Flag;
 
-            _textureLoad = (uint)Header->_textureLoad;
-            _aiController = (uint)Header->_aiController;
-            
+            _textureLoad = Header->_textureLoad;
+            _aiController = Header->_aiController;
+
             if ((_name == null) && (_origPath != null))
+            {
                 _name = Path.GetFileNameWithoutExtension(_origPath);
+            }
 
             return true;
         }

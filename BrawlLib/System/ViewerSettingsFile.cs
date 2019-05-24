@@ -1,11 +1,11 @@
 ﻿using BrawlLib.Imaging;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Reflection;
-using System.Windows.Forms;
 using System.Drawing;
+using System.IO;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Windows.Forms;
 
 namespace System
 {
@@ -41,7 +41,7 @@ namespace System
         public bool SnapToColl;
         public bool FlatBoneList;
         public bool BoneListContains;
-        
+
         public bool HideMainWindow;
         public bool SavePosition;
         public int _width, _height, _posX, _posY;
@@ -102,12 +102,20 @@ namespace System
                     //ModelPanelViewport.DefaultTop.GetInfo(),
                 },
             };
-            if(isStage)
+            if (isStage)
+            {
                 foreach (ModelPanelViewportInfo v in s._viewports)
+                {
                     v._backColor = (ARGBPixel)Color.Black;
+                }
+            }
             else
+            {
                 foreach (ModelPanelViewportInfo v in s._viewports)
+                {
                     v._backColor = (ARGBPixel)Color.Lavender;
+                }
+            }
 
             //s._viewports[0]._percentages = new Vector4(0.0f, 0.5f, 0.5f, 1.0f);
             //s._viewports[1]._percentages = new Vector4(0.5f, 0.5f, 1.0f, 1.0f);
@@ -141,7 +149,9 @@ namespace System
         public void SetColor(Color c)
         {
             foreach (ModelPanelViewportInfo v in _viewports)
+            {
                 v._backColor = (ARGBPixel)c;
+            }
         }
     }
 

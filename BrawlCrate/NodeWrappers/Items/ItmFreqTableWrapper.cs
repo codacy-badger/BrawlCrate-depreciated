@@ -6,9 +6,9 @@ using System.Windows.Forms;
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.ItemFreqTableNode)]
-    class ItmFreqTableWrapper : GenericWrapper
+    internal class ItmFreqTableWrapper : GenericWrapper
     {
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static ItmFreqTableWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -39,7 +39,7 @@ namespace BrawlCrate.NodeWrappers
             TableGroupNode node = new TableGroupNode() { Name = ("Group [" + childCount + "]") };
             _resource.AddChild(node);
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;

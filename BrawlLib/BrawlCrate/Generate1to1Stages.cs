@@ -1,9 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Net;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BrawlLib.BrawlCrate
 {
@@ -16,7 +13,10 @@ namespace BrawlLib.BrawlCrate
         {
             string tmp = AppDomain.CurrentDomain.BaseDirectory;
             if (!tmp.EndsWith("\\"))
+            {
                 tmp += '\\';
+            }
+
             tmp += "tmp";
             return tmp;
         }
@@ -125,7 +125,7 @@ namespace BrawlLib.BrawlCrate
             }
             return File.Exists(pm36stgfinalDirectory);
         }
-        
+
         public static string pm36stgbattlefieldDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36BF.pac";
         public static bool PM36STGBATTLEFIELD()
         {
@@ -184,7 +184,7 @@ namespace BrawlLib.BrawlCrate
             }
             return File.Exists(pm36stgvillagenvDirectory);
         }
-        
+
         public static string pm36stgdolpicDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36DS.pac";
         public static bool PM36STGDOLPIC()
         {
@@ -288,7 +288,7 @@ namespace BrawlLib.BrawlCrate
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //                                                              CUSTOM 1:1s                                                         //
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
+
         public static string skySanctDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36Sky.pac";
         public static bool STGSKYSANCTUARY()
         {
@@ -314,21 +314,24 @@ namespace BrawlLib.BrawlCrate
             Directory.CreateDirectory(directory);
             DirectoryInfo tmpdir = new DirectoryInfo(directory);
             foreach (DirectoryInfo dir in tmpdir.GetDirectories())
+            {
                 clearTmpDir(dir.FullName);
+            }
+
             foreach (FileInfo file in tmpdir.GetFiles())
             {
                 try
                 {
                     file.Delete();
                 }
-                catch (System.IO.IOException x) {  }
+                catch (System.IO.IOException) { }
             }
 
             try
             {
                 tmpdir.Delete();
             }
-            catch (System.IO.IOException x) { }
+            catch (System.IO.IOException) { }
         }
     }
 }

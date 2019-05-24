@@ -1,18 +1,18 @@
-﻿using System;
-using BrawlLib;
+﻿using BrawlLib;
 using BrawlLib.SSBB.ResourceNodes;
-using System.Windows.Forms;
-using System.ComponentModel;
 using BrawlLib.Wii.Graphics;
+using System;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.MDL0Material)]
-    class MDL0MaterialWrapper : GenericWrapper
+    internal class MDL0MaterialWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static MDL0MaterialWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -76,14 +76,17 @@ namespace BrawlCrate.NodeWrappers
 
             ShaderGenerator.UsePixelLighting = MessageBox.Show(MainForm.Instance, "Use per-pixel lighting?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
 
-            SaveFileDialog s = new SaveFileDialog();
-
-            s.Filter = "Text File (*.txt)|*.txt";
-            s.FileName = _resource.Name + " vertex shader";
-            s.Title = "Choose a place to save the vertex shader";
+            SaveFileDialog s = new SaveFileDialog
+            {
+                Filter = "Text File (*.txt)|*.txt",
+                FileName = _resource.Name + " vertex shader",
+                Title = "Choose a place to save the vertex shader"
+            };
             if (s.ShowDialog() == DialogResult.OK)
+            {
                 System.IO.File.WriteAllText(s.FileName, ShaderGenerator.GenVertexShader().Replace("\n", Environment.NewLine));
-            
+            }
+
             s.Filter = "Text File (*.txt)|*.txt";
             s.FileName = _resource.Name + " fragment shader";
             s.Title = "Choose a place to save the fragment shader";
@@ -99,7 +102,7 @@ namespace BrawlCrate.NodeWrappers
         }
         #endregion
 
-        public override string ExportFilter { get { return FileFilters.MDL0Material;  } }
+        public override string ExportFilter => FileFilters.MDL0Material;
 
         public MDL0MaterialWrapper() { ContextMenuStrip = _menu; }
     }

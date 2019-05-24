@@ -1,18 +1,18 @@
-﻿using System;
+﻿using BrawlLib;
 using BrawlLib.SSBB.ResourceNodes;
-using BrawlLib;
-using System.Windows.Forms;
-using System.ComponentModel;
 using BrawlLib.Wii.Animations;
+using System;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.CHR0)]
-    class CHR0Wrapper : GenericWrapper
+    internal class CHR0Wrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static CHR0Wrapper()
         {
             _menu = new ContextMenuStrip();
@@ -47,10 +47,13 @@ namespace BrawlCrate.NodeWrappers
         protected static void ReverseAction(object sender, EventArgs e) { GetInstance<CHR0Wrapper>().Reverse(false); }
         protected static void ReverseLoopAction(object sender, EventArgs e) { GetInstance<CHR0Wrapper>().Reverse(true); }
         protected static void ResizeAction(object sender, EventArgs e) { GetInstance<CHR0Wrapper>().Resize(); }
-        protected static void LoopAction(object sender, EventArgs e) {
+        protected static void LoopAction(object sender, EventArgs e)
+        {
             NumericEntryBox entryCount = new NumericEntryBox();
             if (entryCount.ShowDialog("Animation Looper", "Number of runthroughs:") == DialogResult.OK)
-                GetInstance<CHR0Wrapper>().Loop((entryCount.NewValue)-1);
+            {
+                GetInstance<CHR0Wrapper>().Loop((entryCount.NewValue) - 1);
+            }
         }
 
         protected static void KeyframeGenAction(object sender, EventArgs e) { GetInstance<CHR0Wrapper>().KeyFrameGen(2, false, false); }
@@ -72,13 +75,13 @@ namespace BrawlCrate.NodeWrappers
 
         public CHR0Wrapper() { ContextMenuStrip = _menu; }
 
-        public override string ExportFilter { get { return FileFilters.CHR0Export; } }
-        public override string ImportFilter { get { return FileFilters.CHR0Import; } }
+        public override string ExportFilter => FileFilters.CHR0Export;
+        public override string ImportFilter => FileFilters.CHR0Import;
 
         public void NewBone()
         {
             CHR0EntryNode node = ((CHR0Node)_resource).CreateEntry();
-            BaseWrapper res = this.FindResource(node, false);
+            BaseWrapper res = FindResource(node, false);
             res.EnsureVisible();
             res.TreeView.SelectedNode = res;
         }
@@ -86,7 +89,7 @@ namespace BrawlCrate.NodeWrappers
         public void Merge()
         {
             ((CHR0Node)_resource).MergeWith();
-            BaseWrapper res = this.FindResource(_resource, false);
+            BaseWrapper res = FindResource(_resource, false);
             res.EnsureVisible();
             res.TreeView.SelectedNode = res;
         }
@@ -94,15 +97,15 @@ namespace BrawlCrate.NodeWrappers
         public void Resize()
         {
             ((CHR0Node)_resource).Resize();
-            BaseWrapper res = this.FindResource(_resource, false);
+            BaseWrapper res = FindResource(_resource, false);
             res.EnsureVisible();
             res.TreeView.SelectedNode = res;
         }
-        
+
         public void Append()
         {
             ((CHR0Node)_resource).Append();
-            BaseWrapper res = this.FindResource(_resource, false);
+            BaseWrapper res = FindResource(_resource, false);
             res.EnsureVisible();
             res.TreeView.SelectedNode = res;
         }
@@ -111,7 +114,7 @@ namespace BrawlCrate.NodeWrappers
         {
             CHR0Node temp = ((CHR0Node)_resource);
             ((CHR0Node)_resource).Append(temp, timesToLoop);
-            BaseWrapper res = this.FindResource(_resource, false);
+            BaseWrapper res = FindResource(_resource, false);
             res.EnsureVisible();
             res.TreeView.SelectedNode = res;
         }
@@ -119,7 +122,7 @@ namespace BrawlCrate.NodeWrappers
         public void KeyFrameGen(int framesToGenerate, bool allowDuplicates, bool generateOrigin)
         {
             ((CHR0Node)_resource).KeyFrameGen(framesToGenerate, allowDuplicates, generateOrigin);
-            BaseWrapper res = this.FindResource(_resource, false);
+            BaseWrapper res = FindResource(_resource, false);
             res.EnsureVisible();
             res.TreeView.SelectedNode = res;
         }
@@ -127,18 +130,18 @@ namespace BrawlCrate.NodeWrappers
         public void Reverse(bool appendReverse)
         {
             ((CHR0Node)_resource).Reverse(appendReverse);
-            BaseWrapper res = this.FindResource(_resource, false);
+            BaseWrapper res = FindResource(_resource, false);
             res.EnsureVisible();
             res.TreeView.SelectedNode = res;
         }
     }
 
     [NodeWrapper(ResourceType.CHR0Entry)]
-    class CHR0EntryWrapper : GenericWrapper
+    internal class CHR0EntryWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static CHR0EntryWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -167,7 +170,9 @@ namespace BrawlCrate.NodeWrappers
             {
                 InterpolationEditor e = f._interpolationEditor;
                 if (e != null)
+                {
                     e.SetTarget(_resource as IKeyframeSource);
+                }
             }
         }
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)

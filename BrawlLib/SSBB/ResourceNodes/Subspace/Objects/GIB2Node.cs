@@ -1,21 +1,20 @@
-using System;
 using BrawlLib.SSBBTypes;
+using System;
 using System.ComponentModel;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class GIB2Node : ResourceNode
     {
-        internal GIB2* Header { get { return (GIB2*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.GIB2; } }
-        
+        internal GIB2* Header => (GIB2*)WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.GIB2;
+
         [Category("GIB2")]
         [DisplayName("Entry Count")]
-        public int Count { get { return _count; } }
+        public int Count => _count;
 
         public int _count;
-
-        const int _entrySize = 0x17;    // The constant size of a child entry
+        private const int _entrySize = 0x17;    // The constant size of a child entry
 
         public override void OnPopulate()
         {
@@ -42,8 +41,8 @@ namespace BrawlLib.SSBB.ResourceNodes
             for (int i = 0; i < Children.Count; i++)
             {
                 ResourceNode r = Children[i];
-                *(buint*)((VoidPtr)address + 0x08 + i * 4) = offset;
-                r.Rebuild((VoidPtr)address + offset, _entrySize, true);
+                *(buint*)(address + 0x08 + i * 4) = offset;
+                r.Rebuild(address + offset, _entrySize, true);
                 offset += _entrySize;
             }
         }
@@ -52,7 +51,10 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             base.OnInitialize();
             if (_name == null)
+            {
                 _name = "Item Boxes";
+            }
+
             _count = Header->_count;
             return Header->_count > 0;
         }
@@ -62,8 +64,8 @@ namespace BrawlLib.SSBB.ResourceNodes
 
     public unsafe class GIB2EntryNode : ResourceNode
     {
-        internal GIB2Entry* Header { get { return (GIB2Entry*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.Unknown; } }
+        internal GIB2Entry* Header => (GIB2Entry*)WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.Unknown;
 
         public bfloat _header;
         public byte _unknown0x04;
@@ -143,10 +145,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unk0")]
         public byte Unk0
         {
-            get
-            {
-                return _unkflag0;
-            }
+            get => _unkflag0;
             set
             {
                 _unkflag0 = value;
@@ -158,10 +157,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unk1")]
         public byte Unk1
         {
-            get
-            {
-                return _unkflag1;
-            }
+            get => _unkflag1;
             set
             {
                 _unkflag1 = value;
@@ -173,10 +169,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unk2")]
         public float Unk2
         {
-            get
-            {
-                return _unkflag2;
-            }
+            get => _unkflag2;
             set
             {
                 _unkflag2 = value;
@@ -188,10 +181,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unk3")]
         public byte Unk3
         {
-            get
-            {
-                return _unkflag3;
-            }
+            get => _unkflag3;
             set
             {
                 _unkflag3 = value;
@@ -203,10 +193,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Model Data ID")]
         public byte ModelDataID
         {
-            get
-            {
-                return _modeldataid;
-            }
+            get => _modeldataid;
             set
             {
                 _modeldataid = value;
@@ -218,10 +205,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unk5")]
         public byte Unk5
         {
-            get
-            {
-                return _unkflag5;
-            }
+            get => _unkflag5;
             set
             {
                 _unkflag5 = value;
@@ -233,10 +217,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unk6")]
         public float Unk6
         {
-            get
-            {
-                return _unkflag6;
-            }
+            get => _unkflag6;
             set
             {
                 _unkflag6 = value;
@@ -248,10 +229,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unk7")]
         public float Unk7
         {
-            get
-            {
-                return _unkflag7;
-            }
+            get => _unkflag7;
             set
             {
                 _unkflag7 = value;
@@ -263,10 +241,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unk8")]
         public byte Unk8
         {
-            get
-            {
-                return _unkflag8;
-            }
+            get => _unkflag8;
             set
             {
                 _unkflag8 = value;
@@ -278,10 +253,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unk9")]
         public byte Unk9
         {
-            get
-            {
-                return _unkflag9;
-            }
+            get => _unkflag9;
             set
             {
                 _unkflag9 = value;
@@ -293,10 +265,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unk10")]
         public byte Unk10
         {
-            get
-            {
-                return _unkflag10;
-            }
+            get => _unkflag10;
             set
             {
                 _unkflag10 = value;
@@ -308,10 +277,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unk11")]
         public byte Unk11
         {
-            get
-            {
-                return _unkflag11;
-            }
+            get => _unkflag11;
             set
             {
                 _unkflag11 = value;
@@ -323,10 +289,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unk12")]
         public byte Unk12
         {
-            get
-            {
-                return _unkflag12;
-            }
+            get => _unkflag12;
             set
             {
                 _unkflag12 = value;
@@ -338,10 +301,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unk13")]
         public byte Unk13
         {
-            get
-            {
-                return _unkflag13;
-            }
+            get => _unkflag13;
             set
             {
                 _unkflag13 = value;
@@ -353,10 +313,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unk14")]
         public byte Unk14
         {
-            get
-            {
-                return _unkflag14;
-            }
+            get => _unkflag14;
             set
             {
                 _unkflag14 = value;
@@ -368,10 +325,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Unk15")]
         public byte Unk15
         {
-            get
-            {
-                return _unkflag15;
-            }
+            get => _unkflag15;
             set
             {
                 _unkflag15 = value;
@@ -453,7 +407,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             _unkflag15 = Header->_unkflag15;
             _unknown0x53 = Header->_unknown0x53;
             if (_name == null)
+            {
                 _name = "Item Box [" + Index + "]";
+            }
+
             return false;
         }
 

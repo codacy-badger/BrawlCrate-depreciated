@@ -1,16 +1,12 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BrawlCrate.Discord
 {
     public class DiscordController
     {
         public DiscordRpc.RichPresence presence;
-        DiscordRpc.EventHandlers handlers;
+        private DiscordRpc.EventHandlers handlers;
         public string applicationId = (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active")) ? "545788780980994078" : "545732315658059801";
         public string optionalSteamId;
 
@@ -20,8 +16,10 @@ namespace BrawlCrate.Discord
         public void Initialize()
         {
             presence = new DiscordRpc.RichPresence();
-            handlers = new DiscordRpc.EventHandlers();
-            handlers.readyCallback = ReadyCallback;
+            handlers = new DiscordRpc.EventHandlers
+            {
+                readyCallback = ReadyCallback
+            };
             handlers.disconnectedCallback += DisconnectedCallback;
             handlers.errorCallback += ErrorCallback;
             DiscordRpc.Initialize(applicationId, ref handlers, true, optionalSteamId);

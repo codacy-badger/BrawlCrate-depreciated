@@ -1,17 +1,17 @@
-﻿using System;
-using BrawlLib.SSBBTypes;
+﻿using BrawlLib.SSBBTypes;
+using System;
 using System.ComponentModel;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class GDORNode : ResourceNode
     {
-        internal GDOR* Header { get { return (GDOR*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.GDOR; } }
+        internal GDOR* Header => (GDOR*)WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.GDOR;
 
         public int _doors;
         [Category("GDOR")]
-        public int Doors { get { return _doors; } }
+        public int Doors => _doors;
 
         public override void OnPopulate()
         {
@@ -30,7 +30,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             base.OnInitialize();
 
             if (_name == null)
+            {
                 _name = "Adventure Doors";
+            }
+
             _doors = Header->_count;
 
             return Header->_count > 0;
@@ -39,7 +42,10 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             int size = GDOR.Size + (Children.Count * 4);
             foreach (ResourceNode node in Children)
+            {
                 size += node.CalculateSize(force);
+            }
+
             return size;
         }
         public override void OnRebuild(VoidPtr address, int length, bool force)
@@ -50,8 +56,8 @@ namespace BrawlLib.SSBB.ResourceNodes
             for (int i = 0; i < Children.Count; i++)
             {
                 if (i > 0) { offset += (uint)(Children[i - 1].CalculateSize(false)); }
-                *(buint*)((VoidPtr)address + 0x08 + i * 4) = offset;
-                _children[i].Rebuild((VoidPtr)address + offset, _children[i].CalculateSize(false), true);
+                *(buint*)(address + 0x08 + i * 4) = offset;
+                _children[i].Rebuild(address + offset, _children[i].CalculateSize(false), true);
             }
         }
 
@@ -60,106 +66,106 @@ namespace BrawlLib.SSBB.ResourceNodes
 
     public unsafe class GDOREntryNode : ResourceNode
     {
-        internal GDOREntry* Header { get { return (GDOREntry*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.Unknown; } }
+        internal GDOREntry* Header => (GDOREntry*)WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.Unknown;
 
         private string _doorID;
         [Category("Door Info")]
         [DisplayName("Door ID (File)")]
-        public string DoorID { get { return _doorID; } set { _doorID = value; SignalPropertyChange(); } }
+        public string DoorID { get => _doorID; set { _doorID = value; SignalPropertyChange(); } }
 
         public int _doorIndex;
         [Category("Door Info")]
         [DisplayName("Door Index")]
-        public int DoorIndex { get { return _doorIndex; } set { _doorIndex = value; Name = String.Format("Door[{0}]", _doorIndex); SignalPropertyChange(); } }
+        public int DoorIndex { get => _doorIndex; set { _doorIndex = value; Name = string.Format("Door[{0}]", _doorIndex); SignalPropertyChange(); } }
 
         private float _posunk1;
         [Category("Position Info")]
         [DisplayName("Unknown 1")]
-        public float PosUnknown1 { get { return _posunk1; } set { _posunk1 = value; SignalPropertyChange(); } }
+        public float PosUnknown1 { get => _posunk1; set { _posunk1 = value; SignalPropertyChange(); } }
 
         private float _posunk2;
         [Category("Position Info")]
         [DisplayName("Unknown 2")]
-        public float PosUnknown2 { get { return _posunk2; } set { _posunk2 = value; SignalPropertyChange(); } }
+        public float PosUnknown2 { get => _posunk2; set { _posunk2 = value; SignalPropertyChange(); } }
 
         private float _posunk3;
         [Category("Position Info")]
         [DisplayName("Unknown 3")]
-        public float PosUnknown3 { get { return _posunk3; } set { _posunk3 = value; SignalPropertyChange(); } }
+        public float PosUnknown3 { get => _posunk3; set { _posunk3 = value; SignalPropertyChange(); } }
 
         private float _xpos;
         [Category("Position Info")]
         [DisplayName("X Position")]
-        public float XPosition { get { return _xpos; } set { _xpos = value; SignalPropertyChange(); } }
+        public float XPosition { get => _xpos; set { _xpos = value; SignalPropertyChange(); } }
 
         private float _ypos;
         [Category("Position Info")]
         [DisplayName("Y Position")]
-        public float YPosition { get { return _ypos; } set { _ypos = value; SignalPropertyChange(); } }
+        public float YPosition { get => _ypos; set { _ypos = value; SignalPropertyChange(); } }
 
         private int _unkInt;
         [Category("Door Info")]
         [DisplayName("Unknown")]
-        public int UnkInt { get { return _unkInt; } set { _unkInt = value; SignalPropertyChange(); } }
+        public int UnkInt { get => _unkInt; set { _unkInt = value; SignalPropertyChange(); } }
 
         private int _unk0;
         [Category("Unknown Field")]
         [DisplayName("Unknown 0")]
-        public int Unknown0 { get { return _unk0; } set { _unk0 = value; SignalPropertyChange(); } }
+        public int Unknown0 { get => _unk0; set { _unk0 = value; SignalPropertyChange(); } }
 
         private int _unk1;
         [Category("Unknown Field")]
         [DisplayName("Unknown 1")]
-        public int Unknown1 { get { return _unk1; } set { _unk1 = value; SignalPropertyChange(); } }
+        public int Unknown1 { get => _unk1; set { _unk1 = value; SignalPropertyChange(); } }
 
         private int _unk2;
         [Category("Unknown Field")]
         [DisplayName("Unknown 2")]
-        public int Unknown2 { get { return _unk2; } set { _unk2 = value; SignalPropertyChange(); } }
+        public int Unknown2 { get => _unk2; set { _unk2 = value; SignalPropertyChange(); } }
 
         private int _unk3;
         [Category("Unknown Field")]
         [DisplayName("Unknown 3")]
-        public int Unknown3 { get { return _unk3; } set { _unk3 = value; SignalPropertyChange(); } }
+        public int Unknown3 { get => _unk3; set { _unk3 = value; SignalPropertyChange(); } }
 
         private int _unk4;
         [Category("Model Field")]
         [DisplayName("Unknown 0")]
-        public int UnkMdlField0 { get { return _unk4; } set { _unk4 = value; SignalPropertyChange(); } }
+        public int UnkMdlField0 { get => _unk4; set { _unk4 = value; SignalPropertyChange(); } }
 
         private int _unk5;
         [Category("Model Field")]
         [DisplayName("Unknown 1")]
-        public int UnkMdlField1 { get { return _unk5; } set { _unk5 = value; SignalPropertyChange(); } }
+        public int UnkMdlField1 { get => _unk5; set { _unk5 = value; SignalPropertyChange(); } }
 
         private int _mdlIndex;
         [Category("Model Field")]
         [DisplayName("Model Index")]
-        public int MdlIndex { get { return _mdlIndex; } set { _mdlIndex = value; SignalPropertyChange(); } }
+        public int MdlIndex { get => _mdlIndex; set { _mdlIndex = value; SignalPropertyChange(); } }
 
         private int _unk6;
         [Category("Model Field")]
         [DisplayName("Unknown 2")]
-        public int UnkMdlField2 { get { return _unk6; } set { _unk6 = value; SignalPropertyChange(); } }
+        public int UnkMdlField2 { get => _unk6; set { _unk6 = value; SignalPropertyChange(); } }
 
         private string _trigger0;
         [Category("Event info")]
         [DisplayName("Trigger 1")]
-        public string Trigger0 { get { return _trigger0; } set { _trigger0 = value; SignalPropertyChange(); } }
+        public string Trigger0 { get => _trigger0; set { _trigger0 = value; SignalPropertyChange(); } }
 
         private string _trigger1;
         [Category("Event info")]
         [DisplayName("Trigger 2")]
-        public string Trigger1 { get { return _trigger1; } set { _trigger1 = value; SignalPropertyChange(); } }
+        public string Trigger1 { get => _trigger1; set { _trigger1 = value; SignalPropertyChange(); } }
 
         private string _trigger2;
         [Category("Event info")]
         [DisplayName("Unlock Trigger?")]
-        public string Trigger2 { get { return _trigger2; } set { _trigger2 = value; SignalPropertyChange(); } }
+        public string Trigger2 { get => _trigger2; set { _trigger2 = value; SignalPropertyChange(); } }
 
         private int _unk;
-        public int Unk { get { return _unk; } set { _unk = value; SignalPropertyChange(); } }
+        public int Unk { get => _unk; set { _unk = value; SignalPropertyChange(); } }
 
         public override bool OnInitialize()
         {
@@ -186,7 +192,9 @@ namespace BrawlLib.SSBB.ResourceNodes
             _trigger1 = Header->Trigger1;
             _trigger2 = Header->Trigger2;
             if (_name == null)
-                _name = String.Format("Door[{0}]", _doorIndex);
+            {
+                _name = string.Format("Door[{0}]", _doorIndex);
+            }
 
             return false;
         }
@@ -221,7 +229,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             header->_pad1 = header->Pad2 = 0;
 
             header->Pad4 = 1.0f;
-            
+
         }
         public override int OnCalculateSize(bool force, bool rebuilding = true)
         {

@@ -1,14 +1,14 @@
 ﻿using BrawlLib.OpenGL;
 using BrawlLib.SSBB.ResourceNodes;
-using System.Drawing;
-using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace System.Windows.Forms
 {
     public partial class ModelEditControl : ModelEditorBase
     {
-        public unsafe override void modelPanel1_PostRender(ModelPanelViewport panel)
+        public override unsafe void modelPanel1_PostRender(ModelPanelViewport panel)
         {
             RenderBrawlStageData(panel);
             base.modelPanel1_PostRender(panel);
@@ -25,9 +25,13 @@ namespace System.Windows.Forms
             GL.Disable(EnableCap.DepthTest);
 
             if (RenderCollisions)
+            {
                 foreach (CollisionNode node in _collisions)
+                {
                     node.Render();
-            
+                }
+            }
+
             #region RenderOverlays
             List<MDL0BoneNode> ItemBones = new List<MDL0BoneNode>();
 
@@ -41,13 +45,18 @@ namespace System.Windows.Forms
                 _targetModel is MDL0Node &&
                 ((((ResourceNode)_targetModel).Name.Contains("StgPosition")) ||
                 ((ResourceNode)_targetModel).Name.Contains("stagePosition")))
+            {
                 stgPos = _targetModel as MDL0Node;
+            }
             else if (_targetModels != null)
+            {
                 stgPos = _targetModels.Find(x => x is MDL0Node &&
                     ((ResourceNode)x).Name.Contains("StgPosition") ||
                     ((ResourceNode)x).Name.Contains("stagePosition")) as MDL0Node;
+            }
 
-            if (stgPos != null) 
+            if (stgPos != null)
+            {
                 foreach (MDL0BoneNode bone in stgPos._linker.BoneCache)
                 {
                     if (bone._name == "CamLimit0N") { CamBone0 = bone; }
@@ -58,24 +67,35 @@ namespace System.Windows.Forms
                     {
                         Vector3 position = bone._frameMatrix.GetPoint();
                         if (PointCollides(position))
+                        {
                             GL.Color4(0.0f, 1.0f, 0.0f, 0.5f);
-                        else 
+                        }
+                        else
+                        {
                             GL.Color4(1.0f, 0.0f, 0.0f, 0.5f);
+                        }
 
                         TKContext.DrawSphere(position, 5.0f, 32);
-                        if(int.TryParse(bone._name.Substring(6, 1), out int playernum))
+                        if (int.TryParse(bone._name.Substring(6, 1), out int playernum))
+                        {
                             panel.NoSettingsScreenText[(playernum).ToString()] = panel.Camera.Project(position) - new Vector3(8.0f, 8.0f, 0);
+                        }
                     }
                     else if (bone._name.StartsWith("Rebirth") && bone._name.Length == 9 && chkSpawns.Checked)
                     {
                         GL.Color4(1.0f, 1.0f, 1.0f, 0.1f);
                         TKContext.DrawSphere(bone._frameMatrix.GetPoint(), 5.0f, 32);
                         if (int.TryParse(bone._name.Substring(7, 1), out int playernum))
+                        {
                             panel.NoSettingsScreenText[(playernum).ToString()] = panel.Camera.Project(bone._frameMatrix.GetPoint()) - new Vector3(8.0f, 8.0f, 0);
+                        }
                     }
                     else if (bone._name.StartsWith("Item"))
+                    {
                         ItemBones.Add(bone);
+                    }
                 }
+            }
 
             //Render item fields if checked
             if (ItemBones != null && chkItems.Checked)
@@ -84,7 +104,7 @@ namespace System.Windows.Forms
                 for (int i = 0; i < ItemBones.Count; i += 2)
                 {
                     Vector3 pos1, pos2;
-                    if(ItemBones[i]._frameMatrix.GetPoint()._y == ItemBones[i + 1]._frameMatrix.GetPoint()._y)
+                    if (ItemBones[i]._frameMatrix.GetPoint()._y == ItemBones[i + 1]._frameMatrix.GetPoint()._y)
                     {
                         pos1 = new Vector3(ItemBones[i]._frameMatrix.GetPoint()._x, ItemBones[i]._frameMatrix.GetPoint()._y + 1.5f, 1.0f);
                         pos2 = new Vector3(ItemBones[i + 1]._frameMatrix.GetPoint()._x, ItemBones[i + 1]._frameMatrix.GetPoint()._y - 1.5f, 1.0f);
@@ -94,12 +114,16 @@ namespace System.Windows.Forms
                         pos1 = new Vector3(ItemBones[i]._frameMatrix.GetPoint()._x, ItemBones[i]._frameMatrix.GetPoint()._y, 1.0f);
                         pos2 = new Vector3(ItemBones[i + 1]._frameMatrix.GetPoint()._x, ItemBones[i + 1]._frameMatrix.GetPoint()._y, 1.0f);
                     }
-                        
-                    
+
+
                     if (pos1._x != pos2._x)
+                    {
                         TKContext.DrawBox(pos1, pos2);
+                    }
                     else
+                    {
                         TKContext.DrawSphere(new Vector3(ItemBones[i]._frameMatrix.GetPoint()._x, ItemBones[i]._frameMatrix.GetPoint()._y, pos1._z), 3.0f, 32);
+                    }
                 }
             }
 

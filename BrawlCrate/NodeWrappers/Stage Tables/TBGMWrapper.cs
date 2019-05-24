@@ -4,9 +4,9 @@ using BrawlLib.SSBB.ResourceNodes;
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.TBGM)]
-    class TBGMWrapper : STDTWrapper
+    internal class TBGMWrapper : STDTWrapper
     {
-        public override string ExportFilter { get { return FileFilters.TBGM; } }
+        public override string ExportFilter => FileFilters.TBGM;
 
         public override ResourceNode Duplicate()
         {

@@ -1,16 +1,16 @@
-﻿using System;
-using BrawlLib.SSBB.ResourceNodes;
-using System.Windows.Forms;
+﻿using BrawlLib.SSBB.ResourceNodes;
+using System;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.ADSJ)]
-    class ADSJWrapper : GenericWrapper
+    internal class ADSJWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static ADSJWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -45,7 +45,7 @@ namespace BrawlCrate.NodeWrappers
 
         public void NewEntry()
         {
-            ADSJEntryNode node = new ADSJEntryNode() {DoorID = "00000000", SendingID = "00000000", JumpBone = "NewJump"};
+            ADSJEntryNode node = new ADSJEntryNode() { DoorID = "00000000", SendingID = "00000000", JumpBone = "NewJump" };
             _resource.AddChild(node);
         }
 

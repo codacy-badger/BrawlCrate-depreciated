@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
+﻿using BrawlLib.Imaging;
 using BrawlLib.Modeling;
 using BrawlLib.SSBB.ResourceNodes;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
-using BrawlLib.Imaging;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace BrawlCrate
 {
-    class ModelForm : Form
+    internal class ModelForm : Form
     {
         #region Designer
 
@@ -17,33 +17,33 @@ namespace BrawlCrate
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModelForm));
-            this.modelEditControl1 = new System.Windows.Forms.ModelEditControl();
-            this.SuspendLayout();
+            modelEditControl1 = new System.Windows.Forms.ModelEditControl();
+            SuspendLayout();
             // 
             // modelEditControl1
             // 
-            this.modelEditControl1.AllowDrop = true;
-            this.modelEditControl1.BackColor = System.Drawing.Color.Lavender;
-            this.modelEditControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.modelEditControl1.Location = new System.Drawing.Point(0, 0);
-            this.modelEditControl1.Name = "modelEditControl1";
-            this.modelEditControl1.Size = new System.Drawing.Size(709, 686);
-            this.modelEditControl1.TabIndex = 0;
-            this.modelEditControl1.TargetAnimation = null;
-            this.modelEditControl1.VertexLoc = null;
-            this.modelEditControl1.VIS0Updating = false;
-            this.modelEditControl1.TargetModelChanged += new System.EventHandler(this.TargetModelChanged);
-            this.modelEditControl1.ModelViewerChanged += new System.EventHandler(this.ModelViewerChanged);
+            modelEditControl1.AllowDrop = true;
+            modelEditControl1.BackColor = System.Drawing.Color.Lavender;
+            modelEditControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            modelEditControl1.Location = new System.Drawing.Point(0, 0);
+            modelEditControl1.Name = "modelEditControl1";
+            modelEditControl1.Size = new System.Drawing.Size(709, 686);
+            modelEditControl1.TabIndex = 0;
+            modelEditControl1.TargetAnimation = null;
+            modelEditControl1.VertexLoc = null;
+            modelEditControl1.VIS0Updating = false;
+            modelEditControl1.TargetModelChanged += new System.EventHandler(TargetModelChanged);
+            modelEditControl1.ModelViewerChanged += new System.EventHandler(ModelViewerChanged);
             // 
             // ModelForm
             // 
-            this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(709, 686);
-            this.Controls.Add(this.modelEditControl1);
-            this.Icon = BrawlLib.Properties.Resources.BrawlCrateIcon;
-            this.Name = "ModelForm";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ModelForm_FormClosing);
-            this.ResumeLayout(false);
+            BackColor = System.Drawing.Color.PowderBlue;
+            ClientSize = new System.Drawing.Size(709, 686);
+            Controls.Add(modelEditControl1);
+            Icon = BrawlLib.Properties.Resources.BrawlCrateIcon;
+            Name = "ModelForm";
+            FormClosing += new System.Windows.Forms.FormClosingEventHandler(ModelForm_FormClosing);
+            ResumeLayout(false);
 
         }
         #endregion
@@ -96,38 +96,55 @@ namespace BrawlCrate
             BrawlCrate.Properties.Settings settings = BrawlCrate.Properties.Settings.Default;
             bool isStage = false;
             if (MainForm.Instance.RootNode is ARCWrapper)
+            {
                 if (((ARCNode)((ARCWrapper)MainForm.Instance.RootNode).ResourceNode).IsStage)
+                {
                     isStage = true;
+                }
+            }
 
             ModelEditorSettings viewerSettings = settings.ViewerSettingsSet ? settings.ViewerSettings : ModelEditorSettings.Default(isStage);
 
-            if(settings.ViewerSettingsSet)
+            if (settings.ViewerSettingsSet)
+            {
                 if (settings.ViewerSettings._viewports.Count > 0)
                 {
-                    if (settings.ViewerSettings._viewports[0]._backColor == new ARGBPixel((byte)0, (byte)230, (byte)230, (byte)250) && isStage)
+                    if (settings.ViewerSettings._viewports[0]._backColor == new ARGBPixel(0, 230, 230, 250) && isStage)
+                    {
                         settings.ViewerSettings.SetColor(Color.Black);
-                    else if (settings.ViewerSettings._viewports[0]._backColor == new ARGBPixel((byte)0, (byte)0, (byte)0, (byte)0) && !isStage)
+                    }
+                    else if (settings.ViewerSettings._viewports[0]._backColor == new ARGBPixel(0, 0, 0, 0) && !isStage)
+                    {
                         settings.ViewerSettings.SetColor(Color.Lavender);
+                    }
                 }
-            
-            if (viewerSettings == null)
-                return;
+            }
 
-            
+            if (viewerSettings == null)
+            {
+                return;
+            }
 
             modelEditControl1.DistributeSettings(viewerSettings);
             modelEditControl1.ModelPanel.ResetCamera();
 
             if (viewerSettings.Maximize)
+            {
                 WindowState = FormWindowState.Maximized;
+            }
             else if (viewerSettings.SavePosition)
             {
                 StartPosition = FormStartPosition.Manual;
                 Location = new Point(viewerSettings._posX, viewerSettings._posY);
                 if (viewerSettings._height > 0)
+                {
                     Height = viewerSettings._height;
+                }
+
                 if (viewerSettings._width > 0)
+                {
                     Width = viewerSettings._width;
+                }
             }
         }
 
@@ -135,23 +152,30 @@ namespace BrawlCrate
         {
             modelEditControl1._openedFiles.Add(Program.RootNode);
 
-            MainForm.Instance.Visible = 
+            MainForm.Instance.Visible =
                 !BrawlCrate.Properties.Settings.Default.ViewerSettings.HideMainWindow;
 
             if (_models.Count != 0)
             {
                 for (int i = 0; i < _models.Count; i++)
+                {
                     if (_models[i] != null)
+                    {
                         modelEditControl1.AppendTarget(_models[i]);
+                    }
+                }
 
                 modelEditControl1.TargetModel = _models[0];
                 modelEditControl1.EditingAll = _models.Count > 1;
                 modelEditControl1.ResetBoneColors();
             }
             else
+            {
                 modelEditControl1.TargetModel = null;
+            }
 
             if (_collisions.Count != 0)
+            {
                 foreach (CollisionNode node in _collisions)
                 {
                     modelEditControl1.AppendTarget(node);
@@ -160,7 +184,9 @@ namespace BrawlCrate
                     foreach (CollisionObject obj in node._objects)
                     {
                         if (obj._modelName == "" || obj._boneName == "")
+                        {
                             continue;
+                        }
 
                         MDL0Node model = _models.
                             Where(m => m is MDL0Node && ((ResourceNode)m).Name == obj._modelName).
@@ -169,11 +195,14 @@ namespace BrawlCrate
                         if (model != null)
                         {
                             MDL0BoneNode bone = model._linker.BoneCache.Where(b => b.Name == obj._boneName).FirstOrDefault() as MDL0BoneNode;
-                            if (bone != null) 
+                            if (bone != null)
+                            {
                                 obj._linkedBone = bone;
+                            }
                         }
                     }
                 }
+            }
 
             modelEditControl1.ModelPanel.Capture();
             ReadSettings();
@@ -183,8 +212,8 @@ namespace BrawlCrate
 
         protected override void OnClosed(EventArgs e)
         {
-            MainForm.Instance.Visible = 
-                BrawlCrate.Properties.Settings.Default.ViewerSettings.HideMainWindow ? 
+            MainForm.Instance.Visible =
+                BrawlCrate.Properties.Settings.Default.ViewerSettings.HideMainWindow ?
                 ModelEditControl.Instances.Count == 0 : true;
 
             MainForm.Instance.modelPanel1.Capture();
@@ -216,36 +245,44 @@ namespace BrawlCrate
         private void TargetModelChanged(object sender, EventArgs e)
         {
             if (modelEditControl1.TargetModel != null)
-                Text = String.Format("{1} - Advanced Model Editor - {0}", ((ResourceNode)modelEditControl1.TargetModel).Name, Program.AssemblyTitle);
+            {
+                Text = string.Format("{1} - Advanced Model Editor - {0}", ((ResourceNode)modelEditControl1.TargetModel).Name, Program.AssemblyTitle);
+            }
             else
+            {
                 Text = Text = Program.AssemblyTitle + " - Advanced Model Editor";
+            }
         }
 
         private MouseMoveMessageFilter mouseMessageFilter;
-        class MouseMoveMessageFilter : IMessageFilter
+
+        private class MouseMoveMessageFilter : IMessageFilter
         {
             public ModelForm TargetForm { get; set; }
-            bool _mainWindowFocused = false;
+
+            private bool _mainWindowFocused = false;
             public bool PreFilterMessage(ref Message m)
             {
                 int numMsg = m.Msg;
                 if (numMsg == 0x0200) //WM_MOUSEMOVE
                 {
                     if (TargetForm.modelEditControl1.ModelViewerForm != null)
-                    if (InForm(TargetForm.modelEditControl1.ModelViewerForm, Control.MousePosition))
                     {
-                        if (_mainWindowFocused)
+                        if (InForm(TargetForm.modelEditControl1.ModelViewerForm, Control.MousePosition))
                         {
-                            TargetForm.modelEditControl1.ModelViewerForm.Focus();
-                            _mainWindowFocused = false;
+                            if (_mainWindowFocused)
+                            {
+                                TargetForm.modelEditControl1.ModelViewerForm.Focus();
+                                _mainWindowFocused = false;
+                            }
                         }
-                    }
-                    else if (InForm(TargetForm, Control.MousePosition))
-                    {
-                        if (!_mainWindowFocused)
+                        else if (InForm(TargetForm, Control.MousePosition))
                         {
-                            TargetForm.Focus();
-                            _mainWindowFocused = true;
+                            if (!_mainWindowFocused)
+                            {
+                                TargetForm.Focus();
+                                _mainWindowFocused = true;
+                            }
                         }
                     }
                 }

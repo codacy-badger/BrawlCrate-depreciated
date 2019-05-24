@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
-using System.Globalization;
 
 namespace System
 {
@@ -11,7 +11,7 @@ namespace System
     {
         public float _x, _y, _z, _w;
 
-        public Vector4(float x, float y, float z, float w) { this._x = x; this._y = y; this._z = z; this._w = w; }
+        public Vector4(float x, float y, float z, float w) { _x = x; _y = y; _z = z; _w = w; }
         public Vector4(float s) { _x = s; _y = s; _z = s; _w = 1; }
         public Vector4(SerializationInfo info, StreamingContext context)
         {
@@ -70,14 +70,20 @@ namespace System
         public override string ToString()
         {
             if (CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.Contains(","))
-                return String.Format("({0} {1} {2} {3})", _x, _y, _z, _w);
-            return String.Format("({0},{1},{2},{3})", _x, _y, _z, _w);
+            {
+                return string.Format("({0} {1} {2} {3})", _x, _y, _z, _w);
+            }
+
+            return string.Format("({0},{1},{2},{3})", _x, _y, _z, _w);
         }
 
         public override bool Equals(object obj)
         {
             if (obj is Vector4)
+            {
                 return this == (Vector4)obj;
+            }
+
             return false;
         }
 
@@ -92,8 +98,20 @@ namespace System
 
         public unsafe float this[int index]
         {
-            get { fixed (Vector4* p = &this) return ((float*)p)[index]; }
-            set { fixed (Vector4* p = &this) ((float*)p)[index] = value; }
+            get
+            {
+                fixed (Vector4* p = &this)
+                {
+                    return ((float*)p)[index];
+                }
+            }
+            set
+            {
+                fixed (Vector4* p = &this)
+                {
+                    ((float*)p)[index] = value;
+                }
+            }
         }
 
         public static readonly Vector4 UnitX = new Vector4(1, 0, 0, 0);
@@ -115,11 +133,14 @@ namespace System
         {
             Vector4 q = this;
             if (q._w > 1.0f)
+            {
                 q.Normalize();
+            }
 
-            Vector4 result = new Vector4();
-
-            result._w = 2.0f * (float)System.Math.Acos(q._w);
+            Vector4 result = new Vector4
+            {
+                _w = 2.0f * (float)System.Math.Acos(q._w)
+            };
             float den = (float)System.Math.Sqrt(1.0 - q._w * q._w);
             if (den > 0.0001f)
             {
@@ -128,7 +149,9 @@ namespace System
                 result._z = q._z / den;
             }
             else
+            {
                 result._x = 1;
+            }
 
             return result;
         }
@@ -136,7 +159,9 @@ namespace System
         public static Vector4 FromAxisAngle(Vector3 axis, float angle)
         {
             if (axis.Dot() == 0.0f)
+            {
                 return Identity;
+            }
 
             Vector4 result = Identity;
 
@@ -152,9 +177,9 @@ namespace System
 
         public static Vector4 FromEulerAngles(Vector3 v)
         {
-            Vector3 
+            Vector3
                 vx = new Vector3(1, 0, 0),
-                vy = new Vector3(0, 1, 0), 
+                vy = new Vector3(0, 1, 0),
                 vz = new Vector3(0, 0, 1);
             Vector4 qx, qy, qz;
 
@@ -174,6 +199,6 @@ namespace System
         }
 
         [Browsable(false)]
-        public VoidPtr Address { get { fixed (void* p = &this)return p; } }
+        public VoidPtr Address { get { fixed (void* p = &this) { return p; } } }
     }
 }

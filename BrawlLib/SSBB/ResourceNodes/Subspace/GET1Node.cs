@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BrawlLib.SSBBTypes;
+using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using BrawlLib.SSBBTypes;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class GET1Node : ResourceNode
     {
-        internal protected GET1* Header { get { return (GET1*)WorkingUncompressed.Address; } }
+        protected internal GET1* Header => (GET1*)WorkingUncompressed.Address;
 
         public override bool OnInitialize()
         {
             if (_name == null)
+            {
                 _name = "Area Triggers";
+            }
 
             return Header->_entryCount > 0;
         }
@@ -24,9 +23,13 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 DataSource source;
                 if (i == Header->_entryCount - 1)
+                {
                     source = new DataSource((*Header)[i], WorkingUncompressed.Address + WorkingUncompressed.Length - (*Header)[i]);
+                }
                 else
+                {
                     source = new DataSource((*Header)[i], (*Header)[i + 1] - (*Header)[i]);
+                }
 
                 new GET1EntryNode().Initialize(this, source);
             }
@@ -46,10 +49,12 @@ namespace BrawlLib.SSBB.ResourceNodes
             for (int i = 0; i < Children.Count; i++)
             {
                 if (i > 0)
+                {
                     offset += (uint)(Children[i - 1].CalculateSize(false));
+                }
 
-                *(buint*)((VoidPtr)address + 0x08 + i * 4) = offset;
-                _children[i].Rebuild((VoidPtr)address + offset, _children[i].CalculateSize(false), true);
+                *(buint*)(address + 0x08 + i * 4) = offset;
+                _children[i].Rebuild(address + offset, _children[i].CalculateSize(false), true);
             }
         }
 
@@ -58,14 +63,14 @@ namespace BrawlLib.SSBB.ResourceNodes
 
     public unsafe class GET1EntryNode : ResourceNode
     {
-        internal protected GET1Entry* Entry { get { return (GET1Entry*)WorkingUncompressed.Address; } }
+        protected internal GET1Entry* Entry => (GET1Entry*)WorkingUncompressed.Address;
 
         [Category("General")]
         [DisplayName("Actvation Coord 1")]
         [TypeConverter(typeof(Vector2fTypeConverter))]
         public Vector2 Point1
         {
-            get { return _p1; }
+            get => _p1;
             set { _p1 = value; SignalPropertyChange(); }
         }
         private Vector2 _p1 = new Vector2();
@@ -75,7 +80,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [TypeConverter(typeof(Vector2fTypeConverter))]
         public Vector2 Point2
         {
-            get { return _p2; }
+            get => _p2;
             set { _p2 = value; SignalPropertyChange(); }
         }
         private Vector2 _p2 = new Vector2();
@@ -83,19 +88,21 @@ namespace BrawlLib.SSBB.ResourceNodes
         [Category("Triggers")]
         [DisplayName("Trigger1")]
         [TypeConverter(typeof(UInt32HexTypeConverter))]
-        public uint Trigger { get { return _trigger1; } set { _trigger1 = value; SignalPropertyChange(); } }
+        public uint Trigger { get => _trigger1; set { _trigger1 = value; SignalPropertyChange(); } }
         private uint _trigger1 = 0x0;
 
         [Category("Triggers")]
         [DisplayName("Trigger2")]
         [TypeConverter(typeof(UInt32HexTypeConverter))]
-        public uint Trigger2 { get { return _trigger2; } set { _trigger2 = value; SignalPropertyChange(); } }
+        public uint Trigger2 { get => _trigger2; set { _trigger2 = value; SignalPropertyChange(); } }
         private uint _trigger2 = 0x0;
 
         public override bool OnInitialize()
         {
             if (_name == null)
+            {
                 _name = $"Area[{Index}]";
+            }
 
             _trigger1 = Entry->_trigger1;
             _p1 = new Vector2(Entry->_x1, Entry->_y1);

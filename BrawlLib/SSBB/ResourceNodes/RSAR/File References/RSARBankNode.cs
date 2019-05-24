@@ -1,22 +1,22 @@
-﻿using System;
-using BrawlLib.SSBBTypes;
+﻿using BrawlLib.SSBBTypes;
+using System;
 using System.ComponentModel;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class RSARBankNode : RSAREntryNode
     {
-        internal INFOBankEntry* Header { get { return (INFOBankEntry*)WorkingUncompressed.Address; } }
-        
+        internal INFOBankEntry* Header => (INFOBankEntry*)WorkingUncompressed.Address;
+
         [Browsable(true), DisplayName("Bank ID")]
-        public override int StringId { get { return Header == null ? -1 : (int)Header->_stringId; } }
+        public override int StringId => Header == null ? -1 : (int)Header->_stringId;
 
         private RSARFileNode _rbnk;
 
         [Browsable(false)]
         public RSARFileNode BankNode
         {
-            get { return _rbnk; }
+            get => _rbnk;
             set
             {
                 if (_rbnk != value)
@@ -57,11 +57,13 @@ namespace BrawlLib.SSBB.ResourceNodes
         [Category("INFO Bank"), Browsable(true), TypeConverter(typeof(DropDownListBankFiles))]
         public string BankFile
         {
-            get { return _rbnk == null ? null : _rbnk._name; }
+            get => _rbnk == null ? null : _rbnk._name;
             set
             {
-                if (String.IsNullOrEmpty(value))
+                if (string.IsNullOrEmpty(value))
+                {
                     BankNode = null;
+                }
                 else
                 {
                     int t = 0;
@@ -84,7 +86,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public override ResourceType ResourceType { get { return ResourceType.RSARBank; } }
+        public override ResourceType ResourceType => ResourceType.RSARBank;
 
         public int _fileId;
 

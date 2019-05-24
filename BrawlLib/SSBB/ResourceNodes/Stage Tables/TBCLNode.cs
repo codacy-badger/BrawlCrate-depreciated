@@ -1,32 +1,33 @@
-﻿using System;
+﻿using BrawlLib.Imaging;
+using BrawlLib.SSBBTypes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using BrawlLib.SSBBTypes;
 using System.Linq;
 using System.Windows.Forms;
-using BrawlLib.Imaging;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
-    public unsafe class TBCLNode : ARCEntryNode, IAttributeList {
-        public override ResourceType ResourceType { get { return ResourceType.TBCL; } }
-        internal TBCL* Header { get { return (TBCL*)WorkingUncompressed.Address; } }
+    public unsafe class TBCLNode : ARCEntryNode, IAttributeList
+    {
+        public override ResourceType ResourceType => ResourceType.TBCL;
+        internal TBCL* Header => (TBCL*)WorkingUncompressed.Address;
         internal int version, unk1, unk2;
 
         // Internal buffer for editing - changes written back to WorkingUncompressed on rebuild
         internal UnsafeBuffer entries;
 
         [Category("TBCL")]
-        public int NumEntries{get{return entries.Length / 4;}}
+        public int NumEntries => entries.Length / 4;
         [Category("TBCL")]
-        public int Version { get { return version; } set { version = value; SignalPropertyChange(); } }
+        public int Version { get => version; set { version = value; SignalPropertyChange(); } }
         [Category("TBCL")]
-        public int Unk1 { get { return unk1; } set { unk1 = value; SignalPropertyChange(); } }
+        public int Unk1 { get => unk1; set { unk1 = value; SignalPropertyChange(); } }
         [Category("TBCL")]
-        public int Unk2 { get { return unk2; } set { unk2 = value; SignalPropertyChange(); } }
-        
-        public TBCLNode() {  }
+        public int Unk2 { get => unk2; set { unk2 = value; SignalPropertyChange(); } }
+
+        public TBCLNode() { }
 
         public TBCLNode(VoidPtr address, int numEntries)
         {
@@ -38,19 +39,24 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 byte* pOut = (byte*)entries.Address;
                 for (int i = 0; i < (numEntries * 4); i++)
+                {
                     *pOut++ = 0;
+                }
             }
             else
             {
                 byte* pIn = (byte*)address;
                 byte* pOut = (byte*)entries.Address;
                 for (int i = 0; i < (numEntries * 4); i++)
+                {
                     *pOut++ = *pIn++;
+                }
             }
         }
         ~TBCLNode() { entries.Dispose(); }
 
-        public override bool OnInitialize() {
+        public override bool OnInitialize()
+        {
             version = Header->_version;
             unk1 = Header->_unk1;
             unk2 = Header->_unk2;
@@ -59,11 +65,13 @@ namespace BrawlLib.SSBB.ResourceNodes
             return false;
         }
 
-        protected override string GetName() {
+        protected override string GetName()
+        {
             return base.GetName("TBCL");
         }
 
-        public override void OnRebuild(VoidPtr address, int length, bool force) {
+        public override void OnRebuild(VoidPtr address, int length, bool force)
+        {
             TBCL* header = (TBCL*)address;
             header->_tag = TBCL.Tag;
             header->_unk1 = unk1;
@@ -80,27 +88,29 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         internal static ResourceNode TryParse(DataSource source) { return ((TBCL*)source.Address)->_tag == TBCL.Tag ? new TBCLNode() : null; }
         [Browsable(false)]
-        public VoidPtr AttributeAddress {
-            get {
-                return entries.Address;
-            }
-        }
-        public void SetFloat(int index, float value) {
-            if (((bfloat*)AttributeAddress)[index] != value) {
+        public VoidPtr AttributeAddress => entries.Address;
+        public void SetFloat(int index, float value)
+        {
+            if (((bfloat*)AttributeAddress)[index] != value)
+            {
                 ((bfloat*)AttributeAddress)[index] = value;
                 SignalPropertyChange();
             }
         }
-        public float GetFloat(int index) {
+        public float GetFloat(int index)
+        {
             return ((bfloat*)AttributeAddress)[index];
         }
-        public void SetInt(int index, int value) {
-            if (((bint*)AttributeAddress)[index] != value) {
+        public void SetInt(int index, int value)
+        {
+            if (((bint*)AttributeAddress)[index] != value)
+            {
                 ((bint*)AttributeAddress)[index] = value;
                 SignalPropertyChange();
             }
         }
-        public int GetInt(int index) {
+        public int GetInt(int index)
+        {
             return ((bint*)AttributeAddress)[index];
         }
 
@@ -144,7 +154,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
         }
 
-        public String GetHex(int index)
+        public string GetHex(int index)
         {
             return "0x" + ((int)((bint*)AttributeAddress)[index]).ToString("X8");
         }
@@ -153,18 +163,25 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             ReadConfig();
             ResourceNode root = this;
-            while (root.Parent != null) root = root.Parent;
-            var q = from f in TBCLFormats
-                    where 0x14 + f.NumEntries * 4 == WorkingUncompressed.Length
-                    select f;
+            while (root.Parent != null)
+            {
+                root = root.Parent;
+            }
 
-            bool any_match_name = q.Any(f => String.Equals(
+            IEnumerable<AttributeInterpretation> q = from f in TBCLFormats
+                                                     where 0x14 + f.NumEntries * 4 == WorkingUncompressed.Length
+                                                     select f;
+
+            bool any_match_name = q.Any(f => string.Equals(
                 Path.GetFileNameWithoutExtension(f.Filename),
                 root.Name.Replace("STG", "") + "[" + FileIndex + "]",
                 StringComparison.InvariantCultureIgnoreCase));
-            if (!any_match_name) q = q.Concat(new AttributeInterpretation[] { GenerateDefaultInterpretation() });
+            if (!any_match_name)
+            {
+                q = q.Concat(new AttributeInterpretation[] { GenerateDefaultInterpretation() });
+            }
 
-            q = q.OrderBy(f => !String.Equals(
+            q = q.OrderBy(f => !string.Equals(
                 Path.GetFileNameWithoutExtension(f.Filename),
                 root.Name.Replace("STG", "") + "[" + FileIndex + "]",
                 StringComparison.InvariantCultureIgnoreCase));
@@ -179,7 +196,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             int index = 0x14;
 
             ResourceNode root = this;
-            while (root.Parent != null) root = root.Parent;
+            while (root.Parent != null)
+            {
+                root = root.Parent;
+            }
 
             for (int i = 0; i < arr.Length; i++)
             {
@@ -188,8 +208,8 @@ namespace BrawlLib.SSBB.ResourceNodes
                     _name = "0x" + index.ToString("X3")
                 };
                 //Guess if the value is a an integer or float
-                uint u = (uint)*((buint*)pIn);
-                float f = (float)*((bfloat*)pIn);
+                uint u = *pIn;
+                float f = *((bfloat*)pIn);
                 RGBAPixel p = new RGBAPixel(u);
                 if (*pIn == 0)
                 {
@@ -230,13 +250,16 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             string temp = "";
             if (root != this)
+            {
                 temp = "[" + FileIndex + "]";
+            }
+
             string filename = AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\TBCL\\" + root.Name.Replace("STG", "") + temp + ".txt";
             return new AttributeInterpretation(arr, filename);
         }
 
-        private static List<AttributeInterpretation> TBCLFormats = new List<AttributeInterpretation>();
-        private static HashSet<string> configpaths_read = new HashSet<string>();
+        private static readonly List<AttributeInterpretation> TBCLFormats = new List<AttributeInterpretation>();
+        private static readonly HashSet<string> configpaths_read = new HashSet<string>();
 
         private static void ReadConfig()
         {
@@ -246,7 +269,11 @@ namespace BrawlLib.SSBB.ResourceNodes
                 {
                     foreach (string path in Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\TBCL", "*.txt"))
                     {
-                        if (configpaths_read.Contains(path)) continue;
+                        if (configpaths_read.Contains(path))
+                        {
+                            continue;
+                        }
+
                         configpaths_read.Add(path);
                         try
                         {

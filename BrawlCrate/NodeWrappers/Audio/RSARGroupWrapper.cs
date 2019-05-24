@@ -1,19 +1,18 @@
-﻿using System;
-using BrawlLib.SSBB.ResourceNodes;
-using BrawlLib;
-using System.Windows.Forms;
+﻿using BrawlLib.SSBB.ResourceNodes;
+using System;
 using System.ComponentModel;
-using System.IO;
 using System.Diagnostics;
+using System.IO;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.RSARGroup)]
-    class RSARGroupWrapper : GenericWrapper
+    internal class RSARGroupWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static RSARGroupWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -53,12 +52,14 @@ namespace BrawlCrate.NodeWrappers
         public void ExportSawndz()
         {
             if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawndz.exe"))
+            {
                 return;
+            }
+
             string target = _resource.Name;
             int groupID = ((RSARGroupNode)_resource).StringId;
             bool stuffChanged = Program.Save(true);
-            string outPath = "";
-            int index = Program.SaveFile("Brawl SFX files (*.sawnd)|*.sawnd", groupID.ToString(), out outPath);
+            int index = Program.SaveFile("Brawl SFX files (*.sawnd)|*.sawnd", groupID.ToString(), out string outPath);
             if (index != 0)
             {
                 string fileRoot = Program.RootPath;
@@ -67,25 +68,36 @@ namespace BrawlCrate.NodeWrappers
                 exportSawnd(outPath, openFile, groupID);
                 MainForm.Instance.Reset();
                 Program.Open(openFile, fileRoot, "group", target);
-                if(stuffChanged && MainForm.Instance.RootNode != null && MainForm.Instance.RootNode.ResourceNode != null)
+                if (stuffChanged && MainForm.Instance.RootNode != null && MainForm.Instance.RootNode.ResourceNode != null)
+                {
                     MainForm.Instance.RootNode.ResourceNode.SignalPropertyChange();
+                }
             }
         }
 
         public static void exportSawnd(string sawndfileName, string bRSARGroupfileName, int groupID)
         {
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawnd.sawnd"))
+            {
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawnd.sawnd");
+            }
+
             runSawndzWithArgs("sawndcreate " + groupID + " \"" + bRSARGroupfileName + "\"");
             if (File.Exists(sawndfileName))
+            {
                 File.Delete(sawndfileName);
+            }
+
             File.Move("sawnd.sawnd", sawndfileName);
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawnd.sawnd"))
+            {
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawnd.sawnd");
+            }
         }
 
         public static Process p;
-        static void runSawndzWithArgs(string args)
+
+        private static void runSawndzWithArgs(string args)
         {
             try
             {
@@ -107,7 +119,10 @@ namespace BrawlCrate.NodeWrappers
                     Console.Write(buffer);
                 }
                 if (!p.HasExited)
+                {
                     p.WaitForExit();
+                }
+
                 return;
             }
             catch (Exception e)

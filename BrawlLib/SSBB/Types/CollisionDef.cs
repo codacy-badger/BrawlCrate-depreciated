@@ -1,6 +1,6 @@
-﻿using System;
+﻿using BrawlLib.SSBB.ResourceNodes;
+using System;
 using System.Runtime.InteropServices;
-using BrawlLib.SSBB.ResourceNodes;
 
 namespace BrawlLib.SSBBTypes
 {
@@ -29,15 +29,19 @@ namespace BrawlLib.SSBBTypes
             _objectOffset = 0x28 + (numPoints * 8) + (numPlanes * ColPlane.Size);
 
             fixed (int* p = _pad)
+            {
                 for (int i = 0; i < 5; i++)
+                {
                     p[i] = 0;
+                }
+            }
         }
 
-        private VoidPtr Address { get { fixed (void* p = &this)return p; } }
+        private VoidPtr Address { get { fixed (void* p = &this) { return p; } } }
 
-        public BVec2* Points { get { return (BVec2*)(Address + _pointOffset); } }
-        public ColPlane* Planes { get { return (ColPlane*)(Address + _planeOffset); } }
-        public ColObject* Objects { get { return (ColObject*)(Address + _objectOffset); } }
+        public BVec2* Points => (BVec2*)(Address + _pointOffset);
+        public ColPlane* Planes => (ColPlane*)(Address + _planeOffset);
+        public ColObject* Objects => (ColObject*)(Address + _objectOffset);
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
@@ -66,8 +70,8 @@ namespace BrawlLib.SSBBTypes
             _material = material;
         }
 
-        public CollisionPlaneType Type { get { return (CollisionPlaneType)(_type & 0xF); } set { _type = (ushort)(_type & 0xFFF0 | (int)value); } }
-        public CollisionPlaneFlags2 Flags2 { get { return (CollisionPlaneFlags2)(_type & 0xFFF0); } set { _type = (ushort)(_type & 0x000F | (int)value); } }
+        public CollisionPlaneType Type { get => (CollisionPlaneType)(_type & 0xF); set => _type = (ushort)(_type & 0xFFF0 | (int)value); }
+        public CollisionPlaneFlags2 Flags2 { get => (CollisionPlaneFlags2)(_type & 0xFFF0); set => _type = (ushort)(_type & 0x000F | (int)value); }
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
@@ -109,10 +113,14 @@ namespace BrawlLib.SSBBTypes
             _boneIndex = (short)boneIndex;
 
             fixed (byte* p = _modelName)
+            {
                 SetStr(p, modelName);
+            }
 
             fixed (byte* p = _boneName)
+            {
                 SetStr(p, boneName);
+            }
         }
 
         public void Set(int planeIndex, int planeCount, Vector2 boxMin, Vector2 boxMax, string modelName, string boneName)
@@ -132,17 +140,17 @@ namespace BrawlLib.SSBBTypes
             BoneName = boneName;
         }
 
-        private VoidPtr Address { get { fixed (void* p = &this)return p; } }
+        private VoidPtr Address { get { fixed (void* p = &this) { return p; } } }
 
         public string ModelName
         {
-            get { return new String((sbyte*)Address + 0x2C); }
-            set { SetStr((byte*)Address + 0x2C, value); }
+            get => new string((sbyte*)Address + 0x2C);
+            set => SetStr((byte*)Address + 0x2C, value);
         }
         public string BoneName
         {
-            get { return new String((sbyte*)Address + 0x4C); }
-            set { SetStr((byte*)Address + 0x4C, value); }
+            get => new string((sbyte*)Address + 0x4C);
+            set => SetStr((byte*)Address + 0x4C, value);
         }
 
         private static void SetStr(byte* dPtr, string str)
@@ -153,13 +161,19 @@ namespace BrawlLib.SSBBTypes
                 //Fill string
                 int len = Math.Min(str.Length, 31);
                 fixed (char* p = str)
+                {
                     while (index < len)
+                    {
                         *dPtr++ = (byte)p[index++];
+                    }
+                }
             }
 
             //Fill remaining
             while (index++ < 32)
+            {
                 *dPtr++ = 0;
+            }
         }
     }
 
@@ -170,7 +184,7 @@ namespace BrawlLib.SSBBTypes
         public string Name { get; private set; }
 
         public bool Valid { get; private set; }
-        
+
         // Pikmin pluck variables (as strings for ease of display)
         public string PluckSpeed { get; private set; }
         public string RedPluckPercent { get; private set; }
@@ -280,7 +294,7 @@ namespace BrawlLib.SSBBTypes
 
         public override string ToString() { return Name; }
 
-        public readonly static CollisionTerrain[] Terrains = new CollisionTerrain[] {
+        public static readonly CollisionTerrain[] Terrains = new CollisionTerrain[] {
             //                   ID    Display Name                                                 Pluck Speed     R       Y       B       P       W
             new CollisionTerrain(0x00, BrawlLib.Properties.Resources.Collision0x00,                 "100%",         1,      1,      1,      0.4,    0.5),
             new CollisionTerrain(0x01, BrawlLib.Properties.Resources.Collision0x01,                 "40%",          1,      1,      1,      0.4,    0.5),
@@ -553,7 +567,7 @@ namespace BrawlLib.SSBBTypes
             flags = id;
         }
 
-        public readonly static CollisionPlaneInteractionType[] Terrains = new CollisionPlaneInteractionType[] {
+        public static readonly CollisionPlaneInteractionType[] Terrains = new CollisionPlaneInteractionType[] {
             //                                ID      Display Name
             new CollisionPlaneInteractionType(0x0000, BrawlLib.Properties.Resources.CollisionTypeNone),
             new CollisionPlaneInteractionType(0x0001, BrawlLib.Properties.Resources.CollisionTypeFloor),

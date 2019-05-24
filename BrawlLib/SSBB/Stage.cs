@@ -1,9 +1,10 @@
-﻿using System;
-using BrawlLib.BrawlCrate;
+﻿using BrawlLib.BrawlCrate;
+using System;
 
 namespace BrawlLib.SSBB
 {
-    public class Stage {
+    public class Stage
+    {
         /// <summary>
         /// The stage ID, as used by the module files and the Custom SSS code.
         /// </summary>
@@ -25,19 +26,19 @@ namespace BrawlLib.SSBB
         /// after an underscore (e.g. "gw" or "emblem").
         /// </summary>
         public string PacBasename { get; private set; }
-        
+
         // StageBox extra stage data
-        
+
         /// <summary>
         /// Indexes of the used ModelDatas in the base stage
         /// </summary>
         public int[] UsedModelDatas { get; private set; }
-        
+
         /// <summary>
         /// Indexes of the used Collision Datas in the base stage
         /// </summary>
         public int[] UsedCollisionDatas { get; private set; }
-        
+
         /// <summary>
         /// What ModelData the main StagePosition is stored in (if there are multiple stagepositions, list them elsewhere)
         /// </summary>
@@ -52,85 +53,102 @@ namespace BrawlLib.SSBB
         /// Index of the Stage Parameters
         /// </summary>
         public int STPMIndex { get; private set; }
-        
+
         /// <summary>
         /// Index of the SCLA
         /// </summary>
         public int SCLAIndex { get; private set; }
-        
+
         /// <summary>
         /// Index of the STDT (-1 if there isn't one)
         /// </summary>
         public int STDTIndex { get; private set; }
-        
-        public bool ContainsPac(string filename) {
+
+        public bool ContainsPac(string filename)
+        {
             int i = filename.IndexOfAny(new char[] { '.', '_' });
-            if (filename.Length < 3 || i < 0) return false;
+            if (filename.Length < 3 || i < 0)
+            {
+                return false;
+            }
 
             string input_basename = filename.Substring(3, i - 3);
-            return String.Equals(input_basename.ToLower(), PacBasename.ToLower(), StringComparison.InvariantCultureIgnoreCase);
+            return string.Equals(input_basename.ToLower(), PacBasename.ToLower(), StringComparison.InvariantCultureIgnoreCase);
         }
-        
+
         public Stage(byte id, bool allowCustomNames)
         {
-            this.ID = id;
+            ID = id;
             if (allowCustomNames)
-                this.Name = StageNameGenerators.FromID(id);
+            {
+                Name = StageNameGenerators.FromID(id);
+            }
             else
-                this.Name = "Stage 0x" + id.ToString("X2");
+            {
+                Name = "Stage 0x" + id.ToString("X2");
+            }
         }
 
         public Stage(byte id, string relname, string pac_basename)
         {
-            this.ID = id;
-            this.RelName = relname;
-            this.PacBasename = pac_basename;
-            this.OriginalName = pac_basename;
-            this.Name = StageNameGenerators.FromID(id);
+            ID = id;
+            RelName = relname;
+            PacBasename = pac_basename;
+            OriginalName = pac_basename;
+            Name = StageNameGenerators.FromID(id);
         }
 
         public Stage(byte id, string name, string relname, string pac_basename)
         {
-            this.ID = id;
-            this.Name = name;
-            this.RelName = relname;
-            this.PacBasename = pac_basename;
-            this.OriginalName = name;
-            if (this.Name == "")
-                this.Name = StageNameGenerators.FromID(id);
+            ID = id;
+            Name = name;
+            RelName = relname;
+            PacBasename = pac_basename;
+            OriginalName = name;
+            if (Name == "")
+            {
+                Name = StageNameGenerators.FromID(id);
+            }
         }
 
         public Stage(byte id, string name, string relname, string pac_basename, bool allowCustomNames)
         {
-            this.ID = id;
-            this.Name = name;
-            this.RelName = relname;
-            this.PacBasename = pac_basename;
-            this.OriginalName = name;
+            ID = id;
+            Name = name;
+            RelName = relname;
+            PacBasename = pac_basename;
+            OriginalName = name;
             if (name == "" || allowCustomNames)
-                this.Name = StageNameGenerators.FromID(id);
+            {
+                Name = StageNameGenerators.FromID(id);
+            }
             else
-                this.Name = name;
+            {
+                Name = name;
+            }
         }
 
-        public Stage(byte id, string name, string relname, string pac_basename, int stagePosMD, int[] exStagePosMD, int stpm, int scla, int stdt, int[] usedCD, int[] usedMD) {
-            this.ID = id;
-            this.Name = name;
-            this.RelName = relname;
-            this.PacBasename = pac_basename;
-            this.MainStagePositionModelData = stagePosMD;
-            this.AllStagePositionsModelData = exStagePosMD;
-            this.STPMIndex = stpm;
-            this.SCLAIndex = scla;
-            this.STDTIndex = stdt;
-            this.UsedCollisionDatas = usedCD;
-            this.UsedModelDatas = usedMD;
+        public Stage(byte id, string name, string relname, string pac_basename, int stagePosMD, int[] exStagePosMD, int stpm, int scla, int stdt, int[] usedCD, int[] usedMD)
+        {
+            ID = id;
+            Name = name;
+            RelName = relname;
+            PacBasename = pac_basename;
+            MainStagePositionModelData = stagePosMD;
+            AllStagePositionsModelData = exStagePosMD;
+            STPMIndex = stpm;
+            SCLAIndex = scla;
+            STDTIndex = stdt;
+            UsedCollisionDatas = usedCD;
+            UsedModelDatas = usedMD;
         }
 
         public override string ToString() { return Name; }
 
-        public string[] PacNames {
-            get {
+        public string[] PacNames
+        {
+            get
+            {
                 string s = PacBasename;
                 return s == "starfox" ? new string[] { "STGSTARFOX_GDIFF.pac" } :
                         s == "emblem" ? new string[] {
@@ -159,7 +177,7 @@ namespace BrawlLib.SSBB
             }
         }
 
-        public readonly static Stage[] Stages = new Stage[] {
+        public static readonly Stage[] Stages = new Stage[] {
             //        ID    Display Name                .rel filename           Name without STG    Allows custom names from stagelist
             new Stage(0x01, "Battlefield",              "st_battle.rel",        "battlefield",      true),
             new Stage(0x02, "Final Destination",        "st_final.rel",         "final",            true),
@@ -403,7 +421,7 @@ namespace BrawlLib.SSBB
             new Stage(0xFF, "Custom C0",                "st_customC0.rel",      "customC0",         true),
         };
 
-        public readonly static Stage[] RelList = new Stage[] {
+        public static readonly Stage[] RelList = new Stage[] {
             //        ID    Display Name                .rel filename           Name without STG
             new Stage(0x00, "STGCUSTOM##.pac",          "st_custom##.rel",      "custom"),
             new Stage(0x01, "Battlefield",              "st_battle.rel",        "battlefield"),
@@ -456,7 +474,7 @@ namespace BrawlLib.SSBB
             new Stage(0x39, "Classic mode credits",     "st_croll.rel",         "chararoll")
         };
 
-        public readonly static Stage[] BaseStages = new Stage[] {
+        public static readonly Stage[] BaseStages = new Stage[] {
             //        ID    Display Name                    .rel filename           Name without STG        Stage Position (Main, then all)                                                     STPM ID     SCLA ID     STDT ID     Collision Datas                                                     Model Datas
             new Stage(0x01, "Battlefield",                  "st_battle.rel",        "battlefield",          100, new int[] {100 },                                                              10,         30,         -1,         new int[] {2 },                                                     new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 100, 101, 200 }),
             new Stage(0x02, "Final Destination",            "st_final.rel",         "final",                100, new int[] {100 },                                                              10,         30,         -1,         new int[] {2 },                                                     new int[] {1, 2, 100, 101 }),

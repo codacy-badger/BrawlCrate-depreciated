@@ -18,8 +18,8 @@ namespace BrawlLib.SSBBTypes
         public fixed byte _charList[104];   // 0x20 - 104 bytes
         public fixed byte _randList[104];   // 0x20 - 104 bytes
 
-        public VoidPtr this[int index] { get { return (VoidPtr)((byte*)Address + 0x10 + (index)); } }
-        private VoidPtr Address { get { fixed (void* ptr = &this) return ptr; } }
+        public VoidPtr this[int index] => (byte*)Address + 0x10 + (index);
+        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
     }
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct RSTCEntry

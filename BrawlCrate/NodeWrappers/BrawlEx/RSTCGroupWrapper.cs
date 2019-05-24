@@ -1,18 +1,16 @@
-﻿using System;
-using BrawlLib;
-using BrawlLib.SSBB.ResourceNodes;
-using System.Windows.Forms;
+﻿using BrawlLib.SSBB.ResourceNodes;
+using System;
 using System.ComponentModel;
-using System.BrawlEx;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.RSTCGroup)]
-    class RSTCGroupWrapper : GenericWrapper
+    internal class RSTCGroupWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static RSTCGroupWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -46,11 +44,13 @@ namespace BrawlCrate.NodeWrappers
             {
                 return;
             }
-            RSTCEntryNode node = new RSTCEntryNode();
-            node.FighterID = 0x0;
-            node._name = "Mario";
+            RSTCEntryNode node = new RSTCEntryNode
+            {
+                FighterID = 0x0,
+                _name = "Mario"
+            };
             _resource.AddChild(node);
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
         }
@@ -58,8 +58,11 @@ namespace BrawlCrate.NodeWrappers
         public void Clear()
         {
             while (_resource.HasChildren)
+            {
                 _resource.RemoveChild(_resource.Children[0]);
-            BaseWrapper w = this.FindResource(_resource, false);
+            }
+
+            BaseWrapper w = FindResource(_resource, false);
             w.EnsureVisible();
             w.Expand();
         }

@@ -11,6 +11,6 @@ namespace BrawlLib.SSBBTypes
         public byte _colorID;
         public byte _costumeID;
 
-        private VoidPtr Address { get { fixed (void* ptr = &this) return ptr; } }
+        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
     }
 }

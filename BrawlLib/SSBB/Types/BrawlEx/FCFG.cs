@@ -29,7 +29,7 @@ namespace BrawlLib.SSBBTypes
         public uint _unknown0x24;                   // 0x24
         public uint _unknown0x28;                   // 0x28
         public uint _unknown0x2C;                   // 0x2C
-        
+
         // Name stuff. Name should be no more than 16 characters (technical max for filenames is 20 but internal name lowers the limit)
         public fixed byte _pacNameArray[48];        // 0x30 - 48 characters; Auto generate from name: (name-lower)/Fit(name).pac
         public fixed byte _kirbyPacNameArray[48];   // 0x60 - 48 characters; Auto generate from name: kirby/FitKirby(name).pac
@@ -55,6 +55,6 @@ namespace BrawlLib.SSBBTypes
         public buint _textureLoad;                  // 0xF8 - 0/1/2/3/4/5
         public buint _aiController;                 // 0xFC
 
-        private VoidPtr Address { get { fixed (void* ptr = &this) return ptr; } }
+        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
     }
 }

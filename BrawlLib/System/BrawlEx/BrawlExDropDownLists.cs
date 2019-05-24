@@ -11,13 +11,13 @@ namespace System.BrawlEx
 
         public FranchiseIcon(int id, string name)
         {
-            this.ID = id;
-            this.Name = name;
+            ID = id;
+            Name = name;
         }
 
         public override string ToString() { return Name; }
 
-        public readonly static FranchiseIcon[] Icons = new FranchiseIcon[] {
+        public static readonly FranchiseIcon[] Icons = new FranchiseIcon[] {
             //                ID     Display Name
             new FranchiseIcon(0x00, "Super Mario"),
             new FranchiseIcon(0x01, "Donkey Kong"),
@@ -51,13 +51,13 @@ namespace System.BrawlEx
 
         public BrawlExColorID(int id, string name)
         {
-            this.ID = id;
-            this.Name = name;
+            ID = id;
+            Name = name;
         }
 
         public override string ToString() { return Name; }
 
-        public readonly static BrawlExColorID[] Colors = new BrawlExColorID[] {
+        public static readonly BrawlExColorID[] Colors = new BrawlExColorID[] {
             //                 ID     Display Name
             new BrawlExColorID(0x00, "Red (Team Color)"),
             new BrawlExColorID(0x01, "Blue (Team Color)"),
@@ -81,13 +81,13 @@ namespace System.BrawlEx
 
         public RecordBank(int id, string name)
         {
-            this.ID = id;
-            this.Name = name;
+            ID = id;
+            Name = name;
         }
 
         public override string ToString() { return Name; }
 
-        public readonly static RecordBank[] Records = new RecordBank[] {
+        public static readonly RecordBank[] Records = new RecordBank[] {
             //             ID     Display Name
             new RecordBank(0x00, "Mario"),
             new RecordBank(0x01, "Donkey Kong"),
@@ -553,7 +553,7 @@ namespace System.BrawlEx
             new CSSSlotIDs(0x7F, "ExFighter7F")
         };
     }*/
-    
+
     public class AIController
     {
         public uint ID { get; private set; }
@@ -561,13 +561,13 @@ namespace System.BrawlEx
 
         public AIController(uint id, string name)
         {
-            this.ID = id;
-            this.Name = name;
+            ID = id;
+            Name = name;
         }
 
         public override string ToString() { return Name; }
 
-        public readonly static AIController[] aIControllers = new AIController[] {
+        public static readonly AIController[] aIControllers = new AIController[] {
             //            ID     Display Name     
 			new AIController(0x00, "Mario"),
             new AIController(0x01, "Donkey Kong"),
@@ -644,11 +644,14 @@ namespace System.BrawlEx
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(byte))
             {
-                var icon = FranchiseIcon.Icons.Where(s => s.ID == (byte)value).FirstOrDefault();
+                FranchiseIcon icon = FranchiseIcon.Icons.Where(s => s.ID == (byte)value).FirstOrDefault();
                 return "0x" + ((byte)value).ToString("X2") + (icon == null ? "" : (" - " + icon.Name));
             }
             else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+            {
                 return 0;
+            }
+
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
@@ -680,11 +683,14 @@ namespace System.BrawlEx
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(byte))
             {
-                var color = BrawlExColorID.Colors.Where(s => s.ID == (byte)value).FirstOrDefault();
+                BrawlExColorID color = BrawlExColorID.Colors.Where(s => s.ID == (byte)value).FirstOrDefault();
                 return "0x" + ((byte)value).ToString("X2") + (color == null ? "" : (" - " + color.Name));
             }
             else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+            {
                 return 0;
+            }
+
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
@@ -716,11 +722,14 @@ namespace System.BrawlEx
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(byte))
             {
-                var record = RecordBank.Records.Where(s => s.ID == (byte)value).FirstOrDefault();
+                RecordBank record = RecordBank.Records.Where(s => s.ID == (byte)value).FirstOrDefault();
                 return "0x" + ((byte)value).ToString("X2") + (record == null ? "" : (" - " + record.Name));
             }
             else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+            {
                 return 0;
+            }
+
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
@@ -753,11 +762,14 @@ namespace System.BrawlEx
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(byte))
             {
-                var fighter = BrawlLib.BrawlCrate.FighterNameGenerators.slotIDList.Where(s => s.ID == (byte)value).FirstOrDefault();
+                BrawlLib.SSBB.Fighter fighter = BrawlLib.BrawlCrate.FighterNameGenerators.slotIDList.Where(s => s.ID == (byte)value).FirstOrDefault();
                 return "0x" + ((byte)value).ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
             }
             else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+            {
                 return 0;
+            }
+
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
@@ -790,15 +802,18 @@ namespace System.BrawlEx
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(uint))
             {
-                var fighter = BrawlLib.BrawlCrate.FighterNameGenerators.fighterIDLongList.Where(s => s.ID == (uint)value).FirstOrDefault();
+                BrawlLib.SSBB.Fighter fighter = BrawlLib.BrawlCrate.FighterNameGenerators.fighterIDLongList.Where(s => s.ID == (uint)value).FirstOrDefault();
                 return "0x" + ((uint)value).ToString("X8") + (fighter == null ? "" : (" - " + fighter.Name));
             }
             else if ((destinationType == typeof(int) || destinationType == typeof(uint)) && value != null && value.GetType() == typeof(string))
+            {
                 return 0;
+            }
+
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
-    
+
     public class DropDownListBrawlExAIControllers : UInt32Converter
     {
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
@@ -826,11 +841,14 @@ namespace System.BrawlEx
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(uint))
             {
-                var fighter = AIController.aIControllers.Where(s => s.ID == (uint)value).FirstOrDefault();
+                AIController fighter = AIController.aIControllers.Where(s => s.ID == (uint)value).FirstOrDefault();
                 return "0x" + ((uint)value).ToString("X8") + (fighter == null ? "" : (" - " + fighter.Name));
             }
             else if ((destinationType == typeof(int) || destinationType == typeof(uint)) && value != null && value.GetType() == typeof(string))
+            {
                 return 0;
+            }
+
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
@@ -862,11 +880,14 @@ namespace System.BrawlEx
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(byte))
             {
-                var fighter = BrawlLib.BrawlCrate.FighterNameGenerators.cssSlotIDList.Where(s => s.ID == (byte)value).FirstOrDefault();
+                BrawlLib.SSBB.Fighter fighter = BrawlLib.BrawlCrate.FighterNameGenerators.cssSlotIDList.Where(s => s.ID == (byte)value).FirstOrDefault();
                 return "0x" + ((byte)value).ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
             }
             else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+            {
                 return 0;
+            }
+
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
@@ -898,11 +919,14 @@ namespace System.BrawlEx
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(byte))
             {
-                var fighter = BrawlLib.BrawlCrate.FighterNameGenerators.cosmeticIDList.Where(s => s.ID == (byte)value).FirstOrDefault();
+                BrawlLib.SSBB.Fighter fighter = BrawlLib.BrawlCrate.FighterNameGenerators.cosmeticIDList.Where(s => s.ID == (byte)value).FirstOrDefault();
                 return "0x" + ((byte)value).ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
             }
             else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+            {
                 return 0;
+            }
+
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }

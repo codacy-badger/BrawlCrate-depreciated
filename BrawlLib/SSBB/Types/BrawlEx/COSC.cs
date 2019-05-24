@@ -27,6 +27,6 @@ namespace BrawlLib.SSBBTypes
         public buint _unknown0x1C;                  // 0x1C
         public fixed byte _victoryNameArray[32];    // 0x20 - 32 characters
 
-        private VoidPtr Address { get { fixed (void* ptr = &this) return ptr; } }
+        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
     }
 }

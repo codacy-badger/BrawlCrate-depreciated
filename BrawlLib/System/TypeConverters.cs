@@ -1,6 +1,6 @@
-﻿using System.ComponentModel;
+﻿using BrawlLib.SSBB.ResourceNodes;
+using System.ComponentModel;
 using System.Globalization;
-using BrawlLib.SSBB.ResourceNodes;
 
 namespace System
 {
@@ -9,7 +9,10 @@ namespace System
         public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destType)
         {
             if (destType == typeof(string) && value is UserDataClass)
+            {
                 return ((UserDataClass)value).ToString();
+            }
+
             return base.ConvertTo(context, culture, value, destType);
         }
 
@@ -23,11 +26,15 @@ namespace System
                     string[] s2 = s.Split(':');
                     string[] s3 = s2[1].Split(',');
 
-                    UserDataClass d = new UserDataClass();
-
-                    d.Name = s2[0];
+                    UserDataClass d = new UserDataClass
+                    {
+                        Name = s2[0]
+                    };
                     foreach (string i in s3)
+                    {
                         d._entries.Add(i);
+                    }
+
                     return d;
                 }
                 catch { }
@@ -83,7 +90,7 @@ namespace System
 
         public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
         {
-            if (destinationType == typeof(string) && value.GetType() == typeof(UInt32))
+            if (destinationType == typeof(string) && value.GetType() == typeof(uint))
             {
                 return $"0x{value:X8}";
             }
@@ -104,7 +111,7 @@ namespace System
                     input = input.Substring(2);
                 }
 
-                return UInt32.Parse(input, System.Globalization.NumberStyles.HexNumber, culture);
+                return uint.Parse(input, System.Globalization.NumberStyles.HexNumber, culture);
             }
             else
             {
@@ -142,7 +149,7 @@ namespace System
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(Vector2))
             {
-                var vec = (Vector2)value;
+                Vector2 vec = (Vector2)value;
                 return $"({vec._x},{vec._y})";
             }
             else
@@ -161,8 +168,8 @@ namespace System
                     input = input.Trim(new char[] { '(', ')' });
                 }
 
-                var f1 = input.Substring(0, input.IndexOf(',')).Trim();
-                var f2 = input.Substring(input.IndexOf(",")+1, input.Length - (input.IndexOf(",")+1));
+                string f1 = input.Substring(0, input.IndexOf(',')).Trim();
+                string f2 = input.Substring(input.IndexOf(",") + 1, input.Length - (input.IndexOf(",") + 1));
 
                 return new Vector2(float.Parse(f1), float.Parse(f2));
             }

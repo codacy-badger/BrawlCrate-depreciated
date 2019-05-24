@@ -1,15 +1,15 @@
-﻿using System;
-using BrawlLib.SSBBTypes;
+﻿using BrawlLib.SSBBTypes;
+using System;
+using System.BrawlEx;
 using System.ComponentModel;
 using System.IO;
-using System.BrawlEx;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class SLTCNode : ResourceNode
     {
-        internal SLTC* Header { get { return (SLTC*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.SLTC; } }
+        internal SLTC* Header => (SLTC*)WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.SLTC;
 
         public uint _tag;                           // 0x00 - Uneditable; SLTC
         public uint _size;                          // 0x04 - Uneditable; Should be "40"
@@ -43,15 +43,23 @@ namespace BrawlLib.SSBB.ResourceNodes
             get
             {
                 if (_setSlotCharacters == 0)
+                {
                     return false;
+                }
+
                 return true;
             }
             set
             {
                 if (value)
+                {
                     _setSlotCharacters = 1;
+                }
                 else
+                {
                     _setSlotCharacters = 0;
+                }
+
                 SignalPropertyChange();
             }
         }
@@ -61,10 +69,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Character Slot 1")]
         public uint CharSlot1
         {
-            get
-            {
-                return _slot1;
-            }
+            get => _slot1;
             set
             {
                 _slot1 = value;
@@ -77,10 +82,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Character Slot 2")]
         public uint CharSlot2
         {
-            get
-            {
-                return _slot2;
-            }
+            get => _slot2;
             set
             {
                 _slot2 = value;
@@ -93,10 +95,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Character Slot 3")]
         public uint CharSlot3
         {
-            get
-            {
-                return _slot3;
-            }
+            get => _slot3;
             set
             {
                 _slot3 = value;
@@ -109,10 +108,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Character Slot 4")]
         public uint CharSlot4
         {
-            get
-            {
-                return _slot4;
-            }
+            get => _slot4;
             set
             {
                 _slot4 = value;
@@ -125,10 +121,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Record Bank")]
         public byte Records
         {
-            get
-            {
-                return _recordSlot;
-            }
+            get => _recordSlot;
             set
             {
                 _recordSlot = value;
@@ -140,10 +133,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Victory Theme")]
         public string VictoryTheme
         {
-            get
-            {
-                return "0x" + _victoryTheme.ToString("X8");
-            }
+            get => "0x" + _victoryTheme.ToString("X8");
             set
             {
                 string field0 = (value.ToString() ?? "").Split(' ')[0];
@@ -157,10 +147,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Announcer Call")]
         public string AnnouncerID
         {
-            get
-            {
-                return "0x" + _announcerSFX.ToString("X8");
-            }
+            get => "0x" + _announcerSFX.ToString("X8");
             set
             {
                 string field0 = (value.ToString() ?? "").Split(' ')[0];
@@ -174,7 +161,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Camera Distance 1")]
         public float CameraDistance1
         {
-            get { return _victoryCamera1; }
+            get => _victoryCamera1;
             set
             {
                 _victoryCamera1 = value;
@@ -186,7 +173,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Camera Distance 2")]
         public float CameraDistance2
         {
-            get { return _victoryCamera2; }
+            get => _victoryCamera2;
             set
             {
                 _victoryCamera2 = value;
@@ -198,7 +185,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Camera Distance 3")]
         public float CameraDistance3
         {
-            get { return _victoryCamera3; }
+            get => _victoryCamera3;
             set
             {
                 _victoryCamera3 = value;
@@ -210,7 +197,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Camera Distance 4")]
         public float CameraDistance4
         {
-            get { return _victoryCamera4; }
+            get => _victoryCamera4;
             set
             {
                 _victoryCamera4 = value;
@@ -280,7 +267,9 @@ namespace BrawlLib.SSBB.ResourceNodes
             _victoryCamera3 = Header->_victoryCamera3;
             _victoryCamera4 = Header->_victoryCamera4;
             if ((_name == null) && (_origPath != null))
+            {
                 _name = Path.GetFileNameWithoutExtension(_origPath);
+            }
             //_name = "Cosmetic" + _cosmeticID.ToString("X2") + " (" + _victoryName + ")";
 
             return false;

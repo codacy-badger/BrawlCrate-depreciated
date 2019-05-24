@@ -10,26 +10,26 @@
             InitializeComponent();
         }
 
-        public int NewValue { get { return (int)numNewCount.Value; } }
+        public int NewValue => (int)numNewCount.Value;
 
         public DialogResult ShowDialog()
         {
-            this.Text = title;
-            this.label2.Text = lowerText;
+            Text = title;
+            label2.Text = lowerText;
             return base.ShowDialog();
         }
 
         public DialogResult ShowDialog(string newTitle, string newLower)
         {
-            this.Text = newTitle;
-            this.label2.Text = newLower;
+            Text = newTitle;
+            label2.Text = newLower;
             return base.ShowDialog();
         }
         public DialogResult ShowDialog(string newTitle, string newLower, int val)
         {
-            this.Text = newTitle;
-            this.label2.Text = newLower;
-            this.numNewCount.Value = val;
+            Text = newTitle;
+            label2.Text = newLower;
+            numNewCount.Value = val;
             return base.ShowDialog();
         }
 

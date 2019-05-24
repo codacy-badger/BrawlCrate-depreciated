@@ -1,20 +1,20 @@
-﻿using System;
+﻿using BrawlLib.SSBBTypes;
+using System;
 using System.Collections.Generic;
-using System.Text;
-using BrawlLib.SSBBTypes;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.PowerPcAssembly;
+using System.Text;
 using System.Windows.Forms;
-using System.Diagnostics;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
     //Credit to PhantomWings for researching RELs and coding Module Editors 1, 2 & 3
     public unsafe class RELNode : ARCEntryNode, ModuleNode
     {
-        internal RELHeader* Header { get { return (RELHeader*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.REL; } }
+        internal RELHeader* Header => (RELHeader*)WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.REL;
 
         [Browsable(false)]
         public ModuleSectionNode[] Sections
@@ -22,7 +22,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             get
             {
                 if (_sections == null)
+                {
                     Populate();
+                }
+
                 return _sections;
             }
         }
@@ -33,9 +36,11 @@ namespace BrawlLib.SSBB.ResourceNodes
             get
             {
                 if (BrawlLib.Properties.Settings.Default.CompatibilityMode)
+                {
                     return 0;
+                }
                 //GenerateImports();
-                uint size = (uint)RELHeader.Size + (uint)Children.Count * (uint)RELSectionEntry.Size + (uint)_imports.Keys.Count * (uint)RELImportEntry.Size;
+                uint size = RELHeader.Size + (uint)Children.Count * RELSectionEntry.Size + (uint)_imports.Keys.Count * RELImportEntry.Size;
                 foreach (ModuleSectionNode s in Children)
                 {
                     //Section 4 and 5 seem to be the only ones that are aligned.
@@ -45,11 +50,15 @@ namespace BrawlLib.SSBB.ResourceNodes
 
                     int r = s.OnCalculateSize(false, false);
                     if (!s._isBSSSection)
+                    {
                         size += (uint)r;
-
+                    }
                 }
                 foreach (List<RELLink> s in _imports.Values)
-                    size += (uint)s.Count * (uint)RELLink.Size;
+                {
+                    size += (uint)s.Count * RELLink.Size;
+                }
+
                 return size;
             }
         }
@@ -90,7 +99,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [Category("Relocatable Module")]
         public uint ModuleID
         {
-            get { return _id; }
+            get => _id;
             set
             {
                 if (!_files.ContainsKey(value))
@@ -104,50 +113,52 @@ namespace BrawlLib.SSBB.ResourceNodes
                     _files.Add(_id, this);
                 }
                 else
+                {
                     MessageBox.Show("");
+                }
             }
         }
         [Browsable(false)]
         public new uint ID
         {
-            get { return _id; }
-            set { _id = value; }
+            get => _id;
+            set => _id = value;
         }
 
         [Category("Relocatable Module")]
-        public string ModuleName { get { return _idNames.ContainsKey(ModuleID) ? _idNames[ModuleID] : "m" + ModuleID; } }
-        
+        public string ModuleName => _idNames.ContainsKey(ModuleID) ? _idNames[ModuleID] : "m" + ModuleID;
+
         //[Category("REL")]
         //public int NextLink { get { return _linkNext; } }
         //[Category("REL")]
         //public int PrevLink { get { return _linkPrev; } }
         //[Category("REL")]
         //public uint SectionCount { get { return _numSections; } }
-        
+
         //[Category("REL")]
         //public uint SectionInfoOffset { get { return _infoOffset; } }
         [Category("Relocatable Module")]
-        public uint NameOffset { get { return _nameOffset; } set { _nameOffset = value; SignalPropertyChange(); } }
+        public uint NameOffset { get => _nameOffset; set { _nameOffset = value; SignalPropertyChange(); } }
         [Category("Relocatable Module")]
-        public uint NameSize { get { return _nameSize; } set { _nameSize = value; SignalPropertyChange(); } }
+        public uint NameSize { get => _nameSize; set { _nameSize = value; SignalPropertyChange(); } }
         [Category("Relocatable Module")]
-        public uint Version { get { return _version; } }
+        public uint Version => _version;
 
         [Category("Relocatable Module")]
-        public uint PrologSection { get { return _prologSection; } }
+        public uint PrologSection => _prologSection;
         [Category("Relocatable Module")]
-        public uint EpilogSection { get { return _epilogSection; } }
+        public uint EpilogSection => _epilogSection;
         [Category("Relocatable Module")]
-        public uint UnresolvedSection { get { return _unresolvedSection; } }
+        public uint UnresolvedSection => _unresolvedSection;
         [Category("Relocatable Module")]
-        public uint BSSSection { get { return _bssSection; } }
+        public uint BSSSection => _bssSection;
 
         [Category("Relocatable Module")]
-        public uint ModuleAlign { get { return _moduleAlign; } }
+        public uint ModuleAlign => _moduleAlign;
         [Category("Relocatable Module")]
-        public uint BSSAlign { get { return _bssAlign; } }
+        public uint BSSAlign => _bssAlign;
         [Category("Relocatable Module")]
-        public uint FixSize { get { return _fixSize; } }
+        public uint FixSize => _fixSize;
 
         [Category("Relocatable Module")]
         [DisplayName("Imported Modules")]
@@ -158,13 +169,14 @@ namespace BrawlLib.SSBB.ResourceNodes
         [TypeConverter(typeof(DropDownListStageRelIDs))]
         public int? StageID
         {
-            get
-            {
-                return _stageID;
-            }
+            get => _stageID;
             set
             {
-                if (_stageID == null || value == null) return;
+                if (_stageID == null || value == null)
+                {
+                    return;
+                }
+
                 _stageID = (byte)value;
                 SignalPropertyChange();
             }
@@ -176,13 +188,21 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                if (_itemIDs == null) return null;
+                if (_itemIDs == null)
+                {
+                    return null;
+                }
+
                 return _itemIDs[0];
             }
             set
             {
                 // Don't try to set the item ID if it's not an Online Training Room module
-                if (_itemIDs == null || value == null || value < 0 && value > 255) return;
+                if (_itemIDs == null || value == null || value < 0 && value > 255)
+                {
+                    return;
+                }
+
                 _itemIDs[0] = (byte)value.Value;
                 SignalPropertyChange();
             }
@@ -194,13 +214,21 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                if (_itemIDs == null) return null;
+                if (_itemIDs == null)
+                {
+                    return null;
+                }
+
                 return _itemIDs[1];
             }
             set
             {
                 // Don't try to set the item ID if it's not an Online Training Room module
-                if (_itemIDs == null || value == null || value < 0 && value > 255) return;
+                if (_itemIDs == null || value == null || value < 0 && value > 255)
+                {
+                    return;
+                }
+
                 _itemIDs[1] = (byte)value.Value;
                 SignalPropertyChange();
             }
@@ -212,13 +240,21 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                if (_itemIDs == null) return null;
+                if (_itemIDs == null)
+                {
+                    return null;
+                }
+
                 return _itemIDs[2];
             }
             set
             {
                 // Don't try to set the item ID if it's not an Online Training Room module
-                if (_itemIDs == null || value == null || value < 0 && value > 255) return;
+                if (_itemIDs == null || value == null || value < 0 && value > 255)
+                {
+                    return;
+                }
+
                 _itemIDs[2] = (byte)value.Value;
                 SignalPropertyChange();
             }
@@ -230,13 +266,21 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             get
             {
-                if (_itemIDs == null) return null;
+                if (_itemIDs == null)
+                {
+                    return null;
+                }
+
                 return _itemIDs[3];
             }
             set
             {
                 // Don't try to set the item ID if it's not an Online Training Room module
-                if (_itemIDs == null || value == null || value < 0 && value > 255) return;
+                if (_itemIDs == null || value == null || value < 0 && value > 255)
+                {
+                    return;
+                }
+
                 _itemIDs[3] = (byte)value.Value;
                 SignalPropertyChange();
             }
@@ -278,28 +322,34 @@ namespace BrawlLib.SSBB.ResourceNodes
             _fixSize = Header->_commandOffset;
 
             _imports = new SortedDictionary<uint, List<RELLink>>();
-            var impNames = new string[Header->ImportListCount];
+            string[] impNames = new string[Header->ImportListCount];
 
             for (int i = 0; i < Header->ImportListCount; i++)
             {
-                RELImportEntry* entry = (RELImportEntry*)&Header->Imports[i];
-                uint id = (uint)entry->_moduleId;
+                RELImportEntry* entry = &Header->Imports[i];
+                uint id = entry->_moduleId;
                 _imports.Add(id, new List<RELLink>());
                 impNames[i] = _idNames.ContainsKey(id) ? _idNames[id] : $"Module{id}";
 
-                RELLink* link = (RELLink*)(WorkingUncompressed.Address + (uint)entry->_offset);
+                RELLink* link = (RELLink*)(WorkingUncompressed.Address + entry->_offset);
                 do { _imports[id].Add(*link); }
                 while ((link++)->_type != RELLinkType.End);
             }
             ImportedModules = impNames;
 
             if (_name == null)
+            {
                 _name = _idNames.ContainsKey(_id) ? _idNames[_id] : Path.GetFileName(_origPath);
+            }
 
             if (!_files.ContainsKey(ModuleID))
+            {
                 _files.Add(ModuleID, this);
+            }
             else
+            {
                 _files[ModuleID] = this;
+            }
 
             return true;
         }
@@ -320,7 +370,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 section._isCodeSection = entry.IsCodeSection;
                 section._dataOffset = dataOffset;
                 section._dataSize = entry._size;
-                
+
                 // Calculate buffer
                 if (!BrawlLib.Properties.Settings.Default.AutoCompressModules && i > 0 && dataOffset > 0)
                 {
@@ -355,28 +405,36 @@ namespace BrawlLib.SSBB.ResourceNodes
 
                 //Scan for branches, add extra tags
                 foreach (ModuleSectionNode s in Sections)
+                {
                     if (s.HasCode)
                     {
                         PPCOpCode code;
                         buint* opPtr = s.BufferAddress;
                         for (int i = 0; i < s._dataBuffer.Length / 4; i++)
+                        {
                             if ((code = (uint)*opPtr++) is PPCBranch && !(code is PPCblr || code is PPCbctr))
+                            {
                                 s._manager.LinkBranch(i, true);
+                            }
+                        }
 
-                        var cmds = s._manager.GetCommands();
-                        foreach (var x in cmds)
+                        KeyValuePair<int, RelCommand>[] cmds = s._manager.GetCommands();
+                        foreach (KeyValuePair<int, RelCommand> x in cmds)
                         {
                             RelocationTarget target = x.Value.GetTargetRelocation();
                             string value = null;
-                            if (target.Section != null && target._sectionID == 5 && !String.IsNullOrEmpty(value = target.Section._manager.GetString(target._index)))
+                            if (target.Section != null && target._sectionID == 5 && !string.IsNullOrEmpty(value = target.Section._manager.GetString(target._index)))
+                            {
                                 s._manager.AddTag(x.Key, value);
+                            }
                         }
                     }
+                }
 
                 Sections[5].Populate();
 
                 watch.Stop();
-                Console.WriteLine("Took {0} seconds to relocate {1} module", (double)watch.ElapsedMilliseconds / 1000d, Name);
+                Console.WriteLine("Took {0} seconds to relocate {1} module", watch.ElapsedMilliseconds / 1000d, Name);
             };
 
             using (BackgroundWorker b = new BackgroundWorker())
@@ -404,7 +462,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         public void ApplyRelocations()
         {
             foreach (ModuleSectionNode r in Sections)
+            {
                 r._manager.ClearCommands();
+            }
 
             int offset = 0;
             int i = 0;
@@ -413,6 +473,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 List<RELLink> cmds = _imports[x];
                 ModuleSectionNode section = null;
                 foreach (RELLink link in cmds)
+                {
                     if (link._type == RELLinkType.Section)
                     {
                         offset = 0;
@@ -420,10 +481,12 @@ namespace BrawlLib.SSBB.ResourceNodes
                     }
                     else
                     {
-                        offset += (int)(ushort)link._prevOffset;
+                        offset += (ushort)link._prevOffset;
 
                         if (link._type == RELLinkType.End || link._type == RELLinkType.IncrementOffset)
+                        {
                             continue;
+                        }
 
                         if (link._type == RELLinkType.MrkRef)
                         {
@@ -432,8 +495,12 @@ namespace BrawlLib.SSBB.ResourceNodes
                         }
 
                         if (section != null)
+                        {
                             section._manager.SetCommand(offset.RoundDown(4) / 4, new RelCommand(x, section, link));
+                        }
                     }
+                }
+
                 i++;
             }
 
@@ -462,7 +529,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             //    _unresReloc._unresolved = true;
         }
 
-        class ImportData
+        private class ImportData
         {
             public bool _newSection = true;
             public uint _lastOffset = 0;
@@ -484,8 +551,8 @@ namespace BrawlLib.SSBB.ResourceNodes
                 List<RELLink> links;
 
                 //Iterate through each command in the section
-                var commands = s._manager.GetCommands();
-                foreach (var r in commands)
+                KeyValuePair<int, RelCommand>[] commands = s._manager.GetCommands();
+                foreach (KeyValuePair<int, RelCommand> r in commands)
                 {
                     RelCommand command = r.Value;
                     int index = r.Key;
@@ -547,7 +614,9 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
 
             foreach (List<RELLink> cmds in _imports.Values)
+            {
                 cmds.Add(new RELLink() { _type = RELLinkType.End });
+            }
         }
 
         public override int OnCalculateSize(bool force, bool rebuilding = true)
@@ -564,11 +633,15 @@ namespace BrawlLib.SSBB.ResourceNodes
 
                 int r = s.CalculateSize(true);
                 if (!s._isBSSSection)
+                {
                     size += r;
-
+                }
             }
             foreach (List<RELLink> s in _imports.Values)
+            {
                 size += s.Count * RELLink.Size;
+            }
+
             return size;
         }
 
@@ -602,6 +675,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             RELSectionEntry* sections = (RELSectionEntry*)(address + RELHeader.Size);
             VoidPtr dataAddr = address + RELHeader.Size + Children.Count * RELSectionEntry.Size;
             foreach (ModuleSectionNode s in Children)
+            {
                 if (s._dataBuffer.Length != 0)
                 {
                     int i = s.Index;
@@ -634,6 +708,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                         header->_bssSize = (uint)(s._calcSize - s._endBufferSize);
                     }
                 }
+            }
 
             RELImportEntry* imports = (RELImportEntry*)dataAddr;
             header->_impOffset = (uint)(dataAddr - address);
@@ -642,44 +717,60 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             List<uint> k = new List<uint>();
             foreach (uint s in _imports.Keys)
+            {
                 if (s != ModuleID && s != 0)
+                {
                     k.Add(s);
+                }
+            }
 
             k.Sort();
 
             foreach (uint s in _imports.Keys)
+            {
                 if (s == ModuleID)
                 {
                     k.Add(s);
                     break;
                 }
+            }
 
             foreach (uint s in _imports.Keys)
+            {
                 if (s == 0)
                 {
                     k.Add(s);
                     break;
                 }
+            }
 
             for (int i = 0; i < k.Count; i++)
             {
                 uint id = k[i];
                 uint offset = (uint)(dataAddr - address);
                 if (id == ModuleID)
+                {
                     header->_commandOffset = offset;
+                }
 
                 imports[i]._moduleId = id;
                 imports[i]._offset = offset;
 
                 RELLink* link = (RELLink*)dataAddr;
                 foreach (RELLink n in _imports[k[i]])
+                {
                     *link++ = n;
+                }
+
                 dataAddr = link;
             }
 
             // Stage module conversion
             byte* bptr = (byte*)address;
-            if (_stageID != null) bptr[findStageIDOffset()] = _stageID.Value;
+            if (_stageID != null)
+            {
+                bptr[findStageIDOffset()] = _stageID.Value;
+            }
 
             if (_itemIDs != null)
             {
@@ -699,7 +790,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public static Dictionary<uint, RELNode> _files = new Dictionary<uint, RELNode>();
 
         #region Stage module conversion
-        private unsafe static int arrayIndexOf(void* haystack, int length, byte[] needle)
+        private static unsafe int arrayIndexOf(void* haystack, int length, byte[] needle)
         {
             byte?[] b = new byte?[needle.Length];
             for (int i = 0; i < b.Length; i++)
@@ -709,7 +800,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             return arrayIndexOf(haystack, length, b);
         }
 
-        private unsafe static int arrayIndexOf(void* haystack, int length, byte?[] needle)
+        private static unsafe int arrayIndexOf(void* haystack, int length, byte?[] needle)
         {
             byte* ptr = (byte*)haystack;
             int indexToCheck = 0;
@@ -719,7 +810,10 @@ namespace BrawlLib.SSBB.ResourceNodes
                 if ((b ?? ptr[i]) == ptr[i])
                 {
                     indexToCheck++;
-                    if (indexToCheck == needle.Length) return i + 1 - needle.Length;
+                    if (indexToCheck == needle.Length)
+                    {
+                        return i + 1 - needle.Length;
+                    }
                 }
                 else
                 {
@@ -750,7 +844,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         /* These are absolute offsets - land within section 1.
          * When BrawlCrate rebuilds st_otrain.rel, it cuts out 16 bytes from 0xA50-0xA60,
          * but those come after these, so we should be ok. */
-        private readonly static int[] OTrainItemOffsets = {
+        private static readonly int[] OTrainItemOffsets = {
             // Changing some values but not others has strange effects
             1223,
             1347, // this appears to be some sort of "if" condition

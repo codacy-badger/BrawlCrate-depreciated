@@ -1,13 +1,13 @@
-﻿using BrawlLib.Imaging;
+﻿using BrawlCrate;
+using BrawlLib.Imaging;
 using BrawlLib.Modeling;
 using BrawlLib.OpenGL;
 using BrawlLib.SSBB.ResourceNodes;
 using BrawlLib.SSBBTypes;
+using BrawlLib.Wii.Graphics;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using BrawlLib.Wii.Graphics;
-using BrawlCrate;
 
 namespace System.Windows.Forms
 {
@@ -26,7 +26,9 @@ namespace System.Windows.Forms
         public override void AppendTarget(IModel model)
         {
             if (!_targetModels.Contains(model))
+            {
                 _targetModels.Add(model);
+            }
 
             ModelPanel.AddTarget(model);
             model.ResetToBindState();
@@ -38,17 +40,17 @@ namespace System.Windows.Forms
             switch (ControlType)
             {
                 case TransformType.None:
-                    rotationToolStripMenuItem.Checked = 
-                    translationToolStripMenuItem.Checked = 
+                    rotationToolStripMenuItem.Checked =
+                    translationToolStripMenuItem.Checked =
                     scaleToolStripMenuItem.Checked = false;
                     break;
                 case TransformType.Scale:
-                    rotationToolStripMenuItem.Checked = 
+                    rotationToolStripMenuItem.Checked =
                     translationToolStripMenuItem.Checked = false;
                     scaleToolStripMenuItem.Checked = true;
                     break;
                 case TransformType.Rotation:
-                    translationToolStripMenuItem.Checked = 
+                    translationToolStripMenuItem.Checked =
                     scaleToolStripMenuItem.Checked = false;
                     rotationToolStripMenuItem.Checked = true;
                     break;
@@ -68,7 +70,9 @@ namespace System.Windows.Forms
         {
             _updating = true;
             if (_targetModel != null && TargetCollision == null)
+            {
                 models.SelectedItem = _targetModel;
+            }
 
             leftPanel.Reset();
             rightPanel.Reset();
@@ -82,16 +86,18 @@ namespace System.Windows.Forms
         private void models_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_updating)
+            {
                 return;
+            }
 
             //Leave the target model and collision alone if just switching to edit all
             //if (!EditingAll)
             //{
-                object item = models.SelectedItem;
+            object item = models.SelectedItem;
 
-                _resetCamera = false;
-                TargetModel = item is IModel ? (IModel)item : null;
-                TargetCollision = item is CollisionNode ? (CollisionNode)item : null;
+            _resetCamera = false;
+            TargetModel = item is IModel ? (IModel)item : null;
+            TargetCollision = item is CollisionNode ? (CollisionNode)item : null;
             //}
             _undoSaves.Clear();
             _redoSaves.Clear();
@@ -114,11 +120,17 @@ namespace System.Windows.Forms
                     (!weightEditor.Visible && !vertexEditor.Visible ? new System.Drawing.Size(0, 0) : s);
             }
             else if (!weightEditor.Visible && !vertexEditor.Visible)
+            {
                 s = new Drawing.Size(0, 0);
+            }
             else if (weightEditor.Visible)
+            {
                 s = weightEditor.MinimumSize;
+            }
             else if (vertexEditor.Visible)
+            {
                 s = vertexEditor.MinimumSize;
+            }
 
             //See if the scroll bar needs to be visible
             int addedHeight = 0;
@@ -128,13 +140,20 @@ namespace System.Windows.Forms
                 animEditors.HorizontalScroll.Visible = true;
             }
             else
+            {
                 animEditors.HorizontalScroll.Visible = false;
+            }
 
             //Don't update the width and height every time, only if need be
             if (animCtrlPnl.Width != s.Width)
+            {
                 animCtrlPnl.Width = s.Width;
+            }
+
             if (animEditors.Height != s.Height + addedHeight)
+            {
                 animEditors.Height = s.Height + addedHeight;
+            }
 
             //Dock playback panel if it reaches its minimum size
             if (pnlPlayback.Width <= pnlPlayback.MinimumSize.Width)
@@ -143,7 +162,9 @@ namespace System.Windows.Forms
                 pnlPlayback.Width = pnlPlayback.MinimumSize.Width;
             }
             else
+            {
                 pnlPlayback.Dock = DockStyle.Fill;
+            }
 
             //Stretch playback panel if there's space
             if (animEditors.Width - animCtrlPnl.Width >= pnlPlayback.MinimumSize.Width)
@@ -151,7 +172,10 @@ namespace System.Windows.Forms
                 pnlPlayback.Width += animEditors.Width - animCtrlPnl.Width - pnlPlayback.MinimumSize.Width;
                 pnlPlayback.Dock = DockStyle.Fill;
             }
-            else pnlPlayback.Dock = DockStyle.Left;
+            else
+            {
+                pnlPlayback.Dock = DockStyle.Left;
+            }
         }
 
         public bool Close()
@@ -159,27 +183,38 @@ namespace System.Windows.Forms
             StopAnim();
 
             if (!rightPanel.pnlOpenedFiles.CloseAllFiles())
+            {
                 return false;
+            }
 
             ResetBoneColors();
             SaveSettings();
 
             if (_viewerForm != null)
+            {
                 _viewerForm.Close();
+            }
+
             if (_interpolationForm != null)
+            {
                 _interpolationForm.Close();
+            }
 
             MDL0TextureNode._folderWatcher.SynchronizingObject = null;
 
             if (TargetModel != null)
+            {
                 TargetModel = null;
+            }
 
             _targetModels.Clear();
             ModelPanel.ClearAll();
 
             if (Instances.Contains(this))
+            {
                 Instances.Remove(this);
-            
+            }
+
             return true;
         }
 
@@ -221,14 +256,21 @@ namespace System.Windows.Forms
             if (_currentControl != newControl)
             {
                 if (_currentControl != null)
+                {
                     _currentControl.Visible = false;
+                }
+
                 _currentControl = newControl;
 
                 if (!(_currentControl is SRT0Editor) && !(_currentControl is PAT0Editor))
+                {
                     SyncTexturesToObjectList = false;
+                }
 
                 if (_currentControl != null)
+                {
                     _currentControl.Visible = true;
+                }
             }
             AnimChanged();
             CheckDimensions();
@@ -244,7 +286,9 @@ namespace System.Windows.Forms
             base.modelPanel1_MouseMove(sender, e);
 
             if (_translating && VertexLoc == null && SelectedBone != null && SnapBonesToCollisions)
+            {
                 SnapYIfClose();
+            }
         }
 
         //protected override void modelPanel1_MouseUp(object sender, MouseEventArgs e)
@@ -263,7 +307,9 @@ namespace System.Windows.Forms
             //return;
 
             if (_animFrame == 0 || leftPanel.lstObjects.Items.Count == 0)
+            {
                 return;
+            }
 
             VIS0Updating = true;
             if (_vis0 != null)
@@ -276,7 +322,7 @@ namespace System.Windows.Forms
                     MDL0ObjectNode obj;
                     VIS0EntryNode node = null;
                     Dictionary<int, List<int>> objects = VIS0Indices[boneName];
-                    foreach (var objKey in objects)
+                    foreach (KeyValuePair<int, List<int>> objKey in objects)
                     {
                         obj = (MDL0ObjectNode)leftPanel.lstObjects.Items[objKey.Key];
                         foreach (int i in objKey.Value)
@@ -285,16 +331,18 @@ namespace System.Windows.Forms
                             if (node != null)
                             {
                                 bool render = node._entryCount != 0 && _animFrame > 0 ?
-                                    node.GetEntry((int)_animFrame - 1) :
+                                    node.GetEntry(_animFrame - 1) :
                                     node._flags.HasFlag(VIS0Flags.Enabled);
 
                                 if (leftPanel.InvokeRequired)
                                 {
                                     Action<int, int, bool, MDL0ObjectNode> d = new Action<int, int, bool, MDL0ObjectNode>(leftPanel.SetRenderState);
-                                    this.Invoke(d, new object[] { objKey.Key, i, render, obj });
+                                    Invoke(d, new object[] { objKey.Key, i, render, obj });
                                 }
                                 else
+                                {
                                     leftPanel.SetRenderState(objKey.Key, i, render, obj);
+                                }
                             }
                         }
                     }
@@ -307,17 +355,25 @@ namespace System.Windows.Forms
         private bool HotkeySelectAllVertices()
         {
             if (!ModelPanel.Focused)
+            {
                 return false;
+            }
 
             ClearSelectedVertices();
             if (EditingAll)
             {
                 if (_targetModels != null)
+                {
                     foreach (IModel mdl in _targetModels)
+                    {
                         SelectAllVertices(mdl);
+                    }
+                }
             }
             else if (TargetModel != null)
+            {
                 SelectAllVertices(TargetModel);
+            }
 
             OnSelectedVerticesChanged();
 
@@ -369,9 +425,14 @@ namespace System.Windows.Forms
             if (ModelPanel.Focused)
             {
                 if (leftPanel.Visible || rightPanel.Visible || animEditors.Visible || controlPanel.Visible)
+                {
                     showBottom.Checked = showRight.Checked = showLeft.Checked = showTop.Checked = false;
+                }
                 else
+                {
                     showBottom.Checked = showRight.Checked = showLeft.Checked = showTop.Checked = true;
+                }
+
                 return true;
             }
             return false;
@@ -460,26 +521,34 @@ namespace System.Windows.Forms
         #endregion
 
         #region Collisions
-        private bool PointCollides(Vector3 point) {
-            float f;
-            return PointCollides(point, out f);
+        private bool PointCollides(Vector3 point)
+        {
+            return PointCollides(point, out float f);
         }
-        private bool PointCollides(Vector3 point, out float y_result) {
+        private bool PointCollides(Vector3 point, out float y_result)
+        {
             y_result = float.MaxValue;
             Vector2 v2 = new Vector2(point._x, point._y);
-            foreach (CollisionNode coll in _collisions) {
-                foreach (CollisionObject obj in coll._objects) {
-                    if (obj._render) {
-                        foreach (CollisionPlane plane in obj._planes) {
-                            if (plane._type == BrawlLib.SSBBTypes.CollisionPlaneType.Floor && plane.IsCharacters) {
-                                if (plane.PointLeft._x <= v2._x && plane.PointRight._x >= v2._x) {
+            foreach (CollisionNode coll in _collisions)
+            {
+                foreach (CollisionObject obj in coll._objects)
+                {
+                    if (obj._render)
+                    {
+                        foreach (CollisionPlane plane in obj._planes)
+                        {
+                            if (plane._type == BrawlLib.SSBBTypes.CollisionPlaneType.Floor && plane.IsCharacters)
+                            {
+                                if (plane.PointLeft._x <= v2._x && plane.PointRight._x >= v2._x)
+                                {
                                     float x = v2._x;
                                     float m = (plane.PointLeft._y - plane.PointRight._y)
                                         / (plane.PointLeft._x - plane.PointRight._x);
                                     float b = plane.PointRight._y - m * plane.PointRight._x;
                                     float y_target = m * x + b;
                                     //Console.WriteLine(y_target);
-                                    if (Math.Abs(y_target - v2._y) <= Math.Abs(y_result - v2._y)) {
+                                    if (Math.Abs(y_target - v2._y) <= Math.Abs(y_result - v2._y))
+                                    {
                                         y_result = y_target;
                                     }
                                 }
@@ -490,9 +559,10 @@ namespace System.Windows.Forms
             }
             return (Math.Abs(y_result - v2._y) <= 5);
         }
-        private void SnapYIfClose() {
-            float f;
-            if (PointCollides(new Vector3(chr0Editor._transBoxes[6].Value, chr0Editor._transBoxes[7].Value, chr0Editor._transBoxes[8].Value), out f)) {
+        private void SnapYIfClose()
+        {
+            if (PointCollides(new Vector3(chr0Editor._transBoxes[6].Value, chr0Editor._transBoxes[7].Value, chr0Editor._transBoxes[8].Value), out float f))
+            {
                 ApplyTranslation(1, f - chr0Editor._transBoxes[7].Value);
             }
         }
@@ -541,7 +611,7 @@ namespace System.Windows.Forms
                 _lineDeselectedColor = (ARGBPixel)MDL0BoneNode.DefaultLineDeselectedColor,
                 _floorColor = (ARGBPixel)_floorHue,
 
-                _undoCount = (uint)_allowedUndos,
+                _undoCount = _allowedUndos,
                 _imageCapFmt = _imgType,
                 _rightPanelWidth = (uint)rightPanel.Width,
 
@@ -552,19 +622,26 @@ namespace System.Windows.Forms
             };
             return settings;
         }
-        public override void SetDefaultSettings() {
+        public override void SetDefaultSettings()
+        {
             bool isStage = false;
 
             if (MainForm.Instance.RootNode is ARCWrapper)
+            {
                 if (((ARCNode)((ARCWrapper)MainForm.Instance.RootNode).ResourceNode).IsStage)
+                {
                     isStage = true;
+                }
+            }
 
             DistributeSettings(ModelEditorSettings.Default(isStage));
         }
         public void DistributeSettings(ModelEditorSettings settings)
         {
             if (settings == null)
+            {
                 return;
+            }
 
             _updating = true;
             ModelPanel.BeginUpdate();
@@ -592,7 +669,9 @@ namespace System.Windows.Forms
 
             int w = (int)settings._rightPanelWidth;
             if (w >= 50)
+            {
                 rightPanel.Width = w;
+            }
 
             _allowedUndos = settings._undoCount;
             ScreenCaptureType = settings._imageCapFmt;
@@ -607,18 +686,20 @@ namespace System.Windows.Forms
             string applicationFolder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
 
             string t = settings._screenCapPath;
-            ScreenCapBgLocText.Text = !String.IsNullOrEmpty(t) ? t : applicationFolder + "\\ScreenCaptures";
+            ScreenCapBgLocText.Text = !string.IsNullOrEmpty(t) ? t : applicationFolder + "\\ScreenCaptures";
 
             t = settings._liveTexFolderPath;
-            LiveTextureFolderPath.Text = MDL0TextureNode.TextureOverrideDirectory = !String.IsNullOrEmpty(t) ? t : applicationFolder;
-           
+            LiveTextureFolderPath.Text = MDL0TextureNode.TextureOverrideDirectory = !string.IsNullOrEmpty(t) ? t : applicationFolder;
+
             EnableLiveTextureFolder.Checked = MDL0TextureNode._folderWatcher.EnableRaisingEvents;
 
-            ModelPanel b = this.ModelPanel;
+            ModelPanel b = ModelPanel;
             b.ClearViewports();
 
             foreach (ModelPanelViewportInfo s in settings._viewports)
+            {
                 b.AddViewport(s.AsViewport());
+            }
 
             ModelPanel.EndUpdate();
             _updating = false;
@@ -676,7 +757,9 @@ namespace System.Windows.Forms
         public void OnDragEnter(object sender, DragEventArgs e)
         {
             if (_openFileDelegate == null)
+            {
                 return;
+            }
 
             e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
         }
@@ -684,7 +767,9 @@ namespace System.Windows.Forms
         public void OnDragDrop(object sender, DragEventArgs e)
         {
             if (_openFileDelegate == null)
+            {
                 return;
+            }
 
             Array a = (Array)e.Data.GetData(DataFormats.FileDrop);
             if (a != null)
@@ -693,7 +778,7 @@ namespace System.Windows.Forms
                 for (int i = 0; i < a.Length; i++)
                 {
                     s = a.GetValue(i).ToString();
-                    this.BeginInvoke(_openFileDelegate, new Object[] { s });
+                    BeginInvoke(_openFileDelegate, new object[] { s });
                 }
             }
         }
@@ -785,7 +870,9 @@ namespace System.Windows.Forms
             //If this setting is enabled, we need to show the user what textures only this object uses.
             //If the polygon is set to null, all of the model's texture references will be shown.
             if (SyncTexturesToObjectList)
+            {
                 leftPanel.UpdateTextures();
+            }
 
             //Update the VIS editor to show the entries for the selected object
             if (TargetAnimType == NW4RAnimType.VIS &&
@@ -797,22 +884,28 @@ namespace System.Windows.Forms
 
                 int x = 0;
                 foreach (object i in vis0Editor.listBox1.Items)
+                {
                     if (o._drawCalls.Count > 0 && i.ToString() == o._drawCalls[0].VisibilityBone)
                     {
                         vis0Editor.listBox1.SelectedIndex = x;
                         break;
                     }
                     else
+                    {
                         x++;
+                    }
+                }
 
                 if (x == vis0Editor.listBox1.Items.Count)
+                {
                     vis0Editor.listBox1.SelectedIndex = -1;
+                }
             }
 
             ModelPanel.Invalidate();
         }
 
-        void ModelPanel_UseBindStateBoxesChanged(ModelPanel panel, bool value)
+        private void ModelPanel_UseBindStateBoxesChanged(ModelPanel panel, bool value)
         {
             if (ModelPanel == panel && !_updating)
             {
@@ -822,7 +915,7 @@ namespace System.Windows.Forms
             }
         }
 
-        void ModelPanel_ApplyBillboardBonesChanged(ModelPanel panel, bool value)
+        private void ModelPanel_ApplyBillboardBonesChanged(ModelPanel panel, bool value)
         {
             if (ModelPanel == panel && !_updating)
             {
@@ -832,7 +925,7 @@ namespace System.Windows.Forms
             }
         }
 
-        void ModelPanel_RenderShadersChanged(ModelPanel panel, bool value)
+        private void ModelPanel_RenderShadersChanged(ModelPanel panel, bool value)
         {
             //Only update if the focused panel triggered the event
             if (ModelPanel == panel && !_updating)
@@ -843,7 +936,7 @@ namespace System.Windows.Forms
             }
         }
 
-        void ModelPanel_RenderWireframeChanged(ModelPanel panel, bool value)
+        private void ModelPanel_RenderWireframeChanged(ModelPanel panel, bool value)
         {
             if (ModelPanel == panel && !_updating)
             {
@@ -853,7 +946,7 @@ namespace System.Windows.Forms
             }
         }
 
-        void ModelPanel_RenderVerticesChanged(ModelPanel panel, bool value)
+        private void ModelPanel_RenderVerticesChanged(ModelPanel panel, bool value)
         {
             if (ModelPanel == panel && !_updating)
             {
@@ -863,7 +956,7 @@ namespace System.Windows.Forms
             }
         }
 
-        void ModelPanel_RenderPolygonsChanged(ModelPanel panel, bool value)
+        private void ModelPanel_RenderPolygonsChanged(ModelPanel panel, bool value)
         {
             if (ModelPanel == panel && !_updating)
             {
@@ -873,7 +966,7 @@ namespace System.Windows.Forms
             }
         }
 
-        void modelPanel_RenderOffscreenChanged(ModelPanel panel, bool value)
+        private void modelPanel_RenderOffscreenChanged(ModelPanel panel, bool value)
         {
             if (ModelPanel == panel && !_updating)
             {
@@ -883,7 +976,7 @@ namespace System.Windows.Forms
             }
         }
 
-        void modelPanel_RenderNormalsChanged(ModelPanel panel, bool value)
+        private void modelPanel_RenderNormalsChanged(ModelPanel panel, bool value)
         {
             if (ModelPanel == panel && !_updating)
             {
@@ -893,7 +986,7 @@ namespace System.Windows.Forms
             }
         }
 
-        void modelPanel_FirstPersonCameraChanged(ModelPanel panel, bool value)
+        private void modelPanel_FirstPersonCameraChanged(ModelPanel panel, bool value)
         {
             if (ModelPanel == panel && !_updating)
             {
@@ -903,7 +996,7 @@ namespace System.Windows.Forms
             }
         }
 
-        void modelPanel_RenderFloorChanged(ModelPanel panel, bool value)
+        private void modelPanel_RenderFloorChanged(ModelPanel panel, bool value)
         {
             if (ModelPanel == panel && !_updating)
             {
@@ -913,7 +1006,7 @@ namespace System.Windows.Forms
             }
         }
 
-        void modelPanel_RenderModelBoxChanged(ModelPanel panel, bool value)
+        private void modelPanel_RenderModelBoxChanged(ModelPanel panel, bool value)
         {
             if (ModelPanel == panel && !_updating)
             {
@@ -922,7 +1015,8 @@ namespace System.Windows.Forms
                 _updating = false;
             }
         }
-        void modelPanel_RenderObjectBoxChanged(ModelPanel panel, bool value)
+
+        private void modelPanel_RenderObjectBoxChanged(ModelPanel panel, bool value)
         {
             if (ModelPanel == panel && !_updating)
             {
@@ -931,7 +1025,8 @@ namespace System.Windows.Forms
                 _updating = false;
             }
         }
-        void modelPanel_RenderVisBoneBoxChanged(ModelPanel panel, bool value)
+
+        private void modelPanel_RenderVisBoneBoxChanged(ModelPanel panel, bool value)
         {
             if (ModelPanel == panel && !_updating)
             {
@@ -941,7 +1036,7 @@ namespace System.Windows.Forms
             }
         }
 
-        void modelPanel_RenderBonesChanged(ModelPanel panel, bool value)
+        private void modelPanel_RenderBonesChanged(ModelPanel panel, bool value)
         {
             if (ModelPanel == panel && !_updating)
             {
@@ -950,7 +1045,8 @@ namespace System.Windows.Forms
                 _updating = false;
             }
         }
-        void modelPanel_RenderMetalsChanged(ModelPanel panel, bool value)
+
+        private void modelPanel_RenderMetalsChanged(ModelPanel panel, bool value)
         {
             if (ModelPanel == panel && !_updating)
             {
@@ -969,25 +1065,38 @@ namespace System.Windows.Forms
             }
         }
 
-        void OnRenderCollisionsChanged()
+        private void OnRenderCollisionsChanged()
         {
             if (_updating)
+            {
                 return;
+            }
 
             _updating = true;
             toggleCollisions.Checked = chkCollisions.Checked = _renderCollisions;
             if (EditingAll)
+            {
                 foreach (CollisionNode m in _collisions)
+                {
                     foreach (CollisionObject o in m._objects)
+                    {
                         o._render = RenderCollisions;
+                    }
+                }
+            }
             else
                 if (TargetCollision != null)
+            {
+                foreach (CollisionObject o in TargetCollision._objects)
                 {
-                    foreach (CollisionObject o in TargetCollision._objects)
-                        o._render = RenderCollisions;
-                    for (int i = 0; i < leftPanel.lstObjects.Items.Count; i++)
-                        leftPanel.lstObjects.SetItemChecked(i, RenderCollisions);
+                    o._render = RenderCollisions;
                 }
+
+                for (int i = 0; i < leftPanel.lstObjects.Items.Count; i++)
+                {
+                    leftPanel.lstObjects.SetItemChecked(i, RenderCollisions);
+                }
+            }
             modelPanel.Invalidate();
             _updating = false;
         }

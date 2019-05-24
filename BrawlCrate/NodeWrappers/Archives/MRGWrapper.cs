@@ -1,18 +1,18 @@
-﻿using System;
+﻿using BrawlLib;
 using BrawlLib.SSBB.ResourceNodes;
-using System.Windows.Forms;
-using System.ComponentModel;
 using BrawlLib.SSBBTypes;
-using BrawlLib;
+using System;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace BrawlCrate
 {
     [NodeWrapper(ResourceType.MRG)]
-    class MRGWrapper : GenericWrapper
+    internal class MRGWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static MRGWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -65,16 +65,10 @@ namespace BrawlCrate
         }
         #endregion
 
-        public override string ExportFilter
-        {
-            get
-            {
-                return "Multiple Resource Group (*.mrg)|*.mrg|" +
+        public override string ExportFilter => "Multiple Resource Group (*.mrg)|*.mrg|" +
                     "PAC Archive (*.pac)|*.pac|" +
                     "Compressed PAC Archive (*.pcs)|*.pcs|" +
                     "Archive Pair (*.pair)|*.pair";
-            }
-        }
 
         public MRGWrapper() { ContextMenuStrip = _menu; }
 
@@ -83,7 +77,7 @@ namespace BrawlCrate
             MRGNode node = new MRGNode() { Name = _resource.FindName("NewMRG") };
             _resource.AddChild(node);
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;
@@ -93,7 +87,7 @@ namespace BrawlCrate
             BRRESNode node = new BRRESNode() { FileType = ARCFileType.MiscData };
             _resource.AddChild(node);
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;
@@ -103,7 +97,7 @@ namespace BrawlCrate
             MSBinNode node = new MSBinNode() { FileType = ARCFileType.MiscData };
             _resource.AddChild(node);
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;
@@ -111,23 +105,26 @@ namespace BrawlCrate
 
         public void ImportARC()
         {
-            string path;
-            if (Program.OpenFile("ARChive (*.pac,*.pcs)|*.pac;*.pcs", out path) > 0)
+            if (Program.OpenFile("ARChive (*.pac,*.pcs)|*.pac;*.pcs", out string path) > 0)
+            {
                 NewMRG().Replace(path);
+            }
         }
         public void ImportBRES()
         {
-            string path;
-            if (Program.OpenFile(FileFilters.BRES, out path) > 0)
+            if (Program.OpenFile(FileFilters.BRES, out string path) > 0)
+            {
                 NewBRES().Replace(path);
+            }
         }
         public void ImportMSBin()
         {
-            string path;
-            if (Program.OpenFile(FileFilters.MSBin, out path) > 0)
+            if (Program.OpenFile(FileFilters.MSBin, out string path) > 0)
+            {
                 NewMSBin().Replace(path);
+            }
         }
-        
+
 
         public override void OnExport(string outPath, int filterIndex)
         {
@@ -138,18 +135,18 @@ namespace BrawlCrate
         {
             string path = Program.ChooseFolder();
             if (path == null)
+            {
                 return;
-
-            ((MRGNode)_resource).ExtractToFolder(path);
+            } ((MRGNode)_resource).ExtractToFolder(path);
         }
 
         public void ReplaceAll()
         {
             string path = Program.ChooseFolder();
             if (path == null)
+            {
                 return;
-
-            ((MRGNode)_resource).ReplaceFromFolder(path);
+            } ((MRGNode)_resource).ReplaceFromFolder(path);
         }
     }
 }

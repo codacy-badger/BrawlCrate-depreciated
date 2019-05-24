@@ -1,12 +1,6 @@
-﻿using System.Linq;
-using BrawlLib.SSBB.ResourceNodes;
-using System.ComponentModel;
+﻿using BrawlLib.SSBB.ResourceNodes;
 using BrawlLib.SSBBTypes;
-using BrawlLib.OpenGL;
-using System.Collections.Generic;
-using System.Drawing;
-using BrawlLib.Modeling;
-using OpenTK.Graphics.OpenGL;
+using System.Linq;
 
 namespace System.Windows.Forms
 {
@@ -44,149 +38,193 @@ namespace System.Windows.Forms
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
-        new private void InitializeComponent()
+        private new void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
 
             // Advanced floor editor
-            this.groupBoxType = new System.Windows.Forms.GroupBox();
-            this.chkTypeFloor = new System.Windows.Forms.CheckBox();
-            this.chkTypeCeiling = new System.Windows.Forms.CheckBox();
-            this.chkTypeLeftWall = new System.Windows.Forms.CheckBox();
-            this.chkTypeRightWall = new System.Windows.Forms.CheckBox();
-            
-            this.pnlPlaneProps.SuspendLayout();
-            this.groupBoxType.SuspendLayout();
+            groupBoxType = new System.Windows.Forms.GroupBox();
+            chkTypeFloor = new System.Windows.Forms.CheckBox();
+            chkTypeCeiling = new System.Windows.Forms.CheckBox();
+            chkTypeLeftWall = new System.Windows.Forms.CheckBox();
+            chkTypeRightWall = new System.Windows.Forms.CheckBox();
+
+            pnlPlaneProps.SuspendLayout();
+            groupBoxType.SuspendLayout();
 
             // 
             // panel3
             // 
-            this.panel3.Controls.Clear();
-            this.panel3.Controls.Add(this.pnlPlaneProps);
-            this.panel3.Controls.Add(this.pnlPointProps);
-            this.panel3.Controls.Add(this.pnlObjProps);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 82);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(209, 115);
-            this.panel3.TabIndex = 16;
+            panel3.Controls.Clear();
+            panel3.Controls.Add(pnlPlaneProps);
+            panel3.Controls.Add(pnlPointProps);
+            panel3.Controls.Add(pnlObjProps);
+            panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panel3.Location = new System.Drawing.Point(0, 82);
+            panel3.Name = "panel3";
+            panel3.Size = new System.Drawing.Size(209, 115);
+            panel3.TabIndex = 16;
             // 
             // pnlPlaneProps
             // 
-            this.pnlPlaneProps.Controls.Clear();
-            this.pnlPlaneProps.Controls.Add(this.groupBoxFlags2);
-            this.pnlPlaneProps.Controls.Add(this.groupBoxFlags1);
-            this.pnlPlaneProps.Controls.Add(this.groupBoxTargets);
-            this.pnlPlaneProps.Controls.Add(this.cboMaterial);
-            this.pnlPlaneProps.Controls.Add(this.label5);
-            this.pnlPlaneProps.Controls.Add(this.groupBoxType);
-            this.pnlPlaneProps.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlPlaneProps.Location = new System.Drawing.Point(0, -199);
-            this.pnlPlaneProps.Name = "pnlPlaneProps";
-            this.pnlPlaneProps.Size = new System.Drawing.Size(209, 514);
-            this.pnlPlaneProps.TabIndex = 0;
-            this.pnlPlaneProps.Visible = false;
+            pnlPlaneProps.Controls.Clear();
+            pnlPlaneProps.Controls.Add(groupBoxFlags2);
+            pnlPlaneProps.Controls.Add(groupBoxFlags1);
+            pnlPlaneProps.Controls.Add(groupBoxTargets);
+            pnlPlaneProps.Controls.Add(cboMaterial);
+            pnlPlaneProps.Controls.Add(label5);
+            pnlPlaneProps.Controls.Add(groupBoxType);
+            pnlPlaneProps.Dock = System.Windows.Forms.DockStyle.Top;
+            pnlPlaneProps.Location = new System.Drawing.Point(0, -199);
+            pnlPlaneProps.Name = "pnlPlaneProps";
+            pnlPlaneProps.Size = new System.Drawing.Size(209, 514);
+            pnlPlaneProps.TabIndex = 0;
+            pnlPlaneProps.Visible = false;
             // 
             // groupBoxType
             // 
-            this.groupBoxType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBoxType.Controls.Add(this.chkTypeFloor);
-            this.groupBoxType.Controls.Add(this.chkTypeCeiling);
-            this.groupBoxType.Controls.Add(this.chkTypeLeftWall);
-            this.groupBoxType.Controls.Add(this.chkTypeRightWall);
-            this.groupBoxType.Location = new System.Drawing.Point(0, 25);
-            this.groupBoxType.Margin = new System.Windows.Forms.Padding(0);
-            this.groupBoxType.Name = "groupBoxType";
-            this.groupBoxType.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBoxType.Size = new System.Drawing.Size(208, 59);
-            this.groupBoxType.TabIndex = 14;
-            this.groupBoxType.TabStop = false;
-            this.groupBoxType.Text = "Type";
+            groupBoxType.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left);
+            groupBoxType.Controls.Add(chkTypeFloor);
+            groupBoxType.Controls.Add(chkTypeCeiling);
+            groupBoxType.Controls.Add(chkTypeLeftWall);
+            groupBoxType.Controls.Add(chkTypeRightWall);
+            groupBoxType.Location = new System.Drawing.Point(0, 25);
+            groupBoxType.Margin = new System.Windows.Forms.Padding(0);
+            groupBoxType.Name = "groupBoxType";
+            groupBoxType.Padding = new System.Windows.Forms.Padding(0);
+            groupBoxType.Size = new System.Drawing.Size(208, 59);
+            groupBoxType.TabIndex = 14;
+            groupBoxType.TabStop = false;
+            groupBoxType.Text = "Type";
             // 
             // chkTypeFloor
             // 
-            this.chkTypeFloor.Location = new System.Drawing.Point(8, 17);
-            this.chkTypeFloor.Margin = new System.Windows.Forms.Padding(0);
-            this.chkTypeFloor.Name = "chkTypeFloor";
-            this.chkTypeFloor.Size = new System.Drawing.Size(86, 18);
-            this.chkTypeFloor.TabIndex = 3;
-            this.chkTypeFloor.Text = "Floor";
-            this.chkTypeFloor.UseVisualStyleBackColor = true;
-            this.chkTypeFloor.CheckedChanged += new System.EventHandler(this.chkTypeFloor_CheckedChanged);
+            chkTypeFloor.Location = new System.Drawing.Point(8, 17);
+            chkTypeFloor.Margin = new System.Windows.Forms.Padding(0);
+            chkTypeFloor.Name = "chkTypeFloor";
+            chkTypeFloor.Size = new System.Drawing.Size(86, 18);
+            chkTypeFloor.TabIndex = 3;
+            chkTypeFloor.Text = "Floor";
+            chkTypeFloor.UseVisualStyleBackColor = true;
+            chkTypeFloor.CheckedChanged += new System.EventHandler(chkTypeFloor_CheckedChanged);
             // 
             // chkTypeCeiling
             // 
-            this.chkTypeCeiling.Location = new System.Drawing.Point(112, 17);
-            this.chkTypeCeiling.Margin = new System.Windows.Forms.Padding(0);
-            this.chkTypeCeiling.Name = "chkTypeCeiling";
-            this.chkTypeCeiling.Size = new System.Drawing.Size(86, 18);
-            this.chkTypeCeiling.TabIndex = 3;
-            this.chkTypeCeiling.Text = "Ceiling";
-            this.chkTypeCeiling.UseVisualStyleBackColor = true;
-            this.chkTypeCeiling.CheckedChanged += new System.EventHandler(this.chkTypeCeiling_CheckedChanged);
+            chkTypeCeiling.Location = new System.Drawing.Point(112, 17);
+            chkTypeCeiling.Margin = new System.Windows.Forms.Padding(0);
+            chkTypeCeiling.Name = "chkTypeCeiling";
+            chkTypeCeiling.Size = new System.Drawing.Size(86, 18);
+            chkTypeCeiling.TabIndex = 3;
+            chkTypeCeiling.Text = "Ceiling";
+            chkTypeCeiling.UseVisualStyleBackColor = true;
+            chkTypeCeiling.CheckedChanged += new System.EventHandler(chkTypeCeiling_CheckedChanged);
             // 
             // chkTypeLeftWall
             // 
-            this.chkTypeLeftWall.Location = new System.Drawing.Point(8, 33);
-            this.chkTypeLeftWall.Margin = new System.Windows.Forms.Padding(0);
-            this.chkTypeLeftWall.Name = "chkTypeLeftWall";
-            this.chkTypeLeftWall.Size = new System.Drawing.Size(86, 18);
-            this.chkTypeLeftWall.TabIndex = 3;
-            this.chkTypeLeftWall.Text = "Left Wall";
-            this.chkTypeLeftWall.UseVisualStyleBackColor = true;
-            this.chkTypeLeftWall.CheckedChanged += new System.EventHandler(this.chkTypeLeftWall_CheckedChanged);
+            chkTypeLeftWall.Location = new System.Drawing.Point(8, 33);
+            chkTypeLeftWall.Margin = new System.Windows.Forms.Padding(0);
+            chkTypeLeftWall.Name = "chkTypeLeftWall";
+            chkTypeLeftWall.Size = new System.Drawing.Size(86, 18);
+            chkTypeLeftWall.TabIndex = 3;
+            chkTypeLeftWall.Text = "Left Wall";
+            chkTypeLeftWall.UseVisualStyleBackColor = true;
+            chkTypeLeftWall.CheckedChanged += new System.EventHandler(chkTypeLeftWall_CheckedChanged);
             // 
             // chkTypeRightWall
             // 
-            this.chkTypeRightWall.Location = new System.Drawing.Point(112, 33);
-            this.chkTypeRightWall.Margin = new System.Windows.Forms.Padding(0);
-            this.chkTypeRightWall.Name = "chkTypeRightWall";
-            this.chkTypeRightWall.Size = new System.Drawing.Size(86, 18);
-            this.chkTypeRightWall.TabIndex = 3;
-            this.chkTypeRightWall.Text = "Right Wall";
-            this.chkTypeRightWall.UseVisualStyleBackColor = true;
-            this.chkTypeRightWall.CheckedChanged += new System.EventHandler(this.chkTypeRightWall_CheckedChanged);
+            chkTypeRightWall.Location = new System.Drawing.Point(112, 33);
+            chkTypeRightWall.Margin = new System.Windows.Forms.Padding(0);
+            chkTypeRightWall.Name = "chkTypeRightWall";
+            chkTypeRightWall.Size = new System.Drawing.Size(86, 18);
+            chkTypeRightWall.TabIndex = 3;
+            chkTypeRightWall.Text = "Right Wall";
+            chkTypeRightWall.UseVisualStyleBackColor = true;
+            chkTypeRightWall.CheckedChanged += new System.EventHandler(chkTypeRightWall_CheckedChanged);
             // 
             // groupBoxFlags1
             // 
-            this.groupBoxFlags1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBoxFlags1.Location = new System.Drawing.Point(0, 128);
-            this.groupBoxFlags1.Name = "groupBoxFlags1";
+            groupBoxFlags1.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left);
+            groupBoxFlags1.Location = new System.Drawing.Point(0, 128);
+            groupBoxFlags1.Name = "groupBoxFlags1";
             // 
             // groupBoxFlags2
             // 
-            this.groupBoxFlags2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBoxFlags2.Location = new System.Drawing.Point(104, 128);
-            this.groupBoxFlags2.Name = "groupBoxFlags2";
+            groupBoxFlags2.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left);
+            groupBoxFlags2.Location = new System.Drawing.Point(104, 128);
+            groupBoxFlags2.Name = "groupBoxFlags2";
             // 
             // cboMaterial
             // 
-            this.cboMaterial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboMaterial.Location = new System.Drawing.Point(59, 4);
-            this.cboMaterial.Name = "cboMaterial";
-            this.cboMaterial.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)
-            | System.Windows.Forms.AnchorStyles.Left)));
+            cboMaterial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cboMaterial.Location = new System.Drawing.Point(59, 4);
+            cboMaterial.Name = "cboMaterial";
+            cboMaterial.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)
+            | System.Windows.Forms.AnchorStyles.Left);
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(0, 4);
-            this.label5.Name = "label5";
+            label5.Location = new System.Drawing.Point(0, 4);
+            label5.Name = "label5";
             //
             // groupBoxTargets
             // 
-            this.groupBoxTargets.Location = new System.Drawing.Point(0, 76);
-            this.groupBoxTargets.Name = "groupBoxTargets";
+            groupBoxTargets.Location = new System.Drawing.Point(0, 76);
+            groupBoxTargets.Name = "groupBoxTargets";
 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         }
 
-        private void chkTypeFloor_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsFloor = chkTypeFloor.Checked; }
-        private void chkTypeCeiling_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsCeiling = chkTypeCeiling.Checked; }
-        private void chkTypeLeftWall_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsLeftWall = chkTypeLeftWall.Checked; }
-        private void chkTypeRightWall_CheckedChanged(object sender, EventArgs e) { if (_updating) return; TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes) p.IsRightWall = chkTypeRightWall.Checked; }
+        private void chkTypeFloor_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_updating)
+            {
+                return;
+            }
+
+            TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes)
+            {
+                p.IsFloor = chkTypeFloor.Checked;
+            }
+        }
+        private void chkTypeCeiling_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_updating)
+            {
+                return;
+            }
+
+            TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes)
+            {
+                p.IsCeiling = chkTypeCeiling.Checked;
+            }
+        }
+        private void chkTypeLeftWall_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_updating)
+            {
+                return;
+            }
+
+            TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes)
+            {
+                p.IsLeftWall = chkTypeLeftWall.Checked;
+            }
+        }
+        private void chkTypeRightWall_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_updating)
+            {
+                return;
+            }
+
+            TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes)
+            {
+                p.IsRightWall = chkTypeRightWall.Checked;
+            }
+        }
 
         #endregion
         #endregion
@@ -202,11 +240,17 @@ namespace System.Windows.Forms
         {
             _selectedPlanes.Clear();
             foreach (CollisionLink l in _selectedLinks)
+            {
                 foreach (CollisionPlane p in l._members)
+                {
                     if (_selectedLinks.Contains(p._linkLeft) &&
                         _selectedLinks.Contains(p._linkRight) &&
                         !_selectedPlanes.Contains(p))
+                    {
                         _selectedPlanes.Add(p);
+                    }
+                }
+            }
 
             pnlPlaneProps.Visible = false;
             pnlObjProps.Visible = false;

@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using BrawlLib.SSBB.ResourceNodes;
-using System.Windows.Forms;
-using System.ComponentModel;
-using BrawlLib.SSBBTypes;
-using BrawlLib;
+﻿using BrawlLib;
 using BrawlLib.Modeling;
+using BrawlLib.SSBB.ResourceNodes;
+using BrawlLib.SSBBTypes;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace BrawlCrate
 {
     [NodeWrapper(ResourceType.ARC)]
-    class ARCWrapper : GenericWrapper
+    internal class ARCWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static ARCWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -94,50 +94,66 @@ namespace BrawlCrate
         {
             NumericEntryBox entryCount = new NumericEntryBox();
             if (entryCount.ShowDialog("STDT Generation", "Number of Entries:") == DialogResult.OK)
+            {
                 GetInstance<ARCWrapper>().NewSTDT(entryCount.NewValue);
+            }
         }
         protected static void NewSTPMAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewSTPM(); }
         protected static void NewTBCLAction(object sender, EventArgs e)
         {
             NumericEntryBox entryCount = new NumericEntryBox();
             if (entryCount.ShowDialog("TBCL Generation", "Number of Entries:") == DialogResult.OK)
+            {
                 GetInstance<ARCWrapper>().NewTBCL(entryCount.NewValue);
+            }
         }
         protected static void NewTBGCAction(object sender, EventArgs e)
         {
             NumericEntryBox entryCount = new NumericEntryBox();
             if (entryCount.ShowDialog("TBGC Generation", "Number of Entries:") == DialogResult.OK)
+            {
                 GetInstance<ARCWrapper>().NewTBGC(entryCount.NewValue);
+            }
         }
         protected static void NewTBGDAction(object sender, EventArgs e)
         {
             NumericEntryBox entryCount = new NumericEntryBox();
             if (entryCount.ShowDialog("TBGD Generation", "Number of Entries:") == DialogResult.OK)
+            {
                 GetInstance<ARCWrapper>().NewTBGD(entryCount.NewValue);
+            }
         }
         protected static void NewTBGMAction(object sender, EventArgs e)
         {
             NumericEntryBox entryCount = new NumericEntryBox();
             if (entryCount.ShowDialog("TBGM Generation", "Number of Entries:") == DialogResult.OK)
+            {
                 GetInstance<ARCWrapper>().NewTBGM(entryCount.NewValue);
+            }
         }
         protected static void NewTBLVAction(object sender, EventArgs e)
         {
             NumericEntryBox entryCount = new NumericEntryBox();
             if (entryCount.ShowDialog("TBLV Generation", "Number of Entries:") == DialogResult.OK)
+            {
                 GetInstance<ARCWrapper>().NewTBLV(entryCount.NewValue);
+            }
         }
         protected static void NewTBRMAction(object sender, EventArgs e)
         {
             NumericEntryBox entryCount = new NumericEntryBox();
             if (entryCount.ShowDialog("TBRM Generation", "Number of Entries:") == DialogResult.OK)
+            {
                 GetInstance<ARCWrapper>().NewTBRM(entryCount.NewValue);
+            }
         }
         protected static void NewTBSTAction(object sender, EventArgs e)
         {
             NumericEntryBox entryCount = new NumericEntryBox();
             if (entryCount.ShowDialog("TBST Generation", "Number of Entries:") == DialogResult.OK)
+            {
                 GetInstance<ARCWrapper>().NewTBST(entryCount.NewValue);
+            }
         }
         protected static void NewRedirectAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewRedirect(); }
         protected static void ImportBRESAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportBRES(); }
@@ -168,18 +184,14 @@ namespace BrawlCrate
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             ARCWrapper w = GetInstance<ARCWrapper>();
-                _menu.Items[8].Enabled = _menu.Items[10].Enabled = _menu.Items[16].Enabled = w.Parent != null;
-                _menu.Items[9].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
-                _menu.Items[12].Enabled = w.PrevNode != null;
-                _menu.Items[13].Enabled = w.NextNode != null;
+            _menu.Items[8].Enabled = _menu.Items[10].Enabled = _menu.Items[16].Enabled = w.Parent != null;
+            _menu.Items[9].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[12].Enabled = w.PrevNode != null;
+            _menu.Items[13].Enabled = w.NextNode != null;
         }
         #endregion
 
-        public override string ExportFilter
-        {
-            get
-            {
-                return "PAC Archive (*.pac)|*.pac|" +
+        public override string ExportFilter => "PAC Archive (*.pac)|*.pac|" +
                     "Compressed PAC Archive (*.pcs)|*.pcs|" +
                     "Archive Pair (*.pac & *.pcs)|*.pair|" +
                     "Mushroomy Kingdom (STGMARIOPAST_00.pac & STGMARIOPAST_01.pac)|*.mariopast|" +
@@ -187,8 +199,6 @@ namespace BrawlCrate
                     "Smashville (STGVILLAGE_00.pac, STGVILLAGE_01.pac, STGVILLAGE_02.pac, STGVILLAGE_03.pac, & STGVILLAGE_04.pac)|*.village|" +
                     "Spear Pillar (STGTENGAN_1.pac, STGTENGAN_2.pac, & STGTENGAN_3.pac)|*.tengan|" +
                     "Multiple Resource Group (*.mrg)|*.mrg";
-            }
-        }
 
         public ARCWrapper() { ContextMenuStrip = _menu; }
 
@@ -216,7 +226,7 @@ namespace BrawlCrate
             ARCNode node = new ARCNode() { Name = _resource.FindName("NewARChive"), FileType = ARCFileType.MiscData };
             _resource.AddChild(node);
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;
@@ -229,7 +239,7 @@ namespace BrawlCrate
             _resource.AddChild(node);
             node.RedirectIndex = 0;
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;
@@ -239,7 +249,7 @@ namespace BrawlCrate
             BRRESNode node = new BRRESNode() { FileType = ARCFileType.MiscData };
             _resource.AddChild(node);
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;
@@ -249,7 +259,7 @@ namespace BrawlCrate
             CollisionNode node = new CollisionNode() { FileType = ARCFileType.MiscData };
             _resource.AddChild(node);
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;
@@ -260,7 +270,7 @@ namespace BrawlCrate
             node.Name = "Item Generation";
             _resource.AddChild(node);
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;
@@ -270,7 +280,7 @@ namespace BrawlCrate
             BLOCNode node = new BLOCNode() { FileType = ARCFileType.MiscData };
             _resource.AddChild(node);
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;
@@ -280,127 +290,127 @@ namespace BrawlCrate
             MSBinNode node = new MSBinNode() { FileType = ARCFileType.MiscData };
             _resource.AddChild(node);
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;
         }
-        
+
         // StageBox create SCLA
         public SCLANode NewSCLA(uint index)
         {
             SCLANode node = new SCLANode(index) { FileType = ARCFileType.MiscData };
             _resource.AddChild(node);
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;
         }
-        
+
         // StageBox create STDT
         public STDTNode NewSTDT(int numEntries)
         {
             STDTNode node = new STDTNode(null, numEntries) { FileType = ARCFileType.MiscData };
             _resource.AddChild(node);
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;
         }
-        
+
         // StageBox create STPM
         public STPMNode NewSTPM()
         {
             STPMNode node = new STPMNode() { FileType = ARCFileType.MiscData };
             _resource.AddChild(node);
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;
         }
-        
+
         // StageBox create TBCL
         public TBCLNode NewTBCL(int numEntries)
         {
             TBCLNode node = new TBCLNode(null, numEntries) { FileType = ARCFileType.MiscData };
             _resource.AddChild(node);
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;
         }
-        
+
         // StageBox create TBGC
         public TBGCNode NewTBGC(int numEntries)
         {
             TBGCNode node = new TBGCNode(null, numEntries) { FileType = ARCFileType.MiscData };
             _resource.AddChild(node);
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;
         }
-        
+
         // StageBox create TBGD
         public TBGDNode NewTBGD(int numEntries)
         {
             TBGDNode node = new TBGDNode(null, numEntries) { FileType = ARCFileType.MiscData };
             _resource.AddChild(node);
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;
         }
-        
+
         // StageBox create TBGM
         public TBGMNode NewTBGM(int numEntries)
         {
             TBGMNode node = new TBGMNode(null, numEntries) { FileType = ARCFileType.MiscData };
             _resource.AddChild(node);
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;
         }
-        
+
         // StageBox create TBLV
         public TBLVNode NewTBLV(int numEntries)
         {
             TBLVNode node = new TBLVNode(null, numEntries) { FileType = ARCFileType.MiscData };
             _resource.AddChild(node);
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;
         }
-        
+
         // StageBox create TBRM
         public TBRMNode NewTBRM(int numEntries)
         {
             TBRMNode node = new TBRMNode(null, numEntries) { FileType = ARCFileType.MiscData };
             _resource.AddChild(node);
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;
         }
-        
+
         // StageBox create TBST
         public TBSTNode NewTBST(int numEntries)
         {
             TBSTNode node = new TBSTNode(null, numEntries) { FileType = ARCFileType.MiscData };
             _resource.AddChild(node);
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;
@@ -409,10 +419,10 @@ namespace BrawlCrate
         // StageBox create Havok
         public HavokNode NewHavok(int numEntries)
         {
-            HavokNode node = new HavokNode() {Name = _resource.FindName("NewHavokData"), FileType = ARCFileType.MiscData };
+            HavokNode node = new HavokNode() { Name = _resource.FindName("NewHavokData"), FileType = ARCFileType.MiscData };
             _resource.AddChild(node);
 
-            BaseWrapper w = this.FindResource(node, false);
+            BaseWrapper w = FindResource(node, false);
             w.EnsureVisible();
             w.TreeView.SelectedNode = w;
             return node;
@@ -420,123 +430,139 @@ namespace BrawlCrate
 
         public void ImportARC()
         {
-            string path;
-            if (Program.OpenFile("ARChive (*.pac,*.pcs)|*.pac;*.pcs", out path) > 0)
+            if (Program.OpenFile("ARChive (*.pac,*.pcs)|*.pac;*.pcs", out string path) > 0)
+            {
                 NewARC().Replace(path);
+            }
         }
         public void ImportBRES()
         {
-            string path;
-            if (Program.OpenFile(FileFilters.BRES, out path) > 0)
+            if (Program.OpenFile(FileFilters.BRES, out string path) > 0)
+            {
                 NewBRES().Replace(path);
+            }
         }
         public void ImportBLOC()
         {
-            string path;
-            if (Program.OpenFile(FileFilters.BLOC, out path) > 0)
+            if (Program.OpenFile(FileFilters.BLOC, out string path) > 0)
+            {
                 NewBLOC().Replace(path);
+            }
         }
         public void ImportCollision()
         {
-            string path;
-            if (Program.OpenFile(FileFilters.CollisionDef, out path) > 0)
+            if (Program.OpenFile(FileFilters.CollisionDef, out string path) > 0)
+            {
                 NewCollision().Replace(path);
+            }
         }
         public void ImportMSBin()
         {
-            string path;
-            if (Program.OpenFile(FileFilters.MSBin, out path) > 0)
+            if (Program.OpenFile(FileFilters.MSBin, out string path) > 0)
+            {
                 NewMSBin().Replace(path);
+            }
         }
-        
+
         // StageBox import SCLA
         public void ImportSCLA()
         {
-            string path;
-            if (Program.OpenFile(FileFilters.SCLA, out path) > 0)
+            if (Program.OpenFile(FileFilters.SCLA, out string path) > 0)
+            {
                 NewSCLA(0).Replace(path);
+            }
         }
-        
+
         // StageBox import STDT
         public void ImportSTDT()
         {
-            string path;
-            if (Program.OpenFile(FileFilters.STDT, out path) > 0)
+            if (Program.OpenFile(FileFilters.STDT, out string path) > 0)
+            {
                 NewSTDT(1).Replace(path);
+            }
         }
-        
+
         // StageBox import STPM
         public void ImportSTPM()
         {
-            string path;
-            if (Program.OpenFile(FileFilters.STPM, out path) > 0)
+            if (Program.OpenFile(FileFilters.STPM, out string path) > 0)
+            {
                 NewSTPM().Replace(path);
+            }
         }
-        
+
         // StageBox import TBCL
         public void ImportTBCL()
         {
-            string path;
-            if (Program.OpenFile(FileFilters.TBCL, out path) > 0)
+            if (Program.OpenFile(FileFilters.TBCL, out string path) > 0)
+            {
                 NewTBCL(1).Replace(path);
+            }
         }
-        
+
         // StageBox import TBGC
         public void ImportTBGC()
         {
-            string path;
-            if (Program.OpenFile(FileFilters.TBGC, out path) > 0)
+            if (Program.OpenFile(FileFilters.TBGC, out string path) > 0)
+            {
                 NewTBGC(1).Replace(path);
+            }
         }
-        
+
         // StageBox import TBGD
         public void ImportTBGD()
         {
-            string path;
-            if (Program.OpenFile(FileFilters.TBGD, out path) > 0)
+            if (Program.OpenFile(FileFilters.TBGD, out string path) > 0)
+            {
                 NewTBGD(1).Replace(path);
+            }
         }
-        
+
         // StageBox import TBGM
         public void ImportTBGM()
         {
-            string path;
-            if (Program.OpenFile(FileFilters.TBGM, out path) > 0)
+            if (Program.OpenFile(FileFilters.TBGM, out string path) > 0)
+            {
                 NewTBGM(1).Replace(path);
+            }
         }
-        
+
         // StageBox import TBLV
         public void ImportTBLV()
         {
-            string path;
-            if (Program.OpenFile(FileFilters.TBLV, out path) > 0)
+            if (Program.OpenFile(FileFilters.TBLV, out string path) > 0)
+            {
                 NewTBLV(1).Replace(path);
+            }
         }
-        
+
         // StageBox import TBRM
         public void ImportTBRM()
         {
-            string path;
-            if (Program.OpenFile(FileFilters.TBRM, out path) > 0)
+            if (Program.OpenFile(FileFilters.TBRM, out string path) > 0)
+            {
                 NewTBRM(1).Replace(path);
+            }
         }
-        
+
         // StageBox import TBST
         public void ImportTBST()
         {
-            string path;
-            if (Program.OpenFile(FileFilters.TBST, out path) > 0)
+            if (Program.OpenFile(FileFilters.TBST, out string path) > 0)
+            {
                 NewTBST(1).Replace(path);
+            }
         }
 
         // StageBox import HavokData
         public void ImportHavok()
         {
-            string path;
-            if (Program.OpenFile(FileFilters.Havok, out path) > 0)
+            if (Program.OpenFile(FileFilters.Havok, out string path) > 0)
+            {
                 NewHavok(1).Replace(path);
+            }
         }
-        
+
         public override void OnExport(string outPath, int filterIndex)
         {
             switch (filterIndex)
@@ -563,7 +589,10 @@ namespace BrawlCrate
                 case ResourceType.BRES:
                 case ResourceType.BRESGroup:
                     foreach (ResourceNode n in node.Children)
+                    {
                         LoadModels(n, models, collisions);
+                    }
+
                     break;
                 case ResourceType.MDL0:
                     models.Add((IModel)node);
@@ -586,7 +615,9 @@ namespace BrawlCrate
         {
             string path = Program.ChooseFolder();
             if (path == null)
+            {
                 return;
+            }
 
             bool hasModels = false;
             bool hasTextures = false;
@@ -597,11 +628,18 @@ namespace BrawlCrate
                     foreach (BRESGroupNode e in b.Children)
                     {
                         if (e.Type == BRESGroupNode.BRESGroupType.Textures)
+                        {
                             hasTextures = true;
+                        }
                         else if (e.Type == BRESGroupNode.BRESGroupType.Models)
+                        {
                             hasModels = true;
+                        }
+
                         if (hasModels && hasTextures)
+                        {
                             break;
+                        }
                     }
                 }
             }
@@ -614,18 +652,26 @@ namespace BrawlCrate
                 ExportAllFormatDialog dialog = new ExportAllFormatDialog();
 
                 if (dialog.ShowDialog() == DialogResult.OK)
+                {
                     extensionTEX0 = dialog.SelectedExtension;
+                }
                 else
+                {
                     return;
+                }
             }
             if (hasModels)
             {
                 ExportAllFormatDialog dialog = new ExportAllFormatDialog(true);
 
                 if (dialog.ShowDialog() == DialogResult.OK)
+                {
                     extensionMDL0 = dialog.SelectedExtension;
+                }
                 else
+                {
                     return;
+                }
             }
             ((ARCNode)_resource).ExtractToFolder(path, extensionTEX0, extensionMDL0);
         }
@@ -634,13 +680,20 @@ namespace BrawlCrate
         {
             string path = Program.ChooseFolder();
             if (path == null)
+            {
                 return;
-            ExportAllFormatDialog dialog = new ExportAllFormatDialog();
-            dialog.Text = "Replace All";
+            }
+
+            ExportAllFormatDialog dialog = new ExportAllFormatDialog
+            {
+                Text = "Replace All"
+            };
             dialog.label1.Text = "Input format for textures:";
 
             if (dialog.ShowDialog() == DialogResult.OK)
+            {
                 ((ARCNode)_resource).ReplaceFromFolder(path, dialog.SelectedExtension);
+            }
         }
     }
 }

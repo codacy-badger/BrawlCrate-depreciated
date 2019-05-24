@@ -1,11 +1,11 @@
-﻿using System;
-using System.ComponentModel;
+﻿using BrawlLib.Imaging;
 using BrawlLib.OpenGL;
-using BrawlLib.Imaging;
+using OpenTK.Graphics.OpenGL;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
-using System.Collections.Generic;
-using OpenTK.Graphics.OpenGL;
 using System.Linq;
 using System.Reflection;
 
@@ -30,9 +30,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         //            return 0;
         //    }
         //}
-        
+
         [Category("Texture Data")]
-        public string[] References { get { return _references.Select(n => n.Parent.ToString()).ToArray(); } }
+        public string[] References => _references.Select(n => n.Parent.ToString()).ToArray();
 
         //[Category("Texture Data")]
         //public int NumEntries
@@ -61,13 +61,17 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public static string TextureOverrideDirectory
         {
-            get { return _folderWatcher.Path; }
+            get => _folderWatcher.Path;
             set
             {
-                if (!String.IsNullOrEmpty(value) && Directory.Exists(value))
+                if (!string.IsNullOrEmpty(value) && Directory.Exists(value))
+                {
                     _folderWatcher.Path = value + "\\";
+                }
                 else
+                {
                     _folderWatcher.Path = "";
+                }
             }
         }
         public static FileSystemWatcher _folderWatcher;
@@ -110,7 +114,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public List<MDL0MaterialRefNode> _references = new List<MDL0MaterialRefNode>();
 
         public MDL0TextureNode() { }
-        public MDL0TextureNode(string name) 
+        public MDL0TextureNode(string name)
         {
             _name = name;
         }
@@ -119,25 +123,35 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             _palette = plt;
             if (Texture != null)
+            {
                 Texture.SetPalette(_palette);
+            }
         }
 
         public PLT0Node _palette = null;
         internal unsafe void Prepare(MDL0MaterialRefNode mRef, int shaderProgramHandle, string palette = null)
         {
-            string plt = !String.IsNullOrEmpty(palette) ? palette : mRef.Palette;
-            if (!String.IsNullOrEmpty(plt))
+            string plt = !string.IsNullOrEmpty(palette) ? palette : mRef.Palette;
+            if (!string.IsNullOrEmpty(plt))
             {
                 if (_palette == null || _palette.Name != plt)
+                {
                     SetPalette(mRef.RootNode.FindChild("Palettes(NW4R)/" + plt, true) as PLT0Node);
+                }
             }
             else if (_palette != null)
+            {
                 SetPalette(null);
+            }
 
             if (Texture != null)
+            {
                 Texture.Bind(mRef.Index, shaderProgramHandle);
+            }
             else
+            {
                 Load(mRef.Index, shaderProgramHandle, mRef.Model, ((MDL0MaterialNode)mRef.Parent).IsMetal);
+            }
 
             ApplyGLTextureParameters(mRef);
 
@@ -146,7 +160,9 @@ namespace BrawlLib.SSBB.ResourceNodes
                 float* p = stackalloc float[4];
                 p[0] = p[1] = p[2] = p[3] = 1.0f;
                 if (Selected && !ObjOnly)
+                {
                     p[0] = -1.0f;
+                }
 
                 GL.Light(LightName.Light0, LightParameter.Specular, p);
                 GL.Light(LightName.Light0, LightParameter.Diffuse, p);
@@ -175,7 +191,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         public void Reload(MDL0Node model, bool isMetal = false)
         {
             if (TKContext.CurrentContext == null)
+            {
                 return;
+            }
 
             TKContext.CurrentContext.Capture();
             Load(-1, -1, model, isMetal);
@@ -185,30 +203,39 @@ namespace BrawlLib.SSBB.ResourceNodes
         private unsafe void Load(int index, int program, MDL0Node model, bool isMetal = false)
         {
             if (TKContext.CurrentContext == null)
+            {
                 return;
+            }
 
             bool isStage = false;
             bool isFighter = false;
             Source = null;
 
             if (Texture != null)
+            {
                 Texture.Delete();
+            }
+
             Texture = new GLTexture();
             Texture.Bind(index, program);
 
             Bitmap bmp = null;
 
-            if(RootNode is ARCNode)
+            if (RootNode is ARCNode)
             {
                 isStage = ((ARCNode)RootNode).IsStage;
                 isFighter = ((ARCNode)RootNode).IsCharacter;
-            } else if (RootNode is MDL0Node)
+            }
+            else if (RootNode is MDL0Node)
             {
                 isFighter = RootNode.Name.StartsWith("Fit", StringComparison.OrdinalIgnoreCase);
             }
 
-            if (_folderWatcher.EnableRaisingEvents && !String.IsNullOrEmpty(_folderWatcher.Path))
+            if (_folderWatcher.EnableRaisingEvents && !string.IsNullOrEmpty(_folderWatcher.Path))
+            {
                 bmp = SearchDirectory(_folderWatcher.Path + Name);
+            }
+
             BRRESNode parentBRRES = null;
             try
             {
@@ -223,7 +250,8 @@ namespace BrawlLib.SSBB.ResourceNodes
             try
             {
                 nodes = parentBRRES.Parent.Children;
-                if(!(parentBRRES.Parent is ARCNode)) {
+                if (!(parentBRRES.Parent is ARCNode))
+                {
                     throw (new ArgumentException());
                 }
             }
@@ -247,23 +275,25 @@ namespace BrawlLib.SSBB.ResourceNodes
                     return;
                 }
                 else //Then search the directory
+                {
                     bmp = SearchDirectory(node._origPath);
+                }
             }
 
             if (bmp == null && TKContext.CurrentContext._states.ContainsKey("_Node_Refs") && nodes.Count > 0)
             {
-                if(usingARC)
+                if (usingARC)
                 {
                     int groupID = parentBRRES.GroupID;
-                    TryGroup0:
+                TryGroup0:
                     foreach (ARCEntryNode n in nodes)
                     {
-                        if(n.GroupID == groupID && n.isTextureData())
+                        if (n.GroupID == groupID && n.isTextureData())
                         {
                             if (n.RedirectTargetNode != null)
                             {
                                 ARCEntryNode target = n.RedirectTargetNode;
-                                RedirectStart:
+                            RedirectStart:
                                 try
                                 {
                                     if (target is BRRESNode)
@@ -277,7 +307,9 @@ namespace BrawlLib.SSBB.ResourceNodes
                                                 return;
                                             }
                                             else //Then search the directory
+                                            {
                                                 bmp = SearchDirectory(n.Parent.Children[n.RedirectIndex]._origPath);
+                                            }
                                         }
                                         catch { }
                                     }
@@ -301,13 +333,15 @@ namespace BrawlLib.SSBB.ResourceNodes
                                         return;
                                     }
                                     else //Then search the directory
+                                    {
                                         bmp = SearchDirectory(n._origPath);
+                                    }
                                 }
                                 catch { }
                             }
                         }
                     }
-                    if(groupID != 0)
+                    if (groupID != 0)
                     {
                         groupID = 0;
                         goto TryGroup0;
@@ -336,10 +370,14 @@ namespace BrawlLib.SSBB.ResourceNodes
                             return;
                         }
                         else //Then search the directory
+                        {
                             bmp = SearchDirectory(node._origPath);
+                        }
 
                         if (bmp != null)
+                        {
                             break;
+                        }
                     }
                     searched.Clear();
                 }
@@ -352,8 +390,8 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
             else if (isFighter && Name.Equals("metal00") && isMetal)
             {
-                var assembly = Assembly.GetExecutingAssembly();
-                var resourceName = ("BrawlLib.HardcodedFiles.Textures.metal00.tex0");
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                string resourceName = ("BrawlLib.HardcodedFiles.Textures.metal00.tex0");
                 using (Stream stream = assembly.GetManifestResourceStream(resourceName))
                 {
                     using (MemoryStream ms = new MemoryStream())
@@ -366,18 +404,23 @@ namespace BrawlLib.SSBB.ResourceNodes
                 return;
             }
             else
+            {
                 Texture.Default();
+            }
         }
 
         private Bitmap SearchDirectory(string path)
         {
             Bitmap bmp = null;
-            if (!String.IsNullOrEmpty(path))
+            if (!string.IsNullOrEmpty(path))
             {
                 DirectoryInfo dir = new DirectoryInfo(Path.GetDirectoryName(path));
                 if (dir.Exists && Name != "<null>")
+                {
                     foreach (FileInfo file in dir.GetFiles(Name + ".*"))
+                    {
                         if (File.Exists(file.FullName))
+                        {
                             if (file.Name.EndsWith(".tga"))
                             {
                                 Source = file.FullName;
@@ -385,7 +428,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                                 break;
                             }
                             else if (
-                                file.Name.EndsWith(".png") || 
+                                file.Name.EndsWith(".png") ||
                                 file.Name.EndsWith(".tiff") ||
                                 file.Name.EndsWith(".tif") ||
                                 file.Name.EndsWith(".jpg") ||
@@ -397,6 +440,9 @@ namespace BrawlLib.SSBB.ResourceNodes
                                 bmp = CopyImage(file.FullName);
                                 break;
                             }
+                        }
+                    }
+                }
             }
             return bmp;
         }
@@ -404,29 +450,38 @@ namespace BrawlLib.SSBB.ResourceNodes
         public static Bitmap CopyImage(string path)
         {
             if (!File.Exists(path))
+            {
                 return null;
+            }
 
             try
             {
-                using (var sourceImage = (Bitmap)Image.FromFile(path))
+                using (Bitmap sourceImage = (Bitmap)Image.FromFile(path))
+                {
                     return sourceImage.Copy();
+                }
             }
             catch
             {
                 return null;
             }
-        }  
+        }
 
         public static int Compare(MDL0TextureNode t1, MDL0TextureNode t2)
         {
-            return String.Compare(t1.Name, t2.Name, false);
+            return string.Compare(t1.Name, t2.Name, false);
         }
 
         public int CompareTo(object obj)
         {
             if (obj is MDL0TextureNode)
-                return this.Name.CompareTo(((MDL0TextureNode)obj).Name);
-            else return 1;
+            {
+                return Name.CompareTo(((MDL0TextureNode)obj).Name);
+            }
+            else
+            {
+                return 1;
+            }
         }
 
         internal override void Bind()
@@ -435,7 +490,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
         internal override void Unbind()
         {
-            if (Texture != null) 
+            if (Texture != null)
             {
                 Texture.Delete();
                 Texture = null;

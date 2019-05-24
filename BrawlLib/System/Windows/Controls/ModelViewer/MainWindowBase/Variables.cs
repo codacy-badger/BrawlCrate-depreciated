@@ -50,8 +50,11 @@ namespace System.Windows.Forms
         {
             get
             {
-                if (_targetModel is MDL0Node) 
+                if (_targetModel is MDL0Node)
+                {
                     return ((MDL0Node)_targetModel).VIS0Indices;
+                }
+
                 return null;
             }
         }
@@ -101,7 +104,7 @@ namespace System.Windows.Forms
 
         #region Delegates
 
-        protected delegate void DelegateOpenFile(String s);
+        protected delegate void DelegateOpenFile(string s);
         protected DelegateOpenFile _openFileDelegate;
 
         #endregion

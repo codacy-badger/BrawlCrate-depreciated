@@ -10,11 +10,10 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Forms;
-using System.Configuration;
 using System.Net;
-using System.Text.RegularExpressions;
 using System.Reflection;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace BrawlCrate
 {
@@ -23,13 +22,13 @@ namespace BrawlCrate
         public bool renderPreviews = true;
 
         private static MainForm _instance;
-        public static MainForm Instance { get { return _instance == null ? _instance = new MainForm() : _instance; } }
+        public static MainForm Instance => _instance == null ? _instance = new MainForm() : _instance;
 
         private BaseWrapper _root;
-        public BaseWrapper RootNode { get { return _root; } }
+        public BaseWrapper RootNode => _root;
 
         private SettingsDialog _settings;
-        private SettingsDialog Settings { get { return _settings == null ? _settings = new SettingsDialog() : _settings; } }
+        private SettingsDialog Settings => _settings == null ? _settings = new SettingsDialog() : _settings;
 
         public RecentFileHandler recentFileHandler;
 
@@ -48,7 +47,7 @@ namespace BrawlCrate
             }
         }
 
-        void _interpolationForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void _interpolationForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             _interpolationForm = null;
         }
@@ -62,17 +61,23 @@ namespace BrawlCrate
         }
         public static readonly string mainRepo = "soopercool101/BrawlCrate";
         public static readonly string mainBranch = "brawlcrate-master";
-        public static string currentBranch { get { return GetCurrentBranch(); } set { SetCurrentBranch(value); } }
+        public static string currentBranch { get => GetCurrentBranch(); set => SetCurrentBranch(value); }
         private static string GetCurrentBranch()
         {
             try
             {
-                if(File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+                {
                     File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
+                }
+
                 return mainBranch;
                 string temp = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch")[0];
                 if (temp == null || temp == "")
+                {
                     throw (new ArgumentNullException());
+                }
+
                 return temp;
             }
             catch
@@ -83,9 +88,15 @@ namespace BrawlCrate
         private static void SetCurrentBranch(string newBranch)
         {
             if (newBranch == null || newBranch == "")
+            {
                 newBranch = mainBranch;
+            }
+
             if (currentBranch.Equals(mainBranch, StringComparison.OrdinalIgnoreCase))
+            {
                 return;
+            }
+
             string cRepo = currentRepo;
             // Check if Branch is valid
             ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
@@ -111,8 +122,11 @@ namespace BrawlCrate
             DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
             CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+            {
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
-            using (var sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+            }
+
+            using (StreamWriter sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
             {
                 sw.WriteLine(newBranch);
                 sw.Write(cRepo);
@@ -120,17 +134,23 @@ namespace BrawlCrate
             }
             MessageBox.Show("The canary updater will now track the " + newBranch + " branch, starting with the next canary update.", "Branch Changed");
         }
-        public static string currentRepo { get { return GetCurrentRepo(); } set { SetCurrentRepo(value); } }
+        public static string currentRepo { get => GetCurrentRepo(); set => SetCurrentRepo(value); }
         private static string GetCurrentRepo()
         {
             try
             {
                 if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+                {
                     File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
+                }
+
                 return mainRepo;
                 string temp = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch")[1];
                 if (temp == null || temp == "")
+                {
                     throw (new ArgumentNullException());
+                }
+
                 return temp;
             }
             catch
@@ -141,9 +161,15 @@ namespace BrawlCrate
         private static void SetCurrentRepo(string newRepo)
         {
             if (newRepo == null || newRepo == "")
+            {
                 newRepo = mainRepo;
+            }
+
             if (currentRepo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase))
+            {
                 return;
+            }
+
             string cBranch = currentBranch;
             // Check if Repo is valid
             ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
@@ -169,8 +195,11 @@ namespace BrawlCrate
             DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
             CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+            {
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
-            using (var sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+            }
+
+            using (StreamWriter sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
             {
                 sw.WriteLine(cBranch);
                 sw.Write(newRepo);
@@ -183,11 +212,19 @@ namespace BrawlCrate
         public static bool SetCanaryTracking(string newRepo, string newBranch)
         {
             if (newRepo == null || newRepo == "")
+            {
                 newRepo = mainRepo;
+            }
+
             if (newBranch == null || newBranch == "")
+            {
                 newBranch = mainBranch;
+            }
+
             if (currentRepo.Equals(newRepo, StringComparison.OrdinalIgnoreCase) && currentBranch.Equals(newBranch, StringComparison.OrdinalIgnoreCase))
+            {
                 return false;
+            }
             // Check if Repo/Branch combo is valid
             ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
             try
@@ -210,19 +247,27 @@ namespace BrawlCrate
                 return false;
             }
             if (!newRepo.StartsWith("soopercool101/", StringComparison.OrdinalIgnoreCase) && !newRepo.StartsWith("libertyernie/", StringComparison.OrdinalIgnoreCase))
+            {
                 if (MessageBox.Show("In future Canary updates you will track the " + newRepo + " repository. Please note that this repository is not affiliated with the BrawlBox or BrawlCrate teams. Neither team holds responsibility for malicious, illegal, or otherwise problematic code or content of this repository. Would you like to continue?", "Switching Repositories", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                {
                     return false;
+                }
+            }
+
             DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
             CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+            {
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
-            using (var sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+            }
+
+            using (StreamWriter sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
             {
                 sw.WriteLine(newBranch);
                 sw.Write(newRepo);
                 sw.Close();
             }
-            if(MessageBox.Show("The canary updater will now track the " + newBranch + " branch of the " + newRepo + " repository, starting with the next canary update. Would you like to " + (BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds ? "" : "enable Canary and ") + "begin the update now?", "Canary Target Changed", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("The canary updater will now track the " + newBranch + " branch of the " + newRepo + " repository, starting with the next canary update. Would you like to " + (BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds ? "" : "enable Canary and ") + "begin the update now?", "Canary Target Changed", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Instance.Canary = true;
                 Program.ForceDownloadCanary(true);
@@ -257,15 +302,19 @@ namespace BrawlCrate
                 }
             }
             _showFullPath = BrawlCrate.Properties.Settings.Default.ShowFullPath;
-            UpdateName();            
+            UpdateName();
             // Slight space saving by deleting unused/unnecessary branch identifier
             if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary"))
             {
                 if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+                {
                     if (currentRepo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase) && currentBranch.Equals(mainBranch, StringComparison.OrdinalIgnoreCase))
+                    {
                         File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
+                    }
+                }
                 /*if(Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary").GetFiles().Length == 0)
-                    Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");*/
+   Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");*/
             }
             _compatibilityMode = BrawlLib.Properties.Settings.Default.CompatibilityMode;
 
@@ -286,31 +335,38 @@ namespace BrawlCrate
 
             modelPanel1.CurrentViewport._allowSelection = false;
 
-            recentFileHandler = new RecentFileHandler(this.components);
-            recentFileHandler.RecentFileToolStripItem = this.recentFilesToolStripMenuItem;
+            recentFileHandler = new RecentFileHandler(components)
+            {
+                RecentFileToolStripItem = recentFilesToolStripMenuItem
+            };
 
             if (Program.CanRunDiscordRPC() && !_updatesOnStartup)
             {
                 Process[] px = Process.GetProcessesByName("BrawlCrate");
-                if(px.Length == 1)
+                if (px.Length == 1)
+                {
                     BrawlCrate.Discord.DiscordRpc.ClearPresence();
-                BrawlCrate.Discord.DiscordSettings.startTime = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+                }
+
+                BrawlCrate.Discord.DiscordSettings.startTime = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
                 BrawlCrate.Discord.DiscordSettings.DiscordController = new BrawlCrate.Discord.DiscordController();
                 BrawlCrate.Discord.DiscordSettings.DiscordController.Initialize();
                 BrawlCrate.Discord.DiscordSettings.LoadSettings(true);
             }
         }
 
-        private delegate bool DelegateOpenFile(String s);
-        private DelegateOpenFile m_DelegateOpenFile;
-        
+        private delegate bool DelegateOpenFile(string s);
+        private readonly DelegateOpenFile m_DelegateOpenFile;
+
         protected override void OnShown(EventArgs e)
         {
             Focus();
             base.OnShown(e);
 #if !DEBUG
             if (!Canary && BrawlCrate.Properties.Settings.Default.UpdateAutomatically && Program.firstBoot)
+            {
                 MessageBox.Show(Program.UpdateMessage);
+            }
 #endif
             resourceTree_SelectionChanged(null, null);
         }
@@ -321,11 +377,13 @@ namespace BrawlCrate
             {
                 try
                 {
-                    using (var client = new System.Net.WebClient())
+                    using (WebClient client = new System.Net.WebClient())
                     using (client.OpenRead("http://clients3.google.com/generate_204"))
                     {
                         using (System.Net.NetworkInformation.Ping s = new System.Net.NetworkInformation.Ping())
+                        {
                             return s.Send("www.github.com").Status == System.Net.NetworkInformation.IPStatus.Success;
+                        }
                     }
                 }
                 catch
@@ -333,7 +391,7 @@ namespace BrawlCrate
                     return false;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message);
                 return false;
@@ -344,15 +402,17 @@ namespace BrawlCrate
         {
             try
             {
-                string path;
-                if(!CheckForInternetConnection())
+                if (!CheckForInternetConnection())
                 {
                     if (manual)
+                    {
                         MessageBox.Show("Could not connect to internet");
+                    }
+
                     return;
                 }
                 bool automatic = (!manual && _autoUpdate) || (!manual && _canary);
-                if (Program.CanRunGithubApp(manual, out path))
+                if (Program.CanRunGithubApp(manual, out string path))
                 {
                     if (!_canary)
                     {
@@ -360,11 +420,13 @@ namespace BrawlCrate
                         {
                             FileName = path,
                             WindowStyle = ProcessWindowStyle.Hidden,
-                            Arguments = String.Format("-bu {0} {1} {2} {3} \"{4}\"",
+                            Arguments = string.Format("-bu {0} {1} {2} {3} \"{4}\"",
                             Program.TagName, manual ? "1" : "0", _docUpdates ? "1" : "0", automatic ? "1" : "0", Program.RootPath == null ? "<null>" : Program.RootPath),
                         });
                         if (automatic)
+                        {
                             git.WaitForExit();
+                        }
                     }
                     else
                     {
@@ -372,16 +434,21 @@ namespace BrawlCrate
                         {
                             FileName = path,
                             WindowStyle = ProcessWindowStyle.Hidden,
-                            Arguments = String.Format("-buc {0} \"{1}\"", manual ? "1" : "0", (Program.RootPath == null ? "<null>" : Program.RootPath)),
+                            Arguments = string.Format("-buc {0} \"{1}\"", manual ? "1" : "0", (Program.RootPath == null ? "<null>" : Program.RootPath)),
                         });
                         if (automatic)
+                        {
                             git.WaitForExit();
+                        }
                     }
                 }
                 else
                 {
                     if (manual)
+                    {
                         MessageBox.Show(".NET version 4.5 is required to run the updater.");
+                    }
+
                     checkForUpdatesToolStripMenuItem.Enabled =
                     checkForUpdatesToolStripMenuItem.Visible = false;
                 }
@@ -389,14 +456,19 @@ namespace BrawlCrate
             catch (Exception e)
             {
                 if (manual)
+                {
                     MessageBox.Show(e.Message);
+                }
             }
             if (!manual && Program.CanRunDiscordRPC())
             {
                 Process[] px = Process.GetProcessesByName("BrawlCrate");
                 if (px.Length == 1)
+                {
                     BrawlCrate.Discord.DiscordRpc.ClearPresence();
-                BrawlCrate.Discord.DiscordSettings.startTime = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+                }
+
+                BrawlCrate.Discord.DiscordSettings.startTime = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
                 BrawlCrate.Discord.DiscordSettings.DiscordController = new BrawlCrate.Discord.DiscordController();
                 BrawlCrate.Discord.DiscordSettings.DiscordController.Initialize();
                 BrawlCrate.Discord.DiscordSettings.LoadSettings(true);
@@ -408,19 +480,18 @@ namespace BrawlCrate
             // Call canary changelog generation functionality
             try
             {
-                string path;
                 if (!CheckForInternetConnection())
                 {
                     MessageBox.Show("Could not connect to internet");
                     return;
                 }
-                if (Program.CanRunGithubApp(true, out path))
+                if (Program.CanRunGithubApp(true, out string path))
                 {
                     Process git = Process.Start(new ProcessStartInfo()
                     {
                         FileName = path,
                         WindowStyle = ProcessWindowStyle.Hidden,
-                        Arguments = String.Format("-canarylog"),
+                        Arguments = string.Format("-canarylog"),
                     });
                     git.WaitForExit();
                 }
@@ -439,7 +510,7 @@ namespace BrawlCrate
 
         public bool DisplayPropertyDescriptionsWhenAvailable
         {
-            get { return _displayPropertyDescription; }
+            get => _displayPropertyDescription;
             set
             {
                 _displayPropertyDescription = value;
@@ -449,11 +520,12 @@ namespace BrawlCrate
                 UpdatePropertyDescriptionBox(propertyGrid1.SelectedGridItem);
             }
         }
-        bool _displayPropertyDescription;
+
+        private bool _displayPropertyDescription;
 
         public bool CheckUpdatesOnStartup
         {
-            get { return _updatesOnStartup; }
+            get => _updatesOnStartup;
             set
             {
                 _updatesOnStartup = value;
@@ -462,11 +534,12 @@ namespace BrawlCrate
                 BrawlCrate.Properties.Settings.Default.Save();
             }
         }
-        bool _updatesOnStartup;
+
+        private bool _updatesOnStartup;
 
         public bool GetDocumentationUpdates
         {
-            get { return _docUpdates; }
+            get => _docUpdates;
             set
             {
                 _docUpdates = value;
@@ -475,11 +548,12 @@ namespace BrawlCrate
                 BrawlCrate.Properties.Settings.Default.Save();
             }
         }
-        bool _docUpdates;
+
+        private bool _docUpdates;
 
         public bool AutoCompressPCS
         {
-            get { return _autoCompressPCS; }
+            get => _autoCompressPCS;
             set
             {
                 _autoCompressPCS = value;
@@ -488,11 +562,12 @@ namespace BrawlCrate
                 BrawlLib.Properties.Settings.Default.Save();
             }
         }
-        bool _autoCompressPCS;
-        
+
+        private bool _autoCompressPCS;
+
         public bool AutoDecompressFighterPAC
         {
-            get { return _autoDecompressPAC; }
+            get => _autoDecompressPAC;
             set
             {
                 _autoDecompressPAC = value;
@@ -501,11 +576,12 @@ namespace BrawlCrate
                 BrawlLib.Properties.Settings.Default.Save();
             }
         }
-        bool _autoDecompressPAC;
+
+        private bool _autoDecompressPAC;
 
         public bool AutoCompressStages
         {
-            get { return _autoCompressStages; }
+            get => _autoCompressStages;
             set
             {
                 _autoCompressStages = value;
@@ -514,11 +590,12 @@ namespace BrawlCrate
                 BrawlLib.Properties.Settings.Default.Save();
             }
         }
-        bool _autoCompressStages;
-        
+
+        private bool _autoCompressStages;
+
         public bool AutoCompressModules
         {
-            get { return _autoCompressModules; }
+            get => _autoCompressModules;
             set
             {
                 _autoCompressModules = value;
@@ -527,11 +604,12 @@ namespace BrawlCrate
                 BrawlLib.Properties.Settings.Default.Save();
             }
         }
-        bool _autoCompressModules;
-        
+
+        private bool _autoCompressModules;
+
         public bool AutoPlayAudio
         {
-            get { return _autoPlayAudio; }
+            get => _autoPlayAudio;
             set
             {
                 _autoPlayAudio = value;
@@ -540,12 +618,13 @@ namespace BrawlCrate
                 BrawlCrate.Properties.Settings.Default.Save();
             }
         }
-        bool _autoPlayAudio;
+
+        private bool _autoPlayAudio;
 
         public bool UpdateAutomatically
 
         {
-            get { return _autoUpdate; }
+            get => _autoUpdate;
             set
             {
                 _autoUpdate = value;
@@ -554,11 +633,12 @@ namespace BrawlCrate
                 BrawlCrate.Properties.Settings.Default.Save();
             }
         }
-        bool _autoUpdate;
+
+        private bool _autoUpdate;
 
         public bool ShowHex
         {
-            get { return _showHex; }
+            get => _showHex;
             set
             {
                 _showHex = value;
@@ -567,11 +647,12 @@ namespace BrawlCrate
                 BrawlCrate.Properties.Settings.Default.Save();
             }
         }
-        bool _showHex;
+
+        private bool _showHex;
 
         public bool CompatibilityMode
         {
-            get { return _compatibilityMode; }
+            get => _compatibilityMode;
             set
             {
                 _compatibilityMode = value;
@@ -580,11 +661,12 @@ namespace BrawlCrate
                 BrawlLib.Properties.Settings.Default.Save();
             }
         }
-        bool _compatibilityMode;
+
+        private bool _compatibilityMode;
 
         public bool Canary
         {
-            get { return _canary; }
+            get => _canary;
             set
             {
                 _canary = value;
@@ -593,11 +675,12 @@ namespace BrawlCrate
                 BrawlCrate.Properties.Settings.Default.Save();
             }
         }
-        bool _canary;
-        
+
+        private bool _canary;
+
         public bool ImportPNGsWithPalettes
         {
-            get { return _importPNGwPalette; }
+            get => _importPNGwPalette;
             set
             {
                 _importPNGwPalette = value;
@@ -606,11 +689,12 @@ namespace BrawlCrate
                 BrawlLib.Properties.Settings.Default.Save();
             }
         }
-        bool _importPNGwPalette;
-        
+
+        private bool _importPNGwPalette;
+
         public bool ShowFullPath
         {
-            get { return _showFullPath; }
+            get => _showFullPath;
             set
             {
                 _showFullPath = value;
@@ -620,23 +704,30 @@ namespace BrawlCrate
                 UpdateName();
             }
         }
-        bool _showFullPath;
+
+        private bool _showFullPath;
 
         private void UpdatePropertyDescriptionBox(GridItem item)
         {
             if (!DisplayPropertyDescriptionsWhenAvailable)
             {
                 if (propertyGrid1.HelpVisible != false)
+                {
                     propertyGrid1.HelpVisible = false;
+                }
             }
             else
-                propertyGrid1.HelpVisible = item != null && item.PropertyDescriptor != null && !String.IsNullOrEmpty(item.PropertyDescriptor.Description);
+            {
+                propertyGrid1.HelpVisible = item != null && item.PropertyDescriptor != null && !string.IsNullOrEmpty(item.PropertyDescriptor.Description);
+            }
         }
 
         private void propertyGrid1_SelectedGridItemChanged(object sender, SelectedGridItemChangedEventArgs e)
         {
             if (DisplayPropertyDescriptionsWhenAvailable)
+            {
                 UpdatePropertyDescriptionBox(e.NewSelection);
+            }
         }
 
         public void Reset()
@@ -669,8 +760,10 @@ namespace BrawlCrate
             resourceTree_SelectionChanged(null, null);
 
             UpdateName();
-            if(Program.CanRunDiscordRPC())
+            if (Program.CanRunDiscordRPC())
+            {
                 BrawlCrate.Discord.DiscordSettings.LoadSettings(true);
+            }
         }
 
         public void UpdateName()
@@ -678,36 +771,57 @@ namespace BrawlCrate
             try
             {
                 if (Canary && !Program.AssemblyTitle.Contains("canary", StringComparison.OrdinalIgnoreCase))
+                {
                     throw new InvalidEnumArgumentException();
+                }
+
                 if (Program.RootPath != null)
-                    Text = String.Format("{0} - {1}", Program.AssemblyTitle, ShowFullPath ? Program.RootPath : Program.FileName);
+                {
+                    Text = string.Format("{0} - {1}", Program.AssemblyTitle, ShowFullPath ? Program.RootPath : Program.FileName);
+                }
                 else if (Canary)
+                {
                     Text = Program.AssemblyTitle.Substring(0, Program.AssemblyTitle.LastIndexOf(" #")) + commitIDlong;
+                }
                 else
+                {
                     Text = Program.AssemblyTitle;
+                }
             }
             catch (InvalidEnumArgumentException)
             {
                 try
                 {
                     if (Program.RootPath != null)
-                        Text = String.Format("{0} - {1}", _canary ? "BrawlCrate Canary" + commitIDshort : Program.AssemblyTitle, ShowFullPath ? Program.RootPath : Program.FileName);
+                    {
+                        Text = string.Format("{0} - {1}", _canary ? "BrawlCrate Canary" + commitIDshort : Program.AssemblyTitle, ShowFullPath ? Program.RootPath : Program.FileName);
+                    }
                     else
+                    {
                         Text = _canary ? "BrawlCrate Canary" + commitIDlong : Program.AssemblyTitle;
+                    }
+
                     if (Program.IsBirthday)
+                    {
                         Text = "PartyBrawl" + Text.Substring(Text.IndexOf(' '));
+                    }
+
                     Program.AssemblyTitle = ((AssemblyTitleAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
                     try
                     {
                         if (BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds)
+                        {
                             Program.AssemblyTitle = "BrawlCrate Canary" + (MainForm.currentRepo.Equals(MainForm.mainRepo, StringComparison.OrdinalIgnoreCase) ? (MainForm.currentBranch.Equals(MainForm.mainBranch, StringComparison.OrdinalIgnoreCase) ? "" : ("@" + MainForm.currentBranch)) : "@" + MainForm.currentRepo + "@" + MainForm.currentBranch) + MainForm.getCommitId(false);
+                        }
                     }
                     catch
                     {
                         Program.AssemblyTitle = ((AssemblyTitleAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
                     }
                     if (Program.IsBirthday)
+                    {
                         Program.AssemblyTitle = "PartyBrawl" + Program.AssemblyTitle.Substring(Program.AssemblyTitle.IndexOf(' '));
+                    }
                 }
                 catch
                 {
@@ -723,7 +837,9 @@ namespace BrawlCrate
         public void TargetResource(ResourceNode n)
         {
             if (_root != null)
+            {
                 resourceTree.SelectedNode = _root.FindResource(n, true);
+            }
         }
 
         public Control _currentControl = null;
@@ -747,8 +863,10 @@ namespace BrawlCrate
             modelPanel1.ClearAll();
             mdL0ObjectControl1.SetTarget(null);
             if (hexBox1.ByteProvider != null)
+            {
                 ((Be.Windows.Forms.DynamicFileByteProvider)hexBox1.ByteProvider).Dispose();
-            
+            }
+
             Control newControl = null;
             Control newControl2 = null;
 
@@ -759,6 +877,7 @@ namespace BrawlCrate
             {
                 Action setScrollOffset = null;
                 if (selectedType == resourceTree.SelectedNode.GetType())
+                {
                     foreach (Control c in propertyGrid1.Controls)
                     {
                         if (c.GetType().Name == "PropertyGridView")
@@ -768,7 +887,9 @@ namespace BrawlCrate
                             break;
                         }
                     }
+                }
                 else
+                {
                     foreach (Control c in propertyGrid1.Controls)
                     {
                         if (c.GetType().Name == "PropertyGridView")
@@ -777,10 +898,14 @@ namespace BrawlCrate
                             break;
                         }
                     }
+                }
 
                 propertyGrid1.SelectedObject = node;
-                if(false)
+                if (false)
+                {
                     propertyGrid1.ExpandAllGridItems();
+                }
+
                 setScrollOffset?.Invoke();
 
                 if (node is IBufferNode && MainForm.Instance.ShowHex)
@@ -792,7 +917,8 @@ namespace BrawlCrate
                                 (byte*)d.GetAddress(),
                                 d.GetLength(),
                                 d.GetLength(),
-                                FileAccess.ReadWrite)) { _supportsInsDel = false };
+                                FileAccess.ReadWrite))
+                        { _supportsInsDel = false };
                         newControl = hexBox1;
                     }
                 }
@@ -810,7 +936,10 @@ namespace BrawlCrate
                 {
                     videoPlaybackPanel1.TargetSource = node as IVideo;
                     if (node is PAT0TextureNode)
+                    {
                         videoPlaybackPanel1.chkLoop.Checked = ((PAT0Node)node.Parent.Parent).Loop;
+                    }
+
                     newControl = videoPlaybackPanel1;
                 }
                 else if (node is MDL0MaterialRefNode)
@@ -876,9 +1005,14 @@ namespace BrawlCrate
                     {
                         newControl = audioPlaybackPanel1;
                         if (node is RSTMNode)
+                        {
                             audioPlaybackPanel1.chkLoop.Checked = ((RSTMNode)node).IsLooped;
+                        }
+
                         if (AutoPlayAudio && Visible)
+                        {
                             audioPlaybackPanel1.Play();
+                        }
                     }
                 }
                 else if (node is IImageSource)
@@ -887,26 +1021,28 @@ namespace BrawlCrate
                     newControl = previewPanel2;
                 }
                 else if (node is IRenderedObject)
-				{
+                {
                     newControl = modelPanel1;
-				}
-				else if (node is STDTNode)
-				{
-					STDTNode stdt = (STDTNode)node;
+                }
+                else if (node is STDTNode)
+                {
+                    STDTNode stdt = (STDTNode)node;
 
-					attributeGrid1.Clear();
-					attributeGrid1.AddRange(stdt.GetPossibleInterpretations());
-					attributeGrid1.TargetNode = stdt;
-					newControl = attributeGrid1;
-				} else if (node is TBCLNode)
-				{
-					TBCLNode tbcl = (TBCLNode)node;
+                    attributeGrid1.Clear();
+                    attributeGrid1.AddRange(stdt.GetPossibleInterpretations());
+                    attributeGrid1.TargetNode = stdt;
+                    newControl = attributeGrid1;
+                }
+                else if (node is TBCLNode)
+                {
+                    TBCLNode tbcl = (TBCLNode)node;
 
-					attributeGrid1.Clear();
-					attributeGrid1.AddRange(tbcl.GetPossibleInterpretations());
-					attributeGrid1.TargetNode = tbcl;
-					newControl = attributeGrid1;
-				} else if (node is TBGCNode)
+                    attributeGrid1.Clear();
+                    attributeGrid1.AddRange(tbcl.GetPossibleInterpretations());
+                    attributeGrid1.TargetNode = tbcl;
+                    newControl = attributeGrid1;
+                }
+                else if (node is TBGCNode)
                 {
                     TBGCNode tbgc = (TBGCNode)node;
 
@@ -914,7 +1050,8 @@ namespace BrawlCrate
                     attributeGrid1.AddRange(tbgc.GetPossibleInterpretations());
                     attributeGrid1.TargetNode = tbgc;
                     newControl = attributeGrid1;
-                }  else if (node is TBGDNode)
+                }
+                else if (node is TBGDNode)
                 {
                     TBGDNode tbgd = (TBGDNode)node;
 
@@ -922,7 +1059,8 @@ namespace BrawlCrate
                     attributeGrid1.AddRange(tbgd.GetPossibleInterpretations());
                     attributeGrid1.TargetNode = tbgd;
                     newControl = attributeGrid1;
-                } else if (node is TBGMNode)
+                }
+                else if (node is TBGMNode)
                 {
                     TBGMNode tbgm = (TBGMNode)node;
 
@@ -930,7 +1068,8 @@ namespace BrawlCrate
                     attributeGrid1.AddRange(tbgm.GetPossibleInterpretations());
                     attributeGrid1.TargetNode = tbgm;
                     newControl = attributeGrid1;
-                } else if (node is TBLVNode)
+                }
+                else if (node is TBLVNode)
                 {
                     TBLVNode tblv = (TBLVNode)node;
 
@@ -938,7 +1077,8 @@ namespace BrawlCrate
                     attributeGrid1.AddRange(tblv.GetPossibleInterpretations());
                     attributeGrid1.TargetNode = tblv;
                     newControl = attributeGrid1;
-                } else if (node is TBRMNode)
+                }
+                else if (node is TBRMNode)
                 {
                     TBRMNode tbrm = (TBRMNode)node;
 
@@ -946,7 +1086,8 @@ namespace BrawlCrate
                     attributeGrid1.AddRange(tbrm.GetPossibleInterpretations());
                     attributeGrid1.TargetNode = tbrm;
                     newControl = attributeGrid1;
-                }  else if (node is TBSTNode)
+                }
+                else if (node is TBSTNode)
                 {
                     TBSTNode tbst = (TBSTNode)node;
 
@@ -954,14 +1095,21 @@ namespace BrawlCrate
                     attributeGrid1.AddRange(tbst.GetPossibleInterpretations());
                     attributeGrid1.TargetNode = tbst;
                     newControl = attributeGrid1;
-                } else if (node is IColorSource && !disable2nd)
+                }
+                else if (node is IColorSource && !disable2nd)
                 {
                     clrControl.ColorSource = node as IColorSource;
                     if (((IColorSource)node).ColorCount(0) > 0)
+                    {
                         if (newControl != null)
+                        {
                             newControl2 = clrControl;
+                        }
                         else
+                        {
                             newControl = clrControl;
+                        }
+                    }
                 }
                 else if (MainForm.Instance.ShowHex && !(node is RELEntryNode || node is RELNode))
                 {
@@ -971,15 +1119,20 @@ namespace BrawlCrate
                                 (byte*)node.WorkingUncompressed.Address,
                                 node.WorkingUncompressed.Length,
                                 node.WorkingUncompressed.Length,
-                                FileAccess.ReadWrite)) { _supportsInsDel = false };
+                                FileAccess.ReadWrite))
+                        { _supportsInsDel = false };
                         newControl = hexBox1;
                     }
                 }
 
                 if ((editToolStripMenuItem.DropDown = w.ContextMenuStrip) != null)
+                {
                     editToolStripMenuItem.Enabled = true;
+                }
                 else
+                {
                     editToolStripMenuItem.Enabled = false;
+                }
             }
             else
             {
@@ -1013,17 +1166,28 @@ namespace BrawlCrate
             if (_currentControl != newControl)
             {
                 if (_currentControl != null)
+                {
                     _currentControl.Visible = false;
+                }
+
                 _currentControl = newControl;
                 if (_currentControl != null)
+                {
                     _currentControl.Visible = true;
+                }
             }
             else if (_currentControl != null && !_currentControl.Visible)
+            {
                 _currentControl.Visible = true;
+            }
+
             if (_currentControl != null)
             {
                 if (_secondaryControl != null)
+                {
                     _currentControl.Width = splitContainer2.Panel2.Width - _secondaryControl.Width;
+                }
+
                 _currentControl.Dock = DockStyle.Fill;
             }
 
@@ -1031,8 +1195,10 @@ namespace BrawlCrate
             if (_currentControl is ModelPanel && renderPreviews)
             {
                 if (node._children == null)
+                {
                     node.Populate(0);
-                
+                }
+
                 if (node is IModel && ModelEditControl.Instances.Count == 0)
                 {
                     IModel m = node as IModel;
@@ -1045,28 +1211,36 @@ namespace BrawlCrate
             }
             else if (_currentControl is MDL0ObjectControl)
             {
-                if(!mdL0ObjectControl1.SetTarget(node as MDL0ObjectNode))
+                if (!mdL0ObjectControl1.SetTarget(node as MDL0ObjectNode))
+                {
                     _currentControl = _secondaryControl = null;
+                }
             }
             else if (_currentControl is TexCoordControl)
+            {
                 texCoordControl1.TargetNode = ((MDL0MaterialRefNode)node);
+            }
+
             selectedType = resourceTree.SelectedNode == null ? null : resourceTree.SelectedNode.GetType();
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            if (!Program.Close()) 
+            if (!Program.Close())
+            {
                 e.Cancel = true;
+            }
 
             base.OnClosing(e);
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string inFile;
-            int i = Program.OpenFile(SupportedFilesHandler.CompleteFilterEditableOnly, out inFile);
-            if(i != 0)
+            int i = Program.OpenFile(SupportedFilesHandler.CompleteFilterEditableOnly, out string inFile);
+            if (i != 0)
+            {
                 Program.Open(inFile);
+            }
         }
 
         #region File Menu
@@ -1101,7 +1275,7 @@ namespace BrawlCrate
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e) { Program.SaveAs(); }
         private void closeToolStripMenuItem_Click(object sender, EventArgs e) { Program.Close(); }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e) { this.Close(); }
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e) { Close(); }
         #endregion
 
         private void fileResizerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1118,8 +1292,7 @@ namespace BrawlCrate
 
         private void bRStmAudioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string path;
-            if (Program.OpenFile("PCM Audio (*.wav)|*.wav", out path) > 0)
+            if (Program.OpenFile("PCM Audio (*.wav)|*.wav", out string path) > 0)
             {
                 if (Program.New<RSTMNode>())
                 {
@@ -1132,7 +1305,9 @@ namespace BrawlCrate
                             Program.RootNode.ReplaceRaw(dlg.AudioData);
                         }
                         else
+                        {
                             Program.Close(true);
+                        }
                     }
                 }
             }
@@ -1147,7 +1322,7 @@ namespace BrawlCrate
                 for (int i = 0; i < a.Length; i++)
                 {
                     s = a.GetValue(i).ToString();
-                    this.BeginInvoke(m_DelegateOpenFile, new Object[] { s });
+                    BeginInvoke(m_DelegateOpenFile, new object[] { s });
                 }
             }
         }
@@ -1155,9 +1330,13 @@ namespace BrawlCrate
         private void MainForm_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
                 e.Effect = DragDropEffects.Copy;
+            }
             else
+            {
                 e.Effect = DragDropEffects.None;
+            }
         }
 
         private void gCTEditorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1215,7 +1394,9 @@ namespace BrawlCrate
                     }
                 }
                 else
+                {
                     splitter.IsSplitterFixed = false;
+                }
             }
         }
     }
@@ -1233,16 +1414,16 @@ namespace BrawlCrate
         }
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
         }
         public class FileMenuItem : ToolStripMenuItem
         {
-            string fileName;
+            private string fileName;
 
             public string FileName
             {
-                get { return fileName; }
-                set { fileName = value; }
+                get => fileName;
+                set => fileName = value;
             }
 
             public FileMenuItem(string fileName)
@@ -1254,7 +1435,7 @@ namespace BrawlCrate
             {
                 get
                 {
-                    ToolStripMenuItem parent = (ToolStripMenuItem)this.OwnerItem;
+                    ToolStripMenuItem parent = (ToolStripMenuItem)OwnerItem;
                     int index = parent.DropDownItems.IndexOf(this);
                     return string.Format("{0} {1}", index + 1, fileName);
                 }
@@ -1280,7 +1461,7 @@ namespace BrawlCrate
             Init();
         }
 
-        void Init()
+        private void Init()
         {
             Settings.Default.PropertyChanged += new PropertyChangedEventHandler(Default_PropertyChanged);
         }
@@ -1289,8 +1470,10 @@ namespace BrawlCrate
         {
             try
             {
-                if (this.recentFileToolStripItem == null)
+                if (recentFileToolStripItem == null)
+                {
                     throw new OperationCanceledException("recentFileToolStripItem can not be null!");
+                }
 
                 // check if the file is already in the collection
                 int alreadyIn = GetIndexOfRecentFile(fileName);
@@ -1298,10 +1481,14 @@ namespace BrawlCrate
                 {
                     Settings.Default.RecentFiles.RemoveAt(alreadyIn);
                     if (recentFileToolStripItem.DropDownItems.Count > alreadyIn)
+                    {
                         recentFileToolStripItem.DropDownItems.RemoveAt(alreadyIn);
+                    }
                 }
                 else if (alreadyIn == 0) // it´s the latest file so return
+                {
                     return;
+                }
 
                 // insert the file on top of the list
                 Settings.Default.RecentFiles.Insert(0, fileName);
@@ -1309,13 +1496,20 @@ namespace BrawlCrate
 
                 // remove any beyond the max size, if max size is reached
                 while (Settings.Default.RecentFiles.Count > Settings.Default.RecentFilesMax)
+                {
                     Settings.Default.RecentFiles.RemoveAt(Settings.Default.RecentFilesMax);
+                }
+
                 while (recentFileToolStripItem.DropDownItems.Count > Settings.Default.RecentFilesMax)
+                {
                     recentFileToolStripItem.DropDownItems.RemoveAt(Settings.Default.RecentFilesMax);
+                }
 
                 // enable the menu item if it´s disabled
                 if (!recentFileToolStripItem.Enabled)
+                {
                     recentFileToolStripItem.Enabled = true;
+                }
 
                 // save the changes
                 Settings.Default.Save();
@@ -1323,26 +1517,30 @@ namespace BrawlCrate
             catch { }
         }
 
-        int GetIndexOfRecentFile(string filename)
+        private int GetIndexOfRecentFile(string filename)
         {
             for (int i = 0; i < Settings.Default.RecentFiles.Count; i++)
             {
                 string currentFile = Settings.Default.RecentFiles[i];
                 if (string.Equals(currentFile, filename, StringComparison.OrdinalIgnoreCase))
+                {
                     return i;
+                }
             }
             return -1;
         }
 
-        ToolStripMenuItem recentFileToolStripItem;
+        private ToolStripMenuItem recentFileToolStripItem;
 
         public ToolStripMenuItem RecentFileToolStripItem
         {
-            get { return recentFileToolStripItem; }
+            get => recentFileToolStripItem;
             set
             {
                 if (recentFileToolStripItem == value)
+                {
                     return;
+                }
 
                 recentFileToolStripItem = value;
 
@@ -1350,7 +1548,7 @@ namespace BrawlCrate
             }
         }
 
-        void Default_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void Default_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "RecentFilesMax")
             {
@@ -1358,13 +1556,17 @@ namespace BrawlCrate
             }
         }
 
-        void ReCreateItems()
+        private void ReCreateItems()
         {
             if (recentFileToolStripItem == null)
+            {
                 return;
+            }
 
             if (Settings.Default.RecentFiles == null)
+            {
                 Settings.Default.RecentFiles = new StringCollection();
+            }
 
             recentFileToolStripItem.DropDownItems.Clear();
             recentFileToolStripItem.Enabled = (Settings.Default.RecentFiles.Count > 0);

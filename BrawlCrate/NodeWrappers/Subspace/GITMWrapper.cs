@@ -1,16 +1,16 @@
-﻿using System;
-using BrawlLib.SSBB.ResourceNodes;
-using System.Windows.Forms;
+﻿using BrawlLib.SSBB.ResourceNodes;
+using System;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.GITM)]
-    class GITMWrapper : GenericWrapper
+    internal class GITMWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static GITMWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -45,7 +45,7 @@ namespace BrawlCrate.NodeWrappers
 
         public void NewEntry()
         {
-            GITMEntryNode node = new GITMEntryNode() { Name = "Trophy [0]",};
+            GITMEntryNode node = new GITMEntryNode() { Name = "Trophy [0]", };
             _resource.AddChild(node);
             ((GITMNode)_resource)._count += 1;
         }

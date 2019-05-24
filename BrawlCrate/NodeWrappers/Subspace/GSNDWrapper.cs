@@ -1,16 +1,16 @@
-﻿using System;
-using BrawlLib.SSBB.ResourceNodes;
-using System.Windows.Forms;
+﻿using BrawlLib.SSBB.ResourceNodes;
+using System;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.GSND)]
-    class GSNDWrapper : GenericWrapper
+    internal class GSNDWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static GSNDWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -45,7 +45,7 @@ namespace BrawlCrate.NodeWrappers
 
         public void NewEntry()
         {
-            GSNDEntryNode node = new GSNDEntryNode() { Name = "NewEntry", Trigger = "00000100"};
+            GSNDEntryNode node = new GSNDEntryNode() { Name = "NewEntry", Trigger = "00000100" };
             _resource.AddChild(node);
             ((GSNDNode)_resource)._count += 1;
         }

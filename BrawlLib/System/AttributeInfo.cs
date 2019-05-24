@@ -4,7 +4,8 @@ using System.Windows.Forms;
 
 namespace System
 {
-    public class AttributeInfo {
+    public class AttributeInfo
+    {
         public string _name;
         public string _description;
         public int _type;
@@ -17,47 +18,60 @@ namespace System
         //5 == flags (parse as binary)
     }
 
-    public class AttributeInterpretation {
+    public class AttributeInterpretation
+    {
         public AttributeInfo[] Array { get; private set; }
         public string Filename { get; private set; }
-        public int NumEntries {
-            get {
-                return Array.Length;
-            }
+        public int NumEntries => Array.Length;
+
+        public AttributeInterpretation(AttributeInfo[] array, string saveToFile)
+        {
+            Array = array;
+            Filename = saveToFile;
         }
 
-        public AttributeInterpretation(AttributeInfo[] array, string saveToFile) {
-            this.Array = array;
-            this.Filename = saveToFile;
-        }
-
-        public AttributeInterpretation(string filename, int index) {
-            this.Filename = filename;
+        public AttributeInterpretation(string filename, int index)
+        {
+            Filename = filename;
 
             List<AttributeInfo> list = new List<AttributeInfo>();
-            if (filename != null && File.Exists(filename)) {
-                using (var sr = new StreamReader(filename)) {
-                    for (int i = 0; !sr.EndOfStream /*&& i < NumEntries*/; i++) {
-                        AttributeInfo attr = new AttributeInfo();
-                        attr._name = sr.ReadLine();
-                        attr._description = "";
+            if (filename != null && File.Exists(filename))
+            {
+                using (StreamReader sr = new StreamReader(filename))
+                {
+                    for (int i = 0; !sr.EndOfStream /*&& i < NumEntries*/; i++)
+                    {
+                        AttributeInfo attr = new AttributeInfo
+                        {
+                            _name = sr.ReadLine(),
+                            _description = ""
+                        };
                         string temp = sr.ReadLine();
-                        while(!temp.Equals("\t/EndDescription"))
+                        while (!temp.Equals("\t/EndDescription"))
                         {
                             attr._description += temp;
                             attr._description += '\n';
                             temp = sr.ReadLine();
                         }
                         if (attr._description.EndsWith("\n"))
+                        {
                             attr._description = attr._description.Substring(0, attr._description.Length - 1);
+                        }
+
                         string num = sr.ReadLine();
-                        try {
+                        try
+                        {
                             attr._type = int.Parse(num);
-                        } catch (FormatException ex) {
+                        }
+                        catch (FormatException ex)
+                        {
                             throw new FormatException("Invalid type \"" + num + "\" in " + Path.GetFileName(filename) + ".", ex);
                         }
 
-                        if (attr._description == "") attr._description = "No Description Available.";
+                        if (attr._description == "")
+                        {
+                            attr._description = "No Description Available.";
+                        }
 
                         list.Add(attr);
                         sr.ReadLine();
@@ -65,31 +79,39 @@ namespace System
                     }
                 }
             }
-            this.Array = list.ToArray();
+            Array = list.ToArray();
         }
 
-        public override string ToString() {
-            return Path.GetFileNameWithoutExtension(this.Filename);
+        public override string ToString()
+        {
+            return Path.GetFileNameWithoutExtension(Filename);
         }
 
-        public void Save() {
+        public void Save()
+        {
             string dir = Path.GetDirectoryName(Filename);
-            if (!Directory.Exists(dir)) {
+            if (!Directory.Exists(dir))
+            {
                 Directory.CreateDirectory(dir);
             }
-            if (File.Exists(Filename)) {
+            if (File.Exists(Filename))
+            {
                 if (DialogResult.Yes != MessageBox.Show("Overwrite " + Filename + "?", "Overwrite",
-                    MessageBoxButtons.YesNo)) return;
+                    MessageBoxButtons.YesNo))
+                {
+                    return;
+                }
             }
-            using (var sw = new StreamWriter(Filename)) {
+            using (StreamWriter sw = new StreamWriter(Filename))
+            {
                 //foreach (AttributeInfo attr in Array) {
-                for(int i = 0; i < Array.Length; i++)
+                for (int i = 0; i < Array.Length; i++)
                 {
                     AttributeInfo attr = Array[i];
                     sw.WriteLine(attr._name);
                     sw.WriteLine(attr._description);
                     sw.WriteLine("\t/EndDescription");
-                    if(i == Array.Length - 1)
+                    if (i == Array.Length - 1)
                     {
                         sw.Write(attr._type);
                     }

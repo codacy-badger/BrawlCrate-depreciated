@@ -1,15 +1,15 @@
-﻿using System;
-using BrawlLib.SSBBTypes;
+﻿using BrawlLib.SSBBTypes;
+using System;
+using System.BrawlEx;
 using System.ComponentModel;
 using System.IO;
-using System.BrawlEx;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class RSTCNode : ResourceNode
     {
-        internal RSTC* Header { get { return (RSTC*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.RSTC; } }
+        internal RSTC* Header => (RSTC*)WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.RSTC;
 
         public uint _tag;                   // 0x00 - Uneditable; RSTC
         public uint _size;                  // 0x04 - Uneditable; Should be "E0"
@@ -24,13 +24,16 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public RSTCGroupNode cssList = new RSTCGroupNode();
         public RSTCGroupNode randList = new RSTCGroupNode();
-        
+
         public int NumChars
         {
             get
             {
                 if (FindChildrenByName(cssList.Name).Length == 0)
+                {
                     return 0;
+                }
+
                 return cssList.Children.Count;
             }
         }
@@ -40,7 +43,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             get
             {
                 if (FindChildrenByName(randList.Name).Length == 0)
+                {
                     return 0;
+                }
+
                 return randList.Children.Count;
             }
         }
@@ -50,7 +56,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             for (int i = 0; i < 104; i++)
             {
                 if (i >= _charNum)
+                {
                     break;
+                }
+
                 DataSource source;
                 source = new DataSource((*Header)[i], 1);
                 new RSTCEntryNode().Initialize(cssList, source);
@@ -58,7 +67,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             for (int i = 0; i < 104; i++)
             {
                 if (i >= _randNum)
+                {
                     break;
+                }
+
                 DataSource source;
                 source = new DataSource((*Header)[i + 104], 1);
                 new RSTCEntryNode().Initialize(randList, source);
@@ -76,7 +88,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             hdr->_charNum = (byte)cssList.Children.Count;
             hdr->_unknown0x0E = _unknown0x0E;
             hdr->_randNum = (byte)randList.Children.Count;
-            uint offset = (uint)(0x10);
+            uint offset = 0x10;
             // Ensures no junk data got saved to the character list
             for (int i = 0; i < _charList.Length; i++)
             {
@@ -86,7 +98,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 ResourceNode r = cssList.Children[i];
                 *(buint*)((byte*)address + 0x10 + (i)) = offset;
-                r.Rebuild((VoidPtr)address + offset, 0x01, true);
+                r.Rebuild(address + offset, 0x01, true);
                 offset += 0x01;
             }
             offset = 0x10 + 104;
@@ -99,11 +111,11 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 ResourceNode r = randList.Children[i];
                 *(buint*)((byte*)address + 0x10 + (i + 104)) = offset;
-                r.Rebuild((VoidPtr)address + offset, 0x01, true);
+                r.Rebuild(address + offset, 0x01, true);
                 offset += 0x01;
             }
             // Clear all junk data from the end of the lists
-            for(int i = cssList.Children.Count; i < _charList.Length; i++)
+            for (int i = cssList.Children.Count; i < _charList.Length; i++)
             {
                 hdr->_charList[i] = 0x00;
             }
@@ -123,11 +135,20 @@ namespace BrawlLib.SSBB.ResourceNodes
             _unknown0x0E = Header->_unknown0x0E;
             _randNum = Header->_randNum;
             for (int i = 0; i < 104; i++)
+            {
                 _charList[i] = Header->_charList[i];
+            }
+
             for (int j = 0; j < 104; j++)
+            {
                 _randList[j] = Header->_randList[j];
+            }
+
             if ((_name == null) && (_origPath != null))
+            {
                 _name = Path.GetFileNameWithoutExtension(_origPath);
+            }
+
             cssList._name = "Character Select";
             cssList._type = "Character Select";
             randList._name = "Random Character List";
@@ -137,35 +158,23 @@ namespace BrawlLib.SSBB.ResourceNodes
             _changed = false;
             return true;
         }
-        
+
         internal static ResourceNode TryParse(DataSource source) { return ((RSTC*)source.Address)->_tag == RSTC.Tag ? new RSTCNode() : null; }
     }
 
     public unsafe class RSTCGroupNode : ResourceNode
     {
-        internal ResourceGroup* Group { get { return (ResourceGroup*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.RSTCGroup; } }
+        internal ResourceGroup* Group => (ResourceGroup*)WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.RSTCGroup;
         public string _type;
         [Category("RSTCGroup")]
         [DisplayName("Group Type")]
-        public string GroupType
-        {
-            get
-            {
-                return _type;
-            }
-        }
+        public string GroupType => _type;
 
         [Category("RSTCGroup")]
         [DisplayName("Entries")]
-        public int entries
-        {
-            get
-            {
-                return Children.Count;
-            }
-        }
-        
+        public int entries => Children.Count;
+
         public override bool OnInitialize()
         {
             return true;
@@ -174,8 +183,8 @@ namespace BrawlLib.SSBB.ResourceNodes
 
     public unsafe class RSTCEntryNode : ResourceNode
     {
-        internal RSTCEntry* Header { get { return (RSTCEntry*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.Unknown; } }
+        internal RSTCEntry* Header => (RSTCEntry*)WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.Unknown;
 
         public byte _fighterID;
 
@@ -184,16 +193,16 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("CSS Slot ID")]
         public byte FighterID
         {
-            get
-            {
-                return _fighterID;
-            }
+            get => _fighterID;
             set
             {
                 _fighterID = value;
                 Name = BrawlLib.BrawlCrate.FighterNameGenerators.FromID(_fighterID, BrawlLib.BrawlCrate.FighterNameGenerators.cssSlotIDIndex, "+S");
                 if (Name == null)
+                {
                     Name = "ID 0x" + _fighterID.ToString("X2");
+                }
+
                 SignalPropertyChange();
             }
         }
@@ -207,9 +216,15 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             _fighterID = Header->_fighterID;
             if (_name == null)
+            {
                 _name = BrawlLib.BrawlCrate.FighterNameGenerators.FromID(_fighterID, BrawlLib.BrawlCrate.FighterNameGenerators.cssSlotIDIndex, "+S");
+            }
+
             if (_name == null)
+            {
                 _name = "ID 0x" + _fighterID.ToString("X2");
+            }
+
             return false;
         }
 
@@ -221,7 +236,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override string ToString()
         {
-            return String.Format("Slot {0} - {1}", (Index + 1), Name);
+            return string.Format("Slot {0} - {1}", (Index + 1), Name);
         }
     }
 }

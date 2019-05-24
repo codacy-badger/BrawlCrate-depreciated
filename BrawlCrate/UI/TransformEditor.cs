@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using BrawlLib.Wii.Models;
-using BrawlLib.SSBBTypes;
-using BrawlLib.Modeling;
-using BrawlLib.OpenGL;
-using System.Drawing;
-using System.Windows.Forms;
-using OpenTK.Graphics.OpenGL;
-using System.Linq;
+﻿using System.ComponentModel;
 
 namespace System.Windows.Forms
 {
@@ -18,7 +8,7 @@ namespace System.Windows.Forms
         {
             InitializeComponent();
         }
-        
+
         public xyTransform _transform = new xyTransform();
 
         public DialogResult ShowDialog()
@@ -53,8 +43,8 @@ namespace System.Windows.Forms
         [DisplayName("\t\t\tTranslation")]
         public Vector2 Translation
         {
-            get { return _trans; }
-            set { _trans = value; }
+            get => _trans;
+            set => _trans = value;
         }
 
         private int _rot = 0;
@@ -62,8 +52,8 @@ namespace System.Windows.Forms
         [DisplayName("\t\tRotation")]
         public int Rotation
         {
-            get { return _rot; }
-            set { _rot = value; }
+            get => _rot;
+            set => _rot = value;
         }
 
         public enum ScaleType
@@ -82,8 +72,8 @@ namespace System.Windows.Forms
         [DisplayName("Scale")]
         public Vector2 Scale
         {
-            get { return _scale; }
-            set { _scale = value; }
+            get => _scale;
+            set => _scale = value;
         }
     }
 }

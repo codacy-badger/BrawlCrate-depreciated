@@ -31,6 +31,6 @@ namespace BrawlLib.SSBBTypes
         public bfloat _victoryCamera3;              // 0x38 - Camera Distance
         public bfloat _victoryCamera4;              // 0x3C - Camera Distance
 
-        private VoidPtr Address { get { fixed (void* ptr = &this) return ptr; } }
+        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
     }
 }

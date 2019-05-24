@@ -91,7 +91,7 @@ namespace BrawlCrate.Discord
 
         public static void UpdatePresence(RichPresence presence)
         {
-            var presencestruct = presence.GetStruct();
+            RichPresenceStruct presencestruct = presence.GetStruct();
             UpdatePresenceNative(ref presencestruct);
             presence.FreeMem();
         }
@@ -155,10 +155,14 @@ namespace BrawlCrate.Discord
             /// <returns>Pointer to the UTF-8 representation of <see cref="input"/></returns>
             private IntPtr StrToPtr(string input, int maxbytes)
             {
-                if (string.IsNullOrEmpty(input)) return IntPtr.Zero;
-                var convstr = StrClampBytes(input, maxbytes);
-                var convbytecnt = Encoding.UTF8.GetByteCount(convstr);
-                var buffer = Marshal.AllocHGlobal(convbytecnt);
+                if (string.IsNullOrEmpty(input))
+                {
+                    return IntPtr.Zero;
+                }
+
+                string convstr = StrClampBytes(input, maxbytes);
+                int convbytecnt = Encoding.UTF8.GetByteCount(convstr);
+                IntPtr buffer = Marshal.AllocHGlobal(convbytecnt);
                 _buffers.Add(buffer);
                 Marshal.Copy(Encoding.UTF8.GetBytes(convstr), 0, buffer, convbytecnt);
                 return buffer;
@@ -171,8 +175,8 @@ namespace BrawlCrate.Discord
             /// <returns>UTF-8 representation of <see cref="toconv"/> with added null termination</returns>
             private static string StrToUtf8NullTerm(string toconv)
             {
-                var str = toconv.Trim();
-                var bytes = Encoding.Default.GetBytes(str);
+                string str = toconv.Trim();
+                byte[] bytes = Encoding.Default.GetBytes(str);
                 if (bytes.Length > 0 && bytes[bytes.Length - 1] != 0)
                 {
                     str += "\0\0";
@@ -188,15 +192,15 @@ namespace BrawlCrate.Discord
             /// <returns>null terminated string with a byte length less or equal to <see cref="maxbytes"/></returns>
             private static string StrClampBytes(string toclamp, int maxbytes)
             {
-                var str = StrToUtf8NullTerm(toclamp);
-                var strbytes = Encoding.UTF8.GetBytes(str);
+                string str = StrToUtf8NullTerm(toclamp);
+                byte[] strbytes = Encoding.UTF8.GetBytes(str);
 
                 if (strbytes.Length <= maxbytes)
                 {
                     return str;
                 }
 
-                var newstrbytes = new byte[] { };
+                byte[] newstrbytes = new byte[] { };
                 Array.Copy(strbytes, 0, newstrbytes, 0, maxbytes - 1);
                 newstrbytes[newstrbytes.Length - 1] = 0;
                 newstrbytes[newstrbytes.Length - 2] = 0;
@@ -209,7 +213,7 @@ namespace BrawlCrate.Discord
             /// </summary>
             internal void FreeMem()
             {
-                for (var i = _buffers.Count - 1; i >= 0; i--)
+                for (int i = _buffers.Count - 1; i >= 0; i--)
                 {
                     Marshal.FreeHGlobal(_buffers[i]);
                     _buffers.RemoveAt(i);

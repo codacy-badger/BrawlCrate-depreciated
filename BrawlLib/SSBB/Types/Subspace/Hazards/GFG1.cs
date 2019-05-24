@@ -14,7 +14,7 @@ namespace BrawlLib.SSBBTypes
 
         //private GDOR* Address { get { fixed (GDOR* ptr = &this)return ptr; } }
         //public byte* Data { get { return (byte*)(Address + _DataOffset); } }
-        
+
         public GFG1(int count)
         {
             _tag = Tag;
@@ -22,9 +22,9 @@ namespace BrawlLib.SSBBTypes
             _DataOffset = count * 4;
         }
 
-        public VoidPtr this[int index] { get { return (VoidPtr)((byte*)Address + Offsets(index)); } }
+        public VoidPtr this[int index] => (byte*)Address + Offsets(index);
         public uint Offsets(int index) { return *(buint*)((byte*)Address + 0x08 + (index * 4)); }
-        private VoidPtr Address { get { fixed (void* ptr = &this) return ptr; } }
+        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
     }
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct GFG1Entry
@@ -102,8 +102,8 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x52;
         public byte _unknown0x53;
 
-        private VoidPtr Address { get { fixed (void* ptr = &this) return ptr; } }
-        
+        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
+
     }
 
 }

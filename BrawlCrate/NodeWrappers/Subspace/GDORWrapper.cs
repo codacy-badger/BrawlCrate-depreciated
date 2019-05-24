@@ -1,16 +1,16 @@
-﻿using System;
-using BrawlLib.SSBB.ResourceNodes;
-using System.Windows.Forms;
+﻿using BrawlLib.SSBB.ResourceNodes;
+using System;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.GDOR)]
-    class GDORWrapper : GenericWrapper
+    internal class GDORWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static GDORWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -45,8 +45,14 @@ namespace BrawlCrate.NodeWrappers
 
         public void NewEntry()
         {
-            GDOREntryNode node = new GDOREntryNode() { Name = "Door[0]", Trigger0 ="00000100",
-                Trigger1 = "00000100", Trigger2 = "00000100", DoorID = "00000000" };
+            GDOREntryNode node = new GDOREntryNode()
+            {
+                Name = "Door[0]",
+                Trigger0 = "00000100",
+                Trigger1 = "00000100",
+                Trigger2 = "00000100",
+                DoorID = "00000000"
+            };
             _resource.AddChild(node);
             ((GDORNode)_resource)._doors += 1;
         }

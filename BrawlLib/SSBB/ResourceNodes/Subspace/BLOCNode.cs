@@ -1,23 +1,23 @@
-﻿using System;
-using BrawlLib.SSBBTypes;
+﻿using BrawlLib.SSBBTypes;
+using System;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class BLOCNode : ARCEntryNode
     {
-        public override ResourceType ResourceType { get { return ResourceType.BLOC; } }
-        internal BLOC* Header { get { return (BLOC*)WorkingUncompressed.Address; } }
+        public override ResourceType ResourceType => ResourceType.BLOC;
+        internal BLOC* Header => (BLOC*)WorkingUncompressed.Address;
 
         public int Version
         {
-            get { return _version; }
+            get => _version;
             set { _version = value; SignalPropertyChange(); }
         }
         private int _version = 0x80;
 
         public int ExtParam
         {
-            get { return _extParam; }
+            get => _extParam;
             set { _extParam = value; SignalPropertyChange(); }
         }
         private int _extParam = 0;
@@ -38,9 +38,13 @@ namespace BrawlLib.SSBB.ResourceNodes
 
                 //Enumerate datasources for each child node
                 if (i == Header->_count - 1)
+                {
                     source = new DataSource((*Header)[i], WorkingUncompressed.Address + WorkingUncompressed.Length - (*Header)[i]);
+                }
                 else
+                {
                     source = new DataSource((*Header)[i], (*Header)[i + 1] - (*Header)[i]);
+                }
 
                 //Call NodeFactory on datasource to initiate various files
                 if ((NodeFactory.FromSource(this, source) == null))
@@ -53,7 +57,10 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             int size = BLOC.Size + (Children.Count * 4);
             foreach (ResourceNode node in Children)
+            {
                 size += node.CalculateSize(force);
+            }
+
             return size;
         }
         public override void OnRebuild(VoidPtr address, int length, bool force)
@@ -69,10 +76,12 @@ namespace BrawlLib.SSBB.ResourceNodes
             for (int i = 0; i < Children.Count; i++)
             {
                 if (i > 0)
+                {
                     offset += (uint)(Children[i - 1].CalculateSize(false));
+                }
 
-                *(buint*)((VoidPtr)address + 0x10 + i * 4) = offset;
-                _children[i].Rebuild((VoidPtr)address + offset, _children[i].CalculateSize(false), true);
+                *(buint*)(address + 0x10 + i * 4) = offset;
+                _children[i].Rebuild(address + offset, _children[i].CalculateSize(false), true);
             }
         }
 
@@ -81,7 +90,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
     public unsafe class BLOCEntryNode : ResourceNode
     {
-        public override ResourceType ResourceType { get { return ResourceType.Unknown; } }
+        public override ResourceType ResourceType => ResourceType.Unknown;
         public int Entries { get; private set; }
 
         public override bool OnInitialize()
@@ -89,8 +98,11 @@ namespace BrawlLib.SSBB.ResourceNodes
             base.OnInitialize();
             byte* _NumFiles = (byte*)WorkingUncompressed.Address + 0x07;
             if (_name == null)
-                _name = new String((sbyte*)WorkingUncompressed.Address);
-            this.Entries = *(int*)_NumFiles;
+            {
+                _name = new string((sbyte*)WorkingUncompressed.Address);
+            }
+
+            Entries = *(int*)_NumFiles;
             return false;
         }
     }

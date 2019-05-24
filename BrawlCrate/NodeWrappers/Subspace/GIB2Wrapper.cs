@@ -1,16 +1,16 @@
-﻿using System;
-using BrawlLib.SSBB.ResourceNodes;
-using System.Windows.Forms;
+﻿using BrawlLib.SSBB.ResourceNodes;
+using System;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.GIB2)]
-    class GIB2Wrapper : GenericWrapper
+    internal class GIB2Wrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static GIB2Wrapper()
         {
             _menu = new ContextMenuStrip();
@@ -45,7 +45,7 @@ namespace BrawlCrate.NodeWrappers
 
         public void NewEntry()
         {
-            GIB2EntryNode node = new GIB2EntryNode() { Name = "Item Box [0]",};
+            GIB2EntryNode node = new GIB2EntryNode() { Name = "Item Box [0]", };
             _resource.AddChild(node);
             ((GIB2Node)_resource)._count += 1;
         }

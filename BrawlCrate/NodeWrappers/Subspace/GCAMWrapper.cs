@@ -1,16 +1,16 @@
-﻿using System;
-using BrawlLib.SSBB.ResourceNodes;
-using System.Windows.Forms;
+﻿using BrawlLib.SSBB.ResourceNodes;
+using System;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.GCAM)]
-    class GCAMWrapper : GenericWrapper
+    internal class GCAMWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static GCAMWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -45,7 +45,7 @@ namespace BrawlCrate.NodeWrappers
 
         public void NewEntry()
         {
-            GCAMEntryNode node = new GCAMEntryNode() { Name = "Camera [0]",};
+            GCAMEntryNode node = new GCAMEntryNode() { Name = "Camera [0]", };
             _resource.AddChild(node);
             ((GCAMNode)_resource)._count += 1;
         }

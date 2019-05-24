@@ -1,11 +1,11 @@
-﻿using BrawlLib.SSBB.ResourceNodes;
-using BrawlLib;
+﻿using BrawlLib;
+using BrawlLib.SSBB.ResourceNodes;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.RSEQ)]
-    class RSEQWrapper : GenericWrapper
+    internal class RSEQWrapper : GenericWrapper
     {
-        public override string ExportFilter { get { return FileFilters.RSEQ; } }
+        public override string ExportFilter => FileFilters.RSEQ;
     }
 }

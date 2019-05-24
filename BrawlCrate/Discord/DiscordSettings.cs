@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BrawlLib.SSBB.ResourceNodes;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BrawlLib.SSBB.ResourceNodes;
 
 namespace BrawlCrate.Discord
 {
-    class DiscordSettings
+    internal class DiscordSettings
     {
         public enum ModNameType
         {
@@ -47,32 +44,40 @@ namespace BrawlCrate.Discord
                 largeImageKey = "brawlcrate",
                 largeImageText = Program.AssemblyTitle
             };
-            if(MainForm.Instance.RootNode == null)
+            if (MainForm.Instance.RootNode == null)
             {
                 DiscordController.presence.details = "Idling";
             }
-            else if(Program.RootPath == null)
+            else if (Program.RootPath == null)
             {
                 if (MainForm.Instance.RootNode.ResourceNode is ARCNode && ((ARCNode)MainForm.Instance.RootNode.ResourceNode).IsStage)
                 {
                     if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("STGRESULT", StringComparison.OrdinalIgnoreCase))
+                    {
                         DiscordController.presence.details = workString + " " + "the results screen";
+                    }
                     else
+                    {
                         DiscordController.presence.details = workString + " " + "a stage";
+                    }
                 }
                 else
                 {
                     DiscordController.presence.details = workString + " " + "a new mod";
                 }
             }
-            else if(MainForm.Instance.RootNode.ResourceNode is ARCNode)
+            else if (MainForm.Instance.RootNode.ResourceNode is ARCNode)
             {
                 if (((ARCNode)MainForm.Instance.RootNode.ResourceNode).IsStage)
                 {
                     if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("STGRESULT", StringComparison.OrdinalIgnoreCase))
+                    {
                         DiscordController.presence.details = workString + " " + "the results screen";
+                    }
                     else
+                    {
                         DiscordController.presence.details = workString + " " + "a stage";
+                    }
                 }
                 else if (((ARCNode)MainForm.Instance.RootNode.ResourceNode).IsCharacter)
                 {
@@ -112,7 +117,7 @@ namespace BrawlCrate.Discord
                 {
                     DiscordController.presence.details = workString + " " + "a subspace stage";
                 }
-                else if(MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("common2", StringComparison.OrdinalIgnoreCase))
+                else if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("common2", StringComparison.OrdinalIgnoreCase))
                 {
                     DiscordController.presence.details = workString + " " + "single player";
                 }
@@ -181,26 +186,34 @@ namespace BrawlCrate.Discord
             }
 
             if (showTimeElapsed)
+            {
                 DiscordController.presence.startTimestamp = startTime;
+            }
+
             DiscordRpc.UpdatePresence(DiscordController.presence);
         }
 
         public static void LoadSettings(bool update = false)
         {
-            if(BrawlCrate.Properties.Settings.Default.DiscordRPCEnabled && DiscordController == null)
+            if (BrawlCrate.Properties.Settings.Default.DiscordRPCEnabled && DiscordController == null)
             {
                 DiscordController = new BrawlCrate.Discord.DiscordController();
                 DiscordController.Initialize();
             }
             else if ((enabled != BrawlCrate.Properties.Settings.Default.DiscordRPCEnabled && enabled == false))
+            {
                 DiscordController.Initialize();
+            }
+
             enabled = BrawlCrate.Properties.Settings.Default.DiscordRPCEnabled;
             modNameType = BrawlCrate.Properties.Settings.Default.DiscordRPCNameType;
             userNamedMod = BrawlCrate.Properties.Settings.Default.DiscordRPCNameCustom;
-            if(update)
+            if (update)
+            {
                 Update();
+            }
         }
-        
+
         //Temporary, don't save to config
         public static string lastFileOpened = null;
         public static long startTime;

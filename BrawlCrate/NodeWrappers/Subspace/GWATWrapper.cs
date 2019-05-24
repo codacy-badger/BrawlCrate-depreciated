@@ -1,17 +1,16 @@
-﻿using System;
-using BrawlLib;
-using BrawlLib.SSBB.ResourceNodes;
-using System.Windows.Forms;
+﻿using BrawlLib.SSBB.ResourceNodes;
+using System;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.GWAT)]
-    class GWATWrapper : GenericWrapper
+    internal class GWATWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static GWATWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -50,15 +49,17 @@ namespace BrawlCrate.NodeWrappers
 
         public void NewEntry()
         {
-            GWATEntryNode node = new GWATEntryNode();
-            node._unknown0x07 = 0x12;
-            node._unknown0x2C = 0x01;
-            node._float0x24 = 300;
+            GWATEntryNode node = new GWATEntryNode
+            {
+                _unknown0x07 = 0x12,
+                _unknown0x2C = 0x01,
+                _float0x24 = 300
+            };
             _resource.AddChild(node);
             ((GWATNode)_resource)._count += 1;
             node.Name = "Water [" + node.Index + "]";
         }
-        
+
         public GWATWrapper() { ContextMenuStrip = _menu; }
     }
 }

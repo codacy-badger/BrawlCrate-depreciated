@@ -9,19 +9,19 @@
             InitializeComponent();
         }
 
-        public int NewValue { get { return (int)numNewCount.Value; } }
-        public bool IncreaseFrames { get { return chkIncreaseFrames.Checked; } }
-        public bool OffsetOtherTextures { get { return chkOffsetOtherTextures.Checked; } }
+        public int NewValue => (int)numNewCount.Value;
+        public bool IncreaseFrames => chkIncreaseFrames.Checked;
+        public bool OffsetOtherTextures => chkOffsetOtherTextures.Checked;
 
         public new DialogResult ShowDialog()
         {
-            this.Text = title;
+            Text = title;
             return base.ShowDialog();
         }
 
         public DialogResult ShowDialog(string newTitle)
         {
-            this.Text = newTitle;
+            Text = newTitle;
             return base.ShowDialog();
         }
 

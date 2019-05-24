@@ -10,7 +10,7 @@ namespace System.Windows.Forms
 {
     public partial class IssueDialog : Form
     {
-        private Exception _exception;
+        private readonly Exception _exception;
 
         public IssueDialog(Exception e, List<ResourceNode> edited)
         {
@@ -22,8 +22,8 @@ namespace System.Windows.Forms
             txtStack.Text = e.Message + "\n" + e.StackTrace;
 
             lstChangedFiles.Visible =
-            lblChangedFiles.Visible = 
-            spltChangedFiles.Visible = 
+            lblChangedFiles.Visible =
+            spltChangedFiles.Visible =
             edited != null && edited.Count > 0;
 
             lstChangedFiles.Items.AddRange(edited.ToArray());
@@ -43,23 +43,22 @@ namespace System.Windows.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(txtTitle.Text) || txtTitle.ForeColor == Color.Gray)
+            if (string.IsNullOrEmpty(txtTitle.Text) || txtTitle.ForeColor == Color.Gray)
             {
                 MessageBox.Show("Please write a short summary for this bug report in the title box before sending.");
                 return;
             }
 
             //Send the issue to the repository
-            string path;
-            if (Program.CanRunGithubApp(true, out path))
+            if (Program.CanRunGithubApp(true, out string path))
             {
-                string args = String.Format("-bi \"{0}\" \"{1}\" \"{2}\" \"{3}\" \"{4}\"", 
+                string args = string.Format("-bi \"{0}\" \"{1}\" \"{2}\" \"{3}\" \"{4}\"",
                     MainForm.Instance.Canary ? "BrawlCrate Canary@" + MainForm.currentBranch + " #" + MainForm.Instance.commitIDlong.Substring(2) : Program.TagName,
                     _exception.Message.Replace("\"", "\\\""),
                     _exception.StackTrace.Replace("\"", "\\\""),
                     txtTitle.Text.Replace("\"", "\\\""),
-                    (String.IsNullOrEmpty(txtDescription.Text) || txtDescription.ForeColor == Color.Gray) ? "" : txtDescription.Text.Replace("\"", "\\\""));
-                
+                    (string.IsNullOrEmpty(txtDescription.Text) || txtDescription.ForeColor == Color.Gray) ? "" : txtDescription.Text.Replace("\"", "\\\""));
+
                 Process.Start(new ProcessStartInfo()
                 {
                     FileName = path,
@@ -68,17 +67,21 @@ namespace System.Windows.Forms
                 });
             }
             else
+            {
                 MessageBox.Show(".NET version 4.5 is required to run the updater, which is used to submit the bug report.");
+            }
 
             if (chkForceClose.Checked)
+            {
                 Environment.Exit(0);
+            }
 
             Close();
         }
 
         private void txtTitle_Leave(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(txtTitle.Text))
+            if (string.IsNullOrEmpty(txtTitle.Text))
             {
                 txtTitle.ForeColor = Color.Gray;
                 txtTitle.Text = "Write a quick one-sentence summary of the bug";
@@ -101,7 +104,7 @@ namespace System.Windows.Forms
 
         private void txtDescription_Leave(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(txtDescription.Text))
+            if (string.IsNullOrEmpty(txtDescription.Text))
             {
                 txtDescription.ForeColor = Color.Gray;
                 txtDescription.Text = "Explain in detail what you were doing that caused the bug. Reproducable steps and/or links to files that were worked on will make the bug much easier to fix. This will be posted publicly at https://github.com/BrawlCrate/BrawlCrateIssues/issues, so do not put any personal information here. It may be beneficial to you to sign your report with a username unless you wish to stay anonymous. It is also very helpful to report the issue on our Discord at https://discord.gg/s7c8763";
@@ -111,7 +114,9 @@ namespace System.Windows.Forms
         private bool Save(ResourceNode r)
         {
             if (r._origPath == null)
+            {
                 return SaveAs(r);
+            }
 
             r.Merge(Control.ModifierKeys == (Keys.Control | Keys.Shift));
             r.Export(r._origPath);
@@ -123,18 +128,23 @@ namespace System.Windows.Forms
         {
             ResourceNode r = lstChangedFiles.SelectedItem as ResourceNode;
             if (r != null && Save(r))
+            {
                 MessageBox.Show("Successfully saved " + r.Name);
+            }
             else
+            {
                 MessageBox.Show(r.Name + " was not saved successfully.");
+            }
         }
 
         private bool SaveAs(ResourceNode r)
         {
             if (r != null)
+            {
                 using (SaveFileDialog d = new SaveFileDialog())
                 {
                     d.InitialDirectory = r._origPath.Substring(0, r._origPath.LastIndexOf('\\'));
-                    d.Filter = String.Format("(*{0})|*{0}", Path.GetExtension(r._origPath));
+                    d.Filter = string.Format("(*{0})|*{0}", Path.GetExtension(r._origPath));
                     d.Title = "Please choose a location to save this file.";
                     if (d.ShowDialog(this) == DialogResult.OK)
                     {
@@ -143,6 +153,8 @@ namespace System.Windows.Forms
                         return true;
                     }
                 }
+            }
+
             return false;
         }
 
@@ -150,18 +162,26 @@ namespace System.Windows.Forms
         {
             ResourceNode r = lstChangedFiles.SelectedItem as ResourceNode;
             if (r != null && SaveAs(r))
+            {
                 MessageBox.Show("Successfully saved " + r.Name);
+            }
             else
+            {
                 MessageBox.Show(r.Name + " was not saved successfully.");
+            }
         }
 
         private void ctxFile_Opening(object sender, CancelEventArgs e)
         {
             ResourceNode file = lstChangedFiles.SelectedItem as ResourceNode;
             if (file != null)
+            {
                 saveToolStripMenuItem.Enabled = file.IsDirty;
+            }
             else
+            {
                 e.Cancel = true;
+            }
         }
 
         private void txtDescription_LinkClicked(object sender, LinkClickedEventArgs e)

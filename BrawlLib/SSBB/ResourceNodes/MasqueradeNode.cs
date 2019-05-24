@@ -1,18 +1,18 @@
-﻿using System;
-using BrawlLib.SSBBTypes;
+﻿using BrawlLib.SSBBTypes;
+using System;
+using System.BrawlEx;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.BrawlEx;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class MasqueradeNode : ResourceNode
     {
-        internal VoidPtr Header { get { return WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.MASQ; } }
-        
+        internal VoidPtr Header => WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.MASQ;
+
         public byte _cosmeticSlot; // Recieved from filename since it isn't referenced internally
         public static readonly byte Size = 0x66;
 
@@ -111,7 +111,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override void OnPopulate()
         {
             MasqueradeEntryNode end = new MasqueradeEntryNode(true);
-            for (int i = 0; i < MasqueradeNode.Size/2; i++)
+            for (int i = 0; i < MasqueradeNode.Size / 2; i++)
             {
                 new MasqueradeEntryNode().Initialize(this, new DataSource((Header)[i, 2], 2));
                 MasqueradeEntryNode m = (MasqueradeEntryNode)Children[Children.Count - 1];
@@ -126,20 +126,20 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
-            uint offset = (uint)(0x00);
+            uint offset = 0x00;
             for (int i = 0; i < Children.Count; i++)
             {
                 ResourceNode r = Children[i];
-                r.Rebuild((VoidPtr)address + offset, 2, true);
+                r.Rebuild(address + offset, 2, true);
                 offset += 2;
             }
             MasqueradeEntryNode end = new MasqueradeEntryNode(true);
-            end.Rebuild((VoidPtr)address + offset, 2, true);
+            end.Rebuild(address + offset, 2, true);
             offset += 2;
             while (offset < Size)
             {
                 MasqueradeEntryNode blank = new MasqueradeEntryNode(false);
-                blank.Rebuild((VoidPtr)address + offset, 2, true);
+                blank.Rebuild(address + offset, 2, true);
                 offset += 2;
             }
         }
@@ -153,15 +153,18 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             byte.TryParse(Path.GetFileNameWithoutExtension(_origPath), out _cosmeticSlot);
             if ((_name == null) && (_origPath != null))
+            {
                 _name = MasqueradeIDs[_cosmeticSlot];
+            }
+
             return true;
         }
     }
 
     public unsafe class MasqueradeEntryNode : ResourceNode
     {
-        internal CSSCEntry* Header { get { return (CSSCEntry*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.MASQEntry; } }
+        internal CSSCEntry* Header => (CSSCEntry*)WorkingUncompressed.Address;
+        public override ResourceType ResourceType => ResourceType.MASQEntry;
 
         public byte _colorID;
         public byte _costumeID;
@@ -183,10 +186,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Costume ID")]
         public byte CostumeID
         {
-            get
-            {
-                return _costumeID;
-            }
+            get => _costumeID;
             set
             {
                 if (((MasqueradeNode)Parent)._cosmeticSlot == 21 && (
@@ -194,8 +194,13 @@ namespace BrawlLib.SSBB.ResourceNodes
                     value == 31 ||
                     value == 47 ||
                     value == 63))
+                {
                     if (System.Windows.Forms.MessageBox.Show("Costume slot " + value + " is known to be bugged for WarioMan. Are you sure you'd like to proceed?", "Warning", System.Windows.Forms.MessageBoxButtons.YesNo) != System.Windows.Forms.DialogResult.Yes)
+                    {
                         return;
+                    }
+                }
+
                 _costumeID = value;
                 regenName();
                 SignalPropertyChange();
@@ -207,10 +212,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Color")]
         public byte Color
         {
-            get
-            {
-                return _colorID;
-            }
+            get => _colorID;
             set
             {
                 _colorID = value;
@@ -229,7 +231,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             _colorID = Header->_colorID;
             _costumeID = Header->_costumeID;
             if (_name == null)
+            {
                 _name = "Fit" + MasqueradeNode.MasqueradeInternalNames[((MasqueradeNode)Parent)._cosmeticSlot] + _costumeID.ToString("00") + (BrawlExColorID.Colors.Length > _colorID ? " - " + BrawlExColorID.Colors[_colorID].Name : "");
+            }
+
             return false;
         }
 
@@ -248,13 +253,13 @@ namespace BrawlLib.SSBB.ResourceNodes
         public List<string> GetCostumeFilePath(string currentPath)
         {
             List<string> files = new List<string>();
-            if((currentPath = currentPath.Substring(0, currentPath.LastIndexOf('\\'))).EndsWith("pf\\info\\costumeslots", StringComparison.OrdinalIgnoreCase))
+            if ((currentPath = currentPath.Substring(0, currentPath.LastIndexOf('\\'))).EndsWith("pf\\info\\costumeslots", StringComparison.OrdinalIgnoreCase))
             {
                 currentPath = currentPath.Substring(0, currentPath.LastIndexOf("info", StringComparison.OrdinalIgnoreCase));
                 List<string> internalNames = MasqueradeNode.MasqueradeInternalNames[((MasqueradeNode)Parent)._cosmeticSlot].Split('/').ToList<string>();
-                foreach(string s in internalNames)
+                foreach (string s in internalNames)
                 {
-                    if(File.Exists(currentPath + "fighter\\" + s + '\\' + "Fit" + s + _costumeID.ToString("00") + ".pac"))
+                    if (File.Exists(currentPath + "fighter\\" + s + '\\' + "Fit" + s + _costumeID.ToString("00") + ".pac"))
                     {
                         files.Add(currentPath + "fighter\\" + s + '\\' + "Fit" + s + _costumeID.ToString("00") + ".pac");
                     }

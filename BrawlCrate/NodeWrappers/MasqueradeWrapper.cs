@@ -1,19 +1,19 @@
-﻿using System;
-using BrawlLib;
+﻿using BrawlLib;
 using BrawlLib.SSBB.ResourceNodes;
-using System.Windows.Forms;
-using System.ComponentModel;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace BrawlCrate.NodeWrappers
 {
     [NodeWrapper(ResourceType.MASQ)]
-    class MasqueradeWrapper : GenericWrapper
+    internal class MasqueradeWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static MasqueradeWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -49,14 +49,19 @@ namespace BrawlCrate.NodeWrappers
         }
         #endregion
 
-        public override string ExportFilter { get { return FileFilters.MASQ; } }
+        public override string ExportFilter => FileFilters.MASQ;
 
         public void NewEntry()
         {
             if (_resource.Children.Count >= 50)
+            {
                 return;
-            MasqueradeEntryNode node = new MasqueradeEntryNode();
-            node._colorID = 0x0B;
+            }
+
+            MasqueradeEntryNode node = new MasqueradeEntryNode
+            {
+                _colorID = 0x0B
+            };
             if (_resource.HasChildren)
             {
                 byte nextID = (byte)(((MasqueradeEntryNode)(_resource.Children[_resource.Children.Count - 1]))._costumeID + 1);
@@ -65,7 +70,10 @@ namespace BrawlCrate.NodeWrappers
                     nextID == 31 ||
                     nextID == 47 ||
                     nextID == 63))
+                {
                     ++nextID; // Prevent wario edge cases
+                }
+
                 node._costumeID = nextID;
             }
             _resource.AddChild(node);
@@ -75,11 +83,11 @@ namespace BrawlCrate.NodeWrappers
         public MasqueradeWrapper() { ContextMenuStrip = _menu; }
     }
     [NodeWrapper(ResourceType.MASQEntry)]
-    class MasqueradeEntryWrapper : GenericWrapper
+    internal class MasqueradeEntryWrapper : GenericWrapper
     {
         #region Menu
 
-        private static ContextMenuStrip _menu;
+        private static readonly ContextMenuStrip _menu;
         static MasqueradeEntryWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -111,11 +119,13 @@ namespace BrawlCrate.NodeWrappers
             if (files.Count >= 1)
             {
                 _menu.Items[0].Text = "Open ";
-                for(int i = 0; i < files.Count; i++)
+                for (int i = 0; i < files.Count; i++)
                 {
                     _menu.Items[0].Text += files[i].Substring(files[i].LastIndexOf('\\') + 1);
                     if (i + 1 < files.Count)
+                    {
                         _menu.Items[0].Text += " and ";
+                    }
                 }
             }
             _menu.Items[3].Enabled = _menu.Items[9].Enabled = w.Parent != null;
@@ -128,7 +138,7 @@ namespace BrawlCrate.NodeWrappers
         public void OpenCostume()
         {
             List<string> files = ((MasqueradeEntryNode)_resource).GetCostumeFilePath(Program.RootPath);
-            foreach(string s in files)
+            foreach (string s in files)
             {
                 Process BrawlCrate = Process.Start(new ProcessStartInfo()
                 {

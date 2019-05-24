@@ -8,25 +8,22 @@ namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class ItmFreqNode : ARCEntryNode
     {
-        public override ResourceType ResourceType { get { return ResourceType.ItemFreqNode; } }
+        public override ResourceType ResourceType => ResourceType.ItemFreqNode;
         //internal ItmFreqHeader* Header { get { return (ItmFreqHeader*)WorkingUncompressed.Address; } }
-        internal ItmFreqTableList* TableList
-        {
-            get
-            {
-                return (ItmFreqTableList*)(WorkingUncompressed.Address + _dataLength - 0x08);
-            }
-        }
-        ItmFreqOffEntry _t1, _t2, _t3, _t4, _t5;
+        internal ItmFreqTableList* TableList => (ItmFreqTableList*)(WorkingUncompressed.Address + _dataLength - 0x08);
+
+        private ItmFreqOffEntry _t1, _t2, _t3, _t4, _t5;
 
         public ItmFreqNode()
         {
             for (int i = 0; i < 5; i++)
+            {
                 Children.Add(new TableNode() { Name = ("Table [" + i + "]") });
+            }
         }
 
         // Header variables
-        bint _dataLength, _fileSize, _DTableCount, _offCount = 0;
+        private bint _dataLength, _fileSize, _DTableCount, _offCount = 0;
 
         // Public variables
         public List<bint> _pointerList = new List<bint>();
@@ -49,7 +46,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             _offCount = Header->_OffCount;
 
             BaseAddress = (VoidPtr)Header + 0x20;
-            _pPointerList = (VoidPtr)BaseAddress + _dataLength;
+            _pPointerList = BaseAddress + _dataLength;
             _strings.Add("genParamSet");
 
             _t1 = TableList->_table1;
@@ -59,20 +56,30 @@ namespace BrawlLib.SSBB.ResourceNodes
             _t5 = TableList->_table5;
 
             for (int i = 0; i < 5; i++)
+            {
                 if (TableList->Entries[i]._count > 0)
+                {
                     _numTables++;
+                }
+            }
 
             // Add the offsets to the pointers list, then the offset to the table list.
             for (int i = 0; i < _offCount; i++)
+            {
                 _pointerList.Add(*(bint*)(_pPointerList + (i * 4)));
+            }
 
             // Get the location for the Data Table, then add each entry to the list.
-            _pDataTable = (VoidPtr)_pPointerList + (_offCount * 4);
+            _pDataTable = _pPointerList + (_offCount * 4);
             for (int i = 0; i < Header->_DataTable; i++)
+            {
                 _DataTable.Add(new ItmFreqOffPair(*(bint*)(_pDataTable + (i * 8)), *(bint*)((_pDataTable + (i * 8)) + 4)));
+            }
 
             if (_name == null)
+            {
                 _name = "Item Generation";
+            }
 
             return _numTables > 0;
         }
@@ -85,7 +92,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 // if they are not initialized, the size of the file will be thrown off by the
                 // size of the missing entries.
 
-                ItmFreqOffEntry* table = (ItmFreqOffEntry*)((int)TableList + (int)(i * 8));
+                ItmFreqOffEntry* table = (ItmFreqOffEntry*)((int)TableList + i * 8);
                 DataSource TableSource = new DataSource(table, 0x08);
                 new TableNode().Initialize(this, TableSource);
             }
@@ -94,7 +101,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
             // Update base address for children.
-            BaseAddress = (VoidPtr)address + 0x20;
+            BaseAddress = address + 0x20;
             _pointerList = new List<bint>();
 
             // Initiate header struct
@@ -120,20 +127,28 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             // Rebuild children using new TableList location
             for (int i = 0; i < Children.Count; i++)
+            {
                 Children[i].Rebuild(TList + (i * 8), 0x08, true);
+            }
 
             // Add Data header offsets to pointer list
             foreach (ItmFreqOffPair p in _DataTable)
+            {
                 _pointerList.Add(p._offset1);
+            }
 
             // Write pointers to the rebuilt address
             for (int i = 0; i < _pointerList.Count; i++)
-                *(bint*)((VoidPtr)_pPointerList + (i * 4)) = _pointerList[i];
+            {
+                *(bint*)(_pPointerList + (i * 4)) = _pointerList[i];
+            }
 
             // Update the pointer to the data table and write data table to it
-            _pDataTable = (VoidPtr)_pPointerList + (_pointerList.Count * 4);
+            _pDataTable = _pPointerList + (_pointerList.Count * 4);
             for (int i = 0; i < _DataTable.Count; i++)
-                *(ItmFreqOffPair*)((VoidPtr)_pDataTable + (i * 8)) = _DataTable[i];
+            {
+                *(ItmFreqOffPair*)(_pDataTable + (i * 8)) = _DataTable[i];
+            }
 
             // Finally, write the string table for the Data and external data tables
             _strings.WriteTable(_pDataTable + (_DataTable.Count * 8));
@@ -142,7 +157,10 @@ namespace BrawlLib.SSBB.ResourceNodes
         {
             int size = ItmFreqHeader.Size;
             foreach (TableNode node in Children)
+            {
                 size += node.CalculateSize(true);
+            }
+
             size += (_pointerList.Count * 4);
             size += _DataTable.Count * 8;
             size += _strings.TotalSize;
@@ -161,15 +179,15 @@ namespace BrawlLib.SSBB.ResourceNodes
     public unsafe class TableNode : ItmFreqBaseNode
     {
         //internal ItmFreqOffEntry* Header { get { return (ItmFreqOffEntry*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.ItemFreqTableNode; } }
+        public override ResourceType ResourceType => ResourceType.ItemFreqTableNode;
 
         private int _entryOffset;
         //[Browsable(false)]
-        public int Offset { get { return _entryOffset; } set { _entryOffset = value; SignalPropertyChange(); } }
+        public int Offset { get => _entryOffset; set { _entryOffset = value; SignalPropertyChange(); } }
 
         private int _count;
         //[Browsable(false)]
-        public int Count { get { return _count; } set { _count = value; SignalPropertyChange(); } }
+        public int Count { get => _count; set { _count = value; SignalPropertyChange(); } }
 
         public override bool OnInitialize()
         {
@@ -180,7 +198,9 @@ namespace BrawlLib.SSBB.ResourceNodes
             _count = Header->_count;
 
             if (_name == null)
-                _name = String.Format("Table [{0}]", Index);
+            {
+                _name = string.Format("Table [{0}]", Index);
+            }
 
             return _count > 0;
         }
@@ -202,44 +222,49 @@ namespace BrawlLib.SSBB.ResourceNodes
             //Root._pointerList.Add(((int)address - (int)BaseAddress));
 
             for (int i = 0; i < Children.Count; i++)
+            {
                 Children[i].Rebuild(BaseAddress + Header->_offset + (i * 0x14), 0x14, force);
+            }
         }
         public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = ItmFreqOffEntry.Size;
             foreach (TableGroupNode node in Children)
+            {
                 size += node.CalculateSize(force);
+            }
+
             return size;
         }
     }
     public unsafe class TableGroupNode : ItmFreqBaseNode
     {
         //internal ItmFreqGroup* Header { get { return (ItmFreqGroup*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.ItemFreqTableGroupNode; } }
+        public override ResourceType ResourceType => ResourceType.ItemFreqTableGroupNode;
 
         private bint _unk0;
         [Category("Group Node")]
-        public int Unknown0 { get { return _unk0; } set { _unk0 = value; SignalPropertyChange(); } }
+        public int Unknown0 { get => _unk0; set { _unk0 = value; SignalPropertyChange(); } }
 
         private bint _unk1;
         [Category("Group Node")]
-        public int Unknown1 { get { return _unk1; } set { _unk1 = value; SignalPropertyChange(); } }
+        public int Unknown1 { get => _unk1; set { _unk1 = value; SignalPropertyChange(); } }
 
         private bint _unk2;
         [Category("Group Node")]
-        public int Unknown2 { get { return _unk2; } set { _unk2 = value; SignalPropertyChange(); } }
+        public int Unknown2 { get => _unk2; set { _unk2 = value; SignalPropertyChange(); } }
 
         private bint _unk3;
         [Category("Group Node")]
-        public int Unknown3 { get { return _unk3; } set { _unk3 = value; SignalPropertyChange(); } }
+        public int Unknown3 { get => _unk3; set { _unk3 = value; SignalPropertyChange(); } }
 
         private bint _Offset;
         [Browsable(false)]
-        public bint Offset { get { return _Offset; } }
+        public bint Offset => _Offset;
 
         private bint _count;
         [Browsable(false)]
-        public bint Count { get { return _count; } }
+        public bint Count => _count;
 
         public override bool OnInitialize()
         {
@@ -254,7 +279,9 @@ namespace BrawlLib.SSBB.ResourceNodes
             _count = Header->_entryCount;
 
             if (_name == null)
-                _name = String.Format("Group [{0}]", Index);
+            {
+                _name = string.Format("Group [{0}]", Index);
+            }
 
             return Header->_entryCount > 0;
         }
@@ -281,36 +308,42 @@ namespace BrawlLib.SSBB.ResourceNodes
             Root._pointerList.Add(((int)address - (int)BaseAddress) + 0x0c);
 
             for (int i = 0; i < Children.Count; i++)
+            {
                 Children[i].Rebuild(BaseAddress + Header->_entryOffset + (i * 0x10), 0x10, force);
+            }
         }
         public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             int size = ItmFreqGroup.Size;
             foreach (ItmFreqEntryNode node in Children)
+            {
                 size += node.CalculateSize(force);
+            }
+
             return size;
         }
     }
     public unsafe class ItmFreqEntryNode : ItmFreqBaseNode
     {
         //internal ItmFreqEntry* Header { get { return (ItmFreqEntry*)WorkingUncompressed.Address; } }
-        public override ResourceType ResourceType { get { return ResourceType.ItemFreqEntryNode; } }
+        public override ResourceType ResourceType => ResourceType.ItemFreqEntryNode;
 
         private int _id;
-        private Item _item;
+        private readonly Item _item;
         [Category("Item")]
         [DisplayName("Item ID")]
         [Description("The ID of the item to spawn.")]
         [TypeConverter(typeof(DropDownListItemIDs))]
         public int ItemID
         {
-            get
-            {
-                return _id;
-            }
+            get => _id;
             set
             {
-                if (_id < 0 || value < 0) return;
+                if (_id < 0 || value < 0)
+                {
+                    return;
+                }
+
                 _id = value;
                 SignalPropertyChange(); UpdateName();
             }
@@ -320,25 +353,25 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("SubItem ID")]
         [Category("Item")]
         [Description("Item subset to use. For Barrels, Crates, and Rolling Crates, this determines the costume used. For Bob-Ombs, setting to 1 causes Sudden Death Behavior.")]
-        public int SubID { get { return _costumeID; } set { _costumeID = value; SignalPropertyChange(); } }
+        public int SubID { get => _costumeID; set { _costumeID = value; SignalPropertyChange(); } }
 
         private float _frequency;
         [DisplayName("Frequency")]
         [Category("Item Frequency")]
         [Description("The spawn frequency of the selected item. Higher values mean a higher spawn rate.")]
-        public string Frequency { get { return _frequency.ToString("0.00"); } set { _frequency = float.Parse(value); SignalPropertyChange(); } }
+        public string Frequency { get => _frequency.ToString("0.00"); set { _frequency = float.Parse(value); SignalPropertyChange(); } }
 
         private short _action;
         [DisplayName("Start Action")]
         [Category("Item")]
         [Description("Possible the spawning action of the item.")]
-        public short Action { get { return _action; } set { _action = value; SignalPropertyChange(); } }
+        public short Action { get => _action; set { _action = value; SignalPropertyChange(); } }
 
         private short _subaction;
         [DisplayName("Start Subaction")]
         [Category("Item")]
         [Description("Possible the spawning subaction of the item.")]
-        public short Subaction { get { return _subaction; } set { _subaction = value; SignalPropertyChange(); } }
+        public short Subaction { get => _subaction; set { _subaction = value; SignalPropertyChange(); } }
 
         public override bool OnInitialize()
         {
@@ -351,7 +384,9 @@ namespace BrawlLib.SSBB.ResourceNodes
             _subaction = Header->_subaction;
 
             if (_name == null)
+            {
                 UpdateName();
+            }
 
             return false;
         }
@@ -372,11 +407,11 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
         public void UpdateName()
         {
-            var item = Item.Items.Where(s => s.ID == ItemID).FirstOrDefault();
-			bool changed = this._changed;
+            Item item = Item.Items.Where(s => s.ID == ItemID).FirstOrDefault();
+            bool changed = _changed;
             Name = "0x" + ItemID.ToString("X2") + (item == null ? "" : (" - " + item.Name));
-			this._changed = changed;
-		}
+            _changed = changed;
+        }
 
     }
 
@@ -389,32 +424,51 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 ResourceNode n = _parent;
                 while (!(n is ItmFreqNode) && (n != null))
+                {
                     n = n._parent;
+                }
+
                 return n as ItmFreqNode;
             }
         }
         [Browsable(false)]
-        public VoidPtr Data { get { return (VoidPtr)WorkingUncompressed.Address; } }
+        public VoidPtr Data => WorkingUncompressed.Address;
         [Browsable(false)]
         public VoidPtr BaseAddress
         {
             get
             {
                 if (Root == null)
+                {
                     return 0;
+                }
+
                 return Root.BaseAddress;
             }
         }
         [Browsable(false)]
-        public int _FileOffset { get { if (Data != null) return (int)Data - (int)BaseAddress; else return 0; } }
+        public int _FileOffset
+        {
+            get
+            {
+                if (Data != null)
+                {
+                    return (int)Data - (int)BaseAddress;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
 
         [Browsable(true)]
         [Category("Entry")]
-        public string FileOffset { get { return _FileOffset.ToString("x"); } }
+        public string FileOffset => _FileOffset.ToString("x");
 
         [Browsable(true)]
         [Category("Entry")]
-        public string Length { get { return WorkingUncompressed.Length.ToString("x"); } }
+        public string Length => WorkingUncompressed.Length.ToString("x");
 
     }
 }

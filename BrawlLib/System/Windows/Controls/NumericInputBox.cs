@@ -11,10 +11,13 @@ namespace System.Windows.Forms
         {
             get
             {
-				if (_value == null)
-					Apply();
-				return _value.Value;
-			}
+                if (_value == null)
+                {
+                    Apply();
+                }
+
+                return _value.Value;
+            }
             set
             {
                 _value = value; //Clamp(_minValue, _maxValue);
@@ -24,10 +27,10 @@ namespace System.Windows.Forms
 
         public NumericInputBox() { UpdateText(); }
 
-        public float MinimumValue { get { return _minValue; } set { _minValue = value; } }
-        public float MaximumValue { get { return _maxValue; } set { _maxValue = value; } }
-        public bool Integral { get { return _integral; } set { _integral = value; } }
-        public bool Integer { get { return _integer; } set { _integer = value; } }
+        public float MinimumValue { get => _minValue; set => _minValue = value; }
+        public float MaximumValue { get => _maxValue; set => _maxValue = value; }
+        public bool Integral { get => _integral; set => _integral = value; }
+        public bool Integer { get => _integer; set => _integer = value; }
 
         public float _minValue = float.MinValue;
         public float _maxValue = float.MaxValue;
@@ -114,9 +117,14 @@ namespace System.Windows.Forms
                     if (float.TryParse(Text, out val))
                     {
                         if (e.Shift || _integral)
+                        {
                             Text = (val + 1.0f).Clamp(_minValue, _maxValue).ToString();
+                        }
                         else
+                        {
                             Text = (val + 0.1f).Clamp(_minValue, _maxValue).ToString();
+                        }
+
                         Apply();
                     }
                     e.Handled = true;
@@ -127,9 +135,14 @@ namespace System.Windows.Forms
                     if (float.TryParse(Text, out val))
                     {
                         if (e.Shift || _integral)
+                        {
                             Text = (val - 1.0f).Clamp(_minValue, _maxValue).ToString();
+                        }
                         else
+                        {
                             Text = (val - 0.1f).Clamp(_minValue, _maxValue).ToString();
+                        }
+
                         Apply();
                     }
                     e.Handled = true;
@@ -138,14 +151,20 @@ namespace System.Windows.Forms
 
                 case Keys.Subtract:
                 case Keys.OemMinus:
-                    if ((this.SelectionStart != 0) || (Text.IndexOf('-') != -1))
+                    if ((SelectionStart != 0) || (Text.IndexOf('-') != -1))
+                    {
                         e.SuppressKeyPress = true;
+                    }
+
                     break;
 
                 case Keys.Decimal:
                 case Keys.OemPeriod:
-                    if (Text.IndexOf('.') != -1 || this.Integer == true)
+                    if (Text.IndexOf('.') != -1 || Integer == true)
+                    {
                         e.SuppressKeyPress = true;
+                    }
+
                     break;
 
                 case Keys.Escape:
@@ -174,7 +193,10 @@ namespace System.Windows.Forms
                 case Keys.V:
                 case Keys.C:
                     if (!e.Control)
+                    {
                         goto default;
+                    }
+
                     break;
                 case Keys.Delete:
                     break;
@@ -189,9 +211,13 @@ namespace System.Windows.Forms
         private void UpdateText()
         {
             if (_value == float.NaN)
+            {
                 Text = "";
+            }
             else
+            {
                 Text = _value.ToString();
+            }
         }
 
         private void Apply()
@@ -200,10 +226,14 @@ namespace System.Windows.Forms
             int val2 = (int)val;
 
             if (_value != null && val.ToString() == Text)
+            {
                 return;
+            }
 
             if (Text == "")
+            {
                 val = float.NaN;
+            }
             else if (!_integral)
             {
                 float.TryParse(Text, out val);
@@ -222,7 +252,9 @@ namespace System.Windows.Forms
                     _previousValue = _value ?? 0.0f;
                     _value = val;
                     if (ValueChanged != null)
+                    {
                         ValueChanged(this, null);
+                    }
                 }
             }
             else
@@ -232,7 +264,9 @@ namespace System.Windows.Forms
                     _previousValue = _value ?? 0.0f;
                     _value = val2;
                     if (ValueChanged != null)
+                    {
                         ValueChanged(this, null);
+                    }
                 }
             }
 

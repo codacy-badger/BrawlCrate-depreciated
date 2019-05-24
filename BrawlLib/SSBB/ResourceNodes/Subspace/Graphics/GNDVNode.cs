@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BrawlLib.SSBBTypes;
+using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using BrawlLib.SSBBTypes;
 
 namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class GNDVNode : ResourceNode
     {
-        internal protected GNDV* Header { get { return (GNDV*)WorkingUncompressed.Address; } }
+        protected internal GNDV* Header => (GNDV*)WorkingUncompressed.Address;
 
         public override bool OnInitialize()
         {
             if (_name == null)
+            {
                 _name = "GNDV";
+            }
 
             return Header->_entryCount > 0;
         }
@@ -24,9 +23,13 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 DataSource source;
                 if (i == Header->_entryCount - 1)
+                {
                     source = new DataSource((*Header)[i], WorkingUncompressed.Address + WorkingUncompressed.Length - (*Header)[i]);
+                }
                 else
+                {
                     source = new DataSource((*Header)[i], (*Header)[i + 1] - (*Header)[i]);
+                }
 
                 new GNDVEntryNode().Initialize(this, source);
             }
@@ -46,10 +49,12 @@ namespace BrawlLib.SSBB.ResourceNodes
             for (int i = 0; i < Children.Count; i++)
             {
                 if (i > 0)
+                {
                     offset += (uint)(Children[i - 1].CalculateSize(false));
+                }
 
-                *(buint*)((VoidPtr)address + 0x08 + i * 4) = offset;
-                _children[i].Rebuild((VoidPtr)address + offset, _children[i].CalculateSize(false), true);
+                *(buint*)(address + 0x08 + i * 4) = offset;
+                _children[i].Rebuild(address + offset, _children[i].CalculateSize(false), true);
             }
         }
 
@@ -58,12 +63,12 @@ namespace BrawlLib.SSBB.ResourceNodes
 
     public unsafe class GNDVEntryNode : ResourceNode
     {
-        internal protected GNDVEntry* Entry { get { return (GNDVEntry*)WorkingUncompressed.Address; } }
+        protected internal GNDVEntry* Entry => (GNDVEntry*)WorkingUncompressed.Address;
 
         [Category("General")]
         public uint Unk1
         {
-            get { return _unk1; }
+            get => _unk1;
             set { _unk1 = value; SignalPropertyChange(); }
         }
         private uint _unk1 = 0;
@@ -72,8 +77,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Target Bone Name")]
         public string BoneName
         {
-            get { return _boneName; }
-            set { _boneName = value; this.Name = value; SignalPropertyChange(); }
+            get => _boneName;
+            set { _boneName = value; Name = value; SignalPropertyChange(); }
         }
         private string _boneName = string.Empty;
 
@@ -81,7 +86,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("SFX Info Index")]
         public int SFXInfoIndex
         {
-            get { return _sfx; }
+            get => _sfx;
             set { _sfx = value; SignalPropertyChange(); }
         }
         private int _sfx;
@@ -91,8 +96,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         [TypeConverter(typeof(UInt32HexTypeConverter))]
         public uint Graphic
         {
-            get { return _gfx; }
-            set { _gfx = value;SignalPropertyChange(); }
+            get => _gfx;
+            set { _gfx = value; SignalPropertyChange(); }
         }
         private uint _gfx;
 
@@ -101,8 +106,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         [TypeConverter(typeof(UInt32HexTypeConverter))]
         public uint TriggerID
         {
-            get { return _triggerID; }
-            set { _triggerID = value;SignalPropertyChange(); }
+            get => _triggerID;
+            set { _triggerID = value; SignalPropertyChange(); }
         }
         private uint _triggerID;
 
@@ -115,7 +120,9 @@ namespace BrawlLib.SSBB.ResourceNodes
             _triggerID = Entry->_triggerID;
 
             if (_name == null)
+            {
                 _name = BoneName;
+            }
 
             return false;
         }
