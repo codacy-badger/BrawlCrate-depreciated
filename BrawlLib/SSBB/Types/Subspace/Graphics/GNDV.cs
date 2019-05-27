@@ -23,7 +23,7 @@ namespace BrawlLib.SSBBTypes
         public const int SIZE = 0x30;
 
         public buint _unk1;
-        private readonly sbyte _boneName[0x20];
+        private fixed sbyte _boneName[0x20];
         public bint _sfx;
         public buint _gfx;
         public buint _triggerID;

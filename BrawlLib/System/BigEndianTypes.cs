@@ -230,7 +230,7 @@ namespace System
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct bMatrix43
     {
-        private readonly float _data[12];
+        private fixed float _data[12];
 
         public bfloat* Data { get { fixed (float* ptr = _data) { return (bfloat*)ptr; } } }
 
@@ -335,7 +335,7 @@ namespace System
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct bMatrix
     {
-        private readonly float _data[16];
+        private fixed float _data[16];
 
         public bfloat* Data { get { fixed (float* ptr = _data) { return (bfloat*)ptr; } } }
 
