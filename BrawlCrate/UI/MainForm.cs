@@ -360,8 +360,8 @@ namespace BrawlCrate
                         {
                             FileName = path,
                             WindowStyle = ProcessWindowStyle.Hidden,
-                            Arguments = String.Format("-bu {0} {1} {2} {3} \"{4}\"",
-                            Program.TagName, manual ? "1" : "0", _docUpdates ? "1" : "0", automatic ? "1" : "0", Program.RootPath == null ? "<null>" : Program.RootPath),
+                            Arguments = string.Format("-bu 1 \"{0}\" {1} \"{2}\" {3} {4}",
+                                Program.TagName, manual ? "1" : "0", Program.RootPath ?? "<null>", _docUpdates ? "1" : "0", automatic ? "1" : "0"),
                         });
                         if (automatic)
                             git.WaitForExit();
@@ -372,7 +372,7 @@ namespace BrawlCrate
                         {
                             FileName = path,
                             WindowStyle = ProcessWindowStyle.Hidden,
-                            Arguments = String.Format("-buc {0} \"{1}\"", manual ? "1" : "0", (Program.RootPath == null ? "<null>" : Program.RootPath)),
+                            Arguments = string.Format("-buc \"{0}\" {1}", Program.RootPath ?? "<null>", manual ? "1" : "0"),
                         });
                         if (automatic)
                             git.WaitForExit();

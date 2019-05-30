@@ -106,23 +106,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\CanaryChangelogViewer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\CanaryChangelogViewer.Designer.cs">
+    <Compile Include="UI\CanaryChangelogViewer.designer.cs">
       <DependentUpon>CanaryChangelogViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\DLProgressBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\DLProgressTracker.cs" />
     <Compile Include="UI\DLProgressWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\DLProgressWindow.designer.cs">
       <DependentUpon>DLProgressWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UI\CanaryChangelogViewer.resx">
@@ -131,9 +133,6 @@
     <EmbeddedResource Include="UI\DLProgressWindow.resx">
       <DependentUpon>DLProgressWindow.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
