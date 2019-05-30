@@ -20,10 +20,10 @@ namespace Net
     {
         public static readonly string mainRepo = "soopercool101/BrawlCrate";
         public static readonly string mainBranch = "brawlcrate-master";
-        public static string currentRepo = GetCurrentRepo();
-        public static string currentBranch = GetCurrentBranch();
+        public static string currentRepo;
+        public static string currentBranch;
 
-        private static string GetCurrentRepo()
+        public static string GetCurrentRepo()
         {
             try
             {
@@ -41,7 +41,7 @@ namespace Net
             }
         }
 
-        private static string GetCurrentBranch()
+        public static string GetCurrentBranch()
         {
             try
             {
@@ -266,7 +266,7 @@ namespace Net
                 {
                     return;
                 }
-                if(!File.Exists(AppPath + '\\' + "Canary" + '\\' + "Old") && File.Exists(AppPath + '\\' + "Canary" + '\\' + "New"))
+                if (!File.Exists(AppPath + '\\' + "Canary" + '\\' + "Old") && File.Exists(AppPath + '\\' + "Canary" + '\\' + "New"))
                 {
                     File.Move(AppPath + '\\' + "Canary" + '\\' + "New", AppPath + '\\' + "Canary" + '\\' + "Old");
                 }
@@ -540,9 +540,11 @@ namespace Net
                 branchName = branchName ?? mainBranch;
                 repo = repo ?? mainRepo;
 
+                DirectoryInfo CanaryDir = Directory.CreateDirectory(AppPath + '\\' + "Canary");
+                CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+
                 if (!branchName.Equals(mainBranch, StringComparison.OrdinalIgnoreCase) || !repo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase))
                 {
-                    Directory.CreateDirectory(AppPath + '\\' + "Canary");
                     using (var sw = new StreamWriter(AppPath + '\\' + "Canary" + '\\' + "Branch"))
                     {
                         if (!repo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase))
@@ -568,8 +570,6 @@ namespace Net
                 result = await github.Repository.Commit.Get(repoOwner, repoName, commitid ?? branch.Commit.Sha);
                 commitDate = result.Commit.Author.Date;
                 commitDate = commitDate.ToUniversalTime();
-                DirectoryInfo CanaryDir = Directory.CreateDirectory(AppPath + '\\' + "Canary");
-                CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
                 string Filename = AppPath + '\\' + "Canary" + '\\' + "New";
                 if (File.Exists(Filename))
                 {
@@ -602,7 +602,7 @@ namespace Net
             {
                 File.Create(AppPath + '\\' + "Canary" + '\\' + "Active");
             }
-
+            Console.WriteLine("Canary Active");
             await Task.Delay(1);
         }
 
@@ -965,7 +965,8 @@ namespace Net
             }
 
             bool somethingDone = false;
-
+            Updater.currentRepo = Updater.GetCurrentRepo();
+            Updater.currentBranch = Updater.GetCurrentBranch();
             if (args.Length > 0)
             {
                 switch (args[0])
@@ -1053,7 +1054,7 @@ namespace Net
             else if (args.Length == 0)
             {
                 somethingDone = true;
-                Task t = Updater.CheckCanaryUpdate(null, false, true);
+                Task t = Updater.CheckUpdate(true);
                 t.Wait();
             }
 
