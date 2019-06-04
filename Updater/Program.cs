@@ -20,20 +20,14 @@ namespace Net
     {
         public static readonly string mainRepo = "soopercool101/BrawlCrate";
         public static readonly string mainBranch = "brawlcrate-master";
-        public static string currentRepo = GetCurrentRepo();
-        public static string currentBranch = GetCurrentBranch();
+        public static string currentRepo;
+        public static string currentBranch;
 
-        private static string GetCurrentRepo()
+        public static string GetCurrentRepo()
         {
             try
             {
-                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
-                {
-                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
-                }
-
-                return mainRepo;
-                string temp = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch")[1];
+                string temp = File.ReadAllLines(AppPath + '\\' + "Canary" + '\\' + "Branch")[1];
                 if (temp == null || temp == "")
                 {
                     throw (new ArgumentNullException());
@@ -47,17 +41,11 @@ namespace Net
             }
         }
 
-        private static string GetCurrentBranch()
+        public static string GetCurrentBranch()
         {
             try
             {
-                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
-                {
-                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
-                }
-
-                return mainBranch;
-                string temp = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch")[0];
+                string temp = File.ReadAllLines(AppPath + '\\' + "Canary" + '\\' + "Branch")[0];
                 if (temp == null || temp == "")
                 {
                     throw (new ArgumentNullException());
@@ -78,96 +66,230 @@ namespace Net
             0x39, 0x32, 0x66, 0x63, 0x20
         };
 
-        public static readonly string BaseURL = "https://github.com/soopercool101/BrawlCrate/releases/download/";
         public static string AppPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-        public static async Task UpdateCheck() { await UpdateCheck(false); }
-        public static async Task UpdateCheck(bool Overwrite, string openFile = null, bool Documentation = false, bool Automatic = false)
+        private static readonly GitHubClient github = new GitHubClient(new ProductHeaderValue("BrawlCrate")) { Credentials = new Credentials(System.Text.Encoding.Default.GetString(_rawData)) };
+
+        public static async Task CheckUpdate() { await CheckUpdate(true); }
+
+        // Used to check for and download non-canary releases (including documentation updates)
+        public static async Task CheckUpdate(bool Overwrite, string releaseTag = "", bool manual = false, string openFile = null, bool checkDocumentation = false, bool Automatic = false)
         {
-            Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
+            // If canary is active, disable it
+            if (File.Exists(AppPath + '\\' + "Canary" + '\\' + "Active"))
+            {
+                File.Delete(AppPath + '\\' + "Canary" + '\\' + "Active");
+            }
+
+            string repoOwner = mainRepo.Split('/')[0];
+            string repoName = mainRepo.Split('/')[1];
+
             try
             {
-                if (AppPath.EndsWith("lib", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    AppPath = AppPath.Substring(0, AppPath.Length - 4);
-                }
-
                 // check to see if the user is online, and that github is up and running.
-                Console.WriteLine("Checking connection to server.");
-                using (Ping s = new Ping())
+                Console.Write("Checking connection to server... ");
+                try
                 {
-                    Console.WriteLine(s.Send("www.github.com").Status);
-                }
-
-                // Initiate the github client.
-                GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
-
-                // get Release
-                IReadOnlyList<Release> releases = await github.Repository.Release.GetAll("soopercool101", "BrawlCrate");
-                if (!Documentation)
-                {
-                    releases = releases.Where(r => !r.Prerelease).ToList();
-                }
-                else
-                {
-                    releases = releases.Where(r => r.Prerelease).ToList();
-                }
-                // Get Release Assets
-                Release release = releases[0];
-                ReleaseAsset Asset = (await github.Repository.Release.GetAllAssets("soopercool101", "BrawlCrate", release.Id))[0];
-                if (Asset == null)
-                {
-                    return;
-                }
-
-                if (Overwrite && !Documentation)
-                {
-                //Find and close the BrawlCrate application that will be overwritten
-                TRY_AGAIN:
-                    Process[] px = Process.GetProcessesByName("BrawlCrate");
-                    Process[] pToClose = px.Where(x => x.MainModule.FileName.Equals(AppPath + "\\BrawlCrate.exe")).ToArray();
-                    Process p = px.FirstOrDefault(x => x.MainModule.FileName.Equals(AppPath + "\\BrawlCrate.exe"));
-                    if (p != null && p != default(Process) && px != null && pToClose != null && pToClose.Length > 1)
+                    using (Ping s = new Ping())
                     {
-                        DialogResult continueUpdate = MessageBox.Show("Update cannot proceed unless all open windows of " + AppPath + "\\BrawlCrate.exe are closed. Would you like to force close all open BrawlCrate windows at this time?\n\n" +
-                            "Select \"Yes\" if you would like to force close all open BrawlCrate windows\n" +
-                            "Select \"No\" after closing all windows manually if you would like to proceed without force closing\n" +
-                            "Select \"Cancel\" if you would like to wait to update until another time", releases[0].Name + " Update", MessageBoxButtons.YesNoCancel);
-                        if (continueUpdate == DialogResult.Yes)
+                        IPStatus status = s.Send("www.github.com").Status;
+                        Console.WriteLine(status);
+                        if (status != IPStatus.Success)
                         {
-                            try
+                            Console.WriteLine("Failed to connect");
+                            if (manual)
                             {
-                                foreach (Process pNext in pToClose)
-                                {
-                                    pNext.Kill();
-                                }
-
-                                await Task.Delay(50);
+                                MessageBox.Show("Unable to connect to GitHub. The website may be down.");
                             }
-                            catch (Exception xp)
-                            {
-                                MessageBox.Show(xp.Message);
-                            }
-                            goto TRY_AGAIN;
-                        }
-                        else if (continueUpdate == DialogResult.No)
-                        {
-                            goto TRY_AGAIN;
-                        }
-                        else
-                        {
                             return;
                         }
                     }
-                    else if (p != null && p != default(Process) && Automatic)
+                }
+                catch
+                {
+                    throw new System.Net.Http.HttpRequestException();
+                }
+                // Initiate the github client.
+
+                // get Release
+                IReadOnlyList<Release> AllReleases = await github.Repository.Release.GetAll(repoOwner, repoName);
+                IReadOnlyList<Release> releases = null;
+                Release release = null;
+                bool documentation = false;
+                if (AllReleases.Count == 0)
+                {
+                    goto UpdateDL;
+                }
+                // Remove all pre-release versions from the list (Prerelease versions are exclusively documentation updates)
+                releases = AllReleases.Where(r => !r.Prerelease).ToList();
+                if (releases[0].TagName != releaseTag)
+                {
+                    release = releases[0];
+                    goto UpdateDL;
+                }
+
+                if (checkDocumentation)
+                {
+                    // Figure out what documentation version you're on
+                    string docVer = "";
+                    try
                     {
-                        p.Kill();
+                        docVer = File.ReadAllLines(AppPath + '\\' + "InternalDocumentation" + '\\' + "version.txt")[0];
                     }
-                    else if (p != null && p != default(Process) && p.CloseMainWindow())
+                    catch (Exception e)
                     {
-                        p.WaitForExit();
-                        p.Close();
+                        Console.WriteLine(e.Message);
+                        MessageBox.Show("ERROR: Documentation Version could not be found. Downloading the latest documentation release.");
+                        await ForceDownloadDocumentation();
+                        try
+                        {
+                            docVer = File.ReadAllLines(AppPath + '\\' + "InternalDocumentation" + '\\' + "version.txt")[0];
+                            // Documentation has already been updated, no need to check again.
+                            checkDocumentation = false;
+                        }
+                        catch (Exception e2)
+                        {
+                            Console.WriteLine(e2.Message);
+                            MessageBox.Show("ERROR: Documentation Version still could not be found. Please report this on Discord or Github.\n" + e2.Message);
+                        }
                     }
+                    // Don't need to check for update unless the latest release is a prerelease (documentation is included in full releases)
+                    if (AllReleases[0].Prerelease)
+                    {
+                        // This track is shared by canary updates. Ensure that a documentation release is found.
+                        foreach (Release r in AllReleases)
+                        {
+                            if (r.TagName == releaseTag || r.TagName == docVer)
+                            {
+                                // Documentation is already up-to-date if the latest release (either of documentation or the full program) has been downloaded
+                                release = null;
+                                break;
+                            }
+                            else if (r.Prerelease && r.Name.ToLower().Contains("documentation"))
+                            {
+                                release = r;
+                                documentation = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+            UpdateDL:
+                // If there are no releases available, download will fail.
+                if (release == null || release.Assets.Count == 0)
+                {
+                    if (manual)
+                    {
+                        MessageBox.Show("No updates found.");
+                    }
+                    return;
+                }
+                // Show warnings as applicable to those using the automatic updater
+                if (Automatic)
+                {
+                    if (release.Body.Contains("WARNING: "))
+                    {
+                        if (release.Body.StartsWith("WARNING: "))
+                        {
+                            DialogResult dr = MessageBox.Show(release.Body.Substring(0, release.Body.IndexOf("\n") - 1) + "\n\nWould you like to continue updating?", "Automatic Update Warning", MessageBoxButtons.YesNo);
+                            if (dr != DialogResult.Yes)
+                            {
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            DialogResult dr = MessageBox.Show(release.Body.Substring(release.Body.IndexOf("WARNING: ")) + "\n\nWould you like to continue updating?", "Automatic Update Warning", MessageBoxButtons.YesNo);
+                            if (dr != DialogResult.Yes)
+                            {
+                                return;
+                            }
+                        }
+                    }
+                    if ((GetOpenWindowsCount() > 1) && MessageBox.Show("Update to " + release.Name + " was found. Would you like to download now?\n\nAll current windows will be closed and changes will be lost!", "Updater", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                    {
+                        return;
+                    }
+                }
+                else // Allow the user to choose whether or not to download a release if not using the automatic updater
+                {
+                    if (MessageBox.Show(release.Name + " is available!\n\nThis release:\n\n" + release.Body + "\n\nUpdate now?" + (manual ? "\n\nThe program will be closed, and changes will not be saved!" : ""), "Update", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                    {
+                        return;
+                    }
+                }
+
+                await DownloadRelease(release, Overwrite, Automatic, manual, documentation, openFile);
+            }
+            catch (System.Net.Http.HttpRequestException)
+            {
+                if (manual)
+                {
+                    MessageBox.Show("Unable to connect to the internet.");
+                }
+            }
+            catch (Exception e)
+            {
+                if (manual)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            }
+        }
+
+        public static async Task CheckCanaryUpdate(string openFile = null, bool manual = false, bool force = false)
+        {
+            try
+            {
+                char[] slashes = { '\\', '/' };
+                string[] repoData = currentRepo.Split(slashes);
+                Release release = await github.Repository.Release.Get(repoData[0], repoData[1], "Canary" + (currentBranch.Equals(mainBranch, StringComparison.OrdinalIgnoreCase) ? "" : "-" + currentBranch));
+                if (!force)
+                {
+                    string oldID = File.ReadAllLines(AppPath + '\\' + "Canary" + '\\' + "New")[2];
+                    string newID = release.TargetCommitish;
+                    if (oldID.Equals(newID, StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (manual)
+                        {
+                            MessageBox.Show("No updates found.");
+                        }
+                        return;
+                    }
+                }
+                if (release == null || release.Assets.Count == 0)
+                {
+                    throw new Exception();
+                }
+                if ((manual || GetOpenWindowsCount() > 1) && MessageBox.Show("Update to #" + release.TargetCommitish + " was found. Would you like to download now?\n\nAll current windows will be closed and changes will be lost!", "Canary Updater", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                {
+                    return;
+                }
+                if (!File.Exists(AppPath + '\\' + "Canary" + '\\' + "Old") && File.Exists(AppPath + '\\' + "Canary" + '\\' + "New"))
+                {
+                    File.Move(AppPath + '\\' + "Canary" + '\\' + "New", AppPath + '\\' + "Canary" + '\\' + "Old");
+                }
+                await DownloadRelease(release, true, true, manual, false, openFile);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                MessageBox.Show("ERROR: Current Canary version could not be found. Canary has been disabled. The latest stable build will be downloaded instead.");
+                await ForceDownloadStable(openFile);
+            }
+        }
+
+        public static async Task DownloadRelease(Release release, bool Overwrite, bool Automatic, bool manual, bool Documentation, string openFile)
+        {
+            try
+            {
+                ReleaseAsset Asset = release.Assets[0];
+
+                // If open windows need to be closed, ensure they are all properly closed
+                if (Overwrite && !Documentation)
+                {
+                    await KillOpenWindows();
                 }
 
                 // Check if we were passed in the overwrite paramter, and if not create a new folder to extract in.
@@ -186,375 +308,60 @@ namespace Net
                     string html = client.DownloadString(Asset.Url);
 
                     // The browser download link to the self extracting archive, hosted on github
-                    string URL = html.Substring(html.IndexOf(BaseURL)).TrimEnd(new char[] { '}', '"' });
+                    string URL = html.Substring(html.IndexOf("browser_download_url\":\"")).TrimEnd(new char[] { '}', '"' });
+                    URL = URL.Substring(URL.IndexOf("http"));
 
-                    //client.DownloadFile(URL, AppPath + "/temp.exe");
+                    // Download the update, using a download tracker
                     DLProgressWindow.finished = false;
-                    DLProgressWindow dlTrack = new DLProgressWindow(null, releases[0].Name, AppPath, URL);
+                    DLProgressWindow dlTrack = new DLProgressWindow(release.Name + (release.Name.ToLower().Contains("canary") ? " #" + release.TargetCommitish.Substring(0, 7) : ""), AppPath, URL);
                     while (!DLProgressWindow.finished)
                     {
                         // do nothing
                     }
                     dlTrack.Close();
                     dlTrack.Dispose();
-                    if (!File.Exists(AppPath + "/temp.exe") || (new FileInfo(AppPath + "/temp.exe")).Length != (long)DLProgressWindow.MaxValue || (new FileInfo(AppPath + "/temp.exe")).Length == 0)
-                    {
-                        MessageBox.Show("Error downloading update");
-                        if (File.Exists(AppPath + "/temp.exe"))
-                        {
-                            File.Delete(AppPath + "/temp.exe");
-                        }
-
-                        return;
-                    }
-
-
-                    // Case 1: Wine (Batch files won't work, use old methodology) or documentation update
-                    if (Process.GetProcessesByName("winlogon").Count<Process>() == 0 || Documentation || !Overwrite)
-                    {
-                        try
-                        {
-                            Process update = Process.Start(AppPath + "/temp.exe", "-o\"" + AppPath + "\"" + " -y");
-                            if (Documentation)
-                            {
-                                update.WaitForExit();
-                                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe"))
-                                {
-                                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe");
-                                }
-
-                                MessageBox.Show("Documentation was successfully updated to " + ((releases[0].Name.StartsWith("BrawlCrate Documentation", StringComparison.OrdinalIgnoreCase) && releases[0].Name.Length > 26) ? releases[0].Name.Substring(25) : releases[0].Name) + (Automatic ? "\nThis documentation release:\n" + releases[0].Body : ""));
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            MessageBox.Show("Error: " + e.Message);
-                        }
-                        return;
-                    }
-                    // Case 2: Windows (use a batch file to ensure a consistent experience)
-                    if (File.Exists(AppPath + "/Update.bat"))
-                    {
-                        File.Delete(AppPath + "/Update.bat");
-                    }
-
-                    using (StreamWriter sw = new StreamWriter(AppPath + "/Update.bat"))
-                    {
-                        sw.WriteLine("CD /d " + AppPath);
-
-                        // Mass delete relevant files (Prevents corruption)
-
-                        // Delete exes where found/applicable
-                        if (File.Exists(AppPath + "/BrawlCrate.exe"))
-                        {
-                            sw.WriteLine("del BrawlCrate.exe /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/BrawlBox.exe"))
-                        {
-                            sw.WriteLine("del BrawlBox.exe /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/BrawlScape.exe"))
-                        {
-                            sw.WriteLine("del BrawlScape.exe /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/SmashBox.exe"))
-                        {
-                            sw.WriteLine("del SmashBox.exe /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/StageBox.exe"))
-                        {
-                            sw.WriteLine("del StageBox.exe /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/color_smash.exe"))
-                        {
-                            sw.WriteLine("del color_smash.exe /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/sawndz.exe"))
-                        {
-                            sw.WriteLine("del sawndz.exe /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/Updater.exe"))
-                        {
-                            sw.WriteLine("del sawndz.exe /s /f /q");
-                        }
-
-                        // Delete DLLs where found/applicable
-                        if (File.Exists(AppPath + "/BrawlLib.dll"))
-                        {
-                            sw.WriteLine("del BrawlLib.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/Octokit.dll"))
-                        {
-                            sw.WriteLine("del Octokit.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/OpenTK.dll"))
-                        {
-                            sw.WriteLine("del OpenTK.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/discord-rpc.dll"))
-                        {
-                            sw.WriteLine("del discord-rpc.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/IronPython.dll"))
-                        {
-                            sw.WriteLine("del IronPython.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/IronPython.Modules.dll"))
-                        {
-                            sw.WriteLine("del IronPython.Modules.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/IronPython.SQLite.dll"))
-                        {
-                            sw.WriteLine("del IronPython.SQLite.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/IronPython.Wpf.dll"))
-                        {
-                            sw.WriteLine("del OpenTK.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/IronPython.Wpf.dll"))
-                        {
-                            sw.WriteLine("del IronPython.Wpf.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/Microsoft.Dynamic.dll"))
-                        {
-                            sw.WriteLine("del Microsoft.Dynamic.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/Microsoft.Scripting.AspNet.dll"))
-                        {
-                            sw.WriteLine("del Microsoft.Scripting.AspNet.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/Microsoft.Scripting.dll"))
-                        {
-                            sw.WriteLine("del Microsoft.Scripting.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/Microsoft.Scripting.dll"))
-                        {
-                            sw.WriteLine("del Microsoft.Scripting.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/Microsoft.Scripting.Metadata.dll"))
-                        {
-                            sw.WriteLine("del Microsoft.Scripting.Metadata.dll /s /f /q");
-                        }
-
-                        sw.WriteLine("START /wait temp.exe -y");
-                        sw.WriteLine("del temp.exe /s /f /q");
-                        sw.Write("START BrawlCrate.exe");
-                        if (openFile != null && openFile != "<null>")
-                        {
-                            sw.Write(" \"" + openFile + "\"");
-                        }
-
-                        sw.Close();
-                    }
-                    Process updateBat = Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = AppPath + "/Update.bat",
-                        WindowStyle = ProcessWindowStyle.Hidden,
-                    });
                 }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-                return;
-            }
-        }
-
-        public static async Task CheckUpdates(string releaseTag, string openFile, bool manual = true, bool checkDocumentation = false, bool automatic = false)
-        {
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
-            {
-                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active");
-            }
-
-            Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
-            string docVer = null;
-            if (checkDocumentation)
-            {
-                try
+                // If the update didn't download properly, throw an error
+                if (!File.Exists(AppPath + "/temp.exe") || (new FileInfo(AppPath + "/temp.exe")).Length != (long)DLProgressWindow.MaxValue || (new FileInfo(AppPath + "/temp.exe")).Length == 0)
                 {
-                    docVer = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "InternalDocumentation" + '\\' + "version.txt")[0];
+                    MessageBox.Show("Error downloading update");
+                    if (File.Exists(AppPath + "/temp.exe"))
+                    {
+                        File.Delete(AppPath + "/temp.exe");
+                    }
+
+                    return;
                 }
-                catch (Exception e)
+                // Case 1: Cross-platform (Batch files won't work, so user will have to ), documentation update, or non-overwriting update
+                if (Process.GetProcessesByName("winlogon").Count() == 0 || Documentation || !Overwrite)
                 {
-                    Console.WriteLine(e.Message);
-                    MessageBox.Show("ERROR: Documentation Version could not be found. Downloading the latest documentation release.");
-                    await ForceDownloadDocumentation();
                     try
                     {
-                        docVer = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "InternalDocumentation" + '\\' + "version.txt")[0];
-                    }
-                    catch (Exception e2)
-                    {
-                        Console.WriteLine(e2.Message);
-                        MessageBox.Show("ERROR: Documentation Version still could not be found. Please report this on Discord or Github.");
-                    }
-                }
-            }
-            try
-            {
-                GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
-                IReadOnlyList<Release> AllReleases = null;
-                AllReleases = await github.Repository.Release.GetAll("soopercool101", "BrawlCrate");
-                IReadOnlyList<Release> releases = null;
-                try
-                {
-                    // Remove all pre-release versions from the list (Prerelease versions are exclusively documentation updates)
-                    releases = AllReleases.Where(r => !r.Prerelease).ToList();
-
-                    if (releases[0].TagName == releaseTag)
-                    {
-                        if (manual)
+                        Process update = Process.Start(AppPath + "/temp.exe", "-o\"" + AppPath + "\"" + " -y");
+                        // For documentation updates, ensure temp.exe is properly deleted and show changelog if the download was automated.
+                        if (Documentation)
                         {
-                            MessageBox.Show("No updates found.");
-                        }
-
-                        return;
-                    }
-                }
-                catch (System.Net.Http.HttpRequestException)
-                {
-                    if (manual)
-                    {
-                        MessageBox.Show("Unable to connect to the internet.");
-                    }
-
-                    return;
-                }
-
-                if (releases != null &&
-                    releases.Count > 0 &&
-                    !string.Equals(releases[0].TagName, releaseTag, StringComparison.InvariantCulture) && //Make sure the most recent version is not this version
-                    releases[0].Name.IndexOf("BrawlCrate v", StringComparison.InvariantCultureIgnoreCase) >= 0) //Make sure this is a BrawlCrate release
-                {
-                    if (automatic)
-                    {
-                        if (releases[0].Body.Contains("WARNING: "))
-                        {
-                            if (releases[0].Body.StartsWith("WARNING: "))
+                            update.WaitForExit();
+                            if (File.Exists(AppPath + '\\' + "temp.exe"))
                             {
-                                DialogResult dr = MessageBox.Show(releases[0].Body.Substring(0, releases[0].Body.IndexOf("\n") - 1) + "\n\nWould you like to continue updating?", "Automatic Update Warning", MessageBoxButtons.YesNo);
-                                if (dr != DialogResult.Yes)
-                                {
-                                    return;
-                                }
+                                File.Delete(AppPath + '\\' + "temp.exe");
                             }
-                            else
-                            {
-                                DialogResult dr = MessageBox.Show(releases[0].Body.Substring(releases[0].Body.IndexOf("WARNING: ")) + "\n\nWould you like to continue updating?", "Automatic Update Warning", MessageBoxButtons.YesNo);
-                                if (dr != DialogResult.Yes)
-                                {
-                                    return;
-                                }
-                            }
+                            MessageBox.Show("Documentation was successfully updated to " + ((release.Name.StartsWith("BrawlCrate Documentation", StringComparison.OrdinalIgnoreCase) && release.Name.Length > 26) ? release.Name.Substring(25) : release.Name) + (Automatic ? "\nThis documentation release:\n" + release.Body : ""));
                         }
-                        Task t = UpdateCheck(true, openFile, false, true);
-                        t.Wait();
-                        return;
                     }
-                    int descriptionOffset = 0;
-                    if (releases[0].Body.Length > 110 && releases[0].Body.Substring(releases[0].Body.Length - 109) == "\nAlso check out the Brawl Stage Compendium for info and research on Stage Modding: https://discord.gg/s7c8763")
+                    catch (Exception e)
                     {
-                        descriptionOffset = 110;
-                    }
-
-                    DialogResult UpdateResult = MessageBox.Show(releases[0].Name + " is available!\n\nThis release:\n\n" + releases[0].Body.Substring(0, releases[0].Body.Length - descriptionOffset) + "\n\nUpdate now?", "Update", MessageBoxButtons.YesNo);
-                    if (UpdateResult == DialogResult.Yes)
-                    {
-                        DialogResult OverwriteResult = MessageBox.Show("Overwrite current installation?", "", MessageBoxButtons.YesNoCancel);
-                        if (OverwriteResult != DialogResult.Cancel)
-                        {
-                            Task t = UpdateCheck(OverwriteResult == DialogResult.Yes, openFile);
-                            t.Wait();
-                        }
+                        MessageBox.Show("Error: " + e.Message);
                     }
                     return;
                 }
-                else if (manual && !checkDocumentation)
+                // Case 2: Windows (Can use a batch file to further automate the update)
+                WriteBatchScript(openFile);
+                Process updateBat = Process.Start(new ProcessStartInfo()
                 {
-                    MessageBox.Show("No updates found.");
-                    return;
-                }
-                if (checkDocumentation)
-                {
-                    if (docVer == null)
-                    {
-                        // Errors have already been thrown
-                        //MessageBox.Show("ERROR: Documentation Version could not be found. Will download the latest documentation.");
-                        return;
-                    }
-                    try
-                    {
-                        releases = AllReleases.ToList();
-
-                        // Ensure that the latest update is, in fact, a documentation update
-                        if (!releases[0].Prerelease || !releases[0].Name.Contains("Documentation"))
-                        {
-                            if (manual)
-                            {
-                                MessageBox.Show("No updates found.");
-                            }
-
-                            return;
-                        }
-
-                        // Only get pre-release versions, as they are the pipeline documentation updates will be sent with
-                        releases = AllReleases.Where(r => r.Prerelease).ToList();
-                    }
-                    catch (System.Net.Http.HttpRequestException)
-                    {
-                        if (manual)
-                        {
-                            MessageBox.Show("Unable to connect to the internet.");
-                        }
-
-                        return;
-                    }
-
-                    if (releases != null &&
-                        releases.Count > 0 &&
-                        !string.Equals(releases[0].TagName, docVer, StringComparison.InvariantCulture) && //Make sure the most recent version is not this version
-                        releases[0].Name.IndexOf("Documentation", StringComparison.InvariantCultureIgnoreCase) >= 0) //Make sure this is a Documentation release
-                    {
-                        int descriptionOffset = 0;
-                        if (automatic)
-                        {
-                            Task t = UpdateCheck(true, openFile, true, true);
-                            t.Wait();
-                            return;
-                        }
-                        DialogResult UpdateResult = MessageBox.Show(releases[0].Name + " is available!\n\nThis documentation release:\n\n" + releases[0].Body.Substring(0, releases[0].Body.Length - descriptionOffset) + "\n\nUpdate now?", "Update", MessageBoxButtons.YesNo);
-                        if (UpdateResult == DialogResult.Yes)
-                        {
-                            Task t = UpdateCheck(true, openFile, true);
-                            t.Wait();
-                        }
-                    }
-                    else if (manual)
-                    {
-                        MessageBox.Show("No updates found.");
-                    }
-                }
+                    FileName = AppPath + "/Update.bat",
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                });
             }
             catch (System.Net.Http.HttpRequestException)
             {
@@ -562,8 +369,6 @@ namespace Net
                 {
                     MessageBox.Show("Unable to connect to the internet.");
                 }
-
-                return;
             }
             catch (Exception e)
             {
@@ -574,675 +379,156 @@ namespace Net
             }
         }
 
-        public static async Task ForceDownloadRelease(string openFile)
-        {
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
-            {
-                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active");
-            }
-
-            Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
-            try
-            {
-                if (AppPath.EndsWith("lib", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    AppPath = AppPath.Substring(0, AppPath.Length - 4);
-                }
-
-                // check to see if the user is online, and that github is up and running.
-                Console.WriteLine("Checking connection to server.");
-                using (Ping s = new Ping())
-                {
-                    Console.WriteLine(s.Send("www.github.com").Status);
-                }
-
-                // Initiate the github client.
-                GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
-
-                // get Release
-                IReadOnlyList<Release> releases = await github.Repository.Release.GetAll("soopercool101", "BrawlCrate");
-                releases = releases.Where(r => !r.Prerelease).ToList();
-                Release release = releases[0];
-                // Get Release Assets
-                ReleaseAsset Asset = (await github.Repository.Release.GetAllAssets("soopercool101", "BrawlCrate", release.Id))[0];
-                if (Asset == null)
-                {
-                    return;
-                }
-
-            //Find and close the BrawlCrate application that will be overwritten
-            TRY_AGAIN:
-                Process[] px = Process.GetProcessesByName("BrawlCrate");
-                Process[] pToClose = px.Where(x => x.MainModule.FileName.Equals(AppPath + "\\BrawlCrate.exe")).ToArray();
-                Process p = px.FirstOrDefault(x => x.MainModule.FileName.Equals(AppPath + "\\BrawlCrate.exe"));
-                if (p != null && p != default(Process) && px != null && pToClose != null && pToClose.Length > 1)
-                {
-                    DialogResult continueUpdate = MessageBox.Show("Update cannot proceed unless all open windows of " + AppPath + "\\BrawlCrate.exe are closed. Would you like to force close all open BrawlCrate windows at this time?\n\n" +
-                        "Select \"Yes\" if you would like to force close all open BrawlCrate windows\n" +
-                        "Select \"No\" after closing all windows manually if you would like to proceed without force closing\n" +
-                        "Select \"Cancel\" if you would like to wait to update until another time", releases[0].Name + " Update", MessageBoxButtons.YesNoCancel);
-                    if (continueUpdate == DialogResult.Yes)
-                    {
-                        try
-                        {
-                            foreach (Process pNext in pToClose)
-                            {
-                                pNext.Kill();
-                            }
-
-                            await Task.Delay(50);
-                        }
-                        catch (Exception xp)
-                        {
-                            MessageBox.Show(xp.Message);
-                        }
-                        goto TRY_AGAIN;
-                    }
-                    else if (continueUpdate == DialogResult.No)
-                    {
-                        goto TRY_AGAIN;
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                else if (p != null && p != default(Process))
-                {
-                    p.Kill();
-                }
-
-                using (WebClient client = new WebClient())
-                {
-                    // Add the user agent header, otherwise we will get access denied.
-                    client.Headers.Add("User-Agent: Other");
-
-                    // Full asset streamed into a single string
-                    string html = client.DownloadString(Asset.Url);
-
-                    // The browser download link to the self extracting archive, hosted on github
-                    string URL = html.Substring(html.IndexOf(BaseURL)).TrimEnd(new char[] { '}', '"' });
-
-                    //client.DownloadFile(URL, AppPath + "/temp.exe");
-                    DLProgressWindow.finished = false;
-                    DLProgressWindow dlTrack = new DLProgressWindow(null, releases[0].Name, AppPath, URL);
-                    while (!DLProgressWindow.finished)
-                    {
-                        // do nothing
-                    }
-                    dlTrack.Close();
-                    dlTrack.Dispose();
-                    if (!File.Exists(AppPath + "/temp.exe") || (new FileInfo(AppPath + "/temp.exe")).Length != (long)DLProgressWindow.MaxValue || (new FileInfo(AppPath + "/temp.exe")).Length == 0)
-                    {
-                        MessageBox.Show("Error downloading update");
-                        if (File.Exists(AppPath + "/temp.exe"))
-                        {
-                            File.Delete(AppPath + "/temp.exe");
-                        }
-
-                        return;
-                    }
-
-                    // Case 1: Wine (Batch files won't work, use old methodology)
-                    if (Process.GetProcessesByName("winlogon").Count<Process>() == 0)
-                    {
-                        try
-                        {
-                            Process update = Process.Start(AppPath + "/temp.exe", "-o\"" + AppPath + "\"" + " -y");
-                        }
-                        catch (Exception e)
-                        {
-                            MessageBox.Show("Error: " + e.Message);
-                        }
-                        return;
-                    }
-                    // Case 2: Windows (use a batch file to ensure a consistent experience)
-                    if (File.Exists(AppPath + "/Update.bat"))
-                    {
-                        File.Delete(AppPath + "/Update.bat");
-                    }
-
-                    using (StreamWriter sw = new StreamWriter(AppPath + "/Update.bat"))
-                    {
-                        sw.WriteLine("CD /d " + AppPath);
-
-                        // Mass delete relevant files (Prevents corruption)
-
-                        // Delete exes where found/applicable
-                        if (File.Exists(AppPath + "/BrawlCrate.exe"))
-                        {
-                            sw.WriteLine("del BrawlCrate.exe /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/BrawlBox.exe"))
-                        {
-                            sw.WriteLine("del BrawlBox.exe /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/BrawlScape.exe"))
-                        {
-                            sw.WriteLine("del BrawlScape.exe /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/SmashBox.exe"))
-                        {
-                            sw.WriteLine("del SmashBox.exe /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/StageBox.exe"))
-                        {
-                            sw.WriteLine("del StageBox.exe /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/color_smash.exe"))
-                        {
-                            sw.WriteLine("del color_smash.exe /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/sawndz.exe"))
-                        {
-                            sw.WriteLine("del sawndz.exe /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/Updater.exe"))
-                        {
-                            sw.WriteLine("del sawndz.exe /s /f /q");
-                        }
-
-                        // Delete DLLs where found/applicable
-                        if (File.Exists(AppPath + "/BrawlLib.dll"))
-                        {
-                            sw.WriteLine("del BrawlLib.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/Octokit.dll"))
-                        {
-                            sw.WriteLine("del Octokit.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/OpenTK.dll"))
-                        {
-                            sw.WriteLine("del OpenTK.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/discord-rpc.dll"))
-                        {
-                            sw.WriteLine("del discord-rpc.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/IronPython.dll"))
-                        {
-                            sw.WriteLine("del IronPython.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/IronPython.Modules.dll"))
-                        {
-                            sw.WriteLine("del IronPython.Modules.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/IronPython.SQLite.dll"))
-                        {
-                            sw.WriteLine("del IronPython.SQLite.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/IronPython.Wpf.dll"))
-                        {
-                            sw.WriteLine("del OpenTK.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/IronPython.Wpf.dll"))
-                        {
-                            sw.WriteLine("del IronPython.Wpf.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/Microsoft.Dynamic.dll"))
-                        {
-                            sw.WriteLine("del Microsoft.Dynamic.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/Microsoft.Scripting.AspNet.dll"))
-                        {
-                            sw.WriteLine("del Microsoft.Scripting.AspNet.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/Microsoft.Scripting.dll"))
-                        {
-                            sw.WriteLine("del Microsoft.Scripting.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/Microsoft.Scripting.dll"))
-                        {
-                            sw.WriteLine("del Microsoft.Scripting.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/Microsoft.Scripting.Metadata.dll"))
-                        {
-                            sw.WriteLine("del Microsoft.Scripting.Metadata.dll /s /f /q");
-                        }
-
-                        sw.WriteLine("START /wait temp.exe -y");
-                        sw.WriteLine("del temp.exe /s /f /q");
-                        sw.Write("START BrawlCrate.exe \"" + (openFile != null && openFile != "<null>" ? openFile : "null") + "\"");
-                        sw.Close();
-                    }
-                    Process updateBat = Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = AppPath + "/Update.bat",
-                        WindowStyle = ProcessWindowStyle.Hidden,
-                    });
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-                return;
-            }
-        }
-
-        public static async Task CheckCanaryUpdate(string openFile, bool manual)
-        {
-            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
-            {
-                await SetCanaryActive();
-                MessageBox.Show("ERROR: Current Canary version could not be found. Updating to the latest commit");
-                await ForceDownloadCanary(openFile);
-                return;
-            }
-            try
-            {
-                string oldID = "";
-                oldID = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[2];
-                Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
-                GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
-                char[] slashes = { '\\', '/' };
-                string[] repoData = currentRepo.Split(slashes);
-                Release release = await github.Repository.Release.Get("soopercool101", "BrawlCrate", "Canary");
-                string newID = release.TargetCommitish;
-                if (oldID.Equals(newID, StringComparison.OrdinalIgnoreCase))
-                {
-                    if (manual)
-                    {
-                        MessageBox.Show("No updates found.");
-                    }
-
-                    return;
-                }
-                await ForceDownloadCanary(openFile, newID.Substring(0, 7));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                MessageBox.Show("ERROR: Current Canary version could not be found. Updating to the latest commit");
-                await ForceDownloadCanary(openFile);
-                return;
-            }
-        }
-
-        public static async Task ForceDownloadCanary(string openFile, string commitID = null)
-        {
-            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
-            {
-                await SetCanaryActive();
-            }
-
-            try
-            {
-                if (AppPath.EndsWith("lib", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    AppPath = AppPath.Substring(0, AppPath.Length - 4);
-                }
-
-                // check to see if the user is online, and that github is up and running.
-                Console.WriteLine("Checking connection to server.");
-                using (Ping s = new Ping())
-                {
-                    Console.WriteLine(s.Send("www.github.com").Status);
-                }
-
-                char[] slashes = { '\\', '/' };
-                string[] repoData = currentRepo.Split(slashes);
-
-                // Initiate the github client.
-                Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
-                GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
-
-                Release release = await github.Repository.Release.Get("soopercool101", "BrawlCrate", "Canary");
-                // Get Release Assets
-                ReleaseAsset Asset = (await github.Repository.Release.GetAllAssets("soopercool101", "BrawlCrate", release.Id))[0];
-
-            //Find and close the BrawlCrate application that will be overwritten
-            TRY_AGAIN:
-                Process[] px = Process.GetProcessesByName("BrawlCrate");
-                Process[] pToClose = px.Where(x => x.MainModule.FileName.Equals(AppPath + "\\BrawlCrate.exe")).ToArray();
-                Process p = px.FirstOrDefault(x => x.MainModule.FileName.Equals(AppPath + "\\BrawlCrate.exe"));
-                if (p != null && p != default(Process) && px != null && pToClose != null && pToClose.Length > 1)
-                {
-                    DialogResult continueUpdate = MessageBox.Show("Update cannot proceed unless all open windows of " + AppPath + "\\BrawlCrate.exe are closed. Would you like to force close all open BrawlCrate windows at this time?\n\n" +
-                        "Select \"Yes\" if you would like to force close all open BrawlCrate windows\n" +
-                        "Select \"No\" after closing all windows manually if you would like to proceed without force closing\n" +
-                        "Select \"Cancel\" if you would like to wait to update until another time", "Canary Update #" + commitID, MessageBoxButtons.YesNoCancel);
-                    if (continueUpdate == DialogResult.Yes)
-                    {
-                        try
-                        {
-                            foreach (Process pNext in pToClose)
-                            {
-                                pNext.Kill();
-                            }
-
-                            await Task.Delay(50);
-                        }
-                        catch (Exception xp)
-                        {
-                            MessageBox.Show(xp.Message);
-                        }
-                        goto TRY_AGAIN;
-                    }
-                    else if (continueUpdate == DialogResult.No)
-                    {
-                        goto TRY_AGAIN;
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                else if (p != null && p != default(Process))
-                {
-                    p.Kill();
-                }
-
-                using (WebClient client = new WebClient())
-                {
-                    // Add the user agent header, otherwise we will get access denied.
-                    client.Headers.Add("User-Agent: Other");
-
-                    // Full asset streamed into a single string
-                    string html = client.DownloadString(Asset.Url);
-
-                    // The browser download link to the self extracting archive, hosted on github
-                    string URL = html.Substring(html.IndexOf(BaseURL)).TrimEnd(new char[] { '}', '"' });
-
-                    //client.DownloadFile(URL, AppPath + "/temp.exe");
-                    DLProgressWindow.finished = false;
-                    DLProgressWindow dlTrack = new DLProgressWindow(null, commitID == null ? "BrawlCrate Canary Build" : (currentRepo == mainRepo ? (currentBranch == mainBranch ? "BrawlCrate Canary #" + commitID : "Canary@" + currentBranch + " #" + commitID) : currentRepo + " Canary@" + currentBranch + " #" + commitID), AppPath, URL);
-                    while (!DLProgressWindow.finished)
-                    {
-                        // do nothing
-                    }
-                    dlTrack.Close();
-                    dlTrack.Dispose();
-                    if (!File.Exists(AppPath + "/temp.exe") || (new FileInfo(AppPath + "/temp.exe")).Length != (long)DLProgressWindow.MaxValue || (new FileInfo(AppPath + "/temp.exe")).Length == 0)
-                    {
-                        MessageBox.Show("Error downloading update");
-                        if (File.Exists(AppPath + "/temp.exe"))
-                        {
-                            File.Delete(AppPath + "/temp.exe");
-                        }
-
-                        return;
-                    }
-                    DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
-                    CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-                    string Filename = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New";
-                    string oldName = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old";
-                    if (File.Exists(Filename))
-                    {
-                        if (!File.Exists(oldName))
-                        {
-                            File.Move(Filename, oldName);
-                        }
-
-                        if (File.Exists(Filename))
-                        {
-                            File.Delete(Filename);
-                        }
-                    }
-                    //await WriteCanaryTime();
-                    // Case 1: Wine (Batch files won't work, use old methodology)
-                    if (Process.GetProcessesByName("winlogon").Count<Process>() == 0)
-                    {
-                        try
-                        {
-                            Process update = Process.Start(AppPath + "/temp.exe", "-o\"" + AppPath + "\"" + " -y");
-                        }
-                        catch (Exception e)
-                        {
-                            MessageBox.Show("Error: " + e.Message);
-                        }
-                        return;
-                    }
-                    // Case 2: Windows (use a batch file to ensure a consistent experience)
-                    if (File.Exists(AppPath + "/Update.bat"))
-                    {
-                        File.Delete(AppPath + "/Update.bat");
-                    }
-
-                    using (StreamWriter sw = new StreamWriter(AppPath + "/Update.bat"))
-                    {
-                        sw.WriteLine("CD /d " + AppPath);
-
-                        // Mass delete relevant files (Prevents corruption)
-
-                        // Delete exes where found/applicable
-                        if (File.Exists(AppPath + "/BrawlCrate.exe"))
-                        {
-                            sw.WriteLine("del BrawlCrate.exe /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/BrawlBox.exe"))
-                        {
-                            sw.WriteLine("del BrawlBox.exe /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/BrawlScape.exe"))
-                        {
-                            sw.WriteLine("del BrawlScape.exe /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/SmashBox.exe"))
-                        {
-                            sw.WriteLine("del SmashBox.exe /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/StageBox.exe"))
-                        {
-                            sw.WriteLine("del StageBox.exe /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/color_smash.exe"))
-                        {
-                            sw.WriteLine("del color_smash.exe /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/sawndz.exe"))
-                        {
-                            sw.WriteLine("del sawndz.exe /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/Updater.exe"))
-                        {
-                            sw.WriteLine("del sawndz.exe /s /f /q");
-                        }
-
-                        // Delete DLLs where found/applicable
-                        if (File.Exists(AppPath + "/BrawlLib.dll"))
-                        {
-                            sw.WriteLine("del BrawlLib.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/Octokit.dll"))
-                        {
-                            sw.WriteLine("del Octokit.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/OpenTK.dll"))
-                        {
-                            sw.WriteLine("del OpenTK.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/discord-rpc.dll"))
-                        {
-                            sw.WriteLine("del discord-rpc.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/IronPython.dll"))
-                        {
-                            sw.WriteLine("del IronPython.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/IronPython.Modules.dll"))
-                        {
-                            sw.WriteLine("del IronPython.Modules.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/IronPython.SQLite.dll"))
-                        {
-                            sw.WriteLine("del IronPython.SQLite.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/IronPython.Wpf.dll"))
-                        {
-                            sw.WriteLine("del OpenTK.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/IronPython.Wpf.dll"))
-                        {
-                            sw.WriteLine("del IronPython.Wpf.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/Microsoft.Dynamic.dll"))
-                        {
-                            sw.WriteLine("del Microsoft.Dynamic.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/Microsoft.Scripting.AspNet.dll"))
-                        {
-                            sw.WriteLine("del Microsoft.Scripting.AspNet.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/Microsoft.Scripting.dll"))
-                        {
-                            sw.WriteLine("del Microsoft.Scripting.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/Microsoft.Scripting.dll"))
-                        {
-                            sw.WriteLine("del Microsoft.Scripting.dll /s /f /q");
-                        }
-
-                        if (File.Exists(AppPath + "/Microsoft.Scripting.Metadata.dll"))
-                        {
-                            sw.WriteLine("del Microsoft.Scripting.Metadata.dll /s /f /q");
-                        }
-
-                        sw.WriteLine("START /wait temp.exe -y");
-                        sw.WriteLine("del temp.exe /s /f /q");
-                        sw.Write("START BrawlCrate.exe \"" + (openFile != null && openFile != "<null>" ? openFile : "null") + "\"");
-                        sw.Close();
-                    }
-                    Process updateBat = Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = AppPath + "/Update.bat",
-                        WindowStyle = ProcessWindowStyle.Hidden,
-                    });
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-                return;
-            }
-        }
-
         public static async Task ForceDownloadDocumentation()
         {
-            Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
-            try
+            string repoOwner = mainRepo.Split('/')[0];
+            string repoName = mainRepo.Split('/')[1];
+            // get Release
+            IReadOnlyList<Release> releases = (await github.Repository.Release.GetAll(repoOwner, repoName)).Where(r => r.Prerelease).ToList();
+            Release release = null;
+
+            // This track is shared by canary updates. Ensure that a documentation release is found.
+            foreach (Release r in releases)
             {
-                if (AppPath.EndsWith("lib", StringComparison.CurrentCultureIgnoreCase))
+                if (r.Name.ToLower().Contains("documentation"))
                 {
-                    AppPath = AppPath.Substring(0, AppPath.Length - 4);
-                }
-
-                // check to see if the user is online, and that github is up and running.
-                Console.WriteLine("Checking connection to server.");
-                using (Ping s = new Ping())
-                {
-                    Console.WriteLine(s.Send("www.github.com").Status);
-                }
-
-                // Initiate the github client.
-                GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
-
-                // get Release
-                IReadOnlyList<Release> releases = await github.Repository.Release.GetAll("soopercool101", "BrawlCrate");
-                releases = releases.Where(r => r.Prerelease).ToList();
-                Release release = releases[0];
-                // Get Release Assets
-                ReleaseAsset Asset = (await github.Repository.Release.GetAllAssets("soopercool101", "BrawlCrate", release.Id))[0];
-                if (Asset == null)
-                {
-                    return;
-                }
-
-                using (WebClient client = new WebClient())
-                {
-                    // Add the user agent header, otherwise we will get access denied.
-                    client.Headers.Add("User-Agent: Other");
-
-                    // Full asset streamed into a single string
-                    string html = client.DownloadString(Asset.Url);
-
-                    // The browser download link to the self extracting archive, hosted on github
-                    string URL = html.Substring(html.IndexOf(BaseURL)).TrimEnd(new char[] { '}', '"' });
-
-                    //client.DownloadFile(URL, AppPath + "/temp.exe");
-                    DLProgressWindow.finished = false;
-                    DLProgressWindow dlTrack = new DLProgressWindow(null, releases[0].Name, AppPath, URL);
-                    while (!DLProgressWindow.finished)
-                    {
-                        // do nothing
-                    }
-                    dlTrack.Close();
-                    dlTrack.Dispose();
-                    if (!File.Exists(AppPath + "/temp.exe") || (new FileInfo(AppPath + "/temp.exe")).Length != (long)DLProgressWindow.MaxValue || (new FileInfo(AppPath + "/temp.exe")).Length == 0)
-                    {
-                        MessageBox.Show("Error downloading update");
-                        if (File.Exists(AppPath + "/temp.exe"))
-                        {
-                            File.Delete(AppPath + "/temp.exe");
-                        }
-
-                        return;
-                    }
-
-                    try
-                    {
-                        Process update = Process.Start(AppPath + "/temp.exe", "-o\"" + AppPath + "\"" + " -y");
-                        update.WaitForExit();
-                        if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe"))
-                        {
-                            File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "temp.exe");
-                        }
-
-                        MessageBox.Show("Documentation was successfully updated to " + ((releases[0].Name.StartsWith("BrawlCrate Documentation", StringComparison.OrdinalIgnoreCase) && releases[0].Name.Length > 26) ? releases[0].Name.Substring(25) : releases[0].Name) + (true ? "\nThis documentation release:\n" + releases[0].Body : ""));
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show("Error: " + e.Message);
-                    }
-                    return;
+                    release = r;
+                    break;
                 }
             }
-            catch (Exception e)
+
+            if (release != null)
             {
-                MessageBox.Show(e.Message);
-                return;
+                await DownloadRelease(release, true, true, false, true, "<null>");
             }
         }
+        public static async Task ForceDownloadStable(string openFile = null)
+        {
+            await SetCanaryInactive();
+            string repoOwner = mainRepo.Split('/')[0];
+            string repoName = mainRepo.Split('/')[1];
+            // get Release
+            IReadOnlyList<Release> releases = (await github.Repository.Release.GetAll(repoOwner, repoName)).Where(r => !r.Prerelease).ToList();
+            if (releases.Count > 0)
+            {
+                await DownloadRelease(releases[0], true, true, false, false, openFile);
+            }
+        }
+
+        public static void WriteBatchScript(string openFile)
+        {
+            using (StreamWriter sw = new StreamWriter(AppPath + "/Update.bat"))
+            {
+                sw.WriteLine("CD /d " + AppPath);
+
+                // Mass delete relevant files (Prevents corruption)
+
+                // Delete exes where found/applicable
+                if (File.Exists(AppPath + "/BrawlCrate.exe"))
+                {
+                    sw.WriteLine("del BrawlCrate.exe /s /f /q");
+                }
+                if (File.Exists(AppPath + "/BrawlBox.exe"))
+                {
+                    sw.WriteLine("del BrawlBox.exe /s /f /q");
+                }
+                if (File.Exists(AppPath + "/BrawlScape.exe"))
+                {
+                    sw.WriteLine("del BrawlScape.exe /s /f /q");
+                }
+                if (File.Exists(AppPath + "/SmashBox.exe"))
+                {
+                    sw.WriteLine("del SmashBox.exe /s /f /q");
+                }
+                if (File.Exists(AppPath + "/StageBox.exe"))
+                {
+                    sw.WriteLine("del StageBox.exe /s /f /q");
+                }
+                if (File.Exists(AppPath + "/color_smash.exe"))
+                {
+                    sw.WriteLine("del color_smash.exe /s /f /q");
+                }
+                if (File.Exists(AppPath + "/sawndz.exe"))
+                {
+                    sw.WriteLine("del sawndz.exe /s /f /q");
+                }
+                if (File.Exists(AppPath + "/Updater.exe"))
+                {
+                    sw.WriteLine("del sawndz.exe /s /f /q");
+                }
+
+                // Delete DLLs where found/applicable
+                if (File.Exists(AppPath + "/BrawlLib.dll"))
+                {
+                    sw.WriteLine("del BrawlLib.dll /s /f /q");
+                }
+                if (File.Exists(AppPath + "/Octokit.dll"))
+                {
+                    sw.WriteLine("del Octokit.dll /s /f /q");
+                }
+                if (File.Exists(AppPath + "/OpenTK.dll"))
+                {
+                    sw.WriteLine("del OpenTK.dll /s /f /q");
+                }
+                if (File.Exists(AppPath + "/discord-rpc.dll"))
+                {
+                    sw.WriteLine("del discord-rpc.dll /s /f /q");
+                }
+                if (File.Exists(AppPath + "/IronPython.dll"))
+                {
+                    sw.WriteLine("del IronPython.dll /s /f /q");
+                }
+                if (File.Exists(AppPath + "/IronPython.Modules.dll"))
+                {
+                    sw.WriteLine("del IronPython.Modules.dll /s /f /q");
+                }
+                if (File.Exists(AppPath + "/IronPython.SQLite.dll"))
+                {
+                    sw.WriteLine("del IronPython.SQLite.dll /s /f /q");
+                }
+                if (File.Exists(AppPath + "/IronPython.Wpf.dll"))
+                {
+                    sw.WriteLine("del OpenTK.dll /s /f /q");
+                }
+                if (File.Exists(AppPath + "/IronPython.Wpf.dll"))
+                {
+                    sw.WriteLine("del IronPython.Wpf.dll /s /f /q");
+                }
+                if (File.Exists(AppPath + "/Microsoft.Dynamic.dll"))
+                {
+                    sw.WriteLine("del Microsoft.Dynamic.dll /s /f /q");
+                }
+                if (File.Exists(AppPath + "/Microsoft.Scripting.AspNet.dll"))
+                {
+                    sw.WriteLine("del Microsoft.Scripting.AspNet.dll /s /f /q");
+                }
+                if (File.Exists(AppPath + "/Microsoft.Scripting.dll"))
+                {
+                    sw.WriteLine("del Microsoft.Scripting.dll /s /f /q");
+                }
+                if (File.Exists(AppPath + "/Microsoft.Scripting.dll"))
+                {
+                    sw.WriteLine("del Microsoft.Scripting.dll /s /f /q");
+                }
+                if (File.Exists(AppPath + "/Microsoft.Scripting.Metadata.dll"))
+                {
+                    sw.WriteLine("del Microsoft.Scripting.Metadata.dll /s /f /q");
+                }
+
+                sw.WriteLine("START /wait temp.exe -y");
+                sw.WriteLine("del temp.exe /s /f /q");
+                sw.Write("START BrawlCrate.exe");
+                if (openFile != null && openFile != "<null>")
+                {
+                    sw.Write(" \"" + openFile + "\"");
+                }
+
+                sw.Close();
+            }
+        }
+
         // Used when building for releases
-        public static async Task WriteCanaryTime(string commitid)
+        public static async Task WriteCanaryTime(string commitid = null, string branchName = null, string repo = null)
         {
             try
             {
@@ -1251,19 +537,40 @@ namespace Net
                     Console.WriteLine("Attempting to set Canary using sha: " + commitid);
                 }
 
-                Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
-                GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
+                branchName = branchName ?? mainBranch;
+                repo = repo ?? mainRepo;
+
+                DirectoryInfo CanaryDir = Directory.CreateDirectory(AppPath + '\\' + "Canary");
+                CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+
+                if (!branchName.Equals(mainBranch, StringComparison.OrdinalIgnoreCase) || !repo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase))
+                {
+                    using (var sw = new StreamWriter(AppPath + '\\' + "Canary" + '\\' + "Branch"))
+                    {
+                        if (!repo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase))
+                        {
+                            sw.WriteLine(branchName);
+                            sw.Write(repo);
+                        }
+                        else
+                        {
+                            sw.Write(branchName);
+                        }
+                        sw.Close();
+                    }
+                }
+
+                string repoOwner = repo.Split('/')[0];
+                string repoName = repo.Split('/')[1];
+
                 Branch branch;
                 GitHubCommit result;
                 DateTimeOffset commitDate;
-                branch = await github.Repository.Branch.Get("soopercool101", "BrawlCrate", mainBranch);
-                result = await github.Repository.Commit.Get("soopercool101", "BrawlCrate", commitid == null ? branch.Commit.Sha : commitid);
+                branch = await github.Repository.Branch.Get(repoOwner, repoName, branchName);
+                result = await github.Repository.Commit.Get(repoOwner, repoName, commitid ?? branch.Commit.Sha);
                 commitDate = result.Commit.Author.Date;
-                currentBranch = mainBranch;
                 commitDate = commitDate.ToUniversalTime();
-                DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
-                CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-                string Filename = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New";
+                string Filename = AppPath + '\\' + "Canary" + '\\' + "New";
                 if (File.Exists(Filename))
                 {
                     File.Delete(Filename);
@@ -1274,8 +581,8 @@ namespace Net
                     sw.WriteLine(commitDate.ToString("O"));
                     sw.WriteLine(result.Sha.ToString().Substring(0, 7));
                     sw.WriteLine(result.Sha.ToString());
-                    sw.WriteLine(currentBranch);
-                    sw.Write(currentRepo);
+                    sw.WriteLine(branchName);
+                    sw.Write(repo);
                     sw.Close();
                 }
                 Console.WriteLine("Canary commit set. Sha was detected to be: " + result.Sha);
@@ -1289,21 +596,21 @@ namespace Net
 
         public static async Task SetCanaryActive()
         {
-            DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
+            DirectoryInfo CanaryDir = Directory.CreateDirectory(AppPath + '\\' + "Canary");
             CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+            if (!File.Exists(AppPath + '\\' + "Canary" + '\\' + "Active"))
             {
-                File.Create(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active");
+                File.Create(AppPath + '\\' + "Canary" + '\\' + "Active");
             }
-
+            Console.WriteLine("Canary Active");
             await Task.Delay(1);
         }
 
         public static async Task SetCanaryInactive()
         {
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+            if (File.Exists(AppPath + '\\' + "Canary" + '\\' + "Active"))
             {
-                File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active");
+                File.Delete(AppPath + '\\' + "Canary" + '\\' + "Active");
             }
 
             await Task.Delay(1);
@@ -1312,21 +619,21 @@ namespace Net
         public static async Task ShowCanaryChangelog()
         {
             string changelog = "";
-            string newSha = "";
-            string oldSha = "";
-            string newBranch = "";
-            string oldBranch = "";
-            string newRepo = "";
-            string oldRepo = "";
-            string Filename = AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old";
+            string newSha;
+            string oldSha;
+            string newBranch;
+            string oldBranch;
+            string newRepo;
+            string oldRepo;
+            string Filename = AppPath + '\\' + "Canary" + '\\' + "Old";
             try
             {
-                newSha = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[2];
-                oldSha = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old")[2];
+                newSha = File.ReadAllLines(AppPath + '\\' + "Canary" + '\\' + "New")[2];
+                oldSha = File.ReadAllLines(AppPath + '\\' + "Canary" + '\\' + "Old")[2];
                 try
                 {
-                    newBranch = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[3];
-                    oldBranch = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old")[3];
+                    newBranch = File.ReadAllLines(AppPath + '\\' + "Canary" + '\\' + "New")[3];
+                    oldBranch = File.ReadAllLines(AppPath + '\\' + "Canary" + '\\' + "Old")[3];
                 }
                 catch
                 {
@@ -1335,8 +642,8 @@ namespace Net
                 }
                 try
                 {
-                    newRepo = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "New")[4];
-                    oldRepo = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old")[4];
+                    newRepo = File.ReadAllLines(AppPath + '\\' + "Canary" + '\\' + "New")[4];
+                    oldRepo = File.ReadAllLines(AppPath + '\\' + "Canary" + '\\' + "Old")[4];
                 }
                 catch
                 {
@@ -1397,8 +704,8 @@ namespace Net
 
             try
             {
-                Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
-                GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
+                Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
+                GitHubClient github = new GitHubClient(new ProductHeaderValue("BrawlCrate")) { Credentials = cr };
                 Branch branch;
                 try
                 {
@@ -1416,7 +723,7 @@ namespace Net
                     PageSize = 120,
                     PageCount = 1
                 };
-                List<GitHubCommit> commits = (await github.Repository.Commit.GetAll(repoData[0], repoData[1], options)).ToList<GitHubCommit>();
+                List<GitHubCommit> commits = (await github.Repository.Commit.GetAll(repoData[0], repoData[1], options)).ToList();
                 int i = -1;
                 bool foundCurrentCommit = false;
                 for (i = 0; i < commits.Count;)
@@ -1473,7 +780,7 @@ namespace Net
                 MessageBox.Show("Canary successfully updated from #" + oldSha.Substring(0, 7) + " to #" + newSha.Substring(0, 7)); // For some reason, without this, the changelog window never shows.
                 CanaryChangelogViewer logWindow = new CanaryChangelogViewer(newSha.Substring(0, 7), changelog);
                 logWindow.ShowDialog();
-                DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
+                DirectoryInfo CanaryDir = Directory.CreateDirectory(AppPath + '\\' + "Canary");
                 CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
                 if (File.Exists(Filename))
                 {
@@ -1489,7 +796,7 @@ namespace Net
 
         public static async Task KillOpenWindows()
         {
-        //Find and close the BrawlCrate application that will be overwritten
+        //Find and close all windows of the BrawlCrate application that will be overwritten
         TRY_AGAIN:
             Process[] px = Process.GetProcessesByName("BrawlCrate");
             Process[] pToClose = px.Where(x => x.MainModule.FileName.Equals(AppPath + "\\BrawlCrate.exe")).ToArray();
@@ -1516,6 +823,13 @@ namespace Net
                 p.Kill();
             }
         }
+
+        public static int GetOpenWindowsCount()
+        {
+            Process[] px = Process.GetProcessesByName("BrawlCrate");
+            Process[] pToFind = px.Where(x => x.MainModule.FileName.Equals(AppPath + "\\BrawlCrate.exe")).ToArray();
+            return pToFind.Length;
+        }
     }
 
     public static class BugSquish
@@ -1534,15 +848,15 @@ namespace Net
             string Title,
             string Description)
         {
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active") && !Updater.currentRepo.Equals(Updater.mainRepo, StringComparison.OrdinalIgnoreCase))
+            if (File.Exists(Updater.AppPath + '\\' + "Canary" + '\\' + "Active") && !Updater.currentRepo.Equals(Updater.mainRepo, StringComparison.OrdinalIgnoreCase))
             {
                 MessageBox.Show("Issue reporter does not allow reporting issues from forks. Please contact the owner of the repository to report your issue.");
                 return;
             }
             try
             {
-                Octokit.Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
-                GitHubClient github = new GitHubClient(new Octokit.ProductHeaderValue("BrawlCrate")) { Credentials = cr };
+                Credentials cr = new Credentials(System.Text.Encoding.Default.GetString(_rawData));
+                GitHubClient github = new GitHubClient(new ProductHeaderValue("BrawlCrate")) { Credentials = cr };
                 IReadOnlyList<Release> releases = null;
                 IReadOnlyList<Issue> issues = null;
                 if (!TagName.StartsWith("BrawlCrate Canary", StringComparison.OrdinalIgnoreCase))
@@ -1573,8 +887,8 @@ namespace Net
                             DialogResult OverwriteResult = MessageBox.Show("Overwrite current installation?", "", MessageBoxButtons.YesNoCancel);
                             if (OverwriteResult != DialogResult.Cancel)
                             {
-                                Task t = Updater.UpdateCheck(OverwriteResult == DialogResult.Yes);
-                                t.Wait();
+                                //Task t = Updater.ForceDownloadRelease();
+                                //t.Wait();
                             }
                         }
                         return;
@@ -1651,29 +965,30 @@ namespace Net
             }
 
             bool somethingDone = false;
-
+            Updater.currentRepo = Updater.GetCurrentRepo();
+            Updater.currentBranch = Updater.GetCurrentBranch();
             if (args.Length > 0)
             {
                 switch (args[0])
                 {
                     case "-r": //overwrite
                         somethingDone = true;
-                        Task t = Updater.UpdateCheck(true);
+                        Task t = Updater.CheckUpdate(true);
                         t.Wait();
                         break;
                     case "-n": // Update in new folder
                         somethingDone = true;
-                        Task t1 = Updater.UpdateCheck(false);
+                        Task t1 = Updater.CheckUpdate(false);
                         t1.Wait();
                         break;
                     case "-bu": //BrawlCrate update call
                         somethingDone = true;
-                        Task t2 = Updater.CheckUpdates(args[1], args[5], args[2] != "0", args[3] != "0", args[4] != "0");
+                        Task t2 = Updater.CheckUpdate(args[1] != "0", args[2], args[3] != "0", args[4], args[5] != "0", args[6] != "0");
                         t2.Wait();
                         break;
                     case "-buc": //BrawlCrate Canary update call
                         somethingDone = true;
-                        Task t2c = Updater.CheckCanaryUpdate(args[2], args[1] != "0");
+                        Task t2c = Updater.CheckCanaryUpdate(args[1], args[2] != "0", false);
                         t2c.Wait();
                         break;
                     case "-bi": //BrawlCrate issue call
@@ -1683,24 +998,36 @@ namespace Net
                         break;
                     case "-bcommitTime": //Called on build to ensure time is saved
                         somethingDone = true;
-                        string t4arg = null;
+                        string t4arg1 = null, t4arg2 = null, t4arg3 = null;
                         if (args.Length > 1)
                         {
-                            t4arg = args[1];
+                            t4arg1 = args[1];
+                            if (args.Length > 2)
+                            {
+                                t4arg2 = args[2];
+                                if (args.Length > 3)
+                                {
+                                    t4arg3 = args[3];
+                                }
+                            }
                         }
-
-                        Task t4 = Updater.WriteCanaryTime(t4arg);
+                        Task t4 = Updater.WriteCanaryTime(t4arg1, t4arg2, t4arg3);
                         t4.Wait();
                         break;
                     case "-dlCanary": // Force download the latest Canary build
                         somethingDone = true;
-                        Task t5 = Updater.ForceDownloadCanary(args[1]);
+                        Task t5 = Updater.CheckCanaryUpdate(args[1], false, true);
                         t5.Wait();
                         break;
                     case "-dlStable": // Force download the latest Stable build
                         somethingDone = true;
-                        Task t6 = Updater.ForceDownloadRelease(args[1]);
+                        Task t6 = Updater.ForceDownloadStable(args[1]);
                         t6.Wait();
+                        break;
+                    case "-dlDoc": // Force download the latest Documentation build
+                        somethingDone = true;
+                        Task t6d = Updater.ForceDownloadDocumentation();
+                        t6d.Wait();
                         break;
                     case "-canarylog": // Show changelog for canary
                         somethingDone = true;
@@ -1727,7 +1054,7 @@ namespace Net
             else if (args.Length == 0)
             {
                 somethingDone = true;
-                Task t = Updater.UpdateCheck(true);
+                Task t = Updater.CheckUpdate(true);
                 t.Wait();
             }
 
