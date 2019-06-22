@@ -14,30 +14,45 @@ namespace BrawlLib.SSBB.ResourceNodes
         public List<MDL0ObjectNode> _objects = new List<MDL0ObjectNode>();
         private MDL0VertexData _hdr = new MDL0VertexData() { _type = (int)WiiVertexComponentType.Float };
 
-        [Category("Vertex Data")]
-        public int ID => _hdr._index;
-        [Category("Vertex Data")]
-        public bool IsXYZ => _hdr._isXYZ != 0;
-        [Category("Vertex Data")]
-        public WiiVertexComponentType Format => (WiiVertexComponentType)(int)_hdr._type;
-        [Category("Vertex Data")]
-        public byte Divisor => _hdr._divisor;
-        [Category("Vertex Data")]
-        public byte EntryStride => _hdr._entryStride;
-        [Category("Vertex Data")]
-        public ushort NumVertices => _hdr._numVertices;
-        [Category("Vertex Data")]
-        public Vector3 EMin => _hdr._eMin;
-        [Category("Vertex Data")]
-        public Vector3 EMax => _hdr._eMax;
+        [Category("Vertex Data")] public int ID => _hdr._index;
+        [Category("Vertex Data")] public bool IsXYZ => _hdr._isXYZ != 0;
+        [Category("Vertex Data")] public WiiVertexComponentType Format => (WiiVertexComponentType)(int)_hdr._type;
+        [Category("Vertex Data")] public byte Divisor => _hdr._divisor;
+        [Category("Vertex Data")] public byte EntryStride => _hdr._entryStride;
+        [Category("Vertex Data")] public ushort NumVertices => _hdr._numVertices;
+        [Category("Vertex Data")] public Vector3 EMin => _hdr._eMin;
+        [Category("Vertex Data")] public Vector3 EMax => _hdr._eMax;
 
-        public bool ForceRebuild { get => _forceRebuild; set { if (_forceRebuild != value) { _forceRebuild = value; SignalPropertyChange(); } } }
-        public bool ForceFloat { get => _forceFloat; set { if (_forceFloat != value) { _forceFloat = value; } } }
+        public bool ForceRebuild
+        {
+            get => _forceRebuild;
+            set
+            {
+                if (_forceRebuild != value)
+                {
+                    _forceRebuild = value;
+                    SignalPropertyChange();
+                }
+            }
+        }
+
+        public bool ForceFloat
+        {
+            get => _forceFloat;
+            set
+            {
+                if (_forceFloat != value)
+                {
+                    _forceFloat = value;
+                }
+            }
+        }
 
         public Vector3[] _vertices;
+
         public Vector3[] Vertices
         {
-            get => _vertices == null ? _vertices = VertexCodec.ExtractVertices(Header) : _vertices;
+            get => _vertices ?? (_vertices = VertexCodec.ExtractVertices(Header));
             set
             {
                 _vertices = value;
@@ -62,7 +77,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
             //SetSizeInternal(_hdr._dataLen);
 
-            if ((_name == null) && (Header->_stringOffset != 0))
+            if (_name == null && Header->_stringOffset != 0)
             {
                 _name = Header->ResourceString;
             }
@@ -71,8 +86,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         public VertexCodec _enc;
-        public bool _forceRebuild = false;
-        public bool _forceFloat = false;
+        private bool _forceRebuild = false;
+        private bool _forceFloat = false;
+
         public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
             if (Model._isImport || _forceRebuild)
