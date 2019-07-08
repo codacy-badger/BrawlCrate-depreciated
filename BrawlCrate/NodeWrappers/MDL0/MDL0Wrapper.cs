@@ -700,7 +700,12 @@ namespace BrawlCrate.NodeWrappers
         {
             if (MessageBox.Show(null, "Are you sure you want to regenerate metal materials for Brawl?\nAll existing metal materials and shaders will be reset.", "Metal Material Generation", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                ((MDL0Node)_resource).GenerateMetalMaterials(((MDL0Node)_resource).MetalTexture);
+                MDL0Node m = (MDL0Node)_resource;
+                if (string.IsNullOrEmpty(m.MetalTexture) || m.MetalTexture.Equals("<null>"))
+                {
+                    m.MetalTexture = "metal00";
+                }
+                m.GenerateMetalMaterials(m.MetalTexture);
             }
         }
         public void AutoMetal(string metalTextureName)
