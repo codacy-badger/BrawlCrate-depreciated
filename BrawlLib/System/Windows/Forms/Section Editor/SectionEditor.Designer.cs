@@ -631,10 +631,10 @@
             // 
             // btn1underline
             // 
-            this.btn1underline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn1underline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn1underline.Appearance = System.Windows.Forms.Appearance.Button;
             this.btn1underline.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn1underline.Location = new System.Drawing.Point(717, 539);
+            this.btn1underline.Location = new System.Drawing.Point(312, 2);
             this.btn1underline.Name = "btn1underline";
             this.btn1underline.Size = new System.Drawing.Size(24, 23);
             this.btn1underline.TabIndex = 18;
@@ -645,10 +645,10 @@
             // 
             // btn2underline
             // 
-            this.btn2underline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn2underline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn2underline.Appearance = System.Windows.Forms.Appearance.Button;
             this.btn2underline.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn2underline.Location = new System.Drawing.Point(742, 539);
+            this.btn2underline.Location = new System.Drawing.Point(337, 2);
             this.btn2underline.Name = "btn2underline";
             this.btn2underline.Size = new System.Drawing.Size(24, 23);
             this.btn2underline.TabIndex = 17;
@@ -659,10 +659,10 @@
             // 
             // btn3underline
             // 
-            this.btn3underline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn3underline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn3underline.Appearance = System.Windows.Forms.Appearance.Button;
             this.btn3underline.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn3underline.Location = new System.Drawing.Point(767, 539);
+            this.btn3underline.Location = new System.Drawing.Point(362, 2);
             this.btn3underline.Name = "btn3underline";
             this.btn3underline.Size = new System.Drawing.Size(24, 23);
             this.btn3underline.TabIndex = 16;
@@ -673,10 +673,10 @@
             // 
             // btn4underline
             // 
-            this.btn4underline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn4underline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn4underline.Appearance = System.Windows.Forms.Appearance.Button;
             this.btn4underline.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn4underline.Location = new System.Drawing.Point(792, 539);
+            this.btn4underline.Location = new System.Drawing.Point(387, 2);
             this.btn4underline.Name = "btn4underline";
             this.btn4underline.Size = new System.Drawing.Size(24, 23);
             this.btn4underline.TabIndex = 15;
@@ -687,8 +687,8 @@
             // 
             // btnSaveAnnotation
             // 
-            this.btnSaveAnnotation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveAnnotation.Location = new System.Drawing.Point(822, 539);
+            this.btnSaveAnnotation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveAnnotation.Location = new System.Drawing.Point(417, 2);
             this.btnSaveAnnotation.Name = "btnSaveAnnotation";
             this.btnSaveAnnotation.Size = new System.Drawing.Size(82, 23);
             this.btnSaveAnnotation.TabIndex = 14;
