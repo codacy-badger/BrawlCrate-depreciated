@@ -2,7 +2,7 @@ BrawlLib / BrawlCrate
 ==========
 [![GitHub release](https://img.shields.io/github/release/soopercool101/BrawlCrate.svg)](https://github.com/soopercool101/BrawlCrate/releases/latest)
 [![GitHub downloads](https://img.shields.io/github/downloads/soopercool101/brawlcrate/total.svg)](https://github.com/soopercool101/BrawlCrate/releases)
-[![Appveyor build status](https://ci.appveyor.com/api/projects/status/github/soopercool101/BrawlCrate?branch=master&svg=true)](https://ci.appveyor.com/project/soopercool101/BrawlCrate)
+[![Appveyor build status](https://ci.appveyor.com/api/projects/status/github/soopercool101/BrawlCrate?branch=brawlcrate-master&svg=true)](https://ci.appveyor.com/project/soopercool101/BrawlCrate)
 [![Discord](https://img.shields.io/discord/299006136512806912.svg?logo=discord)](https://discord.gg/s7c8763)
 
 BrawlCrate is a BrawlBox v0.77 fork and alternative.
