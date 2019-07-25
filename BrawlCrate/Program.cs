@@ -15,16 +15,9 @@ namespace BrawlCrate
     internal static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.26Hotfix2";
-        public static readonly string UpdateMessage = @"Updated to BrawlCrate v0.26! This release:
-- Fixes issue in which Shaders could be initialized with null names
-- Fixes crashes caused by VIS0 syncing
-- Fixes crashes when moving vertices
-- Fixes issue where an exported DAE could not be reimported
-- Fixes bug in which vertex edits could not be saved
-- Fixes bug in which Final Smash flags for Fighter Configs switched the None/Single flag
-- Fixes bug in which generating metal materials for a model that doesn't currently have them would result in the metal texture being set to null
-- Fixes bug in which exporting a model with null textures would crash the program
+        public static readonly string TagName = "BrawlCrate_v0.26Hotfix3";
+        public static readonly string UpdateMessage = @"Updated to BrawlCrate v0.26 Hotfix 3! This release:
+- Fixes various animation bugs
 
 Full changelog can be found in the installation folder: " + '\n' + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
 
