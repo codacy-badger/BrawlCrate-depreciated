@@ -19,3 +19,5 @@ It also incorporates Sawndz by agoaj and Jaklub and a modified version of the Co
 Current BrawlCrate contributors: soopercool101, MarioDox, Syvkal
 
 Join the Brawl Stage Compendium Discord to talk to the developers: https://discord.gg/s7c8763
+
+Development is currently being moved to the [BrawlCrate NEXT repository](https://github.com/soopercool101/BrawlCrateNext).
