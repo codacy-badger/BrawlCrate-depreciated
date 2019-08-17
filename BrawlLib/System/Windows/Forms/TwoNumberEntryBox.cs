@@ -10,8 +10,8 @@
             InitializeComponent();
         }
 
-        public int Value1 => (int)numericInputBox1.Value;
-        public int Value2 => (int)numericInputBox2.Value;
+        public int Value1 => (int) numericInputBox1.Value;
+        public int Value2 => (int) numericInputBox2.Value;
 
         public DialogResult ShowDialog()
         {
@@ -45,13 +45,13 @@
 
         private void btnOkay_Click(object sender, EventArgs e)
         {
-            DialogResult = Forms.DialogResult.OK;
+            DialogResult = DialogResult.OK;
             Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            DialogResult = Forms.DialogResult.Cancel;
+            DialogResult = DialogResult.Cancel;
             Close();
         }
     }

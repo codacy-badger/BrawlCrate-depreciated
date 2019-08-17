@@ -10,47 +10,48 @@ namespace System.Windows.Forms
     public class SRT0Editor : UserControl
     {
         #region Designer
+
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            FrameScale = new System.Windows.Forms.CheckBox();
-            toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            btnPaste = new System.Windows.Forms.Button();
-            toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            FrameRot = new System.Windows.Forms.CheckBox();
-            btnCopy = new System.Windows.Forms.Button();
-            toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            btnCut = new System.Windows.Forms.Button();
-            subtract = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
-            FrameTrans = new System.Windows.Forms.CheckBox();
-            numScaleY = new System.Windows.Forms.NumericInputBox();
-            add = new System.Windows.Forms.ToolStripMenuItem();
-            numRot = new System.Windows.Forms.NumericInputBox();
-            toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            Source = new System.Windows.Forms.ToolStripMenuItem();
-            numTransX = new System.Windows.Forms.NumericInputBox();
-            numTransY = new System.Windows.Forms.NumericInputBox();
-            lblTransX = new System.Windows.Forms.Label();
-            removeAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            lblRot = new System.Windows.Forms.Label();
-            ctxBox = new System.Windows.Forms.ContextMenuStrip(components);
-            addCustomAmountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            btnDelete = new System.Windows.Forms.Button();
-            grpTransform = new System.Windows.Forms.GroupBox();
-            lblScaleX = new System.Windows.Forms.Label();
-            numScaleX = new System.Windows.Forms.NumericInputBox();
-            AllScale = new System.Windows.Forms.CheckBox();
-            grpTransAll = new System.Windows.Forms.GroupBox();
-            AllRot = new System.Windows.Forms.CheckBox();
-            AllTrans = new System.Windows.Forms.CheckBox();
-            btnClean = new System.Windows.Forms.Button();
-            btnPasteAll = new System.Windows.Forms.Button();
-            btnCopyAll = new System.Windows.Forms.Button();
-            btnClear = new System.Windows.Forms.Button();
-            btnInsert = new System.Windows.Forms.Button();
+            components = new Container();
+            FrameScale = new CheckBox();
+            toolStripMenuItem7 = new ToolStripMenuItem();
+            btnPaste = new Button();
+            toolStripMenuItem4 = new ToolStripMenuItem();
+            FrameRot = new CheckBox();
+            btnCopy = new Button();
+            toolStripMenuItem3 = new ToolStripMenuItem();
+            btnCut = new Button();
+            subtract = new ToolStripMenuItem();
+            toolStripMenuItem5 = new ToolStripMenuItem();
+            toolStripMenuItem6 = new ToolStripMenuItem();
+            toolStripMenuItem8 = new ToolStripMenuItem();
+            FrameTrans = new CheckBox();
+            numScaleY = new NumericInputBox();
+            add = new ToolStripMenuItem();
+            numRot = new NumericInputBox();
+            toolStripSeparator1 = new ToolStripSeparator();
+            Source = new ToolStripMenuItem();
+            numTransX = new NumericInputBox();
+            numTransY = new NumericInputBox();
+            lblTransX = new Label();
+            removeAllToolStripMenuItem = new ToolStripMenuItem();
+            lblRot = new Label();
+            ctxBox = new ContextMenuStrip(components);
+            addCustomAmountToolStripMenuItem = new ToolStripMenuItem();
+            btnDelete = new Button();
+            grpTransform = new GroupBox();
+            lblScaleX = new Label();
+            numScaleX = new NumericInputBox();
+            AllScale = new CheckBox();
+            grpTransAll = new GroupBox();
+            AllRot = new CheckBox();
+            AllTrans = new CheckBox();
+            btnClean = new Button();
+            btnPasteAll = new Button();
+            btnCopyAll = new Button();
+            btnClear = new Button();
+            btnInsert = new Button();
             ctxBox.SuspendLayout();
             grpTransform.SuspendLayout();
             grpTransAll.SuspendLayout();
@@ -60,7 +61,7 @@ namespace System.Windows.Forms
             // 
             FrameScale.AutoSize = true;
             FrameScale.Checked = true;
-            FrameScale.CheckState = System.Windows.Forms.CheckState.Checked;
+            FrameScale.CheckState = CheckState.Checked;
             FrameScale.Location = new System.Drawing.Point(249, 58);
             FrameScale.Name = "FrameScale";
             FrameScale.Size = new System.Drawing.Size(53, 17);
@@ -82,7 +83,7 @@ namespace System.Windows.Forms
             btnPaste.TabIndex = 23;
             btnPaste.Text = "Paste";
             btnPaste.UseVisualStyleBackColor = true;
-            btnPaste.Click += new System.EventHandler(btnPaste_Click);
+            btnPaste.Click += new EventHandler(btnPaste_Click);
             // 
             // toolStripMenuItem4
             // 
@@ -94,7 +95,7 @@ namespace System.Windows.Forms
             // 
             FrameRot.AutoSize = true;
             FrameRot.Checked = true;
-            FrameRot.CheckState = System.Windows.Forms.CheckState.Checked;
+            FrameRot.CheckState = CheckState.Checked;
             FrameRot.Location = new System.Drawing.Point(208, 58);
             FrameRot.Name = "FrameRot";
             FrameRot.Size = new System.Drawing.Size(43, 17);
@@ -110,7 +111,7 @@ namespace System.Windows.Forms
             btnCopy.TabIndex = 22;
             btnCopy.Text = "Copy";
             btnCopy.UseVisualStyleBackColor = true;
-            btnCopy.Click += new System.EventHandler(btnCopy_Click);
+            btnCopy.Click += new EventHandler(btnCopy_Click);
             // 
             // toolStripMenuItem3
             // 
@@ -126,14 +127,16 @@ namespace System.Windows.Forms
             btnCut.TabIndex = 21;
             btnCut.Text = "Cut";
             btnCut.UseVisualStyleBackColor = true;
-            btnCut.Click += new System.EventHandler(btnCut_Click);
+            btnCut.Click += new EventHandler(btnCut_Click);
             // 
             // subtract
             // 
-            subtract.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            toolStripMenuItem5,
-            toolStripMenuItem6,
-            toolStripMenuItem8});
+            subtract.DropDownItems.AddRange(new ToolStripItem[]
+            {
+                toolStripMenuItem5,
+                toolStripMenuItem6,
+                toolStripMenuItem8
+            });
             subtract.Name = "subtract";
             subtract.Size = new System.Drawing.Size(166, 22);
             subtract.Text = "Subtract From All";
@@ -160,7 +163,7 @@ namespace System.Windows.Forms
             // 
             FrameTrans.AutoSize = true;
             FrameTrans.Checked = true;
-            FrameTrans.CheckState = System.Windows.Forms.CheckState.Checked;
+            FrameTrans.CheckState = CheckState.Checked;
             FrameTrans.Location = new System.Drawing.Point(155, 58);
             FrameTrans.Name = "FrameTrans";
             FrameTrans.Size = new System.Drawing.Size(53, 17);
@@ -170,7 +173,7 @@ namespace System.Windows.Forms
             // 
             // numScaleY
             // 
-            numScaleY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numScaleY.BorderStyle = BorderStyle.FixedSingle;
             numScaleY.Integral = false;
             numScaleY.Location = new System.Drawing.Point(154, 35);
             numScaleY.MaximumValue = 3.402823E+38F;
@@ -179,22 +182,24 @@ namespace System.Windows.Forms
             numScaleY.Size = new System.Drawing.Size(82, 20);
             numScaleY.TabIndex = 18;
             numScaleY.Text = "0";
-            numScaleY.ValueChanged += new System.EventHandler(BoxChangedCreateUndo);
-            numScaleY.MouseDown += new System.Windows.Forms.MouseEventHandler(box_MouseDown);
+            numScaleY.ValueChanged += new EventHandler(BoxChangedCreateUndo);
+            numScaleY.MouseDown += new MouseEventHandler(box_MouseDown);
             // 
             // add
             // 
-            add.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            toolStripMenuItem3,
-            toolStripMenuItem4,
-            toolStripMenuItem7});
+            add.DropDownItems.AddRange(new ToolStripItem[]
+            {
+                toolStripMenuItem3,
+                toolStripMenuItem4,
+                toolStripMenuItem7
+            });
             add.Name = "add";
             add.Size = new System.Drawing.Size(166, 22);
             add.Text = "Add To All";
             // 
             // numRot
             // 
-            numRot.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numRot.BorderStyle = BorderStyle.FixedSingle;
             numRot.Integral = false;
             numRot.Location = new System.Drawing.Point(235, 35);
             numRot.MaximumValue = 3.402823E+38F;
@@ -203,8 +208,8 @@ namespace System.Windows.Forms
             numRot.Size = new System.Drawing.Size(82, 20);
             numRot.TabIndex = 15;
             numRot.Text = "0";
-            numRot.ValueChanged += new System.EventHandler(BoxChangedCreateUndo);
-            numRot.MouseDown += new System.Windows.Forms.MouseEventHandler(box_MouseDown);
+            numRot.ValueChanged += new EventHandler(BoxChangedCreateUndo);
+            numRot.MouseDown += new MouseEventHandler(box_MouseDown);
             // 
             // toolStripSeparator1
             // 
@@ -220,7 +225,7 @@ namespace System.Windows.Forms
             // 
             // numTransX
             // 
-            numTransX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numTransX.BorderStyle = BorderStyle.FixedSingle;
             numTransX.Integral = false;
             numTransX.Location = new System.Drawing.Point(73, 16);
             numTransX.MaximumValue = 3.402823E+38F;
@@ -229,12 +234,12 @@ namespace System.Windows.Forms
             numTransX.Size = new System.Drawing.Size(82, 20);
             numTransX.TabIndex = 3;
             numTransX.Text = "0";
-            numTransX.ValueChanged += new System.EventHandler(BoxChangedCreateUndo);
-            numTransX.MouseDown += new System.Windows.Forms.MouseEventHandler(box_MouseDown);
+            numTransX.ValueChanged += new EventHandler(BoxChangedCreateUndo);
+            numTransX.MouseDown += new MouseEventHandler(box_MouseDown);
             // 
             // numTransY
             // 
-            numTransY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numTransY.BorderStyle = BorderStyle.FixedSingle;
             numTransY.Integral = false;
             numTransY.Location = new System.Drawing.Point(154, 16);
             numTransY.MaximumValue = 3.402823E+38F;
@@ -243,18 +248,18 @@ namespace System.Windows.Forms
             numTransY.Size = new System.Drawing.Size(82, 20);
             numTransY.TabIndex = 13;
             numTransY.Text = "0";
-            numTransY.ValueChanged += new System.EventHandler(BoxChangedCreateUndo);
-            numTransY.MouseDown += new System.Windows.Forms.MouseEventHandler(box_MouseDown);
+            numTransY.ValueChanged += new EventHandler(BoxChangedCreateUndo);
+            numTransY.MouseDown += new MouseEventHandler(box_MouseDown);
             // 
             // lblTransX
             // 
-            lblTransX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            lblTransX.BorderStyle = BorderStyle.FixedSingle;
             lblTransX.Location = new System.Drawing.Point(4, 16);
             lblTransX.Name = "lblTransX";
             lblTransX.Size = new System.Drawing.Size(70, 20);
             lblTransX.TabIndex = 4;
             lblTransX.Text = "Translation:";
-            lblTransX.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            lblTransX.TextAlign = ContentAlignment.MiddleRight;
             // 
             // removeAllToolStripMenuItem
             // 
@@ -264,23 +269,25 @@ namespace System.Windows.Forms
             // 
             // lblRot
             // 
-            lblRot.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            lblRot.BorderStyle = BorderStyle.FixedSingle;
             lblRot.Location = new System.Drawing.Point(235, 16);
             lblRot.Name = "lblRot";
             lblRot.Size = new System.Drawing.Size(82, 20);
             lblRot.TabIndex = 7;
             lblRot.Text = "Rotation:";
-            lblRot.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblRot.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // ctxBox
             // 
-            ctxBox.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            Source,
-            toolStripSeparator1,
-            add,
-            subtract,
-            removeAllToolStripMenuItem,
-            addCustomAmountToolStripMenuItem});
+            ctxBox.Items.AddRange(new ToolStripItem[]
+            {
+                Source,
+                toolStripSeparator1,
+                add,
+                subtract,
+                removeAllToolStripMenuItem,
+                addCustomAmountToolStripMenuItem
+            });
             ctxBox.Name = "ctxBox";
             ctxBox.Size = new System.Drawing.Size(167, 120);
             // 
@@ -289,7 +296,7 @@ namespace System.Windows.Forms
             addCustomAmountToolStripMenuItem.Name = "addCustomAmountToolStripMenuItem";
             addCustomAmountToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             addCustomAmountToolStripMenuItem.Text = "Edit All...";
-            addCustomAmountToolStripMenuItem.Click += new System.EventHandler(addCustomAmountToolStripMenuItem_Click_1);
+            addCustomAmountToolStripMenuItem.Click += new EventHandler(addCustomAmountToolStripMenuItem_Click_1);
             // 
             // btnDelete
             // 
@@ -299,7 +306,7 @@ namespace System.Windows.Forms
             btnDelete.TabIndex = 25;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = true;
-            btnDelete.Click += new System.EventHandler(btnDelete_Click);
+            btnDelete.Click += new EventHandler(btnDelete_Click);
             // 
             // grpTransform
             // 
@@ -317,7 +324,7 @@ namespace System.Windows.Forms
             grpTransform.Controls.Add(numTransY);
             grpTransform.Controls.Add(lblTransX);
             grpTransform.Controls.Add(lblRot);
-            grpTransform.Dock = System.Windows.Forms.DockStyle.Left;
+            grpTransform.Dock = DockStyle.Left;
             grpTransform.Enabled = false;
             grpTransform.Location = new System.Drawing.Point(0, 0);
             grpTransform.Name = "grpTransform";
@@ -328,17 +335,17 @@ namespace System.Windows.Forms
             // 
             // lblScaleX
             // 
-            lblScaleX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            lblScaleX.BorderStyle = BorderStyle.FixedSingle;
             lblScaleX.Location = new System.Drawing.Point(4, 35);
             lblScaleX.Name = "lblScaleX";
             lblScaleX.Size = new System.Drawing.Size(70, 20);
             lblScaleX.TabIndex = 37;
             lblScaleX.Text = "Scale:";
-            lblScaleX.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            lblScaleX.TextAlign = ContentAlignment.MiddleRight;
             // 
             // numScaleX
             // 
-            numScaleX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numScaleX.BorderStyle = BorderStyle.FixedSingle;
             numScaleX.Integral = false;
             numScaleX.Location = new System.Drawing.Point(73, 35);
             numScaleX.MaximumValue = 3.402823E+38F;
@@ -347,14 +354,14 @@ namespace System.Windows.Forms
             numScaleX.Size = new System.Drawing.Size(82, 20);
             numScaleX.TabIndex = 36;
             numScaleX.Text = "0";
-            numScaleX.ValueChanged += new System.EventHandler(BoxChangedCreateUndo);
-            numScaleX.MouseDown += new System.Windows.Forms.MouseEventHandler(box_MouseDown);
+            numScaleX.ValueChanged += new EventHandler(BoxChangedCreateUndo);
+            numScaleX.MouseDown += new MouseEventHandler(box_MouseDown);
             // 
             // AllScale
             // 
             AllScale.AutoSize = true;
             AllScale.Checked = true;
-            AllScale.CheckState = System.Windows.Forms.CheckState.Checked;
+            AllScale.CheckState = CheckState.Checked;
             AllScale.Location = new System.Drawing.Point(108, 57);
             AllScale.Name = "AllScale";
             AllScale.Size = new System.Drawing.Size(53, 17);
@@ -373,7 +380,7 @@ namespace System.Windows.Forms
             grpTransAll.Controls.Add(btnClear);
             grpTransAll.Controls.Add(btnInsert);
             grpTransAll.Controls.Add(btnDelete);
-            grpTransAll.Dock = System.Windows.Forms.DockStyle.Fill;
+            grpTransAll.Dock = DockStyle.Fill;
             grpTransAll.Enabled = false;
             grpTransAll.Location = new System.Drawing.Point(321, 0);
             grpTransAll.Name = "grpTransAll";
@@ -386,7 +393,7 @@ namespace System.Windows.Forms
             // 
             AllRot.AutoSize = true;
             AllRot.Checked = true;
-            AllRot.CheckState = System.Windows.Forms.CheckState.Checked;
+            AllRot.CheckState = CheckState.Checked;
             AllRot.Location = new System.Drawing.Point(108, 38);
             AllRot.Name = "AllRot";
             AllRot.Size = new System.Drawing.Size(43, 17);
@@ -398,7 +405,7 @@ namespace System.Windows.Forms
             // 
             AllTrans.AutoSize = true;
             AllTrans.Checked = true;
-            AllTrans.CheckState = System.Windows.Forms.CheckState.Checked;
+            AllTrans.CheckState = CheckState.Checked;
             AllTrans.Location = new System.Drawing.Point(108, 19);
             AllTrans.Name = "AllTrans";
             AllTrans.Size = new System.Drawing.Size(53, 17);
@@ -414,7 +421,7 @@ namespace System.Windows.Forms
             btnClean.TabIndex = 29;
             btnClean.Text = "Clean";
             btnClean.UseVisualStyleBackColor = true;
-            btnClean.Click += new System.EventHandler(btnClean_Click);
+            btnClean.Click += new EventHandler(btnClean_Click);
             // 
             // btnPasteAll
             // 
@@ -424,7 +431,7 @@ namespace System.Windows.Forms
             btnPasteAll.TabIndex = 28;
             btnPasteAll.Text = "Paste";
             btnPasteAll.UseVisualStyleBackColor = true;
-            btnPasteAll.Click += new System.EventHandler(btnPasteAll_Click);
+            btnPasteAll.Click += new EventHandler(btnPasteAll_Click);
             // 
             // btnCopyAll
             // 
@@ -434,7 +441,7 @@ namespace System.Windows.Forms
             btnCopyAll.TabIndex = 27;
             btnCopyAll.Text = "Copy";
             btnCopyAll.UseVisualStyleBackColor = true;
-            btnCopyAll.Click += new System.EventHandler(btnCopyAll_Click);
+            btnCopyAll.Click += new EventHandler(btnCopyAll_Click);
             // 
             // btnClear
             // 
@@ -444,7 +451,7 @@ namespace System.Windows.Forms
             btnClear.TabIndex = 26;
             btnClear.Text = "Clear";
             btnClear.UseVisualStyleBackColor = true;
-            btnClear.Click += new System.EventHandler(btnClear_Click);
+            btnClear.Click += new EventHandler(btnClear_Click);
             // 
             // btnInsert
             // 
@@ -454,7 +461,7 @@ namespace System.Windows.Forms
             btnInsert.TabIndex = 24;
             btnInsert.Text = "Insert";
             btnInsert.UseVisualStyleBackColor = true;
-            btnInsert.Click += new System.EventHandler(btnInsert_Click);
+            btnInsert.Click += new EventHandler(btnInsert_Click);
             // 
             // SRT0Editor
             // 
@@ -469,7 +476,6 @@ namespace System.Windows.Forms
             grpTransAll.ResumeLayout(false);
             grpTransAll.PerformLayout();
             ResumeLayout(false);
-
         }
 
         #endregion
@@ -498,7 +504,7 @@ namespace System.Windows.Forms
         private ToolStripMenuItem removeAllToolStripMenuItem;
         private Label lblRot;
         private ContextMenuStrip ctxBox;
-        private System.ComponentModel.IContainer components;
+        private IContainer components;
         private ToolStripMenuItem addCustomAmountToolStripMenuItem;
         public Button btnDelete;
         private GroupBox grpTransform;
@@ -520,25 +526,40 @@ namespace System.Windows.Forms
 
         internal NumericInputBox[] _transBoxes = new NumericInputBox[5];
 
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public IBoneNode TargetBone { get => _mainWindow.SelectedBone; set => _mainWindow.SelectedBone = value; }
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public IBoneNode TargetBone
+        {
+            get => _mainWindow.SelectedBone;
+            set => _mainWindow.SelectedBone = value;
+        }
 
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public MDL0MaterialRefNode TargetTexRef { get => _mainWindow.TargetTexRef; set => _mainWindow.TargetTexRef = value; }
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public MDL0MaterialRefNode TargetTexRef
+        {
+            get => _mainWindow.TargetTexRef;
+            set => _mainWindow.TargetTexRef = value;
+        }
 
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int CurrentFrame
         {
             get => _mainWindow.CurrentFrame;
             set => _mainWindow.CurrentFrame = value;
         }
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IModel TargetModel
         {
             get => _mainWindow.TargetModel;
             set => _mainWindow.TargetModel = value;
         }
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public SRT0Node SelectedAnimation
         {
             get => _mainWindow.SelectedSRT0;
@@ -564,12 +585,18 @@ namespace System.Windows.Forms
         public SRT0Editor()
         {
             InitializeComponent();
-            _transBoxes[0] = numScaleX; numScaleX.Tag = 0;
-            _transBoxes[1] = numScaleY; numScaleY.Tag = 1;
-            _transBoxes[2] = numRot; numRot.Tag = 2;
-            _transBoxes[3] = numTransX; numTransX.Tag = 3;
-            _transBoxes[4] = numTransY; numTransY.Tag = 4;
+            _transBoxes[0] = numScaleX;
+            numScaleX.Tag = 0;
+            _transBoxes[1] = numScaleY;
+            numScaleY.Tag = 1;
+            _transBoxes[2] = numRot;
+            numRot.Tag = 2;
+            _transBoxes[3] = numTransX;
+            numTransX.Tag = 3;
+            _transBoxes[4] = numTransY;
+            numTransY.Tag = 4;
         }
+
         public void UpdatePropDisplay()
         {
             if (!Enabled)
@@ -597,6 +624,7 @@ namespace System.Windows.Forms
                 _mainWindow.InterpolationEditor.SetTarget(TexEntry);
             }
         }
+
         public unsafe void ResetBox(int index)
         {
             if (TargetTexRef == null)
@@ -622,10 +650,11 @@ namespace System.Windows.Forms
             else
             {
                 TextureFrameState state = TargetTexRef._bindState;
-                box.Value = ((float*)&state)[index];
+                box.Value = ((float*) &state)[index];
                 box.BackColor = Color.White;
             }
         }
+
         internal unsafe void BoxChangedCreateUndo(object sender, EventArgs e)
         {
             if (CreateUndo != null)
@@ -648,22 +677,23 @@ namespace System.Windows.Forms
             }
 
             NumericInputBox box = sender as NumericInputBox;
-            int index = (int)box.Tag;
+            int index = (int) box.Tag;
 
             SRTAnimationFrame kf;
-            float* pkf = (float*)&kf;
+            float* pkf = (float*) &kf;
 
-            if ((SelectedAnimation != null) && (CurrentFrame >= 1))
+            if (SelectedAnimation != null && CurrentFrame >= 1)
             {
                 if (TexEntry == null)
                 {
                     if (!float.IsNaN(box.Value))
                     {
-                        SRT0TextureNode newEntry = SelectedAnimation.FindOrCreateEntry(TargetTexRef.Parent.Name, TargetTexRef.Index, false);
+                        SRT0TextureNode newEntry =
+                            SelectedAnimation.FindOrCreateEntry(TargetTexRef.Parent.Name, TargetTexRef.Index, false);
 
                         //Set initial values
                         TextureFrameState state = TargetTexRef._bindState;
-                        float* p = (float*)&state;
+                        float* p = (float*) &state;
                         for (int i = 0; i < 2; i++)
                         {
                             if (p[i] != 1.0f)
@@ -683,8 +713,7 @@ namespace System.Windows.Forms
                         newEntry.SetKeyframe(index, CurrentFrame - 1, box.Value);
                     }
                 }
-                else
-                    if (float.IsNaN(box.Value))
+                else if (float.IsNaN(box.Value))
                 {
                     TexEntry.RemoveKeyframe(index, CurrentFrame - 1);
                 }
@@ -708,8 +737,8 @@ namespace System.Windows.Forms
             {
                 //Change base transform
                 TextureFrameState state = TargetTexRef._bindState;
-                float* p = (float*)&state;
-                p[index] = float.IsNaN(box.Value) ? (index > 1 ? 0.0f : 1.0f) : box.Value;
+                float* p = (float*) &state;
+                p[index] = float.IsNaN(box.Value) ? index > 1 ? 0.0f : 1.0f : box.Value;
                 state.CalcTransforms();
                 TargetTexRef._bindState = state;
                 TargetTexRef.SignalPropertyChange();
@@ -724,7 +753,8 @@ namespace System.Windows.Forms
             _mainWindow.KeyframePanel._updating = false;
         }
 
-        private static readonly Dictionary<string, SRTAnimationFrame> _copyAllState = new Dictionary<string, SRTAnimationFrame>();
+        private static readonly Dictionary<string, SRTAnimationFrame> _copyAllState =
+            new Dictionary<string, SRTAnimationFrame>();
 
         private void btnCopyAll_Click(object sender, EventArgs e)
         {
@@ -734,11 +764,11 @@ namespace System.Windows.Forms
             {
                 if (TargetModel is MDL0Node)
                 {
-                    foreach (MDL0MaterialNode mat in ((MDL0Node)TargetModel).MaterialList)
+                    foreach (MDL0MaterialNode mat in ((MDL0Node) TargetModel).MaterialList)
                     {
                         foreach (MDL0MaterialRefNode mr in mat.Children)
                         {
-                            _copyAllState[mr.Parent.Name + mr.Index] = (SRTAnimationFrame)mr._bindState;
+                            _copyAllState[mr.Parent.Name + mr.Index] = (SRTAnimationFrame) mr._bindState;
                         }
                     }
                 }
@@ -766,7 +796,7 @@ namespace System.Windows.Forms
             {
                 if (TargetModel is MDL0Node)
                 {
-                    foreach (MDL0MaterialNode mat in ((MDL0Node)TargetModel).MaterialList)
+                    foreach (MDL0MaterialNode mat in ((MDL0Node) TargetModel).MaterialList)
                     {
                         foreach (MDL0MaterialRefNode mr in mat.Children)
                         {
@@ -803,17 +833,20 @@ namespace System.Windows.Forms
                         {
                             if (AllTrans.Checked)
                             {
-                                tex.SetKeyframeOnlyTrans(CurrentFrame - 1, _copyAllState[tex.Parent.Name + tex.TextureIndex]);
+                                tex.SetKeyframeOnlyTrans(CurrentFrame - 1,
+                                    _copyAllState[tex.Parent.Name + tex.TextureIndex]);
                             }
 
                             if (AllRot.Checked)
                             {
-                                tex.SetKeyframeOnlyRot(CurrentFrame - 1, _copyAllState[tex.Parent.Name + tex.TextureIndex]);
+                                tex.SetKeyframeOnlyRot(CurrentFrame - 1,
+                                    _copyAllState[tex.Parent.Name + tex.TextureIndex]);
                             }
 
                             if (AllScale.Checked)
                             {
-                                tex.SetKeyframeOnlyScale(CurrentFrame - 1, _copyAllState[tex.Parent.Name + tex.TextureIndex]);
+                                tex.SetKeyframeOnlyScale(CurrentFrame - 1,
+                                    _copyAllState[tex.Parent.Name + tex.TextureIndex]);
                             }
                         }
                     }
@@ -861,7 +894,7 @@ namespace System.Windows.Forms
                 return;
             }
 
-            ResourceNode group = ((MDL0Node)TargetModel)._matGroup;
+            ResourceNode group = ((MDL0Node) TargetModel)._matGroup;
             ResourceNode mat = null;
             if (group == null)
             {
@@ -881,7 +914,8 @@ namespace System.Windows.Forms
                     int count = 0;
                     foreach (SRT0TextureNode tex in entry.Children)
                     {
-                        if (((mat = group.FindChild(entry._name, true)) == null) || mat.Children.Count < tex.TextureIndex)
+                        if ((mat = @group.FindChild(entry._name, true)) == null ||
+                            mat.Children.Count < tex.TextureIndex)
                         {
                             badTextures.Add(tex);
                             count++;
@@ -891,12 +925,14 @@ namespace System.Windows.Forms
                             tex.Keyframes.Clean();
                         }
                     }
+
                     if (count == entry.Children.Count)
                     {
                         badMaterials.Add(entry);
                     }
                 }
             }
+
             int temp0 = badMaterials.Count;
             int temp1 = badTextures.Count;
             foreach (SRT0TextureNode n in badTextures)
@@ -904,11 +940,13 @@ namespace System.Windows.Forms
                 n.Remove();
                 n.Dispose();
             }
+
             foreach (SRT0EntryNode n in badMaterials)
             {
                 n.Remove();
                 n.Dispose();
             }
+
             MessageBox.Show(temp0 + " unused material entries and\n" + temp1 + " unused texture entries removed.");
             UpdatePropDisplay();
         }
@@ -943,11 +981,12 @@ namespace System.Windows.Forms
         }
 
         public int type = 0;
+
         private void box_MouseDown(object sender, MouseEventArgs e)
         {
             NumericInputBox box = sender as NumericInputBox;
 
-            type = (int)box.Tag;
+            type = (int) box.Tag;
 
             if (_mainWindow.InterpolationEditor != null && _mainWindow.InterpolationEditor.Visible)
             {
@@ -959,7 +998,7 @@ namespace System.Windows.Forms
                 UpdateInterpolationEditor(box);
             }
 
-            if (e.Button == Forms.MouseButtons.Right)
+            if (e.Button == MouseButtons.Right)
             {
                 if (box.Enabled == true)
                 {
@@ -1002,7 +1041,9 @@ namespace System.Windows.Forms
             }
 
             KeyframeEntry kfe;
-            SRT0TextureNode _target = SelectedAnimation.FindChild(TargetTexRef.Parent.Name + "/Texture" + TargetTexRef.Index, true) as SRT0TextureNode;
+            SRT0TextureNode _target =
+                SelectedAnimation.FindChild(TargetTexRef.Parent.Name + "/Texture" + TargetTexRef.Index, true) as
+                    SRT0TextureNode;
             for (int x = 0; x < _target.FrameCount; x++) //Loop thru each frame
             {
                 if ((kfe = _target.GetKeyframe(type, x)) != null) //Check for a keyframe
@@ -1023,7 +1064,9 @@ namespace System.Windows.Forms
             }
 
             KeyframeEntry kfe;
-            SRT0TextureNode _target = SelectedAnimation.FindChild(TargetTexRef.Parent.Name + "/Texture" + TargetTexRef.Index, true) as SRT0TextureNode;
+            SRT0TextureNode _target =
+                SelectedAnimation.FindChild(TargetTexRef.Parent.Name + "/Texture" + TargetTexRef.Index, true) as
+                    SRT0TextureNode;
             for (int x = 0; x < _target.FrameCount; x++) //Loop thru each frame
             {
                 if ((kfe = _target.GetKeyframe(type, x)) != null) //Check for a keyframe
@@ -1044,7 +1087,9 @@ namespace System.Windows.Forms
             }
 
             KeyframeEntry kfe;
-            SRT0TextureNode _target = SelectedAnimation.FindChild(TargetTexRef.Parent.Name + "/Texture" + TargetTexRef.Index, true) as SRT0TextureNode;
+            SRT0TextureNode _target =
+                SelectedAnimation.FindChild(TargetTexRef.Parent.Name + "/Texture" + TargetTexRef.Index, true) as
+                    SRT0TextureNode;
             for (int x = 0; x < _target.FrameCount; x++) //Loop thru each frame
             {
                 if ((kfe = _target.GetKeyframe(type, x)) != null) //Check for a keyframe
@@ -1065,7 +1110,9 @@ namespace System.Windows.Forms
             }
 
             KeyframeEntry kfe;
-            SRT0TextureNode _target = SelectedAnimation.FindChild(TargetTexRef.Parent.Name + "/Texture" + TargetTexRef.Index, true) as SRT0TextureNode;
+            SRT0TextureNode _target =
+                SelectedAnimation.FindChild(TargetTexRef.Parent.Name + "/Texture" + TargetTexRef.Index, true) as
+                    SRT0TextureNode;
             for (int x = 0; x < _target.FrameCount; x++) //Loop thru each frame
             {
                 if ((kfe = _target.GetKeyframe(type, x)) != null) //Check for a keyframe
@@ -1086,7 +1133,9 @@ namespace System.Windows.Forms
             }
 
             KeyframeEntry kfe;
-            SRT0TextureNode _target = SelectedAnimation.FindChild(TargetTexRef.Parent.Name + "/Texture" + TargetTexRef.Index, true) as SRT0TextureNode;
+            SRT0TextureNode _target =
+                SelectedAnimation.FindChild(TargetTexRef.Parent.Name + "/Texture" + TargetTexRef.Index, true) as
+                    SRT0TextureNode;
             for (int x = 0; x < _target.FrameCount; x++) //Loop thru each frame
             {
                 if ((kfe = _target.GetKeyframe(type, x)) != null) //Check for a keyframe
@@ -1106,7 +1155,9 @@ namespace System.Windows.Forms
                 return;
             }
 
-            SRT0TextureNode _target = SelectedAnimation.FindChild(TargetTexRef.Parent.Name + "/Texture" + TargetTexRef.Index, true) as SRT0TextureNode;
+            SRT0TextureNode _target =
+                SelectedAnimation.FindChild(TargetTexRef.Parent.Name + "/Texture" + TargetTexRef.Index, true) as
+                    SRT0TextureNode;
             if (_target != null)
             {
                 _target.Keyframes._keyArrays[type]._keyRoot = new KeyframeEntry(-1, type < 2 ? 1 : 0);
@@ -1133,20 +1184,20 @@ namespace System.Windows.Forms
         private unsafe void btnCut_Click(object sender, EventArgs e)
         {
             SRTAnimationFrame frame;
-            float* p = (float*)&frame;
+            float* p = (float*) &frame;
 
             BoxChangedCreateUndo(this, null);
 
             for (int i = 0; i < 5; i++)
             {
-                if ((!FrameScale.Checked && i < 2))
+                if (!FrameScale.Checked && i < 2)
                 {
                     p[i] = 1;
                 }
                 else if (
-                    (FrameScale.Checked && i < 2) ||
-                    (FrameRot.Checked && i == 2) ||
-                    (FrameTrans.Checked && i > 2))
+                    FrameScale.Checked && i < 2 ||
+                    FrameRot.Checked && i == 2 ||
+                    FrameTrans.Checked && i > 2)
                 {
                     p[i] = _transBoxes[i].Value;
                 }
@@ -1163,18 +1214,18 @@ namespace System.Windows.Forms
         private unsafe void btnCopy_Click(object sender, EventArgs e)
         {
             SRTAnimationFrame frame;
-            float* p = (float*)&frame;
+            float* p = (float*) &frame;
 
             for (int i = 0; i < 5; i++)
             {
-                if ((!FrameScale.Checked && i < 2))
+                if (!FrameScale.Checked && i < 2)
                 {
                     p[i] = 1;
                 }
                 else if (
-                    (FrameScale.Checked && i < 2) ||
-                    (FrameRot.Checked && i == 2) ||
-                    (FrameTrans.Checked && i > 2))
+                    FrameScale.Checked && i < 2 ||
+                    FrameRot.Checked && i == 2 ||
+                    FrameTrans.Checked && i > 2)
                 {
                     p[i] = _transBoxes[i].Value;
                 }
@@ -1193,20 +1244,21 @@ namespace System.Windows.Forms
                 object o = da.GetData("SRTAnimationFrame");
                 if (o != null && o is SRTAnimationFrame)
                 {
-                    SRTAnimationFrame frame = (SRTAnimationFrame)o;
+                    SRTAnimationFrame frame = (SRTAnimationFrame) o;
 
-                    float* p = (float*)&frame;
+                    float* p = (float*) &frame;
 
                     BoxChangedCreateUndo(this, null);
 
                     for (int i = 0; i < 5; i++)
                     {
-                        if ((FrameScale.Checked && i < 2) ||
-                            (FrameRot.Checked && i == 2) ||
-                            (FrameTrans.Checked && i > 2))
+                        if (FrameScale.Checked && i < 2 ||
+                            FrameRot.Checked && i == 2 ||
+                            FrameTrans.Checked && i > 2)
                         {
                             _transBoxes[i].Value = p[i];
                         }
+
                         //_transBoxes[i].Value = p[i];
                         BoxChanged(_transBoxes[i], null);
                     }
@@ -1216,7 +1268,7 @@ namespace System.Windows.Forms
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
-            if ((SelectedAnimation == null) || (CurrentFrame < 1))
+            if (SelectedAnimation == null || CurrentFrame < 1)
             {
                 return;
             }
@@ -1227,7 +1279,7 @@ namespace System.Windows.Forms
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if ((SelectedAnimation == null) || (CurrentFrame < 1))
+            if (SelectedAnimation == null || CurrentFrame < 1)
             {
                 return;
             }

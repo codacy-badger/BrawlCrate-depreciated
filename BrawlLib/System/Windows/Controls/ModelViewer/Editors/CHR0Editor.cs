@@ -11,6 +11,7 @@ namespace System.Windows.Forms
     public class CHR0Editor : UserControl
     {
         #region Designer
+
         private GroupBox grpTransform;
         public Button btnPaste;
         public Button btnCopy;
@@ -41,7 +42,7 @@ namespace System.Windows.Forms
         private CheckBox FrameRot;
         private CheckBox FrameTrans;
         private ContextMenuStrip ctxBox;
-        private System.ComponentModel.IContainer components;
+        private IContainer components;
         private ToolStripMenuItem Source;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem add;
@@ -58,55 +59,56 @@ namespace System.Windows.Forms
         public CheckBox chkMoveBoneOnly;
         public CheckBox chkUpdateBindPose;
         private ToolStripMenuItem addCustomAmountToolStripMenuItem;
+
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            grpTransform = new System.Windows.Forms.GroupBox();
-            FrameScale = new System.Windows.Forms.CheckBox();
-            btnPaste = new System.Windows.Forms.Button();
-            chkUpdateBindPose = new System.Windows.Forms.CheckBox();
-            FrameRot = new System.Windows.Forms.CheckBox();
-            btnCopy = new System.Windows.Forms.Button();
-            FrameTrans = new System.Windows.Forms.CheckBox();
-            btnCut = new System.Windows.Forms.Button();
-            lblTrans = new System.Windows.Forms.Label();
-            lblRot = new System.Windows.Forms.Label();
-            lblScale = new System.Windows.Forms.Label();
-            chkMoveBoneOnly = new System.Windows.Forms.CheckBox();
-            grpTransAll = new System.Windows.Forms.GroupBox();
-            btnInsert = new System.Windows.Forms.Button();
-            btnClean = new System.Windows.Forms.Button();
-            btnPasteAll = new System.Windows.Forms.Button();
-            btnCopyAll = new System.Windows.Forms.Button();
-            btnClearAll = new System.Windows.Forms.Button();
-            btnDelete = new System.Windows.Forms.Button();
-            AllScale = new System.Windows.Forms.CheckBox();
-            AllRot = new System.Windows.Forms.CheckBox();
-            AllTrans = new System.Windows.Forms.CheckBox();
-            ctxTools = new System.Windows.Forms.ContextMenuStrip(components);
-            bakeVertexPositionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ctxBox = new System.Windows.Forms.ContextMenuStrip(components);
-            Source = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            add = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            subtract = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
-            removeAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            addCustomAmountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            numScaleX = new System.Windows.Forms.NumericInputBox();
-            numScaleY = new System.Windows.Forms.NumericInputBox();
-            numScaleZ = new System.Windows.Forms.NumericInputBox();
-            numRotX = new System.Windows.Forms.NumericInputBox();
-            numRotY = new System.Windows.Forms.NumericInputBox();
-            numRotZ = new System.Windows.Forms.NumericInputBox();
-            numTransX = new System.Windows.Forms.NumericInputBox();
-            numTransY = new System.Windows.Forms.NumericInputBox();
-            numTransZ = new System.Windows.Forms.NumericInputBox();
+            components = new Container();
+            grpTransform = new GroupBox();
+            FrameScale = new CheckBox();
+            btnPaste = new Button();
+            chkUpdateBindPose = new CheckBox();
+            FrameRot = new CheckBox();
+            btnCopy = new Button();
+            FrameTrans = new CheckBox();
+            btnCut = new Button();
+            lblTrans = new Label();
+            lblRot = new Label();
+            lblScale = new Label();
+            chkMoveBoneOnly = new CheckBox();
+            grpTransAll = new GroupBox();
+            btnInsert = new Button();
+            btnClean = new Button();
+            btnPasteAll = new Button();
+            btnCopyAll = new Button();
+            btnClearAll = new Button();
+            btnDelete = new Button();
+            AllScale = new CheckBox();
+            AllRot = new CheckBox();
+            AllTrans = new CheckBox();
+            ctxTools = new ContextMenuStrip(components);
+            bakeVertexPositionsToolStripMenuItem = new ToolStripMenuItem();
+            ctxBox = new ContextMenuStrip(components);
+            Source = new ToolStripMenuItem();
+            toolStripSeparator1 = new ToolStripSeparator();
+            add = new ToolStripMenuItem();
+            toolStripMenuItem3 = new ToolStripMenuItem();
+            toolStripMenuItem4 = new ToolStripMenuItem();
+            toolStripMenuItem7 = new ToolStripMenuItem();
+            subtract = new ToolStripMenuItem();
+            toolStripMenuItem5 = new ToolStripMenuItem();
+            toolStripMenuItem6 = new ToolStripMenuItem();
+            toolStripMenuItem8 = new ToolStripMenuItem();
+            removeAllToolStripMenuItem = new ToolStripMenuItem();
+            addCustomAmountToolStripMenuItem = new ToolStripMenuItem();
+            numScaleX = new NumericInputBox();
+            numScaleY = new NumericInputBox();
+            numScaleZ = new NumericInputBox();
+            numRotX = new NumericInputBox();
+            numRotY = new NumericInputBox();
+            numRotZ = new NumericInputBox();
+            numTransX = new NumericInputBox();
+            numTransY = new NumericInputBox();
+            numTransZ = new NumericInputBox();
             grpTransform.SuspendLayout();
             grpTransAll.SuspendLayout();
             ctxTools.SuspendLayout();
@@ -135,11 +137,11 @@ namespace System.Windows.Forms
             grpTransform.Controls.Add(lblTrans);
             grpTransform.Controls.Add(lblRot);
             grpTransform.Controls.Add(lblScale);
-            grpTransform.Dock = System.Windows.Forms.DockStyle.Left;
+            grpTransform.Dock = DockStyle.Left;
             grpTransform.Enabled = false;
             grpTransform.Location = new System.Drawing.Point(0, 0);
             grpTransform.Name = "grpTransform";
-            grpTransform.Padding = new System.Windows.Forms.Padding(0);
+            grpTransform.Padding = new Padding(0);
             grpTransform.Size = new System.Drawing.Size(422, 78);
             grpTransform.TabIndex = 23;
             grpTransform.TabStop = false;
@@ -149,7 +151,7 @@ namespace System.Windows.Forms
             // 
             FrameScale.AutoSize = true;
             FrameScale.Checked = true;
-            FrameScale.CheckState = System.Windows.Forms.CheckState.Checked;
+            FrameScale.CheckState = CheckState.Checked;
             FrameScale.Location = new System.Drawing.Point(367, 56);
             FrameScale.Name = "FrameScale";
             FrameScale.Size = new System.Drawing.Size(53, 17);
@@ -165,7 +167,7 @@ namespace System.Windows.Forms
             btnPaste.TabIndex = 23;
             btnPaste.Text = "Paste";
             btnPaste.UseVisualStyleBackColor = true;
-            btnPaste.Click += new System.EventHandler(btnPaste_Click);
+            btnPaste.Click += new EventHandler(btnPaste_Click);
             // 
             // chkUpdateBindPose
             // 
@@ -175,13 +177,13 @@ namespace System.Windows.Forms
             chkUpdateBindPose.TabIndex = 37;
             chkUpdateBindPose.Text = "Update Mesh Bind Pose";
             chkUpdateBindPose.UseVisualStyleBackColor = true;
-            chkUpdateBindPose.CheckedChanged += new System.EventHandler(chkUpdateBindPose_CheckedChanged);
+            chkUpdateBindPose.CheckedChanged += new EventHandler(chkUpdateBindPose_CheckedChanged);
             // 
             // FrameRot
             // 
             FrameRot.AutoSize = true;
             FrameRot.Checked = true;
-            FrameRot.CheckState = System.Windows.Forms.CheckState.Checked;
+            FrameRot.CheckState = CheckState.Checked;
             FrameRot.Location = new System.Drawing.Point(367, 38);
             FrameRot.Name = "FrameRot";
             FrameRot.Size = new System.Drawing.Size(43, 17);
@@ -197,13 +199,13 @@ namespace System.Windows.Forms
             btnCopy.TabIndex = 22;
             btnCopy.Text = "Copy";
             btnCopy.UseVisualStyleBackColor = true;
-            btnCopy.Click += new System.EventHandler(btnCopy_Click);
+            btnCopy.Click += new EventHandler(btnCopy_Click);
             // 
             // FrameTrans
             // 
             FrameTrans.AutoSize = true;
             FrameTrans.Checked = true;
-            FrameTrans.CheckState = System.Windows.Forms.CheckState.Checked;
+            FrameTrans.CheckState = CheckState.Checked;
             FrameTrans.Location = new System.Drawing.Point(367, 20);
             FrameTrans.Name = "FrameTrans";
             FrameTrans.Size = new System.Drawing.Size(53, 17);
@@ -213,44 +215,44 @@ namespace System.Windows.Forms
             // 
             // btnCut
             // 
-            btnCut.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
+            btnCut.FlatAppearance.BorderColor = Color.DimGray;
             btnCut.Location = new System.Drawing.Point(318, 16);
             btnCut.Name = "btnCut";
             btnCut.Size = new System.Drawing.Size(48, 20);
             btnCut.TabIndex = 21;
             btnCut.Text = "Cut";
             btnCut.UseVisualStyleBackColor = true;
-            btnCut.Click += new System.EventHandler(btnCut_Click);
+            btnCut.Click += new EventHandler(btnCut_Click);
             // 
             // lblTrans
             // 
-            lblTrans.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            lblTrans.BorderStyle = BorderStyle.FixedSingle;
             lblTrans.Location = new System.Drawing.Point(4, 16);
             lblTrans.Name = "lblTrans";
             lblTrans.Size = new System.Drawing.Size(70, 20);
             lblTrans.TabIndex = 4;
             lblTrans.Text = "Translation:";
-            lblTrans.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            lblTrans.TextAlign = ContentAlignment.MiddleRight;
             // 
             // lblRot
             // 
-            lblRot.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            lblRot.BorderStyle = BorderStyle.FixedSingle;
             lblRot.Location = new System.Drawing.Point(4, 35);
             lblRot.Name = "lblRot";
             lblRot.Size = new System.Drawing.Size(70, 20);
             lblRot.TabIndex = 5;
             lblRot.Text = "Rotation:";
-            lblRot.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            lblRot.TextAlign = ContentAlignment.MiddleRight;
             // 
             // lblScale
             // 
-            lblScale.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            lblScale.BorderStyle = BorderStyle.FixedSingle;
             lblScale.Location = new System.Drawing.Point(4, 54);
             lblScale.Name = "lblScale";
             lblScale.Size = new System.Drawing.Size(70, 20);
             lblScale.TabIndex = 6;
             lblScale.Text = "Scale:";
-            lblScale.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            lblScale.TextAlign = ContentAlignment.MiddleRight;
             // 
             // chkMoveBoneOnly
             // 
@@ -261,7 +263,7 @@ namespace System.Windows.Forms
             chkMoveBoneOnly.TabIndex = 36;
             chkMoveBoneOnly.Text = "Move Bone Only";
             chkMoveBoneOnly.UseVisualStyleBackColor = true;
-            chkMoveBoneOnly.CheckedChanged += new System.EventHandler(chkBoneEdit_CheckedChanged);
+            chkMoveBoneOnly.CheckedChanged += new EventHandler(chkBoneEdit_CheckedChanged);
             // 
             // grpTransAll
             // 
@@ -274,7 +276,7 @@ namespace System.Windows.Forms
             grpTransAll.Controls.Add(AllScale);
             grpTransAll.Controls.Add(AllRot);
             grpTransAll.Controls.Add(AllTrans);
-            grpTransAll.Dock = System.Windows.Forms.DockStyle.Fill;
+            grpTransAll.Dock = DockStyle.Fill;
             grpTransAll.Enabled = false;
             grpTransAll.Location = new System.Drawing.Point(422, 0);
             grpTransAll.Name = "grpTransAll";
@@ -291,7 +293,7 @@ namespace System.Windows.Forms
             btnInsert.TabIndex = 24;
             btnInsert.Text = "Insert";
             btnInsert.UseVisualStyleBackColor = true;
-            btnInsert.Click += new System.EventHandler(btnInsert_Click);
+            btnInsert.Click += new EventHandler(btnInsert_Click);
             // 
             // btnClean
             // 
@@ -301,18 +303,18 @@ namespace System.Windows.Forms
             btnClean.TabIndex = 29;
             btnClean.Text = "Clean";
             btnClean.UseVisualStyleBackColor = true;
-            btnClean.Click += new System.EventHandler(btnClean_Click);
+            btnClean.Click += new EventHandler(btnClean_Click);
             // 
             // btnPasteAll
             // 
-            btnPasteAll.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            btnPasteAll.FlatStyle = FlatStyle.System;
             btnPasteAll.Location = new System.Drawing.Point(57, 35);
             btnPasteAll.Name = "btnPasteAll";
             btnPasteAll.Size = new System.Drawing.Size(50, 20);
             btnPasteAll.TabIndex = 28;
             btnPasteAll.Text = "Paste";
             btnPasteAll.UseVisualStyleBackColor = true;
-            btnPasteAll.Click += new System.EventHandler(btnPasteAll_Click);
+            btnPasteAll.Click += new EventHandler(btnPasteAll_Click);
             // 
             // btnCopyAll
             // 
@@ -322,7 +324,7 @@ namespace System.Windows.Forms
             btnCopyAll.TabIndex = 27;
             btnCopyAll.Text = "Copy";
             btnCopyAll.UseVisualStyleBackColor = true;
-            btnCopyAll.Click += new System.EventHandler(btnCopyAll_Click);
+            btnCopyAll.Click += new EventHandler(btnCopyAll_Click);
             // 
             // btnClearAll
             // 
@@ -332,24 +334,24 @@ namespace System.Windows.Forms
             btnClearAll.TabIndex = 26;
             btnClearAll.Text = "Clear";
             btnClearAll.UseVisualStyleBackColor = true;
-            btnClearAll.Click += new System.EventHandler(btnClear_Click);
+            btnClearAll.Click += new EventHandler(btnClear_Click);
             // 
             // btnDelete
             // 
-            btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            btnDelete.FlatStyle = FlatStyle.System;
             btnDelete.Location = new System.Drawing.Point(57, 16);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new System.Drawing.Size(50, 20);
             btnDelete.TabIndex = 25;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = true;
-            btnDelete.Click += new System.EventHandler(btnDelete_Click);
+            btnDelete.Click += new EventHandler(btnDelete_Click);
             // 
             // AllScale
             // 
             AllScale.AutoSize = true;
             AllScale.Checked = true;
-            AllScale.CheckState = System.Windows.Forms.CheckState.Checked;
+            AllScale.CheckState = CheckState.Checked;
             AllScale.Location = new System.Drawing.Point(6, 56);
             AllScale.Name = "AllScale";
             AllScale.Size = new System.Drawing.Size(53, 17);
@@ -361,7 +363,7 @@ namespace System.Windows.Forms
             // 
             AllRot.AutoSize = true;
             AllRot.Checked = true;
-            AllRot.CheckState = System.Windows.Forms.CheckState.Checked;
+            AllRot.CheckState = CheckState.Checked;
             AllRot.Location = new System.Drawing.Point(6, 38);
             AllRot.Name = "AllRot";
             AllRot.Size = new System.Drawing.Size(43, 17);
@@ -373,7 +375,7 @@ namespace System.Windows.Forms
             // 
             AllTrans.AutoSize = true;
             AllTrans.Checked = true;
-            AllTrans.CheckState = System.Windows.Forms.CheckState.Checked;
+            AllTrans.CheckState = CheckState.Checked;
             AllTrans.Location = new System.Drawing.Point(6, 20);
             AllTrans.Name = "AllTrans";
             AllTrans.Size = new System.Drawing.Size(53, 17);
@@ -383,8 +385,10 @@ namespace System.Windows.Forms
             // 
             // ctxTools
             // 
-            ctxTools.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            bakeVertexPositionsToolStripMenuItem});
+            ctxTools.Items.AddRange(new ToolStripItem[]
+            {
+                bakeVertexPositionsToolStripMenuItem
+            });
             ctxTools.Name = "ctxBox";
             ctxTools.Size = new System.Drawing.Size(186, 26);
             // 
@@ -393,17 +397,19 @@ namespace System.Windows.Forms
             bakeVertexPositionsToolStripMenuItem.Name = "bakeVertexPositionsToolStripMenuItem";
             bakeVertexPositionsToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             bakeVertexPositionsToolStripMenuItem.Text = "Bake Vertex Positions";
-            bakeVertexPositionsToolStripMenuItem.Click += new System.EventHandler(bakeVertexPositionsToolStripMenuItem_Click);
+            bakeVertexPositionsToolStripMenuItem.Click += new EventHandler(bakeVertexPositionsToolStripMenuItem_Click);
             // 
             // ctxBox
             // 
-            ctxBox.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            Source,
-            toolStripSeparator1,
-            add,
-            subtract,
-            removeAllToolStripMenuItem,
-            addCustomAmountToolStripMenuItem});
+            ctxBox.Items.AddRange(new ToolStripItem[]
+            {
+                Source,
+                toolStripSeparator1,
+                add,
+                subtract,
+                removeAllToolStripMenuItem,
+                addCustomAmountToolStripMenuItem
+            });
             ctxBox.Name = "ctxBox";
             ctxBox.Size = new System.Drawing.Size(167, 120);
             // 
@@ -421,10 +427,12 @@ namespace System.Windows.Forms
             // 
             // add
             // 
-            add.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            toolStripMenuItem3,
-            toolStripMenuItem4,
-            toolStripMenuItem7});
+            add.DropDownItems.AddRange(new ToolStripItem[]
+            {
+                toolStripMenuItem3,
+                toolStripMenuItem4,
+                toolStripMenuItem7
+            });
             add.Name = "add";
             add.Size = new System.Drawing.Size(166, 22);
             add.Text = "Add To All";
@@ -434,28 +442,30 @@ namespace System.Windows.Forms
             toolStripMenuItem3.Name = "toolStripMenuItem3";
             toolStripMenuItem3.Size = new System.Drawing.Size(100, 22);
             toolStripMenuItem3.Text = "+180";
-            toolStripMenuItem3.Click += new System.EventHandler(toolStripMenuItem3_Click);
+            toolStripMenuItem3.Click += new EventHandler(toolStripMenuItem3_Click);
             // 
             // toolStripMenuItem4
             // 
             toolStripMenuItem4.Name = "toolStripMenuItem4";
             toolStripMenuItem4.Size = new System.Drawing.Size(100, 22);
             toolStripMenuItem4.Text = "+90";
-            toolStripMenuItem4.Click += new System.EventHandler(toolStripMenuItem4_Click);
+            toolStripMenuItem4.Click += new EventHandler(toolStripMenuItem4_Click);
             // 
             // toolStripMenuItem7
             // 
             toolStripMenuItem7.Name = "toolStripMenuItem7";
             toolStripMenuItem7.Size = new System.Drawing.Size(100, 22);
             toolStripMenuItem7.Text = "+45";
-            toolStripMenuItem7.Click += new System.EventHandler(toolStripMenuItem7_Click);
+            toolStripMenuItem7.Click += new EventHandler(toolStripMenuItem7_Click);
             // 
             // subtract
             // 
-            subtract.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            toolStripMenuItem5,
-            toolStripMenuItem6,
-            toolStripMenuItem8});
+            subtract.DropDownItems.AddRange(new ToolStripItem[]
+            {
+                toolStripMenuItem5,
+                toolStripMenuItem6,
+                toolStripMenuItem8
+            });
             subtract.Name = "subtract";
             subtract.Size = new System.Drawing.Size(166, 22);
             subtract.Text = "Subtract From All";
@@ -465,39 +475,39 @@ namespace System.Windows.Forms
             toolStripMenuItem5.Name = "toolStripMenuItem5";
             toolStripMenuItem5.Size = new System.Drawing.Size(97, 22);
             toolStripMenuItem5.Text = "-180";
-            toolStripMenuItem5.Click += new System.EventHandler(toolStripMenuItem5_Click);
+            toolStripMenuItem5.Click += new EventHandler(toolStripMenuItem5_Click);
             // 
             // toolStripMenuItem6
             // 
             toolStripMenuItem6.Name = "toolStripMenuItem6";
             toolStripMenuItem6.Size = new System.Drawing.Size(97, 22);
             toolStripMenuItem6.Text = "-90";
-            toolStripMenuItem6.Click += new System.EventHandler(toolStripMenuItem6_Click);
+            toolStripMenuItem6.Click += new EventHandler(toolStripMenuItem6_Click);
             // 
             // toolStripMenuItem8
             // 
             toolStripMenuItem8.Name = "toolStripMenuItem8";
             toolStripMenuItem8.Size = new System.Drawing.Size(97, 22);
             toolStripMenuItem8.Text = "-45";
-            toolStripMenuItem8.Click += new System.EventHandler(toolStripMenuItem8_Click);
+            toolStripMenuItem8.Click += new EventHandler(toolStripMenuItem8_Click);
             // 
             // removeAllToolStripMenuItem
             // 
             removeAllToolStripMenuItem.Name = "removeAllToolStripMenuItem";
             removeAllToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             removeAllToolStripMenuItem.Text = "Remove All";
-            removeAllToolStripMenuItem.Click += new System.EventHandler(removeAllToolStripMenuItem_Click);
+            removeAllToolStripMenuItem.Click += new EventHandler(removeAllToolStripMenuItem_Click);
             // 
             // addCustomAmountToolStripMenuItem
             // 
             addCustomAmountToolStripMenuItem.Name = "addCustomAmountToolStripMenuItem";
             addCustomAmountToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             addCustomAmountToolStripMenuItem.Text = "Edit All...";
-            addCustomAmountToolStripMenuItem.Click += new System.EventHandler(addCustomAmountToolStripMenuItem_Click);
+            addCustomAmountToolStripMenuItem.Click += new EventHandler(addCustomAmountToolStripMenuItem_Click);
             // 
             // numScaleX
             // 
-            numScaleX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numScaleX.BorderStyle = BorderStyle.FixedSingle;
             numScaleX.Integral = false;
             numScaleX.Location = new System.Drawing.Point(73, 54);
             numScaleX.MaximumValue = 3.402823E+38F;
@@ -506,12 +516,12 @@ namespace System.Windows.Forms
             numScaleX.Size = new System.Drawing.Size(82, 20);
             numScaleX.TabIndex = 18;
             numScaleX.Text = "0";
-            numScaleX.ValueChanged += new System.EventHandler(BoxChangedCreateUndo);
-            numScaleX.MouseDown += new System.Windows.Forms.MouseEventHandler(box_MouseDown);
+            numScaleX.ValueChanged += new EventHandler(BoxChangedCreateUndo);
+            numScaleX.MouseDown += new MouseEventHandler(box_MouseDown);
             // 
             // numScaleY
             // 
-            numScaleY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numScaleY.BorderStyle = BorderStyle.FixedSingle;
             numScaleY.Integral = false;
             numScaleY.Location = new System.Drawing.Point(154, 54);
             numScaleY.MaximumValue = 3.402823E+38F;
@@ -520,12 +530,12 @@ namespace System.Windows.Forms
             numScaleY.Size = new System.Drawing.Size(82, 20);
             numScaleY.TabIndex = 19;
             numScaleY.Text = "0";
-            numScaleY.ValueChanged += new System.EventHandler(BoxChangedCreateUndo);
-            numScaleY.MouseDown += new System.Windows.Forms.MouseEventHandler(box_MouseDown);
+            numScaleY.ValueChanged += new EventHandler(BoxChangedCreateUndo);
+            numScaleY.MouseDown += new MouseEventHandler(box_MouseDown);
             // 
             // numScaleZ
             // 
-            numScaleZ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numScaleZ.BorderStyle = BorderStyle.FixedSingle;
             numScaleZ.Integral = false;
             numScaleZ.Location = new System.Drawing.Point(235, 54);
             numScaleZ.MaximumValue = 3.402823E+38F;
@@ -534,12 +544,12 @@ namespace System.Windows.Forms
             numScaleZ.Size = new System.Drawing.Size(82, 20);
             numScaleZ.TabIndex = 20;
             numScaleZ.Text = "0";
-            numScaleZ.ValueChanged += new System.EventHandler(BoxChangedCreateUndo);
-            numScaleZ.MouseDown += new System.Windows.Forms.MouseEventHandler(box_MouseDown);
+            numScaleZ.ValueChanged += new EventHandler(BoxChangedCreateUndo);
+            numScaleZ.MouseDown += new MouseEventHandler(box_MouseDown);
             // 
             // numRotX
             // 
-            numRotX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numRotX.BorderStyle = BorderStyle.FixedSingle;
             numRotX.Integral = false;
             numRotX.Location = new System.Drawing.Point(73, 35);
             numRotX.MaximumValue = 3.402823E+38F;
@@ -548,12 +558,12 @@ namespace System.Windows.Forms
             numRotX.Size = new System.Drawing.Size(82, 20);
             numRotX.TabIndex = 15;
             numRotX.Text = "0";
-            numRotX.ValueChanged += new System.EventHandler(BoxChangedCreateUndo);
-            numRotX.MouseDown += new System.Windows.Forms.MouseEventHandler(box_MouseDown);
+            numRotX.ValueChanged += new EventHandler(BoxChangedCreateUndo);
+            numRotX.MouseDown += new MouseEventHandler(box_MouseDown);
             // 
             // numRotY
             // 
-            numRotY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numRotY.BorderStyle = BorderStyle.FixedSingle;
             numRotY.Integral = false;
             numRotY.Location = new System.Drawing.Point(154, 35);
             numRotY.MaximumValue = 3.402823E+38F;
@@ -562,12 +572,12 @@ namespace System.Windows.Forms
             numRotY.Size = new System.Drawing.Size(82, 20);
             numRotY.TabIndex = 16;
             numRotY.Text = "0";
-            numRotY.ValueChanged += new System.EventHandler(BoxChangedCreateUndo);
-            numRotY.MouseDown += new System.Windows.Forms.MouseEventHandler(box_MouseDown);
+            numRotY.ValueChanged += new EventHandler(BoxChangedCreateUndo);
+            numRotY.MouseDown += new MouseEventHandler(box_MouseDown);
             // 
             // numRotZ
             // 
-            numRotZ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numRotZ.BorderStyle = BorderStyle.FixedSingle;
             numRotZ.Integral = false;
             numRotZ.Location = new System.Drawing.Point(235, 35);
             numRotZ.MaximumValue = 3.402823E+38F;
@@ -576,12 +586,12 @@ namespace System.Windows.Forms
             numRotZ.Size = new System.Drawing.Size(82, 20);
             numRotZ.TabIndex = 17;
             numRotZ.Text = "0";
-            numRotZ.ValueChanged += new System.EventHandler(BoxChangedCreateUndo);
-            numRotZ.MouseDown += new System.Windows.Forms.MouseEventHandler(box_MouseDown);
+            numRotZ.ValueChanged += new EventHandler(BoxChangedCreateUndo);
+            numRotZ.MouseDown += new MouseEventHandler(box_MouseDown);
             // 
             // numTransX
             // 
-            numTransX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numTransX.BorderStyle = BorderStyle.FixedSingle;
             numTransX.Integral = false;
             numTransX.Location = new System.Drawing.Point(73, 16);
             numTransX.MaximumValue = 3.402823E+38F;
@@ -590,12 +600,12 @@ namespace System.Windows.Forms
             numTransX.Size = new System.Drawing.Size(82, 20);
             numTransX.TabIndex = 3;
             numTransX.Text = "0";
-            numTransX.ValueChanged += new System.EventHandler(BoxChangedCreateUndo);
-            numTransX.MouseDown += new System.Windows.Forms.MouseEventHandler(box_MouseDown);
+            numTransX.ValueChanged += new EventHandler(BoxChangedCreateUndo);
+            numTransX.MouseDown += new MouseEventHandler(box_MouseDown);
             // 
             // numTransY
             // 
-            numTransY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numTransY.BorderStyle = BorderStyle.FixedSingle;
             numTransY.Integral = false;
             numTransY.Location = new System.Drawing.Point(154, 16);
             numTransY.MaximumValue = 3.402823E+38F;
@@ -604,12 +614,12 @@ namespace System.Windows.Forms
             numTransY.Size = new System.Drawing.Size(82, 20);
             numTransY.TabIndex = 13;
             numTransY.Text = "0";
-            numTransY.ValueChanged += new System.EventHandler(BoxChangedCreateUndo);
-            numTransY.MouseDown += new System.Windows.Forms.MouseEventHandler(box_MouseDown);
+            numTransY.ValueChanged += new EventHandler(BoxChangedCreateUndo);
+            numTransY.MouseDown += new MouseEventHandler(box_MouseDown);
             // 
             // numTransZ
             // 
-            numTransZ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numTransZ.BorderStyle = BorderStyle.FixedSingle;
             numTransZ.Integral = false;
             numTransZ.Location = new System.Drawing.Point(235, 16);
             numTransZ.MaximumValue = 3.402823E+38F;
@@ -618,8 +628,8 @@ namespace System.Windows.Forms
             numTransZ.Size = new System.Drawing.Size(82, 20);
             numTransZ.TabIndex = 14;
             numTransZ.Text = "0";
-            numTransZ.ValueChanged += new System.EventHandler(BoxChangedCreateUndo);
-            numTransZ.MouseDown += new System.Windows.Forms.MouseEventHandler(box_MouseDown);
+            numTransZ.ValueChanged += new EventHandler(BoxChangedCreateUndo);
+            numTransZ.MouseDown += new MouseEventHandler(box_MouseDown);
             // 
             // CHR0Editor
             // 
@@ -635,7 +645,6 @@ namespace System.Windows.Forms
             ctxTools.ResumeLayout(false);
             ctxBox.ResumeLayout(false);
             ResumeLayout(false);
-
         }
 
         #endregion
@@ -645,42 +654,67 @@ namespace System.Windows.Forms
         public NumericInputBox[] _transBoxes = new NumericInputBox[9];
         //private AnimationFrame _tempFrame = AnimationFrame.Identity;
 
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public IBoneNode TargetBone { get => _mainWindow.SelectedBone; set => _mainWindow.SelectedBone = value; }
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public IBoneNode TargetBone
+        {
+            get => _mainWindow.SelectedBone;
+            set => _mainWindow.SelectedBone = value;
+        }
 
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public MDL0MaterialRefNode TargetTexRef { get => _mainWindow.TargetTexRef; set => _mainWindow.TargetTexRef = value; }
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public MDL0MaterialRefNode TargetTexRef
+        {
+            get => _mainWindow.TargetTexRef;
+            set => _mainWindow.TargetTexRef = value;
+        }
 
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int CurrentFrame
         {
             get => _mainWindow.CurrentFrame;
             set => _mainWindow.CurrentFrame = value;
         }
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IModel TargetModel
         {
             get => _mainWindow.TargetModel;
             set => _mainWindow.TargetModel = value;
         }
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public CHR0Node SelectedAnimation
         {
             get => _mainWindow.SelectedCHR0;
             set => _mainWindow.SelectedCHR0 = value;
         }
+
         public CHR0Editor()
         {
             InitializeComponent();
-            _transBoxes[0] = numScaleX; numScaleX.Tag = 0;
-            _transBoxes[1] = numScaleY; numScaleY.Tag = 1;
-            _transBoxes[2] = numScaleZ; numScaleZ.Tag = 2;
-            _transBoxes[3] = numRotX; numRotX.Tag = 3;
-            _transBoxes[4] = numRotY; numRotY.Tag = 4;
-            _transBoxes[5] = numRotZ; numRotZ.Tag = 5;
-            _transBoxes[6] = numTransX; numTransX.Tag = 6;
-            _transBoxes[7] = numTransY; numTransY.Tag = 7;
-            _transBoxes[8] = numTransZ; numTransZ.Tag = 8;
+            _transBoxes[0] = numScaleX;
+            numScaleX.Tag = 0;
+            _transBoxes[1] = numScaleY;
+            numScaleY.Tag = 1;
+            _transBoxes[2] = numScaleZ;
+            numScaleZ.Tag = 2;
+            _transBoxes[3] = numRotX;
+            numRotX.Tag = 3;
+            _transBoxes[4] = numRotY;
+            numRotY.Tag = 4;
+            _transBoxes[5] = numRotZ;
+            numRotZ.Tag = 5;
+            _transBoxes[6] = numTransX;
+            numTransX.Tag = 6;
+            _transBoxes[7] = numTransY;
+            numTransY.Tag = 7;
+            _transBoxes[8] = numTransZ;
+            numTransZ.Tag = 8;
 
             foreach (NumericInputBox box in _transBoxes)
             {
@@ -689,7 +723,7 @@ namespace System.Windows.Forms
                     // If the user has selected the whole text and wants to replace it with a negative number, allow them to enter a minus sign.
                     if (e.KeyCode == Keys.OemMinus)
                     {
-                        NumericInputBox n = (NumericInputBox)sender;
+                        NumericInputBox n = (NumericInputBox) sender;
                         if (n.SelectionLength == n.Text.Length)
                         {
                             n.Text = "-";
@@ -699,6 +733,7 @@ namespace System.Windows.Forms
                 };
             }
         }
+
         public void UpdatePropDisplay()
         {
             if (!Enabled)
@@ -707,13 +742,14 @@ namespace System.Windows.Forms
             }
 
             chkMoveBoneOnly.Visible =
-            chkUpdateBindPose.Visible = chkUpdateBindPose.Enabled =
-            CurrentFrame < 1;
+                chkUpdateBindPose.Visible = chkUpdateBindPose.Enabled =
+                    CurrentFrame < 1;
 
             chkMoveBoneOnly.Enabled = chkUpdateBindPose.Checked;
 
             grpTransAll.Enabled = TargetModel != null;
-            btnInsert.Enabled = btnDelete.Enabled = btnClearAll.Enabled = CurrentFrame >= 1 && SelectedAnimation != null;
+            btnInsert.Enabled =
+                btnDelete.Enabled = btnClearAll.Enabled = CurrentFrame >= 1 && SelectedAnimation != null;
             grpTransform.Enabled = TargetBone != null;
 
             //9 transforms xyz for scale/rot/trans
@@ -742,7 +778,8 @@ namespace System.Windows.Forms
             get
             {
                 CHR0EntryNode entry;
-                if (TargetBone != null && SelectedAnimation != null && CurrentFrame >= 1 && ((entry = SelectedAnimation.FindChild(TargetBone.Name, false) as CHR0EntryNode) != null))
+                if (TargetBone != null && SelectedAnimation != null && CurrentFrame >= 1 &&
+                    (entry = SelectedAnimation.FindChild(TargetBone.Name, false) as CHR0EntryNode) != null)
                 {
                     return entry;
                 }
@@ -760,7 +797,8 @@ namespace System.Windows.Forms
             CHR0EntryNode entry;
             if (TargetBone != null)
             {
-                if ((SelectedAnimation != null) && (CurrentFrame >= 1) && ((entry = SelectedAnimation.FindChild(bone.Name, false) as CHR0EntryNode) != null))
+                if (SelectedAnimation != null && CurrentFrame >= 1 &&
+                    (entry = SelectedAnimation.FindChild(bone.Name, false) as CHR0EntryNode) != null)
                 {
                     KeyframeEntry e = entry.Keyframes.GetKeyframe(index, CurrentFrame - 1);
                     if (e == null)
@@ -777,7 +815,7 @@ namespace System.Windows.Forms
                 else
                 {
                     FrameState state = bone.BindState;
-                    box.Value = ((float*)&state)[index];
+                    box.Value = ((float*) &state)[index];
                     box.BackColor = Color.White;
                 }
             }
@@ -787,9 +825,10 @@ namespace System.Windows.Forms
                 box.BackColor = Color.White;
             }
         }
+
         public unsafe void ApplyState(FrameState state)
         {
-            float* p = (float*)&state;
+            float* p = (float*) &state;
             for (int i = 0; i < 9; i++)
             {
                 if (_transBoxes[i].Value != p[i])
@@ -799,6 +838,7 @@ namespace System.Windows.Forms
                 }
             }
         }
+
         public unsafe void BoxChangedCreateUndo(object sender, EventArgs e)
         {
             if (TargetBone == null)
@@ -825,13 +865,13 @@ namespace System.Windows.Forms
             }
 
             NumericInputBox box = sender as NumericInputBox;
-            int index = (int)box.Tag;
+            int index = (int) box.Tag;
 
             IBoneNode bone = TargetBone;
             CHRAnimationFrame kf;
-            float* pkf = (float*)&kf;
+            float* pkf = (float*) &kf;
 
-            if ((SelectedAnimation != null) && (CurrentFrame >= 1))
+            if (SelectedAnimation != null && CurrentFrame >= 1)
             {
                 CHR0EntryNode entry = SelectedAnimation.FindChild(bone.Name, false) as CHR0EntryNode;
                 if (entry == null)
@@ -842,7 +882,7 @@ namespace System.Windows.Forms
                         entry.Name = bone.Name;
 
                         FrameState state = bone.BindState;
-                        float* p = (float*)&state;
+                        float* p = (float*) &state;
                         for (int i = 0; i < 3; i++)
                         {
                             if (p[i] != 1.0f)
@@ -862,8 +902,7 @@ namespace System.Windows.Forms
                         entry.SetKeyframe(index, CurrentFrame - 1, box.Value);
                     }
                 }
-                else
-                    if (float.IsNaN(box.Value))
+                else if (float.IsNaN(box.Value))
                 {
                     entry.RemoveKeyframe(index, CurrentFrame - 1);
                 }
@@ -890,8 +929,8 @@ namespace System.Windows.Forms
             {
                 //Change base transform
                 FrameState state = bone.BindState;
-                float* p = (float*)&state;
-                p[index] = float.IsNaN(box.Value) ? (index > 2 ? 0.0f : 1.0f) : box.Value;
+                float* p = (float*) &state;
+                p[index] = float.IsNaN(box.Value) ? index > 2 ? 0.0f : 1.0f : box.Value;
                 state.CalcTransforms();
                 bone.BindState = state;
 
@@ -904,7 +943,9 @@ namespace System.Windows.Forms
                     !_mainWindow._scaling)
                 {
                     bone.RecalcBindState(true, !chkMoveBoneOnly.Checked);
-                } ((ResourceNode)bone).SignalPropertyChange();
+                }
+
+                ((ResourceNode) bone).SignalPropertyChange();
             }
 
             _mainWindow.UpdateModel();
@@ -919,7 +960,8 @@ namespace System.Windows.Forms
             }
         }
 
-        private static readonly Dictionary<string, CHRAnimationFrame> _copyAllState = new Dictionary<string, CHRAnimationFrame>();
+        private static readonly Dictionary<string, CHRAnimationFrame> _copyAllState =
+            new Dictionary<string, CHRAnimationFrame>();
 
         private void btnCopyAll_Click(object sender, EventArgs e)
         {
@@ -929,7 +971,7 @@ namespace System.Windows.Forms
             {
                 foreach (MDL0BoneNode bone in TargetModel.BoneCache)
                 {
-                    CHRAnimationFrame frame = (CHRAnimationFrame)bone._bindState;
+                    CHRAnimationFrame frame = (CHRAnimationFrame) bone._bindState;
                     if (!AllTrans.Checked)
                     {
                         frame.Translation = new Vector3();
@@ -979,6 +1021,7 @@ namespace System.Windows.Forms
         }
 
         public bool _onlyKeys;
+
         private unsafe void btnPasteAll_Click(object sender, EventArgs e)
         {
             if (_copyAllState.Count == 0)
@@ -1021,8 +1064,8 @@ namespace System.Windows.Forms
                     else
                     {
                         FrameState s = bone._bindState;
-                        float* sPtr = (float*)&f;
-                        float* dPtr = (float*)&s;
+                        float* sPtr = (float*) &f;
+                        float* dPtr = (float*) &s;
                         for (int x = 0; x < 9; x++)
                         {
                             if (f.GetBool(x))
@@ -1033,6 +1076,7 @@ namespace System.Windows.Forms
 
                         bone._bindState = s;
                     }
+
                     bone._bindState.CalcTransforms();
                     if (chkUpdateBindPose.Checked)
                     {
@@ -1049,14 +1093,14 @@ namespace System.Windows.Forms
                     CHR0EntryNode entry = null;
                     if ((entry = SelectedAnimation.FindChild(name, false) as CHR0EntryNode) == null)
                     {
-                        entry = new CHR0EntryNode() { Name = name };
+                        entry = new CHR0EntryNode() {Name = name};
                         SelectedAnimation.AddChild(entry);
                         entry.SetSize(SelectedAnimation.FrameCount, SelectedAnimation.Loop);
                     }
 
                     CHRAnimationFrame f = _copyAllState[entry._name];
                     int i = CurrentFrame - 1;
-                    float* ptr = (float*)&f;
+                    float* ptr = (float*) &f;
                     if (!_onlyKeys)
                     {
                         if (AllTrans.Checked)
@@ -1086,6 +1130,7 @@ namespace System.Windows.Forms
                     }
                 }
             }
+
             _mainWindow.BoneChange(o.ToArray());
             _mainWindow.UpdateModel();
         }
@@ -1125,7 +1170,7 @@ namespace System.Windows.Forms
                 return;
             }
 
-            ResourceNode group = ((MDL0Node)TargetModel)._boneGroup;
+            ResourceNode group = ((MDL0Node) TargetModel)._boneGroup;
             if (group == null)
             {
                 return;
@@ -1144,19 +1189,23 @@ namespace System.Windows.Forms
                     keyCount += entry.Keyframes.Clean();
                 }
             }
+
             int nodeCount = badNodes.Count;
             foreach (CHR0EntryNode n in badNodes)
             {
                 n.Remove();
                 n.Dispose();
             }
-            MessageBox.Show(string.Format("{0} unused bone entr{2} and {1} redundant keyframe value{3} removed.", nodeCount, keyCount, nodeCount == 1 ? "y" : "ies", keyCount == 1 ? " was" : "s were"));
+
+            MessageBox.Show(string.Format("{0} unused bone entr{2} and {1} redundant keyframe value{3} removed.",
+                nodeCount, keyCount, nodeCount == 1 ? "y" : "ies", keyCount == 1 ? " was" : "s were"));
             UpdatePropDisplay();
         }
 
         private void ctxBox_Opening(object sender, CancelEventArgs e)
         {
-            if (SelectedAnimation == null || numRotX.Enabled == false || numRotY.Enabled == false || numRotZ.Enabled == false)
+            if (SelectedAnimation == null || numRotX.Enabled == false || numRotY.Enabled == false ||
+                numRotZ.Enabled == false)
             {
                 e.Cancel = true;
             }
@@ -1173,7 +1222,7 @@ namespace System.Windows.Forms
             if (box.BackColor == Color.Yellow)
             {
                 CHR0EntryNode entry = SelectedAnimation.FindChild(TargetBone.Name, false) as CHR0EntryNode;
-                KeyframeEntry kfe = entry.GetKeyframe((int)box.Tag, CurrentFrame - 1);
+                KeyframeEntry kfe = entry.GetKeyframe((int) box.Tag, CurrentFrame - 1);
                 _mainWindow.InterpolationEditor.SelectedKeyframe = kfe;
             }
             else
@@ -1185,11 +1234,12 @@ namespace System.Windows.Forms
         }
 
         public int type = 0;
+
         private void box_MouseDown(object sender, MouseEventArgs e)
         {
             NumericInputBox box = sender as NumericInputBox;
 
-            type = (int)box.Tag;
+            type = (int) box.Tag;
 
             if (_mainWindow.InterpolationEditor != null && _mainWindow.InterpolationEditor.Visible)
             {
@@ -1201,7 +1251,7 @@ namespace System.Windows.Forms
                 UpdateInterpolationEditor(box);
             }
 
-            if (e.Button == Forms.MouseButtons.Right)
+            if (e.Button == MouseButtons.Right)
             {
                 if (box.Enabled == true)
                 {
@@ -1229,7 +1279,9 @@ namespace System.Windows.Forms
                 for (int x = 0; x < _target.FrameCount; x++) //Loop thru each frame
                 {
                     if ((kfe = _target.GetKeyframe(type, x)) != null) //Check for a keyframe
-                    { kfe._value += 180; }
+                    {
+                        kfe._value += 180;
+                    }
                 }
 
                 ResetBox(type);
@@ -1251,7 +1303,9 @@ namespace System.Windows.Forms
                 for (int x = 0; x < _target.FrameCount; x++) //Loop thru each frame
                 {
                     if ((kfe = _target.GetKeyframe(type, x)) != null) //Check for a keyframe
-                    { kfe._value += 90; }
+                    {
+                        kfe._value += 90;
+                    }
                 }
 
                 ResetBox(type);
@@ -1261,7 +1315,6 @@ namespace System.Windows.Forms
 
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
         {
-
         }
 
         private void toolStripMenuItem6_Click(object sender, EventArgs e)
@@ -1278,7 +1331,9 @@ namespace System.Windows.Forms
                 for (int x = 0; x < _target.FrameCount; x++) //Loop thru each frame
                 {
                     if ((kfe = _target.GetKeyframe(type, x)) != null) //Check for a keyframe
-                    { kfe._value -= 90; }
+                    {
+                        kfe._value -= 90;
+                    }
                 }
 
                 ResetBox(type);
@@ -1300,7 +1355,9 @@ namespace System.Windows.Forms
                 for (int x = 0; x < _target.FrameCount; x++) //Loop thru each frame
                 {
                     if ((kfe = _target.GetKeyframe(type, x)) != null) //Check for a keyframe
-                    { kfe._value += 45; }
+                    {
+                        kfe._value += 45;
+                    }
                 }
 
                 ResetBox(type);
@@ -1322,7 +1379,9 @@ namespace System.Windows.Forms
                 for (int x = 0; x < _target.FrameCount; x++) //Loop thru each frame
                 {
                     if ((kfe = _target.GetKeyframe(type, x)) != null) //Check for a keyframe
-                    { kfe._value -= 45; }
+                    {
+                        kfe._value -= 45;
+                    }
                 }
 
                 ResetBox(type);
@@ -1364,25 +1423,26 @@ namespace System.Windows.Forms
         private unsafe void btnCut_Click(object sender, EventArgs e)
         {
             CHRAnimationFrame frame = new CHRAnimationFrame();
-            float* p = (float*)&frame;
+            float* p = (float*) &frame;
             //copy transform from boxes instead of the actual animation.
             BoxChangedCreateUndo(this, null);
 
             for (int i = 0; i < 9; i++)
             {
                 frame.SetBool(i, false);
-                if ((!FrameScale.Checked && i < 3))
+                if (!FrameScale.Checked && i < 3)
                 {
                     p[i] = 1;
                 }
                 else if (
-                    (FrameScale.Checked && i < 3) ||
-                    (FrameRot.Checked && i >= 3 && i < 6) ||
-                    (FrameTrans.Checked && i >= 6))
+                    FrameScale.Checked && i < 3 ||
+                    FrameRot.Checked && i >= 3 && i < 6 ||
+                    FrameTrans.Checked && i >= 6)
                 {
                     p[i] = _transBoxes[i].Value;
                     frame.SetBool(i, _transBoxes[i].BackColor == Color.Yellow);
                 }
+
                 _transBoxes[i].Value = float.NaN;
                 BoxChanged(_transBoxes[i], null);
             }
@@ -1407,24 +1467,25 @@ namespace System.Windows.Forms
         {
             //copy the transform from the number boxes
             CHRAnimationFrame frame = new CHRAnimationFrame();
-            float* p = (float*)&frame;
+            float* p = (float*) &frame;
 
             for (int i = 0; i < 9; i++)
             {
                 frame.SetBool(i, false);
-                if ((!FrameScale.Checked && i < 3))
+                if (!FrameScale.Checked && i < 3)
                 {
                     p[i] = 1;
                 }
                 else if (
-                    (FrameScale.Checked && i < 3) ||
-                    (FrameRot.Checked && i >= 3 && i < 6) ||
-                    (FrameTrans.Checked && i >= 6))
+                    FrameScale.Checked && i < 3 ||
+                    FrameRot.Checked && i >= 3 && i < 6 ||
+                    FrameTrans.Checked && i >= 6)
                 {
                     p[i] = _transBoxes[i].Value;
                     frame.SetBool(i, _transBoxes[i].BackColor == Color.Yellow);
                 }
             }
+
             DataObject da = new DataObject();
             da.SetData("AnimationFrame", frame);
             Clipboard.SetDataObject(da, true);
@@ -1438,17 +1499,17 @@ namespace System.Windows.Forms
                 object o = da.GetData("AnimationFrame");
                 if (o != null && o is CHRAnimationFrame)
                 {
-                    CHRAnimationFrame frame = (CHRAnimationFrame)o;
+                    CHRAnimationFrame frame = (CHRAnimationFrame) o;
 
-                    float* p = (float*)&frame;
+                    float* p = (float*) &frame;
 
                     BoxChangedCreateUndo(this, null);
 
                     for (int i = 0; i < 9; i++)
                     {
-                        if ((FrameScale.Checked && i < 3) ||
-                            (FrameRot.Checked && i >= 3 && i < 6) ||
-                            (FrameTrans.Checked && i >= 6))
+                        if (FrameScale.Checked && i < 3 ||
+                            FrameRot.Checked && i >= 3 && i < 6 ||
+                            FrameTrans.Checked && i >= 6)
                         {
                             if (_transBoxes[i].Value != p[i] && (!_onlyKeys || frame.GetBool(i)))
                             {
@@ -1463,7 +1524,7 @@ namespace System.Windows.Forms
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
-            if ((SelectedAnimation == null) || (CurrentFrame < 1))
+            if (SelectedAnimation == null || CurrentFrame < 1)
             {
                 return;
             }
@@ -1479,7 +1540,7 @@ namespace System.Windows.Forms
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if ((SelectedAnimation == null) || (CurrentFrame < 1))
+            if (SelectedAnimation == null || CurrentFrame < 1)
             {
                 return;
             }
@@ -1502,7 +1563,8 @@ namespace System.Windows.Forms
                     for (int i = 0; i < o._manager._vertices.Count; i++)
                     {
                         Vertex3 vec = o._manager._vertices[i];
-                        o._vertexNode.Vertices[o._manager._vertices[i]._facepoints[0]._vertexIndex] = vec.WeightedPosition;
+                        o._vertexNode.Vertices[o._manager._vertices[i]._facepoints[0]._vertexIndex] =
+                            vec.WeightedPosition;
                     }
 
                     o._vertexNode.ForceRebuild = true;
@@ -1511,13 +1573,13 @@ namespace System.Windows.Forms
                         o._vertexNode.ForceFloat = true;
                     }
                 }
+
                 _mainWindow.UpdateModel();
             }
         }
 
         private void chkBoneEdit_CheckedChanged(object sender, EventArgs e)
         {
-
         }
 
         private void chkUpdateBindPose_CheckedChanged(object sender, EventArgs e)

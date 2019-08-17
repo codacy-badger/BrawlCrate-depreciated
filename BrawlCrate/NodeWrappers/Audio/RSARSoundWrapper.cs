@@ -16,6 +16,7 @@ namespace BrawlCrate.NodeWrappers
         #region Menu
 
         private static readonly ContextMenuStrip _menu;
+
         static RSARSoundWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -34,12 +35,22 @@ namespace BrawlCrate.NodeWrappers
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
-        protected static void ChangeSoundAction(object sender, EventArgs e) { GetInstance<RSARSoundWrapper>().ChangeSound(); }
-        protected static void ViewFileAction(object sender, EventArgs e) { GetInstance<RSARSoundWrapper>().ViewFile(); }
+
+        protected static void ChangeSoundAction(object sender, EventArgs e)
+        {
+            GetInstance<RSARSoundWrapper>().ChangeSound();
+        }
+
+        protected static void ViewFileAction(object sender, EventArgs e)
+        {
+            GetInstance<RSARSoundWrapper>().ViewFile();
+        }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
             _menu.Items[0].Enabled = _menu.Items[1].Enabled = _menu.Items[3].Enabled = _menu.Items[5].Enabled = true;
         }
+
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             RSARSoundWrapper w = GetInstance<RSARSoundWrapper>();
@@ -48,14 +59,17 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items[1].Enabled = n.SoundFileNode != null;
             _menu.Items[3].Enabled = w.Parent != null;
             _menu.Items[4].Visible = false;
-            _menu.Items[5].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[5].Enabled = w._resource.IsDirty || w._resource.IsBranch;
             _menu.Items[7].Enabled = w.PrevNode != null;
             _menu.Items[8].Enabled = w.NextNode != null;
         }
 
         #endregion
 
-        public RSARSoundWrapper() { ContextMenuStrip = _menu; }
+        public RSARSoundWrapper()
+        {
+            ContextMenuStrip = _menu;
+        }
 
         public void ChangeSound()
         {
@@ -76,6 +90,7 @@ namespace BrawlCrate.NodeWrappers
                         return;
                     }
                 }
+
                 int index = Program.OpenFile(ReplaceFilter, out string inPath);
                 if (index != 0)
                 {
@@ -84,6 +99,7 @@ namespace BrawlCrate.NodeWrappers
                 }
             }
         }
+
         public void ViewFile()
         {
             RSARFileNode n;

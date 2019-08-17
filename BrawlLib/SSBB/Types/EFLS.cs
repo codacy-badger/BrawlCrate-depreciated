@@ -18,16 +18,25 @@ namespace BrawlLib.SSBBTypes
         public EFLSHeader(int entries, int brresCount, int unk1, int unk2)
         {
             _tag = Tag;
-            _numEntries = (short)entries;
-            _numBrres = (short)brresCount;
+            _numEntries = (short) entries;
+            _numBrres = (short) brresCount;
             _unk1 = unk1;
             _unk2 = unk2;
         }
 
-        private VoidPtr Address { get { fixed (void* p = &this) { return p; } } }
+        private VoidPtr Address
+        {
+            get
+            {
+                fixed (void* p = &this)
+                {
+                    return p;
+                }
+            }
+        }
 
         //First entry is always empty?
-        public EFLSEntry* Entries => (EFLSEntry*)(Address + 0x10);
+        public EFLSEntry* Entries => (EFLSEntry*) (Address + 0x10);
 
         public string GetString(int index)
         {
@@ -37,7 +46,7 @@ namespace BrawlLib.SSBBTypes
                 return "<null>";
             }
 
-            return new string((sbyte*)Address + entry->_stringOffset);
+            return new string((sbyte*) Address + entry->_stringOffset);
         }
     }
 
@@ -46,16 +55,16 @@ namespace BrawlLib.SSBBTypes
     {
         public const int Size = 0x10;
 
-        public bshort _brresID1; //-1 if no brres, otherwise brres ID
-        public bshort _brresID2; //brres ID
+        public bshort _brresID1;   //-1 if no brres, otherwise brres ID
+        public bshort _brresID2;   //brres ID
         public bint _stringOffset; //From file, 0 is empty string
-        public bint _re3dOffset; //From file
+        public bint _re3dOffset;   //From file
         public int _unk;
 
         public EFLSEntry(int id1, int id2, int stringOffset, int unk)
         {
-            _brresID1 = (short)id1;
-            _brresID2 = (short)id2;
+            _brresID1 = (short) id1;
+            _brresID2 = (short) id2;
             _stringOffset = stringOffset;
             _unk = unk;
             _re3dOffset = 0;
@@ -82,6 +91,15 @@ namespace BrawlLib.SSBBTypes
         public bshort _unk3;
         public bint _effectNameOffset;
 
-        internal byte* Address { get { fixed (void* ptr = &this) { return (byte*)ptr; } } }
+        internal byte* Address
+        {
+            get
+            {
+                fixed (void* ptr = &this)
+                {
+                    return (byte*) ptr;
+                }
+            }
+        }
     }
 }

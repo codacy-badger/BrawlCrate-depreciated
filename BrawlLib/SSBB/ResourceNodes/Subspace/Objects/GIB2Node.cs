@@ -6,7 +6,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class GIB2Node : ResourceNode
     {
-        internal GIB2* Header => (GIB2*)WorkingUncompressed.Address;
+        internal GIB2* Header => (GIB2*) WorkingUncompressed.Address;
         public override ResourceType ResourceType => ResourceType.GIB2;
 
         [Category("GIB2")]
@@ -14,7 +14,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public int Count => _count;
 
         public int _count;
-        private const int _entrySize = 0x17;    // The constant size of a child entry
+        private const int _entrySize = 0x17; // The constant size of a child entry
 
         public override void OnPopulate()
         {
@@ -22,26 +22,33 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 DataSource source;
                 if (i == Header->_count - 1)
-                { source = new DataSource((*Header)[i], WorkingUncompressed.Address + WorkingUncompressed.Length - (*Header)[i]); }
-                else { source = new DataSource((*Header)[i], (*Header)[i + 1] - (*Header)[i]); }
+                {
+                    source = new DataSource((*Header)[i],
+                        WorkingUncompressed.Address + WorkingUncompressed.Length - (*Header)[i]);
+                }
+                else
+                {
+                    source = new DataSource((*Header)[i], (*Header)[i + 1] - (*Header)[i]);
+                }
+
                 new GIB2EntryNode().Initialize(this, source);
             }
         }
 
         public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
-            return 0x08 + (Children.Count * 4) + (Children.Count * _entrySize);
+            return 0x08 + Children.Count * 4 + Children.Count * _entrySize;
         }
 
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
-            GIB2* header = (GIB2*)address;
+            GIB2* header = (GIB2*) address;
             *header = new GIB2(Children.Count);
-            uint offset = (uint)(0x08 + (Children.Count * 4));
+            uint offset = (uint) (0x08 + Children.Count * 4);
             for (int i = 0; i < Children.Count; i++)
             {
                 ResourceNode r = Children[i];
-                *(buint*)(address + 0x08 + i * 4) = offset;
+                *(buint*) (address + 0x08 + i * 4) = offset;
                 r.Rebuild(address + offset, _entrySize, true);
                 offset += _entrySize;
             }
@@ -59,12 +66,15 @@ namespace BrawlLib.SSBB.ResourceNodes
             return Header->_count > 0;
         }
 
-        internal static ResourceNode TryParse(DataSource source) { return ((GIB2*)source.Address)->_tag == GIB2.Tag ? new GIB2Node() : null; }
+        internal static ResourceNode TryParse(DataSource source)
+        {
+            return ((GIB2*) source.Address)->_tag == GIB2.Tag ? new GIB2Node() : null;
+        }
     }
 
     public unsafe class GIB2EntryNode : ResourceNode
     {
-        internal GIB2Entry* Header => (GIB2Entry*)WorkingUncompressed.Address;
+        internal GIB2Entry* Header => (GIB2Entry*) WorkingUncompressed.Address;
         public override ResourceType ResourceType => ResourceType.Unknown;
 
         public bfloat _header;
@@ -421,7 +431,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
-            GIB2Entry* hdr = (GIB2Entry*)address;
+            GIB2Entry* hdr = (GIB2Entry*) address;
             hdr->_header = _header;
             hdr->_unkflag0 = _unkflag0;
             hdr->_unkflag1 = _unkflag1;

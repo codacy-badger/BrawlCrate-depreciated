@@ -12,6 +12,7 @@ namespace BrawlCrate.NodeWrappers
         #region Menu
 
         private static readonly ContextMenuStrip _menu;
+
         static MDL0PolygonWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -26,13 +27,15 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items.Add(new ToolStripMenuItem("Move D&own", null, MoveDownAction, Keys.Control | Keys.Down));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteAction, Keys.Control | Keys.Delete));
-            _menu.Items.Add(new ToolStripMenuItem("&Force Delete", null, ForceDeleteAction, Keys.Control | Keys.Shift | Keys.Delete));
+            _menu.Items.Add(new ToolStripMenuItem("&Force Delete", null, ForceDeleteAction,
+                Keys.Control | Keys.Shift | Keys.Delete));
         }
 
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
             _menu.Items[7].Enabled = _menu.Items[8].Enabled = true;
         }
+
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             MDL0PolygonWrapper w = GetInstance<MDL0PolygonWrapper>();
@@ -40,38 +43,50 @@ namespace BrawlCrate.NodeWrappers
             _menu.Items[8].Enabled = w.NextNode != null;
         }
 
-        protected static void OptimizeAction(object sender, EventArgs e) { GetInstance<MDL0PolygonWrapper>().Optimize(); }
-        protected static void ForceDeleteAction(object sender, EventArgs e) { GetInstance<MDL0PolygonWrapper>().ForceDelete(); }
+        protected static void OptimizeAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0PolygonWrapper>().Optimize();
+        }
+
+        protected static void ForceDeleteAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0PolygonWrapper>().ForceDelete();
+        }
+
         #endregion
 
         public override string ExportFilter => FileFilters.Object;
         public override string ImportFilter => FileFilters.Raw;
 
-        public MDL0PolygonWrapper() { ContextMenuStrip = _menu; }
+        public MDL0PolygonWrapper()
+        {
+            ContextMenuStrip = _menu;
+        }
 
         public override ResourceNode Duplicate()
         {
-            MDL0ObjectNode node = ((MDL0ObjectNode)_resource).HardCopy();
+            MDL0ObjectNode node = ((MDL0ObjectNode) _resource).HardCopy();
             node.Name += " - Copy";
-            ((MDL0ObjectNode)_resource).Model._objGroup.AddChild(node);
+            ((MDL0ObjectNode) _resource).Model._objGroup.AddChild(node);
             return node;
             //((MDL0ObjectNode)_resource).Model.Rebuild(true);
         }
 
         public void Optimize()
         {
-            new ObjectOptimizerForm().ShowDialog((MDL0ObjectNode)_resource);
+            new ObjectOptimizerForm().ShowDialog((MDL0ObjectNode) _resource);
         }
 
         public void ForceDelete()
         {
-            if (Parent == null || (MainForm.Instance != null && Form.ActiveForm != null && Form.ActiveForm != MainForm.Instance))
+            if (Parent == null || MainForm.Instance != null && Form.ActiveForm != null &&
+                Form.ActiveForm != MainForm.Instance)
             {
                 return;
             }
 
             _resource.Dispose();
-            ((MDL0ObjectNode)_resource).Remove(true);
+            ((MDL0ObjectNode) _resource).Remove(true);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class GWATNode : ResourceNode
     {
-        internal GWAT* Header => (GWAT*)WorkingUncompressed.Address;
+        internal GWAT* Header => (GWAT*) WorkingUncompressed.Address;
         public override ResourceType ResourceType => ResourceType.GWAT;
 
         [Category("GWAT")]
@@ -14,7 +14,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public int Count => _count;
 
         public int _count;
-        private const int _entrySize = 0x38;    // The constant size of a child entry
+        private const int _entrySize = 0x38; // The constant size of a child entry
 
         public override void OnPopulate()
         {
@@ -22,26 +22,33 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 DataSource source;
                 if (i == Header->_count - 1)
-                { source = new DataSource((*Header)[i], WorkingUncompressed.Address + WorkingUncompressed.Length - (*Header)[i]); }
-                else { source = new DataSource((*Header)[i], (*Header)[i + 1] - (*Header)[i]); }
+                {
+                    source = new DataSource((*Header)[i],
+                        WorkingUncompressed.Address + WorkingUncompressed.Length - (*Header)[i]);
+                }
+                else
+                {
+                    source = new DataSource((*Header)[i], (*Header)[i + 1] - (*Header)[i]);
+                }
+
                 new GWATEntryNode().Initialize(this, source);
             }
         }
 
         public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
-            return 0x08 + (Children.Count * 4) + (Children.Count * _entrySize);
+            return 0x08 + Children.Count * 4 + Children.Count * _entrySize;
         }
 
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
-            GWAT* header = (GWAT*)address;
+            GWAT* header = (GWAT*) address;
             *header = new GWAT(Children.Count);
-            uint offset = (uint)(0x08 + (Children.Count * 4));
+            uint offset = (uint) (0x08 + Children.Count * 4);
             for (int i = 0; i < Children.Count; i++)
             {
                 ResourceNode r = Children[i];
-                *(buint*)(address + 0x08 + i * 4) = offset;
+                *(buint*) (address + 0x08 + i * 4) = offset;
                 r.Rebuild(address + offset, _entrySize, true);
                 offset += _entrySize;
             }
@@ -59,12 +66,15 @@ namespace BrawlLib.SSBB.ResourceNodes
             return Header->_count > 0;
         }
 
-        internal static ResourceNode TryParse(DataSource source) { return ((GWAT*)source.Address)->_tag == GWAT.Tag ? new GWATNode() : null; }
+        internal static ResourceNode TryParse(DataSource source)
+        {
+            return ((GWAT*) source.Address)->_tag == GWAT.Tag ? new GWATNode() : null;
+        }
     }
 
     public unsafe class GWATEntryNode : ResourceNode
     {
-        internal GWATEntry* Header => (GWATEntry*)WorkingUncompressed.Address;
+        internal GWATEntry* Header => (GWATEntry*) WorkingUncompressed.Address;
         public override ResourceType ResourceType => ResourceType.Unknown;
 
         public byte _unknown0x00;
@@ -91,11 +101,11 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x15;
         public byte _unknown0x16;
         public byte _unknown0x17;
-        public float _posX;         // 0x18
-        public float _float0x1C;    // 0x1C
-        public float _width;        // 0x20
-        public float _float0x24;    // 0x24
-        public float _posY;         // 0x28
+        public float _posX;      // 0x18
+        public float _float0x1C; // 0x1C
+        public float _width;     // 0x20
+        public float _float0x24; // 0x24
+        public float _posY;      // 0x28
         public byte _unknown0x2C;
         public byte _unknown0x2D;
         public byte _unknown0x2E;
@@ -112,7 +122,8 @@ namespace BrawlLib.SSBB.ResourceNodes
         public Vector2 _waterPos;
 
         [Category("Swimmable Water")]
-        [DisplayName("Position"), TypeConverter(typeof(Vector2StringConverter))]
+        [DisplayName("Position")]
+        [TypeConverter(typeof(Vector2StringConverter))]
         public Vector2 WaterPosition
         {
             get => _waterPos;
@@ -219,7 +230,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
-            GWATEntry* hdr = (GWATEntry*)address;
+            GWATEntry* hdr = (GWATEntry*) address;
             hdr->_unknown0x00 = _unknown0x00;
             hdr->_unknown0x01 = _unknown0x01;
             hdr->_unknown0x02 = _unknown0x02;

@@ -9,6 +9,7 @@ namespace BrawlCrate.NodeWrappers
     internal class ItemFreqWrapper : GenericWrapper
     {
         private static readonly ContextMenuStrip _menu;
+
         static ItemFreqWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -22,15 +23,20 @@ namespace BrawlCrate.NodeWrappers
         {
             GetInstance<ItemFreqWrapper>().NewEntry();
         }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-
         }
+
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
-
         }
-        public ItemFreqWrapper() { ContextMenuStrip = _menu; }
+
+        public ItemFreqWrapper()
+        {
+            ContextMenuStrip = _menu;
+        }
+
         public void NewEntry()
         {
             //((ItmFreqNode)_resource).CreateEntry();

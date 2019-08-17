@@ -22,9 +22,9 @@ namespace System.Windows.Forms
             txtStack.Text = e.Message + "\n" + e.StackTrace;
 
             lstChangedFiles.Visible =
-            lblChangedFiles.Visible =
-            spltChangedFiles.Visible =
-            edited != null && edited.Count > 0;
+                lblChangedFiles.Visible =
+                    spltChangedFiles.Visible =
+                        edited != null && edited.Count > 0;
 
             lstChangedFiles.Items.AddRange(edited.ToArray());
         }
@@ -53,11 +53,16 @@ namespace System.Windows.Forms
             if (Program.CanRunGithubApp(true, out string path))
             {
                 string args = string.Format("-bi \"{0}\" \"{1}\" \"{2}\" \"{3}\" \"{4}\"",
-                    MainForm.Instance.Canary ? "BrawlCrate Canary@" + MainForm.currentBranch + " #" + MainForm.Instance.commitIDlong.Substring(2) : Program.TagName,
+                    MainForm.Instance.Canary
+                        ? "BrawlCrate Canary@" + MainForm.currentBranch + " #" +
+                          MainForm.Instance.commitIDlong.Substring(2)
+                        : Program.TagName,
                     _exception.Message.Replace("\"", "\\\""),
                     _exception.StackTrace.Replace("\"", "\\\""),
                     txtTitle.Text.Replace("\"", "\\\""),
-                    (string.IsNullOrEmpty(txtDescription.Text) || txtDescription.ForeColor == Color.Gray) ? "" : txtDescription.Text.Replace("\"", "\\\""));
+                    string.IsNullOrEmpty(txtDescription.Text) || txtDescription.ForeColor == Color.Gray
+                        ? ""
+                        : txtDescription.Text.Replace("\"", "\\\""));
 
                 Process.Start(new ProcessStartInfo()
                 {
@@ -68,7 +73,8 @@ namespace System.Windows.Forms
             }
             else
             {
-                MessageBox.Show(".NET version 4.5 is required to run the updater, which is used to submit the bug report.");
+                MessageBox.Show(
+                    ".NET version 4.5 is required to run the updater, which is used to submit the bug report.");
             }
 
             if (chkForceClose.Checked)
@@ -99,7 +105,6 @@ namespace System.Windows.Forms
 
         private void txtDescription_Enter(object sender, EventArgs e)
         {
-
         }
 
         private void txtDescription_Leave(object sender, EventArgs e)
@@ -107,7 +112,8 @@ namespace System.Windows.Forms
             if (string.IsNullOrEmpty(txtDescription.Text))
             {
                 txtDescription.ForeColor = Color.Gray;
-                txtDescription.Text = "Explain in detail what you were doing that caused the bug. Reproducable steps and/or links to files that were worked on will make the bug much easier to fix. This will be posted publicly at https://github.com/BrawlCrate/BrawlCrateIssues/issues, so do not put any personal information here. It may be beneficial to you to sign your report with a username unless you wish to stay anonymous. It is also very helpful to report the issue on our Discord at https://discord.gg/s7c8763";
+                txtDescription.Text =
+                    "Explain in detail what you were doing that caused the bug. Reproducable steps and/or links to files that were worked on will make the bug much easier to fix. This will be posted publicly at https://github.com/BrawlCrate/BrawlCrateIssues/issues, so do not put any personal information here. It may be beneficial to you to sign your report with a username unless you wish to stay anonymous. It is also very helpful to report the issue on our Discord at https://discord.gg/s7c8763";
             }
         }
 
@@ -118,7 +124,7 @@ namespace System.Windows.Forms
                 return SaveAs(r);
             }
 
-            r.Merge(Control.ModifierKeys == (Keys.Control | Keys.Shift));
+            r.Merge(ModifierKeys == (Keys.Control | Keys.Shift));
             r.Export(r._origPath);
             r.IsDirty = false;
             return true;
@@ -186,7 +192,7 @@ namespace System.Windows.Forms
 
         private void txtDescription_LinkClicked(object sender, LinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(e.LinkText);
+            Process.Start(e.LinkText);
         }
 
         private void txtDescription_MouseUp(object sender, MouseEventArgs e)

@@ -7,6 +7,7 @@ namespace System.Windows.Forms
     public unsafe class AdvancedCollisionEditor : CollisionEditor
     {
         #region designer
+
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -18,10 +19,11 @@ namespace System.Windows.Forms
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing && components != null)
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -84,7 +86,7 @@ namespace System.Windows.Forms
             // groupBoxType
             // 
             groupBoxType.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left);
+                                   | System.Windows.Forms.AnchorStyles.Left);
             groupBoxType.Controls.Add(chkTypeFloor);
             groupBoxType.Controls.Add(chkTypeCeiling);
             groupBoxType.Controls.Add(chkTypeLeftWall);
@@ -145,14 +147,14 @@ namespace System.Windows.Forms
             // groupBoxFlags1
             // 
             groupBoxFlags1.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left);
+                                     | System.Windows.Forms.AnchorStyles.Left);
             groupBoxFlags1.Location = new System.Drawing.Point(0, 128);
             groupBoxFlags1.Name = "groupBoxFlags1";
             // 
             // groupBoxFlags2
             // 
             groupBoxFlags2.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left);
+                                     | System.Windows.Forms.AnchorStyles.Left);
             groupBoxFlags2.Location = new System.Drawing.Point(104, 128);
             groupBoxFlags2.Name = "groupBoxFlags2";
             // 
@@ -162,7 +164,7 @@ namespace System.Windows.Forms
             cboMaterial.Location = new System.Drawing.Point(59, 4);
             cboMaterial.Name = "cboMaterial";
             cboMaterial.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)
-            | System.Windows.Forms.AnchorStyles.Left);
+                                  | System.Windows.Forms.AnchorStyles.Left);
             // 
             // label5
             // 
@@ -184,11 +186,13 @@ namespace System.Windows.Forms
                 return;
             }
 
-            TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes)
+            TargetNode.SignalPropertyChange();
+            foreach (CollisionPlane p in _selectedPlanes)
             {
                 p.IsFloor = chkTypeFloor.Checked;
             }
         }
+
         private void chkTypeCeiling_CheckedChanged(object sender, EventArgs e)
         {
             if (_updating)
@@ -196,11 +200,13 @@ namespace System.Windows.Forms
                 return;
             }
 
-            TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes)
+            TargetNode.SignalPropertyChange();
+            foreach (CollisionPlane p in _selectedPlanes)
             {
                 p.IsCeiling = chkTypeCeiling.Checked;
             }
         }
+
         private void chkTypeLeftWall_CheckedChanged(object sender, EventArgs e)
         {
             if (_updating)
@@ -208,11 +214,13 @@ namespace System.Windows.Forms
                 return;
             }
 
-            TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes)
+            TargetNode.SignalPropertyChange();
+            foreach (CollisionPlane p in _selectedPlanes)
             {
                 p.IsLeftWall = chkTypeLeftWall.Checked;
             }
         }
+
         private void chkTypeRightWall_CheckedChanged(object sender, EventArgs e)
         {
             if (_updating)
@@ -220,13 +228,15 @@ namespace System.Windows.Forms
                 return;
             }
 
-            TargetNode.SignalPropertyChange(); foreach (CollisionPlane p in _selectedPlanes)
+            TargetNode.SignalPropertyChange();
+            foreach (CollisionPlane p in _selectedPlanes)
             {
                 p.IsRightWall = chkTypeRightWall.Checked;
             }
         }
 
         #endregion
+
         #endregion
 
         public AdvancedCollisionEditor()
@@ -282,6 +292,7 @@ namespace System.Windows.Forms
                     pnlPlaneProps.Visible = false;
                     return;
                 }
+
                 CollisionPlane p = _selectedPlanes[0];
 
                 //Material
@@ -313,6 +324,7 @@ namespace System.Windows.Forms
                     pnlPointProps.Visible = false;
                     return;
                 }
+
                 numX.Value = _selectedLinks[0].Value._x;
                 numY.Value = _selectedLinks[0].Value._y;
             }
@@ -323,6 +335,7 @@ namespace System.Windows.Forms
                     pnlObjProps.Visible = false;
                     return;
                 }
+
                 txtModel.Text = _selectedObject._modelName;
                 txtBone.Text = _selectedObject._boneName;
                 chkObjUnk.Checked = _selectedObject._flags[0];

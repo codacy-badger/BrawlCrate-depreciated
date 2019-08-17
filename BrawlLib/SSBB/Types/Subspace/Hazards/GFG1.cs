@@ -22,14 +22,29 @@ namespace BrawlLib.SSBBTypes
             _DataOffset = count * 4;
         }
 
-        public VoidPtr this[int index] => (byte*)Address + Offsets(index);
-        public uint Offsets(int index) { return *(buint*)((byte*)Address + 0x08 + (index * 4)); }
-        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
+        public VoidPtr this[int index] => (byte*) Address + Offsets(index);
+
+        public uint Offsets(int index)
+        {
+            return *(buint*) ((byte*) Address + 0x08 + index * 4);
+        }
+
+        private VoidPtr Address
+        {
+            get
+            {
+                fixed (void* ptr = &this)
+                {
+                    return ptr;
+                }
+            }
+        }
     }
+
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct GFG1Entry
     {
-        public uint _header1;           // 0x00
+        public uint _header1; // 0x00
         public byte _unknown0x04;
         public byte _unknown0x05;
         public byte _unknown0x06;
@@ -44,7 +59,7 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x0F;
         public byte _unknown0x10;
         public byte _unknown0x11;
-        public byte _costumeID;         // 0x12
+        public byte _costumeID; // 0x12
         public byte _flag0x13;
         public byte _unknown0x14;
         public byte _unknown0x15;
@@ -62,9 +77,9 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x21;
         public byte _unknown0x22;
         public byte _unknown0x23;
-        public bfloat _offenseKBMult;   // 0x24
-        public bfloat _defenseKBMult;   // 0x28
-        public bfloat _scale;           // 0x2C
+        public bfloat _offenseKBMult; // 0x24
+        public bfloat _defenseKBMult; // 0x28
+        public bfloat _scale;         // 0x2C
         public byte _unknown0x30;
         public byte _unknown0x31;
         public byte _unknown0x32;
@@ -102,8 +117,15 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x52;
         public byte _unknown0x53;
 
-        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
-
+        private VoidPtr Address
+        {
+            get
+            {
+                fixed (void* ptr = &this)
+                {
+                    return ptr;
+                }
+            }
+        }
     }
-
 }

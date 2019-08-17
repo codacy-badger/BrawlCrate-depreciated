@@ -17,7 +17,7 @@ namespace System.Windows.Forms
         private ColumnHeader clmIndex;
         private ColumnHeader clmName;
         private ContextMenuStrip contextMenuStrip1;
-        private System.ComponentModel.IContainer components;
+        private IContainer components;
         private ToolStripMenuItem mnuExport;
         private ToolStripMenuItem mnuReplace;
         private ToolStripMenuItem mnuPath;
@@ -40,30 +40,30 @@ namespace System.Windows.Forms
 
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            clmIndex = new System.Windows.Forms.ColumnHeader();
-            clmName = new System.Windows.Forms.ColumnHeader();
-            lstSets = new System.Windows.Forms.ListView();
-            clmType = new System.Windows.Forms.ColumnHeader();
-            clmDataOffset = new System.Windows.Forms.ColumnHeader();
-            clmAudioOffset = new System.Windows.Forms.ColumnHeader();
-            clmEntryOffset = new System.Windows.Forms.ColumnHeader();
-            contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(components);
-            mnuPath = new System.Windows.Forms.ToolStripMenuItem();
-            mnuExport = new System.Windows.Forms.ToolStripMenuItem();
-            mnuReplace = new System.Windows.Forms.ToolStripMenuItem();
-            deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            menuStrip1 = new System.Windows.Forms.MenuStrip();
-            newFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            rWSDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            rSEQToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            rBNKToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            rSTMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            externalReferenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            audioPlaybackPanel1 = new System.Windows.Forms.AudioPlaybackPanel();
-            editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            makeAllExternalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            makeAllInternalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            components = new Container();
+            clmIndex = new ColumnHeader();
+            clmName = new ColumnHeader();
+            lstSets = new ListView();
+            clmType = new ColumnHeader();
+            clmDataOffset = new ColumnHeader();
+            clmAudioOffset = new ColumnHeader();
+            clmEntryOffset = new ColumnHeader();
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            mnuPath = new ToolStripMenuItem();
+            mnuExport = new ToolStripMenuItem();
+            mnuReplace = new ToolStripMenuItem();
+            deleteToolStripMenuItem = new ToolStripMenuItem();
+            menuStrip1 = new MenuStrip();
+            newFileToolStripMenuItem = new ToolStripMenuItem();
+            rWSDToolStripMenuItem = new ToolStripMenuItem();
+            rSEQToolStripMenuItem = new ToolStripMenuItem();
+            rBNKToolStripMenuItem = new ToolStripMenuItem();
+            rSTMToolStripMenuItem = new ToolStripMenuItem();
+            externalReferenceToolStripMenuItem = new ToolStripMenuItem();
+            audioPlaybackPanel1 = new AudioPlaybackPanel();
+            editToolStripMenuItem = new ToolStripMenuItem();
+            makeAllExternalToolStripMenuItem = new ToolStripMenuItem();
+            makeAllInternalToolStripMenuItem = new ToolStripMenuItem();
             contextMenuStrip1.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -81,16 +81,18 @@ namespace System.Windows.Forms
             // lstSets
             // 
             lstSets.AutoArrange = false;
-            lstSets.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            lstSets.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            clmIndex,
-            clmType,
-            clmName,
-            clmDataOffset,
-            clmAudioOffset,
-            clmEntryOffset});
+            lstSets.BorderStyle = BorderStyle.None;
+            lstSets.Columns.AddRange(new ColumnHeader[]
+            {
+                clmIndex,
+                clmType,
+                clmName,
+                clmDataOffset,
+                clmAudioOffset,
+                clmEntryOffset
+            });
             lstSets.ContextMenuStrip = contextMenuStrip1;
-            lstSets.Dock = System.Windows.Forms.DockStyle.Fill;
+            lstSets.Dock = DockStyle.Fill;
             lstSets.FullRowSelect = true;
             lstSets.GridLines = true;
             lstSets.HideSelection = false;
@@ -101,11 +103,11 @@ namespace System.Windows.Forms
             lstSets.Size = new System.Drawing.Size(389, 105);
             lstSets.TabIndex = 0;
             lstSets.UseCompatibleStateImageBehavior = false;
-            lstSets.View = System.Windows.Forms.View.Details;
-            lstSets.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(lstSets_ColumnClick);
-            lstSets.SelectedIndexChanged += new System.EventHandler(lstSets_SelectedIndexChanged);
-            lstSets.DoubleClick += new System.EventHandler(lstSets_DoubleClick);
-            lstSets.KeyDown += new System.Windows.Forms.KeyEventHandler(lstSets_KeyDown);
+            lstSets.View = View.Details;
+            lstSets.ColumnClick += new ColumnClickEventHandler(lstSets_ColumnClick);
+            lstSets.SelectedIndexChanged += new EventHandler(lstSets_SelectedIndexChanged);
+            lstSets.DoubleClick += new EventHandler(lstSets_DoubleClick);
+            lstSets.KeyDown += new KeyEventHandler(lstSets_KeyDown);
             // 
             // clmType
             // 
@@ -129,49 +131,53 @@ namespace System.Windows.Forms
             // contextMenuStrip1
             // 
             contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            mnuPath,
-            mnuExport,
-            mnuReplace,
-            deleteToolStripMenuItem});
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[]
+            {
+                mnuPath,
+                mnuExport,
+                mnuReplace,
+                deleteToolStripMenuItem
+            });
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new System.Drawing.Size(138, 108);
-            contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(contextMenuStrip1_Opening);
+            contextMenuStrip1.Opening += new CancelEventHandler(contextMenuStrip1_Opening);
             // 
             // mnuPath
             // 
             mnuPath.Name = "mnuPath";
             mnuPath.Size = new System.Drawing.Size(137, 26);
             mnuPath.Text = "Path...";
-            mnuPath.Click += new System.EventHandler(mnuPath_Click);
+            mnuPath.Click += new EventHandler(mnuPath_Click);
             // 
             // mnuExport
             // 
             mnuExport.Name = "mnuExport";
             mnuExport.Size = new System.Drawing.Size(137, 26);
             mnuExport.Text = "Export";
-            mnuExport.Click += new System.EventHandler(mnuExport_Click);
+            mnuExport.Click += new EventHandler(mnuExport_Click);
             // 
             // mnuReplace
             // 
             mnuReplace.Name = "mnuReplace";
             mnuReplace.Size = new System.Drawing.Size(137, 26);
             mnuReplace.Text = "Replace";
-            mnuReplace.Click += new System.EventHandler(mnuReplace_Click);
+            mnuReplace.Click += new EventHandler(mnuReplace_Click);
             // 
             // deleteToolStripMenuItem
             // 
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             deleteToolStripMenuItem.Size = new System.Drawing.Size(137, 26);
             deleteToolStripMenuItem.Text = "Delete";
-            deleteToolStripMenuItem.Click += new System.EventHandler(deleteToolStripMenuItem_Click);
+            deleteToolStripMenuItem.Click += new EventHandler(deleteToolStripMenuItem_Click);
             // 
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            newFileToolStripMenuItem,
-            editToolStripMenuItem});
+            menuStrip1.Items.AddRange(new ToolStripItem[]
+            {
+                newFileToolStripMenuItem,
+                editToolStripMenuItem
+            });
             menuStrip1.Location = new System.Drawing.Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new System.Drawing.Size(389, 28);
@@ -180,12 +186,14 @@ namespace System.Windows.Forms
             // 
             // newFileToolStripMenuItem
             // 
-            newFileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            rWSDToolStripMenuItem,
-            rSEQToolStripMenuItem,
-            rBNKToolStripMenuItem,
-            rSTMToolStripMenuItem,
-            externalReferenceToolStripMenuItem});
+            newFileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[]
+            {
+                rWSDToolStripMenuItem,
+                rSEQToolStripMenuItem,
+                rBNKToolStripMenuItem,
+                rSTMToolStripMenuItem,
+                externalReferenceToolStripMenuItem
+            });
             newFileToolStripMenuItem.Name = "newFileToolStripMenuItem";
             newFileToolStripMenuItem.Size = new System.Drawing.Size(78, 24);
             newFileToolStripMenuItem.Text = "New File";
@@ -195,39 +203,39 @@ namespace System.Windows.Forms
             rWSDToolStripMenuItem.Name = "rWSDToolStripMenuItem";
             rWSDToolStripMenuItem.Size = new System.Drawing.Size(207, 26);
             rWSDToolStripMenuItem.Text = "RWSD";
-            rWSDToolStripMenuItem.Click += new System.EventHandler(rWSDToolStripMenuItem_Click);
+            rWSDToolStripMenuItem.Click += new EventHandler(rWSDToolStripMenuItem_Click);
             // 
             // rSEQToolStripMenuItem
             // 
             rSEQToolStripMenuItem.Name = "rSEQToolStripMenuItem";
             rSEQToolStripMenuItem.Size = new System.Drawing.Size(207, 26);
             rSEQToolStripMenuItem.Text = "RSEQ";
-            rSEQToolStripMenuItem.Click += new System.EventHandler(rSEQToolStripMenuItem_Click);
+            rSEQToolStripMenuItem.Click += new EventHandler(rSEQToolStripMenuItem_Click);
             // 
             // rBNKToolStripMenuItem
             // 
             rBNKToolStripMenuItem.Name = "rBNKToolStripMenuItem";
             rBNKToolStripMenuItem.Size = new System.Drawing.Size(207, 26);
             rBNKToolStripMenuItem.Text = "RBNK";
-            rBNKToolStripMenuItem.Click += new System.EventHandler(rBNKToolStripMenuItem_Click);
+            rBNKToolStripMenuItem.Click += new EventHandler(rBNKToolStripMenuItem_Click);
             // 
             // rSTMToolStripMenuItem
             // 
             rSTMToolStripMenuItem.Name = "rSTMToolStripMenuItem";
             rSTMToolStripMenuItem.Size = new System.Drawing.Size(207, 26);
             rSTMToolStripMenuItem.Text = "RSTM";
-            rSTMToolStripMenuItem.Click += new System.EventHandler(rSTMToolStripMenuItem_Click);
+            rSTMToolStripMenuItem.Click += new EventHandler(rSTMToolStripMenuItem_Click);
             // 
             // externalReferenceToolStripMenuItem
             // 
             externalReferenceToolStripMenuItem.Name = "externalReferenceToolStripMenuItem";
             externalReferenceToolStripMenuItem.Size = new System.Drawing.Size(207, 26);
             externalReferenceToolStripMenuItem.Text = "External Reference";
-            externalReferenceToolStripMenuItem.Click += new System.EventHandler(externalReferenceToolStripMenuItem_Click);
+            externalReferenceToolStripMenuItem.Click += new EventHandler(externalReferenceToolStripMenuItem_Click);
             // 
             // audioPlaybackPanel1
             // 
-            audioPlaybackPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            audioPlaybackPanel1.Dock = DockStyle.Bottom;
             audioPlaybackPanel1.Location = new System.Drawing.Point(0, 133);
             audioPlaybackPanel1.Name = "audioPlaybackPanel1";
             audioPlaybackPanel1.Size = new System.Drawing.Size(389, 120);
@@ -237,9 +245,11 @@ namespace System.Windows.Forms
             // 
             // editToolStripMenuItem
             // 
-            editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            makeAllExternalToolStripMenuItem,
-            makeAllInternalToolStripMenuItem});
+            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[]
+            {
+                makeAllExternalToolStripMenuItem,
+                makeAllInternalToolStripMenuItem
+            });
             editToolStripMenuItem.Name = "editToolStripMenuItem";
             editToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
             editToolStripMenuItem.Text = "Edit";
@@ -249,14 +259,14 @@ namespace System.Windows.Forms
             makeAllExternalToolStripMenuItem.Name = "makeAllExternalToolStripMenuItem";
             makeAllExternalToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
             makeAllExternalToolStripMenuItem.Text = "Make all external";
-            makeAllExternalToolStripMenuItem.Click += new System.EventHandler(makeAllExternalToolStripMenuItem_Click);
+            makeAllExternalToolStripMenuItem.Click += new EventHandler(makeAllExternalToolStripMenuItem_Click);
             // 
             // makeAllInternalToolStripMenuItem
             // 
             makeAllInternalToolStripMenuItem.Name = "makeAllInternalToolStripMenuItem";
             makeAllInternalToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
             makeAllInternalToolStripMenuItem.Text = "Make all internal";
-            makeAllInternalToolStripMenuItem.Click += new System.EventHandler(makeAllInternalToolStripMenuItem_Click);
+            makeAllInternalToolStripMenuItem.Click += new EventHandler(makeAllInternalToolStripMenuItem_Click);
             // 
             // SoundPackControl
             // 
@@ -265,13 +275,12 @@ namespace System.Windows.Forms
             Controls.Add(menuStrip1);
             Name = "SoundPackControl";
             Size = new System.Drawing.Size(389, 253);
-            DoubleClick += new System.EventHandler(lstSets_DoubleClick);
+            DoubleClick += new EventHandler(lstSets_DoubleClick);
             contextMenuStrip1.ResumeLayout(false);
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
-
         }
 
         #endregion
@@ -279,10 +288,20 @@ namespace System.Windows.Forms
         public PropertyGrid _grid = null;
 
         private RSARNode _targetNode;
+
         public RSARNode TargetNode
         {
             get => _targetNode;
-            set { if (value == _targetNode) { return; } _targetNode = value; NodeChanged(); }
+            set
+            {
+                if (value == _targetNode)
+                {
+                    return;
+                }
+
+                _targetNode = value;
+                NodeChanged();
+            }
         }
 
         private SoundPackItem _selectedItem;
@@ -320,6 +339,7 @@ namespace System.Windows.Forms
         }
 
         private delegate void delUpdate(ListView list);
+
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
@@ -336,6 +356,7 @@ namespace System.Windows.Forms
         }
 
         private readonly BackgroundWorker backgroundWorker1;
+
         private void NodeChanged()
         {
             //if (backgroundWorker1.IsBusy != true && _targetNode != null)
@@ -343,7 +364,7 @@ namespace System.Windows.Forms
             Update(lstSets);
         }
 
-        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
             if (_selectedItem == null)
             {
@@ -405,11 +426,20 @@ namespace System.Windows.Forms
                     dlg.FileName = _selectedItem.SubItems[2].Text.Replace('/', '_');
                     switch (_selectedItem.SubItems[1].Text)
                     {
-                        case "RWSD": dlg.Filter = FileFilters.RWSD; break;
-                        case "RBNK": dlg.Filter = FileFilters.RBNK; break;
-                        case "RSEQ": dlg.Filter = FileFilters.RSEQ; break;
-                        case "RSAR": dlg.Filter = FileFilters.RSAR; break;
+                        case "RWSD":
+                            dlg.Filter = FileFilters.RWSD;
+                            break;
+                        case "RBNK":
+                            dlg.Filter = FileFilters.RBNK;
+                            break;
+                        case "RSEQ":
+                            dlg.Filter = FileFilters.RSEQ;
+                            break;
+                        case "RSAR":
+                            dlg.Filter = FileFilters.RSAR;
+                            break;
                     }
+
                     if (dlg.ShowDialog(this) == DialogResult.OK)
                     {
                         _selectedItem._node.Export(dlg.FileName);
@@ -550,11 +580,11 @@ namespace System.Windows.Forms
 
         private void rSTMToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog ofd = new OpenFileDialog() { Filter = SupportedFilesHandler.GetCompleteFilter("wav") })
+            using (OpenFileDialog ofd = new OpenFileDialog() {Filter = SupportedFilesHandler.GetCompleteFilter("wav")})
             {
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    RSTMNode r = new RSTMNode() { _fileIndex = _targetNode.Files.Count };
+                    RSTMNode r = new RSTMNode() {_fileIndex = _targetNode.Files.Count};
                     using (BrstmConverterDialog dlg = new BrstmConverterDialog())
                     {
                         dlg.AudioSource = ofd.FileName;
@@ -566,6 +596,7 @@ namespace System.Windows.Forms
                             r.ReplaceRaw(dlg.AudioData);
                         }
                     }
+
                     r._parent = _targetNode;
                     _targetNode.Files.Add(r);
                     r.SignalPropertyChange();
@@ -586,7 +617,8 @@ namespace System.Windows.Forms
                 ListViewItem v = i as ListViewItem;
                 string type = v.SubItems[1].Text;
                 string dir = "\\" + type + "\\";
-                string fileName = i._node.Name.Replace('/', '_').Replace('<', '(').Replace('>', ')') + ".b" + type.ToLower();
+                string fileName = i._node.Name.Replace('/', '_').Replace('<', '(').Replace('>', ')') + ".b" +
+                                  type.ToLower();
 
                 string newPath = _targetNode._origPath.Substring(0, _targetNode._origPath.LastIndexOf('\\')) + dir;
                 if (!Directory.Exists(newPath))
@@ -687,6 +719,7 @@ namespace System.Windows.Forms
 
                 i._node = ext;
             }
+
             _targetNode.IsDirty = true;
             Update(lstSets);
         }
@@ -733,7 +766,7 @@ namespace System.Windows.Forms
 
         public SoundPackItem(RSARFileNode file)
         {
-            ImageIndex = (byte)file.ResourceType;
+            ImageIndex = (byte) file.ResourceType;
 
             Text = file.FileNodeIndex.ToString();
 
@@ -764,10 +797,12 @@ namespace System.Windows.Forms
         /// Specifies the column to be sorted
         /// </summary>
         private int ColumnToSort;
+
         /// <summary>
         /// Specifies the order in which to sort (i.e. 'Ascending').
         /// </summary>
         private SortOrder OrderOfSort;
+
         /// <summary>
         /// Case insensitive comparer object
         /// </summary>
@@ -800,21 +835,26 @@ namespace System.Windows.Forms
             ListViewItem listviewX, listviewY;
 
             // Cast the objects to be compared to ListViewItem objects
-            listviewX = (ListViewItem)x;
-            listviewY = (ListViewItem)y;
+            listviewX = (ListViewItem) x;
+            listviewY = (ListViewItem) y;
 
             // Compare the two items
             if (ColumnToSort == 0)
             {
-                compareResult = ObjectCompare.Compare(int.Parse(listviewX.SubItems[ColumnToSort].Text), int.Parse(listviewY.SubItems[ColumnToSort].Text));
+                compareResult = ObjectCompare.Compare(int.Parse(listviewX.SubItems[ColumnToSort].Text),
+                    int.Parse(listviewY.SubItems[ColumnToSort].Text));
             }
             else if (ColumnToSort >= 4)
             {
-                compareResult = ObjectCompare.Compare(int.Parse(listviewX.SubItems[ColumnToSort].Text.Substring(2), Globalization.NumberStyles.HexNumber), int.Parse(listviewY.SubItems[ColumnToSort].Text.Substring(2), Globalization.NumberStyles.HexNumber));
+                compareResult = ObjectCompare.Compare(
+                    int.Parse(listviewX.SubItems[ColumnToSort].Text.Substring(2), Globalization.NumberStyles.HexNumber),
+                    int.Parse(listviewY.SubItems[ColumnToSort].Text.Substring(2),
+                        Globalization.NumberStyles.HexNumber));
             }
             else
             {
-                compareResult = ObjectCompare.Compare(listviewX.SubItems[ColumnToSort].Text, listviewY.SubItems[ColumnToSort].Text);
+                compareResult = ObjectCompare.Compare(listviewX.SubItems[ColumnToSort].Text,
+                    listviewY.SubItems[ColumnToSort].Text);
             }
 
             // Calculate correct return value based on object comparison
@@ -826,7 +866,7 @@ namespace System.Windows.Forms
             else if (OrderOfSort == SortOrder.Descending)
             {
                 // Descending sort is selected, return negative result of compare operation
-                return (-compareResult);
+                return -compareResult;
             }
             else
             {

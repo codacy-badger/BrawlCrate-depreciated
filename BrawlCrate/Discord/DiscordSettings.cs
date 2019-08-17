@@ -34,9 +34,10 @@ namespace BrawlCrate.Discord
 
             if (enabled && DiscordController == null)
             {
-                DiscordController = new BrawlCrate.Discord.DiscordController();
+                DiscordController = new DiscordController();
                 DiscordController.Initialize();
             }
+
             DiscordController.presence = new DiscordRpc.RichPresence()
             {
                 smallImageKey = "",
@@ -50,9 +51,11 @@ namespace BrawlCrate.Discord
             }
             else if (Program.RootPath == null)
             {
-                if (MainForm.Instance.RootNode.ResourceNode is ARCNode && ((ARCNode)MainForm.Instance.RootNode.ResourceNode).IsStage)
+                if (MainForm.Instance.RootNode.ResourceNode is ARCNode &&
+                    ((ARCNode) MainForm.Instance.RootNode.ResourceNode).IsStage)
                 {
-                    if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("STGRESULT", StringComparison.OrdinalIgnoreCase))
+                    if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("STGRESULT",
+                        StringComparison.OrdinalIgnoreCase))
                     {
                         DiscordController.presence.details = workString + " " + "the results screen";
                     }
@@ -68,9 +71,10 @@ namespace BrawlCrate.Discord
             }
             else if (MainForm.Instance.RootNode.ResourceNode is ARCNode)
             {
-                if (((ARCNode)MainForm.Instance.RootNode.ResourceNode).IsStage)
+                if (((ARCNode) MainForm.Instance.RootNode.ResourceNode).IsStage)
                 {
-                    if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("STGRESULT", StringComparison.OrdinalIgnoreCase))
+                    if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("STGRESULT",
+                        StringComparison.OrdinalIgnoreCase))
                     {
                         DiscordController.presence.details = workString + " " + "the results screen";
                     }
@@ -79,22 +83,23 @@ namespace BrawlCrate.Discord
                         DiscordController.presence.details = workString + " " + "a stage";
                     }
                 }
-                else if (((ARCNode)MainForm.Instance.RootNode.ResourceNode).IsCharacter)
+                else if (((ARCNode) MainForm.Instance.RootNode.ResourceNode).IsCharacter)
                 {
                     if (MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("0") ||
-                       MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("1") ||
-                       MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("2") ||
-                       MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("3") ||
-                       MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("4") ||
-                       MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("5") ||
-                       MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("6") ||
-                       MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("7") ||
-                       MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("8") ||
-                       MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("9"))
+                        MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("1") ||
+                        MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("2") ||
+                        MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("3") ||
+                        MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("4") ||
+                        MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("5") ||
+                        MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("6") ||
+                        MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("7") ||
+                        MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("8") ||
+                        MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("9"))
                     {
                         DiscordController.presence.details = workString + " " + "a costume";
                     }
-                    else if (MainForm.Instance.RootNode.ResourceNode.Name.Contains("motion", StringComparison.OrdinalIgnoreCase))
+                    else if (MainForm.Instance.RootNode.ResourceNode.Name.Contains("motion",
+                        StringComparison.OrdinalIgnoreCase))
                     {
                         DiscordController.presence.details = workString + " " + "animations";
                     }
@@ -103,44 +108,58 @@ namespace BrawlCrate.Discord
                         DiscordController.presence.details = workString + " " + "a fighter";
                     }
                 }
-                else if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("sc_", StringComparison.OrdinalIgnoreCase) ||
-                        MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("common5", StringComparison.OrdinalIgnoreCase) ||
-                        MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("mu_", StringComparison.OrdinalIgnoreCase))
+                else if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("sc_",
+                             StringComparison.OrdinalIgnoreCase) ||
+                         MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("common5",
+                             StringComparison.OrdinalIgnoreCase) ||
+                         MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("mu_",
+                             StringComparison.OrdinalIgnoreCase))
                 {
                     DiscordController.presence.details = workString + " " + "menus";
                 }
-                else if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("info", StringComparison.OrdinalIgnoreCase))
+                else if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("info",
+                    StringComparison.OrdinalIgnoreCase))
                 {
                     DiscordController.presence.details = workString + " " + "UI";
                 }
-                else if (Program.RootPath.Substring(0, Program.RootPath.LastIndexOf('\\')).EndsWith("\\stage\\adventure"))
+                else if (Program.RootPath.Substring(0, Program.RootPath.LastIndexOf('\\'))
+                    .EndsWith("\\stage\\adventure"))
                 {
                     DiscordController.presence.details = workString + " " + "a subspace stage";
                 }
-                else if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("common2", StringComparison.OrdinalIgnoreCase))
+                else if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("common2",
+                    StringComparison.OrdinalIgnoreCase))
                 {
                     DiscordController.presence.details = workString + " " + "single player";
                 }
-                else if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("common3", StringComparison.OrdinalIgnoreCase))
+                else if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("common3",
+                    StringComparison.OrdinalIgnoreCase))
                 {
                     DiscordController.presence.details = workString + " " + "items";
                 }
-                else if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("common", StringComparison.OrdinalIgnoreCase))
+                else if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("common",
+                    StringComparison.OrdinalIgnoreCase))
                 {
                     DiscordController.presence.details = workString + " " + "animations";
                 }
-                else if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("home_", StringComparison.OrdinalIgnoreCase)
-                    && Program.RootPath.Substring(0, Program.RootPath.LastIndexOf('\\')).EndsWith("\\system\\homebutton"))
+                else if (MainForm.Instance.RootNode.ResourceNode.Name.StartsWith("home_",
+                             StringComparison.OrdinalIgnoreCase)
+                         && Program.RootPath.Substring(0, Program.RootPath.LastIndexOf('\\'))
+                             .EndsWith("\\system\\homebutton"))
                 {
                     DiscordController.presence.details = workString + " " + "the home menu";
                 }
-                else if (MainForm.Instance.RootNode.ResourceNode.Name.Equals("cs_pack", StringComparison.OrdinalIgnoreCase))
+                else if (MainForm.Instance.RootNode.ResourceNode.Name.Equals("cs_pack",
+                    StringComparison.OrdinalIgnoreCase))
                 {
                     DiscordController.presence.details = workString + " " + "coin launcher";
                 }
-                else if ((MainForm.Instance.RootNode.Name.StartsWith("Itm") || (Program.RootPath.Substring(0, Program.RootPath.LastIndexOf('\\')).EndsWith("\\item") ||
-                    Program.RootPath.Substring(0, Program.RootPath.LastIndexOf('\\')).Substring(0, Program.RootPath.LastIndexOf('\\')).EndsWith("\\item")))
-                    && (MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("Brres") || MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("Param")))
+                else if ((MainForm.Instance.RootNode.Name.StartsWith("Itm") ||
+                          Program.RootPath.Substring(0, Program.RootPath.LastIndexOf('\\')).EndsWith("\\item") ||
+                          Program.RootPath.Substring(0, Program.RootPath.LastIndexOf('\\'))
+                              .Substring(0, Program.RootPath.LastIndexOf('\\')).EndsWith("\\item"))
+                         && (MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("Brres") ||
+                             MainForm.Instance.RootNode.ResourceNode.Name.EndsWith("Param")))
                 {
                     DiscordController.presence.details = workString + " " + "an item";
                 }
@@ -174,10 +193,17 @@ namespace BrawlCrate.Discord
                         DiscordController.presence.state = userNamedMod;
                         break;
                     case ModNameType.AutoInternal:
-                        DiscordController.presence.state = ((MainForm.Instance.RootNode == null || MainForm.Instance.RootNode.Name == null || MainForm.Instance.RootNode.ResourceNode.Name.Equals("<null>", StringComparison.OrdinalIgnoreCase)) ? "" : MainForm.Instance.RootNode.ResourceNode.Name);
+                        DiscordController.presence.state =
+                            MainForm.Instance.RootNode == null || MainForm.Instance.RootNode.Name == null ||
+                            MainForm.Instance.RootNode.ResourceNode.Name.Equals("<null>",
+                                StringComparison.OrdinalIgnoreCase)
+                                ? ""
+                                : MainForm.Instance.RootNode.ResourceNode.Name;
                         break;
                     case ModNameType.AutoExternal:
-                        DiscordController.presence.state = ((Program.RootPath == null || Program.RootPath == "") ? "" : Program.RootPath.Substring(Program.RootPath.LastIndexOf('\\') + 1));
+                        DiscordController.presence.state = Program.RootPath == null || Program.RootPath == ""
+                            ? ""
+                            : Program.RootPath.Substring(Program.RootPath.LastIndexOf('\\') + 1);
                         break;
                     default:
                         DiscordController.presence.state = "";
@@ -195,19 +221,19 @@ namespace BrawlCrate.Discord
 
         public static void LoadSettings(bool update = false)
         {
-            if (BrawlCrate.Properties.Settings.Default.DiscordRPCEnabled && DiscordController == null)
+            if (Properties.Settings.Default.DiscordRPCEnabled && DiscordController == null)
             {
-                DiscordController = new BrawlCrate.Discord.DiscordController();
+                DiscordController = new DiscordController();
                 DiscordController.Initialize();
             }
-            else if ((enabled != BrawlCrate.Properties.Settings.Default.DiscordRPCEnabled && enabled == false))
+            else if (enabled != Properties.Settings.Default.DiscordRPCEnabled && enabled == false)
             {
                 DiscordController.Initialize();
             }
 
-            enabled = BrawlCrate.Properties.Settings.Default.DiscordRPCEnabled;
-            modNameType = BrawlCrate.Properties.Settings.Default.DiscordRPCNameType;
-            userNamedMod = BrawlCrate.Properties.Settings.Default.DiscordRPCNameCustom;
+            enabled = Properties.Settings.Default.DiscordRPCEnabled;
+            modNameType = Properties.Settings.Default.DiscordRPCNameType;
+            userNamedMod = Properties.Settings.Default.DiscordRPCNameCustom;
             if (update)
             {
                 Update();

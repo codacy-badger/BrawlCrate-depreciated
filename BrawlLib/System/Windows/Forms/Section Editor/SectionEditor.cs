@@ -37,6 +37,7 @@ namespace System.Windows.Forms
                 _section._linkedEditor = this;
                 _manager = new RelocationManager(_section);
             }
+
             _openedSections.Add(this);
 
             Text = string.Format("Module Section Editor - {0}", _section.Name);
@@ -47,21 +48,22 @@ namespace System.Windows.Forms
 
             if (section.Root is RELNode)
             {
-                RELNode r = (RELNode)section.Root;
+                RELNode r = (RELNode) section.Root;
                 if (r.PrologSection == section.Index)
                 {
-                    _manager._constructorIndex = (int)r._prologOffset / 4;
+                    _manager._constructorIndex = (int) r._prologOffset / 4;
                 }
 
                 if (r.EpilogSection == section.Index)
                 {
-                    _manager._destructorIndex = (int)r._epilogOffset / 4;
+                    _manager._destructorIndex = (int) r._epilogOffset / 4;
                 }
 
                 if (r.UnresolvedSection == section.Index)
                 {
-                    _manager._unresolvedIndex = (int)r._unresolvedOffset / 4;
+                    _manager._unresolvedIndex = (int) r._unresolvedOffset / 4;
                 }
+
                 //if (r._nameReloc != null && r._nameReloc._section == section)
                 //    _nameReloc = r._nameReloc;
             }
@@ -71,7 +73,8 @@ namespace System.Windows.Forms
 
         protected override void OnClientSizeChanged(EventArgs e)
         {
-            hexBox1.Height = pnlHexEditor.Height - (btnSaveAnnotation.Height + annotationTitle.Height + annotationDescription.Height + statusStrip.Height);
+            hexBox1.Height = pnlHexEditor.Height - (btnSaveAnnotation.Height + annotationTitle.Height +
+                                                    annotationDescription.Height + statusStrip.Height);
             base.OnClientSizeChanged(e);
         }
 
@@ -131,42 +134,50 @@ namespace System.Windows.Forms
             annotationIndex = 0;
             annotationTitles.Clear();
             annotationDescription.Clear();
-            if (_section == null || _section.Root == null || hexBox1.ByteProvider == null || hexBox1.ByteProvider.Length < 4)
+            if (_section == null || _section.Root == null || hexBox1.ByteProvider == null ||
+                hexBox1.ByteProvider.Length < 4)
             {
                 chkAnnotations.Checked = false;
                 return;
             }
+
             if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation"))
             {
                 if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module"))
                 {
-                    if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module\\" + _section.Root.Name))
+                    if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" +
+                                         "\\Module\\" + _section.Root.Name))
                     {
-                        if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module\\" + _section.Root.Name + '\\' + _section.Name + ".txt"))
+                        if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module\\" +
+                                        _section.Root.Name + '\\' + _section.Name + ".txt"))
                         {
-                            LoadAnnotationsFromFile(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module\\" + _section.Root.Name + '\\' + _section.Name + ".txt");
+                            LoadAnnotationsFromFile(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" +
+                                                    "\\Module\\" + _section.Root.Name + '\\' + _section.Name + ".txt");
                             return;
                         }
                     }
                 }
             }
+
             bool updateStatusChanged = false;
             if (!_updating)
             {
                 _updating = true;
                 updateStatusChanged = true;
             }
+
             for (int i = 0; i * 4 < hexBox1.ByteProvider.Length; i++)
             {
                 annotationTitles.Add(_section.Root.Name + " " + _section.Name + ": 0x" + (i * 4).ToString("X8"));
                 byte[] bytes = new byte[]
                 {
-                    hexBox1.ByteProvider.ReadByte((((long)i) * 4) + 3),
-                    hexBox1.ByteProvider.ReadByte((((long)i) * 4) + 2),
-                    hexBox1.ByteProvider.ReadByte((((long)i) * 4) + 1),
-                    hexBox1.ByteProvider.ReadByte((((long)i) * 4) + 0),
+                    hexBox1.ByteProvider.ReadByte((long) i * 4 + 3),
+                    hexBox1.ByteProvider.ReadByte((long) i * 4 + 2),
+                    hexBox1.ByteProvider.ReadByte((long) i * 4 + 1),
+                    hexBox1.ByteProvider.ReadByte((long) i * 4 + 0),
                 };
-                annotationDescriptions.Add("Default: 0x" + bytes[3].ToString("X2") + bytes[2].ToString("X2") + bytes[1].ToString("X2") + bytes[0].ToString("X2"));
+                annotationDescriptions.Add("Default: 0x" + bytes[3].ToString("X2") + bytes[2].ToString("X2") +
+                                           bytes[1].ToString("X2") + bytes[0].ToString("X2"));
                 annotationUnderlineValues.Add("1111    // Flags for which bytes are underlined");
             }
 
@@ -179,6 +190,7 @@ namespace System.Windows.Forms
                 btn3underline.Checked = annotationUnderlineValues[0].Substring(2).StartsWith("1");
                 btn4underline.Checked = annotationUnderlineValues[0].Substring(3).StartsWith("1");
             }
+
             hexBox1.annotationDescriptions = annotationDescriptions;
             hexBox1.annotationUnderlines = annotationUnderlineValues;
 
@@ -206,19 +218,23 @@ namespace System.Windows.Forms
                     while (!sr.EndOfStream && index < hexBox1.ByteProvider.Length)
                     {
                         string newTitle = sr.ReadLine();
-                        if (int.TryParse(newTitle.Substring(titleHeader.Length), System.Globalization.NumberStyles.HexNumber, CultureInfo.InvariantCulture, out int nextIndex))
+                        if (int.TryParse(newTitle.Substring(titleHeader.Length), NumberStyles.HexNumber,
+                            CultureInfo.InvariantCulture, out int nextIndex))
                         {
                             while (index < nextIndex / 4)
                             {
-                                annotationTitles.Add(_section.Root.Name + " " + _section.Name + ": 0x" + (index * 4).ToString("X8"));
+                                annotationTitles.Add(_section.Root.Name + " " + _section.Name + ": 0x" +
+                                                     (index * 4).ToString("X8"));
                                 byte[] bytes = new byte[]
                                 {
-                                    hexBox1.ByteProvider.ReadByte((((long)index) * 4) + 3),
-                                    hexBox1.ByteProvider.ReadByte((((long)index) * 4) + 2),
-                                    hexBox1.ByteProvider.ReadByte((((long)index) * 4) + 1),
-                                    hexBox1.ByteProvider.ReadByte((((long)index) * 4) + 0),
+                                    hexBox1.ByteProvider.ReadByte((long) index * 4 + 3),
+                                    hexBox1.ByteProvider.ReadByte((long) index * 4 + 2),
+                                    hexBox1.ByteProvider.ReadByte((long) index * 4 + 1),
+                                    hexBox1.ByteProvider.ReadByte((long) index * 4 + 0),
                                 };
-                                annotationDescriptions.Add("Default: 0x" + bytes[3].ToString("X2") + bytes[2].ToString("X2") + bytes[1].ToString("X2") + bytes[0].ToString("X2"));
+                                annotationDescriptions.Add("Default: 0x" + bytes[3].ToString("X2") +
+                                                           bytes[2].ToString("X2") + bytes[1].ToString("X2") +
+                                                           bytes[0].ToString("X2"));
                                 annotationUnderlineValues.Add("1111    // Flags for which bytes are underlined");
                                 index++;
                             }
@@ -241,15 +257,19 @@ namespace System.Windows.Forms
                             annotationDescriptions[annotationDescriptions.Count - 1] += '\n';
                             temp = sr.ReadLine();
                         }
+
                         if (annotationDescriptions[annotationDescriptions.Count - 1].EndsWith("\n"))
                         {
-                            annotationDescriptions[annotationDescriptions.Count - 1] = annotationDescriptions[annotationDescriptions.Count - 1].Substring(0, annotationDescriptions[annotationDescriptions.Count - 1].Length - 1);
+                            annotationDescriptions[annotationDescriptions.Count - 1] =
+                                annotationDescriptions[annotationDescriptions.Count - 1].Substring(0,
+                                    annotationDescriptions[annotationDescriptions.Count - 1].Length - 1);
                         }
 
                         annotationUnderlineValues.Add(sr.ReadLine());
                         sr.ReadLine();
                         index++;
                     }
+
                     sr.Close();
                 }
             }
@@ -259,12 +279,13 @@ namespace System.Windows.Forms
                 annotationTitles.Add(_section.Root.Name + " " + _section.Name + ": 0x" + (i * 4).ToString("X8"));
                 byte[] bytes = new byte[]
                 {
-                    hexBox1.ByteProvider.ReadByte((((long)i) * 4) + 3),
-                    hexBox1.ByteProvider.ReadByte((((long)i) * 4) + 2),
-                    hexBox1.ByteProvider.ReadByte((((long)i) * 4) + 1),
-                    hexBox1.ByteProvider.ReadByte((((long)i) * 4) + 0),
+                    hexBox1.ByteProvider.ReadByte((long) i * 4 + 3),
+                    hexBox1.ByteProvider.ReadByte((long) i * 4 + 2),
+                    hexBox1.ByteProvider.ReadByte((long) i * 4 + 1),
+                    hexBox1.ByteProvider.ReadByte((long) i * 4 + 0),
                 };
-                annotationDescriptions.Add("Default: 0x" + bytes[3].ToString("X2") + bytes[2].ToString("X2") + bytes[1].ToString("X2") + bytes[0].ToString("X2"));
+                annotationDescriptions.Add("Default: 0x" + bytes[3].ToString("X2") + bytes[2].ToString("X2") +
+                                           bytes[1].ToString("X2") + bytes[0].ToString("X2"));
                 annotationUnderlineValues.Add("1111    // Flags for which bytes are underlined");
             }
 
@@ -277,6 +298,7 @@ namespace System.Windows.Forms
                 btn3underline.Checked = annotationUnderlineValues[0].Substring(2).StartsWith("1");
                 btn4underline.Checked = annotationUnderlineValues[0].Substring(3).StartsWith("1");
             }
+
             hexBox1.annotationDescriptions = annotationDescriptions;
             hexBox1.annotationUnderlines = annotationUnderlineValues;
 
@@ -290,10 +312,13 @@ namespace System.Windows.Forms
         {
             if (hexBox1.ByteProvider != null)
             {
-                ((DynamicFileByteProvider)hexBox1.ByteProvider).Dispose();
+                ((DynamicFileByteProvider) hexBox1.ByteProvider).Dispose();
             }
 
-            hexBox1.ByteProvider = new DynamicFileByteProvider(new UnmanagedMemoryStream((byte*)_section._dataBuffer.Address, _section._dataBuffer.Length, _section._dataBuffer.Length, FileAccess.ReadWrite)) { _supportsInsDel = false };
+            hexBox1.ByteProvider =
+                new DynamicFileByteProvider(new UnmanagedMemoryStream((byte*) _section._dataBuffer.Address,
+                        _section._dataBuffer.Length, _section._dataBuffer.Length, FileAccess.ReadWrite))
+                    {_supportsInsDel = false};
             //hexBox1.ByteProvider.LengthChanged += ByteProvider_LengthChanged;
             hexBox1.InsertActiveChanged += hexBox1_InsertActiveChanged;
         }
@@ -370,7 +395,7 @@ namespace System.Windows.Forms
 
         private string ConvertToOneDigit(long size, long quan)
         {
-            double quotient = size / (double)quan;
+            double quotient = size / (double) quan;
             string result = quotient.ToString("0.#", CultureInfo.CurrentCulture);
             return result;
         }
@@ -404,13 +429,13 @@ namespace System.Windows.Forms
 
             long offset = hexBox1.SelectionStart;
             long t = offset.RoundDown(4);
-            long t2 = offset.RoundDown(rdo4byte.Checked ? 4 : (rdo2byte.Checked ? 2 : 1));
+            long t2 = offset.RoundDown(rdo4byte.Checked ? 4 : rdo2byte.Checked ? 2 : 1);
 
             _updating = true;
 
             if (offset < hexBox1.ByteProvider.Length && offset >= 0)
             {
-                SelectedRelocationIndex = (int)(offset.RoundDown(4) / 4);
+                SelectedRelocationIndex = (int) (offset.RoundDown(4) / 4);
             }
             else
             {
@@ -422,14 +447,15 @@ namespace System.Windows.Forms
             {
                 if (t / 4 < annotationTitles.Count)
                 {
-                    annotationTitle.Text = annotationTitles[((int)(t / 4))];
-                    annotationDescription.Text = annotationDescriptions[((int)(t / 4))];
-                    btn1underline.Checked = annotationUnderlineValues[((int)(t / 4))].StartsWith("1");
-                    btn2underline.Checked = annotationUnderlineValues[((int)(t / 4))].Substring(1).StartsWith("1");
-                    btn3underline.Checked = annotationUnderlineValues[((int)(t / 4))].Substring(2).StartsWith("1");
-                    btn4underline.Checked = annotationUnderlineValues[((int)(t / 4))].Substring(3).StartsWith("1");
-                    annotationIndex = (int)(t / 4);
+                    annotationTitle.Text = annotationTitles[(int) (t / 4)];
+                    annotationDescription.Text = annotationDescriptions[(int) (t / 4)];
+                    btn1underline.Checked = annotationUnderlineValues[(int) (t / 4)].StartsWith("1");
+                    btn2underline.Checked = annotationUnderlineValues[(int) (t / 4)].Substring(1).StartsWith("1");
+                    btn3underline.Checked = annotationUnderlineValues[(int) (t / 4)].Substring(2).StartsWith("1");
+                    btn4underline.Checked = annotationUnderlineValues[(int) (t / 4)].Substring(3).StartsWith("1");
+                    annotationIndex = (int) (t / 4);
                 }
+
                 grpValue.Enabled = !_section._isBSSSection;
                 if (rdo4byte.Checked)
                 {
@@ -477,7 +503,7 @@ namespace System.Windows.Forms
                         txtInt.Text = i.ToString();
                     }
 
-                    string bin = ((Bin32)(uint)i).ToString();
+                    string bin = ((Bin32) (uint) i).ToString();
                     string[] bins = bin.Split(' ');
 
                     txtBin1.Text = bins[0];
@@ -521,7 +547,7 @@ namespace System.Windows.Forms
                         txtInt.Text = i.ToString();
                     }
 
-                    string bin = ((Bin16)(uint)i).ToString();
+                    string bin = ((Bin16) (uint) i).ToString();
                     string[] bins = bin.Split(' ');
 
                     txtBin1.Text = bins[0];
@@ -562,7 +588,7 @@ namespace System.Windows.Forms
                         txtInt.Text = i.ToString();
                     }
 
-                    string bin = ((Bin8)i).ToString();
+                    string bin = ((Bin8) i).ToString();
                     string[] bins = bin.Split(' ');
 
                     txtBin1.Text = bins[0];
@@ -588,7 +614,7 @@ namespace System.Windows.Forms
                 if (i >= 0 &&
                     i < ppcDisassembler1.grdDisassembler.Rows.Count &&
                     !(ppcDisassembler1.grdDisassembler.SelectedRows.Count > 0 &&
-                    ppcDisassembler1.grdDisassembler.SelectedRows[0].Index == i))
+                      ppcDisassembler1.grdDisassembler.SelectedRows[0].Index == i))
                 {
                     ppcDisassembler1.grdDisassembler.ClearSelection();
                     ppcDisassembler1.grdDisassembler.Rows[i].Selected = true;
@@ -627,6 +653,7 @@ namespace System.Windows.Forms
         private RelocationTarget _targetBranchOffsetRelocation;
         private int _selectedRelocationIndex;
         private int _startIndex, _endIndex;
+
         public int SelectedRelocationIndex
         {
             get => _selectedRelocationIndex;
@@ -676,7 +703,8 @@ namespace System.Windows.Forms
 
                         //Now iterate down the code until we hit a branch to set the end.
                         //Include this branch, because it ends the method.
-                        while (endIndex < _section._dataBuffer.Length / 4 - 1 && !(_manager.GetCode(endIndex) is PPCblr))
+                        while (endIndex < _section._dataBuffer.Length / 4 - 1 &&
+                               !(_manager.GetCode(endIndex) is PPCblr))
                         {
                             endIndex++;
                         }
@@ -695,15 +723,17 @@ namespace System.Windows.Forms
 
                     if (_section.Root is RELNode)
                     {
-                        RELNode r = (RELNode)_section.Root;
+                        RELNode r = (RELNode) _section.Root;
                         bool u = _updating;
                         _updating = true;
                         chkConstructor.Checked =
-                            _selectedRelocationIndex == _manager._constructorIndex && _section.Index == r._prologSection;
+                            _selectedRelocationIndex == _manager._constructorIndex &&
+                            _section.Index == r._prologSection;
                         chkDestructor.Checked =
                             _selectedRelocationIndex == _manager._destructorIndex && _section.Index == r._epilogSection;
                         chkUnresolved.Checked =
-                            _selectedRelocationIndex == _manager._unresolvedIndex && _section.Index == r._unresolvedSection;
+                            _selectedRelocationIndex == _manager._unresolvedIndex &&
+                            _section.Index == r._unresolvedSection;
                         _updating = u;
                     }
 
@@ -711,7 +741,7 @@ namespace System.Windows.Forms
                     PPCOpCode code = _manager.GetCode(_selectedRelocationIndex);
                     if (code is PPCBranch && !(code is PPCblr))
                     {
-                        _targetBranch = (PPCBranch)code;
+                        _targetBranch = (PPCBranch) code;
                         _targetBranchOffsetRelocation = GetBranchOffsetRelocation();
                     }
                     else if (_targetBranchOffsetRelocation != null)
@@ -816,6 +846,7 @@ namespace System.Windows.Forms
         }
 
         private readonly FormGoTo _formGoto = new FormGoTo();
+
         private void gotoToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             _formGoto.SetMaxByteIndex(hexBox1.ByteProvider.Length);
@@ -864,7 +895,7 @@ namespace System.Windows.Forms
                 hexBox1.Focus();
             }
 
-            Message m = new Message() { WParam = (IntPtr)(16 | 65536) };
+            Message m = new Message() {WParam = (IntPtr) (16 | 65536)};
             hexBox1._ki.PreProcessWmKeyUp(ref m);
         }
 
@@ -881,7 +912,7 @@ namespace System.Windows.Forms
             }
 
             //There can only be one BSS section
-            foreach (ModuleSectionNode s in ((ModuleNode)_section.Root).Sections)
+            foreach (ModuleSectionNode s in ((ModuleNode) _section.Root).Sections)
             {
                 if (s != _section)
                 {
@@ -911,12 +942,12 @@ namespace System.Windows.Forms
                                 break;
                             }
                         }
-                        else
-                            if (s._isBSSSection)
+                        else if (s._isBSSSection)
                         {
                             found = true;
                             break;
                         }
+
                         if (!found)
                         {
                             return;
@@ -965,7 +996,7 @@ namespace System.Windows.Forms
                 d.Filter = "Raw Data (*.*)|*.*";
                 d.FileName = _section.Name;
                 d.Title = "Choose a place to export to.";
-                if (d.ShowDialog() == Forms.DialogResult.OK)
+                if (d.ShowDialog() == DialogResult.OK)
                 {
                     _section.Export(d.FileName);
                 }
@@ -977,7 +1008,7 @@ namespace System.Windows.Forms
             using (OpenFileDialog d = new OpenFileDialog())
             {
                 d.Filter = "Raw Data (*.*)|*.*";
-                if (d.ShowDialog() == Forms.DialogResult.OK)
+                if (d.ShowDialog() == DialogResult.OK)
                 {
                     _section.Replace(d.FileName);
                     Init();
@@ -1005,7 +1036,7 @@ namespace System.Windows.Forms
 
             if (hexBox1.SelectionLength > 0)
             {
-                for (int i = 0; i < (hexBox1.SelectionLength.RoundUp(4) / 4); i++)
+                for (int i = 0; i < hexBox1.SelectionLength.RoundUp(4) / 4; i++)
                 {
                     _manager.SetCommand(SelectedRelocationIndex + i, cmd);
                 }
@@ -1048,7 +1079,6 @@ namespace System.Windows.Forms
 
         private void txtSize_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         public void OpenRelocation(RelocationTarget target)
@@ -1072,7 +1102,7 @@ namespace System.Windows.Forms
                 }
 
                 //TODO: use target module id here
-                ModuleSectionNode section = ((ModuleNode)_section.Root).Sections[target._sectionID];
+                ModuleSectionNode section = ((ModuleNode) _section.Root).Sections[target._sectionID];
                 SectionEditor x = new SectionEditor(section);
                 x.Show();
 
@@ -1102,6 +1132,7 @@ namespace System.Windows.Forms
                 OpenRelocation(lstLinked.SelectedItem as RelocationTarget);
             }
         }
+
         private void lstLinked_DrawItem(object sender, DrawItemEventArgs e)
         {
             e.DrawBackground();
@@ -1115,10 +1146,12 @@ namespace System.Windows.Forms
                     e.Graphics.DrawString(r.ToString(), lstLinked.Font, new SolidBrush(c), e.Bounds);
                 }
             }
+
             e.DrawFocusRectangle();
         }
 
         private bool _updating = false;
+
         private void txtFloat_TextChanged(object sender, EventArgs e)
         {
             if (_updating)
@@ -1129,7 +1162,7 @@ namespace System.Windows.Forms
             if (float.TryParse(txtFloat.Text, out float f))
             {
                 long t = Position.RoundDown(4);
-                byte* b = (byte*)&f;
+                byte* b = (byte*) &f;
                 hexBox1.ByteProvider.WriteByte(t + 3, b[0]);
                 hexBox1.ByteProvider.WriteByte(t + 2, b[1]);
                 hexBox1.ByteProvider.WriteByte(t + 1, b[2]);
@@ -1162,8 +1195,8 @@ namespace System.Windows.Forms
                 if (long.TryParse(txtInt.Text, out l))
                 {
                     long t = Position.RoundDown(4);
-                    int i = (int)l.Clamp(int.MinValue, int.MaxValue);
-                    byte* b = (byte*)&i;
+                    int i = (int) l.Clamp(int.MinValue, int.MaxValue);
+                    byte* b = (byte*) &i;
                     hexBox1.ByteProvider.WriteByte(t + 3, b[0]);
                     hexBox1.ByteProvider.WriteByte(t + 2, b[1]);
                     hexBox1.ByteProvider.WriteByte(t + 1, b[2]);
@@ -1187,8 +1220,8 @@ namespace System.Windows.Forms
                 if (long.TryParse(txtInt.Text, out l))
                 {
                     long t = Position.RoundDown(2);
-                    short s = (short)l.Clamp(short.MinValue, short.MaxValue);
-                    byte* b = (byte*)&s;
+                    short s = (short) l.Clamp(short.MinValue, short.MaxValue);
+                    byte* b = (byte*) &s;
                     hexBox1.ByteProvider.WriteByte(t + 1, b[0]);
                     hexBox1.ByteProvider.WriteByte(t + 0, b[1]);
                     hexBox1.Invalidate();
@@ -1208,7 +1241,7 @@ namespace System.Windows.Forms
                 if (long.TryParse(txtInt.Text, out l))
                 {
                     long t = Position;
-                    byte b = (byte)l.Clamp(byte.MinValue, byte.MaxValue);
+                    byte b = (byte) l.Clamp(byte.MinValue, byte.MaxValue);
                     hexBox1.ByteProvider.WriteByte(t, b);
                     hexBox1.Invalidate();
                     PosChanged();
@@ -1246,14 +1279,16 @@ namespace System.Windows.Forms
 
             if (rdo4byte.Checked)
             {
-                Bin32 b = Bin32.FromString(txtBin1.Text + " " + txtBin2.Text + " " + txtBin3.Text + " " + txtBin4.Text + " " + txtBin5.Text + " " + txtBin6.Text + " " + txtBin7.Text + " " + txtBin8.Text);
+                Bin32 b = Bin32.FromString(txtBin1.Text + " " + txtBin2.Text + " " + txtBin3.Text + " " + txtBin4.Text +
+                                           " " + txtBin5.Text + " " + txtBin6.Text + " " + txtBin7.Text + " " +
+                                           txtBin8.Text);
                 long t = Position.RoundDown(4);
 
                 byte
-                    b1 = (byte)((b >> 00) & 0xFF),
-                    b2 = (byte)((b >> 08) & 0xFF),
-                    b3 = (byte)((b >> 16) & 0xFF),
-                    b4 = (byte)((b >> 24) & 0xFF);
+                    b1 = (byte) ((b >> 00) & 0xFF),
+                    b2 = (byte) ((b >> 08) & 0xFF),
+                    b3 = (byte) ((b >> 16) & 0xFF),
+                    b4 = (byte) ((b >> 24) & 0xFF);
 
                 txtByte1.Text = b1.ToString();
                 txtByte2.Text = b2.ToString();
@@ -1274,8 +1309,8 @@ namespace System.Windows.Forms
                 long t = Position.RoundDown(2);
 
                 byte
-                    b1 = (byte)((b >> 00) & 0xFF),
-                    b2 = (byte)((b >> 08) & 0xFF);
+                    b1 = (byte) ((b >> 00) & 0xFF),
+                    b2 = (byte) ((b >> 08) & 0xFF);
 
                 txtByte1.Text = b1.ToString();
                 txtByte2.Text = b2.ToString();
@@ -1294,7 +1329,7 @@ namespace System.Windows.Forms
                 long t = Position;
 
                 byte
-                    b1 = (byte)((b >> 00) & 0xFF);
+                    b1 = (byte) ((b >> 00) & 0xFF);
 
                 txtByte1.Text = b1.ToString();
                 txtByte2.Text = "";
@@ -1309,6 +1344,7 @@ namespace System.Windows.Forms
         }
 
         public bool _relocationsChanged = false;
+
         private void Apply()
         {
             if (hexBox1.ByteProvider == null)
@@ -1318,7 +1354,8 @@ namespace System.Windows.Forms
 
             try
             {
-                if (_section._isBSSSection != chkBSSSection.Checked || _section._isCodeSection != chkCodeSection.Checked)
+                if (_section._isBSSSection != chkBSSSection.Checked ||
+                    _section._isCodeSection != chkCodeSection.Checked)
                 {
                     _section._isBSSSection = chkBSSSection.Checked;
                     _section._isCodeSection = chkCodeSection.Checked;
@@ -1331,19 +1368,19 @@ namespace System.Windows.Forms
 
                     if (r.PrologSection == _section.Index && r._prologOffset / 4 != _manager._constructorIndex)
                     {
-                        r._prologOffset = (uint)_manager._constructorIndex * 4;
+                        r._prologOffset = (uint) _manager._constructorIndex * 4;
                         r.SignalPropertyChange();
                     }
 
                     if (r.EpilogSection == _section.Index && r._epilogOffset / 4 != _manager._destructorIndex)
                     {
-                        r._epilogOffset = (uint)_manager._destructorIndex * 4;
+                        r._epilogOffset = (uint) _manager._destructorIndex * 4;
                         r.SignalPropertyChange();
                     }
 
                     if (r.UnresolvedSection == _section.Index && r._unresolvedOffset / 4 != _manager._unresolvedIndex)
                     {
-                        r._unresolvedOffset = (uint)_manager._unresolvedIndex * 4;
+                        r._unresolvedOffset = (uint) _manager._unresolvedIndex * 4;
                         r.SignalPropertyChange();
                     }
                 }
@@ -1354,15 +1391,15 @@ namespace System.Windows.Forms
                     return;
                 }
 
-                UnsafeBuffer newBuffer = new UnsafeBuffer((int)d.Length);
+                UnsafeBuffer newBuffer = new UnsafeBuffer((int) d.Length);
 
                 int amt = Math.Min(_section._dataBuffer.Length, newBuffer.Length);
                 if (amt > 0)
                 {
-                    Memory.Move(newBuffer.Address, _section._dataBuffer.Address, (uint)amt);
+                    Memory.Move(newBuffer.Address, _section._dataBuffer.Address, (uint) amt);
                     if (newBuffer.Length - amt > 0)
                     {
-                        Memory.Fill(newBuffer.Address + amt, (uint)(newBuffer.Length - amt), 0);
+                        Memory.Fill(newBuffer.Address + amt, (uint) (newBuffer.Length - amt), 0);
                     }
                 }
 
@@ -1371,7 +1408,8 @@ namespace System.Windows.Forms
                     d._stream.Dispose();
                 }
 
-                d._stream = new UnmanagedMemoryStream((byte*)newBuffer.Address, newBuffer.Length, newBuffer.Length, FileAccess.ReadWrite);
+                d._stream = new UnmanagedMemoryStream((byte*) newBuffer.Address, newBuffer.Length, newBuffer.Length,
+                    FileAccess.ReadWrite);
 
                 d.ApplyChanges();
 
@@ -1413,7 +1451,7 @@ namespace System.Windows.Forms
 
             DynamicFileByteProvider d = hexBox1.ByteProvider as DynamicFileByteProvider;
             d._supportsInsDel = true;
-            d.InsertBytes(offset, new byte[] { 0, 0, 0, 0 });
+            d.InsertBytes(offset, new byte[] {0, 0, 0, 0});
             d._supportsInsDel = false;
             FixRelocations(1, offset);
 
@@ -1422,18 +1460,21 @@ namespace System.Windows.Forms
 
         private void FixRelocations(int amt, long offset)
         {
-            foreach (ModuleDataNode s in ((ModuleNode)_section.Root).Sections)
+            foreach (ModuleDataNode s in ((ModuleNode) _section.Root).Sections)
             {
                 foreach (RelCommand command in s._manager._commands.Values)
                 {
                     if (command.TargetSectionID == _section.Index && command._addend >= offset)
                     {
-                        command._addend = (uint)((int)command._addend + (amt * 4));
+                        command._addend = (uint) ((int) command._addend + amt * 4);
                     }
                 }
+
                 if (s.Index == _section.Index)
                 {
-                    List<KeyValuePair<int, RelCommand>> keysToUpdate = new List<KeyValuePair<int, RelCommand>>(_section._manager._commands.Where(x => x.Key >= offset / 4));
+                    List<KeyValuePair<int, RelCommand>> keysToUpdate =
+                        new List<KeyValuePair<int, RelCommand>>(
+                            _section._manager._commands.Where(x => x.Key >= offset / 4));
 
                     // TODO fix this mess. Right now we need to clear all commands that need
                     // updating before setting them with their new index or commands seated
@@ -1442,6 +1483,7 @@ namespace System.Windows.Forms
                     {
                         _section._manager.ClearCommand(rel.Key);
                     }
+
                     foreach (KeyValuePair<int, RelCommand> rel in keysToUpdate)
                     {
                         _section._manager.SetCommand(rel.Key + 1, rel.Value);
@@ -1579,7 +1621,9 @@ namespace System.Windows.Forms
 
         private void chkAnnotations_CheckedChanged(object sender, EventArgs e)
         {
-            btn1underline.Visible = btn2underline.Visible = btn3underline.Visible = btn4underline.Visible = annotationDescription.Visible = annotationTitle.Visible = btnSaveAnnotation.Visible = chkAnnotations.Checked;
+            btn1underline.Visible = btn2underline.Visible = btn3underline.Visible = btn4underline.Visible =
+                annotationDescription.Visible =
+                    annotationTitle.Visible = btnSaveAnnotation.Visible = chkAnnotations.Checked;
             splitContainer1.Panel2Collapsed = !chkAnnotations.Checked;
         }
 
@@ -1602,7 +1646,7 @@ namespace System.Windows.Forms
 
         private void annotationDescription_LinkClicked(object sender, LinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("explorer.exe", e.LinkText);
+            Diagnostics.Process.Start("explorer.exe", e.LinkText);
         }
 
         private void btnSaveAnnotation_Click(object sender, EventArgs e)
@@ -1619,30 +1663,35 @@ namespace System.Windows.Forms
         {
             Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation");
             Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module");
-            Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module\\" + _section.Root.Name);
-            string Filename = AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module\\" + _section.Root.Name + '\\' + _section.Name + ".txt";
+            Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module\\" +
+                                      _section.Root.Name);
+            string Filename = AppDomain.CurrentDomain.BaseDirectory + "InternalDocumentation" + "\\Module\\" +
+                              _section.Root.Name + '\\' + _section.Name + ".txt";
             string dir = Path.GetDirectoryName(Filename);
             if (File.Exists(Filename))
             {
                 if (DialogResult.Yes != MessageBox.Show("Overwrite " + Filename + "?", "Overwrite",
-                    MessageBoxButtons.YesNo))
+                        MessageBoxButtons.YesNo))
                 {
                     return;
                 }
             }
+
             using (StreamWriter sw = new StreamWriter(Filename))
             {
                 bool firstLine = true;
                 //foreach (AttributeInfo attr in Array) {
                 for (int i = 0; i < annotationTitles.Count && i < annotationDescriptions.Count; i++)
                 {
-                    if ((!annotationDescriptions[i].StartsWith("Default: 0x") || annotationDescriptions[i].Length != 19) && annotationDescriptions[i].Length > 0)
+                    if ((!annotationDescriptions[i].StartsWith("Default: 0x") ||
+                         annotationDescriptions[i].Length != 19) && annotationDescriptions[i].Length > 0)
                     {
                         if (!firstLine)
                         {
                             sw.WriteLine();
                             sw.WriteLine();
                         }
+
                         firstLine = false;
                         sw.WriteLine(annotationTitles[i]);
                         sw.WriteLine(annotationDescriptions[i]);
@@ -1660,11 +1709,11 @@ namespace System.Windows.Forms
                 return;
             }
 
-            label4.Text = rdo4byte.Checked ? "Integer:" : (rdo2byte.Checked ? "Short:" : "Byte:");
+            label4.Text = rdo4byte.Checked ? "Integer:" : rdo2byte.Checked ? "Short:" : "Byte:";
             txtBin3.Enabled = txtBin4.Enabled = !rdo1byte.Checked;
             txtBin5.Enabled = txtBin6.Enabled = txtBin7.Enabled = txtBin8.Enabled = rdo4byte.Checked;
-            txtFloat.Enabled = rdo4byte.Checked;//= (!chkCodeSection.Checked && rdo4byte.Checked);
-            hexBox1.byteCount = rdo4byte.Checked ? 4 : (rdo2byte.Checked ? 2 : 1);
+            txtFloat.Enabled = rdo4byte.Checked; //= (!chkCodeSection.Checked && rdo4byte.Checked);
+            hexBox1.byteCount = rdo4byte.Checked ? 4 : rdo2byte.Checked ? 2 : 1;
             PosChanged();
         }
 
@@ -1675,9 +1724,9 @@ namespace System.Windows.Forms
                 !(TargetBranch is PPCbctr))
             {
                 return new RelocationTarget(_section.ModuleID, _section.Index,
-                    !TargetBranch.Absolute ?
-                    (SelectedRelocationIndex * 4 + (TargetBranch.DataOffset).RoundDown(4)) / 4 :
-                    0 //Absolute from start of section, start of file, or start of memory?
+                    !TargetBranch.Absolute
+                        ? (SelectedRelocationIndex * 4 + TargetBranch.DataOffset.RoundDown(4)) / 4
+                        : 0 //Absolute from start of section, start of file, or start of memory?
                 );
             }
 
@@ -1686,9 +1735,9 @@ namespace System.Windows.Forms
 
         private void annotationDescription_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            if (e.Button == MouseButtons.Right)
             {
-                ContextMenu contextMenu = new System.Windows.Forms.ContextMenu();
+                ContextMenu contextMenu = new ContextMenu();
                 MenuItem menuItem = new MenuItem("Cut");
                 menuItem.Click += new EventHandler(CutAction);
                 menuItem.Enabled = annotationDescription.SelectedText.Length > 0;
@@ -1720,10 +1769,14 @@ namespace System.Windows.Forms
 
         private void btnUnderline_CheckedChanged(object sender, EventArgs e)
         {
-            btn1underline.Font = new Font(btn1underline.Font, btn1underline.Checked ? Drawing.FontStyle.Underline : Drawing.FontStyle.Regular);
-            btn2underline.Font = new Font(btn2underline.Font, btn2underline.Checked ? Drawing.FontStyle.Underline : Drawing.FontStyle.Regular);
-            btn3underline.Font = new Font(btn3underline.Font, btn3underline.Checked ? Drawing.FontStyle.Underline : Drawing.FontStyle.Regular);
-            btn4underline.Font = new Font(btn4underline.Font, btn4underline.Checked ? Drawing.FontStyle.Underline : Drawing.FontStyle.Regular);
+            btn1underline.Font = new Font(btn1underline.Font,
+                btn1underline.Checked ? Drawing.FontStyle.Underline : Drawing.FontStyle.Regular);
+            btn2underline.Font = new Font(btn2underline.Font,
+                btn2underline.Checked ? Drawing.FontStyle.Underline : Drawing.FontStyle.Regular);
+            btn3underline.Font = new Font(btn3underline.Font,
+                btn3underline.Checked ? Drawing.FontStyle.Underline : Drawing.FontStyle.Regular);
+            btn4underline.Font = new Font(btn4underline.Font,
+                btn4underline.Checked ? Drawing.FontStyle.Underline : Drawing.FontStyle.Regular);
             if (_updating)
             {
                 return;
@@ -1732,12 +1785,13 @@ namespace System.Windows.Forms
             if (annotationDescriptions.Count > annotationIndex)
             {
                 annotationUnderlineValues[annotationIndex] = "";
-                annotationUnderlineValues[annotationIndex] += (btn1underline.Checked ? 1 : 0);
-                annotationUnderlineValues[annotationIndex] += (btn2underline.Checked ? 1 : 0);
-                annotationUnderlineValues[annotationIndex] += (btn3underline.Checked ? 1 : 0);
-                annotationUnderlineValues[annotationIndex] += (btn4underline.Checked ? 1 : 0);
+                annotationUnderlineValues[annotationIndex] += btn1underline.Checked ? 1 : 0;
+                annotationUnderlineValues[annotationIndex] += btn2underline.Checked ? 1 : 0;
+                annotationUnderlineValues[annotationIndex] += btn3underline.Checked ? 1 : 0;
+                annotationUnderlineValues[annotationIndex] += btn4underline.Checked ? 1 : 0;
                 annotationUnderlineValues[annotationIndex] += "    // Flags for which bytes are underlined";
             }
+
             hexBox1.annotationUnderlines = annotationUnderlineValues;
             hexBox1.Invalidate();
         }

@@ -19,10 +19,25 @@ namespace BrawlLib.SSBBTypes
             _DataOffset = count * 4;
         }
 
-        public VoidPtr this[int index] => (byte*)Address + Offsets(index);
-        public uint Offsets(int index) { return *(buint*)((byte*)Address + 0x08 + (index * 4)); }
-        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
+        public VoidPtr this[int index] => (byte*) Address + Offsets(index);
+
+        public uint Offsets(int index)
+        {
+            return *(buint*) ((byte*) Address + 0x08 + index * 4);
+        }
+
+        private VoidPtr Address
+        {
+            get
+            {
+                fixed (void* ptr = &this)
+                {
+                    return ptr;
+                }
+            }
+        }
     }
+
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct GITMEntry
     {
@@ -40,7 +55,7 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x0B;
         public byte _unknown0x0C;
         public byte _unknown0x0D;
-        public byte _modeldataid2;   // 0x0E
+        public byte _modeldataid2; // 0x0E
         public byte _unknown0x0F;
         public byte _unknown0x10;
         public byte _unknown0x11;
@@ -83,7 +98,15 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x36;
         public byte _unknown0x37;
 
-        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
+        private VoidPtr Address
+        {
+            get
+            {
+                fixed (void* ptr = &this)
+                {
+                    return ptr;
+                }
+            }
+        }
     }
-
 }

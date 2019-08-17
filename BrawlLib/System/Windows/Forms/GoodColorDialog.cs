@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+
 namespace System.Windows.Forms
 {
     public class GoodColorDialog : Form
@@ -9,13 +10,13 @@ namespace System.Windows.Forms
 
         private void InitializeComponent()
         {
-            goodColorControl21 = new System.Windows.Forms.GoodColorControl2();
+            goodColorControl21 = new GoodColorControl2();
             SuspendLayout();
             // 
             // goodColorControl21
             // 
-            goodColorControl21.Color = System.Drawing.Color.Empty;
-            goodColorControl21.Dock = System.Windows.Forms.DockStyle.Fill;
+            goodColorControl21.Color = Color.Empty;
+            goodColorControl21.Dock = DockStyle.Fill;
             goodColorControl21.EditAlpha = true;
             goodColorControl21.Location = new System.Drawing.Point(0, 0);
             goodColorControl21.Name = "goodColorControl21";
@@ -27,14 +28,13 @@ namespace System.Windows.Forms
             // 
             ClientSize = new System.Drawing.Size(335, 253);
             Controls.Add(goodColorControl21);
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "GoodColorDialog";
             ShowInTaskbar = false;
             Text = "Color Selector";
             ResumeLayout(false);
-
         }
 
         #endregion
@@ -46,6 +46,7 @@ namespace System.Windows.Forms
             get => goodColorControl21.Color;
             set => goodColorControl21.Color = value;
         }
+
         public bool EditAlpha
         {
             get => goodColorControl21.EditAlpha;
@@ -61,6 +62,7 @@ namespace System.Windows.Forms
                 }
             }
         }
+
         public bool ShowOldColor
         {
             get => goodColorControl21.ShowOldColor;

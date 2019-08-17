@@ -14,7 +14,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             get
             {
                 ResourceNode n = this;
-                while (((n = n.Parent) != null) && !(n is RSARNode))
+                while ((n = n.Parent) != null && !(n is RSARNode))
                 {
                     ;
                 }
@@ -41,10 +41,18 @@ namespace BrawlLib.SSBB.ResourceNodes
                 Type t = GetType();
                 switch (t.Name)
                 {
-                    case "RSARSoundNode": i = 0; break;
-                    case "RSARBankNode": i = 1; break;
-                    case "RSARPlayerInfoNode": i = 2; break;
-                    case "RSARGroupNode": i = 4; break;
+                    case "RSARSoundNode":
+                        i = 0;
+                        break;
+                    case "RSARBankNode":
+                        i = 1;
+                        break;
+                    case "RSARPlayerInfoNode":
+                        i = 2;
+                        break;
+                    case "RSARGroupNode":
+                        i = 4;
+                        break;
                 }
 
                 System.Collections.Generic.List<RSAREntryNode> list = RSARNode._infoCache[i];
@@ -64,6 +72,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         public static int _soundbankCalc = 331;
+
         [Category("JOJI Soundbank Expansion")]
         [DisplayName("SawndID (For Calculation Purposes Only)")]
         public int SoundbankCalc
@@ -93,11 +102,11 @@ namespace BrawlLib.SSBB.ResourceNodes
 
                 if (_infoIndex >= 0xA34 && _infoIndex <= 0xA62)
                 {
-                    return "0x" + (_infoIndex + 0x35CC + (0xA5 * a5mult)).ToString("X8");
+                    return "0x" + (_infoIndex + 0x35CC + 0xA5 * a5mult).ToString("X8");
                 }
                 else if (_infoIndex >= 0x18D8 && _infoIndex <= 0x194D)
                 {
-                    return "0x" + (_infoIndex + 0x2757 + (0xA5 * a5mult)).ToString("X8");
+                    return "0x" + (_infoIndex + 0x2757 + 0xA5 * a5mult).ToString("X8");
                 }
                 else
                 {
@@ -109,14 +118,15 @@ namespace BrawlLib.SSBB.ResourceNodes
         public int _infoIndex;
         internal VoidPtr Data => WorkingUncompressed.Address;
 
-        [Category("Data"), Browsable(true)]
+        [Category("Data")]
+        [Browsable(true)]
         public string DataOffset
         {
             get
             {
                 if (RSARNode != null)
                 {
-                    return ((uint)(Data - RSARNode.Header)).ToString("X");
+                    return ((uint) (Data - RSARNode.Header)).ToString("X");
                 }
                 else
                 {
@@ -147,6 +157,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         }
 
         internal string _fullPath;
+
         internal virtual void GetStrings(sbyte* path, int pathLen, RSAREntryList list)
         {
             int len = _name.Length;
@@ -156,7 +167,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                 return;
             }
 
-            len += pathLen + ((pathLen != 0) ? 1 : 0);
+            len += pathLen + (pathLen != 0 ? 1 : 0);
 
             sbyte* chars = stackalloc sbyte[len];
 
@@ -167,14 +178,14 @@ namespace BrawlLib.SSBB.ResourceNodes
                     chars[i++] = *path++;
                 }
 
-                chars[i++] = (sbyte)'_';
+                chars[i++] = (sbyte) '_';
             }
 
             fixed (char* s = _name)
             {
                 for (int x = 0; i < len;)
                 {
-                    chars[i++] = (sbyte)s[x++];
+                    chars[i++] = (sbyte) s[x++];
                 }
             }
 

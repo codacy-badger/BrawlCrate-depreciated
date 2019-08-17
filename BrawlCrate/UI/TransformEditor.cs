@@ -20,26 +20,27 @@ namespace System.Windows.Forms
 
         private void btnOkay_Click(object sender, EventArgs e)
         {
-            DialogResult = Forms.DialogResult.OK;
+            DialogResult = DialogResult.OK;
             Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            DialogResult = Forms.DialogResult.Cancel;
+            DialogResult = DialogResult.Cancel;
             Close();
         }
 
         private void propertyGrid1_Click(object sender, EventArgs e)
         {
-
         }
     }
 
     public class xyTransform
     {
         private Vector2 _trans = new Vector2(0, 0);
-        [Category("Transform"), TypeConverter(typeof(Vector2StringConverter))]
+
+        [Category("Transform")]
+        [TypeConverter(typeof(Vector2StringConverter))]
         [DisplayName("\t\t\tTranslation")]
         public Vector2 Translation
         {
@@ -48,6 +49,7 @@ namespace System.Windows.Forms
         }
 
         private int _rot = 0;
+
         [Category("Transform")]
         [DisplayName("\t\tRotation")]
         public int Rotation
@@ -61,6 +63,7 @@ namespace System.Windows.Forms
             FromOrigin,
             FromCenterOfCollisions
         }
+
         /*
         ScaleType _scaleType = ScaleType.FromOrigin;
         [Category("Transform"), Description("Changes the way in which values are scaled")]
@@ -68,7 +71,9 @@ namespace System.Windows.Forms
         public ScaleType ScalingType { get { return _scaleType; } set { _scaleType = value; } }
         */
         private Vector2 _scale = new Vector2(1, 1);
-        [Category("Transform"), TypeConverter(typeof(Vector2StringConverter))]
+
+        [Category("Transform")]
+        [TypeConverter(typeof(Vector2StringConverter))]
         [DisplayName("Scale")]
         public Vector2 Scale
         {

@@ -3,10 +3,10 @@ namespace System.Windows.Forms
     /// <summary>
     /// Summary description for FormGoTo.
     /// </summary>
-    public class FormGoTo : System.Windows.Forms.Form
+    public class FormGoTo : Form
     {
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnOK;
+        private Button btnCancel;
+        private Button btnOK;
         private GroupBox groupBox2;
         private RadioButton chkEnd;
         private RadioButton chkCurrent;
@@ -16,6 +16,7 @@ namespace System.Windows.Forms
         private RadioButton chkHex;
         private Label label1;
         private TextBox txtOffset;
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -45,10 +46,12 @@ namespace System.Windows.Forms
                     components.Dispose();
                 }
             }
+
             base.Dispose(disposing);
         }
 
         #region Windows Form Designer generated code
+
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
@@ -212,12 +215,13 @@ namespace System.Windows.Forms
             groupBox3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
-
         }
+
         #endregion
 
         private long _maxVal = long.MaxValue;
         private long current;
+
         public void SetDefaultValue(long byteIndex)
         {
             current = byteIndex;
@@ -235,23 +239,24 @@ namespace System.Windows.Forms
             return (chkBegin.Checked ? v : chkCurrent.Checked ? current + v : _maxVal - v).Clamp(0, _maxVal);
         }
 
-        private void FormGoTo_Activated(object sender, System.EventArgs e)
+        private void FormGoTo_Activated(object sender, EventArgs e)
         {
             txtOffset.Focus();
         }
 
-        private void btnOK_Click(object sender, System.EventArgs e)
+        private void btnOK_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
         }
 
-        private void btnCancel_Click(object sender, System.EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
         }
 
         public char[] _hexChars = "0123456789ABCDEFabcdef".ToCharArray();
         public char[] _decChars = "0123456789".ToCharArray();
+
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             char[] arr = chkHex.Checked ? _hexChars : _decChars;
@@ -289,6 +294,7 @@ namespace System.Windows.Forms
                 long v = Convert.ToInt64(txtOffset.Text, 16);
                 txtOffset.Text = v.ToString();
             }
+
             if (!string.IsNullOrEmpty(txtOffset.Text))
             {
                 txtOffset.Select(i.Clamp(0, txtOffset.TextLength), 0);

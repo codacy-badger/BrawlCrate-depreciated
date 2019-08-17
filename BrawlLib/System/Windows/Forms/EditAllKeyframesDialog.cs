@@ -7,7 +7,10 @@ namespace System.Windows.Forms
         private int _type;
         private IKeyframeSource _target;
 
-        public EditAllKeyframesDialog() { InitializeComponent(); }
+        public EditAllKeyframesDialog()
+        {
+            InitializeComponent();
+        }
 
         public DialogResult ShowDialog(IWin32Window owner, int type, IKeyframeSource target)
         {
@@ -46,11 +49,16 @@ namespace System.Windows.Forms
                     }
                 }
             }
+
             DialogResult = DialogResult.OK;
             Close();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e) { DialogResult = DialogResult.Cancel; Close(); }
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
 
         #region Designer
 
@@ -62,11 +70,11 @@ namespace System.Windows.Forms
 
         private void InitializeComponent()
         {
-            amount = new System.Windows.Forms.TextBox();
-            btnCancel = new System.Windows.Forms.Button();
-            btnOkay = new System.Windows.Forms.Button();
-            label1 = new System.Windows.Forms.Label();
-            comboBox1 = new System.Windows.Forms.ComboBox();
+            amount = new TextBox();
+            btnCancel = new Button();
+            btnOkay = new Button();
+            label1 = new Label();
+            comboBox1 = new ComboBox();
             SuspendLayout();
             // 
             // amount
@@ -79,26 +87,26 @@ namespace System.Windows.Forms
             // 
             // btnCancel
             // 
-            btnCancel.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
-            btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnCancel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnCancel.DialogResult = DialogResult.Cancel;
             btnCancel.Location = new System.Drawing.Point(197, 38);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new System.Drawing.Size(75, 23);
             btnCancel.TabIndex = 2;
             btnCancel.Text = "&Cancel";
             btnCancel.UseVisualStyleBackColor = true;
-            btnCancel.Click += new System.EventHandler(btnCancel_Click);
+            btnCancel.Click += new EventHandler(btnCancel_Click);
             // 
             // btnOkay
             // 
-            btnOkay.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
+            btnOkay.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnOkay.Location = new System.Drawing.Point(116, 38);
             btnOkay.Name = "btnOkay";
             btnOkay.Size = new System.Drawing.Size(75, 23);
             btnOkay.TabIndex = 1;
             btnOkay.Text = "&Okay";
             btnOkay.UseVisualStyleBackColor = true;
-            btnOkay.Click += new System.EventHandler(btnOkay_Click);
+            btnOkay.Click += new EventHandler(btnOkay_Click);
             // 
             // label1
             // 
@@ -116,7 +124,7 @@ namespace System.Windows.Forms
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new System.Drawing.Size(98, 21);
             comboBox1.TabIndex = 4;
-            comboBox1.SelectedIndexChanged += new System.EventHandler(comboBox1_SelectedIndexChanged);
+            comboBox1.SelectedIndexChanged += new EventHandler(comboBox1_SelectedIndexChanged);
             // 
             // EditDialog
             // 
@@ -128,16 +136,16 @@ namespace System.Windows.Forms
             Controls.Add(btnOkay);
             Controls.Add(btnCancel);
             Controls.Add(amount);
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "EditDialog";
             ShowIcon = false;
             ShowInTaskbar = false;
-            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Edit All Keyframes";
             ResumeLayout(false);
             PerformLayout();
-
         }
+
         #endregion
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

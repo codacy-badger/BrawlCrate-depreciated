@@ -12,6 +12,7 @@ namespace BrawlCrate.NodeWrappers
         #region Menu
 
         private static readonly ContextMenuStrip _menu;
+
         static STPMWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -34,20 +35,32 @@ namespace BrawlCrate.NodeWrappers
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
-        protected static void NewEntryAction(object sender, EventArgs e) { GetInstance<STPMWrapper>().NewEntry(); }
-        protected static void ReplaceCameraAction(object sender, EventArgs e) { GetInstance<STPMWrapper>().ReplaceCamera(); }
+
+        protected static void NewEntryAction(object sender, EventArgs e)
+        {
+            GetInstance<STPMWrapper>().NewEntry();
+        }
+
+        protected static void ReplaceCameraAction(object sender, EventArgs e)
+        {
+            GetInstance<STPMWrapper>().ReplaceCamera();
+        }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-            _menu.Items[5].Enabled = _menu.Items[6].Enabled = _menu.Items[7].Enabled = _menu.Items[9].Enabled = _menu.Items[10].Enabled = _menu.Items[13].Enabled = true;
+            _menu.Items[5].Enabled = _menu.Items[6].Enabled = _menu.Items[7].Enabled =
+                _menu.Items[9].Enabled = _menu.Items[10].Enabled = _menu.Items[13].Enabled = true;
         }
+
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             STPMWrapper w = GetInstance<STPMWrapper>();
             _menu.Items[5].Enabled = _menu.Items[7].Enabled = _menu.Items[13].Enabled = w.Parent != null;
-            _menu.Items[6].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[6].Enabled = w._resource.IsDirty || w._resource.IsBranch;
             _menu.Items[9].Enabled = w.PrevNode != null;
             _menu.Items[10].Enabled = w.NextNode != null;
         }
+
         #endregion
 
         public override string ExportFilter => FileFilters.STPM;
@@ -58,23 +71,26 @@ namespace BrawlCrate.NodeWrappers
             {
                 return null;
             }
+
             _resource.Rebuild();
-            STPMNode newNode = NodeFactory.FromAddress(null, _resource.WorkingUncompressed.Address, _resource.WorkingUncompressed.Length) as STPMNode;
+            STPMNode newNode = NodeFactory.FromAddress(null, _resource.WorkingUncompressed.Address,
+                _resource.WorkingUncompressed.Length) as STPMNode;
             _resource._parent.InsertChild(newNode, true, _resource.Index + 1);
             newNode.Populate();
-            newNode.FileType = ((STPMNode)_resource).FileType;
-            newNode.FileIndex = ((STPMNode)_resource).FileIndex;
-            newNode.GroupID = ((STPMNode)_resource).GroupID;
-            newNode.RedirectIndex = ((STPMNode)_resource).RedirectIndex;
+            newNode.FileType = ((STPMNode) _resource).FileType;
+            newNode.FileIndex = ((STPMNode) _resource).FileIndex;
+            newNode.GroupID = ((STPMNode) _resource).GroupID;
+            newNode.RedirectIndex = ((STPMNode) _resource).RedirectIndex;
             newNode.Name = _resource.Name;
             return newNode;
         }
 
         public void NewEntry()
         {
-            STPMEntryNode node = new STPMEntryNode() { Name = "NewEntry" };
+            STPMEntryNode node = new STPMEntryNode() {Name = "NewEntry"};
             _resource.AddChild(node);
         }
+
         public void ReplaceCamera()
         {
             bool portPauseCam = true;
@@ -86,59 +102,91 @@ namespace BrawlCrate.NodeWrappers
             };
             if (o.ShowDialog() == DialogResult.OK)
             {
-                if ((external = (STPMNode)NodeFactory.FromFile(null, o.FileName)) != null)
+                if ((external = (STPMNode) NodeFactory.FromFile(null, o.FileName)) != null)
                 {
                     if (_resource.Children.Count > 0 && external.Children.Count > 0)
                     {
                         // Port exclusively camera variables
-                        ((STPMEntryNode)(_resource.Children[0])).CameraFOV = ((STPMEntryNode)(external.Children[0])).CameraFOV;
+                        ((STPMEntryNode) _resource.Children[0]).CameraFOV =
+                            ((STPMEntryNode) external.Children[0]).CameraFOV;
 
-                        ((STPMEntryNode)(_resource.Children[0])).MinimumZ = ((STPMEntryNode)(external.Children[0])).MinimumZ;
-                        ((STPMEntryNode)(_resource.Children[0])).MaximumZ = ((STPMEntryNode)(external.Children[0])).MaximumZ;
+                        ((STPMEntryNode) _resource.Children[0]).MinimumZ =
+                            ((STPMEntryNode) external.Children[0]).MinimumZ;
+                        ((STPMEntryNode) _resource.Children[0]).MaximumZ =
+                            ((STPMEntryNode) external.Children[0]).MaximumZ;
 
-                        ((STPMEntryNode)(_resource.Children[0])).MinimumTilt = ((STPMEntryNode)(external.Children[0])).MinimumTilt;
-                        ((STPMEntryNode)(_resource.Children[0])).MaximumTilt = ((STPMEntryNode)(external.Children[0])).MaximumTilt;
+                        ((STPMEntryNode) _resource.Children[0]).MinimumTilt =
+                            ((STPMEntryNode) external.Children[0]).MinimumTilt;
+                        ((STPMEntryNode) _resource.Children[0]).MaximumTilt =
+                            ((STPMEntryNode) external.Children[0]).MaximumTilt;
 
-                        ((STPMEntryNode)(_resource.Children[0])).HorizontalRotationFactor = ((STPMEntryNode)(external.Children[0])).HorizontalRotationFactor;
-                        ((STPMEntryNode)(_resource.Children[0])).VerticalRotationFactor = ((STPMEntryNode)(external.Children[0])).VerticalRotationFactor;
+                        ((STPMEntryNode) _resource.Children[0]).HorizontalRotationFactor =
+                            ((STPMEntryNode) external.Children[0]).HorizontalRotationFactor;
+                        ((STPMEntryNode) _resource.Children[0]).VerticalRotationFactor =
+                            ((STPMEntryNode) external.Children[0]).VerticalRotationFactor;
 
-                        ((STPMEntryNode)(_resource.Children[0])).CharacterBubbleBufferMultiplier = ((STPMEntryNode)(external.Children[0])).CharacterBubbleBufferMultiplier;
+                        ((STPMEntryNode) _resource.Children[0]).CharacterBubbleBufferMultiplier =
+                            ((STPMEntryNode) external.Children[0]).CharacterBubbleBufferMultiplier;
 
-                        ((STPMEntryNode)(_resource.Children[0])).CameraSpeed = ((STPMEntryNode)(external.Children[0])).CameraSpeed;
+                        ((STPMEntryNode) _resource.Children[0]).CameraSpeed =
+                            ((STPMEntryNode) external.Children[0]).CameraSpeed;
 
-                        ((STPMEntryNode)(_resource.Children[0])).StarKOCamTilt = ((STPMEntryNode)(external.Children[0])).StarKOCamTilt;
-                        ((STPMEntryNode)(_resource.Children[0])).FinalSmashCamTilt = ((STPMEntryNode)(external.Children[0])).FinalSmashCamTilt;
+                        ((STPMEntryNode) _resource.Children[0]).StarKOCamTilt =
+                            ((STPMEntryNode) external.Children[0]).StarKOCamTilt;
+                        ((STPMEntryNode) _resource.Children[0]).FinalSmashCamTilt =
+                            ((STPMEntryNode) external.Children[0]).FinalSmashCamTilt;
 
-                        ((STPMEntryNode)(_resource.Children[0])).CameraRight = ((STPMEntryNode)(external.Children[0])).CameraRight;
-                        ((STPMEntryNode)(_resource.Children[0])).CameraLeft = ((STPMEntryNode)(external.Children[0])).CameraLeft;
+                        ((STPMEntryNode) _resource.Children[0]).CameraRight =
+                            ((STPMEntryNode) external.Children[0]).CameraRight;
+                        ((STPMEntryNode) _resource.Children[0]).CameraLeft =
+                            ((STPMEntryNode) external.Children[0]).CameraLeft;
 
                         if (portPauseCam)
                         {
-                            ((STPMEntryNode)(_resource.Children[0])).PauseCamX = ((STPMEntryNode)(external.Children[0])).PauseCamX;
-                            ((STPMEntryNode)(_resource.Children[0])).PauseCamY = ((STPMEntryNode)(external.Children[0])).PauseCamY;
-                            ((STPMEntryNode)(_resource.Children[0])).PauseCamZ = ((STPMEntryNode)(external.Children[0])).PauseCamZ;
-                            ((STPMEntryNode)(_resource.Children[0])).PauseCamAngle = ((STPMEntryNode)(external.Children[0])).PauseCamAngle;
-                            ((STPMEntryNode)(_resource.Children[0])).PauseCamZoomIn = ((STPMEntryNode)(external.Children[0])).PauseCamZoomIn;
-                            ((STPMEntryNode)(_resource.Children[0])).PauseCamZoomDefault = ((STPMEntryNode)(external.Children[0])).PauseCamZoomDefault;
-                            ((STPMEntryNode)(_resource.Children[0])).PauseCamZoomOut = ((STPMEntryNode)(external.Children[0])).PauseCamZoomOut;
-                            ((STPMEntryNode)(_resource.Children[0])).PauseCamRotYMin = ((STPMEntryNode)(external.Children[0])).PauseCamRotYMin;
-                            ((STPMEntryNode)(_resource.Children[0])).PauseCamRotYMax = ((STPMEntryNode)(external.Children[0])).PauseCamRotYMax;
-                            ((STPMEntryNode)(_resource.Children[0])).PauseCamRotXMin = ((STPMEntryNode)(external.Children[0])).PauseCamRotXMin;
-                            ((STPMEntryNode)(_resource.Children[0])).PauseCamRotXMax = ((STPMEntryNode)(external.Children[0])).PauseCamRotXMax;
+                            ((STPMEntryNode) _resource.Children[0]).PauseCamX =
+                                ((STPMEntryNode) external.Children[0]).PauseCamX;
+                            ((STPMEntryNode) _resource.Children[0]).PauseCamY =
+                                ((STPMEntryNode) external.Children[0]).PauseCamY;
+                            ((STPMEntryNode) _resource.Children[0]).PauseCamZ =
+                                ((STPMEntryNode) external.Children[0]).PauseCamZ;
+                            ((STPMEntryNode) _resource.Children[0]).PauseCamAngle =
+                                ((STPMEntryNode) external.Children[0]).PauseCamAngle;
+                            ((STPMEntryNode) _resource.Children[0]).PauseCamZoomIn =
+                                ((STPMEntryNode) external.Children[0]).PauseCamZoomIn;
+                            ((STPMEntryNode) _resource.Children[0]).PauseCamZoomDefault =
+                                ((STPMEntryNode) external.Children[0]).PauseCamZoomDefault;
+                            ((STPMEntryNode) _resource.Children[0]).PauseCamZoomOut =
+                                ((STPMEntryNode) external.Children[0]).PauseCamZoomOut;
+                            ((STPMEntryNode) _resource.Children[0]).PauseCamRotYMin =
+                                ((STPMEntryNode) external.Children[0]).PauseCamRotYMin;
+                            ((STPMEntryNode) _resource.Children[0]).PauseCamRotYMax =
+                                ((STPMEntryNode) external.Children[0]).PauseCamRotYMax;
+                            ((STPMEntryNode) _resource.Children[0]).PauseCamRotXMin =
+                                ((STPMEntryNode) external.Children[0]).PauseCamRotXMin;
+                            ((STPMEntryNode) _resource.Children[0]).PauseCamRotXMax =
+                                ((STPMEntryNode) external.Children[0]).PauseCamRotXMax;
                         }
 
-                        ((STPMEntryNode)(_resource.Children[0])).FixedCamX = ((STPMEntryNode)(external.Children[0])).FixedCamX;
-                        ((STPMEntryNode)(_resource.Children[0])).FixedCamY = ((STPMEntryNode)(external.Children[0])).FixedCamY;
-                        ((STPMEntryNode)(_resource.Children[0])).FixedCamZ = ((STPMEntryNode)(external.Children[0])).FixedCamZ;
-                        ((STPMEntryNode)(_resource.Children[0])).FixedCamAngle = ((STPMEntryNode)(external.Children[0])).FixedCamAngle;
-                        ((STPMEntryNode)(_resource.Children[0])).FixedHorizontalAngle = ((STPMEntryNode)(external.Children[0])).FixedHorizontalAngle;
-                        ((STPMEntryNode)(_resource.Children[0])).FixedVerticalAngle = ((STPMEntryNode)(external.Children[0])).FixedVerticalAngle;
-
+                        ((STPMEntryNode) _resource.Children[0]).FixedCamX =
+                            ((STPMEntryNode) external.Children[0]).FixedCamX;
+                        ((STPMEntryNode) _resource.Children[0]).FixedCamY =
+                            ((STPMEntryNode) external.Children[0]).FixedCamY;
+                        ((STPMEntryNode) _resource.Children[0]).FixedCamZ =
+                            ((STPMEntryNode) external.Children[0]).FixedCamZ;
+                        ((STPMEntryNode) _resource.Children[0]).FixedCamAngle =
+                            ((STPMEntryNode) external.Children[0]).FixedCamAngle;
+                        ((STPMEntryNode) _resource.Children[0]).FixedHorizontalAngle =
+                            ((STPMEntryNode) external.Children[0]).FixedHorizontalAngle;
+                        ((STPMEntryNode) _resource.Children[0]).FixedVerticalAngle =
+                            ((STPMEntryNode) external.Children[0]).FixedVerticalAngle;
                     }
                 }
             }
         }
 
-        public STPMWrapper() { ContextMenuStrip = _menu; }
+        public STPMWrapper()
+        {
+            ContextMenuStrip = _menu;
+        }
     }
 }

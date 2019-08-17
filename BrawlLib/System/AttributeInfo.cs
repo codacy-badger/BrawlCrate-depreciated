@@ -53,6 +53,7 @@ namespace System
                             attr._description += '\n';
                             temp = sr.ReadLine();
                         }
+
                         if (attr._description.EndsWith("\n"))
                         {
                             attr._description = attr._description.Substring(0, attr._description.Length - 1);
@@ -65,7 +66,8 @@ namespace System
                         }
                         catch (FormatException ex)
                         {
-                            throw new FormatException("Invalid type \"" + num + "\" in " + Path.GetFileName(filename) + ".", ex);
+                            throw new FormatException(
+                                "Invalid type \"" + num + "\" in " + Path.GetFileName(filename) + ".", ex);
                         }
 
                         if (attr._description == "")
@@ -79,6 +81,7 @@ namespace System
                     }
                 }
             }
+
             Array = list.ToArray();
         }
 
@@ -94,14 +97,16 @@ namespace System
             {
                 Directory.CreateDirectory(dir);
             }
+
             if (File.Exists(Filename))
             {
                 if (DialogResult.Yes != MessageBox.Show("Overwrite " + Filename + "?", "Overwrite",
-                    MessageBoxButtons.YesNo))
+                        MessageBoxButtons.YesNo))
                 {
                     return;
                 }
             }
+
             using (StreamWriter sw = new StreamWriter(Filename))
             {
                 //foreach (AttributeInfo attr in Array) {

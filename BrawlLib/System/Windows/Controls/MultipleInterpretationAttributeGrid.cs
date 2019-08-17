@@ -31,7 +31,7 @@ namespace System.Windows.Forms
             p.Controls.Add(save);
             Controls.Add(p);
 
-            foreach (Control c in new Control[] { chooser, save, p })
+            foreach (Control c in new Control[] {chooser, save, p})
             {
                 c.Margin = new Padding(0);
             }
@@ -39,7 +39,7 @@ namespace System.Windows.Forms
 
         private void save_Click(object sender, EventArgs e)
         {
-            AttributeInterpretation item = (AttributeInterpretation)chooser.SelectedItem;
+            AttributeInterpretation item = (AttributeInterpretation) chooser.SelectedItem;
             if (item != null)
             {
                 item.Save();
@@ -48,23 +48,25 @@ namespace System.Windows.Forms
 
         private void chooser_SelectedIndexChanged(object sender, EventArgs e)
         {
-            AttributeInterpretation item = (AttributeInterpretation)chooser.SelectedItem;
+            AttributeInterpretation item = (AttributeInterpretation) chooser.SelectedItem;
             if (item != null)
             {
-                base.AttributeArray = item.Array;
-                base.TargetChanged();
+                AttributeArray = item.Array;
+                TargetChanged();
             }
         }
 
         public int Add(AttributeInterpretation arr)
         {
             int i = chooser.Items.Add(arr);
-            if (base.AttributeArray == null)
+            if (AttributeArray == null)
             {
                 chooser.SelectedIndex = i;
             }
+
             return i;
         }
+
         public void AddRange(IEnumerable<AttributeInterpretation> arrs)
         {
             foreach (AttributeInterpretation arr in arrs)
@@ -72,18 +74,20 @@ namespace System.Windows.Forms
                 Add(arr);
             }
         }
+
         public void Remove(AttributeInterpretation arr)
         {
             chooser.Items.Remove(arr);
-            if (base.AttributeArray == null)
+            if (AttributeArray == null)
             {
-                base.AttributeArray = null;
+                AttributeArray = null;
             }
         }
+
         public void Clear()
         {
             chooser.Items.Clear();
-            base.AttributeArray = null;
+            AttributeArray = null;
         }
     }
 }

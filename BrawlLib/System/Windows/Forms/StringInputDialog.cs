@@ -6,10 +6,20 @@ namespace System.Windows.Forms
     {
         private readonly ResourceNode _node;
 
-        public StringInputDialog() { InitializeComponent(); }
-        public StringInputDialog(string title, string defaultText) { InitializeComponent(); Text = title; txtName.Text = defaultText; }
+        public StringInputDialog()
+        {
+            InitializeComponent();
+        }
+
+        public StringInputDialog(string title, string defaultText)
+        {
+            InitializeComponent();
+            Text = title;
+            txtName.Text = defaultText;
+        }
 
         public string resultString = null;
+
         private unsafe void btnOkay_Click(object sender, EventArgs e)
         {
             resultString = txtName.Text;
@@ -17,7 +27,11 @@ namespace System.Windows.Forms
             Close();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e) { DialogResult = DialogResult.Cancel; Close(); }
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
 
 
         #region Designer
@@ -28,9 +42,9 @@ namespace System.Windows.Forms
 
         private void InitializeComponent()
         {
-            txtName = new System.Windows.Forms.TextBox();
-            btnCancel = new System.Windows.Forms.Button();
-            btnOkay = new System.Windows.Forms.Button();
+            txtName = new TextBox();
+            btnCancel = new Button();
+            btnOkay = new Button();
             SuspendLayout();
             // 
             // txtName
@@ -43,26 +57,26 @@ namespace System.Windows.Forms
             // 
             // btnCancel
             // 
-            btnCancel.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
-            btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnCancel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnCancel.DialogResult = DialogResult.Cancel;
             btnCancel.Location = new System.Drawing.Point(197, 38);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new System.Drawing.Size(75, 23);
             btnCancel.TabIndex = 2;
             btnCancel.Text = "&Cancel";
             btnCancel.UseVisualStyleBackColor = true;
-            btnCancel.Click += new System.EventHandler(btnCancel_Click);
+            btnCancel.Click += new EventHandler(btnCancel_Click);
             // 
             // btnOkay
             // 
-            btnOkay.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
+            btnOkay.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnOkay.Location = new System.Drawing.Point(116, 38);
             btnOkay.Name = "btnOkay";
             btnOkay.Size = new System.Drawing.Size(75, 23);
             btnOkay.TabIndex = 1;
             btnOkay.Text = "&Okay";
             btnOkay.UseVisualStyleBackColor = true;
-            btnOkay.Click += new System.EventHandler(btnOkay_Click);
+            btnOkay.Click += new EventHandler(btnOkay_Click);
             // 
             // StringInputDialog
             // 
@@ -72,18 +86,16 @@ namespace System.Windows.Forms
             Controls.Add(btnOkay);
             Controls.Add(btnCancel);
             Controls.Add(txtName);
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "StringInputDialog";
             ShowIcon = false;
             ShowInTaskbar = false;
-            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "String Input Dialog";
             ResumeLayout(false);
             PerformLayout();
-
         }
+
         #endregion
-
-
     }
 }

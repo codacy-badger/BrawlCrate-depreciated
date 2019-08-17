@@ -9,6 +9,7 @@ namespace BrawlCrate.NodeWrappers
     internal class ItmFreqTableWrapper : GenericWrapper
     {
         private static readonly ContextMenuStrip _menu;
+
         static ItmFreqTableWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -24,19 +25,24 @@ namespace BrawlCrate.NodeWrappers
         {
             GetInstance<ItmFreqTableWrapper>().NewEntry();
         }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-
         }
+
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
-
         }
-        public ItmFreqTableWrapper() { ContextMenuStrip = _menu; }
+
+        public ItmFreqTableWrapper()
+        {
+            ContextMenuStrip = _menu;
+        }
+
         public TableGroupNode NewEntry()
         {
             int childCount = _resource.Children == null ? 0 : _resource.Children.Count;
-            TableGroupNode node = new TableGroupNode() { Name = ("Group [" + childCount + "]") };
+            TableGroupNode node = new TableGroupNode() {Name = "Group [" + childCount + "]"};
             _resource.AddChild(node);
 
             BaseWrapper w = FindResource(node, false);

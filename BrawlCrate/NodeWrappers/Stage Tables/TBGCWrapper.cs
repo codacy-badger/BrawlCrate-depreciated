@@ -14,18 +14,22 @@ namespace BrawlCrate.NodeWrappers
             {
                 return null;
             }
+
             _resource.Rebuild();
-            TBGCNode newNode = NodeFactory.FromAddress(null, _resource.WorkingUncompressed.Address, _resource.WorkingUncompressed.Length) as TBGCNode;
+            TBGCNode newNode = NodeFactory.FromAddress(null, _resource.WorkingUncompressed.Address,
+                _resource.WorkingUncompressed.Length) as TBGCNode;
             _resource._parent.InsertChild(newNode, true, _resource.Index + 1);
             newNode.Populate();
-            newNode.FileType = ((TBGCNode)_resource).FileType;
-            newNode.FileIndex = ((TBGCNode)_resource).FileIndex;
-            newNode.GroupID = ((TBGCNode)_resource).GroupID;
-            newNode.RedirectIndex = ((TBGCNode)_resource).RedirectIndex;
+            newNode.FileType = ((TBGCNode) _resource).FileType;
+            newNode.FileIndex = ((TBGCNode) _resource).FileIndex;
+            newNode.GroupID = ((TBGCNode) _resource).GroupID;
+            newNode.RedirectIndex = ((TBGCNode) _resource).RedirectIndex;
             newNode.Name = _resource.Name;
             return newNode;
         }
 
-        public TBGCWrapper() { }
+        public TBGCWrapper()
+        {
+        }
     }
 }

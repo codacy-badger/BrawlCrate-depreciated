@@ -22,10 +22,25 @@ namespace BrawlLib.SSBBTypes
         //private GDOR* Address { get { fixed (GDOR* ptr = &this)return ptr; } }
         //public byte* Data { get { return (byte*)(Address + _DataOffset); } }
 
-        public VoidPtr this[int index] => (byte*)Address + Offsets(index);
-        public uint Offsets(int index) { return *(buint*)((byte*)Address + 0x08 + (index * 4)); }
-        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
+        public VoidPtr this[int index] => (byte*) Address + Offsets(index);
+
+        public uint Offsets(int index)
+        {
+            return *(buint*) ((byte*) Address + 0x08 + index * 4);
+        }
+
+        private VoidPtr Address
+        {
+            get
+            {
+                fixed (void* ptr = &this)
+                {
+                    return ptr;
+                }
+            }
+        }
     }
+
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct GWATEntry
     {
@@ -53,11 +68,11 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x15;
         public byte _unknown0x16;
         public byte _unknown0x17;
-        public bfloat _posX;        // 0x18
-        public bfloat _float0x1C;   // 0x1C
-        public bfloat _width;       // 0x20
-        public bfloat _float0x24;   // 0x24
-        public bfloat _posY;        // 0x28
+        public bfloat _posX;      // 0x18
+        public bfloat _float0x1C; // 0x1C
+        public bfloat _width;     // 0x20
+        public bfloat _float0x24; // 0x24
+        public bfloat _posY;      // 0x28
         public byte _unknown0x2C;
         public byte _unknown0x2D;
         public byte _unknown0x2E;
@@ -71,7 +86,15 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x36;
         public byte _unknown0x37;
 
-        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
+        private VoidPtr Address
+        {
+            get
+            {
+                fixed (void* ptr = &this)
+                {
+                    return ptr;
+                }
+            }
+        }
     }
-
 }

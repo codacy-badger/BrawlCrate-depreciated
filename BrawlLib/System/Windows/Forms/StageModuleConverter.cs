@@ -12,6 +12,7 @@ namespace System.Windows.Forms
         public const string FILTER = "Module files (*.rel)|*.rel";
 
         #region Definition of "Stage" inner class
+
         public class Stage
         {
             private readonly byte id;
@@ -29,11 +30,16 @@ namespace System.Windows.Forms
                 this.filename = filename;
             }
 
-            public override string ToString() { return name; }
+            public override string ToString()
+            {
+                return name;
+            }
         }
+
         #endregion
 
-        private static readonly Stage[] stageList = new Stage[] {
+        private static readonly Stage[] stageList = new Stage[]
+        {
             new Stage(0, "STGCUSTOM##.pac", "st_custom##.rel"),
             new Stage(1, "Battlefield", "st_battle.rel"),
             new Stage(2, "Final Destination", "st_final.rel"),
@@ -83,14 +89,17 @@ namespace System.Windows.Forms
             new Stage(55, "Online Training", "st_otrain.rel"),
             new Stage(56, "TargetBreak", "st_tbreak.rel"),
         };
-        private static readonly int[] indicesToIgnore = {
+
+        private static readonly int[] indicesToIgnore =
+        {
             2959, // st_croll (PAL)
-            431, // st_onett, st_metalgear
-            387, // st_dxyorster
+            431,  // st_onett, st_metalgear
+            387,  // st_dxyorster
             2519, // st_croll (NTSC)
-            419, // st_donkey
-            423, // st_halberd, st_jungle, st_mansion
-            };
+            419,  // st_donkey
+            423,  // st_halberd, st_jungle, st_mansion
+        };
+
         public static ReadOnlyCollection<Stage> StageList => Array.AsReadOnly(stageList);
         public static ReadOnlyCollection<int> IndicesToIgnore => Array.AsReadOnly(indicesToIgnore);
 
@@ -126,33 +135,33 @@ namespace System.Windows.Forms
 
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            btnOkay = new System.Windows.Forms.Button();
-            btnCancel = new System.Windows.Forms.Button();
-            txtPath = new System.Windows.Forms.TextBox();
-            btnBrowse = new System.Windows.Forms.Button();
-            lblOffsetValue = new System.Windows.Forms.Label();
-            lblOffsetDesc = new System.Windows.Forms.Label();
-            lblNameValue = new System.Windows.Forms.Label();
-            lblSizeValue = new System.Windows.Forms.Label();
-            lblSizeDesc = new System.Windows.Forms.Label();
-            pnlInfo = new System.Windows.Forms.Panel();
-            groupBox1 = new System.Windows.Forms.GroupBox();
-            lblIDValue = new System.Windows.Forms.Label();
-            lblIDDesc = new System.Windows.Forms.Label();
-            panel4 = new System.Windows.Forms.Panel();
-            pnlEdit = new System.Windows.Forms.Panel();
-            groupBox2 = new System.Windows.Forms.GroupBox();
-            itemSelection = new System.Windows.Forms.ComboBox();
-            lblItemDesc = new System.Windows.Forms.Label();
-            label3 = new System.Windows.Forms.Label();
-            lblCurrentStage = new System.Windows.Forms.Label();
-            lblNewStageDesc = new System.Windows.Forms.Label();
-            stageSelection = new System.Windows.Forms.ComboBox();
-            lblCurrentStageDesc = new System.Windows.Forms.Label();
-            panel3 = new System.Windows.Forms.Panel();
-            dlgOpen = new System.Windows.Forms.OpenFileDialog();
-            tmrUpdate = new System.Windows.Forms.Timer(components);
+            components = new Container();
+            btnOkay = new Button();
+            btnCancel = new Button();
+            txtPath = new TextBox();
+            btnBrowse = new Button();
+            lblOffsetValue = new Label();
+            lblOffsetDesc = new Label();
+            lblNameValue = new Label();
+            lblSizeValue = new Label();
+            lblSizeDesc = new Label();
+            pnlInfo = new Panel();
+            groupBox1 = new GroupBox();
+            lblIDValue = new Label();
+            lblIDDesc = new Label();
+            panel4 = new Panel();
+            pnlEdit = new Panel();
+            groupBox2 = new GroupBox();
+            itemSelection = new ComboBox();
+            lblItemDesc = new Label();
+            label3 = new Label();
+            lblCurrentStage = new Label();
+            lblNewStageDesc = new Label();
+            stageSelection = new ComboBox();
+            lblCurrentStageDesc = new Label();
+            panel3 = new Panel();
+            dlgOpen = new OpenFileDialog();
+            tmrUpdate = new Timer(components);
             pnlInfo.SuspendLayout();
             groupBox1.SuspendLayout();
             panel4.SuspendLayout();
@@ -163,7 +172,7 @@ namespace System.Windows.Forms
             // 
             // btnOkay
             // 
-            btnOkay.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
+            btnOkay.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnOkay.Enabled = false;
             btnOkay.Location = new System.Drawing.Point(3, 3);
             btnOkay.Name = "btnOkay";
@@ -171,23 +180,23 @@ namespace System.Windows.Forms
             btnOkay.TabIndex = 0;
             btnOkay.Text = "Okay";
             btnOkay.UseVisualStyleBackColor = true;
-            btnOkay.Click += new System.EventHandler(btnOkay_Click);
+            btnOkay.Click += new EventHandler(btnOkay_Click);
             // 
             // btnCancel
             // 
-            btnCancel.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
+            btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnCancel.Location = new System.Drawing.Point(80, 3);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new System.Drawing.Size(75, 23);
             btnCancel.TabIndex = 1;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
-            btnCancel.Click += new System.EventHandler(btnCancel_Click);
+            btnCancel.Click += new EventHandler(btnCancel_Click);
             // 
             // txtPath
             // 
-            txtPath.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right);
+            txtPath.Anchor = AnchorStyles.Top | AnchorStyles.Left
+                                              | AnchorStyles.Right;
             txtPath.Location = new System.Drawing.Point(0, 0);
             txtPath.Name = "txtPath";
             txtPath.ReadOnly = true;
@@ -196,14 +205,14 @@ namespace System.Windows.Forms
             // 
             // btnBrowse
             // 
-            btnBrowse.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
+            btnBrowse.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnBrowse.Location = new System.Drawing.Point(227, 0);
             btnBrowse.Name = "btnBrowse";
             btnBrowse.Size = new System.Drawing.Size(25, 20);
             btnBrowse.TabIndex = 3;
             btnBrowse.Text = "...";
             btnBrowse.UseVisualStyleBackColor = true;
-            btnBrowse.Click += new System.EventHandler(btnBrowse_Click);
+            btnBrowse.Click += new EventHandler(btnBrowse_Click);
             // 
             // lblOffsetValue
             // 
@@ -211,26 +220,28 @@ namespace System.Windows.Forms
             lblOffsetValue.Name = "lblOffsetValue";
             lblOffsetValue.Size = new System.Drawing.Size(96, 20);
             lblOffsetValue.TabIndex = 5;
-            lblOffsetValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblOffsetValue.TextAlign = Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblOffsetDesc
             // 
-            lblOffsetDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblOffsetDesc.Font = new Drawing.Font("Microsoft Sans Serif", 8.25F, Drawing.FontStyle.Bold,
+                Drawing.GraphicsUnit.Point, 0);
             lblOffsetDesc.Location = new System.Drawing.Point(6, 56);
             lblOffsetDesc.Name = "lblOffsetDesc";
             lblOffsetDesc.Size = new System.Drawing.Size(48, 20);
             lblOffsetDesc.TabIndex = 4;
             lblOffsetDesc.Text = "Offset:";
-            lblOffsetDesc.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            lblOffsetDesc.TextAlign = Drawing.ContentAlignment.MiddleRight;
             // 
             // lblNameValue
             // 
-            lblNameValue.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            lblNameValue.Font = new Drawing.Font("Lucida Console", 8.25F, Drawing.FontStyle.Regular,
+                Drawing.GraphicsUnit.Point, 0);
             lblNameValue.Location = new System.Drawing.Point(7, 16);
             lblNameValue.Name = "lblNameValue";
             lblNameValue.Size = new System.Drawing.Size(145, 20);
             lblNameValue.TabIndex = 3;
-            lblNameValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblNameValue.TextAlign = Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblSizeValue
             // 
@@ -238,23 +249,24 @@ namespace System.Windows.Forms
             lblSizeValue.Name = "lblSizeValue";
             lblSizeValue.Size = new System.Drawing.Size(96, 20);
             lblSizeValue.TabIndex = 1;
-            lblSizeValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblSizeValue.TextAlign = Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblSizeDesc
             // 
-            lblSizeDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblSizeDesc.Font = new Drawing.Font("Microsoft Sans Serif", 8.25F, Drawing.FontStyle.Bold,
+                Drawing.GraphicsUnit.Point, 0);
             lblSizeDesc.Location = new System.Drawing.Point(6, 36);
             lblSizeDesc.Name = "lblSizeDesc";
             lblSizeDesc.Size = new System.Drawing.Size(48, 20);
             lblSizeDesc.TabIndex = 0;
             lblSizeDesc.Text = "Size:";
-            lblSizeDesc.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            lblSizeDesc.TextAlign = Drawing.ContentAlignment.MiddleRight;
             // 
             // pnlInfo
             // 
             pnlInfo.Controls.Add(groupBox1);
             pnlInfo.Controls.Add(panel4);
-            pnlInfo.Dock = System.Windows.Forms.DockStyle.Right;
+            pnlInfo.Dock = DockStyle.Right;
             pnlInfo.Location = new System.Drawing.Point(256, 0);
             pnlInfo.Name = "pnlInfo";
             pnlInfo.Size = new System.Drawing.Size(158, 132);
@@ -269,7 +281,7 @@ namespace System.Windows.Forms
             groupBox1.Controls.Add(lblNameValue);
             groupBox1.Controls.Add(lblSizeValue);
             groupBox1.Controls.Add(lblSizeDesc);
-            groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox1.Dock = DockStyle.Fill;
             groupBox1.Location = new System.Drawing.Point(0, 0);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new System.Drawing.Size(158, 103);
@@ -283,23 +295,24 @@ namespace System.Windows.Forms
             lblIDValue.Name = "lblIDValue";
             lblIDValue.Size = new System.Drawing.Size(96, 20);
             lblIDValue.TabIndex = 7;
-            lblIDValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblIDValue.TextAlign = Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblIDDesc
             // 
-            lblIDDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblIDDesc.Font = new Drawing.Font("Microsoft Sans Serif", 8.25F, Drawing.FontStyle.Bold,
+                Drawing.GraphicsUnit.Point, 0);
             lblIDDesc.Location = new System.Drawing.Point(6, 76);
             lblIDDesc.Name = "lblIDDesc";
             lblIDDesc.Size = new System.Drawing.Size(48, 20);
             lblIDDesc.TabIndex = 6;
             lblIDDesc.Text = "ID:";
-            lblIDDesc.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            lblIDDesc.TextAlign = Drawing.ContentAlignment.MiddleRight;
             // 
             // panel4
             // 
             panel4.Controls.Add(btnOkay);
             panel4.Controls.Add(btnCancel);
-            panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panel4.Dock = DockStyle.Bottom;
             panel4.Location = new System.Drawing.Point(0, 103);
             panel4.Name = "panel4";
             panel4.Size = new System.Drawing.Size(158, 29);
@@ -309,7 +322,7 @@ namespace System.Windows.Forms
             // 
             pnlEdit.Controls.Add(groupBox2);
             pnlEdit.Controls.Add(panel3);
-            pnlEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            pnlEdit.Dock = DockStyle.Fill;
             pnlEdit.Location = new System.Drawing.Point(0, 0);
             pnlEdit.Name = "pnlEdit";
             pnlEdit.Size = new System.Drawing.Size(256, 132);
@@ -324,7 +337,7 @@ namespace System.Windows.Forms
             groupBox2.Controls.Add(lblNewStageDesc);
             groupBox2.Controls.Add(stageSelection);
             groupBox2.Controls.Add(lblCurrentStageDesc);
-            groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox2.Dock = DockStyle.Fill;
             groupBox2.Location = new System.Drawing.Point(0, 20);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new System.Drawing.Size(256, 112);
@@ -334,80 +347,82 @@ namespace System.Windows.Forms
             // 
             // itemSelection
             // 
-            itemSelection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            itemSelection.DropDownStyle = ComboBoxStyle.DropDownList;
             itemSelection.Enabled = false;
             itemSelection.FormattingEnabled = true;
-            itemSelection.Items.AddRange(new object[] {
-            "Assist Trophy",
-            "Franklin Badge",
-            "Banana Peel",
-            "Barrel",
-            "Beam Sword",
-            "Bill (coin mode)",
-            "Bob-Omb",
-            "Crate",
-            "Bumper",
-            "Capsule",
-            "Rolling Crate",
-            "CD",
-            "Gooey Bomb",
-            "Cracker Launcher",
-            "Cracker Launcher Shot",
-            "Coin",
-            "Superspicy Curry",
-            "Superspice Curry Shot",
-            "Deku Nut",
-            "Mr. Saturn",
-            "Dragoon Part",
-            "Dragoon Set",
-            "Dragoon Sight",
-            "Trophy",
-            "Fire Flower",
-            "Fire Flower Shot",
-            "Freezie",
-            "Golden Hammer",
-            "Green Shell",
-            "Hammer",
-            "Hammer Head",
-            "Fan",
-            "Heart Container",
-            "Homerun Bat",
-            "Party Ball",
-            "Manaphy Heart",
-            "Maxim Tomato",
-            "Poison Mushroom",
-            "Super Mushroom",
-            "Metal Box",
-            "Hothead",
-            "Pitfall",
-            "Pokéball",
-            "Blast Box",
-            "Ray Gun",
-            "Ray Gun Shot",
-            "Lipstick",
-            "Lipstick Flower",
-            "Lipstick Shot",
-            "Sandbag",
-            "Screw Attack",
-            "Sticker",
-            "Motion-Sensor Bomb",
-            "Timer",
-            "Smart Bomb",
-            "Smash Ball",
-            "Smoke Screen",
-            "Spring",
-            "Star Rod",
-            "Star Rod Shot",
-            "Soccer Ball",
-            "Super Scope",
-            "Super Scope shot",
-            "Star",
-            "Food",
-            "Team Healer",
-            "Lightning",
-            "Unira",
-            "Bunny Hood",
-            "Warpstar"});
+            itemSelection.Items.AddRange(new object[]
+            {
+                "Assist Trophy",
+                "Franklin Badge",
+                "Banana Peel",
+                "Barrel",
+                "Beam Sword",
+                "Bill (coin mode)",
+                "Bob-Omb",
+                "Crate",
+                "Bumper",
+                "Capsule",
+                "Rolling Crate",
+                "CD",
+                "Gooey Bomb",
+                "Cracker Launcher",
+                "Cracker Launcher Shot",
+                "Coin",
+                "Superspicy Curry",
+                "Superspice Curry Shot",
+                "Deku Nut",
+                "Mr. Saturn",
+                "Dragoon Part",
+                "Dragoon Set",
+                "Dragoon Sight",
+                "Trophy",
+                "Fire Flower",
+                "Fire Flower Shot",
+                "Freezie",
+                "Golden Hammer",
+                "Green Shell",
+                "Hammer",
+                "Hammer Head",
+                "Fan",
+                "Heart Container",
+                "Homerun Bat",
+                "Party Ball",
+                "Manaphy Heart",
+                "Maxim Tomato",
+                "Poison Mushroom",
+                "Super Mushroom",
+                "Metal Box",
+                "Hothead",
+                "Pitfall",
+                "Pokéball",
+                "Blast Box",
+                "Ray Gun",
+                "Ray Gun Shot",
+                "Lipstick",
+                "Lipstick Flower",
+                "Lipstick Shot",
+                "Sandbag",
+                "Screw Attack",
+                "Sticker",
+                "Motion-Sensor Bomb",
+                "Timer",
+                "Smart Bomb",
+                "Smash Ball",
+                "Smoke Screen",
+                "Spring",
+                "Star Rod",
+                "Star Rod Shot",
+                "Soccer Ball",
+                "Super Scope",
+                "Super Scope shot",
+                "Star",
+                "Food",
+                "Team Healer",
+                "Lightning",
+                "Unira",
+                "Bunny Hood",
+                "Warpstar"
+            });
             itemSelection.Location = new System.Drawing.Point(84, 62);
             itemSelection.Name = "itemSelection";
             itemSelection.Size = new System.Drawing.Size(166, 21);
@@ -415,18 +430,19 @@ namespace System.Windows.Forms
             // 
             // lblItemDesc
             // 
-            lblItemDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblItemDesc.Font = new Drawing.Font("Microsoft Sans Serif", 8.25F, Drawing.FontStyle.Bold,
+                Drawing.GraphicsUnit.Point, 0);
             lblItemDesc.Location = new System.Drawing.Point(6, 62);
             lblItemDesc.Name = "lblItemDesc";
             lblItemDesc.Size = new System.Drawing.Size(72, 21);
             lblItemDesc.TabIndex = 5;
             lblItemDesc.Text = "Item:";
-            lblItemDesc.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            lblItemDesc.TextAlign = Drawing.ContentAlignment.MiddleRight;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.ForeColor = System.Drawing.SystemColors.ControlDark;
+            label3.ForeColor = Drawing.SystemColors.ControlDark;
             label3.Location = new System.Drawing.Point(4, 93);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(209, 13);
@@ -439,21 +455,22 @@ namespace System.Windows.Forms
             lblCurrentStage.Name = "lblCurrentStage";
             lblCurrentStage.Size = new System.Drawing.Size(166, 21);
             lblCurrentStage.TabIndex = 3;
-            lblCurrentStage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblCurrentStage.TextAlign = Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblNewStageDesc
             // 
-            lblNewStageDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblNewStageDesc.Font = new Drawing.Font("Microsoft Sans Serif", 8.25F, Drawing.FontStyle.Bold,
+                Drawing.GraphicsUnit.Point, 0);
             lblNewStageDesc.Location = new System.Drawing.Point(6, 38);
             lblNewStageDesc.Name = "lblNewStageDesc";
             lblNewStageDesc.Size = new System.Drawing.Size(72, 21);
             lblNewStageDesc.TabIndex = 2;
             lblNewStageDesc.Text = "New stage:";
-            lblNewStageDesc.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            lblNewStageDesc.TextAlign = Drawing.ContentAlignment.MiddleRight;
             // 
             // stageSelection
             // 
-            stageSelection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            stageSelection.DropDownStyle = ComboBoxStyle.DropDownList;
             stageSelection.Enabled = false;
             stageSelection.FormattingEnabled = true;
             stageSelection.Location = new System.Drawing.Point(84, 38);
@@ -463,19 +480,20 @@ namespace System.Windows.Forms
             // 
             // lblCurrentStageDesc
             // 
-            lblCurrentStageDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblCurrentStageDesc.Font = new Drawing.Font("Microsoft Sans Serif", 8.25F, Drawing.FontStyle.Bold,
+                Drawing.GraphicsUnit.Point, 0);
             lblCurrentStageDesc.Location = new System.Drawing.Point(6, 14);
             lblCurrentStageDesc.Name = "lblCurrentStageDesc";
             lblCurrentStageDesc.Size = new System.Drawing.Size(72, 21);
             lblCurrentStageDesc.TabIndex = 0;
             lblCurrentStageDesc.Text = "Current:";
-            lblCurrentStageDesc.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            lblCurrentStageDesc.TextAlign = Drawing.ContentAlignment.MiddleRight;
             // 
             // panel3
             // 
             panel3.Controls.Add(txtPath);
             panel3.Controls.Add(btnBrowse);
-            panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            panel3.Dock = DockStyle.Top;
             panel3.Location = new System.Drawing.Point(0, 0);
             panel3.Name = "panel3";
             panel3.Size = new System.Drawing.Size(256, 20);
@@ -490,7 +508,7 @@ namespace System.Windows.Forms
             ClientSize = new System.Drawing.Size(414, 132);
             Controls.Add(pnlEdit);
             Controls.Add(pnlInfo);
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "StageRelSwitcherDialog";
             Text = "Stage REL Switcher";
             pnlInfo.ResumeLayout(false);
@@ -502,23 +520,30 @@ namespace System.Windows.Forms
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             ResumeLayout(false);
-
         }
 
         #endregion
 
         private string _path;
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string Path { get => _path; set => _path = value; }
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string Path
+        {
+            get => _path;
+            set => _path = value;
+        }
 
         private byte[] _data;
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public byte[] Data => _data;
 
         public unsafe FileMap ToFileMap()
         {
             FileMap map = FileMap.FromTempFile(_data.Length);
-            byte* ptr = (byte*)map.Address;
+            byte* ptr = (byte*) map.Address;
             for (int i = 0; i < _data.Length; i++)
             {
                 ptr[i] = _data[i];
@@ -528,7 +553,9 @@ namespace System.Windows.Forms
         }
 
         private string _outputName;
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string OutputName => _outputName;
 
         private int _stageIDOffset = -1;
@@ -541,20 +568,27 @@ namespace System.Windows.Forms
             stageSelection.SelectedIndex = 0;
 
             #region Tooltips
+
             ToolTip tooltip = new ToolTip(new Container());
             tooltip.SetToolTip(lblSizeDesc, "The size of the REL file, in bytes.");
             tooltip.SetToolTip(lblSizeValue, "The size of the REL file, in bytes.");
             tooltip.SetToolTip(lblNameValue, "The internal name of the REL file (pointer at 0x74.)");
             tooltip.SetToolTip(lblOffsetDesc, "The offset of the stage ID, in bytes.");
             tooltip.SetToolTip(lblOffsetValue, "The offset of the stage ID, in bytes.");
-            tooltip.SetToolTip(lblIDDesc, "The stage ID (automatically detected, with certain hard-coded exceptions for NTSC-U and PAL files.)");
-            tooltip.SetToolTip(lblIDValue, "The stage ID (automatically detected, with certain hard-coded exceptions for NTSC-U and PAL files.)");
-            tooltip.SetToolTip(lblCurrentStageDesc, "The current target stage of this REL file, as determined by its ID.");
+            tooltip.SetToolTip(lblIDDesc,
+                "The stage ID (automatically detected, with certain hard-coded exceptions for NTSC-U and PAL files.)");
+            tooltip.SetToolTip(lblIDValue,
+                "The stage ID (automatically detected, with certain hard-coded exceptions for NTSC-U and PAL files.)");
+            tooltip.SetToolTip(lblCurrentStageDesc,
+                "The current target stage of this REL file, as determined by its ID.");
             tooltip.SetToolTip(lblCurrentStage, "The current target stage of this REL file, as determined by its ID.");
             tooltip.SetToolTip(lblNewStageDesc, "The new target stage for this REL file.");
             tooltip.SetToolTip(stageSelection, "The new target stage for this REL file.");
-            tooltip.SetToolTip(lblItemDesc, "The item to auto-spawn on the stage. Enabled when you use a StOnlineTrainning base. Replaces four bytes (offsets are hard-coded.)");
-            tooltip.SetToolTip(itemSelection, "The item to auto-spawn on the stage. Enabled when you use a StOnlineTrainning base. Replaces four bytes (offsets are hard-coded.)");
+            tooltip.SetToolTip(lblItemDesc,
+                "The item to auto-spawn on the stage. Enabled when you use a StOnlineTrainning base. Replaces four bytes (offsets are hard-coded.)");
+            tooltip.SetToolTip(itemSelection,
+                "The item to auto-spawn on the stage. Enabled when you use a StOnlineTrainning base. Replaces four bytes (offsets are hard-coded.)");
+
             #endregion
 
             dlgOpen.Filter = FILTER;
@@ -563,7 +597,10 @@ namespace System.Windows.Forms
         public new DialogResult ShowDialog(IWin32Window owner)
         {
             DialogResult = DialogResult.Cancel;
-            try { return base.ShowDialog(owner); }
+            try
+            {
+                return base.ShowDialog(owner);
+            }
             catch (Exception x)
             {
                 MessageBox.Show(x.ToString());
@@ -597,6 +634,7 @@ namespace System.Windows.Forms
 
             return false;
         }
+
         private bool LoadFile(string path)
         {
             // reset stuff
@@ -610,8 +648,8 @@ namespace System.Windows.Forms
             _path = path;
 
             txtPath.Text = _path;
-            _data = new byte[new IO.FileInfo(_path).Length];
-            FileStream input = new IO.FileStream(_path, FileMode.Open,
+            _data = new byte[new FileInfo(_path).Length];
+            FileStream input = new FileStream(_path, FileMode.Open,
                 FileAccess.Read, FileShare.Read, 8, FileOptions.SequentialScan);
             input.Read(_data, 0, _data.Length);
             input.Dispose();
@@ -624,6 +662,7 @@ namespace System.Windows.Forms
                 MessageBox.Show("Could not find the stage ID offset.");
                 return false;
             }
+
             lblOffsetValue.Text = "0x" + Convert.ToString(_stageIDOffset, 16);
             byte currentID = findCurrentID();
             lblIDValue.Text = "0x" + Convert.ToString(currentID, 16);
@@ -673,11 +712,13 @@ namespace System.Windows.Forms
             {
                 offset++;
             }
+
             while (_data[offset] != 0)
             {
-                sb.Append((char)_data[offset]);
+                sb.Append((char) _data[offset]);
                 offset++;
             }
+
             return sb.ToString();
         }
 
@@ -688,17 +729,18 @@ namespace System.Windows.Forms
 
         private void btnOkay_Click(object sender, EventArgs e)
         {
-            Stage s = (Stage)stageSelection.SelectedItem;
+            Stage s = (Stage) stageSelection.SelectedItem;
             _data[_stageIDOffset] = s.ID;
             if (itemSelection.Enabled)
             {
-                byte b = (byte)itemSelection.SelectedIndex;
-                int[] offsets = { 1223, 1371, 1347, 1627 };
+                byte b = (byte) itemSelection.SelectedIndex;
+                int[] offsets = {1223, 1371, 1347, 1627};
                 for (int i = 0; i < offsets.Length; i++)
                 {
                     _data[offsets[i]] = b;
                 }
             }
+
             _outputName = s.Filename;
 
             DialogResult = DialogResult.OK;
@@ -709,7 +751,7 @@ namespace System.Windows.Forms
         {
             // search through pointer
             int length = _data.Length;
-            byte[] searchFor = { 0x38, 0xa5, 0x00, 0x00, 0x38, 0x80, 0x00 };
+            byte[] searchFor = {0x38, 0xa5, 0x00, 0x00, 0x38, 0x80, 0x00};
             int indexToCheck = 0;
             bool found = false;
 
@@ -739,6 +781,7 @@ namespace System.Windows.Forms
 
                 i++;
             }
+
             if (found)
             {
                 return i;

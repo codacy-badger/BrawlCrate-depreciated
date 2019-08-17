@@ -18,11 +18,11 @@ namespace BrawlCrate
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            label1 = new System.Windows.Forms.Label();
-            txtName = new System.Windows.Forms.TextBox();
-            btnOk = new System.Windows.Forms.Button();
-            btnCancel = new System.Windows.Forms.Button();
-            treeResource = new BrawlCrate.ResourceTree();
+            label1 = new Label();
+            txtName = new TextBox();
+            btnOk = new Button();
+            btnCancel = new Button();
+            treeResource = new ResourceTree();
             SuspendLayout();
             // 
             // label1
@@ -36,42 +36,42 @@ namespace BrawlCrate
             // 
             // txtName
             // 
-            txtName.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right);
+            txtName.Anchor = AnchorStyles.Top | AnchorStyles.Left
+                                              | AnchorStyles.Right;
             txtName.Location = new System.Drawing.Point(66, 9);
             txtName.Name = "txtName";
             txtName.Size = new System.Drawing.Size(99, 20);
             txtName.TabIndex = 2;
-            txtName.TextChanged += new System.EventHandler(txtName_TextChanged);
+            txtName.TextChanged += new EventHandler(txtName_TextChanged);
             // 
             // btnOk
             // 
-            btnOk.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
+            btnOk.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnOk.Location = new System.Drawing.Point(171, 8);
             btnOk.Name = "btnOk";
             btnOk.Size = new System.Drawing.Size(63, 20);
             btnOk.TabIndex = 3;
             btnOk.Text = "Okay";
             btnOk.UseVisualStyleBackColor = true;
-            btnOk.Click += new System.EventHandler(btnOk_Click);
+            btnOk.Click += new EventHandler(btnOk_Click);
             // 
             // btnCancel
             // 
-            btnCancel.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
+            btnCancel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnCancel.Location = new System.Drawing.Point(240, 8);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new System.Drawing.Size(63, 20);
             btnCancel.TabIndex = 4;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
-            btnCancel.Click += new System.EventHandler(btnCancel_Click);
+            btnCancel.Click += new EventHandler(btnCancel_Click);
             // 
             // treeResource
             // 
             treeResource.AllowContextMenus = false;
-            treeResource.Anchor = (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right);
+            treeResource.Anchor = AnchorStyles.Top | AnchorStyles.Bottom
+                                                   | AnchorStyles.Left
+                                                   | AnchorStyles.Right;
             treeResource.HideSelection = false;
             treeResource.ImageIndex = 0;
             treeResource.Location = new System.Drawing.Point(12, 35);
@@ -80,7 +80,7 @@ namespace BrawlCrate
             treeResource.ShowIcons = true;
             treeResource.Size = new System.Drawing.Size(291, 200);
             treeResource.TabIndex = 0;
-            treeResource.SelectionChanged += new System.EventHandler(treeResource_SelectionChanged);
+            treeResource.SelectionChanged += new EventHandler(treeResource_SelectionChanged);
             // 
             // CloneSoundDialog
             // 
@@ -90,12 +90,11 @@ namespace BrawlCrate
             Controls.Add(txtName);
             Controls.Add(label1);
             Controls.Add(treeResource);
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            FormBorderStyle = FormBorderStyle.SizableToolWindow;
             Name = "CloneSoundDialog";
             Text = "Sound Cloner";
             ResumeLayout(false);
             PerformLayout();
-
         }
 
         #endregion
@@ -103,7 +102,10 @@ namespace BrawlCrate
         private RSARFolderNode _parentNode;
         private RSARSoundNode _newNode;
 
-        public CloneSoundDialog() { InitializeComponent(); }
+        public CloneSoundDialog()
+        {
+            InitializeComponent();
+        }
 
         public DialogResult ShowDialog(IWin32Window owner, RSARFolderNode parent)
         {
@@ -123,8 +125,15 @@ namespace BrawlCrate
 
             treeResource.EndUpdate();
 
-            try { return base.ShowDialog(owner); }
-            finally { _parentNode = null; treeResource.Clear(); }
+            try
+            {
+                return base.ShowDialog(owner);
+            }
+            finally
+            {
+                _parentNode = null;
+                treeResource.Clear();
+            }
         }
 
         private void btnOk_Click(object sender, EventArgs e)
@@ -134,7 +143,7 @@ namespace BrawlCrate
 
             foreach (ResourceNode c in _parentNode.Children)
             {
-                if ((c.Name == name) && !(c is RSARFolderNode))
+                if (c.Name == name && !(c is RSARFolderNode))
                 {
                     MessageBox.Show(this, "A resource with that name already exists!", "What the...");
                     return;
@@ -149,7 +158,7 @@ namespace BrawlCrate
 
             if (treeResource.SelectedNode != null)
             {
-                RSARSoundNode existing = ((BaseWrapper)treeResource.SelectedNode).ResourceNode as RSARSoundNode;
+                RSARSoundNode existing = ((BaseWrapper) treeResource.SelectedNode).ResourceNode as RSARSoundNode;
                 if (existing != null)
                 {
                     _newNode._sound3dParam = existing._sound3dParam;
@@ -184,7 +193,7 @@ namespace BrawlCrate
             if (txtName.Text != "")
             {
                 GenericWrapper node = treeResource.SelectedNode as GenericWrapper;
-                btnOk.Enabled = (node != null) && (node.ResourceNode is RSARSoundNode);
+                btnOk.Enabled = node != null && node.ResourceNode is RSARSoundNode;
             }
             else
             {

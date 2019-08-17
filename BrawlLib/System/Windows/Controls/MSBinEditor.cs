@@ -6,7 +6,9 @@ namespace System.Windows.Forms
     public class MSBinEditor : UserControl
     {
         private MSBinNode _node;
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public MSBinNode CurrentNode
         {
             get => _node;
@@ -67,7 +69,7 @@ namespace System.Windows.Forms
 
             string s1 = txtEditor.Text;
             string s2 = listBox1.SelectedItem as string;
-            if ((s2 == null) || (s1 == s2))
+            if (s2 == null || s1 == s2)
             {
                 return;
             }
@@ -85,8 +87,8 @@ namespace System.Windows.Forms
 
         private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
         {
-
         }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (_node == null)
@@ -102,6 +104,7 @@ namespace System.Windows.Forms
             listBox1.Items.Insert(index, s);
             listBox1.SelectedIndex = index;
         }
+
         private void btnRemove_Click(object sender, EventArgs e)
         {
             if (_node == null)
@@ -183,6 +186,7 @@ namespace System.Windows.Forms
                 e.Handled = true;
             }
         }
+
         private void txtEditor_Leave(object sender, EventArgs e)
         {
             Apply();
@@ -202,20 +206,20 @@ namespace System.Windows.Forms
 
         private void InitializeComponent()
         {
-            listBox1 = new System.Windows.Forms.ListBox();
-            panel2 = new System.Windows.Forms.Panel();
-            btnRemove = new System.Windows.Forms.Button();
-            btnAdd = new System.Windows.Forms.Button();
-            txtEditor = new System.Windows.Forms.TextBox();
-            splitContainer1 = new System.Windows.Forms.SplitContainer();
-            splitContainer2 = new System.Windows.Forms.SplitContainer();
-            btnMoveDown = new System.Windows.Forms.Button();
-            btnMoveUp = new System.Windows.Forms.Button();
+            listBox1 = new ListBox();
+            panel2 = new Panel();
+            btnRemove = new Button();
+            btnAdd = new Button();
+            txtEditor = new TextBox();
+            splitContainer1 = new SplitContainer();
+            splitContainer2 = new SplitContainer();
+            btnMoveDown = new Button();
+            btnMoveUp = new Button();
             panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(splitContainer1)).BeginInit();
+            ((ISupportInitialize) splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(splitContainer2)).BeginInit();
+            ((ISupportInitialize) splitContainer2).BeginInit();
             splitContainer2.Panel1.SuspendLayout();
             splitContainer2.Panel2.SuspendLayout();
             splitContainer2.SuspendLayout();
@@ -223,15 +227,15 @@ namespace System.Windows.Forms
             // 
             // listBox1
             // 
-            listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            listBox1.Dock = DockStyle.Fill;
             listBox1.FormattingEnabled = true;
             listBox1.IntegralHeight = false;
             listBox1.Location = new System.Drawing.Point(0, 0);
-            listBox1.Margin = new System.Windows.Forms.Padding(0);
+            listBox1.Margin = new Padding(0);
             listBox1.Name = "listBox1";
             listBox1.Size = new System.Drawing.Size(219, 113);
             listBox1.TabIndex = 1;
-            listBox1.SelectedIndexChanged += new System.EventHandler(listBox1_SelectedIndexChanged);
+            listBox1.SelectedIndexChanged += new EventHandler(listBox1_SelectedIndexChanged);
             // 
             // panel2
             // 
@@ -239,9 +243,9 @@ namespace System.Windows.Forms
             panel2.Controls.Add(btnMoveDown);
             panel2.Controls.Add(btnRemove);
             panel2.Controls.Add(btnAdd);
-            panel2.Dock = System.Windows.Forms.DockStyle.Right;
+            panel2.Dock = DockStyle.Right;
             panel2.Location = new System.Drawing.Point(219, 0);
-            panel2.Margin = new System.Windows.Forms.Padding(0);
+            panel2.Margin = new Padding(0);
             panel2.Name = "panel2";
             panel2.Size = new System.Drawing.Size(58, 113);
             panel2.TabIndex = 2;
@@ -254,7 +258,7 @@ namespace System.Windows.Forms
             btnRemove.TabIndex = 4;
             btnRemove.Text = "-";
             btnRemove.UseVisualStyleBackColor = true;
-            btnRemove.Click += new System.EventHandler(btnRemove_Click);
+            btnRemove.Click += new EventHandler(btnRemove_Click);
             // 
             // btnAdd
             // 
@@ -264,28 +268,29 @@ namespace System.Windows.Forms
             btnAdd.TabIndex = 3;
             btnAdd.Text = "+";
             btnAdd.UseVisualStyleBackColor = true;
-            btnAdd.Click += new System.EventHandler(btnAdd_Click);
+            btnAdd.Click += new EventHandler(btnAdd_Click);
             // 
             // txtEditor
             // 
-            txtEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            txtEditor.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtEditor.Dock = DockStyle.Fill;
+            txtEditor.Font = new Drawing.Font("Courier New", 8.25F, Drawing.FontStyle.Regular,
+                Drawing.GraphicsUnit.Point, 0);
             txtEditor.Location = new System.Drawing.Point(0, 0);
-            txtEditor.Margin = new System.Windows.Forms.Padding(0);
+            txtEditor.Margin = new Padding(0);
             txtEditor.Multiline = true;
             txtEditor.Name = "txtEditor";
-            txtEditor.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            txtEditor.ScrollBars = ScrollBars.Both;
             txtEditor.Size = new System.Drawing.Size(277, 164);
             txtEditor.TabIndex = 3;
-            txtEditor.TextChanged += new System.EventHandler(txtEditor_TextChanged);
-            txtEditor.KeyDown += new System.Windows.Forms.KeyEventHandler(txtEditor_KeyDown);
+            txtEditor.TextChanged += new EventHandler(txtEditor_TextChanged);
+            txtEditor.KeyDown += new KeyEventHandler(txtEditor_KeyDown);
             // 
             // splitContainer1
             // 
-            splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            splitContainer1.Dock = DockStyle.Fill;
             splitContainer1.Location = new System.Drawing.Point(0, 0);
             splitContainer1.Name = "splitContainer1";
-            splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            splitContainer1.Orientation = Orientation.Horizontal;
             // 
             // splitContainer1.Panel1
             // 
@@ -293,7 +298,7 @@ namespace System.Windows.Forms
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(splitContainer1_Panel2_Paint);
+            splitContainer1.Panel2.Paint += new PaintEventHandler(splitContainer1_Panel2_Paint);
             splitContainer1.Panel2Collapsed = true;
             splitContainer1.Size = new System.Drawing.Size(277, 164);
             splitContainer1.SplitterDistance = 74;
@@ -301,10 +306,10 @@ namespace System.Windows.Forms
             // 
             // splitContainer2
             // 
-            splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            splitContainer2.Dock = DockStyle.Fill;
             splitContainer2.Location = new System.Drawing.Point(0, 0);
             splitContainer2.Name = "splitContainer2";
-            splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            splitContainer2.Orientation = Orientation.Horizontal;
             // 
             // splitContainer2.Panel1
             // 
@@ -326,7 +331,7 @@ namespace System.Windows.Forms
             btnMoveDown.TabIndex = 5;
             btnMoveDown.Text = "↓";
             btnMoveDown.UseVisualStyleBackColor = true;
-            btnMoveDown.Click += new System.EventHandler(btnMoveDown_Click);
+            btnMoveDown.Click += new EventHandler(btnMoveDown_Click);
             // 
             // btnMoveUp
             // 
@@ -336,7 +341,7 @@ namespace System.Windows.Forms
             btnMoveUp.TabIndex = 6;
             btnMoveUp.Text = "↑";
             btnMoveUp.UseVisualStyleBackColor = true;
-            btnMoveUp.Click += new System.EventHandler(btnMoveUp_Click);
+            btnMoveUp.Click += new EventHandler(btnMoveUp_Click);
             // 
             // MSBinEditor
             // 
@@ -346,14 +351,13 @@ namespace System.Windows.Forms
             panel2.ResumeLayout(false);
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(splitContainer1)).EndInit();
+            ((ISupportInitialize) splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
             splitContainer2.Panel1.ResumeLayout(false);
             splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(splitContainer2)).EndInit();
+            ((ISupportInitialize) splitContainer2).EndInit();
             splitContainer2.ResumeLayout(false);
             ResumeLayout(false);
-
         }
 
         #endregion

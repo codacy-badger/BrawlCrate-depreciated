@@ -12,6 +12,7 @@ namespace BrawlCrate
         #region Menu
 
         private static readonly ContextMenuStrip _menu;
+
         static GenericWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -28,33 +29,80 @@ namespace BrawlCrate
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
-        protected static void DuplicateAction(object sender, EventArgs e) { GetInstance<GenericWrapper>().Duplicate(); }
 
-        protected static void MoveUpAction(object sender, EventArgs e) { GetInstance<GenericWrapper>().MoveUp(); }
-        protected static void MoveDownAction(object sender, EventArgs e) { GetInstance<GenericWrapper>().MoveDown(); }
-        protected static void ExportAction(object sender, EventArgs e) { GetInstance<GenericWrapper>().Export(); }
-        protected static void ReplaceAction(object sender, EventArgs e) { GetInstance<GenericWrapper>().Replace(); }
-        protected static void RestoreAction(object sender, EventArgs e) { GetInstance<GenericWrapper>().Restore(); }
-        protected static void DeleteAction(object sender, EventArgs e) { GetInstance<GenericWrapper>().Delete(); }
-        protected static void RenameAction(object sender, EventArgs e) { GetInstance<GenericWrapper>().Rename(); }
-        protected static void SortAction(object sender, EventArgs e) { GetInstance<GenericWrapper>().Sort(); }
+        protected static void DuplicateAction(object sender, EventArgs e)
+        {
+            GetInstance<GenericWrapper>().Duplicate();
+        }
+
+        protected static void MoveUpAction(object sender, EventArgs e)
+        {
+            GetInstance<GenericWrapper>().MoveUp();
+        }
+
+        protected static void MoveDownAction(object sender, EventArgs e)
+        {
+            GetInstance<GenericWrapper>().MoveDown();
+        }
+
+        protected static void ExportAction(object sender, EventArgs e)
+        {
+            GetInstance<GenericWrapper>().Export();
+        }
+
+        protected static void ReplaceAction(object sender, EventArgs e)
+        {
+            GetInstance<GenericWrapper>().Replace();
+        }
+
+        protected static void RestoreAction(object sender, EventArgs e)
+        {
+            GetInstance<GenericWrapper>().Restore();
+        }
+
+        protected static void DeleteAction(object sender, EventArgs e)
+        {
+            GetInstance<GenericWrapper>().Delete();
+        }
+
+        protected static void RenameAction(object sender, EventArgs e)
+        {
+            GetInstance<GenericWrapper>().Rename();
+        }
+
+        protected static void SortAction(object sender, EventArgs e)
+        {
+            GetInstance<GenericWrapper>().Sort();
+        }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-            _menu.Items[1].Enabled = _menu.Items[2].Enabled = _menu.Items[4].Enabled = _menu.Items[5].Enabled = _menu.Items[8].Enabled = true;
+            _menu.Items[1].Enabled = _menu.Items[2].Enabled =
+                _menu.Items[4].Enabled = _menu.Items[5].Enabled = _menu.Items[8].Enabled = true;
         }
+
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             GenericWrapper w = GetInstance<GenericWrapper>();
             _menu.Items[1].Enabled = _menu.Items[8].Enabled = w.Parent != null;
-            _menu.Items[2].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[2].Enabled = w._resource.IsDirty || w._resource.IsBranch;
             _menu.Items[4].Enabled = w.PrevNode != null;
             _menu.Items[5].Enabled = w.NextNode != null;
         }
 
         #endregion
 
-        public GenericWrapper(IWin32Window owner) { _owner = owner; ContextMenuStrip = _menu; }
-        public GenericWrapper() { _owner = null; ContextMenuStrip = _menu; }
+        public GenericWrapper(IWin32Window owner)
+        {
+            _owner = owner;
+            ContextMenuStrip = _menu;
+        }
+
+        public GenericWrapper()
+        {
+            _owner = null;
+            ContextMenuStrip = _menu;
+        }
 
         public virtual ResourceNode Duplicate()
         {
@@ -62,14 +110,17 @@ namespace BrawlCrate
             {
                 return null;
             }
+
             if (_resource._parent.GetType() == typeof(BRESGroupNode))
             {
                 if (_resource._parent._parent == null)
                 {
                     return null;
                 }
+
                 _resource._parent._parent.Rebuild();
-                ResourceNode newNode = NodeFactory.FromAddress(null, _resource.WorkingUncompressed.Address, _resource.WorkingUncompressed.Length);
+                ResourceNode newNode = NodeFactory.FromAddress(null, _resource.WorkingUncompressed.Address,
+                    _resource.WorkingUncompressed.Length);
                 int newIndex = _resource.Index + 1;
                 if (!_resource.AllowDuplicateNames)
                 {
@@ -81,12 +132,14 @@ namespace BrawlCrate
                         newIndex = _resource._parent.FindChildrenByName(newName)[0].Index + 1;
                         newName = _resource.Name + " (" + i + ")";
                     }
+
                     newNode.Name = newName;
                 }
                 else
                 {
                     newNode.Name = _resource.Name;
                 }
+
                 _resource._parent.InsertChild(newNode, true, newIndex);
                 newNode.Populate();
                 return newNode;
@@ -94,7 +147,8 @@ namespace BrawlCrate
             else
             {
                 _resource.Rebuild();
-                ResourceNode newNode = NodeFactory.FromAddress(null, _resource.WorkingUncompressed.Address, _resource.WorkingUncompressed.Length);
+                ResourceNode newNode = NodeFactory.FromAddress(null, _resource.WorkingUncompressed.Address,
+                    _resource.WorkingUncompressed.Length);
                 int newIndex = _resource.Index + 1;
                 if (!_resource.AllowDuplicateNames)
                 {
@@ -106,19 +160,25 @@ namespace BrawlCrate
                         newIndex = _resource._parent.FindChildrenByName(newName)[0].Index + 1;
                         newName = _resource.Name + " (" + i + ")";
                     }
+
                     newNode.Name = newName;
                 }
                 else
                 {
                     newNode.Name = _resource.Name;
                 }
+
                 _resource._parent.InsertChild(newNode, true, newIndex);
                 newNode.Populate();
                 return newNode;
             }
         }
 
-        public void MoveUp() { MoveUp(true); }
+        public void MoveUp()
+        {
+            MoveUp(true);
+        }
+
         public virtual void MoveUp(bool select)
         {
             if (PrevVisibleNode == null)
@@ -143,7 +203,11 @@ namespace BrawlCrate
             }
         }
 
-        public void MoveDown() { MoveDown(true); }
+        public void MoveDown()
+        {
+            MoveDown(true);
+        }
+
         public virtual void MoveDown(bool select)
         {
             if (NextVisibleNode == null)
@@ -203,9 +267,14 @@ namespace BrawlCrate
 
                 OnExport(outPath, index);
             }
+
             return outPath;
         }
-        public virtual void OnExport(string outPath, int filterIndex) { _resource.Export(outPath); }
+
+        public virtual void OnExport(string outPath, int filterIndex)
+        {
+            _resource.Export(outPath);
+        }
 
         public virtual void Replace()
         {
@@ -222,7 +291,10 @@ namespace BrawlCrate
             }
         }
 
-        public virtual void OnReplace(string inStream, int filterIndex) { _resource.Replace(inStream); }
+        public virtual void OnReplace(string inStream, int filterIndex)
+        {
+            _resource.Replace(inStream);
+        }
 
         public void Restore()
         {
@@ -231,7 +303,8 @@ namespace BrawlCrate
 
         public void Delete()
         {
-            if (Parent == null || (MainForm.Instance != null && Form.ActiveForm != null && Form.ActiveForm != MainForm.Instance))
+            if (Parent == null || MainForm.Instance != null && Form.ActiveForm != null &&
+                Form.ActiveForm != MainForm.Instance)
             {
                 return;
             }
@@ -242,10 +315,14 @@ namespace BrawlCrate
 
         public void Rename()
         {
-            using (RenameDialog dlg = new RenameDialog()) { dlg.ShowDialog(MainForm.Instance, _resource); }
+            using (RenameDialog dlg = new RenameDialog())
+            {
+                dlg.ShowDialog(MainForm.Instance, _resource);
+            }
+
             if (_resource.Parent == null && Program.CanRunDiscordRPC())
             {
-                BrawlCrate.Discord.DiscordSettings.Update();
+                Discord.DiscordSettings.Update();
             }
         }
 

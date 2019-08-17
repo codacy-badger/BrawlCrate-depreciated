@@ -6,7 +6,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class GCAMNode : ResourceNode
     {
-        internal GCAM* Header => (GCAM*)WorkingUncompressed.Address;
+        internal GCAM* Header => (GCAM*) WorkingUncompressed.Address;
         public override ResourceType ResourceType => ResourceType.GCAM;
 
         [Category("GCAM")]
@@ -14,7 +14,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public int Count => _count;
 
         public int _count;
-        private const int _entrySize = 0x23;    // The constant size of a child entry
+        private const int _entrySize = 0x23; // The constant size of a child entry
 
         public override void OnPopulate()
         {
@@ -22,26 +22,33 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 DataSource source;
                 if (i == Header->_count - 1)
-                { source = new DataSource((*Header)[i], WorkingUncompressed.Address + WorkingUncompressed.Length - (*Header)[i]); }
-                else { source = new DataSource((*Header)[i], (*Header)[i + 1] - (*Header)[i]); }
+                {
+                    source = new DataSource((*Header)[i],
+                        WorkingUncompressed.Address + WorkingUncompressed.Length - (*Header)[i]);
+                }
+                else
+                {
+                    source = new DataSource((*Header)[i], (*Header)[i + 1] - (*Header)[i]);
+                }
+
                 new GCAMEntryNode().Initialize(this, source);
             }
         }
 
         public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
-            return 0x08 + (Children.Count * 4) + (Children.Count * _entrySize);
+            return 0x08 + Children.Count * 4 + Children.Count * _entrySize;
         }
 
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
-            GCAM* header = (GCAM*)address;
+            GCAM* header = (GCAM*) address;
             *header = new GCAM(Children.Count);
-            uint offset = (uint)(0x08 + (Children.Count * 4));
+            uint offset = (uint) (0x08 + Children.Count * 4);
             for (int i = 0; i < Children.Count; i++)
             {
                 ResourceNode r = Children[i];
-                *(buint*)(address + 0x08 + i * 4) = offset;
+                *(buint*) (address + 0x08 + i * 4) = offset;
                 r.Rebuild(address + offset, _entrySize, true);
                 offset += _entrySize;
             }
@@ -59,12 +66,15 @@ namespace BrawlLib.SSBB.ResourceNodes
             return Header->_count > 0;
         }
 
-        internal static ResourceNode TryParse(DataSource source) { return ((GCAM*)source.Address)->_tag == GCAM.Tag ? new GCAMNode() : null; }
+        internal static ResourceNode TryParse(DataSource source)
+        {
+            return ((GCAM*) source.Address)->_tag == GCAM.Tag ? new GCAMNode() : null;
+        }
     }
 
     public unsafe class GCAMEntryNode : ResourceNode
     {
-        internal GCAMEntry* Header => (GCAMEntry*)WorkingUncompressed.Address;
+        internal GCAMEntry* Header => (GCAMEntry*) WorkingUncompressed.Address;
         public override ResourceType ResourceType => ResourceType.Unknown;
 
         public byte _unknown0x00;
@@ -81,7 +91,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x0B;
         public byte _unknown0x0C;
         public byte _unknown0x0D;
-        public byte _modeldataid2;   // 0x0E
+        public byte _modeldataid2; // 0x0E
         public byte _unknown0x0F;
         public byte _unknown0x10;
         public byte _unknown0x11;
@@ -233,7 +243,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
-            GCAMEntry* hdr = (GCAMEntry*)address;
+            GCAMEntry* hdr = (GCAMEntry*) address;
             hdr->_unknown0x00 = _unknown0x00;
             hdr->_unknown0x01 = _unknown0x01;
             hdr->_unknown0x02 = _unknown0x02;

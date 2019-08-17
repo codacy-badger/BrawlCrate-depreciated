@@ -12,10 +12,25 @@ namespace BrawlLib.SSBBTypes
         public uint _tag;
         public bint _entryCount;
 
-        public VoidPtr this[int index] => (byte*)Address + Offsets(index);
-        public uint Offsets(int index) { return *(buint*)((byte*)Address + 0x08 + (index * 4)); }
-        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
+        public VoidPtr this[int index] => (byte*) Address + Offsets(index);
+
+        public uint Offsets(int index)
+        {
+            return *(buint*) ((byte*) Address + 0x08 + index * 4);
+        }
+
+        private VoidPtr Address
+        {
+            get
+            {
+                fixed (void* ptr = &this)
+                {
+                    return ptr;
+                }
+            }
+        }
     }
+
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct GET1Entry
     {

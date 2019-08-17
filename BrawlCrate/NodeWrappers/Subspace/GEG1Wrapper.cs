@@ -12,6 +12,7 @@ namespace BrawlCrate.NodeWrappers
         #region Menu
 
         private static readonly ContextMenuStrip _menu;
+
         static GEG1Wrapper()
         {
             _menu = new ContextMenuStrip();
@@ -31,19 +32,27 @@ namespace BrawlCrate.NodeWrappers
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
-        protected static void NewEntryAction(object sender, EventArgs e) { GetInstance<GEG1Wrapper>().NewEntry(); }
+
+        protected static void NewEntryAction(object sender, EventArgs e)
+        {
+            GetInstance<GEG1Wrapper>().NewEntry();
+        }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-            _menu.Items[3].Enabled = _menu.Items[4].Enabled = _menu.Items[6].Enabled = _menu.Items[7].Enabled = _menu.Items[10].Enabled = true;
+            _menu.Items[3].Enabled = _menu.Items[4].Enabled =
+                _menu.Items[6].Enabled = _menu.Items[7].Enabled = _menu.Items[10].Enabled = true;
         }
+
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             GEG1Wrapper w = GetInstance<GEG1Wrapper>();
             _menu.Items[3].Enabled = _menu.Items[10].Enabled = w.Parent != null;
-            _menu.Items[4].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[4].Enabled = w._resource.IsDirty || w._resource.IsBranch;
             _menu.Items[6].Enabled = w.PrevNode != null;
             _menu.Items[7].Enabled = w.NextNode != null;
         }
+
         #endregion
 
         public override string ExportFilter => FileFilters.GEG1;
@@ -58,6 +67,9 @@ namespace BrawlCrate.NodeWrappers
             _resource.AddChild(node);
         }
 
-        public GEG1Wrapper() { ContextMenuStrip = _menu; }
+        public GEG1Wrapper()
+        {
+            ContextMenuStrip = _menu;
+        }
     }
 }

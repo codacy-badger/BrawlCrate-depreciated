@@ -9,6 +9,7 @@ namespace System
         {
             return source.IndexOf(value, comp) >= 0;
         }
+
         public static unsafe string TruncateAndFill(this string s, int length, char fillChar)
         {
             char* buffer = stackalloc char[length];
@@ -27,6 +28,7 @@ namespace System
 
             return new string(buffer, 0, length);
         }
+
         public static unsafe int IndexOfOccurance(this string s, char c, int index)
         {
             int len = s.Length;
@@ -34,33 +36,37 @@ namespace System
             {
                 for (int i = 0, count = 0; i < len; i++)
                 {
-                    if ((cPtr[i] == c) && (count++ == index))
+                    if (cPtr[i] == c && count++ == index)
                     {
                         return i;
                     }
                 }
             }
+
             return -1;
         }
+
         //internal static Encoding encoder = Encoding.GetEncoding(932);
         public static unsafe void Write(this string s, sbyte* ptr)
         {
             //var b = encoder.GetBytes(s);
             for (int i = 0; i < s.Length; i++)
             {
-                ptr[i] = (sbyte)s[i];
+                ptr[i] = (sbyte) s[i];
             }
         }
+
         public static unsafe void Write(this string s, ref sbyte* ptr)
         {
             //var b = encoder.GetBytes(s);
             for (int i = 0; i < s.Length; i++)
             {
-                *ptr++ = (sbyte)s[i];
+                *ptr++ = (sbyte) s[i];
             }
 
             *ptr++ = 0; //Null terminator
         }
+
         public static unsafe string Read(this string s, byte* ptr)
         {
             //List<byte> vals = new List<byte>();
@@ -68,8 +74,9 @@ namespace System
             //while ((val = *ptr++) != 0)
             //    vals.Add(val);
             //return encoder.GetString(vals.ToArray());
-            return new string((sbyte*)ptr);
+            return new string((sbyte*) ptr);
         }
+
         public static string ToBinaryArray(this string s)
         {
             //string value = "";
@@ -88,6 +95,7 @@ namespace System
 
             return result.PadLeft(result.Length.Align(8), '0');
         }
+
         public static int CompareBits(this string t1, string t2)
         {
             int bit = 0;
@@ -95,8 +103,8 @@ namespace System
             int min = Math.Min(t1.Length, t2.Length);
             for (int i = 0; i < min; i++)
             {
-                byte c1 = (byte)t1[i];
-                byte c2 = (byte)t2[i];
+                byte c1 = (byte) t1[i];
+                byte c2 = (byte) t2[i];
 
                 for (int x = 0; x < 8; x++)
                 {
@@ -113,6 +121,7 @@ namespace System
                     break;
                 }
             }
+
             if (!found)
             {
                 bit = min * 8 + 1;
@@ -120,6 +129,7 @@ namespace System
 
             return bit;
         }
+
         public static bool AtBit(this string s, int bitIndex)
         {
             int bit = bitIndex % 8;

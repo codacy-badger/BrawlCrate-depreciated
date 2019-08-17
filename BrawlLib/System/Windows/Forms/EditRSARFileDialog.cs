@@ -7,7 +7,10 @@ namespace System.Windows.Forms
 {
     public class EditRSARFileDialog : Form
     {
-        public EditRSARFileDialog() { InitializeComponent(); }
+        public EditRSARFileDialog()
+        {
+            InitializeComponent();
+        }
 
         private AudioPlaybackPanel audioPlaybackPanel1;
         private ContextMenuStrip ctxData;
@@ -27,7 +30,16 @@ namespace System.Windows.Forms
         private ToolStripMenuItem dataNewRange;
         private ToolStripMenuItem dataNewIndex;
         private RSARFileNode _targetNode;
-        public RSARFileNode TargetNode { get => _targetNode; set { _targetNode = value; TargetChanged(); } }
+
+        public RSARFileNode TargetNode
+        {
+            get => _targetNode;
+            set
+            {
+                _targetNode = value;
+                TargetChanged();
+            }
+        }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
@@ -50,7 +62,11 @@ namespace System.Windows.Forms
             Close();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e) { DialogResult = DialogResult.Cancel; Close(); }
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
 
         protected internal virtual void OnUpdateCurrControl(object sender, EventArgs e)
         {
@@ -75,34 +91,34 @@ namespace System.Windows.Forms
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            btnOkay = new System.Windows.Forms.Button();
-            panel1 = new System.Windows.Forms.Panel();
-            panel2 = new System.Windows.Forms.Panel();
-            panel3 = new System.Windows.Forms.Panel();
-            dataListBox = new System.Windows.Forms.ListBox();
-            ctxData = new System.Windows.Forms.ContextMenuStrip(components);
-            dataReplace = new System.Windows.Forms.ToolStripMenuItem();
-            dataExport = new System.Windows.Forms.ToolStripMenuItem();
-            dataNew = new System.Windows.Forms.ToolStripMenuItem();
-            dataNewNullEntry = new System.Windows.Forms.ToolStripMenuItem();
-            dataNewInstParam = new System.Windows.Forms.ToolStripMenuItem();
-            dataNewRange = new System.Windows.Forms.ToolStripMenuItem();
-            dataNewIndex = new System.Windows.Forms.ToolStripMenuItem();
-            dataDelete = new System.Windows.Forms.ToolStripMenuItem();
-            label1 = new System.Windows.Forms.Label();
-            splitter2 = new System.Windows.Forms.Splitter();
-            panel4 = new System.Windows.Forms.Panel();
-            soundsListBox = new System.Windows.Forms.ListBox();
-            ctxSounds = new System.Windows.Forms.ContextMenuStrip(components);
-            sndReplace = new System.Windows.Forms.ToolStripMenuItem();
-            sndExport = new System.Windows.Forms.ToolStripMenuItem();
-            sndNew = new System.Windows.Forms.ToolStripMenuItem();
-            sndDelete = new System.Windows.Forms.ToolStripMenuItem();
-            label2 = new System.Windows.Forms.Label();
-            splitter1 = new System.Windows.Forms.Splitter();
-            propertyGrid = new System.Windows.Forms.PropertyGrid();
-            audioPlaybackPanel1 = new System.Windows.Forms.AudioPlaybackPanel();
-            button1 = new System.Windows.Forms.Button();
+            btnOkay = new Button();
+            panel1 = new Panel();
+            panel2 = new Panel();
+            panel3 = new Panel();
+            dataListBox = new ListBox();
+            ctxData = new ContextMenuStrip(components);
+            dataReplace = new ToolStripMenuItem();
+            dataExport = new ToolStripMenuItem();
+            dataNew = new ToolStripMenuItem();
+            dataNewNullEntry = new ToolStripMenuItem();
+            dataNewInstParam = new ToolStripMenuItem();
+            dataNewRange = new ToolStripMenuItem();
+            dataNewIndex = new ToolStripMenuItem();
+            dataDelete = new ToolStripMenuItem();
+            label1 = new Label();
+            splitter2 = new Splitter();
+            panel4 = new Panel();
+            soundsListBox = new ListBox();
+            ctxSounds = new ContextMenuStrip(components);
+            sndReplace = new ToolStripMenuItem();
+            sndExport = new ToolStripMenuItem();
+            sndNew = new ToolStripMenuItem();
+            sndDelete = new ToolStripMenuItem();
+            label2 = new Label();
+            splitter1 = new Splitter();
+            propertyGrid = new PropertyGrid();
+            audioPlaybackPanel1 = new AudioPlaybackPanel();
+            button1 = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -113,19 +129,19 @@ namespace System.Windows.Forms
             // 
             // btnOkay
             // 
-            btnOkay.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
+            btnOkay.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnOkay.Location = new System.Drawing.Point(369, 3);
             btnOkay.Name = "btnOkay";
             btnOkay.Size = new System.Drawing.Size(75, 23);
             btnOkay.TabIndex = 1;
             btnOkay.Text = "&Done";
             btnOkay.UseVisualStyleBackColor = true;
-            btnOkay.Click += new System.EventHandler(btnOkay_Click);
+            btnOkay.Click += new EventHandler(btnOkay_Click);
             // 
             // panel1
             // 
             panel1.Controls.Add(btnOkay);
-            panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panel1.Dock = DockStyle.Bottom;
             panel1.Location = new System.Drawing.Point(0, 320);
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(447, 31);
@@ -136,7 +152,7 @@ namespace System.Windows.Forms
             panel2.Controls.Add(panel3);
             panel2.Controls.Add(splitter2);
             panel2.Controls.Add(panel4);
-            panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            panel2.Dock = DockStyle.Left;
             panel2.Location = new System.Drawing.Point(0, 0);
             panel2.MinimumSize = new System.Drawing.Size(54, 0);
             panel2.Name = "panel2";
@@ -147,9 +163,9 @@ namespace System.Windows.Forms
             // 
             panel3.Controls.Add(dataListBox);
             panel3.Controls.Add(label1);
-            panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel3.Dock = DockStyle.Fill;
             panel3.Location = new System.Drawing.Point(0, 0);
-            panel3.Margin = new System.Windows.Forms.Padding(0);
+            panel3.Margin = new Padding(0);
             panel3.MinimumSize = new System.Drawing.Size(0, 15);
             panel3.Name = "panel3";
             panel3.Size = new System.Drawing.Size(107, 160);
@@ -158,7 +174,7 @@ namespace System.Windows.Forms
             // dataListBox
             // 
             dataListBox.ContextMenuStrip = ctxData;
-            dataListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            dataListBox.Dock = DockStyle.Fill;
             dataListBox.FormattingEnabled = true;
             dataListBox.IntegralHeight = false;
             dataListBox.ItemHeight = 16;
@@ -166,16 +182,18 @@ namespace System.Windows.Forms
             dataListBox.Name = "dataListBox";
             dataListBox.Size = new System.Drawing.Size(107, 139);
             dataListBox.TabIndex = 3;
-            dataListBox.SelectedIndexChanged += new System.EventHandler(dataListBox_SelectedIndexChanged);
+            dataListBox.SelectedIndexChanged += new EventHandler(dataListBox_SelectedIndexChanged);
             // 
             // ctxData
             // 
             ctxData.ImageScalingSize = new System.Drawing.Size(20, 20);
-            ctxData.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            dataReplace,
-            dataExport,
-            dataNew,
-            dataDelete});
+            ctxData.Items.AddRange(new ToolStripItem[]
+            {
+                dataReplace,
+                dataExport,
+                dataNew,
+                dataDelete
+            });
             ctxData.Name = "contextMenuStrip1";
             ctxData.Size = new System.Drawing.Size(182, 136);
             // 
@@ -184,91 +202,93 @@ namespace System.Windows.Forms
             dataReplace.Name = "dataReplace";
             dataReplace.Size = new System.Drawing.Size(181, 26);
             dataReplace.Text = "Replace";
-            dataReplace.Click += new System.EventHandler(replaceToolStripMenuItem_Click);
+            dataReplace.Click += new EventHandler(replaceToolStripMenuItem_Click);
             // 
             // dataExport
             // 
             dataExport.Name = "dataExport";
             dataExport.Size = new System.Drawing.Size(181, 26);
             dataExport.Text = "Export";
-            dataExport.Click += new System.EventHandler(exportToolStripMenuItem_Click);
+            dataExport.Click += new EventHandler(exportToolStripMenuItem_Click);
             // 
             // dataNew
             // 
-            dataNew.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            dataNewNullEntry,
-            dataNewInstParam,
-            dataNewRange,
-            dataNewIndex});
+            dataNew.DropDownItems.AddRange(new ToolStripItem[]
+            {
+                dataNewNullEntry,
+                dataNewInstParam,
+                dataNewRange,
+                dataNewIndex
+            });
             dataNew.Name = "dataNew";
             dataNew.Size = new System.Drawing.Size(181, 26);
             dataNew.Text = "New";
-            dataNew.Click += new System.EventHandler(dataNew_Click);
+            dataNew.Click += new EventHandler(dataNew_Click);
             // 
             // dataNewNullEntry
             // 
             dataNewNullEntry.Name = "dataNewNullEntry";
             dataNewNullEntry.Size = new System.Drawing.Size(215, 26);
             dataNewNullEntry.Text = "Null Entry";
-            dataNewNullEntry.Click += new System.EventHandler(nullEntryToolStripMenuItem1_Click);
+            dataNewNullEntry.Click += new EventHandler(nullEntryToolStripMenuItem1_Click);
             // 
             // dataNewInstParam
             // 
             dataNewInstParam.Name = "dataNewInstParam";
             dataNewInstParam.Size = new System.Drawing.Size(215, 26);
             dataNewInstParam.Text = "Instance Parameters";
-            dataNewInstParam.Click += new System.EventHandler(instanceParametersToolStripMenuItem_Click);
+            dataNewInstParam.Click += new EventHandler(instanceParametersToolStripMenuItem_Click);
             // 
             // dataNewRange
             // 
             dataNewRange.Name = "dataNewRange";
             dataNewRange.Size = new System.Drawing.Size(215, 26);
             dataNewRange.Text = "Range Group";
-            dataNewRange.Click += new System.EventHandler(rangeGroupToolStripMenuItem1_Click);
+            dataNewRange.Click += new EventHandler(rangeGroupToolStripMenuItem1_Click);
             // 
             // dataNewIndex
             // 
             dataNewIndex.Name = "dataNewIndex";
             dataNewIndex.Size = new System.Drawing.Size(215, 26);
             dataNewIndex.Text = "Index Group";
-            dataNewIndex.Click += new System.EventHandler(indexGroupToolStripMenuItem1_Click);
+            dataNewIndex.Click += new EventHandler(indexGroupToolStripMenuItem1_Click);
             // 
             // dataDelete
             // 
             dataDelete.Name = "dataDelete";
             dataDelete.Size = new System.Drawing.Size(181, 26);
             dataDelete.Text = "Delete";
-            dataDelete.Click += new System.EventHandler(dataDelete_Click);
+            dataDelete.Click += new EventHandler(dataDelete_Click);
             // 
             // label1
             // 
-            label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            label1.Dock = System.Windows.Forms.DockStyle.Top;
+            label1.BorderStyle = BorderStyle.FixedSingle;
+            label1.Dock = DockStyle.Top;
             label1.Location = new System.Drawing.Point(0, 0);
-            label1.Margin = new System.Windows.Forms.Padding(0);
+            label1.Margin = new Padding(0);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(107, 21);
             label1.TabIndex = 2;
             label1.Text = "Data";
-            label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            label1.TextAlign = Drawing.ContentAlignment.TopCenter;
             // 
             // splitter2
             // 
-            splitter2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            splitter2.Dock = DockStyle.Bottom;
             splitter2.Location = new System.Drawing.Point(0, 160);
             splitter2.Name = "splitter2";
             splitter2.Size = new System.Drawing.Size(107, 3);
             splitter2.TabIndex = 0;
             splitter2.TabStop = false;
-            splitter2.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(splitter2_SplitterMoved);
+            splitter2.SplitterMoved += new SplitterEventHandler(splitter2_SplitterMoved);
             // 
             // panel4
             // 
             panel4.Controls.Add(soundsListBox);
             panel4.Controls.Add(label2);
-            panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panel4.Dock = DockStyle.Bottom;
             panel4.Location = new System.Drawing.Point(0, 163);
-            panel4.Margin = new System.Windows.Forms.Padding(0);
+            panel4.Margin = new Padding(0);
             panel4.MinimumSize = new System.Drawing.Size(0, 15);
             panel4.Name = "panel4";
             panel4.Size = new System.Drawing.Size(107, 157);
@@ -277,7 +297,7 @@ namespace System.Windows.Forms
             // soundsListBox
             // 
             soundsListBox.ContextMenuStrip = ctxSounds;
-            soundsListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            soundsListBox.Dock = DockStyle.Fill;
             soundsListBox.FormattingEnabled = true;
             soundsListBox.IntegralHeight = false;
             soundsListBox.ItemHeight = 16;
@@ -285,16 +305,18 @@ namespace System.Windows.Forms
             soundsListBox.Name = "soundsListBox";
             soundsListBox.Size = new System.Drawing.Size(107, 136);
             soundsListBox.TabIndex = 2;
-            soundsListBox.SelectedIndexChanged += new System.EventHandler(soundsListBox_SelectedIndexChanged);
+            soundsListBox.SelectedIndexChanged += new EventHandler(soundsListBox_SelectedIndexChanged);
             // 
             // ctxSounds
             // 
             ctxSounds.ImageScalingSize = new System.Drawing.Size(20, 20);
-            ctxSounds.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            sndReplace,
-            sndExport,
-            sndNew,
-            sndDelete});
+            ctxSounds.Items.AddRange(new ToolStripItem[]
+            {
+                sndReplace,
+                sndExport,
+                sndNew,
+                sndDelete
+            });
             ctxSounds.Name = "contextMenuStrip1";
             ctxSounds.Size = new System.Drawing.Size(138, 108);
             // 
@@ -303,40 +325,40 @@ namespace System.Windows.Forms
             sndReplace.Name = "sndReplace";
             sndReplace.Size = new System.Drawing.Size(137, 26);
             sndReplace.Text = "Replace";
-            sndReplace.Click += new System.EventHandler(toolStripMenuItem1_Click);
+            sndReplace.Click += new EventHandler(toolStripMenuItem1_Click);
             // 
             // sndExport
             // 
             sndExport.Name = "sndExport";
             sndExport.Size = new System.Drawing.Size(137, 26);
             sndExport.Text = "Export";
-            sndExport.Click += new System.EventHandler(toolStripMenuItem2_Click);
+            sndExport.Click += new EventHandler(toolStripMenuItem2_Click);
             // 
             // sndNew
             // 
             sndNew.Name = "sndNew";
             sndNew.Size = new System.Drawing.Size(137, 26);
             sndNew.Text = "New";
-            sndNew.Click += new System.EventHandler(sndNew_Click);
+            sndNew.Click += new EventHandler(sndNew_Click);
             // 
             // sndDelete
             // 
             sndDelete.Name = "sndDelete";
             sndDelete.Size = new System.Drawing.Size(137, 26);
             sndDelete.Text = "Delete";
-            sndDelete.Click += new System.EventHandler(sndDelete_Click);
+            sndDelete.Click += new EventHandler(sndDelete_Click);
             // 
             // label2
             // 
-            label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            label2.Dock = System.Windows.Forms.DockStyle.Top;
+            label2.BorderStyle = BorderStyle.FixedSingle;
+            label2.Dock = DockStyle.Top;
             label2.Location = new System.Drawing.Point(0, 0);
-            label2.Margin = new System.Windows.Forms.Padding(0);
+            label2.Margin = new Padding(0);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(107, 21);
             label2.TabIndex = 1;
             label2.Text = "Sounds";
-            label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            label2.TextAlign = Drawing.ContentAlignment.TopCenter;
             // 
             // splitter1
             // 
@@ -348,7 +370,7 @@ namespace System.Windows.Forms
             // 
             // propertyGrid
             // 
-            propertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            propertyGrid.Dock = DockStyle.Fill;
             propertyGrid.HelpVisible = false;
             propertyGrid.Location = new System.Drawing.Point(110, 24);
             propertyGrid.Name = "propertyGrid";
@@ -357,7 +379,7 @@ namespace System.Windows.Forms
             // 
             // audioPlaybackPanel1
             // 
-            audioPlaybackPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            audioPlaybackPanel1.Dock = DockStyle.Bottom;
             audioPlaybackPanel1.Location = new System.Drawing.Point(110, 209);
             audioPlaybackPanel1.Name = "audioPlaybackPanel1";
             audioPlaybackPanel1.Size = new System.Drawing.Size(337, 111);
@@ -367,14 +389,14 @@ namespace System.Windows.Forms
             // 
             // button1
             // 
-            button1.Dock = System.Windows.Forms.DockStyle.Top;
+            button1.Dock = DockStyle.Top;
             button1.Location = new System.Drawing.Point(110, 0);
             button1.Name = "button1";
             button1.Size = new System.Drawing.Size(337, 24);
             button1.TabIndex = 8;
             button1.Text = "View Entries";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += new System.EventHandler(button1_Click);
+            button1.Click += new EventHandler(button1_Click);
             // 
             // EditRSARFileDialog
             // 
@@ -389,7 +411,7 @@ namespace System.Windows.Forms
             Name = "EditRSARFileDialog";
             ShowIcon = false;
             ShowInTaskbar = false;
-            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Edit RSAR File";
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
@@ -398,8 +420,8 @@ namespace System.Windows.Forms
             panel4.ResumeLayout(false);
             ctxSounds.ResumeLayout(false);
             ResumeLayout(false);
-
         }
+
         #endregion
 
         public void TargetChanged()
@@ -437,11 +459,12 @@ namespace System.Windows.Forms
                     soundsListBox.SelectedIndex = 0;
                 }
             }
+
             button1.Visible =
-            dataNewNullEntry.Visible =
-            dataNewInstParam.Visible =
-                dataNewRange.Visible =
-                dataNewIndex.Visible = TargetNode is RBNKNode;
+                dataNewNullEntry.Visible =
+                    dataNewInstParam.Visible =
+                        dataNewRange.Visible =
+                            dataNewIndex.Visible = TargetNode is RBNKNode;
 
             if (TargetNode != null)
             {
@@ -455,7 +478,6 @@ namespace System.Windows.Forms
 
         private void splitter2_SplitterMoved(object sender, SplitterEventArgs e)
         {
-
         }
 
         private void dataListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -484,6 +506,7 @@ namespace System.Windows.Forms
                     soundsListBox.SelectedIndex = w;
                 }
             }
+
             button1.Enabled = !(button1.Text != "Back" && r is RBNKDataEntryNode);
         }
 
@@ -539,6 +562,7 @@ namespace System.Windows.Forms
         }
 
         private RBNKEntryNode _baseEntry = null;
+
         private void button1_Click(object sender, EventArgs e)
         {
             if (button1.Text == "View Entries")
@@ -686,7 +710,7 @@ namespace System.Windows.Forms
             }
 
             RBNKNullNode n = new RBNKNullNode();
-            ResourceNode r = _baseEntry == null ? TargetNode : (ResourceNode)_baseEntry;
+            ResourceNode r = _baseEntry == null ? TargetNode : (ResourceNode) _baseEntry;
             n.Parent = r;
         }
 
@@ -698,7 +722,7 @@ namespace System.Windows.Forms
             }
 
             RBNKDataInstParamNode n = new RBNKDataInstParamNode();
-            ResourceNode r = _baseEntry == null ? TargetNode : (ResourceNode)_baseEntry;
+            ResourceNode r = _baseEntry == null ? TargetNode : (ResourceNode) _baseEntry;
             n.Parent = r;
         }
 
@@ -710,7 +734,7 @@ namespace System.Windows.Forms
             }
 
             RBNKDataRangeTableNode n = new RBNKDataRangeTableNode();
-            ResourceNode r = _baseEntry == null ? TargetNode : (ResourceNode)_baseEntry;
+            ResourceNode r = _baseEntry == null ? TargetNode : (ResourceNode) _baseEntry;
             n.Parent = r;
         }
 
@@ -722,7 +746,7 @@ namespace System.Windows.Forms
             }
 
             RBNKDataIndexTableNode n = new RBNKDataIndexTableNode();
-            ResourceNode r = _baseEntry == null ? TargetNode : (ResourceNode)_baseEntry;
+            ResourceNode r = _baseEntry == null ? TargetNode : (ResourceNode) _baseEntry;
             n.Parent = r;
         }
     }

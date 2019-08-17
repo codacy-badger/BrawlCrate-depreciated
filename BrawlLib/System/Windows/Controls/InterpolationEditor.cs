@@ -8,7 +8,11 @@ namespace System.Windows.Forms
     {
         public ModelEditorBase _mainWindow;
 
-        public InterpolationEditor() { _mainWindow = null; }
+        public InterpolationEditor()
+        {
+            _mainWindow = null;
+        }
+
         public InterpolationEditor(ModelEditorBase mainWindow)
         {
             InitializeComponent();
@@ -26,7 +30,7 @@ namespace System.Windows.Forms
 
         private void interpolationViewer_SignalChange(object sender, EventArgs e)
         {
-            ((ResourceNode)_targetNode).SignalPropertyChange();
+            ((ResourceNode) _targetNode).SignalPropertyChange();
             if (_mainWindow != null)
             {
                 _mainWindow.UpdatePropDisplay();
@@ -45,10 +49,10 @@ namespace System.Windows.Forms
 
         private void interpolationViewer1_FrameChanged(object sender, EventArgs e)
         {
-
             if (_mainWindow != null && _mainWindow.CurrentFrame - 1 != interpolationViewer.FrameIndex)
             {
-                _mainWindow.SetFrame((interpolationViewer.FrameIndex + 1).Clamp(1, (int)_mainWindow.PlaybackPanel.numTotalFrames.Value));
+                _mainWindow.SetFrame((interpolationViewer.FrameIndex + 1).Clamp(1,
+                    (int) _mainWindow.PlaybackPanel.numTotalFrames.Value));
             }
         }
 
@@ -73,7 +77,8 @@ namespace System.Windows.Forms
 
                 return cbTransform.SelectedIndex;
             }
-            set => cbTransform.SelectedIndex = value.Clamp(cbTransform.Items.Count == 0 ? -1 : 0, cbTransform.Items.Count - 1);
+            set => cbTransform.SelectedIndex =
+                value.Clamp(cbTransform.Items.Count == 0 ? -1 : 0, cbTransform.Items.Count - 1);
         }
 
         public void KeyframeChanged()
@@ -97,6 +102,7 @@ namespace System.Windows.Forms
         }
 
         public IKeyframeSource _targetNode;
+
         public void SetTarget(IKeyframeSource node)
         {
             int selectedCB = cbTransform.SelectedIndex;
@@ -232,6 +238,7 @@ namespace System.Windows.Forms
                         }
                     }
                 }
+
                 if (cbTransform.Items.Count > selectedCB && selectedCB >= 0)
                 {
                     cbTransform.SelectedIndex = selectedCB;
@@ -254,6 +261,7 @@ namespace System.Windows.Forms
                 panel1.Enabled = false;
             }
         }
+
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int Frame
         {
@@ -351,6 +359,7 @@ namespace System.Windows.Forms
                 numInValue.Value = 0;
                 numFrameVal.Value = 0;
             }
+
             _updating = false;
         }
 
@@ -370,7 +379,7 @@ namespace System.Windows.Forms
             kf._tangent = numInTan.Value;
 
             interpolationViewer.Invalidate();
-            ((ResourceNode)_targetNode).SignalPropertyChange();
+            ((ResourceNode) _targetNode).SignalPropertyChange();
 
             if (chkSyncStartEnd.Checked)
             {
@@ -398,14 +407,14 @@ namespace System.Windows.Forms
             int end = 0;
             if (_mainWindow != null)
             {
-                end = (int)_mainWindow.PlaybackPanel.numTotalFrames.Value - 1;
+                end = (int) _mainWindow.PlaybackPanel.numTotalFrames.Value - 1;
             }
             else
             {
                 end = _targetNode.FrameCount - 1;
             }
 
-            int index = ((int)numFrameVal.Value - 1).Clamp(0, end);
+            int index = ((int) numFrameVal.Value - 1).Clamp(0, end);
 
             Frame = index + 1;
         }
@@ -426,7 +435,7 @@ namespace System.Windows.Forms
             kf._value = numInValue.Value;
 
             interpolationViewer.Invalidate();
-            ((ResourceNode)_targetNode).SignalPropertyChange();
+            ((ResourceNode) _targetNode).SignalPropertyChange();
             if (_mainWindow != null)
             {
                 _mainWindow.KeyframePanel.UpdateKeyframe(interpolationViewer.SelectedKeyframe._index);
@@ -446,6 +455,7 @@ namespace System.Windows.Forms
                     SelectedKeyframe._next._next._value = SelectedKeyframe._value;
                 }
             }
+
             if (_mainWindow != null)
             {
                 _mainWindow.UpdateModel();
@@ -465,7 +475,9 @@ namespace System.Windows.Forms
             if (SelectedKeyframe != null && interpolationViewer.KeyRoot != null)
             {
                 KeyframeEntry prev = SelectedKeyframe;
-                for (KeyframeEntry entry = interpolationViewer.KeyRoot._next; (entry != interpolationViewer.KeyRoot); entry = entry._next)
+                for (KeyframeEntry entry = interpolationViewer.KeyRoot._next;
+                    entry != interpolationViewer.KeyRoot;
+                    entry = entry._next)
                 {
                     if (entry._index == SelectedKeyframe._index)
                     {
@@ -485,6 +497,7 @@ namespace System.Windows.Forms
         {
             interpolationViewer.DisplayAllKeyframes = !chkViewOne.Checked;
         }
+
         private void chkGenTans_CheckedChanged(object sender, EventArgs e)
         {
             interpolationViewer.GenerateTangents = chkGenTans.Checked;
@@ -502,18 +515,22 @@ namespace System.Windows.Forms
             //else if (_targetNode is SCN0FogNode)
             //    SCN0FogNode._generateTangents = chkGenTans.Checked;
         }
+
         private void chkKeyDrag_CheckedChanged(object sender, EventArgs e)
         {
             interpolationViewer.KeyDraggingAllowed = chkKeyDrag.Checked;
         }
+
         private void chkRenderTans_CheckedChanged(object sender, EventArgs e)
         {
             interpolationViewer.DrawTangents = chkRenderTans.Checked;
         }
+
         private void chkSyncStartEnd_CheckedChanged(object sender, EventArgs e)
         {
             interpolationViewer.SyncStartEnd = chkSyncStartEnd.Checked;
         }
+
         private void numTanLen_ValueChanged(object sender, EventArgs e)
         {
             interpolationViewer.TangentLength = nibTanLen.Value;
@@ -521,14 +538,17 @@ namespace System.Windows.Forms
 
         private void mItem_genTan_alterSelTanOnDrag_CheckedChanged(object sender, EventArgs e)
         {
-            interpolationViewer.AlterSelectedTangent_OnDrag = mItem_genTan_alterSelTanOnDrag.Checked && CHR0EntryNode._generateTangents;
+            interpolationViewer.AlterSelectedTangent_OnDrag =
+                mItem_genTan_alterSelTanOnDrag.Checked && CHR0EntryNode._generateTangents;
         }
 
         private void mItem_genTan_alterAdjTan_CheckedChanged(object sender, EventArgs e)
         {
             CHR0EntryNode._alterAdjTangents = mItem_genTan_alterAdjTan.Checked;
 
-            interpolationViewer.AlterAdjTangent_OnSelectedDrag = CHR0EntryNode._generateTangents && CHR0EntryNode._alterAdjTangents && mItem_genTan_alterAdjTan_OnDrag.Checked;
+            interpolationViewer.AlterAdjTangent_OnSelectedDrag =
+                CHR0EntryNode._generateTangents && CHR0EntryNode._alterAdjTangents &&
+                mItem_genTan_alterAdjTan_OnDrag.Checked;
         }
 
         private void mItem_genTan_alterAdjTan_OnSet_CheckedChanged(object sender, EventArgs e)
@@ -543,22 +563,21 @@ namespace System.Windows.Forms
 
         private void mItem_genTan_alterAdjTan_OnDrag_CheckedChanged(object sender, EventArgs e)
         {
-            interpolationViewer.AlterAdjTangent_OnSelectedDrag = CHR0EntryNode._generateTangents && CHR0EntryNode._alterAdjTangents && mItem_genTan_alterAdjTan_OnDrag.Checked;
+            interpolationViewer.AlterAdjTangent_OnSelectedDrag =
+                CHR0EntryNode._generateTangents && CHR0EntryNode._alterAdjTangents &&
+                mItem_genTan_alterAdjTan_OnDrag.Checked;
         }
 
         private void chkLinear_Click(object sender, EventArgs e)
         {
-
         }
 
         private void chkSmooth_Click(object sender, EventArgs e)
         {
-
         }
 
         private void chkFlat_Click(object sender, EventArgs e)
         {
-
         }
 
         private void chkBreakKey_Click(object sender, EventArgs e)
@@ -586,7 +605,7 @@ namespace System.Windows.Forms
 
             kf._tangent = numOutTan.Value;
             interpolationViewer.Invalidate();
-            ((ResourceNode)_targetNode).SignalPropertyChange();
+            ((ResourceNode) _targetNode).SignalPropertyChange();
 
             if (chkSyncStartEnd.Checked)
             {
@@ -619,7 +638,7 @@ namespace System.Windows.Forms
 
             kf._value = numOutVal.Value;
             interpolationViewer.Invalidate();
-            ((ResourceNode)_targetNode).SignalPropertyChange();
+            ((ResourceNode) _targetNode).SignalPropertyChange();
             if (_mainWindow != null)
             {
                 _mainWindow.KeyframePanel.UpdateKeyframe(interpolationViewer.SelectedKeyframe._index);
@@ -639,6 +658,7 @@ namespace System.Windows.Forms
                     SelectedKeyframe._next._next._value = SelectedKeyframe._value;
                 }
             }
+
             if (_mainWindow != null)
             {
                 _mainWindow.UpdateModel();
@@ -648,12 +668,10 @@ namespace System.Windows.Forms
 
         private void chkTanStrength_Click(object sender, EventArgs e)
         {
-
         }
 
         private void chkTanAngle_Click(object sender, EventArgs e)
         {
-
         }
 
         private void chkUseOut_CheckedChanged(object sender, EventArgs e)
@@ -664,7 +682,8 @@ namespace System.Windows.Forms
             {
                 if (chkUseOut.Checked)
                 {
-                    SelectedKeyframe.InsertAfter(new KeyframeEntry(SelectedKeyframe._index, SelectedKeyframe._value) { _tangent = SelectedKeyframe._tangent });
+                    SelectedKeyframe.InsertAfter(new KeyframeEntry(SelectedKeyframe._index, SelectedKeyframe._value)
+                        {_tangent = SelectedKeyframe._tangent});
                 }
                 else
                 {
@@ -674,6 +693,7 @@ namespace System.Windows.Forms
                         second.Remove();
                     }
                 }
+
                 interpolationViewer.Invalidate();
             }
         }
@@ -698,7 +718,7 @@ namespace System.Windows.Forms
             {
                 if (_mainWindow != null)
                 {
-                    next = (int)_mainWindow.PlaybackPanel.numTotalFrames.Value - 1;
+                    next = (int) _mainWindow.PlaybackPanel.numTotalFrames.Value - 1;
                 }
                 else
                 {
@@ -706,12 +726,12 @@ namespace System.Windows.Forms
                 }
             }
 
-            int index = ((int)numFrameVal.Value - 1).Clamp(prev, next);
+            int index = ((int) numFrameVal.Value - 1).Clamp(prev, next);
 
             kf._index = index;
 
             interpolationViewer.Invalidate();
-            ((ResourceNode)_targetNode).SignalPropertyChange();
+            ((ResourceNode) _targetNode).SignalPropertyChange();
         }
 
         private void numOutFrame_ValueChanged(object sender, EventArgs e)
@@ -734,7 +754,7 @@ namespace System.Windows.Forms
             {
                 if (_mainWindow != null)
                 {
-                    next = (int)_mainWindow.PlaybackPanel.numTotalFrames.Value - 1;
+                    next = (int) _mainWindow.PlaybackPanel.numTotalFrames.Value - 1;
                 }
                 else
                 {
@@ -742,12 +762,12 @@ namespace System.Windows.Forms
                 }
             }
 
-            int index = ((int)numFrameVal.Value - 1).Clamp(prev, next);
+            int index = ((int) numFrameVal.Value - 1).Clamp(prev, next);
 
             kf._index = index;
 
             interpolationViewer.Invalidate();
-            ((ResourceNode)_targetNode).SignalPropertyChange();
+            ((ResourceNode) _targetNode).SignalPropertyChange();
         }
     }
 }

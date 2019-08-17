@@ -12,7 +12,7 @@ namespace System.Windows.Forms
         private Button btnRewind;
         private Label lblProgress;
         private Timer tmrUpdate;
-        private System.ComponentModel.IContainer components;
+        private IContainer components;
         private ComboBox lstStreams;
         private CustomTrackBar trackBarVolume;
         private Panel panel2;
@@ -20,19 +20,19 @@ namespace System.Windows.Forms
 
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            btnPlay = new System.Windows.Forms.Button();
-            btnRewind = new System.Windows.Forms.Button();
-            chkLoop = new System.Windows.Forms.CheckBox();
-            lblProgress = new System.Windows.Forms.Label();
-            tmrUpdate = new System.Windows.Forms.Timer(components);
-            lstStreams = new System.Windows.Forms.ComboBox();
-            panel2 = new System.Windows.Forms.Panel();
-            trackBarVolume = new System.Windows.Forms.CustomTrackBar();
-            trackBarPosition = new System.Windows.Forms.CustomTrackBar();
+            components = new Container();
+            btnPlay = new Button();
+            btnRewind = new Button();
+            chkLoop = new CheckBox();
+            lblProgress = new Label();
+            tmrUpdate = new Timer(components);
+            lstStreams = new ComboBox();
+            panel2 = new Panel();
+            trackBarVolume = new CustomTrackBar();
+            trackBarPosition = new CustomTrackBar();
             panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(trackBarVolume)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(trackBarPosition)).BeginInit();
+            ((ISupportInitialize) trackBarVolume).BeginInit();
+            ((ISupportInitialize) trackBarPosition).BeginInit();
             SuspendLayout();
             // 
             // btnPlay
@@ -43,7 +43,7 @@ namespace System.Windows.Forms
             btnPlay.TabIndex = 1;
             btnPlay.Text = "Play";
             btnPlay.UseVisualStyleBackColor = true;
-            btnPlay.Click += new System.EventHandler(btnPlay_Click);
+            btnPlay.Click += new EventHandler(btnPlay_Click);
             // 
             // btnRewind
             // 
@@ -53,7 +53,7 @@ namespace System.Windows.Forms
             btnRewind.TabIndex = 2;
             btnRewind.Text = "|<";
             btnRewind.UseVisualStyleBackColor = true;
-            btnRewind.Click += new System.EventHandler(btnRewind_Click);
+            btnRewind.Click += new EventHandler(btnRewind_Click);
             // 
             // chkLoop
             // 
@@ -63,38 +63,38 @@ namespace System.Windows.Forms
             chkLoop.TabIndex = 3;
             chkLoop.Text = "Loop Preview";
             chkLoop.UseVisualStyleBackColor = true;
-            chkLoop.CheckedChanged += new System.EventHandler(chkLoop_CheckedChanged);
+            chkLoop.CheckedChanged += new EventHandler(chkLoop_CheckedChanged);
             // 
             // lblProgress
             // 
-            lblProgress.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right);
+            lblProgress.Anchor = AnchorStyles.Top | AnchorStyles.Left
+                                                  | AnchorStyles.Right;
             lblProgress.Location = new System.Drawing.Point(0, 31);
             lblProgress.Name = "lblProgress";
             lblProgress.Size = new System.Drawing.Size(377, 23);
             lblProgress.TabIndex = 4;
             lblProgress.Text = "0/0";
-            lblProgress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblProgress.TextAlign = Drawing.ContentAlignment.MiddleCenter;
             // 
             // tmrUpdate
             // 
             tmrUpdate.Interval = 10;
-            tmrUpdate.Tick += new System.EventHandler(tmrUpdate_Tick);
+            tmrUpdate.Tick += new EventHandler(tmrUpdate_Tick);
             // 
             // lstStreams
             // 
-            lstStreams.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom);
-            lstStreams.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            lstStreams.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            lstStreams.DropDownStyle = ComboBoxStyle.DropDownList;
             lstStreams.FormattingEnabled = true;
             lstStreams.Location = new System.Drawing.Point(219, 34);
             lstStreams.Name = "lstStreams";
             lstStreams.Size = new System.Drawing.Size(73, 21);
             lstStreams.TabIndex = 5;
-            lstStreams.SelectedIndexChanged += new System.EventHandler(lstStreams_SelectedIndexChanged);
+            lstStreams.SelectedIndexChanged += new EventHandler(lstStreams_SelectedIndexChanged);
             // 
             // panel2
             // 
-            panel2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            panel2.Anchor = AnchorStyles.Top;
             panel2.Controls.Add(btnPlay);
             panel2.Controls.Add(btnRewind);
             panel2.Controls.Add(chkLoop);
@@ -105,29 +105,29 @@ namespace System.Windows.Forms
             // 
             // trackBarVolume
             // 
-            trackBarVolume.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Right);
+            trackBarVolume.Anchor = AnchorStyles.Top | AnchorStyles.Bottom
+                                                     | AnchorStyles.Right;
             trackBarVolume.Location = new System.Drawing.Point(329, 31);
             trackBarVolume.Maximum = 100;
             trackBarVolume.Name = "trackBarVolume";
-            trackBarVolume.Orientation = System.Windows.Forms.Orientation.Vertical;
+            trackBarVolume.Orientation = Orientation.Vertical;
             trackBarVolume.Size = new System.Drawing.Size(45, 89);
             trackBarVolume.TabIndex = 6;
             trackBarVolume.TickFrequency = 25;
             trackBarVolume.Value = 100;
-            trackBarVolume.ValueChanged += new System.EventHandler(customTrackBar1_ValueChanged);
+            trackBarVolume.ValueChanged += new EventHandler(customTrackBar1_ValueChanged);
             // 
             // trackBarPosition
             // 
-            trackBarPosition.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right);
+            trackBarPosition.Anchor = AnchorStyles.Top | AnchorStyles.Left
+                                                       | AnchorStyles.Right;
             trackBarPosition.Location = new System.Drawing.Point(0, 4);
             trackBarPosition.Name = "trackBarPosition";
             trackBarPosition.Size = new System.Drawing.Size(377, 45);
             trackBarPosition.TabIndex = 0;
             trackBarPosition.TickFrequency = 2;
-            trackBarPosition.UserSeek += new System.EventHandler(trackBar1_UserSeek);
-            trackBarPosition.ValueChanged += new System.EventHandler(trackBar1_ValueChanged);
+            trackBarPosition.UserSeek += new EventHandler(trackBar1_UserSeek);
+            trackBarPosition.ValueChanged += new EventHandler(trackBar1_ValueChanged);
             // 
             // AudioPlaybackPanel
             // 
@@ -139,17 +139,17 @@ namespace System.Windows.Forms
             Name = "AudioPlaybackPanel";
             Size = new System.Drawing.Size(377, 120);
             panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(trackBarVolume)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(trackBarPosition)).EndInit();
+            ((ISupportInitialize) trackBarVolume).EndInit();
+            ((ISupportInitialize) trackBarPosition).EndInit();
             ResumeLayout(false);
             PerformLayout();
-
         }
 
         #endregion
 
         private bool _updating = false;
         private bool _loop = false;
+
         private bool _isPlaying = false;
         //private bool _isScrolling = false;
 
@@ -210,6 +210,7 @@ namespace System.Windows.Forms
                     lstStreams.Visible = false;
                     lstStreams.Items.Add("");
                 }
+
                 _updating = true;
                 lstStreams.SelectedIndex = _targetIndex = 0;
                 _updating = false;
@@ -217,7 +218,9 @@ namespace System.Windows.Forms
         }
 
         private IAudioSource _targetSource;
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IAudioSource TargetSource
         {
             get => _targetSource;
@@ -225,6 +228,7 @@ namespace System.Windows.Forms
         }
 
         private int? _volume;
+
         /// <summary>
         /// How much quieter to make the audio output, in hundredths of a decibel.
         /// Custom Song Volume code's difference between 7F (max) and 3F seems to be 1/4 volume - about -6dB. In other words, both the maximum and minimum amplitudes are halved.
@@ -257,7 +261,7 @@ namespace System.Windows.Forms
                 }
                 else
                 {
-                    Volume = Math.Max(-10000, (int)(Math.Log10(value.Value) * 2000));
+                    Volume = Math.Max(-10000, (int) (Math.Log10(value.Value) * 2000));
                 }
 
                 //This should really be in the volume property, but this way I don't need to do more calculations
@@ -266,7 +270,7 @@ namespace System.Windows.Forms
 
                 if (!_updating)
                 {
-                    trackBarVolume.Value = (int)(value * 100d + 0.5d);
+                    trackBarVolume.Value = (int) (value * 100d + 0.5d);
                 }
             }
         }
@@ -274,6 +278,7 @@ namespace System.Windows.Forms
         private AudioProvider _provider;
 
         private AudioBuffer[] _buffers;
+
         private AudioBuffer CurrentBuffer
         {
             get
@@ -303,6 +308,7 @@ namespace System.Windows.Forms
                 _provider.Dispose();
                 _provider = null;
             }
+
             base.Dispose(disposing);
         }
 
@@ -392,7 +398,7 @@ namespace System.Windows.Forms
 
             if (_targetStream.Frequency > 0)
             {
-                _sampleTime = new DateTime((long)_targetStream.Samples * 10000000 / _targetStream.Frequency);
+                _sampleTime = new DateTime((long) _targetStream.Samples * 10000000 / _targetStream.Frequency);
             }
 
             trackBarPosition.Value = 0;
@@ -416,7 +422,7 @@ namespace System.Windows.Forms
                 return;
             }
 
-            DateTime t = new DateTime((long)trackBarPosition.Value * 10000000 / _targetStream.Frequency);
+            DateTime t = new DateTime((long) trackBarPosition.Value * 10000000 / _targetStream.Frequency);
             lblProgress.Text = string.Format("{0:mm:ss.ff} / {1:mm:ss.ff}", t, _sampleTime);
         }
 
@@ -439,7 +445,7 @@ namespace System.Windows.Forms
 
         public void Play()
         {
-            if ((_isPlaying) || (CurrentBuffer == null))
+            if (_isPlaying || CurrentBuffer == null)
             {
                 return;
             }
@@ -465,11 +471,13 @@ namespace System.Windows.Forms
             {
                 CurrentBuffer.Volume = Volume.Value;
             }
+
             //Begin playback
             CurrentBuffer.Play();
 
             btnPlay.Text = "Stop";
         }
+
         private void Stop()
         {
             if (!_isPlaying)
@@ -493,7 +501,7 @@ namespace System.Windows.Forms
 
         private void tmrUpdate_Tick(object sender, EventArgs e)
         {
-            if ((_isPlaying) && (CurrentBuffer != null))
+            if (_isPlaying && CurrentBuffer != null)
             {
                 CurrentBuffer.Fill();
 
@@ -531,11 +539,23 @@ namespace System.Windows.Forms
             }
         }
 
-        private void btnRewind_Click(object sender, EventArgs e) { Seek(0); }
-        private void trackBar1_ValueChanged(object sender, EventArgs e) { UpdateTimeDisplay(); }
-        private void trackBar1_UserSeek(object sender, EventArgs e) { Seek(trackBarPosition.Value); }
+        private void btnRewind_Click(object sender, EventArgs e)
+        {
+            Seek(0);
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateTimeDisplay();
+        }
+
+        private void trackBar1_UserSeek(object sender, EventArgs e)
+        {
+            Seek(trackBarPosition.Value);
+        }
 
         private int _targetIndex = 0;
+
         private void lstStreams_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_updating)

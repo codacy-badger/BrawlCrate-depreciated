@@ -16,7 +16,9 @@ namespace System.Windows.Forms
         private Label label2;
 
         private SHP0VertexSetNode _target;
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public SHP0VertexSetNode TargetSequence
         {
             get => _target;
@@ -68,6 +70,7 @@ namespace System.Windows.Forms
                     numFrame.Value = 1;
                 }
             }
+
             listKeyframes.EndUpdate();
 
             RefreshPage();
@@ -75,7 +78,7 @@ namespace System.Windows.Forms
 
         private void numFrame_ValueChanged(object sender, EventArgs e)
         {
-            int page = (int)numFrame.Value - 1;
+            int page = (int) numFrame.Value - 1;
             if (_currentPage != page)
             {
                 _currentPage = page;
@@ -93,7 +96,7 @@ namespace System.Windows.Forms
                 UpdateBox(0);
 
                 btnPrev.Enabled = _currentPage > 0;
-                btnNext.Enabled = _currentPage < (_numFrames - 1);
+                btnNext.Enabled = _currentPage < _numFrames - 1;
 
                 listKeyframes.SelectedIndex = FindKeyframe(_currentPage);
             }
@@ -104,7 +107,7 @@ namespace System.Windows.Forms
             int count = listKeyframes.Items.Count;
             for (int i = 0; i < count; i++)
             {
-                if (((FloatKeyframe)listKeyframes.Items[i]).Index == index)
+                if (((FloatKeyframe) listKeyframes.Items[i]).Index == index)
                 {
                     return i;
                 }
@@ -130,7 +133,7 @@ namespace System.Windows.Forms
             NumericInputBox box = sender as NumericInputBox;
             FloatKeyframe kf;
             float val = box.Value / 100.0f;
-            int index = (int)box.Tag;
+            int index = (int) box.Tag;
             int x;
 
             if (val != _currentValue)
@@ -153,7 +156,7 @@ namespace System.Windows.Forms
                 {
                     if (kfIndex >= 0)
                     {
-                        kf = (FloatKeyframe)listKeyframes.Items[kfIndex];
+                        kf = (FloatKeyframe) listKeyframes.Items[kfIndex];
                         kf.Value = val;
                         listKeyframes.Items[kfIndex] = kf;
                     }
@@ -166,7 +169,7 @@ namespace System.Windows.Forms
                         };
 
                         int count = listKeyframes.Items.Count;
-                        for (x = 0; (x < count) && (((FloatKeyframe)listKeyframes.Items[x]).Index < _currentPage); x++)
+                        for (x = 0; x < count && ((FloatKeyframe) listKeyframes.Items[x]).Index < _currentPage; x++)
                         {
                             ;
                         }
@@ -188,13 +191,20 @@ namespace System.Windows.Forms
             int index = listKeyframes.SelectedIndex;
             if (index >= 0)
             {
-                FloatKeyframe f = (FloatKeyframe)listKeyframes.SelectedItem;
+                FloatKeyframe f = (FloatKeyframe) listKeyframes.SelectedItem;
                 numFrame.Value = f.Index + 1;
             }
         }
 
-        private void btnPrev_Click(object sender, EventArgs e) { numFrame.Value -= 1; }
-        private void btnNext_Click(object sender, EventArgs e) { numFrame.Value += 1; }
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            numFrame.Value -= 1;
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            numFrame.Value += 1;
+        }
 
         #region Designer
 
@@ -210,47 +220,47 @@ namespace System.Windows.Forms
 
         private void InitializeComponent()
         {
-            label1 = new System.Windows.Forms.Label();
-            numScale = new System.Windows.Forms.NumericInputBox();
-            label7 = new System.Windows.Forms.Label();
-            numFrame = new System.Windows.Forms.NumericUpDown();
-            lblFrameCount = new System.Windows.Forms.Label();
-            btnPrev = new System.Windows.Forms.Button();
-            btnNext = new System.Windows.Forms.Button();
-            listKeyframes = new System.Windows.Forms.ListBox();
-            groupBox1 = new System.Windows.Forms.GroupBox();
-            panel1 = new System.Windows.Forms.Panel();
-            label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(numFrame)).BeginInit();
+            label1 = new Label();
+            numScale = new NumericInputBox();
+            label7 = new Label();
+            numFrame = new NumericUpDown();
+            lblFrameCount = new Label();
+            btnPrev = new Button();
+            btnNext = new Button();
+            listKeyframes = new ListBox();
+            groupBox1 = new GroupBox();
+            panel1 = new Panel();
+            label2 = new Label();
+            ((ISupportInitialize) numFrame).BeginInit();
             groupBox1.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // label1
             // 
-            label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label1.BorderStyle = BorderStyle.FixedSingle;
             label1.Location = new System.Drawing.Point(10, 32);
-            label1.Margin = new System.Windows.Forms.Padding(0);
+            label1.Margin = new Padding(0);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(67, 20);
             label1.TabIndex = 0;
             label1.Text = "Percentage:";
-            label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label1.TextAlign = ContentAlignment.MiddleRight;
             // 
             // numScale
             // 
-            numScale.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numScale.BorderStyle = BorderStyle.FixedSingle;
             numScale.Integral = false;
             numScale.Location = new System.Drawing.Point(76, 32);
-            numScale.Margin = new System.Windows.Forms.Padding(0);
+            numScale.Margin = new Padding(0);
             numScale.MaximumValue = 3.402823E+38F;
             numScale.MinimumValue = -3.402823E+38F;
             numScale.Name = "numScale";
             numScale.Size = new System.Drawing.Size(37, 20);
             numScale.TabIndex = 3;
             numScale.Text = "0";
-            numScale.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            numScale.ValueChanged += new System.EventHandler(BoxChanged);
+            numScale.TextAlign = HorizontalAlignment.Right;
+            numScale.ValueChanged += new EventHandler(BoxChanged);
             // 
             // label7
             // 
@@ -259,25 +269,29 @@ namespace System.Windows.Forms
             label7.Size = new System.Drawing.Size(42, 20);
             label7.TabIndex = 15;
             label7.Text = "Frame:";
-            label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label7.TextAlign = ContentAlignment.MiddleRight;
             // 
             // numFrame
             // 
             numFrame.Location = new System.Drawing.Point(55, 3);
-            numFrame.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            numFrame.Minimum = new decimal(new int[]
+            {
+                1,
+                0,
+                0,
+                0
+            });
             numFrame.Name = "numFrame";
             numFrame.Size = new System.Drawing.Size(58, 20);
             numFrame.TabIndex = 0;
-            numFrame.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            numFrame.ValueChanged += new System.EventHandler(numFrame_ValueChanged);
+            numFrame.Value = new decimal(new int[]
+            {
+                1,
+                0,
+                0,
+                0
+            });
+            numFrame.ValueChanged += new EventHandler(numFrame_ValueChanged);
             // 
             // lblFrameCount
             // 
@@ -286,36 +300,39 @@ namespace System.Windows.Forms
             lblFrameCount.Size = new System.Drawing.Size(49, 20);
             lblFrameCount.TabIndex = 17;
             lblFrameCount.Text = "/ 10";
-            lblFrameCount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblFrameCount.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // btnPrev
             // 
-            btnPrev.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnPrev.Font = new Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, GraphicsUnit.Point,
+                0);
             btnPrev.Location = new System.Drawing.Point(166, 2);
             btnPrev.Name = "btnPrev";
             btnPrev.Size = new System.Drawing.Size(23, 23);
             btnPrev.TabIndex = 1;
             btnPrev.Text = "<";
-            btnPrev.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            btnPrev.TextAlign = ContentAlignment.TopCenter;
             btnPrev.UseVisualStyleBackColor = true;
-            btnPrev.Click += new System.EventHandler(btnPrev_Click);
+            btnPrev.Click += new EventHandler(btnPrev_Click);
             // 
             // btnNext
             // 
-            btnNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnNext.Font = new Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, GraphicsUnit.Point,
+                0);
             btnNext.Location = new System.Drawing.Point(191, 2);
             btnNext.Name = "btnNext";
             btnNext.Size = new System.Drawing.Size(23, 23);
             btnNext.TabIndex = 2;
             btnNext.Text = ">";
-            btnNext.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            btnNext.TextAlign = ContentAlignment.TopCenter;
             btnNext.UseVisualStyleBackColor = true;
-            btnNext.Click += new System.EventHandler(btnNext_Click);
+            btnNext.Click += new EventHandler(btnNext_Click);
             // 
             // listKeyframes
             // 
-            listKeyframes.Dock = System.Windows.Forms.DockStyle.Fill;
-            listKeyframes.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            listKeyframes.Dock = DockStyle.Fill;
+            listKeyframes.Font =
+                new Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, GraphicsUnit.Point, 0);
             listKeyframes.FormattingEnabled = true;
             listKeyframes.IntegralHeight = false;
             listKeyframes.ItemHeight = 14;
@@ -323,12 +340,12 @@ namespace System.Windows.Forms
             listKeyframes.Name = "listKeyframes";
             listKeyframes.Size = new System.Drawing.Size(224, 119);
             listKeyframes.TabIndex = 18;
-            listKeyframes.SelectedIndexChanged += new System.EventHandler(listKeyframes_SelectedIndexChanged);
+            listKeyframes.SelectedIndexChanged += new EventHandler(listKeyframes_SelectedIndexChanged);
             // 
             // groupBox1
             // 
             groupBox1.Controls.Add(listKeyframes);
-            groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox1.Dock = DockStyle.Fill;
             groupBox1.Location = new System.Drawing.Point(0, 0);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new System.Drawing.Size(230, 138);
@@ -346,7 +363,7 @@ namespace System.Windows.Forms
             panel1.Controls.Add(numScale);
             panel1.Controls.Add(lblFrameCount);
             panel1.Controls.Add(numFrame);
-            panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panel1.Dock = DockStyle.Bottom;
             panel1.Location = new System.Drawing.Point(0, 138);
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(230, 64);
@@ -354,14 +371,14 @@ namespace System.Windows.Forms
             // 
             // label2
             // 
-            label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label2.BorderStyle = BorderStyle.FixedSingle;
             label2.Location = new System.Drawing.Point(112, 32);
-            label2.Margin = new System.Windows.Forms.Padding(0);
+            label2.Margin = new Padding(0);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(19, 20);
             label2.TabIndex = 18;
             label2.Text = "%";
-            label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label2.TextAlign = ContentAlignment.MiddleRight;
             // 
             // ShpAnimEditControl
             // 
@@ -369,26 +386,47 @@ namespace System.Windows.Forms
             Controls.Add(panel1);
             Name = "ShpAnimEditControl";
             Size = new System.Drawing.Size(230, 202);
-            ((System.ComponentModel.ISupportInitialize)(numFrame)).EndInit();
+            ((ISupportInitialize) numFrame).EndInit();
             groupBox1.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
-
         }
 
         #endregion
     }
+
     public class FloatKeyframe
     {
         private readonly KeyframeEntry _entry;
 
-        public FloatKeyframe() { _entry = new KeyframeEntry(-1, 0); }
-        public FloatKeyframe(KeyframeEntry e) { _entry = e; }
+        public FloatKeyframe()
+        {
+            _entry = new KeyframeEntry(-1, 0);
+        }
 
-        public int Index { get => _entry._index; set => _entry._index = value; }
-        public float Value { get => _entry._value; set => _entry._value = value; }
-        public float Tangent { get => _entry._tangent; set => _entry._tangent = value; }
+        public FloatKeyframe(KeyframeEntry e)
+        {
+            _entry = e;
+        }
+
+        public int Index
+        {
+            get => _entry._index;
+            set => _entry._index = value;
+        }
+
+        public float Value
+        {
+            get => _entry._value;
+            set => _entry._value = value;
+        }
+
+        public float Tangent
+        {
+            get => _entry._tangent;
+            set => _entry._tangent = value;
+        }
 
         public override string ToString()
         {

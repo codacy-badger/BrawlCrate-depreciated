@@ -12,6 +12,7 @@ namespace BrawlCrate.NodeWrappers
         #region Menu
 
         private static readonly ContextMenuStrip _menu;
+
         static MSBinWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -28,15 +29,18 @@ namespace BrawlCrate.NodeWrappers
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-            _menu.Items[1].Enabled = _menu.Items[2].Enabled = _menu.Items[5].Enabled = _menu.Items[6].Enabled = _menu.Items[9].Enabled = true;
+            _menu.Items[1].Enabled = _menu.Items[2].Enabled =
+                _menu.Items[5].Enabled = _menu.Items[6].Enabled = _menu.Items[9].Enabled = true;
         }
+
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             MSBinWrapper w = GetInstance<MSBinWrapper>();
             _menu.Items[1].Enabled = _menu.Items[4].Enabled = _menu.Items[9].Enabled = w.Parent != null;
-            _menu.Items[2].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[2].Enabled = w._resource.IsDirty || w._resource.IsBranch;
             _menu.Items[5].Enabled = w.PrevNode != null;
             _menu.Items[6].Enabled = w.NextNode != null;
         }
@@ -51,18 +55,23 @@ namespace BrawlCrate.NodeWrappers
             {
                 return null;
             }
+
             _resource.Rebuild();
-            MSBinNode newNode = NodeFactory.FromAddress(null, _resource.WorkingUncompressed.Address, _resource.WorkingUncompressed.Length) as MSBinNode;
+            MSBinNode newNode = NodeFactory.FromAddress(null, _resource.WorkingUncompressed.Address,
+                _resource.WorkingUncompressed.Length) as MSBinNode;
             int newIndex = _resource.Index + 1;
             _resource._parent.InsertChild(newNode, true, newIndex);
             newNode.Populate();
-            newNode.FileType = ((MSBinNode)_resource).FileType;
-            newNode.FileIndex = ((MSBinNode)_resource).FileIndex;
-            newNode.RedirectIndex = ((MSBinNode)_resource).RedirectIndex;
+            newNode.FileType = ((MSBinNode) _resource).FileType;
+            newNode.FileIndex = ((MSBinNode) _resource).FileIndex;
+            newNode.RedirectIndex = ((MSBinNode) _resource).RedirectIndex;
             newNode.Name = _resource.Name;
             return newNode;
         }
 
-        public MSBinWrapper() { ContextMenuStrip = _menu; }
+        public MSBinWrapper()
+        {
+            ContextMenuStrip = _menu;
+        }
     }
 }

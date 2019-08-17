@@ -33,6 +33,7 @@ namespace BrawlCrate
         public RecentFileHandler recentFileHandler;
 
         private InterpolationForm _interpolationForm = null;
+
         public InterpolationForm InterpolationForm
         {
             get
@@ -43,6 +44,7 @@ namespace BrawlCrate
                     _interpolationForm.FormClosed += _interpolationForm_FormClosed;
                     _interpolationForm.Show();
                 }
+
                 return _interpolationForm;
             }
         }
@@ -55,13 +57,23 @@ namespace BrawlCrate
         // Canary stuff
         public string commitIDshort = "";
         public string commitIDlong = "";
+
         public static string getCommitId(bool longID = false)
         {
-            return (" #" + File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "new")[longID ? 2 : 1]);
+            return " #" +
+                   File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "new")[
+                       longID ? 2 : 1];
         }
+
         public static readonly string mainRepo = "soopercool101/BrawlCrate";
         public static readonly string mainBranch = "brawlcrate-master";
-        public static string currentBranch { get => GetCurrentBranch(); set => SetCurrentBranch(value); }
+
+        public static string currentBranch
+        {
+            get => GetCurrentBranch();
+            set => SetCurrentBranch(value);
+        }
+
         private static string GetCurrentBranch()
         {
             try
@@ -72,10 +84,11 @@ namespace BrawlCrate
                 }
 
                 return mainBranch;
-                string temp = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch")[0];
+                string temp =
+                    File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch")[0];
                 if (temp == null || temp == "")
                 {
-                    throw (new ArgumentNullException());
+                    throw new ArgumentNullException();
                 }
 
                 return temp;
@@ -85,6 +98,7 @@ namespace BrawlCrate
                 return mainBranch;
             }
         }
+
         private static void SetCurrentBranch(string newBranch)
         {
             if (newBranch == null || newBranch == "")
@@ -99,42 +113,58 @@ namespace BrawlCrate
 
             string cRepo = currentRepo;
             // Check if Branch is valid
-            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType) 3072;
             try
             {
                 string url = "https://github.com/" + cRepo + "/blob/" + newBranch + "/CanaryBuild/CanaryREADME.md";
                 using (WebClient x = new WebClient())
                 {
                     string source = x.DownloadString(url);
-                    string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+                    string title = Regex
+                        .Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase)
+                        .Groups["Title"].Value;
                     if (title.Contains("not found", StringComparison.OrdinalIgnoreCase))
                     {
-                        MessageBox.Show(newBranch + " was not found as a valid branch of the " + cRepo + " repository, or does not properly support Canary builds.");
+                        MessageBox.Show(newBranch + " was not found as a valid branch of the " + cRepo +
+                                        " repository, or does not properly support Canary builds.");
                         return;
                     }
                 }
             }
             catch
             {
-                MessageBox.Show(newBranch + " was not found as a valid branch of the " + cRepo + " repository, or does not properly support Canary builds.");
+                MessageBox.Show(newBranch + " was not found as a valid branch of the " + cRepo +
+                                " repository, or does not properly support Canary builds.");
                 return;
             }
-            DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
+
+            DirectoryInfo CanaryDir =
+                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
             CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
             {
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
             }
 
-            using (StreamWriter sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+            using (StreamWriter sw =
+                new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
             {
                 sw.WriteLine(newBranch);
                 sw.Write(cRepo);
                 sw.Close();
             }
-            MessageBox.Show("The canary updater will now track the " + newBranch + " branch, starting with the next canary update.", "Branch Changed");
+
+            MessageBox.Show(
+                "The canary updater will now track the " + newBranch + " branch, starting with the next canary update.",
+                "Branch Changed");
         }
-        public static string currentRepo { get => GetCurrentRepo(); set => SetCurrentRepo(value); }
+
+        public static string currentRepo
+        {
+            get => GetCurrentRepo();
+            set => SetCurrentRepo(value);
+        }
+
         private static string GetCurrentRepo()
         {
             try
@@ -145,10 +175,11 @@ namespace BrawlCrate
                 }
 
                 return mainRepo;
-                string temp = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch")[1];
+                string temp =
+                    File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch")[1];
                 if (temp == null || temp == "")
                 {
-                    throw (new ArgumentNullException());
+                    throw new ArgumentNullException();
                 }
 
                 return temp;
@@ -158,6 +189,7 @@ namespace BrawlCrate
                 return mainRepo;
             }
         }
+
         private static void SetCurrentRepo(string newRepo)
         {
             if (newRepo == null || newRepo == "")
@@ -172,40 +204,50 @@ namespace BrawlCrate
 
             string cBranch = currentBranch;
             // Check if Repo is valid
-            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType) 3072;
             try
             {
                 string url = "https://github.com/" + newRepo + "/blob/" + cBranch + "/CanaryBuild/CanaryREADME.md";
                 using (WebClient x = new WebClient())
                 {
                     string source = x.DownloadString(url);
-                    string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+                    string title = Regex
+                        .Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase)
+                        .Groups["Title"].Value;
                     if (title.Contains("not found", StringComparison.OrdinalIgnoreCase))
                     {
-                        MessageBox.Show(cBranch + " was not found as a valid branch of the " + newRepo + " repository, or does not properly support Canary builds.");
+                        MessageBox.Show(cBranch + " was not found as a valid branch of the " + newRepo +
+                                        " repository, or does not properly support Canary builds.");
                         return;
                     }
                 }
             }
             catch
             {
-                MessageBox.Show(cBranch + " was not found as a valid branch of the " + newRepo + " repository, or does not properly support Canary builds.");
+                MessageBox.Show(cBranch + " was not found as a valid branch of the " + newRepo +
+                                " repository, or does not properly support Canary builds.");
                 return;
             }
-            DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
+
+            DirectoryInfo CanaryDir =
+                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
             CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
             {
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
             }
 
-            using (StreamWriter sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+            using (StreamWriter sw =
+                new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
             {
                 sw.WriteLine(cBranch);
                 sw.Write(newRepo);
                 sw.Close();
             }
-            MessageBox.Show("The canary updater will now track the " + newRepo + " repo, starting with the next canary update.", "Repo Changed");
+
+            MessageBox.Show(
+                "The canary updater will now track the " + newRepo + " repo, starting with the next canary update.",
+                "Repo Changed");
         }
 
         // Sets branch and repo
@@ -221,57 +263,76 @@ namespace BrawlCrate
                 newBranch = mainBranch;
             }
 
-            if (currentRepo.Equals(newRepo, StringComparison.OrdinalIgnoreCase) && currentBranch.Equals(newBranch, StringComparison.OrdinalIgnoreCase))
+            if (currentRepo.Equals(newRepo, StringComparison.OrdinalIgnoreCase) &&
+                currentBranch.Equals(newBranch, StringComparison.OrdinalIgnoreCase))
             {
                 return false;
             }
+
             // Check if Repo/Branch combo is valid
-            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType) 3072;
             try
             {
                 string url = "https://github.com/" + newRepo + "/blob/" + newBranch + "/CanaryBuild/CanaryREADME.md";
                 using (WebClient x = new WebClient())
                 {
                     string source = x.DownloadString(url);
-                    string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+                    string title = Regex
+                        .Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase)
+                        .Groups["Title"].Value;
                     if (title.Contains("not found", StringComparison.OrdinalIgnoreCase))
                     {
-                        MessageBox.Show(newBranch + " was not found as a valid branch of the " + newRepo + " repository, or does not properly support Canary builds.");
+                        MessageBox.Show(newBranch + " was not found as a valid branch of the " + newRepo +
+                                        " repository, or does not properly support Canary builds.");
                         return false;
                     }
                 }
             }
             catch
             {
-                MessageBox.Show(newBranch + " was not found as a valid branch of the " + newRepo + " repository, or does not properly support Canary builds.");
+                MessageBox.Show(newBranch + " was not found as a valid branch of the " + newRepo +
+                                " repository, or does not properly support Canary builds.");
                 return false;
             }
-            if (!newRepo.StartsWith("soopercool101/", StringComparison.OrdinalIgnoreCase) && !newRepo.StartsWith("libertyernie/", StringComparison.OrdinalIgnoreCase))
+
+            if (!newRepo.StartsWith("soopercool101/", StringComparison.OrdinalIgnoreCase) &&
+                !newRepo.StartsWith("libertyernie/", StringComparison.OrdinalIgnoreCase))
             {
-                if (MessageBox.Show("In future Canary updates you will track the " + newRepo + " repository. Please note that this repository is not affiliated with the BrawlBox or BrawlCrate teams. Neither team holds responsibility for malicious, illegal, or otherwise problematic code or content of this repository. Would you like to continue?", "Switching Repositories", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                if (MessageBox.Show(
+                        "In future Canary updates you will track the " + newRepo +
+                        " repository. Please note that this repository is not affiliated with the BrawlBox or BrawlCrate teams. Neither team holds responsibility for malicious, illegal, or otherwise problematic code or content of this repository. Would you like to continue?",
+                        "Switching Repositories", MessageBoxButtons.YesNo) != DialogResult.Yes)
                 {
                     return false;
                 }
             }
 
-            DirectoryInfo CanaryDir = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
+            DirectoryInfo CanaryDir =
+                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");
             CanaryDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
             {
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
             }
 
-            using (StreamWriter sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
+            using (StreamWriter sw =
+                new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
             {
                 sw.WriteLine(newBranch);
                 sw.Write(newRepo);
                 sw.Close();
             }
-            if (MessageBox.Show("The canary updater will now track the " + newBranch + " branch of the " + newRepo + " repository, starting with the next canary update. Would you like to " + (BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds ? "" : "enable Canary and ") + "begin the update now?", "Canary Target Changed", MessageBoxButtons.YesNo) == DialogResult.Yes)
+
+            if (MessageBox.Show(
+                    "The canary updater will now track the " + newBranch + " branch of the " + newRepo +
+                    " repository, starting with the next canary update. Would you like to " +
+                    (BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds ? "" : "enable Canary and ") +
+                    "begin the update now?", "Canary Target Changed", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Instance.Canary = true;
                 Program.ForceDownloadCanary(true);
             }
+
             return true;
         }
 
@@ -280,7 +341,8 @@ namespace BrawlCrate
         {
             InitializeComponent();
             _autoUpdate = BrawlCrate.Properties.Settings.Default.UpdateAutomatically;
-            _displayPropertyDescription = BrawlCrate.Properties.Settings.Default.DisplayPropertyDescriptionWhenAvailable;
+            _displayPropertyDescription =
+                BrawlCrate.Properties.Settings.Default.DisplayPropertyDescriptionWhenAvailable;
             _updatesOnStartup = BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup;
             _docUpdates = BrawlCrate.Properties.Settings.Default.GetDocumentationUpdates;
             _showHex = BrawlCrate.Properties.Settings.Default.ShowHex;
@@ -296,11 +358,16 @@ namespace BrawlCrate
                 {
                     if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "new"))
                     {
-                        commitIDshort = "#" + File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "new")[1];
-                        commitIDlong = " #" + File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "new")[2];
+                        commitIDshort =
+                            "#" + File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' +
+                                                    "new")[1];
+                        commitIDlong =
+                            " #" + File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' +
+                                                     "new")[2];
                     }
                 }
             }
+
             _showFullPath = BrawlCrate.Properties.Settings.Default.ShowFullPath;
             UpdateName();
             // Slight space saving by deleting unused/unnecessary branch identifier
@@ -308,14 +375,17 @@ namespace BrawlCrate
             {
                 if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch"))
                 {
-                    if (currentRepo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase) && currentBranch.Equals(mainBranch, StringComparison.OrdinalIgnoreCase))
+                    if (currentRepo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase) &&
+                        currentBranch.Equals(mainBranch, StringComparison.OrdinalIgnoreCase))
                     {
                         File.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Branch");
                     }
                 }
+
                 /*if(Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary").GetFiles().Length == 0)
    Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary");*/
             }
+
             _compatibilityMode = BrawlLib.Properties.Settings.Default.CompatibilityMode;
 
             // Currently depreciated settings
@@ -328,6 +398,7 @@ namespace BrawlCrate
                 c.Visible = false;
                 c.Dock = DockStyle.Fill;
             }
+
             m_DelegateOpenFile = new DelegateOpenFile(Program.Open);
             _instance = this;
 
@@ -345,17 +416,19 @@ namespace BrawlCrate
                 Process[] px = Process.GetProcessesByName("BrawlCrate");
                 if (px.Length == 1)
                 {
-                    BrawlCrate.Discord.DiscordRpc.ClearPresence();
+                    Discord.DiscordRpc.ClearPresence();
                 }
 
-                BrawlCrate.Discord.DiscordSettings.startTime = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-                BrawlCrate.Discord.DiscordSettings.DiscordController = new BrawlCrate.Discord.DiscordController();
-                BrawlCrate.Discord.DiscordSettings.DiscordController.Initialize();
-                BrawlCrate.Discord.DiscordSettings.LoadSettings(true);
+                Discord.DiscordSettings.startTime =
+                    (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+                Discord.DiscordSettings.DiscordController = new Discord.DiscordController();
+                Discord.DiscordSettings.DiscordController.Initialize();
+                Discord.DiscordSettings.LoadSettings(true);
             }
         }
 
         private delegate bool DelegateOpenFile(string s);
+
         private readonly DelegateOpenFile m_DelegateOpenFile;
 
         protected override void OnShown(EventArgs e)
@@ -377,12 +450,15 @@ namespace BrawlCrate
             {
                 try
                 {
-                    using (WebClient client = new System.Net.WebClient())
-                    using (client.OpenRead("http://clients3.google.com/generate_204"))
+                    using (WebClient client = new WebClient())
                     {
-                        using (System.Net.NetworkInformation.Ping s = new System.Net.NetworkInformation.Ping())
+                        using (client.OpenRead("http://clients3.google.com/generate_204"))
                         {
-                            return s.Send("www.github.com").Status == System.Net.NetworkInformation.IPStatus.Success;
+                            using (System.Net.NetworkInformation.Ping s = new System.Net.NetworkInformation.Ping())
+                            {
+                                return s.Send("www.github.com").Status ==
+                                       System.Net.NetworkInformation.IPStatus.Success;
+                            }
                         }
                     }
                 }
@@ -411,7 +487,8 @@ namespace BrawlCrate
 
                     return;
                 }
-                bool automatic = (!manual && _autoUpdate) || (!manual && _canary);
+
+                bool automatic = !manual && _autoUpdate || !manual && _canary;
                 if (Program.CanRunGithubApp(manual, out string path))
                 {
                     if (!_canary)
@@ -421,7 +498,8 @@ namespace BrawlCrate
                             FileName = path,
                             WindowStyle = ProcessWindowStyle.Hidden,
                             Arguments = string.Format("-bu 1 \"{0}\" {1} \"{2}\" {3} {4}",
-                                Program.TagName, manual ? "1" : "0", Program.RootPath ?? "<null>", _docUpdates ? "1" : "0", automatic ? "1" : "0"),
+                                Program.TagName, manual ? "1" : "0", Program.RootPath ?? "<null>",
+                                _docUpdates ? "1" : "0", automatic ? "1" : "0"),
                         });
                         if (automatic)
                         {
@@ -434,7 +512,8 @@ namespace BrawlCrate
                         {
                             FileName = path,
                             WindowStyle = ProcessWindowStyle.Hidden,
-                            Arguments = string.Format("-buc \"{0}\" {1}", Program.RootPath ?? "<null>", manual ? "1" : "0"),
+                            Arguments = string.Format("-buc \"{0}\" {1}", Program.RootPath ?? "<null>",
+                                manual ? "1" : "0"),
                         });
                         if (automatic)
                         {
@@ -450,7 +529,7 @@ namespace BrawlCrate
                     }
 
                     checkForUpdatesToolStripMenuItem.Enabled =
-                    checkForUpdatesToolStripMenuItem.Visible = false;
+                        checkForUpdatesToolStripMenuItem.Visible = false;
                 }
             }
             catch (Exception e)
@@ -460,18 +539,20 @@ namespace BrawlCrate
                     MessageBox.Show(e.Message);
                 }
             }
+
             if (!manual && Program.CanRunDiscordRPC())
             {
                 Process[] px = Process.GetProcessesByName("BrawlCrate");
                 if (px.Length == 1)
                 {
-                    BrawlCrate.Discord.DiscordRpc.ClearPresence();
+                    Discord.DiscordRpc.ClearPresence();
                 }
 
-                BrawlCrate.Discord.DiscordSettings.startTime = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-                BrawlCrate.Discord.DiscordSettings.DiscordController = new BrawlCrate.Discord.DiscordController();
-                BrawlCrate.Discord.DiscordSettings.DiscordController.Initialize();
-                BrawlCrate.Discord.DiscordSettings.LoadSettings(true);
+                Discord.DiscordSettings.startTime =
+                    (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+                Discord.DiscordSettings.DiscordController = new Discord.DiscordController();
+                Discord.DiscordSettings.DiscordController.Initialize();
+                Discord.DiscordSettings.LoadSettings(true);
             }
         }
 
@@ -485,6 +566,7 @@ namespace BrawlCrate
                     MessageBox.Show("Could not connect to internet");
                     return;
                 }
+
                 if (Program.CanRunGithubApp(true, out string path))
                 {
                     Process git = Process.Start(new ProcessStartInfo()
@@ -499,7 +581,7 @@ namespace BrawlCrate
                 {
                     MessageBox.Show(".NET version 4.5 is required to run the updater.");
                     checkForUpdatesToolStripMenuItem.Enabled =
-                    checkForUpdatesToolStripMenuItem.Visible = false;
+                        checkForUpdatesToolStripMenuItem.Visible = false;
                 }
             }
             catch (Exception e)
@@ -515,7 +597,8 @@ namespace BrawlCrate
             {
                 _displayPropertyDescription = value;
 
-                BrawlCrate.Properties.Settings.Default.DisplayPropertyDescriptionWhenAvailable = _displayPropertyDescription;
+                BrawlCrate.Properties.Settings.Default.DisplayPropertyDescriptionWhenAvailable =
+                    _displayPropertyDescription;
                 BrawlCrate.Properties.Settings.Default.Save();
                 UpdatePropertyDescriptionBox(propertyGrid1.SelectedGridItem);
             }
@@ -657,7 +740,8 @@ namespace BrawlCrate
             {
                 _compatibilityMode = value;
 
-                BrawlLib.Properties.Settings.Default.HideMDL0Errors = BrawlLib.Properties.Settings.Default.CompatibilityMode = _compatibilityMode;
+                BrawlLib.Properties.Settings.Default.HideMDL0Errors =
+                    BrawlLib.Properties.Settings.Default.CompatibilityMode = _compatibilityMode;
                 BrawlLib.Properties.Settings.Default.Save();
             }
         }
@@ -718,7 +802,8 @@ namespace BrawlCrate
             }
             else
             {
-                propertyGrid1.HelpVisible = item != null && item.PropertyDescriptor != null && !string.IsNullOrEmpty(item.PropertyDescriptor.Description);
+                propertyGrid1.HelpVisible = item != null && item.PropertyDescriptor != null &&
+                                            !string.IsNullOrEmpty(item.PropertyDescriptor.Description);
             }
         }
 
@@ -757,12 +842,13 @@ namespace BrawlCrate
                 saveAsToolStripMenuItem.Enabled = false;
                 saveToolStripMenuItem.Enabled = false;
             }
+
             resourceTree_SelectionChanged(null, null);
 
             UpdateName();
             if (Program.CanRunDiscordRPC())
             {
-                BrawlCrate.Discord.DiscordSettings.LoadSettings(true);
+                Discord.DiscordSettings.LoadSettings(true);
             }
         }
 
@@ -777,7 +863,8 @@ namespace BrawlCrate
 
                 if (Program.RootPath != null)
                 {
-                    Text = string.Format("{0} - {1}", Program.AssemblyTitle, ShowFullPath ? Program.RootPath : Program.FileName);
+                    Text = string.Format("{0} - {1}", Program.AssemblyTitle,
+                        ShowFullPath ? Program.RootPath : Program.FileName);
                 }
                 else if (Canary)
                 {
@@ -794,7 +881,9 @@ namespace BrawlCrate
                 {
                     if (Program.RootPath != null)
                     {
-                        Text = string.Format("{0} - {1}", _canary ? "BrawlCrate Canary" + commitIDshort : Program.AssemblyTitle, ShowFullPath ? Program.RootPath : Program.FileName);
+                        Text = string.Format("{0} - {1}",
+                            _canary ? "BrawlCrate Canary" + commitIDshort : Program.AssemblyTitle,
+                            ShowFullPath ? Program.RootPath : Program.FileName);
                     }
                     else
                     {
@@ -806,21 +895,30 @@ namespace BrawlCrate
                         Text = "PartyBrawl" + Text.Substring(Text.IndexOf(' '));
                     }
 
-                    Program.AssemblyTitle = ((AssemblyTitleAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
+                    Program.AssemblyTitle = ((AssemblyTitleAttribute) Assembly.GetExecutingAssembly()
+                        .GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
                     try
                     {
                         if (BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds)
                         {
-                            Program.AssemblyTitle = "BrawlCrate Canary" + (MainForm.currentRepo.Equals(MainForm.mainRepo, StringComparison.OrdinalIgnoreCase) ? (MainForm.currentBranch.Equals(MainForm.mainBranch, StringComparison.OrdinalIgnoreCase) ? "" : ("@" + MainForm.currentBranch)) : "@" + MainForm.currentRepo + "@" + MainForm.currentBranch) + MainForm.getCommitId(false);
+                            Program.AssemblyTitle = "BrawlCrate Canary" +
+                                                    (currentRepo.Equals(mainRepo, StringComparison.OrdinalIgnoreCase)
+                                                        ? currentBranch.Equals(mainBranch,
+                                                            StringComparison.OrdinalIgnoreCase) ? "" :
+                                                        "@" + currentBranch
+                                                        : "@" + currentRepo + "@" + currentBranch) + getCommitId(false);
                         }
                     }
                     catch
                     {
-                        Program.AssemblyTitle = ((AssemblyTitleAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
+                        Program.AssemblyTitle = ((AssemblyTitleAttribute) Assembly.GetExecutingAssembly()
+                            .GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
                     }
+
                     if (Program.IsBirthday)
                     {
-                        Program.AssemblyTitle = "PartyBrawl" + Program.AssemblyTitle.Substring(Program.AssemblyTitle.IndexOf(' '));
+                        Program.AssemblyTitle = "PartyBrawl" +
+                                                Program.AssemblyTitle.Substring(Program.AssemblyTitle.IndexOf(' '));
                     }
                 }
                 catch
@@ -845,6 +943,7 @@ namespace BrawlCrate
         public Control _currentControl = null;
         private Control _secondaryControl = null;
         private Type selectedType = null;
+
         public unsafe void resourceTree_SelectionChanged(object sender, EventArgs e)
         {
             audioPlaybackPanel1.TargetSource = null;
@@ -864,7 +963,7 @@ namespace BrawlCrate
             mdL0ObjectControl1.SetTarget(null);
             if (hexBox1.ByteProvider != null)
             {
-                ((Be.Windows.Forms.DynamicFileByteProvider)hexBox1.ByteProvider).Dispose();
+                ((Be.Windows.Forms.DynamicFileByteProvider) hexBox1.ByteProvider).Dispose();
             }
 
             Control newControl = null;
@@ -873,7 +972,8 @@ namespace BrawlCrate
             BaseWrapper w;
             ResourceNode node = null;
             bool disable2nd = false;
-            if ((resourceTree.SelectedNode is BaseWrapper) && ((node = (w = resourceTree.SelectedNode as BaseWrapper).ResourceNode) != null))
+            if (resourceTree.SelectedNode is BaseWrapper &&
+                (node = (w = resourceTree.SelectedNode as BaseWrapper).ResourceNode) != null)
             {
                 Action setScrollOffset = null;
                 if (selectedType == resourceTree.SelectedNode.GetType())
@@ -883,7 +983,8 @@ namespace BrawlCrate
                         if (c.GetType().Name == "PropertyGridView")
                         {
                             object scrollOffset = c.GetType().GetMethod("GetScrollOffset").Invoke(c, null);
-                            setScrollOffset = () => c.GetType().GetMethod("SetScrollOffset").Invoke(c, new object[] { scrollOffset });
+                            setScrollOffset = () =>
+                                c.GetType().GetMethod("SetScrollOffset").Invoke(c, new object[] {scrollOffset});
                             break;
                         }
                     }
@@ -894,7 +995,8 @@ namespace BrawlCrate
                     {
                         if (c.GetType().Name == "PropertyGridView")
                         {
-                            setScrollOffset = () => c.GetType().GetMethod("SetScrollOffset").Invoke(c, new object[] { 0 });
+                            setScrollOffset = () =>
+                                c.GetType().GetMethod("SetScrollOffset").Invoke(c, new object[] {0});
                             break;
                         }
                     }
@@ -908,17 +1010,17 @@ namespace BrawlCrate
 
                 setScrollOffset?.Invoke();
 
-                if (node is IBufferNode && MainForm.Instance.ShowHex)
+                if (node is IBufferNode && Instance.ShowHex)
                 {
                     IBufferNode d = node as IBufferNode;
                     if (d.IsValid())
                     {
                         hexBox1.ByteProvider = new Be.Windows.Forms.DynamicFileByteProvider(new UnmanagedMemoryStream(
-                                (byte*)d.GetAddress(),
+                                (byte*) d.GetAddress(),
                                 d.GetLength(),
                                 d.GetLength(),
                                 FileAccess.ReadWrite))
-                        { _supportsInsDel = false };
+                            {_supportsInsDel = false};
                         newControl = hexBox1;
                     }
                 }
@@ -929,7 +1031,7 @@ namespace BrawlCrate
                 }
                 else if (node is RELMethodNode)
                 {
-                    ppcDisassembler1.SetTarget((RELMethodNode)node);
+                    ppcDisassembler1.SetTarget((RELMethodNode) node);
                     newControl = ppcDisassembler1;
                 }
                 else if (node is IVideo)
@@ -937,7 +1039,7 @@ namespace BrawlCrate
                     videoPlaybackPanel1.TargetSource = node as IVideo;
                     if (node is PAT0TextureNode)
                     {
-                        videoPlaybackPanel1.chkLoop.Checked = ((PAT0Node)node.Parent.Parent).Loop;
+                        videoPlaybackPanel1.chkLoop.Checked = ((PAT0Node) node.Parent.Parent).Loop;
                     }
 
                     newControl = videoPlaybackPanel1;
@@ -1006,7 +1108,7 @@ namespace BrawlCrate
                         newControl = audioPlaybackPanel1;
                         if (node is RSTMNode)
                         {
-                            audioPlaybackPanel1.chkLoop.Checked = ((RSTMNode)node).IsLooped;
+                            audioPlaybackPanel1.chkLoop.Checked = ((RSTMNode) node).IsLooped;
                         }
 
                         if (AutoPlayAudio && Visible)
@@ -1017,7 +1119,7 @@ namespace BrawlCrate
                 }
                 else if (node is IImageSource)
                 {
-                    previewPanel2.RenderingTarget = ((IImageSource)node);
+                    previewPanel2.RenderingTarget = (IImageSource) node;
                     newControl = previewPanel2;
                 }
                 else if (node is IRenderedObject)
@@ -1026,7 +1128,7 @@ namespace BrawlCrate
                 }
                 else if (node is STDTNode)
                 {
-                    STDTNode stdt = (STDTNode)node;
+                    STDTNode stdt = (STDTNode) node;
 
                     attributeGrid1.Clear();
                     attributeGrid1.AddRange(stdt.GetPossibleInterpretations());
@@ -1035,7 +1137,7 @@ namespace BrawlCrate
                 }
                 else if (node is TBCLNode)
                 {
-                    TBCLNode tbcl = (TBCLNode)node;
+                    TBCLNode tbcl = (TBCLNode) node;
 
                     attributeGrid1.Clear();
                     attributeGrid1.AddRange(tbcl.GetPossibleInterpretations());
@@ -1044,7 +1146,7 @@ namespace BrawlCrate
                 }
                 else if (node is TBGCNode)
                 {
-                    TBGCNode tbgc = (TBGCNode)node;
+                    TBGCNode tbgc = (TBGCNode) node;
 
                     attributeGrid1.Clear();
                     attributeGrid1.AddRange(tbgc.GetPossibleInterpretations());
@@ -1053,7 +1155,7 @@ namespace BrawlCrate
                 }
                 else if (node is TBGDNode)
                 {
-                    TBGDNode tbgd = (TBGDNode)node;
+                    TBGDNode tbgd = (TBGDNode) node;
 
                     attributeGrid1.Clear();
                     attributeGrid1.AddRange(tbgd.GetPossibleInterpretations());
@@ -1062,7 +1164,7 @@ namespace BrawlCrate
                 }
                 else if (node is TBGMNode)
                 {
-                    TBGMNode tbgm = (TBGMNode)node;
+                    TBGMNode tbgm = (TBGMNode) node;
 
                     attributeGrid1.Clear();
                     attributeGrid1.AddRange(tbgm.GetPossibleInterpretations());
@@ -1071,7 +1173,7 @@ namespace BrawlCrate
                 }
                 else if (node is TBLVNode)
                 {
-                    TBLVNode tblv = (TBLVNode)node;
+                    TBLVNode tblv = (TBLVNode) node;
 
                     attributeGrid1.Clear();
                     attributeGrid1.AddRange(tblv.GetPossibleInterpretations());
@@ -1080,7 +1182,7 @@ namespace BrawlCrate
                 }
                 else if (node is TBRMNode)
                 {
-                    TBRMNode tbrm = (TBRMNode)node;
+                    TBRMNode tbrm = (TBRMNode) node;
 
                     attributeGrid1.Clear();
                     attributeGrid1.AddRange(tbrm.GetPossibleInterpretations());
@@ -1089,7 +1191,7 @@ namespace BrawlCrate
                 }
                 else if (node is TBSTNode)
                 {
-                    TBSTNode tbst = (TBSTNode)node;
+                    TBSTNode tbst = (TBSTNode) node;
 
                     attributeGrid1.Clear();
                     attributeGrid1.AddRange(tbst.GetPossibleInterpretations());
@@ -1099,7 +1201,7 @@ namespace BrawlCrate
                 else if (node is IColorSource && !disable2nd)
                 {
                     clrControl.ColorSource = node as IColorSource;
-                    if (((IColorSource)node).ColorCount(0) > 0)
+                    if (((IColorSource) node).ColorCount(0) > 0)
                     {
                         if (newControl != null)
                         {
@@ -1111,16 +1213,16 @@ namespace BrawlCrate
                         }
                     }
                 }
-                else if (MainForm.Instance.ShowHex && !(node is RELEntryNode || node is RELNode))
+                else if (Instance.ShowHex && !(node is RELEntryNode || node is RELNode))
                 {
                     if (node.WorkingUncompressed.Length > 0)
                     {
                         hexBox1.ByteProvider = new Be.Windows.Forms.DynamicFileByteProvider(new UnmanagedMemoryStream(
-                                (byte*)node.WorkingUncompressed.Address,
+                                (byte*) node.WorkingUncompressed.Address,
                                 node.WorkingUncompressed.Length,
                                 node.WorkingUncompressed.Length,
                                 FileAccess.ReadWrite))
-                        { _supportsInsDel = false };
+                            {_supportsInsDel = false};
                         newControl = hexBox1;
                     }
                 }
@@ -1143,8 +1245,8 @@ namespace BrawlCrate
                 }
                 catch
                 {
-
                 }
+
                 editToolStripMenuItem.Enabled = false;
             }
 
@@ -1155,6 +1257,7 @@ namespace BrawlCrate
                     _secondaryControl.Dock = DockStyle.Fill;
                     _secondaryControl.Visible = false;
                 }
+
                 _secondaryControl = newControl2;
                 if (_secondaryControl != null)
                 {
@@ -1163,6 +1266,7 @@ namespace BrawlCrate
                     _secondaryControl.Width = 340;
                 }
             }
+
             if (_currentControl != newControl)
             {
                 if (_currentControl != null)
@@ -1218,7 +1322,7 @@ namespace BrawlCrate
             }
             else if (_currentControl is TexCoordControl)
             {
-                texCoordControl1.TargetNode = ((MDL0MaterialRefNode)node);
+                texCoordControl1.TargetNode = (MDL0MaterialRefNode) node;
             }
 
             selectedType = resourceTree.SelectedNode == null ? null : resourceTree.SelectedNode.GetType();
@@ -1244,38 +1348,196 @@ namespace BrawlCrate
         }
 
         #region File Menu
-        private void aRCArchiveToolStripMenuItem_Click(object sender, EventArgs e) { Program.New<ARCNode>(); }
-        private void u8FileArchiveToolStripMenuItem_Click(object sender, EventArgs e) { Program.New<U8Node>(); }
-        private void brresPackToolStripMenuItem_Click(object sender, EventArgs e) { Program.New<BRRESNode>(); }
-        private void tPLTextureArchiveToolStripMenuItem_Click(object sender, EventArgs e) { Program.New<TPLNode>(); }
-        private void eFLSEffectListToolStripMenuItem_Click(object sender, EventArgs e) { Program.New<EFLSNode>(); }
-        private void rEFFParticlesToolStripMenuItem_Click(object sender, EventArgs e) { Program.New<REFFNode>(); }
-        private void rEFTParticleTexturesToolStripMenuItem_Click(object sender, EventArgs e) { Program.New<REFTNode>(); }
+
+        private void aRCArchiveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.New<ARCNode>();
+        }
+
+        private void u8FileArchiveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.New<U8Node>();
+        }
+
+        private void brresPackToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.New<BRRESNode>();
+        }
+
+        private void tPLTextureArchiveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.New<TPLNode>();
+        }
+
+        private void eFLSEffectListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.New<EFLSNode>();
+        }
+
+        private void rEFFParticlesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.New<REFFNode>();
+        }
+
+        private void rEFTParticleTexturesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.New<REFTNode>();
+        }
+
         // PM 3.6 1:1
-        private void pm36STGBATTLEFIELD_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGBATTLEFIELD()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgbattlefieldDirectory, false); } }
-        private void pm36STGDOLPIC_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGDOLPIC()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgdolpicDirectory, false); } }
-        private void pm36STGDXGREENS_ToolStripMenuItem_Click(object sender, EventArgs e) { }
-        private void pm36STGFINAL_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGFINAL()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgfinalDirectory, false); } }
-        private void pm36STGFAMICOM_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGFAMICOM()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgfamicomDirectory, false); } }
-        private void pm36STGGREENHILL_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGGREENHILL()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stggreenhillDirectory, false); } }
-        private void pm36STGDXPSTADIUM_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGDXPSTADIUM()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgdxpstadiumDirectory, false); } }
-        private void pm36STGVILLAGE_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGVILLAGE()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgvillageDirectory, false); } }
-        private void pm36STGVILLAGE_nv_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGVILLAGE_NV()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgvillagenvDirectory, false); } }
-        private void pm36STGMADEIN_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGMADEIN()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgmadeinDirectory, false); } }
+        private void pm36STGBATTLEFIELD_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGBATTLEFIELD())
+            {
+                Program.Close();
+                Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgbattlefieldDirectory, false);
+            }
+        }
+
+        private void pm36STGDOLPIC_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGDOLPIC())
+            {
+                Program.Close();
+                Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgdolpicDirectory, false);
+            }
+        }
+
+        private void pm36STGDXGREENS_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void pm36STGFINAL_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGFINAL())
+            {
+                Program.Close();
+                Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgfinalDirectory, false);
+            }
+        }
+
+        private void pm36STGFAMICOM_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGFAMICOM())
+            {
+                Program.Close();
+                Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgfamicomDirectory, false);
+            }
+        }
+
+        private void pm36STGGREENHILL_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGGREENHILL())
+            {
+                Program.Close();
+                Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stggreenhillDirectory, false);
+            }
+        }
+
+        private void pm36STGDXPSTADIUM_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGDXPSTADIUM())
+            {
+                Program.Close();
+                Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgdxpstadiumDirectory, false);
+            }
+        }
+
+        private void pm36STGVILLAGE_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGVILLAGE())
+            {
+                Program.Close();
+                Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgvillageDirectory, false);
+            }
+        }
+
+        private void pm36STGVILLAGE_nv_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGVILLAGE_NV())
+            {
+                Program.Close();
+                Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgvillagenvDirectory, false);
+            }
+        }
+
+        private void pm36STGMADEIN_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (BrawlLib.BrawlCrate.Generate1to1Stages.PM36STGMADEIN())
+            {
+                Program.Close();
+                Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.pm36stgmadeinDirectory, false);
+            }
+        }
+
         // vBrawl 1:1
-        private void vBrawlSTGBATTLEFIELD_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.vBrawlSTGBATTLEFIELD()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.vbrawlstgbattlefieldDirectory, false); } }
-        private void vBrawlSTGFINAL_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.vBrawlSTGFINAL()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.vbrawlstgfinalDirectory, false); } }
-        private void vBrawlSTGVILLAGE_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.vBrawlSTGVILLAGE()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.vbrawlstgvillageDirectory, false); } }
-        private void vBrawlSTGVILLAGE_nv_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.vBrawlSTGVILLAGE_NV()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.vbrawlstgvillagenvDirectory, false); } }
+        private void vBrawlSTGBATTLEFIELD_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (BrawlLib.BrawlCrate.Generate1to1Stages.vBrawlSTGBATTLEFIELD())
+            {
+                Program.Close();
+                Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.vbrawlstgbattlefieldDirectory, false);
+            }
+        }
+
+        private void vBrawlSTGFINAL_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (BrawlLib.BrawlCrate.Generate1to1Stages.vBrawlSTGFINAL())
+            {
+                Program.Close();
+                Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.vbrawlstgfinalDirectory, false);
+            }
+        }
+
+        private void vBrawlSTGVILLAGE_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (BrawlLib.BrawlCrate.Generate1to1Stages.vBrawlSTGVILLAGE())
+            {
+                Program.Close();
+                Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.vbrawlstgvillageDirectory, false);
+            }
+        }
+
+        private void vBrawlSTGVILLAGE_nv_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (BrawlLib.BrawlCrate.Generate1to1Stages.vBrawlSTGVILLAGE_NV())
+            {
+                Program.Close();
+                Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.vbrawlstgvillagenvDirectory, false);
+            }
+        }
+
         // Custom 1:1
-        private void customSkySanctuary_ToolStripMenuItem_Click(object sender, EventArgs e) { if (BrawlLib.BrawlCrate.Generate1to1Stages.STGSKYSANCTUARY()) { Program.Close(); Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.skySanctDirectory, false); } }
+        private void customSkySanctuary_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (BrawlLib.BrawlCrate.Generate1to1Stages.STGSKYSANCTUARY())
+            {
+                Program.Close();
+                Program.Open(BrawlLib.BrawlCrate.Generate1to1Stages.skySanctDirectory, false);
+            }
+        }
 
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e) { Program.Save(); }
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e) { Program.SaveAs(); }
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e) { Program.Close(); }
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.Save();
+        }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e) { Close(); }
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.SaveAs();
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.Close();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
         #endregion
 
         private void fileResizerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1283,12 +1545,16 @@ namespace BrawlCrate
             //using (FileResizer res = new FileResizer())
             //    res.ShowDialog();
         }
+
         private void settingsToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             Settings.ShowDialog();
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) { AboutForm.Instance.ShowDialog(this); }
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutForm.Instance.ShowDialog(this);
+        }
 
         private void bRStmAudioToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1315,14 +1581,14 @@ namespace BrawlCrate
 
         private void MainForm_DragDrop(object sender, DragEventArgs e)
         {
-            Array a = (Array)e.Data.GetData(DataFormats.FileDrop);
+            Array a = (Array) e.Data.GetData(DataFormats.FileDrop);
             if (a != null)
             {
                 string s = null;
                 for (int i = 0; i < a.Length; i++)
                 {
                     s = a.GetValue(i).ToString();
-                    BeginInvoke(m_DelegateOpenFile, new object[] { s });
+                    BeginInvoke(m_DelegateOpenFile, new object[] {s});
                 }
             }
         }
@@ -1346,9 +1612,9 @@ namespace BrawlCrate
 
         private void recentFilesToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            if (File.Exists(((RecentFileHandler.FileMenuItem)e.ClickedItem).FileName))
+            if (File.Exists(((RecentFileHandler.FileMenuItem) e.ClickedItem).FileName))
             {
-                Program.Open(((RecentFileHandler.FileMenuItem)e.ClickedItem).FileName);
+                Program.Open(((RecentFileHandler.FileMenuItem) e.ClickedItem).FileName);
             }
             else
             {
@@ -1363,15 +1629,17 @@ namespace BrawlCrate
 
         private void splitContainer_MouseDown(object sender, MouseEventArgs e)
         {
-            ((SplitContainer)sender).IsSplitterFixed = true;
+            ((SplitContainer) sender).IsSplitterFixed = true;
         }
+
         private void splitContainer_MouseUp(object sender, MouseEventArgs e)
         {
-            ((SplitContainer)sender).IsSplitterFixed = false;
+            ((SplitContainer) sender).IsSplitterFixed = false;
         }
+
         private void splitContainer_MouseMove(object sender, MouseEventArgs e)
         {
-            SplitContainer splitter = (SplitContainer)sender;
+            SplitContainer splitter = (SplitContainer) sender;
             if (splitter.IsSplitterFixed)
             {
                 if (e.Button.Equals(MouseButtons.Left))
@@ -1403,19 +1671,23 @@ namespace BrawlCrate
 
     public class RecentFileHandler : Component
     {
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
+
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing && components != null)
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
+
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            components = new Container();
         }
+
         public class FileMenuItem : ToolStripMenuItem
         {
             private string fileName;
@@ -1435,13 +1707,11 @@ namespace BrawlCrate
             {
                 get
                 {
-                    ToolStripMenuItem parent = (ToolStripMenuItem)OwnerItem;
+                    ToolStripMenuItem parent = (ToolStripMenuItem) OwnerItem;
                     int index = parent.DropDownItems.IndexOf(this);
                     return string.Format("{0} {1}", index + 1, fileName);
                 }
-                set
-                {
-                }
+                set { }
             }
         }
 
@@ -1514,7 +1784,9 @@ namespace BrawlCrate
                 // save the changes
                 Settings.Default.Save();
             }
-            catch { }
+            catch
+            {
+            }
         }
 
         private int GetIndexOfRecentFile(string filename)
@@ -1527,6 +1799,7 @@ namespace BrawlCrate
                     return i;
                 }
             }
+
             return -1;
         }
 
@@ -1569,7 +1842,7 @@ namespace BrawlCrate
             }
 
             recentFileToolStripItem.DropDownItems.Clear();
-            recentFileToolStripItem.Enabled = (Settings.Default.RecentFiles.Count > 0);
+            recentFileToolStripItem.Enabled = Settings.Default.RecentFiles.Count > 0;
 
             int fileItemCount = Math.Min(Settings.Default.RecentFilesMax, Settings.Default.RecentFiles.Count);
             for (int i = 0; i < fileItemCount; i++)

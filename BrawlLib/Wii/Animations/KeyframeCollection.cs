@@ -19,6 +19,7 @@ namespace BrawlLib.Wii.Animations
         public KeyframeArray this[int index] => _keyArrays[index.Clamp(0, _keyArrays.Length - 1)];
 
         private bool _looped = false;
+
         public bool Loop
         {
             get => _looped;
@@ -33,6 +34,7 @@ namespace BrawlLib.Wii.Animations
         }
 
         private int _frameLimit;
+
         public int FrameLimit
         {
             get => _frameLimit;
@@ -87,7 +89,7 @@ namespace BrawlLib.Wii.Animations
         {
             KeyframeEntry entry = null, root = _keyArrays[arrayIndex]._keyRoot;
 
-            for (entry = root._next; (entry != root) && (entry._index < index); entry = entry._next)
+            for (entry = root._next; entry != root && entry._index < index; entry = entry._next)
             {
                 ;
             }
@@ -111,7 +113,7 @@ namespace BrawlLib.Wii.Animations
             foreach (int x in arrays)
             {
                 root = _keyArrays[x]._keyRoot;
-                for (entry = root._prev; (entry != root) && (entry._index >= index); entry = entry._prev)
+                for (entry = root._prev; entry != root && entry._index >= index; entry = entry._prev)
                 {
                     if (++entry._index >= _frameLimit)
                     {
@@ -129,9 +131,9 @@ namespace BrawlLib.Wii.Animations
             foreach (int x in arrays)
             {
                 root = _keyArrays[x]._keyRoot;
-                for (entry = root._prev; (entry != root) && (entry._index >= index); entry = entry._prev)
+                for (entry = root._prev; entry != root && entry._index >= index; entry = entry._prev)
                 {
-                    if ((entry._index == index) || (--entry._index < 0))
+                    if (entry._index == index || --entry._index < 0)
                     {
                         entry = entry._next;
                         entry._prev.Remove();
@@ -220,6 +222,7 @@ namespace BrawlLib.Wii.Animations
             entry._prev = this;
             _next = entry;
         }
+
         public void Remove()
         {
             _next._prev = _prev;
@@ -319,6 +322,7 @@ namespace BrawlLib.Wii.Animations
                     _tangent += (_value - _prev._value) / (_index - _prev._index);
                     weightCount++;
                 }
+
                 if (_next._index != -1)
                 {
                     _tangent += (_next._value - _value) / (_next._index - _index);
@@ -333,7 +337,7 @@ namespace BrawlLib.Wii.Animations
 
             if (RoundTangent)
             {
-                _tangent = (float)Math.Round(_tangent, TangetDecimalPlaces);
+                _tangent = (float) Math.Round(_tangent, TangetDecimalPlaces);
             }
 
             return _tangent;
@@ -351,9 +355,15 @@ namespace BrawlLib.Wii.Animations
         internal int _keyCount = 0;
 
         private bool _looped = false;
-        public bool Loop { get => _looped; set => _looped = value; }
+
+        public bool Loop
+        {
+            get => _looped;
+            set => _looped = value;
+        }
 
         internal int _frameLimit;
+
         public int FrameLimit
         {
             get => _frameLimit;
@@ -381,6 +391,7 @@ namespace BrawlLib.Wii.Animations
         }
 
         private const float _cleanDistance = 0.00001f;
+
         public int Clean()
         {
             int flag, res, removed = 0;
@@ -409,15 +420,15 @@ namespace BrawlLib.Wii.Animations
 
                 if ((flag & 1) != 0)
                 {
-                    res |= (Math.Abs(entry._next._value - entry._value) <= _cleanDistance) ? 1 : 0;
+                    res |= Math.Abs(entry._next._value - entry._value) <= _cleanDistance ? 1 : 0;
                 }
 
                 if ((flag & 2) != 0)
                 {
-                    res |= (Math.Abs(entry._prev._value - entry._value) <= _cleanDistance) ? 2 : 0;
+                    res |= Math.Abs(entry._prev._value - entry._value) <= _cleanDistance ? 2 : 0;
                 }
 
-                if ((flag == res) && (res != 0))
+                if (flag == res && res != 0)
                 {
                     entry = entry._prev;
                     entry._next.Remove();
@@ -437,7 +448,7 @@ namespace BrawlLib.Wii.Animations
         public KeyframeEntry GetKeyframe(int index)
         {
             KeyframeEntry entry;
-            for (entry = _keyRoot._next; (entry != _keyRoot) && (entry._index < index); entry = entry._next)
+            for (entry = _keyRoot._next; entry != _keyRoot && entry._index < index; entry = entry._next)
             {
                 ;
             }
@@ -459,10 +470,12 @@ namespace BrawlLib.Wii.Animations
                 //If the frame is greater than the last keyframe's frame index
                 if (_looped)
                 {
-                    float span = FrameLimit - _keyRoot._prev._index.Clamp(0, FrameLimit) + _keyRoot._next._index.Clamp(0, FrameLimit);
+                    float span = FrameLimit - _keyRoot._prev._index.Clamp(0, FrameLimit) +
+                                 _keyRoot._next._index.Clamp(0, FrameLimit);
                     float offset =
-                        index > _keyRoot._prev._index && index < FrameLimit ? index - _keyRoot._prev._index :
-                        FrameLimit - _keyRoot._prev._index + index;
+                        index > _keyRoot._prev._index && index < FrameLimit
+                            ? index - _keyRoot._prev._index
+                            : FrameLimit - _keyRoot._prev._index + index;
 
                     return _keyRoot._prev.Interpolate(offset, span, _keyRoot._next);
                 }
@@ -476,10 +489,12 @@ namespace BrawlLib.Wii.Animations
                 //If the frame is less than the first keyframe's frame index
                 if (_looped)
                 {
-                    float span = FrameLimit - _keyRoot._prev._index.Clamp(0, FrameLimit) + _keyRoot._next._index.Clamp(0, FrameLimit);
+                    float span = FrameLimit - _keyRoot._prev._index.Clamp(0, FrameLimit) +
+                                 _keyRoot._next._index.Clamp(0, FrameLimit);
                     float offset =
-                        index > _keyRoot._prev._index.Clamp(0, FrameLimit) && index < FrameLimit ? index - _keyRoot._prev._index.Clamp(0, FrameLimit) :
-                        FrameLimit - _keyRoot._prev._index.Clamp(0, FrameLimit) + index;
+                        index > _keyRoot._prev._index.Clamp(0, FrameLimit) && index < FrameLimit
+                            ? index - _keyRoot._prev._index.Clamp(0, FrameLimit)
+                            : FrameLimit - _keyRoot._prev._index.Clamp(0, FrameLimit) + index;
 
                     return _keyRoot._prev.Interpolate(offset, span, _keyRoot._next);
                 }
@@ -491,9 +506,9 @@ namespace BrawlLib.Wii.Animations
 
             //Find the entry just before the specified index
             for (entry = _keyRoot._next; //Get the first entry
-                (entry != _keyRoot) && //Make sure it's not the root
-                (entry._index <= index);  //Its index must be less than or equal to the current index
-                entry = entry._next) //Get the next entry
+                entry != _keyRoot &&     //Make sure it's not the root
+                entry._index <= index;   //Its index must be less than or equal to the current index
+                entry = entry._next)     //Get the next entry
             {
                 if (entry._index == index)
                 {
@@ -517,13 +532,13 @@ namespace BrawlLib.Wii.Animations
         public KeyframeEntry SetFrameValue(int index, float value, bool parsing = false)
         {
             KeyframeEntry entry = null;
-            if ((_keyRoot._prev == _keyRoot) || (_keyRoot._prev._index < index))
+            if (_keyRoot._prev == _keyRoot || _keyRoot._prev._index < index)
             {
                 entry = _keyRoot;
             }
             else
             {
-                for (entry = _keyRoot._next; (entry != _keyRoot) && (entry._index <= index); entry = entry._next)
+                for (entry = _keyRoot._next; entry != _keyRoot && entry._index <= index; entry = entry._next)
                 {
                     ;
                 }
@@ -558,7 +573,7 @@ namespace BrawlLib.Wii.Animations
         public KeyframeEntry Remove(int index)
         {
             KeyframeEntry entry = null;
-            for (entry = _keyRoot._next; (entry != _keyRoot) && (entry._index < index); entry = entry._next)
+            for (entry = _keyRoot._next; entry != _keyRoot && entry._index < index; entry = entry._next)
             {
                 ;
             }
@@ -579,7 +594,7 @@ namespace BrawlLib.Wii.Animations
         public void Insert(int index)
         {
             KeyframeEntry entry = null;
-            for (entry = _keyRoot._prev; (entry != _keyRoot) && (entry._index >= index); entry = entry._prev)
+            for (entry = _keyRoot._prev; entry != _keyRoot && entry._index >= index; entry = entry._prev)
             {
                 if (++entry._index >= _frameLimit)
                 {
@@ -593,9 +608,9 @@ namespace BrawlLib.Wii.Animations
         public void Delete(int index)
         {
             KeyframeEntry entry = null;
-            for (entry = _keyRoot._prev; (entry != _keyRoot) && (entry._index >= index); entry = entry._prev)
+            for (entry = _keyRoot._prev; entry != _keyRoot && entry._index >= index; entry = entry._prev)
             {
-                if ((entry._index == index) || (--entry._index < 0))
+                if (entry._index == index || --entry._index < 0)
                 {
                     entry = entry._next;
                     entry._prev.Remove();

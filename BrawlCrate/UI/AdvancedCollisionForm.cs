@@ -11,14 +11,15 @@ namespace System.Windows.Forms
 
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollisionForm));
-            collisionEditor1 = new System.Windows.Forms.AdvancedCollisionEditor();
+            System.ComponentModel.ComponentResourceManager resources =
+                new System.ComponentModel.ComponentResourceManager(typeof(CollisionForm));
+            collisionEditor1 = new AdvancedCollisionEditor();
             SuspendLayout();
             // 
             // collisionEditor1
             // 
-            collisionEditor1.BackColor = System.Drawing.Color.Lavender;
-            collisionEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
+            collisionEditor1.BackColor = Drawing.Color.Lavender;
+            collisionEditor1.Dock = DockStyle.Fill;
             collisionEditor1.Location = new System.Drawing.Point(0, 0);
             collisionEditor1.Name = "collisionEditor1";
             collisionEditor1.Size = new System.Drawing.Size(800, 600);
@@ -33,20 +34,29 @@ namespace System.Windows.Forms
             Name = "CollisionForm";
             Text = "Collision Editor";
             ResumeLayout(false);
-
         }
 
         #endregion
 
         private CollisionNode _node;
 
-        public AdvancedCollisionForm() { InitializeComponent(); Text = Program.AssemblyTitle + " - Advanced Collision Editor"; }
+        public AdvancedCollisionForm()
+        {
+            InitializeComponent();
+            Text = Program.AssemblyTitle + " - Advanced Collision Editor";
+        }
 
         public DialogResult ShowDialog(IWin32Window owner, CollisionNode node)
         {
             _node = node;
-            try { return ShowDialog(owner); }
-            finally { _node = null; }
+            try
+            {
+                return ShowDialog(owner);
+            }
+            finally
+            {
+                _node = null;
+            }
         }
 
         protected override void OnShown(EventArgs e)

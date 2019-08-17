@@ -13,6 +13,7 @@ namespace BrawlCrate.NodeWrappers
         #region Menu
 
         private static readonly ContextMenuStrip _menu;
+
         static SRT0Wrapper()
         {
             _menu = new ContextMenuStrip();
@@ -37,46 +38,71 @@ namespace BrawlCrate.NodeWrappers
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
-        protected static void NewEntryAction(object sender, EventArgs e) { GetInstance<SRT0Wrapper>().NewEntry(); }
-        protected static void MergeAction(object sender, EventArgs e) { GetInstance<SRT0Wrapper>().Merge(); }
-        protected static void AppendAction(object sender, EventArgs e) { GetInstance<SRT0Wrapper>().Append(); }
-        protected static void ResizeAction(object sender, EventArgs e) { GetInstance<SRT0Wrapper>().Resize(); }
+
+        protected static void NewEntryAction(object sender, EventArgs e)
+        {
+            GetInstance<SRT0Wrapper>().NewEntry();
+        }
+
+        protected static void MergeAction(object sender, EventArgs e)
+        {
+            GetInstance<SRT0Wrapper>().Merge();
+        }
+
+        protected static void AppendAction(object sender, EventArgs e)
+        {
+            GetInstance<SRT0Wrapper>().Append();
+        }
+
+        protected static void ResizeAction(object sender, EventArgs e)
+        {
+            GetInstance<SRT0Wrapper>().Resize();
+        }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-            _menu.Items[5].Enabled = _menu.Items[6].Enabled = _menu.Items[7].Enabled = _menu.Items[9].Enabled = _menu.Items[10].Enabled = _menu.Items[13].Enabled = true;
+            _menu.Items[5].Enabled = _menu.Items[6].Enabled = _menu.Items[7].Enabled =
+                _menu.Items[9].Enabled = _menu.Items[10].Enabled = _menu.Items[13].Enabled = true;
         }
+
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             SRT0Wrapper w = GetInstance<SRT0Wrapper>();
             _menu.Items[5].Enabled = _menu.Items[7].Enabled = _menu.Items[13].Enabled = w.Parent != null;
-            _menu.Items[6].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[6].Enabled = w._resource.IsDirty || w._resource.IsBranch;
             _menu.Items[9].Enabled = w.PrevNode != null;
             _menu.Items[10].Enabled = w.NextNode != null;
         }
+
         #endregion
 
-        public SRT0Wrapper() { ContextMenuStrip = _menu; }
+        public SRT0Wrapper()
+        {
+            ContextMenuStrip = _menu;
+        }
 
         public override string ExportFilter => FileFilters.SRT0;
 
         private void NewEntry()
         {
-            ((SRT0Node)_resource).CreateEntry();
+            ((SRT0Node) _resource).CreateEntry();
         }
+
         private void Merge()
         {
-
         }
+
         private void Append()
         {
-            ((SRT0Node)_resource).Append();
+            ((SRT0Node) _resource).Append();
             BaseWrapper res = FindResource(_resource, false);
             res.EnsureVisible();
             res.TreeView.SelectedNode = res;
         }
+
         private void Resize()
         {
-            ((SRT0Node)_resource).Resize();
+            ((SRT0Node) _resource).Resize();
             BaseWrapper res = FindResource(_resource, false);
             res.EnsureVisible();
             res.TreeView.SelectedNode = res;
@@ -87,7 +113,9 @@ namespace BrawlCrate.NodeWrappers
     internal class SRT0EntryWrapper : GenericWrapper
     {
         #region Menu
+
         private static readonly ContextMenuStrip _menu;
+
         static SRT0EntryWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -105,27 +133,38 @@ namespace BrawlCrate.NodeWrappers
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
-        protected static void NewEntryAction(object sender, EventArgs e) { GetInstance<SRT0EntryWrapper>().NewEntry(); }
+
+        protected static void NewEntryAction(object sender, EventArgs e)
+        {
+            GetInstance<SRT0EntryWrapper>().NewEntry();
+        }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-            _menu.Items[0].Enabled = _menu.Items[3].Enabled = _menu.Items[4].Enabled = _menu.Items[6].Enabled = _menu.Items[7].Enabled = _menu.Items[10].Enabled = true;
+            _menu.Items[0].Enabled = _menu.Items[3].Enabled = _menu.Items[4].Enabled =
+                _menu.Items[6].Enabled = _menu.Items[7].Enabled = _menu.Items[10].Enabled = true;
         }
+
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             SRT0EntryWrapper w = GetInstance<SRT0EntryWrapper>();
             _menu.Items[0].Enabled = w._resource.Children.Count < 11;
             _menu.Items[3].Enabled = _menu.Items[10].Enabled = w.Parent != null;
-            _menu.Items[4].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[4].Enabled = w._resource.IsDirty || w._resource.IsBranch;
             _menu.Items[6].Enabled = w.PrevNode != null;
             _menu.Items[7].Enabled = w.NextNode != null;
         }
+
         #endregion
 
-        public SRT0EntryWrapper() { ContextMenuStrip = _menu; }
+        public SRT0EntryWrapper()
+        {
+            ContextMenuStrip = _menu;
+        }
 
         public void NewEntry()
         {
-            SRT0EntryNode n = (SRT0EntryNode)_resource;
+            SRT0EntryNode n = (SRT0EntryNode) _resource;
             n.CreateEntry();
         }
     }
@@ -134,7 +173,9 @@ namespace BrawlCrate.NodeWrappers
     internal class SRT0TextureWrapper : GenericWrapper
     {
         #region Menu
+
         private static readonly ContextMenuStrip _menu;
+
         static SRT0TextureWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -148,7 +189,12 @@ namespace BrawlCrate.NodeWrappers
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
-        protected static void ViewInterp(object sender, EventArgs e) { GetInstance<SRT0TextureWrapper>().ViewInterp(); }
+
+        protected static void ViewInterp(object sender, EventArgs e)
+        {
+            GetInstance<SRT0TextureWrapper>().ViewInterp();
+        }
+
         private void ViewInterp()
         {
             InterpolationForm f = MainForm.Instance.InterpolationForm;
@@ -161,18 +207,24 @@ namespace BrawlCrate.NodeWrappers
                 }
             }
         }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
             _menu.Items[3].Enabled = _menu.Items[4].Enabled = _menu.Items[6].Enabled = true;
         }
+
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             SRT0TextureWrapper w = GetInstance<SRT0TextureWrapper>();
             _menu.Items[3].Enabled = _menu.Items[6].Enabled = w.Parent != null;
-            _menu.Items[4].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[4].Enabled = w._resource.IsDirty || w._resource.IsBranch;
         }
+
         #endregion
 
-        public SRT0TextureWrapper() { ContextMenuStrip = _menu; }
+        public SRT0TextureWrapper()
+        {
+            ContextMenuStrip = _menu;
+        }
     }
 }

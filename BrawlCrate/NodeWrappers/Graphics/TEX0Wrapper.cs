@@ -17,10 +17,12 @@ namespace BrawlCrate.NodeWrappers
     internal class TEX0Wrapper : GenericWrapper
     {
         private static readonly ContextMenuStrip _menu;
+
         static TEX0Wrapper()
         {
             _menu = new ContextMenuStrip();
-            _menu.Items.Add(new ToolStripMenuItem("&Re-Encode", null, ReEncodeAction, Keys.Control | Keys.Shift | Keys.R));
+            _menu.Items.Add(new ToolStripMenuItem("&Re-Encode", null, ReEncodeAction,
+                Keys.Control | Keys.Shift | Keys.R));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("Generate &PAT0", null, GeneratePAT0Action));
             _menu.Items.Add(new ToolStripMenuItem("Color Smash", null, ColorSmashAction));
@@ -40,46 +42,80 @@ namespace BrawlCrate.NodeWrappers
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
-        protected static void ColorSmashAction(object sender, EventArgs e) { GetInstance<TEX0Wrapper>().ColorSmash(); }
-        protected static void ReEncodeAction(object sender, EventArgs e) { GetInstance<TEX0Wrapper>().ReEncode(); }
-        protected static void GeneratePAT0Action(object sender, EventArgs e) { GetInstance<TEX0Wrapper>().GeneratePAT0(false); }
-        protected static void DeleteTEX0Action(object sender, EventArgs e) { GetInstance<TEX0Wrapper>().DeleteTEX0(); }
-        protected static void ConvertStockAction(object sender, EventArgs e) { GetInstance<TEX0Wrapper>().ConvertStocks(); }
+
+        protected static void ColorSmashAction(object sender, EventArgs e)
+        {
+            GetInstance<TEX0Wrapper>().ColorSmash();
+        }
+
+        protected static void ReEncodeAction(object sender, EventArgs e)
+        {
+            GetInstance<TEX0Wrapper>().ReEncode();
+        }
+
+        protected static void GeneratePAT0Action(object sender, EventArgs e)
+        {
+            GetInstance<TEX0Wrapper>().GeneratePAT0(false);
+        }
+
+        protected static void DeleteTEX0Action(object sender, EventArgs e)
+        {
+            GetInstance<TEX0Wrapper>().DeleteTEX0();
+        }
+
+        protected static void ConvertStockAction(object sender, EventArgs e)
+        {
+            GetInstance<TEX0Wrapper>().ConvertStocks();
+        }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-            _menu.Items[2].Enabled = _menu.Items[6].Enabled = _menu.Items[7].Enabled = _menu.Items[9].Enabled = _menu.Items[10].Enabled = _menu.Items[13].Enabled = true;
+            _menu.Items[2].Enabled = _menu.Items[6].Enabled = _menu.Items[7].Enabled =
+                _menu.Items[9].Enabled = _menu.Items[10].Enabled = _menu.Items[13].Enabled = true;
             _menu.Items[2].Visible = _menu.Items[14].Visible = _menu.Items[15].Visible = false;
         }
+
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             TEX0Wrapper w = GetInstance<TEX0Wrapper>();
             _menu.Items[2].Enabled = _menu.Items[5].Enabled = _menu.Items[12].Enabled = w.Parent != null;
-            _menu.Items[2].Visible = true; //(Regex.Match(w._resource.Name, @"(\.\d+)?$").Success && w._resource.Name.LastIndexOf(".") > 0 && w._resource.Name.LastIndexOf(".") <= w._resource.Name.Length && int.TryParse(w._resource.Name.Substring(w._resource.Name.LastIndexOf(".") + 1, w._resource.Name.Length - (w._resource.Name.LastIndexOf(".") + 1)), out int n));
-            _menu.Items[7].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[2].Visible =
+                true; //(Regex.Match(w._resource.Name, @"(\.\d+)?$").Success && w._resource.Name.LastIndexOf(".") > 0 && w._resource.Name.LastIndexOf(".") <= w._resource.Name.Length && int.TryParse(w._resource.Name.Substring(w._resource.Name.LastIndexOf(".") + 1, w._resource.Name.Length - (w._resource.Name.LastIndexOf(".") + 1)), out int n));
+            _menu.Items[7].Enabled = w._resource.IsDirty || w._resource.IsBranch;
             _menu.Items[9].Enabled = w.PrevNode != null;
             _menu.Items[10].Enabled = w.NextNode != null;
             _menu.Items[14].Visible = _menu.Items[15].Visible = false;
-            if (w._resource.Name.StartsWith("InfStc.") && Regex.Match(w._resource.Name, @"(\.\d+)?$").Success && w._resource.Name.LastIndexOf(".") > 0 && w._resource.Name.LastIndexOf(".") <= w._resource.Name.Length && int.TryParse(w._resource.Name.Substring(w._resource.Name.LastIndexOf(".") + 1, w._resource.Name.Length - (w._resource.Name.LastIndexOf(".") + 1)), out int n))
+            if (w._resource.Name.StartsWith("InfStc.") && Regex.Match(w._resource.Name, @"(\.\d+)?$").Success &&
+                w._resource.Name.LastIndexOf(".") > 0 && w._resource.Name.LastIndexOf(".") <= w._resource.Name.Length &&
+                int.TryParse(
+                    w._resource.Name.Substring(w._resource.Name.LastIndexOf(".") + 1,
+                        w._resource.Name.Length - (w._resource.Name.LastIndexOf(".") + 1)), out int n))
             {
                 _menu.Items[14].Visible = _menu.Items[15].Visible = true;
-                _menu.Items[15].Text = w._resource.Name.Length == 10 ? "Convert to Expanded 50-Stock System" : "Convert to Default Stock System";
+                _menu.Items[15].Text = w._resource.Name.Length == 10
+                    ? "Convert to Expanded 50-Stock System"
+                    : "Convert to Default Stock System";
             }
         }
 
-        public TEX0Wrapper() { ContextMenuStrip = _menu; }
+        public TEX0Wrapper()
+        {
+            ContextMenuStrip = _menu;
+        }
 
         public override string ExportFilter => FileFilters.TEX0;
 
         public override void OnReplace(string inStream, int filterIndex)
         {
-            if (((TEX0Node)_resource).SharesData)
+            if (((TEX0Node) _resource).SharesData)
             {
-                if (_resource.Index > 0 && ((TEX0Node)_resource.Parent.Children[_resource.Index - 1]).SharesData)
+                if (_resource.Index > 0 && ((TEX0Node) _resource.Parent.Children[_resource.Index - 1]).SharesData)
                 {
-                    ((TEX0Node)_resource).SharesData = false;
-                    ((TEX0Node)_resource.Parent.Children[_resource.Index - 1]).SharesData = false;
+                    ((TEX0Node) _resource).SharesData = false;
+                    ((TEX0Node) _resource.Parent.Children[_resource.Index - 1]).SharesData = false;
                 }
             }
+
             if (filterIndex == 8)
             {
                 base.OnReplace(inStream, filterIndex);
@@ -97,9 +133,9 @@ namespace BrawlCrate.NodeWrappers
         public void ReEncode()
         {
             PLT0Node plt = null;
-            if (((TEX0Node)ResourceNode).HasPalette)
+            if (((TEX0Node) ResourceNode).HasPalette)
             {
-                plt = ((TEX0Node)ResourceNode).GetPaletteNode();
+                plt = ((TEX0Node) ResourceNode).GetPaletteNode();
             }
 
             using (TextureConverterDialog dlg = new TextureConverterDialog())
@@ -107,7 +143,8 @@ namespace BrawlCrate.NodeWrappers
                 dlg.LoadImages((ResourceNode as TEX0Node).GetImage(0));
                 dlg.ShowDialog(MainForm.Instance, ResourceNode as TEX0Node);
             }
-            if (plt != null && !((TEX0Node)ResourceNode).HasPalette)
+
+            if (plt != null && !((TEX0Node) ResourceNode).HasPalette)
             {
                 plt.Remove();
             }
@@ -117,12 +154,13 @@ namespace BrawlCrate.NodeWrappers
         {
             TwoNumberEntryBox colorsmashcount = new TwoNumberEntryBox();
             int paletteCount = 256;
-            if (((TEX0Node)_resource).HasPalette && ((TEX0Node)_resource).GetPaletteNode() != null)
+            if (((TEX0Node) _resource).HasPalette && ((TEX0Node) _resource).GetPaletteNode() != null)
             {
-                paletteCount = ((TEX0Node)_resource).GetPaletteNode().Palette.Entries.Length;
+                paletteCount = ((TEX0Node) _resource).GetPaletteNode().Palette.Entries.Length;
             }
 
-            if (colorsmashcount.ShowDialog("Color Smasher", "How many textures?", "How many colors?", 1, paletteCount) == DialogResult.OK)
+            if (colorsmashcount.ShowDialog("Color Smasher", "How many textures?", "How many colors?", 1,
+                    paletteCount) == DialogResult.OK)
             {
                 ColorSmash(colorsmashcount.Value1, colorsmashcount.Value2);
             }
@@ -154,10 +192,12 @@ namespace BrawlCrate.NodeWrappers
                 {
                     tex.GetPaletteNode().Remove();
                 }
+
                 //if (tex.Format != BrawlLib.Wii.Textures.WiiPixelFormat.CI4)
                 //    usesOnlyCI4 = false;
                 tex.Remove();
             }
+
             usesOnlyCI4 = false;
             Process csmash = Process.Start(new ProcessStartInfo()
             {
@@ -176,7 +216,8 @@ namespace BrawlCrate.NodeWrappers
                     using (TextureConverterDialog dlg = new TextureConverterDialog())
                     {
                         dlg.ImageSource = AppDomain.CurrentDomain.BaseDirectory + "\\cs\\out\\" + j + ".png";
-                        if (dlg.ShowDialog(MainForm.Instance, brparent, true, true, texNames[j], usesOnlyCI4, curindex) == DialogResult.OK)
+                        if (dlg.ShowDialog(MainForm.Instance, brparent, true, true, texNames[j], usesOnlyCI4,
+                                curindex) == DialogResult.OK)
                         {
                             if (j < texNames.Count - 1)
                             {
@@ -192,8 +233,12 @@ namespace BrawlCrate.NodeWrappers
                     if (!errorThrown)
                     {
                         errorThrown = true;
-                        attemptRegardless = (MessageBox.Show("One or more images threw an error when converting. Would you like to try to color smash these regardless? (As opposed to keeping them seperate)", "Color Smash", MessageBoxButtons.YesNo) == DialogResult.Yes);
+                        attemptRegardless =
+                            MessageBox.Show(
+                                "One or more images threw an error when converting. Would you like to try to color smash these regardless? (As opposed to keeping them seperate)",
+                                "Color Smash", MessageBoxButtons.YesNo) == DialogResult.Yes;
                     }
+
                     if (attemptRegardless)
                     {
                         if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + j + ".png"))
@@ -201,7 +246,8 @@ namespace BrawlCrate.NodeWrappers
                             using (TextureConverterDialog dlg = new TextureConverterDialog())
                             {
                                 dlg.ImageSource = AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + j + ".png";
-                                if (dlg.ShowDialog(null, brparent, true, true, texNames[j], usesOnlyCI4, curindex) == DialogResult.OK)
+                                if (dlg.ShowDialog(null, brparent, true, true, texNames[j], usesOnlyCI4, curindex) ==
+                                    DialogResult.OK)
                                 {
                                     if (j < texNames.Count - 1)
                                     {
@@ -219,6 +265,7 @@ namespace BrawlCrate.NodeWrappers
                     }
                 }
             }
+
             for (j = 0; j < remainingIDs.Count; j++)
             {
                 if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + remainingIDs[j] + ".png"))
@@ -226,7 +273,8 @@ namespace BrawlCrate.NodeWrappers
                     using (TextureConverterDialog dlg = new TextureConverterDialog())
                     {
                         dlg.ImageSource = AppDomain.CurrentDomain.BaseDirectory + "\\cs\\" + remainingIDs[j] + ".png";
-                        if (dlg.ShowDialog(MainForm.Instance, brparent, false, true, texNames[remainingIDs[j]], false, curindex) == DialogResult.OK)
+                        if (dlg.ShowDialog(MainForm.Instance, brparent, false, true, texNames[remainingIDs[j]], false,
+                                curindex) == DialogResult.OK)
                         {
                             //BaseWrapper w = this.FindResource(dlg.TEX0TextureNode, true);
                             curindex++;
@@ -234,25 +282,46 @@ namespace BrawlCrate.NodeWrappers
                     }
                 }
             }
+
             try
             {
                 foreach (FileInfo tex in outputDir.GetFiles())
                 {
-                    try { tex.Delete(); } catch { }
+                    try
+                    {
+                        tex.Delete();
+                    }
+                    catch
+                    {
+                    }
                 }
 
-                try { outputDir.Delete(); } catch { }
-                foreach (FileInfo tex in Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\").GetFiles())
+                try
                 {
-                    try { tex.Delete(); } catch { }
+                    outputDir.Delete();
+                }
+                catch
+                {
+                }
+
+                foreach (FileInfo tex in Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\")
+                    .GetFiles())
+                {
+                    try
+                    {
+                        tex.Delete();
+                    }
+                    catch
+                    {
+                    }
                 }
 
                 Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\cs\\");
             }
             catch
             {
-
             }
+
             TEX0Node._updating = false;
         }
 
@@ -263,16 +332,20 @@ namespace BrawlCrate.NodeWrappers
                 return null;
             }
 
-            if (_resource.Parent is BRESGroupNode && _resource.Parent.Parent != null && _resource.Parent.Parent is BRRESNode)
+            if (_resource.Parent is BRESGroupNode && _resource.Parent.Parent != null &&
+                _resource.Parent.Parent is BRRESNode)
             {
                 // Check if this is part of a sequence
-                if (Regex.Match(_resource.Name, @"(\.\d+)?$").Success && _resource.Name.LastIndexOf(".") > 0 && _resource.Name.LastIndexOf(".") <= _resource.Name.Length && int.TryParse(_resource.Name.Substring(_resource.Name.LastIndexOf(".") + 1, _resource.Name.Length - (_resource.Name.LastIndexOf(".") + 1)), out int n))
+                if (Regex.Match(_resource.Name, @"(\.\d+)?$").Success && _resource.Name.LastIndexOf(".") > 0 &&
+                    _resource.Name.LastIndexOf(".") <= _resource.Name.Length && int.TryParse(
+                        _resource.Name.Substring(_resource.Name.LastIndexOf(".") + 1,
+                            _resource.Name.Length - (_resource.Name.LastIndexOf(".") + 1)), out int n))
                 {
                     //Console.WriteLine(_resource.Name.Substring(0, _resource.Name.LastIndexOf(".")) + " is part of a sequence");
                     //Console.WriteLine(_resource.Name.Substring(_resource.Name.LastIndexOf(".") + 1, _resource.Name.Length - (_resource.Name.LastIndexOf(".") + 1)));
                     // Determine the name to match
                     string matchName = _resource.Name.Substring(0, _resource.Name.LastIndexOf(".")) + ".";
-                    BRESGroupNode paletteGroup = ((BRRESNode)_resource.Parent.Parent).GetFolder<PLT0Node>();
+                    BRESGroupNode paletteGroup = ((BRRESNode) _resource.Parent.Parent).GetFolder<PLT0Node>();
                     List<string> textureList = new List<string>();
                     List<PLT0Node> paletteList = new List<PLT0Node>();
                     int highestNum = -1;
@@ -289,7 +362,12 @@ namespace BrawlCrate.NodeWrappers
 
                     foreach (TEX0Node tx0 in _resource.Parent.Children)
                     {
-                        if (tx0.Name.StartsWith(matchName) && tx0.Name.LastIndexOf(".") > 0 && tx0.Name.LastIndexOf(".") <= tx0.Name.Length && int.TryParse(tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1, tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int n2) && n2 >= 0 && !textureList.Contains(tx0.Name))
+                        if (tx0.Name.StartsWith(matchName) && tx0.Name.LastIndexOf(".") > 0 &&
+                            tx0.Name.LastIndexOf(".") <= tx0.Name.Length &&
+                            int.TryParse(
+                                tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1,
+                                    tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int n2) && n2 >= 0 &&
+                            !textureList.Contains(tx0.Name))
                         {
                             if (isStock)
                             {
@@ -298,6 +376,7 @@ namespace BrawlCrate.NodeWrappers
                                     continue;
                                 }
                             }
+
                             // Add the matching texture to the texture list for the PAT0
                             textureList.Add(tx0.Name);
                             // Determine the highest number used
@@ -318,6 +397,7 @@ namespace BrawlCrate.NodeWrappers
                             }
                         }
                     }
+
                     if (textureList.Count <= 0)
                     {
                         return null;
@@ -325,26 +405,36 @@ namespace BrawlCrate.NodeWrappers
 
                     PAT0Node newPat0 = new PAT0Node
                     {
-                        Name = _resource.Name.Substring(0, _resource.Name.LastIndexOf(".")).Equals("InfStc") ? "InfStockface_TopN__0" : _resource.Name.Substring(0, _resource.Name.LastIndexOf(".")),
+                        Name = _resource.Name.Substring(0, _resource.Name.LastIndexOf(".")).Equals("InfStc")
+                            ? "InfStockface_TopN__0"
+                            : _resource.Name.Substring(0, _resource.Name.LastIndexOf(".")),
                         _numFrames = highestNum + 1
                     };
                     PAT0EntryNode pat0Entry = new PAT0EntryNode();
                     newPat0.AddChild(pat0Entry);
-                    pat0Entry.Name = _resource.Name.Substring(0, _resource.Name.LastIndexOf(".")).Equals("InfStc") ? "lambert87" : _resource.Name.Substring(0, _resource.Name.LastIndexOf("."));
-                    PAT0TextureNode pat0Tex = new PAT0TextureNode((PAT0Flags)7, 0);
+                    pat0Entry.Name = _resource.Name.Substring(0, _resource.Name.LastIndexOf(".")).Equals("InfStc")
+                        ? "lambert87"
+                        : _resource.Name.Substring(0, _resource.Name.LastIndexOf("."));
+                    PAT0TextureNode pat0Tex = new PAT0TextureNode((PAT0Flags) 7, 0);
                     pat0Entry.AddChild(pat0Tex);
-                    if (((BRRESNode)(_resource.Parent.Parent)).GetFolder<PAT0Node>() != null && ((BRRESNode)(_resource.Parent.Parent)).GetFolder<PAT0Node>().FindChildrenByName(newPat0.Name).Length > 0)
+                    if (((BRRESNode) _resource.Parent.Parent).GetFolder<PAT0Node>() != null &&
+                        ((BRRESNode) _resource.Parent.Parent).GetFolder<PAT0Node>().FindChildrenByName(newPat0.Name)
+                        .Length > 0)
                     {
                         if (force)
                         {
-                            while (((BRRESNode)(_resource.Parent.Parent)).GetFolder<PAT0Node>().FindChildrenByName(newPat0.Name).Length > 0)
+                            while (((BRRESNode) _resource.Parent.Parent).GetFolder<PAT0Node>()
+                                   .FindChildrenByName(newPat0.Name).Length > 0)
                             {
-                                ((BRRESNode)(_resource.Parent.Parent)).GetFolder<PAT0Node>().FindChildrenByName(newPat0.Name)[0].Remove();
+                                ((BRRESNode) _resource.Parent.Parent).GetFolder<PAT0Node>()
+                                    .FindChildrenByName(newPat0.Name)[0].Remove();
                             }
                         }
                         else
                         {
-                            DialogResult d = MessageBox.Show("Would you like to replace the currently existing \"" + newPat0.Name + "\" PAT0 animation?", "PAT0 Generator", MessageBoxButtons.YesNoCancel);
+                            DialogResult d = MessageBox.Show(
+                                "Would you like to replace the currently existing \"" + newPat0.Name +
+                                "\" PAT0 animation?", "PAT0 Generator", MessageBoxButtons.YesNoCancel);
                             if (d == DialogResult.Cancel || d == DialogResult.Abort)
                             {
                                 return null;
@@ -352,13 +442,16 @@ namespace BrawlCrate.NodeWrappers
 
                             if (d == DialogResult.Yes)
                             {
-                                while (((BRRESNode)(_resource.Parent.Parent)).GetFolder<PAT0Node>().FindChildrenByName(newPat0.Name).Length > 0)
+                                while (((BRRESNode) _resource.Parent.Parent).GetFolder<PAT0Node>()
+                                       .FindChildrenByName(newPat0.Name).Length > 0)
                                 {
-                                    ((BRRESNode)(_resource.Parent.Parent)).GetFolder<PAT0Node>().FindChildrenByName(newPat0.Name)[0].Remove();
+                                    ((BRRESNode) _resource.Parent.Parent).GetFolder<PAT0Node>()
+                                        .FindChildrenByName(newPat0.Name)[0].Remove();
                                 }
                             }
                         }
                     }
+
                     if (isStock && !isStockEx && !textureList.Contains("InfStc.000"))
                     {
                         textureList.Add("InfStc.000");
@@ -369,11 +462,13 @@ namespace BrawlCrate.NodeWrappers
                         textureList.Add("InfStc.0000");
                         paletteList.Add(null);
                     }
+
                     //foreach(string s in textureList)
                     for (int i = 0; i < textureList.Count; ++i)
                     {
                         string s = textureList[i];
-                        if (float.TryParse(s.Substring(s.LastIndexOf(".") + 1, s.Length - (s.LastIndexOf(".") + 1)), out float fr))
+                        if (float.TryParse(s.Substring(s.LastIndexOf(".") + 1, s.Length - (s.LastIndexOf(".") + 1)),
+                            out float fr))
                         {
                             PAT0TextureEntryNode pat0texEntry = new PAT0TextureEntryNode();
                             pat0Tex.AddChild(pat0texEntry);
@@ -406,9 +501,11 @@ namespace BrawlCrate.NodeWrappers
                                 }
                             }
                         }
+
                         //newPat0.AddChild
                     }
-                    pat0Tex._children = pat0Tex._children.OrderBy(o => ((PAT0TextureEntryNode)o)._frame).ToList();
+
+                    pat0Tex._children = pat0Tex._children.OrderBy(o => ((PAT0TextureEntryNode) o)._frame).ToList();
                     if (isStock && !isStockEx && newPat0.FrameCount < 501)
                     {
                         newPat0.FrameCount = 501;
@@ -416,7 +513,9 @@ namespace BrawlCrate.NodeWrappers
                     else if (isStockEx && newPat0.FrameCount < 9201)
                     {
                         newPat0.FrameCount = 9201;
-                    } ((BRRESNode)_resource.Parent.Parent).GetOrCreateFolder<PAT0Node>().AddChild(newPat0);
+                    }
+
+                    ((BRRESNode) _resource.Parent.Parent).GetOrCreateFolder<PAT0Node>().AddChild(newPat0);
                     if (!force)
                     {
                         MainForm.Instance.TargetResource(newPat0);
@@ -434,36 +533,40 @@ namespace BrawlCrate.NodeWrappers
                     PAT0EntryNode pat0Entry = new PAT0EntryNode();
                     newPat0.AddChild(pat0Entry);
                     pat0Entry.Name = _resource.Name;
-                    PAT0TextureNode pat0Tex = new PAT0TextureNode((PAT0Flags)7, 0);
+                    PAT0TextureNode pat0Tex = new PAT0TextureNode((PAT0Flags) 7, 0);
                     pat0Entry.AddChild(pat0Tex);
                     PAT0TextureEntryNode pat0texEntry = new PAT0TextureEntryNode();
                     pat0Tex.AddChild(pat0texEntry);
                     pat0texEntry.Name = _resource.Name;
                     pat0texEntry._frame = 0;
-                    if (((TEX0Node)(_resource)).HasPalette)
+                    if (((TEX0Node) _resource).HasPalette)
                     {
                         pat0Tex.HasPalette = true;
-                        pat0texEntry.Palette = ((TEX0Node)_resource).GetPaletteNode().Name;
+                        pat0texEntry.Palette = ((TEX0Node) _resource).GetPaletteNode().Name;
                     }
-                    ((BRRESNode)_resource.Parent.Parent).GetOrCreateFolder<PAT0Node>().AddChild(newPat0);
+
+                    ((BRRESNode) _resource.Parent.Parent).GetOrCreateFolder<PAT0Node>().AddChild(newPat0);
                     MainForm.Instance.TargetResource(newPat0);
                     return newPat0;
                 }
             }
+
             return null;
         }
 
         public void DeleteTEX0()
         {
-            if (Parent == null || (MainForm.Instance != null && Form.ActiveForm != null && Form.ActiveForm != MainForm.Instance))
+            if (Parent == null || MainForm.Instance != null && Form.ActiveForm != null &&
+                Form.ActiveForm != MainForm.Instance)
             {
                 return;
             }
 
-            if (((TEX0Node)_resource).HasPalette && ((TEX0Node)_resource).GetPaletteNode() != null)
+            if (((TEX0Node) _resource).HasPalette && ((TEX0Node) _resource).GetPaletteNode() != null)
             {
-                PLT0Node plt0 = ((TEX0Node)_resource).GetPaletteNode();
-                if (MessageBox.Show("Would you like to delete the associated PLT0?", "Deleting TEX0", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                PLT0Node plt0 = ((TEX0Node) _resource).GetPaletteNode();
+                if (MessageBox.Show("Would you like to delete the associated PLT0?", "Deleting TEX0",
+                        MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     plt0.Parent.RemoveChild(plt0);
                 }
@@ -485,17 +588,23 @@ namespace BrawlCrate.NodeWrappers
                 return;
             }
 
-            if (_resource.Parent is BRESGroupNode && _resource.Parent.Parent != null && _resource.Parent.Parent is BRRESNode)
+            if (_resource.Parent is BRESGroupNode && _resource.Parent.Parent != null &&
+                _resource.Parent.Parent is BRRESNode)
             {
                 // Check if this is part of a sequence
-                if (Regex.Match(_resource.Name, @"(\.\d+)?$").Success && _resource.Name.LastIndexOf(".") > 0 && _resource.Name.LastIndexOf(".") <= _resource.Name.Length && int.TryParse(_resource.Name.Substring(_resource.Name.LastIndexOf(".") + 1, _resource.Name.Length - (_resource.Name.LastIndexOf(".") + 1)), out int n))
+                if (Regex.Match(_resource.Name, @"(\.\d+)?$").Success && _resource.Name.LastIndexOf(".") > 0 &&
+                    _resource.Name.LastIndexOf(".") <= _resource.Name.Length && int.TryParse(
+                        _resource.Name.Substring(_resource.Name.LastIndexOf(".") + 1,
+                            _resource.Name.Length - (_resource.Name.LastIndexOf(".") + 1)), out int n))
                 {
-                    if (_resource.Name.Substring(_resource.Name.LastIndexOf(".") + 1, _resource.Name.Length - (_resource.Name.LastIndexOf(".") + 1)).Length == 3)
+                    if (_resource.Name.Substring(_resource.Name.LastIndexOf(".") + 1,
+                            _resource.Name.Length - (_resource.Name.LastIndexOf(".") + 1)).Length == 3)
                     {
                         ConvertToStock50();
                         return;
                     }
-                    else if (_resource.Name.Substring(_resource.Name.LastIndexOf(".") + 1, _resource.Name.Length - (_resource.Name.LastIndexOf(".") + 1)).Length == 4)
+                    else if (_resource.Name.Substring(_resource.Name.LastIndexOf(".") + 1,
+                                 _resource.Name.Length - (_resource.Name.LastIndexOf(".") + 1)).Length == 4)
                     {
                         ConvertToStockDefault();
                         return;
@@ -516,8 +625,12 @@ namespace BrawlCrate.NodeWrappers
                     continue;
                 }
 
-                TEX0Node tx0 = (TEX0Node)_resource.Parent.Children[i];
-                if (tx0.Name.StartsWith(matchName) && tx0.Name.LastIndexOf(".") > 0 && tx0.Name.LastIndexOf(".") < tx0.Name.Length && int.TryParse(tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1, tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int x) && x >= 0)
+                TEX0Node tx0 = (TEX0Node) _resource.Parent.Children[i];
+                if (tx0.Name.StartsWith(matchName) && tx0.Name.LastIndexOf(".") > 0 &&
+                    tx0.Name.LastIndexOf(".") < tx0.Name.Length &&
+                    int.TryParse(
+                        tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1,
+                            tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int x) && x >= 0)
                 {
                     if (x <= 0) // 0 edge case
                     {
@@ -525,41 +638,48 @@ namespace BrawlCrate.NodeWrappers
                     }
                     else if (x == 475) // WarioMan edge case (should pre-program)
                     {
-                        tx0.texSortNum = 9001 + (x % 475);
+                        tx0.texSortNum = 9001 + x % 475;
                     }
                     else
                     {
-                        tx0.texSortNum = ((int)(Math.Floor(((double)x - 1) / 10.0)) * 50) + (x % 10);
+                        tx0.texSortNum = (int) Math.Floor(((double) x - 1) / 10.0) * 50 + x % 10;
 
                         if (x % 10 == 0)
                         {
                             tx0.texSortNum += 10;
                         }
 
-                        if ((x >= 201 && x <= 205) || // Ganon Edge Case
-                            (x >= 351 && x <= 355) || // ROB Edge Case
-                            (x >= 381 && x <= 384) || // Wario Edge Case
-                            (x >= 411 && x <= 415) || // Toon Link Edge Case
-                            (x >= 471 && x <= 474))   // Sonic Edge Case
+                        if (x >= 201 && x <= 205 || // Ganon Edge Case
+                            x >= 351 && x <= 355 || // ROB Edge Case
+                            x >= 381 && x <= 384 || // Wario Edge Case
+                            x >= 411 && x <= 415 || // Toon Link Edge Case
+                            x >= 471 && x <= 474)   // Sonic Edge Case
                         {
                             tx0.texSortNum -= 40;
                         }
                     }
+
                     if (tx0.HasPalette)
                     {
                         tx0.GetPaletteNode().Name = "InfStc." + tx0.texSortNum.ToString("0000");
                     }
 
                     tx0.Name = "InfStc." + tx0.texSortNum.ToString("0000");
-                    if (((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStc." + x.ToString("000")).Count() > 0)
+                    if (((BRRESNode) _resource.Parent.Parent).GetFolder<PLT0Node>()
+                        .FindChildrenByName("InfStc." + x.ToString("000")).Count() > 0)
                     {
-                        foreach (PLT0Node p in ((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStc." + x.ToString("000")))
+                        foreach (PLT0Node p in ((BRRESNode) _resource.Parent.Parent).GetFolder<PLT0Node>()
+                            .FindChildrenByName("InfStc." + x.ToString("000")))
                         {
                             p.Remove();
                         }
                     }
                 }
-                else if (tx0.Name.StartsWith(matchNameX) && tx0.Name.LastIndexOf(".") > 0 && tx0.Name.LastIndexOf(".") < tx0.Name.Length && int.TryParse(tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1, tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int x2) && x2 >= 0)
+                else if (tx0.Name.StartsWith(matchNameX) && tx0.Name.LastIndexOf(".") > 0 &&
+                         tx0.Name.LastIndexOf(".") < tx0.Name.Length &&
+                         int.TryParse(
+                             tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1,
+                                 tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int x2) && x2 >= 0)
                 {
                     if (tx0.HasPalette)
                     {
@@ -567,19 +687,23 @@ namespace BrawlCrate.NodeWrappers
                     }
 
                     tx0.Name = "InfStc." + x2.ToString("0000");
-                    if (((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStcX." + x2.ToString("0000")).Count() > 0)
+                    if (((BRRESNode) _resource.Parent.Parent).GetFolder<PLT0Node>()
+                        .FindChildrenByName("InfStcX." + x2.ToString("0000")).Count() > 0)
                     {
-                        foreach (PLT0Node p in ((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStcX." + x2.ToString("0000")))
+                        foreach (PLT0Node p in ((BRRESNode) _resource.Parent.Parent).GetFolder<PLT0Node>()
+                            .FindChildrenByName("InfStcX." + x2.ToString("0000")))
                         {
                             p.Remove();
                         }
                     }
                 }
             }
+
             PAT0Node newPat0 = GeneratePAT0(true);
-            if (((BRRESNode)(_resource.Parent.Parent)).GetFolder<CHR0Node>() != null)
+            if (((BRRESNode) _resource.Parent.Parent).GetFolder<CHR0Node>() != null)
             {
-                ResourceNode[] temp = ((BRRESNode)(_resource.Parent.Parent)).GetFolder<CHR0Node>().FindChildrenByName(newPat0.Name);
+                ResourceNode[] temp = ((BRRESNode) _resource.Parent.Parent).GetFolder<CHR0Node>()
+                    .FindChildrenByName(newPat0.Name);
                 if (temp.Length > 0)
                 {
                     foreach (CHR0Node cn in temp)
@@ -588,9 +712,11 @@ namespace BrawlCrate.NodeWrappers
                     }
                 }
             }
-            if (((BRRESNode)(_resource.Parent.Parent)).GetFolder<CLR0Node>() != null)
+
+            if (((BRRESNode) _resource.Parent.Parent).GetFolder<CLR0Node>() != null)
             {
-                ResourceNode[] temp = ((BRRESNode)(_resource.Parent.Parent)).GetFolder<CLR0Node>().FindChildrenByName(newPat0.Name);
+                ResourceNode[] temp = ((BRRESNode) _resource.Parent.Parent).GetFolder<CLR0Node>()
+                    .FindChildrenByName(newPat0.Name);
                 if (temp.Length > 0)
                 {
                     foreach (CLR0Node cn in temp)
@@ -599,22 +725,31 @@ namespace BrawlCrate.NodeWrappers
                     }
                 }
             }
-            if (MessageBox.Show("Would you like to convert the InfFace portraits to the new system as well at this time?", "Convert InfFace?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+
+            if (MessageBox.Show(
+                    "Would you like to convert the InfFace portraits to the new system as well at this time?",
+                    "Convert InfFace?", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 string infFaceFolder = "";
                 bool autoFoundFolder = false;
                 if (Program.RootPath.EndsWith("\\info2\\info.pac", StringComparison.OrdinalIgnoreCase))
                 {
-                    string autoFolder = Program.RootPath.Substring(0, Program.RootPath.LastIndexOf("\\info2\\info.pac")) + "\\info\\portrite";
+                    string autoFolder =
+                        Program.RootPath.Substring(0, Program.RootPath.LastIndexOf("\\info2\\info.pac")) +
+                        "\\info\\portrite";
                     if (Directory.Exists(autoFolder))
                     {
-                        if (MessageBox.Show("The folder for InfFace was autodetected to be: \n" + autoFolder + "\n\nIs this correct?", "InfFace Converter", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        if (MessageBox.Show(
+                                "The folder for InfFace was autodetected to be: \n" + autoFolder +
+                                "\n\nIs this correct?", "InfFace Converter", MessageBoxButtons.YesNo) ==
+                            DialogResult.Yes)
                         {
                             infFaceFolder = autoFolder;
                             autoFoundFolder = true;
                         }
                     }
                 }
+
                 if (!autoFoundFolder)
                 {
                     FolderBrowserDialog f = new FolderBrowserDialog
@@ -628,6 +763,7 @@ namespace BrawlCrate.NodeWrappers
                         return;
                     }
                 }
+
                 try
                 {
                     DirectoryInfo d = Directory.CreateDirectory(infFaceFolder);
@@ -637,14 +773,21 @@ namespace BrawlCrate.NodeWrappers
                     foreach (FileInfo infFace in d.GetFiles())
                     {
                         Console.WriteLine(infFaceFolder + '\\' + infFace.Name);
-                        int properlength = infFace.Name.EndsWith(".brres", StringComparison.OrdinalIgnoreCase) ? infFace.Name.Length - ".brres".Length : infFace.Name.Length;
+                        int properlength = infFace.Name.EndsWith(".brres", StringComparison.OrdinalIgnoreCase)
+                            ? infFace.Name.Length - ".brres".Length
+                            : infFace.Name.Length;
                         Console.WriteLine(infFace.Name.Substring(7, properlength - 7));
-                        if (infFace.Name.StartsWith("InfFaceX") && infFace.Name.EndsWith(".brres", StringComparison.CurrentCultureIgnoreCase) && int.TryParse(infFace.Name.Substring(8, properlength - 8), out int x2) && x2 >= 0)
+                        if (infFace.Name.StartsWith("InfFaceX") &&
+                            infFace.Name.EndsWith(".brres", StringComparison.CurrentCultureIgnoreCase) &&
+                            int.TryParse(infFace.Name.Substring(8, properlength - 8), out int x2) && x2 >= 0)
                         {
-                            infFace.MoveTo(infFaceFolder + '\\' + "temp" + '\\' + "InfFace" + x2.ToString("0000") + ".brres");
+                            infFace.MoveTo(infFaceFolder + '\\' + "temp" + '\\' + "InfFace" + x2.ToString("0000") +
+                                           ".brres");
                             count++;
                         }
-                        else if (!infFace.Name.StartsWith("InfFaceX") && infFace.Name.StartsWith("InfFace") && infFace.Name.EndsWith(".brres", StringComparison.CurrentCultureIgnoreCase) && int.TryParse(infFace.Name.Substring(7, properlength - 7), out int x) && x >= 0)
+                        else if (!infFace.Name.StartsWith("InfFaceX") && infFace.Name.StartsWith("InfFace") &&
+                                 infFace.Name.EndsWith(".brres", StringComparison.CurrentCultureIgnoreCase) &&
+                                 int.TryParse(infFace.Name.Substring(7, properlength - 7), out int x) && x >= 0)
                         {
                             int n = x;
                             if (x <= 0) // 0 edge case
@@ -653,33 +796,39 @@ namespace BrawlCrate.NodeWrappers
                             }
                             else if (x >= 661 && x <= 674) // WarioMan edge case (should pre-program)
                             {
-                                n = 9001 + (x % 661);
+                                n = 9001 + x % 661;
                             }
                             else
                             {
-                                n = ((int)(Math.Floor(((double)x - 1) / 10.0)) * 50) + (x % 10);
+                                n = (int) Math.Floor(((double) x - 1) / 10.0) * 50 + x % 10;
 
                                 if (x % 10 == 0)
                                 {
                                     n += 10;
                                 }
 
-                                if ((x >= 201 && x <= 205) || // Ganon Edge Case
-                                    (x >= 351 && x <= 355) || // ROB Edge Case
-                                    (x >= 381 && x <= 384) || // Wario Edge Case
-                                    (x >= 411 && x <= 415) || // Toon Link Edge Case
-                                    (x >= 471 && x <= 474))   // Sonic Edge Case
+                                if (x >= 201 && x <= 205 || // Ganon Edge Case
+                                    x >= 351 && x <= 355 || // ROB Edge Case
+                                    x >= 381 && x <= 384 || // Wario Edge Case
+                                    x >= 411 && x <= 415 || // Toon Link Edge Case
+                                    x >= 471 && x <= 474)   // Sonic Edge Case
                                 {
                                     n -= 40;
                                 }
                             }
-                            infFace.MoveTo(infFaceFolder + '\\' + "temp" + '\\' + "InfFace" + n.ToString("0000") + ".brres");
+
+                            infFace.MoveTo(infFaceFolder + '\\' + "temp" + '\\' + "InfFace" + n.ToString("0000") +
+                                           ".brres");
                             count++;
                         }
                     }
+
                     foreach (FileInfo infFace in d2.GetFiles())
                     {
-                        infFace.MoveTo(infFaceFolder + '\\' + infFace.Name + (infFace.Name.EndsWith(".brres", StringComparison.OrdinalIgnoreCase) ? "" : ".brres"));
+                        infFace.MoveTo(infFaceFolder + '\\' + infFace.Name +
+                                       (infFace.Name.EndsWith(".brres", StringComparison.OrdinalIgnoreCase)
+                                           ? ""
+                                           : ".brres"));
                     }
 
                     d2.Delete();
@@ -712,8 +861,12 @@ namespace BrawlCrate.NodeWrappers
                     continue;
                 }
 
-                TEX0Node tx0 = (TEX0Node)_resource.Parent.Children[i];
-                if (tx0.Name.StartsWith(matchName) && tx0.Name.LastIndexOf(".") > 0 && tx0.Name.LastIndexOf(".") < tx0.Name.Length && int.TryParse(tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1, tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int x) && x >= 0)
+                TEX0Node tx0 = (TEX0Node) _resource.Parent.Children[i];
+                if (tx0.Name.StartsWith(matchName) && tx0.Name.LastIndexOf(".") > 0 &&
+                    tx0.Name.LastIndexOf(".") < tx0.Name.Length &&
+                    int.TryParse(
+                        tx0.Name.Substring(tx0.Name.LastIndexOf(".") + 1,
+                            tx0.Name.Length - (tx0.Name.LastIndexOf(".") + 1)), out int x) && x >= 0)
                 {
                     tx0.texSortNum = x;
                     if (x <= 0) // 0 edge case
@@ -725,9 +878,11 @@ namespace BrawlCrate.NodeWrappers
                         }
 
                         tx0.Name = "InfStc." + tx0.texSortNum.ToString("000");
-                        if (((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStc." + x.ToString("0000")).Count() > 0)
+                        if (((BRRESNode) _resource.Parent.Parent).GetFolder<PLT0Node>()
+                            .FindChildrenByName("InfStc." + x.ToString("0000")).Count() > 0)
                         {
-                            foreach (PLT0Node p in ((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStc." + x.ToString("0000")))
+                            foreach (PLT0Node p in ((BRRESNode) _resource.Parent.Parent).GetFolder<PLT0Node>()
+                                .FindChildrenByName("InfStc." + x.ToString("0000")))
                             {
                                 p.Remove();
                             }
@@ -735,36 +890,38 @@ namespace BrawlCrate.NodeWrappers
                     }
                     else if (x == 9001) // WarioMan edge case (should pre-program)
                     {
-                        tx0.texSortNum = 475 + (x % 9001);
+                        tx0.texSortNum = 475 + x % 9001;
                         if (tx0.HasPalette)
                         {
                             tx0.GetPaletteNode().Name = "InfStc." + tx0.texSortNum.ToString("000");
                         }
 
                         tx0.Name = "InfStc." + tx0.texSortNum.ToString("000");
-                        if (((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStc." + x.ToString("0000")).Count() > 0)
+                        if (((BRRESNode) _resource.Parent.Parent).GetFolder<PLT0Node>()
+                            .FindChildrenByName("InfStc." + x.ToString("0000")).Count() > 0)
                         {
-                            foreach (PLT0Node p in ((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStc." + x.ToString("0000")))
+                            foreach (PLT0Node p in ((BRRESNode) _resource.Parent.Parent).GetFolder<PLT0Node>()
+                                .FindChildrenByName("InfStc." + x.ToString("0000")))
                             {
                                 p.Remove();
                             }
                         }
                     }
-                    else if ((x % 50 <= 10 && x % 50 != 0) ||
-                             (x >= 0961 && x <= 0965) || // Ganon Edge Case
-                             (x >= 1711 && x <= 1715) || // ROB Edge Case
-                             (x >= 1861 && x <= 1864) || // Wario Edge Case
-                             (x >= 2011 && x <= 2015) || // Toon Link Edge Case
-                             (x >= 2311 && x <= 2314))   // Sonic Edge Case
+                    else if (x % 50 <= 10 && x % 50 != 0 ||
+                             x >= 0961 && x <= 0965 || // Ganon Edge Case
+                             x >= 1711 && x <= 1715 || // ROB Edge Case
+                             x >= 1861 && x <= 1864 || // Wario Edge Case
+                             x >= 2011 && x <= 2015 || // Toon Link Edge Case
+                             x >= 2311 && x <= 2314)   // Sonic Edge Case
                     {
-                        tx0.texSortNum = ((int)(Math.Floor(((double)x + 1) / 50.0)) * 10) + (x % 10);
+                        tx0.texSortNum = (int) Math.Floor(((double) x + 1) / 50.0) * 10 + x % 10;
 
-                        if ((x % 10 == 0) ||
-                            (x >= 0961 && x <= 0965) || // Ganon Edge Case
-                            (x >= 1711 && x <= 1715) || // ROB Edge Case
-                            (x >= 1861 && x <= 1864) || // Wario Edge Case
-                            (x >= 2011 && x <= 2015) || // Toon Link Edge Case
-                            (x >= 2311 && x <= 2314))   // Sonic Edge Case
+                        if (x % 10 == 0 ||
+                            x >= 0961 && x <= 0965 || // Ganon Edge Case
+                            x >= 1711 && x <= 1715 || // ROB Edge Case
+                            x >= 1861 && x <= 1864 || // Wario Edge Case
+                            x >= 2011 && x <= 2015 || // Toon Link Edge Case
+                            x >= 2311 && x <= 2314)   // Sonic Edge Case
                         {
                             tx0.texSortNum += 10;
                         }
@@ -775,9 +932,11 @@ namespace BrawlCrate.NodeWrappers
                         }
 
                         tx0.Name = "InfStc." + tx0.texSortNum.ToString("000");
-                        if (((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStc." + x.ToString("0000")).Count() > 0)
+                        if (((BRRESNode) _resource.Parent.Parent).GetFolder<PLT0Node>()
+                            .FindChildrenByName("InfStc." + x.ToString("0000")).Count() > 0)
                         {
-                            foreach (PLT0Node p in ((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStc." + x.ToString("0000")))
+                            foreach (PLT0Node p in ((BRRESNode) _resource.Parent.Parent).GetFolder<PLT0Node>()
+                                .FindChildrenByName("InfStc." + x.ToString("0000")))
                             {
                                 p.Remove();
                             }
@@ -791,9 +950,11 @@ namespace BrawlCrate.NodeWrappers
                         }
 
                         tx0.Name = "InfStcX." + tx0.texSortNum.ToString("0000");
-                        if (((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStc." + x.ToString("0000")).Count() > 0)
+                        if (((BRRESNode) _resource.Parent.Parent).GetFolder<PLT0Node>()
+                            .FindChildrenByName("InfStc." + x.ToString("0000")).Count() > 0)
                         {
-                            foreach (PLT0Node p in ((BRRESNode)(_resource.Parent.Parent)).GetFolder<PLT0Node>().FindChildrenByName("InfStc." + x.ToString("0000")))
+                            foreach (PLT0Node p in ((BRRESNode) _resource.Parent.Parent).GetFolder<PLT0Node>()
+                                .FindChildrenByName("InfStc." + x.ToString("0000")))
                             {
                                 p.Remove();
                             }
@@ -801,10 +962,12 @@ namespace BrawlCrate.NodeWrappers
                     }
                 }
             }
+
             PAT0Node newPat0 = GeneratePAT0(true);
-            if (((BRRESNode)(_resource.Parent.Parent)).GetFolder<CHR0Node>() != null)
+            if (((BRRESNode) _resource.Parent.Parent).GetFolder<CHR0Node>() != null)
             {
-                ResourceNode[] temp = ((BRRESNode)(_resource.Parent.Parent)).GetFolder<CHR0Node>().FindChildrenByName(newPat0.Name);
+                ResourceNode[] temp = ((BRRESNode) _resource.Parent.Parent).GetFolder<CHR0Node>()
+                    .FindChildrenByName(newPat0.Name);
                 if (temp.Length > 0)
                 {
                     foreach (CHR0Node cn in temp)
@@ -813,9 +976,11 @@ namespace BrawlCrate.NodeWrappers
                     }
                 }
             }
-            if (((BRRESNode)(_resource.Parent.Parent)).GetFolder<CLR0Node>() != null)
+
+            if (((BRRESNode) _resource.Parent.Parent).GetFolder<CLR0Node>() != null)
             {
-                ResourceNode[] temp = ((BRRESNode)(_resource.Parent.Parent)).GetFolder<CLR0Node>().FindChildrenByName(newPat0.Name);
+                ResourceNode[] temp = ((BRRESNode) _resource.Parent.Parent).GetFolder<CLR0Node>()
+                    .FindChildrenByName(newPat0.Name);
                 if (temp.Length > 0)
                 {
                     foreach (CLR0Node cn in temp)
@@ -824,22 +989,31 @@ namespace BrawlCrate.NodeWrappers
                     }
                 }
             }
-            if (MessageBox.Show("Would you like to convert the InfFace portraits to the new system as well at this time?", "Convert InfFace?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+
+            if (MessageBox.Show(
+                    "Would you like to convert the InfFace portraits to the new system as well at this time?",
+                    "Convert InfFace?", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 string infFaceFolder = "";
                 bool autoFoundFolder = false;
                 if (Program.RootPath.EndsWith("\\info2\\info.pac", StringComparison.OrdinalIgnoreCase))
                 {
-                    string autoFolder = Program.RootPath.Substring(0, Program.RootPath.LastIndexOf("\\info2\\info.pac")) + "\\info\\portrite";
+                    string autoFolder =
+                        Program.RootPath.Substring(0, Program.RootPath.LastIndexOf("\\info2\\info.pac")) +
+                        "\\info\\portrite";
                     if (Directory.Exists(autoFolder))
                     {
-                        if (MessageBox.Show("The folder for InfFace was autodetected to be: \n" + autoFolder + "\n\nIs this correct?", "InfFace Converter", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        if (MessageBox.Show(
+                                "The folder for InfFace was autodetected to be: \n" + autoFolder +
+                                "\n\nIs this correct?", "InfFace Converter", MessageBoxButtons.YesNo) ==
+                            DialogResult.Yes)
                         {
                             infFaceFolder = autoFolder;
                             autoFoundFolder = true;
                         }
                     }
                 }
+
                 if (!autoFoundFolder)
                 {
                     FolderBrowserDialog f = new FolderBrowserDialog
@@ -853,6 +1027,7 @@ namespace BrawlCrate.NodeWrappers
                         return;
                     }
                 }
+
                 try
                 {
                     DirectoryInfo d = Directory.CreateDirectory(infFaceFolder);
@@ -862,53 +1037,65 @@ namespace BrawlCrate.NodeWrappers
                     foreach (FileInfo infFace in d.GetFiles().Reverse())
                     {
                         Console.WriteLine(infFaceFolder + '\\' + infFace.Name);
-                        int properlength = infFace.Name.EndsWith(".brres", StringComparison.OrdinalIgnoreCase) ? infFace.Name.Length - ".brres".Length : infFace.Name.Length;
+                        int properlength = infFace.Name.EndsWith(".brres", StringComparison.OrdinalIgnoreCase)
+                            ? infFace.Name.Length - ".brres".Length
+                            : infFace.Name.Length;
 
-                        if (infFace.Name.StartsWith("InfFace") && !infFace.Name.StartsWith("InfFaceX") && infFace.Name.EndsWith(".brres", StringComparison.CurrentCultureIgnoreCase) && int.TryParse(infFace.Name.Substring(7, properlength - 7), out int x) && x >= 0)
+                        if (infFace.Name.StartsWith("InfFace") && !infFace.Name.StartsWith("InfFaceX") &&
+                            infFace.Name.EndsWith(".brres", StringComparison.CurrentCultureIgnoreCase) &&
+                            int.TryParse(infFace.Name.Substring(7, properlength - 7), out int x) && x >= 0)
                         {
                             int n = x;
                             if (x <= 0) // 0 edge case
                             {
                                 n = 0;
-                                infFace.MoveTo(infFaceFolder + '\\' + "temp" + '\\' + "InfFace" + n.ToString("000") + ".brres");
+                                infFace.MoveTo(infFaceFolder + '\\' + "temp" + '\\' + "InfFace" + n.ToString("000") +
+                                               ".brres");
                             }
                             else if (x >= 9001 && x <= 9014) // WarioMan edge case (should pre-program)
                             {
-                                n = 661 + (x % 9001);
-                                infFace.MoveTo(infFaceFolder + '\\' + "temp" + '\\' + "InfFace" + n.ToString("000") + ".brres");
+                                n = 661 + x % 9001;
+                                infFace.MoveTo(infFaceFolder + '\\' + "temp" + '\\' + "InfFace" + n.ToString("000") +
+                                               ".brres");
                             }
-                            else if ((x % 50 <= 10 && x % 50 != 0) ||
-                                     (x >= 0961 && x <= 0965) || // Ganon Edge Case
-                                     (x >= 1711 && x <= 1715) || // ROB Edge Case
-                                     (x >= 1861 && x <= 1864) || // Wario Edge Case
-                                     (x >= 2011 && x <= 2015) || // Toon Link Edge Case
-                                     (x >= 2311 && x <= 2314))   // Sonic Edge Case
+                            else if (x % 50 <= 10 && x % 50 != 0 ||
+                                     x >= 0961 && x <= 0965 || // Ganon Edge Case
+                                     x >= 1711 && x <= 1715 || // ROB Edge Case
+                                     x >= 1861 && x <= 1864 || // Wario Edge Case
+                                     x >= 2011 && x <= 2015 || // Toon Link Edge Case
+                                     x >= 2311 && x <= 2314)   // Sonic Edge Case
                             {
-                                n = ((int)(Math.Floor(((double)x + 1) / 50.0)) * 10) + (x % 10);
+                                n = (int) Math.Floor(((double) x + 1) / 50.0) * 10 + x % 10;
 
-                                if ((x % 10 == 0) ||
-                                    (x >= 0961 && x <= 0965) || // Ganon Edge Case
-                                    (x >= 1711 && x <= 1715) || // ROB Edge Case
-                                    (x >= 1861 && x <= 1864) || // Wario Edge Case
-                                    (x >= 2011 && x <= 2015) || // Toon Link Edge Case
-                                    (x >= 2311 && x <= 2314))   // Sonic Edge Case
+                                if (x % 10 == 0 ||
+                                    x >= 0961 && x <= 0965 || // Ganon Edge Case
+                                    x >= 1711 && x <= 1715 || // ROB Edge Case
+                                    x >= 1861 && x <= 1864 || // Wario Edge Case
+                                    x >= 2011 && x <= 2015 || // Toon Link Edge Case
+                                    x >= 2311 && x <= 2314)   // Sonic Edge Case
                                 {
                                     n += 10;
                                 }
 
-                                infFace.MoveTo(infFaceFolder + '\\' + "temp" + '\\' + "InfFace" + n.ToString("000") + ".brres");
+                                infFace.MoveTo(infFaceFolder + '\\' + "temp" + '\\' + "InfFace" + n.ToString("000") +
+                                               ".brres");
                                 count++;
                             }
                             else
                             {
-                                infFace.MoveTo(infFaceFolder + '\\' + "temp" + '\\' + "InfFaceX" + n.ToString("0000") + ".brres");
+                                infFace.MoveTo(infFaceFolder + '\\' + "temp" + '\\' + "InfFaceX" + n.ToString("0000") +
+                                               ".brres");
                                 count++;
                             }
                         }
                     }
+
                     foreach (FileInfo infFace in d2.GetFiles())
                     {
-                        infFace.MoveTo(infFaceFolder + '\\' + infFace.Name + (infFace.Name.EndsWith(".brres", StringComparison.OrdinalIgnoreCase) ? "" : ".brres"));
+                        infFace.MoveTo(infFaceFolder + '\\' + infFace.Name +
+                                       (infFace.Name.EndsWith(".brres", StringComparison.OrdinalIgnoreCase)
+                                           ? ""
+                                           : ".brres"));
                     }
 
                     d2.Delete();

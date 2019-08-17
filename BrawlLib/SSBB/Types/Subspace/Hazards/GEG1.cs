@@ -22,20 +22,36 @@ namespace BrawlLib.SSBBTypes
         //private GDOR* Address { get { fixed (GDOR* ptr = &this)return ptr; } }
         //public byte* Data { get { return (byte*)(Address + _DataOffset); } }
 
-        public VoidPtr this[int index] => (byte*)Address + Offsets(index);
-        public uint Offsets(int index) { return *(buint*)((byte*)Address + 0x08 + (index * 4)); }
-        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
+        public VoidPtr this[int index] => (byte*) Address + Offsets(index);
+
+        public uint Offsets(int index)
+        {
+            return *(buint*) ((byte*) Address + 0x08 + index * 4);
+        }
+
+        private VoidPtr Address
+        {
+            get
+            {
+                fixed (void* ptr = &this)
+                {
+                    return ptr;
+                }
+            }
+        }
     }
+
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct GEG1Entry
     {
-
         // I believe these are constant values for the Header
         public const uint Header1 = 0x0000803F; // 0x00
+
         public const uint Header2 = 0x00FF0100; // 0x04
+
         // Unknown values. I just assumed byte for all of them for now// Headers are known
-        public uint _header1;       // 0x00
-        public uint _header2;       // 0x04
+        public uint _header1; // 0x00
+        public uint _header2; // 0x04
         public byte _extrahealth;
         public byte _flag0x09;
         public byte _flag0x0A;
@@ -56,9 +72,11 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x19;
         public byte _unknown0x1A;
         public byte _unknown0x1B;
+
         public byte _unknown0x1C;
+
         // EnemyID is known
-        public byte _enemyID;       // 0x1D
+        public byte _enemyID; // 0x1D
         public byte _unknown0x1E;
         public byte _unknown0x1F;
         public byte _unknown0x20;
@@ -68,10 +86,12 @@ namespace BrawlLib.SSBBTypes
         public byte _unknown0x24;
         public byte _unknown0x25;
         public byte _unknown0x26;
+
         public byte _unknown0x27;
+
         // Spawn Position is known
-        public bfloat _spawnX;      // 0x28
-        public bfloat _spawnY;      // 0x2C
+        public bfloat _spawnX; // 0x28
+        public bfloat _spawnY; // 0x2C
         public byte _unknown0x30;
         public byte _unknown0x31;
         public byte _unknown0x32;
@@ -157,7 +177,16 @@ namespace BrawlLib.SSBBTypes
         public byte _flag0x82;
         public byte _flag0x83;
 
-        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
+        private VoidPtr Address
+        {
+            get
+            {
+                fixed (void* ptr = &this)
+                {
+                    return ptr;
+                }
+            }
+        }
 
         public enum EnemyType : short
         {
@@ -167,6 +196,7 @@ namespace BrawlLib.SSBBTypes
             BoomPrim = 0x20,
             SwordPrim = 0x23,
         }
+
         internal static EnemyType[] _KnownEnemies =
         {
             EnemyType.Spaak,
@@ -176,5 +206,4 @@ namespace BrawlLib.SSBBTypes
             EnemyType.SwordPrim
         };
     }
-
 }

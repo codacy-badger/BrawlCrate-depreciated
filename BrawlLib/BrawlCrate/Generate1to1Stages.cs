@@ -25,26 +25,34 @@ namespace BrawlLib.BrawlCrate
         //                                                              vBrawl 1:1s                                                         //
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        public static string vbrawlstgbattlefieldDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "vbBF.pac";
+        public static string vbrawlstgbattlefieldDirectory =
+            tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "vbBF.pac";
+
         public static bool vBrawlSTGBATTLEFIELD()
         {
             Random rand = new Random();
             byte[] buf = new byte[4];
             rand.NextBytes(buf);
             randnumgen = BitConverter.ToUInt32(buf, 0);
-            vbrawlstgbattlefieldDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "vbBF.pac";
+            vbrawlstgbattlefieldDirectory =
+                tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "vbBF.pac";
             DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
             tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             // Use TLS 1.2, used by GitHub
-            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType) 3072;
             using (WebClient client = new WebClient())
             {
-                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/vBrawl/STGBATTLEFIELD.pac",
-                                    @vbrawlstgbattlefieldDirectory);
+                client.DownloadFile(
+                    "https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/vBrawl/STGBATTLEFIELD.pac",
+                    @vbrawlstgbattlefieldDirectory);
             }
+
             return File.Exists(vbrawlstgbattlefieldDirectory);
         }
-        public static string vbrawlstgfinalDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "vbFD.pac";
+
+        public static string vbrawlstgfinalDirectory =
+            tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "vbFD.pac";
+
         public static bool vBrawlSTGFINAL()
         {
             Random rand = new Random();
@@ -55,15 +63,20 @@ namespace BrawlLib.BrawlCrate
             DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
             tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             // Use TLS 1.2, used by GitHub
-            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType) 3072;
             using (WebClient client = new WebClient())
             {
-                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/vBrawl/STGFINAL.pac",
-                                    @vbrawlstgfinalDirectory);
+                client.DownloadFile(
+                    "https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/vBrawl/STGFINAL.pac",
+                    @vbrawlstgfinalDirectory);
             }
+
             return File.Exists(vbrawlstgfinalDirectory);
         }
-        public static string vbrawlstgvillageDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "vbSV.pac";
+
+        public static string vbrawlstgvillageDirectory =
+            tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "vbSV.pac";
+
         public static bool vBrawlSTGVILLAGE()
         {
             Random rand = new Random();
@@ -74,15 +87,20 @@ namespace BrawlLib.BrawlCrate
             DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
             tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             // Use TLS 1.2, used by GitHub
-            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType) 3072;
             using (WebClient client = new WebClient())
             {
-                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/vBrawl/STGVILLAGE.pac",
-                                    @vbrawlstgvillageDirectory);
+                client.DownloadFile(
+                    "https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/vBrawl/STGVILLAGE.pac",
+                    @vbrawlstgvillageDirectory);
             }
+
             return File.Exists(vbrawlstgvillageDirectory);
         }
-        public static string vbrawlstgvillagenvDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "vbSVn.pac";
+
+        public static string vbrawlstgvillagenvDirectory =
+            tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "vbSVn.pac";
+
         public static bool vBrawlSTGVILLAGE_NV()
         {
             Random rand = new Random();
@@ -93,12 +111,14 @@ namespace BrawlLib.BrawlCrate
             DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
             tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             // Use TLS 1.2, used by GitHub
-            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType) 3072;
             using (WebClient client = new WebClient())
             {
-                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/vBrawl/STGVILLAGE_nv.pac",
-                                    @vbrawlstgvillagenvDirectory);
+                client.DownloadFile(
+                    "https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/vBrawl/STGVILLAGE_nv.pac",
+                    @vbrawlstgvillagenvDirectory);
             }
+
             return File.Exists(vbrawlstgvillagenvDirectory);
         }
 
@@ -106,7 +126,9 @@ namespace BrawlLib.BrawlCrate
         //                                                              PROJECT M 1:1s                                                      //
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        public static string pm36stgfinalDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36FD.pac";
+        public static string pm36stgfinalDirectory =
+            tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36FD.pac";
+
         public static bool PM36STGFINAL()
         {
             Random rand = new Random();
@@ -117,16 +139,20 @@ namespace BrawlLib.BrawlCrate
             DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
             tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             // Use TLS 1.2, used by GitHub
-            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType) 3072;
             using (WebClient client = new WebClient())
             {
-                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGFINAL.pac",
-                                    @pm36stgfinalDirectory);
+                client.DownloadFile(
+                    "https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGFINAL.pac",
+                    @pm36stgfinalDirectory);
             }
+
             return File.Exists(pm36stgfinalDirectory);
         }
 
-        public static string pm36stgbattlefieldDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36BF.pac";
+        public static string pm36stgbattlefieldDirectory =
+            tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36BF.pac";
+
         public static bool PM36STGBATTLEFIELD()
         {
             Random rand = new Random();
@@ -137,16 +163,20 @@ namespace BrawlLib.BrawlCrate
             DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
             tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             // Use TLS 1.2, used by GitHub
-            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType) 3072;
             using (WebClient client = new WebClient())
             {
-                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGBATTLEFIELD.pac",
-                                    @pm36stgbattlefieldDirectory);
+                client.DownloadFile(
+                    "https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGBATTLEFIELD.pac",
+                    @pm36stgbattlefieldDirectory);
             }
+
             return File.Exists(pm36stgbattlefieldDirectory);
         }
 
-        public static string pm36stgvillageDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36SV.pac";
+        public static string pm36stgvillageDirectory =
+            tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36SV.pac";
+
         public static bool PM36STGVILLAGE()
         {
             Random rand = new Random();
@@ -157,15 +187,20 @@ namespace BrawlLib.BrawlCrate
             DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
             tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             // Use TLS 1.2, used by GitHub
-            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType) 3072;
             using (WebClient client = new WebClient())
             {
-                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGVILLAGE.pac",
-                                    @pm36stgvillageDirectory);
+                client.DownloadFile(
+                    "https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGVILLAGE.pac",
+                    @pm36stgvillageDirectory);
             }
+
             return File.Exists(pm36stgvillageDirectory);
         }
-        public static string pm36stgvillagenvDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36SVn.pac";
+
+        public static string pm36stgvillagenvDirectory =
+            tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36SVn.pac";
+
         public static bool PM36STGVILLAGE_NV()
         {
             Random rand = new Random();
@@ -176,16 +211,20 @@ namespace BrawlLib.BrawlCrate
             DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
             tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             // Use TLS 1.2, used by GitHub
-            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType) 3072;
             using (WebClient client = new WebClient())
             {
-                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGVILLAGE_nv.pac",
-                                    @pm36stgvillagenvDirectory);
+                client.DownloadFile(
+                    "https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGVILLAGE_nv.pac",
+                    @pm36stgvillagenvDirectory);
             }
+
             return File.Exists(pm36stgvillagenvDirectory);
         }
 
-        public static string pm36stgdolpicDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36DS.pac";
+        public static string pm36stgdolpicDirectory =
+            tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36DS.pac";
+
         public static bool PM36STGDOLPIC()
         {
             Random rand = new Random();
@@ -196,16 +235,20 @@ namespace BrawlLib.BrawlCrate
             DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
             tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             // Use TLS 1.2, used by GitHub
-            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType) 3072;
             using (WebClient client = new WebClient())
             {
-                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGDOLPIC.pac",
-                                    @pm36stgdolpicDirectory);
+                client.DownloadFile(
+                    "https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGDOLPIC.pac",
+                    @pm36stgdolpicDirectory);
             }
+
             return File.Exists(pm36stgdolpicDirectory);
         }
 
-        public static string pm36stgfamicomDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36FoD.pac";
+        public static string pm36stgfamicomDirectory =
+            tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36FoD.pac";
+
         public static bool PM36STGFAMICOM()
         {
             Random rand = new Random();
@@ -216,16 +259,20 @@ namespace BrawlLib.BrawlCrate
             DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
             tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             // Use TLS 1.2, used by GitHub
-            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType) 3072;
             using (WebClient client = new WebClient())
             {
-                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGFAMICOM.pac",
-                                    @pm36stgfamicomDirectory);
+                client.DownloadFile(
+                    "https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGFAMICOM.pac",
+                    @pm36stgfamicomDirectory);
             }
+
             return File.Exists(pm36stgfamicomDirectory);
         }
 
-        public static string pm36stgmadeinDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36WL.pac";
+        public static string pm36stgmadeinDirectory =
+            tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36WL.pac";
+
         public static bool PM36STGMADEIN()
         {
             Random rand = new Random();
@@ -236,16 +283,20 @@ namespace BrawlLib.BrawlCrate
             DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
             tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             // Use TLS 1.2, used by GitHub
-            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType) 3072;
             using (WebClient client = new WebClient())
             {
-                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGMADEIN.pac",
-                                    @pm36stgmadeinDirectory);
+                client.DownloadFile(
+                    "https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGMADEIN.pac",
+                    @pm36stgmadeinDirectory);
             }
+
             return File.Exists(pm36stgmadeinDirectory);
         }
 
-        public static string pm36stggreenhillDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36GHZ.pac";
+        public static string pm36stggreenhillDirectory =
+            tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36GHZ.pac";
+
         public static bool PM36STGGREENHILL()
         {
             Random rand = new Random();
@@ -256,16 +307,20 @@ namespace BrawlLib.BrawlCrate
             DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
             tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             // Use TLS 1.2, used by GitHub
-            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType) 3072;
             using (WebClient client = new WebClient())
             {
-                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGGREENHILL.pac",
-                                    @pm36stggreenhillDirectory);
+                client.DownloadFile(
+                    "https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGGREENHILL.pac",
+                    @pm36stggreenhillDirectory);
             }
+
             return File.Exists(pm36stggreenhillDirectory);
         }
 
-        public static string pm36stgdxpstadiumDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36PS2.pac";
+        public static string pm36stgdxpstadiumDirectory =
+            tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36PS2.pac";
+
         public static bool PM36STGDXPSTADIUM()
         {
             Random rand = new Random();
@@ -276,12 +331,14 @@ namespace BrawlLib.BrawlCrate
             DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
             tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             // Use TLS 1.2, used by GitHub
-            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType) 3072;
             using (WebClient client = new WebClient())
             {
-                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGDXPSTADIUM.pac",
-                                    @pm36stgdxpstadiumDirectory);
+                client.DownloadFile(
+                    "https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Project%20M/3.6/STGDXPSTADIUM.pac",
+                    @pm36stgdxpstadiumDirectory);
             }
+
             return File.Exists(pm36stgdxpstadiumDirectory);
         }
 
@@ -289,7 +346,9 @@ namespace BrawlLib.BrawlCrate
         //                                                              CUSTOM 1:1s                                                         //
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        public static string skySanctDirectory = tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36Sky.pac";
+        public static string skySanctDirectory =
+            tmpDirectory + '\\' + randnumgen.ToString("X8").Substring(2, 6) + "M36Sky.pac";
+
         public static bool STGSKYSANCTUARY()
         {
             Random rand = new Random();
@@ -300,12 +359,14 @@ namespace BrawlLib.BrawlCrate
             DirectoryInfo tmp = Directory.CreateDirectory(tmpDirectory);
             tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             // Use TLS 1.2, used by GitHub
-            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType) 3072;
             using (WebClient client = new WebClient())
             {
-                client.DownloadFile("https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Custom/STGSKYSANCTUARY.pac",
-                                    @skySanctDirectory);
+                client.DownloadFile(
+                    "https://github.com/soopercool101/Stage-Templates-1to1s/raw/master/Custom/STGSKYSANCTUARY.pac",
+                    @skySanctDirectory);
             }
+
             return File.Exists(skySanctDirectory);
         }
 
@@ -324,14 +385,18 @@ namespace BrawlLib.BrawlCrate
                 {
                     file.Delete();
                 }
-                catch (System.IO.IOException) { }
+                catch (IOException)
+                {
+                }
             }
 
             try
             {
                 tmpdir.Delete();
             }
-            catch (System.IO.IOException) { }
+            catch (IOException)
+            {
+            }
         }
     }
 }

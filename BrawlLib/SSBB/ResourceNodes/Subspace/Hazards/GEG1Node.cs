@@ -6,15 +6,16 @@ namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class GEG1Node : ResourceNode
     {
-        internal GEG1* Header => (GEG1*)WorkingUncompressed.Address;
+        internal GEG1* Header => (GEG1*) WorkingUncompressed.Address;
         public override ResourceType ResourceType => ResourceType.GEG1;
 
         private int _count;
+
         [Category("GEG1")]
         [DisplayName("Enemy Count")]
         public int count => _count;
 
-        private const int _entrySize = 0x84;    // The constant size of a child entry
+        private const int _entrySize = 0x84; // The constant size of a child entry
 
         public override void OnPopulate()
         {
@@ -22,26 +23,33 @@ namespace BrawlLib.SSBB.ResourceNodes
             {
                 DataSource source;
                 if (i == Header->_count - 1)
-                { source = new DataSource((*Header)[i], WorkingUncompressed.Address + WorkingUncompressed.Length - (*Header)[i]); }
-                else { source = new DataSource((*Header)[i], (*Header)[i + 1] - (*Header)[i]); }
+                {
+                    source = new DataSource((*Header)[i],
+                        WorkingUncompressed.Address + WorkingUncompressed.Length - (*Header)[i]);
+                }
+                else
+                {
+                    source = new DataSource((*Header)[i], (*Header)[i + 1] - (*Header)[i]);
+                }
+
                 new GEG1EntryNode().Initialize(this, source);
             }
         }
 
         public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
-            return 0x08 + (Children.Count * 4) + (Children.Count * _entrySize);
+            return 0x08 + Children.Count * 4 + Children.Count * _entrySize;
         }
 
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
-            GEG1* header = (GEG1*)address;
+            GEG1* header = (GEG1*) address;
             *header = new GEG1(Children.Count);
-            uint offset = (uint)(0x08 + (Children.Count * 4));
+            uint offset = (uint) (0x08 + Children.Count * 4);
             for (int i = 0; i < Children.Count; i++)
             {
                 ResourceNode r = Children[i];
-                *(buint*)(address + 0x08 + i * 4) = offset;
+                *(buint*) (address + 0x08 + i * 4) = offset;
                 r.Rebuild(address + offset, _entrySize, true);
                 offset += _entrySize;
             }
@@ -59,7 +67,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             return Header->_count > 0;
         }
 
-        internal static ResourceNode TryParse(DataSource source) { return ((GEG1*)source.Address)->_tag == GEG1.Tag ? new GEG1Node() : null; }
+        internal static ResourceNode TryParse(DataSource source)
+        {
+            return ((GEG1*) source.Address)->_tag == GEG1.Tag ? new GEG1Node() : null;
+        }
     }
 
     public enum EnemyList
@@ -129,22 +140,29 @@ namespace BrawlLib.SSBB.ResourceNodes
 
     public unsafe class GEG1EntryNode : ResourceNode
     {
-        internal GEG1Entry* Header => (GEG1Entry*)WorkingUncompressed.Address;
+        internal GEG1Entry* Header => (GEG1Entry*) WorkingUncompressed.Address;
         public override ResourceType ResourceType => ResourceType.ENEMY;
 
         // I believe these are constant values for the Header
         public const uint Header1 = 0x0000803F; // 0x00
+
         public const uint Header2 = 0x00FF0100; // 0x04
+
         // Headers are known
         public uint _header1;
+
         public uint _header2;
+
         // Some form of byte flags
         public byte _extrahealth;
         public byte _flag0x09;
         public byte _flag0x0A;
+
         public byte _flag0x0B;
+
         // Another byte flag
         public byte _flag0x0C;
+
         // Another byte flag (Possibly unstable?)
         public byte _connectedenemyid;
         public byte _flag0x0E;
@@ -161,20 +179,26 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x19;
         public byte _unknown0x1A;
         public byte _unknown0x1B;
+
         public byte _unknown0x1C;
+
         // EnemyID is known
         public byte _enemyID;
         public byte _unknown0x1E;
         public byte _unknown0x1F;
         public byte _unknown0x20;
         public byte _unknown0x21;
+
         public byte _unknown0x22;
+
         // Some form of byte flag
         public byte _startingaction;
         public byte _unknown0x24;
         public byte _unknown0x25;
         public byte _unknown0x26;
+
         public byte _unknown0x27;
+
         // Spawn Position is known
         public Vector2 _spawnPos;
         public byte _unknown0x30;
@@ -228,11 +252,15 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x60;
         public byte _unknown0x61;
         public byte _unknown0x62;
+
         public byte _unknown0x63;
+
         // Another flag
         public byte _flag0x64;
         public byte _unknown0x65;
+
         public byte _unknown0x66;
+
         // Another flag?
         public byte _flag0x67;
         public byte _unknown0x68;
@@ -255,7 +283,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x79;
         public byte _unknown0x7A;
         public byte _unknown0x7B;
+
         public byte _unknown0x7C;
+
         // Spawn ID
         public byte _spawnid;
         public byte _flag0x7E;
@@ -270,10 +300,10 @@ namespace BrawlLib.SSBB.ResourceNodes
         [DisplayName("Enemy Type")]
         public EnemyList EnemyName
         {
-            get => (EnemyList)_enemyID;
+            get => (EnemyList) _enemyID;
             set
             {
-                _enemyID = (byte)value;
+                _enemyID = (byte) value;
                 Name = EnemyNameList();
                 SignalPropertyChange();
             }
@@ -289,11 +319,12 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         [Category("Enemy Info")]
         [DisplayName("Enemy BRRES ARC ID")]
-        public int EnemyBrresID => (_enemyID * 2) + 1;
+        public int EnemyBrresID => _enemyID * 2 + 1;
 
         [Browsable(true)]
         [Category("Spawn Info")]
-        [DisplayName("Spawn Position"), TypeConverter(typeof(Vector2StringConverter))]
+        [DisplayName("Spawn Position")]
+        [TypeConverter(typeof(Vector2StringConverter))]
         public Vector2 EnemySpawnPos
         {
             get => _spawnPos;
@@ -663,7 +694,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
-            GEG1Entry* hdr = (GEG1Entry*)address;
+            GEG1Entry* hdr = (GEG1Entry*) address;
             hdr->_header1 = _header1;
             hdr->_header2 = _header2;
             hdr->_extrahealth = _extrahealth;
@@ -918,6 +949,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                         return "Unknown Enemy [" + Index + "]";
                 }
             }
+
             return "Unknown Enemy [" + Index + "]";
         }
     }

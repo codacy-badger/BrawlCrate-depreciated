@@ -10,7 +10,7 @@
             InitializeComponent();
         }
 
-        public int NewValue => (int)numNewCount.Value;
+        public int NewValue => (int) numNewCount.Value;
 
         public DialogResult ShowDialog()
         {
@@ -25,6 +25,7 @@
             label2.Text = newLower;
             return base.ShowDialog();
         }
+
         public DialogResult ShowDialog(string newTitle, string newLower, int val)
         {
             Text = newTitle;
@@ -35,13 +36,13 @@
 
         private void btnOkay_Click(object sender, EventArgs e)
         {
-            DialogResult = Forms.DialogResult.OK;
+            DialogResult = DialogResult.OK;
             Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            DialogResult = Forms.DialogResult.Cancel;
+            DialogResult = DialogResult.Cancel;
             Close();
         }
     }

@@ -30,13 +30,19 @@ namespace System.Audio
                 {
                     return new alAudioProvider();
                 }
-                catch (TypeInitializationException) { }
+                catch (TypeInitializationException)
+                {
+                }
             }
 
             return null;
         }
 
-        ~AudioProvider() { Dispose(); }
+        ~AudioProvider()
+        {
+            Dispose();
+        }
+
         public virtual void Dispose()
         {
             foreach (AudioBuffer buffer in _buffers)

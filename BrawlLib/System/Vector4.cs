@@ -11,8 +11,22 @@ namespace System
     {
         public float _x, _y, _z, _w;
 
-        public Vector4(float x, float y, float z, float w) { _x = x; _y = y; _z = z; _w = w; }
-        public Vector4(float s) { _x = s; _y = s; _z = s; _w = 1; }
+        public Vector4(float x, float y, float z, float w)
+        {
+            _x = x;
+            _y = y;
+            _z = z;
+            _w = w;
+        }
+
+        public Vector4(float s)
+        {
+            _x = s;
+            _y = s;
+            _z = s;
+            _w = 1;
+        }
+
         public Vector4(SerializationInfo info, StreamingContext context)
         {
             _x = info.GetSingle("_x");
@@ -20,6 +34,7 @@ namespace System
             _y = info.GetSingle("_z");
             _w = info.GetSingle("_w");
         }
+
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("_x", _x);
@@ -29,12 +44,30 @@ namespace System
         }
 
         //public static explicit operator Vector3(Vector4 v) { return new Vector3(v._x / v._w, v._y / v._w, v._z / v._w); }
-        public static explicit operator Vector4(Vector3 v) { return new Vector4(v._x, v._y, v._z, 1.0f); }
+        public static explicit operator Vector4(Vector3 v)
+        {
+            return new Vector4(v._x, v._y, v._z, 1.0f);
+        }
 
-        public static Vector4 operator *(Vector4 v, float f) { return new Vector4(v._x * f, v._y * f, v._z * f, v._w * f); }
-        public static Vector4 operator /(Vector4 v, float f) { return new Vector4(v._x / f, v._y / f, v._z / f, v._w / f); }
-        public static Vector4 operator -(Vector4 v1, Vector4 v2) { return new Vector4(v1._x - v2._x, v1._y - v2._y, v1._z - v2._z, v1._w - v2._w); }
-        public static Vector4 operator +(Vector4 v1, Vector4 v2) { return new Vector4(v1._x + v2._x, v1._y + v2._y, v1._z + v2._z, v1._w + v2._w); }
+        public static Vector4 operator *(Vector4 v, float f)
+        {
+            return new Vector4(v._x * f, v._y * f, v._z * f, v._w * f);
+        }
+
+        public static Vector4 operator /(Vector4 v, float f)
+        {
+            return new Vector4(v._x / f, v._y / f, v._z / f, v._w / f);
+        }
+
+        public static Vector4 operator -(Vector4 v1, Vector4 v2)
+        {
+            return new Vector4(v1._x - v2._x, v1._y - v2._y, v1._z - v2._z, v1._w - v2._w);
+        }
+
+        public static Vector4 operator +(Vector4 v1, Vector4 v2)
+        {
+            return new Vector4(v1._x + v2._x, v1._y + v2._y, v1._z + v2._z, v1._w + v2._w);
+        }
 
         public static Vector4 operator *(Vector4 v1, Vector4 v2)
         {
@@ -50,17 +83,51 @@ namespace System
             return v;
         }
 
-        public static bool operator ==(Vector4 v1, Vector4 v2) { return (v1._x == v2._x) && (v1._y == v2._y) && (v1._z == v2._z) && (v1._w == v2._w); }
-        public static bool operator !=(Vector4 v1, Vector4 v2) { return (v1._x != v2._x) || (v1._y != v2._y) || (v1._z != v2._z) || (v1._w != v2._w); }
+        public static bool operator ==(Vector4 v1, Vector4 v2)
+        {
+            return v1._x == v2._x && v1._y == v2._y && v1._z == v2._z && v1._w == v2._w;
+        }
 
-        public float Length() { return (float)Math.Sqrt(Dot()); }
-        public float Dot() { return _x * _x + _y * _y + _z * _z + _w * _w; }
-        public float Dot(Vector4 v) { return _x * v._x + _y * v._y + _z * v._z + _w * v._w; }
-        public Vector4 Normalize() { return this * (1.0f / Length()); }
+        public static bool operator !=(Vector4 v1, Vector4 v2)
+        {
+            return v1._x != v2._x || v1._y != v2._y || v1._z != v2._z || v1._w != v2._w;
+        }
 
-        public float Dot3() { return _x * _x + _y * _y + _z * _z; }
-        public float Dot3(Vector4 v) { return _x * v._x + _y * v._y + _z * v._z; }
-        public float Length3() { return (float)Math.Sqrt(Dot3()); }
+        public float Length()
+        {
+            return (float) Math.Sqrt(Dot());
+        }
+
+        public float Dot()
+        {
+            return _x * _x + _y * _y + _z * _z + _w * _w;
+        }
+
+        public float Dot(Vector4 v)
+        {
+            return _x * v._x + _y * v._y + _z * v._z + _w * v._w;
+        }
+
+        public Vector4 Normalize()
+        {
+            return this * (1.0f / Length());
+        }
+
+        public float Dot3()
+        {
+            return _x * _x + _y * _y + _z * _z;
+        }
+
+        public float Dot3(Vector4 v)
+        {
+            return _x * v._x + _y * v._y + _z * v._z;
+        }
+
+        public float Length3()
+        {
+            return (float) Math.Sqrt(Dot3());
+        }
+
         public Vector4 Normalize3()
         {
             float scale = 1.0f / Length3();
@@ -81,7 +148,7 @@ namespace System
         {
             if (obj is Vector4)
             {
-                return this == (Vector4)obj;
+                return this == (Vector4) obj;
             }
 
             return false;
@@ -91,7 +158,7 @@ namespace System
         {
             fixed (Vector4* p = &this)
             {
-                int* p2 = (int*)p;
+                int* p2 = (int*) p;
                 return p2[0] ^ p2[1] ^ p2[2] ^ p2[3];
             }
         }
@@ -102,14 +169,14 @@ namespace System
             {
                 fixed (Vector4* p = &this)
                 {
-                    return ((float*)p)[index];
+                    return ((float*) p)[index];
                 }
             }
             set
             {
                 fixed (Vector4* p = &this)
                 {
-                    ((float*)p)[index] = value;
+                    ((float*) p)[index] = value;
                 }
             }
         }
@@ -139,9 +206,9 @@ namespace System
 
             Vector4 result = new Vector4
             {
-                _w = 2.0f * (float)System.Math.Acos(q._w)
+                _w = 2.0f * (float) Math.Acos(q._w)
             };
-            float den = (float)System.Math.Sqrt(1.0 - q._w * q._w);
+            float den = (float) Math.Sqrt(1.0 - q._w * q._w);
             if (den > 0.0001f)
             {
                 result._x = q._x / den;
@@ -167,10 +234,10 @@ namespace System
 
             angle *= 0.5f;
             axis.Normalize();
-            result._x = axis._x * (float)System.Math.Sin(angle);
-            result._y = axis._y * (float)System.Math.Sin(angle);
-            result._z = axis._z * (float)System.Math.Sin(angle);
-            result._w = (float)System.Math.Cos(angle);
+            result._x = axis._x * (float) Math.Sin(angle);
+            result._y = axis._y * (float) Math.Sin(angle);
+            result._z = axis._z * (float) Math.Sin(angle);
+            result._w = (float) Math.Cos(angle);
 
             return result.Normalize();
         }
@@ -193,12 +260,21 @@ namespace System
         public Vector3 ToEuler()
         {
             return new Vector3(
-                (float)Math.Atan2(2 * (_x * _y + _z * _w), 1 - 2 * (_y * _y + _z * _z)),
-                (float)Math.Asin(2 * (_x * _z - _w * _y)),
-                (float)Math.Atan2(2 * (_x * _w + _y * _z), 1 - 2 * (_z * _z + _w * _w)));
+                (float) Math.Atan2(2 * (_x * _y + _z * _w), 1 - 2 * (_y * _y + _z * _z)),
+                (float) Math.Asin(2 * (_x * _z - _w * _y)),
+                (float) Math.Atan2(2 * (_x * _w + _y * _z), 1 - 2 * (_z * _z + _w * _w)));
         }
 
         [Browsable(false)]
-        public VoidPtr Address { get { fixed (void* p = &this) { return p; } } }
+        public VoidPtr Address
+        {
+            get
+            {
+                fixed (void* p = &this)
+                {
+                    return p;
+                }
+            }
+        }
     }
 }

@@ -10,42 +10,43 @@ namespace System.Windows.Forms
     public class SHP0Editor : UserControl
     {
         #region Designer
+
         private void InitializeComponent()
         {
-            listBox1 = new System.Windows.Forms.ListBox();
-            label1 = new System.Windows.Forms.Label();
-            listBox2 = new System.Windows.Forms.ListBox();
-            label2 = new System.Windows.Forms.Label();
-            button1 = new System.Windows.Forms.Button();
-            label3 = new System.Windows.Forms.Label();
-            trackBar1 = new System.Windows.Forms.TrackBar();
-            label4 = new System.Windows.Forms.Label();
-            label5 = new System.Windows.Forms.Label();
-            label6 = new System.Windows.Forms.Label();
-            button2 = new System.Windows.Forms.Button();
-            label7 = new System.Windows.Forms.Label();
-            button3 = new System.Windows.Forms.Button();
-            button4 = new System.Windows.Forms.Button();
-            splitter1 = new System.Windows.Forms.Splitter();
-            panel1 = new System.Windows.Forms.Panel();
-            panel2 = new System.Windows.Forms.Panel();
-            button5 = new System.Windows.Forms.Button();
-            textBox1 = new System.Windows.Forms.NumericInputBox();
-            ((System.ComponentModel.ISupportInitialize)(trackBar1)).BeginInit();
+            listBox1 = new ListBox();
+            label1 = new Label();
+            listBox2 = new ListBox();
+            label2 = new Label();
+            button1 = new Button();
+            label3 = new Label();
+            trackBar1 = new TrackBar();
+            label4 = new Label();
+            label5 = new Label();
+            label6 = new Label();
+            button2 = new Button();
+            label7 = new Label();
+            button3 = new Button();
+            button4 = new Button();
+            splitter1 = new Splitter();
+            panel1 = new Panel();
+            panel2 = new Panel();
+            button5 = new Button();
+            textBox1 = new NumericInputBox();
+            ((ISupportInitialize) trackBar1).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
             // listBox1
             // 
-            listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            listBox1.Dock = DockStyle.Fill;
             listBox1.FormattingEnabled = true;
             listBox1.IntegralHeight = false;
             listBox1.Location = new System.Drawing.Point(0, 0);
             listBox1.Name = "listBox1";
             listBox1.Size = new System.Drawing.Size(256, 49);
             listBox1.TabIndex = 0;
-            listBox1.SelectedValueChanged += new System.EventHandler(listBox1_SelectedValueChanged);
+            listBox1.SelectedValueChanged += new EventHandler(listBox1_SelectedValueChanged);
             // 
             // label1
             // 
@@ -58,14 +59,14 @@ namespace System.Windows.Forms
             // 
             // listBox2
             // 
-            listBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            listBox2.Dock = DockStyle.Fill;
             listBox2.FormattingEnabled = true;
             listBox2.IntegralHeight = false;
             listBox2.Location = new System.Drawing.Point(3, 0);
             listBox2.Name = "listBox2";
             listBox2.Size = new System.Drawing.Size(261, 49);
             listBox2.TabIndex = 2;
-            listBox2.SelectedValueChanged += new System.EventHandler(listBox2_SelectedValueChanged);
+            listBox2.SelectedValueChanged += new EventHandler(listBox2_SelectedValueChanged);
             // 
             // label2
             // 
@@ -85,7 +86,7 @@ namespace System.Windows.Forms
             button1.Text = "Add";
             button1.UseVisualStyleBackColor = true;
             button1.Visible = false;
-            button1.Click += new System.EventHandler(button1_Click);
+            button1.Click += new EventHandler(button1_Click);
             // 
             // label3
             // 
@@ -103,8 +104,8 @@ namespace System.Windows.Forms
             trackBar1.Name = "trackBar1";
             trackBar1.Size = new System.Drawing.Size(204, 45);
             trackBar1.TabIndex = 6;
-            trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
-            trackBar1.Scroll += new System.EventHandler(trackBar1_Scroll);
+            trackBar1.TickStyle = TickStyle.None;
+            trackBar1.Scroll += new EventHandler(trackBar1_Scroll);
             // 
             // label4
             // 
@@ -142,7 +143,7 @@ namespace System.Windows.Forms
             button2.Text = "Remove";
             button2.UseVisualStyleBackColor = true;
             button2.Visible = false;
-            button2.Click += new System.EventHandler(button2_Click);
+            button2.Click += new EventHandler(button2_Click);
             // 
             // label7
             // 
@@ -172,7 +173,7 @@ namespace System.Windows.Forms
             button4.Text = "Add";
             button4.UseVisualStyleBackColor = true;
             button4.Visible = false;
-            button4.Click += new System.EventHandler(button4_Click);
+            button4.Click += new EventHandler(button4_Click);
             // 
             // splitter1
             // 
@@ -186,7 +187,7 @@ namespace System.Windows.Forms
             // 
             panel1.Controls.Add(listBox2);
             panel1.Controls.Add(splitter1);
-            panel1.Dock = System.Windows.Forms.DockStyle.Right;
+            panel1.Dock = DockStyle.Right;
             panel1.Location = new System.Drawing.Point(256, 0);
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(264, 49);
@@ -209,7 +210,7 @@ namespace System.Windows.Forms
             button5.TabIndex = 18;
             button5.Text = "Set";
             button5.UseVisualStyleBackColor = true;
-            button5.Click += new System.EventHandler(button5_Click);
+            button5.Click += new EventHandler(button5_Click);
             // 
             // textBox1
             // 
@@ -222,7 +223,7 @@ namespace System.Windows.Forms
             textBox1.Size = new System.Drawing.Size(41, 20);
             textBox1.TabIndex = 9;
             textBox1.Text = "0";
-            textBox1.ValueChanged += new System.EventHandler(PercentChanged);
+            textBox1.ValueChanged += new EventHandler(PercentChanged);
             // 
             // SHP0Editor
             // 
@@ -244,12 +245,11 @@ namespace System.Windows.Forms
             MinimumSize = new System.Drawing.Size(533, 106);
             Name = "SHP0Editor";
             Size = new System.Drawing.Size(533, 106);
-            ((System.ComponentModel.ISupportInitialize)(trackBar1)).EndInit();
+            ((ISupportInitialize) trackBar1).EndInit();
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
-
         }
 
         #endregion
@@ -280,6 +280,7 @@ namespace System.Windows.Forms
         {
             InitializeComponent();
         }
+
         public void UpdatePropDisplay()
         {
             if (!Enabled)
@@ -294,15 +295,21 @@ namespace System.Windows.Forms
                 _mainWindow.InterpolationEditor.SetTarget(VertexSetDest);
             }
         }
+
         private string _selectedSource;
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string SelectedSource
         {
             get => _selectedSource;
             set => _selectedSource = value;
         }
+
         private string _selectedDest;
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string SelectedDestination
         {
             get => _selectedDest;
@@ -310,31 +317,40 @@ namespace System.Windows.Forms
             {
                 _selectedDest = value;
                 ResetBox();
-                if (_mainWindow.InterpolationEditor != null && _mainWindow.InterpolationEditor._targetNode != VertexSetDest)
+                if (_mainWindow.InterpolationEditor != null &&
+                    _mainWindow.InterpolationEditor._targetNode != VertexSetDest)
                 {
                     _mainWindow.InterpolationEditor.SetTarget(VertexSetDest);
                 }
             }
         }
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int CurrentFrame
         {
             get => _mainWindow.CurrentFrame;
             set => _mainWindow.CurrentFrame = value;
         }
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IModel TargetModel
         {
             get => _mainWindow.TargetModel;
             set => _mainWindow.TargetModel = value;
         }
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public SHP0Node SelectedAnimation
         {
             get => _mainWindow.SelectedSHP0;
             set => _mainWindow.SelectedSHP0 = value;
         }
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public CHR0Node SelectedCHR0
         {
             get => _mainWindow.SelectedCHR0;
@@ -385,6 +401,7 @@ namespace System.Windows.Forms
         }
 
         private Dictionary<int, List<int>> SHP0Indices;
+
         public void AnimationChanged()
         {
             listBox1.Items.Clear();
@@ -494,14 +511,15 @@ namespace System.Windows.Forms
                 return;
             }
 
-            if ((SelectedAnimation != null) && (CurrentFrame >= 1))
+            if (SelectedAnimation != null && CurrentFrame >= 1)
             {
                 SHP0EntryNode entry = SelectedAnimation.FindChild(SelectedSource, false) as SHP0EntryNode;
                 SHP0VertexSetNode v;
 
                 if (entry == null)
                 {
-                    (v = (entry = SelectedAnimation.FindOrCreateEntry(SelectedSource)).Children[0] as SHP0VertexSetNode).Name = SelectedDestination;
+                    (v = (entry = SelectedAnimation.FindOrCreateEntry(SelectedSource)).Children[0] as SHP0VertexSetNode)
+                        .Name = SelectedDestination;
                 }
                 else if ((v = entry.FindChild(SelectedDestination, false) as SHP0VertexSetNode) == null)
                 {
@@ -511,8 +529,7 @@ namespace System.Windows.Forms
                         v.SetKeyframe(CurrentFrame - 1, textBox1.Value / 100.0f);
                     }
                 }
-                else
-                    if (float.IsNaN(textBox1.Value))
+                else if (float.IsNaN(textBox1.Value))
                 {
                     v.RemoveKeyframe(CurrentFrame - 1);
                 }
@@ -521,17 +538,20 @@ namespace System.Windows.Forms
                     v.SetKeyframe(CurrentFrame - 1, textBox1.Value / 100.0f);
                 }
 
-                if (_mainWindow.InterpolationEditor != null && _mainWindow.InterpolationEditor._targetNode != VertexSetDest)
+                if (_mainWindow.InterpolationEditor != null &&
+                    _mainWindow.InterpolationEditor._targetNode != VertexSetDest)
                 {
                     _mainWindow.InterpolationEditor.SetTarget(VertexSetDest);
                 }
             }
+
             ResetBox();
             _mainWindow.KeyframePanel.UpdateKeyframe(CurrentFrame - 1);
             _mainWindow.UpdateModel();
         }
 
         private bool updating = false;
+
         public unsafe void ResetBox()
         {
             SHP0EntryNode entry;
@@ -541,8 +561,8 @@ namespace System.Windows.Forms
                 return;
             }
 
-            if ((SelectedAnimation != null) && (CurrentFrame >= 1) &&
-                ((entry = SelectedAnimation.FindChild(SelectedSource, false) as SHP0EntryNode) != null) &&
+            if (SelectedAnimation != null && CurrentFrame >= 1 &&
+                (entry = SelectedAnimation.FindChild(SelectedSource, false) as SHP0EntryNode) != null &&
                 (v = entry.FindChild(SelectedDestination, false) as SHP0VertexSetNode) != null)
             {
                 KeyframeEntry e = v.Keyframes.GetKeyframe(CurrentFrame - 1);
@@ -562,8 +582,9 @@ namespace System.Windows.Forms
                 textBox1.Value = 0;
                 textBox1.BackColor = Color.White;
             }
+
             updating = true;
-            trackBar1.Value = ((int)(textBox1.Value * 10.0f)).Clamp(trackBar1.Minimum, trackBar1.Maximum);
+            trackBar1.Value = ((int) (textBox1.Value * 10.0f)).Clamp(trackBar1.Minimum, trackBar1.Maximum);
             updating = false;
         }
 
@@ -589,17 +610,14 @@ namespace System.Windows.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-
         }
 
         private unsafe void button5_Click(object sender, EventArgs e)
@@ -622,7 +640,9 @@ namespace System.Windows.Forms
                 return;
             }
 
-            if (MessageBox.Show(this, "Are you sure you want to continue?\nThis will edit the model and make the selected object's vertices, normals and/or colors default to the current morph.", "Are you sure?", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+            if (MessageBox.Show(this,
+                    "Are you sure you want to continue?\nThis will edit the model and make the selected object's vertices, normals and/or colors default to the current morph.",
+                    "Are you sure?", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
             {
                 return;
             }
@@ -640,12 +660,12 @@ namespace System.Windows.Forms
                 TargetModel.ApplySHP(shp, frame);
             }
 
-            ResourceNode[] nodes = ((ResourceNode)TargetModel).FindChildrenByName(SelectedSource);
+            ResourceNode[] nodes = ((ResourceNode) TargetModel).FindChildrenByName(SelectedSource);
             foreach (ResourceNode n in nodes)
             {
                 if (n is MDL0VertexNode)
                 {
-                    MDL0VertexNode node = (MDL0VertexNode)n;
+                    MDL0VertexNode node = (MDL0VertexNode) n;
                     MDL0ObjectNode[] o = new MDL0ObjectNode[node._objects.Count];
                     node._objects.CopyTo(o);
                     foreach (MDL0ObjectNode obj in o)
@@ -658,7 +678,7 @@ namespace System.Windows.Forms
                 }
                 else if (n is MDL0NormalNode)
                 {
-                    MDL0NormalNode node = (MDL0NormalNode)n;
+                    MDL0NormalNode node = (MDL0NormalNode) n;
                     MDL0ObjectNode[] o = new MDL0ObjectNode[node._objects.Count];
                     node._objects.CopyTo(o);
                     foreach (MDL0ObjectNode obj in o)
@@ -668,7 +688,7 @@ namespace System.Windows.Forms
                 }
                 else if (n is MDL0ColorNode)
                 {
-                    MDL0ColorNode node = (MDL0ColorNode)n;
+                    MDL0ColorNode node = (MDL0ColorNode) n;
                     MDL0ObjectNode[] o = new MDL0ObjectNode[node._objects.Count];
                     node._objects.CopyTo(o);
                     foreach (MDL0ObjectNode obj in o)

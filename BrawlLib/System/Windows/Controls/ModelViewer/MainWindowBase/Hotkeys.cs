@@ -6,15 +6,24 @@ namespace System.Windows.Forms
 {
     public partial class ModelEditorBase : UserControl
     {
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Ctrl => ModifierKeys.HasFlag(Keys.Control);
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Alt => ModifierKeys.HasFlag(Keys.Alt);
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Shift => ModifierKeys.HasFlag(Keys.Shift);
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool CtrlAlt => Ctrl && Alt;
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool NotCtrlAlt => !Ctrl && !Alt;
 
         private Dictionary<Keys, Func<bool>> _hotKeysDown;
@@ -47,7 +56,7 @@ namespace System.Windows.Forms
                 }
                 else
                 {
-                    key = (Keys)m.WParam;
+                    key = (Keys) m.WParam;
                     if (Ctrl)
                     {
                         key |= Keys.Control;
@@ -66,14 +75,14 @@ namespace System.Windows.Forms
 
                 if (down && _hotKeysDown.ContainsKey(key))
                 {
-                    if ((bool)_hotKeysDown[key].DynamicInvoke())
+                    if ((bool) _hotKeysDown[key].DynamicInvoke())
                     {
                         return true;
                     }
                 }
                 else if (_hotKeysUp.ContainsKey(key))
                 {
-                    if ((bool)_hotKeysUp[key].DynamicInvoke())
+                    if ((bool) _hotKeysUp[key].DynamicInvoke())
                     {
                         return true;
                     }
@@ -113,7 +122,8 @@ namespace System.Windows.Forms
                 }
             }
 
-            public HotKeyInfo(Keys baseKey, bool ctrl, bool alt, bool shift, Func<bool> function, bool keydown = true, bool keyup = false)
+            public HotKeyInfo(Keys baseKey, bool ctrl, bool alt, bool shift, Func<bool> function, bool keydown = true,
+                              bool keyup = false)
             {
                 _baseKey = baseKey;
                 _ctrl = ctrl;
@@ -190,20 +200,26 @@ namespace System.Windows.Forms
         {
             if (ModelPanel.Focused)
             {
-                SaveBitmap(ModelPanel.GetScreenshot(ModelPanel.ClientRectangle, true), ScreenCaptureFolder, "." + ScreenCaptureType.ToString());
+                SaveBitmap(ModelPanel.GetScreenshot(ModelPanel.ClientRectangle, true), ScreenCaptureFolder,
+                    "." + ScreenCaptureType.ToString());
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyCaptureScreenshot()
         {
             if (ModelPanel.Focused)
             {
-                SaveBitmap(ModelPanel.GetScreenshot(ModelPanel.ClientRectangle, false), ScreenCaptureFolder, "." + ScreenCaptureType.ToString());
+                SaveBitmap(ModelPanel.GetScreenshot(ModelPanel.ClientRectangle, false), ScreenCaptureFolder,
+                    "." + ScreenCaptureType.ToString());
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyUndo()
         {
             if (ModelPanel.Focused)
@@ -211,8 +227,10 @@ namespace System.Windows.Forms
                 Undo();
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyRedo()
         {
             if (ModelPanel.Focused)
@@ -220,8 +238,10 @@ namespace System.Windows.Forms
                 Redo();
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyCopyWholeFrame()
         {
             if (ModelPanel.Focused && _currentControl is CHR0Editor)
@@ -229,8 +249,10 @@ namespace System.Windows.Forms
                 CHR0Editor.btnCopyAll.PerformClick();
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyCopyEntryFrame()
         {
             if (ModelPanel.Focused && _currentControl is CHR0Editor)
@@ -238,8 +260,10 @@ namespace System.Windows.Forms
                 CHR0Editor.btnCopy.PerformClick();
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyPasteWholeFrameKeyframesOnly()
         {
             if (ModelPanel.Focused && _currentControl is CHR0Editor)
@@ -248,8 +272,10 @@ namespace System.Windows.Forms
                 CHR0Editor.btnPasteAll.PerformClick();
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyPasteWholeFrame()
         {
             if (ModelPanel.Focused && _currentControl is CHR0Editor)
@@ -258,8 +284,10 @@ namespace System.Windows.Forms
                 CHR0Editor.btnPasteAll.PerformClick();
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyPasteEntryFrameKeyframesOnly()
         {
             if (ModelPanel.Focused && _currentControl is CHR0Editor)
@@ -268,8 +296,10 @@ namespace System.Windows.Forms
                 CHR0Editor.btnPaste.PerformClick();
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyPasteEntryFrame()
         {
             if (ModelPanel.Focused && _currentControl is CHR0Editor)
@@ -278,8 +308,10 @@ namespace System.Windows.Forms
                 CHR0Editor.btnPaste.PerformClick();
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyResetCamera()
         {
             if (Ctrl)
@@ -287,8 +319,10 @@ namespace System.Windows.Forms
                 ModelPanel.ResetCamera();
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyRefreshReferences()
         {
             if (ModelPanel.Focused)
@@ -296,8 +330,10 @@ namespace System.Windows.Forms
                 ModelPanel.RefreshReferences();
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyRenderVertices()
         {
             if (ModelPanel.Focused)
@@ -305,8 +341,10 @@ namespace System.Windows.Forms
                 RenderVertices = !RenderVertices;
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyPlayAnim()
         {
             if (ModelPanel.Focused)
@@ -314,8 +352,10 @@ namespace System.Windows.Forms
                 TogglePlay();
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyRenderFloor()
         {
             if (ModelPanel.Focused)
@@ -323,8 +363,10 @@ namespace System.Windows.Forms
                 RenderFloor = !RenderFloor;
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyRenderBones()
         {
             if (ModelPanel.Focused)
@@ -332,8 +374,10 @@ namespace System.Windows.Forms
                 RenderBones = !RenderBones;
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyRenderPolygons()
         {
             if (ModelPanel.Focused)
@@ -341,8 +385,10 @@ namespace System.Windows.Forms
                 RenderPolygons = !RenderPolygons;
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyRenderMetals()
         {
             if (ModelPanel.Focused)
@@ -350,8 +396,10 @@ namespace System.Windows.Forms
                 RenderMetal = !RenderMetal;
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyClearWholeFrame()
         {
             if (ModelPanel.Focused && _currentControl is CHR0Editor)
@@ -359,8 +407,10 @@ namespace System.Windows.Forms
                 CHR0Editor.btnClearAll.PerformClick();
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyClearEntryFrame()
         {
             if (ModelPanel.Focused && _currentControl is CHR0Editor)
@@ -368,8 +418,10 @@ namespace System.Windows.Forms
                 CHR0Editor.ClearEntry();
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyDeleteFrame()
         {
             if (ModelPanel.Focused && _currentControl is CHR0Editor)
@@ -377,8 +429,10 @@ namespace System.Windows.Forms
                 CHR0Editor.btnDelete.PerformClick();
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyCancelChange()
         {
             if (!AwaitingRedoSave)
@@ -410,6 +464,7 @@ namespace System.Windows.Forms
                     CHR0Editor.BoxChanged(CHR0Editor.numRotY, null);
                     CHR0Editor.BoxChanged(CHR0Editor.numRotZ, null);
                 }
+
                 if (_translating)
                 {
                     CHR0Editor.numTransX.Value = _oldPosition._x;
@@ -419,6 +474,7 @@ namespace System.Windows.Forms
                     CHR0Editor.BoxChanged(CHR0Editor.numTransY, null);
                     CHR0Editor.BoxChanged(CHR0Editor.numTransZ, null);
                 }
+
                 if (_scaling)
                 {
                     CHR0Editor.numScaleX.Value = _oldScale._x;
@@ -439,6 +495,7 @@ namespace System.Windows.Forms
             ModelPanel.CurrentViewport.AllowSelection = true;
             return false;
         }
+
         private bool HotkeyLastFrame()
         {
             if (PlaybackPanel != null)
@@ -448,6 +505,7 @@ namespace System.Windows.Forms
 
             return true;
         }
+
         private bool HotkeyNextFrame()
         {
             if (PlaybackPanel != null)
@@ -457,6 +515,7 @@ namespace System.Windows.Forms
 
             return true;
         }
+
         private bool HotkeyFirstFrame()
         {
             if (PlaybackPanel != null)
@@ -466,6 +525,7 @@ namespace System.Windows.Forms
 
             return true;
         }
+
         private bool HotkeyPrevFrame()
         {
             if (PlaybackPanel != null)

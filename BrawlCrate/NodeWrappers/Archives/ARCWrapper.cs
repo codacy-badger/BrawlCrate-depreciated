@@ -15,6 +15,7 @@ namespace BrawlCrate
         #region Menu
 
         private static readonly ContextMenuStrip _menu;
+
         static ARCWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -30,7 +31,7 @@ namespace BrawlCrate
                     new ToolStripMenuItem("Empty", null, NewSCLAAction),
                     new ToolStripMenuItem("Full", null, NewSCLAFullAction),
                     new ToolStripMenuItem("Expanded", null, NewSCLAExpandedAction)
-                    ),
+                ),
                 new ToolStripMenuItem("STDT", null, NewSTDTAction),
                 new ToolStripMenuItem("STPM", null, NewSTPMAction),
                 new ToolStripMenuItem("Stage Table", null,
@@ -41,8 +42,8 @@ namespace BrawlCrate
                     new ToolStripMenuItem("TBLV", null, NewTBLVAction),
                     new ToolStripMenuItem("TBRM", null, NewTBRMAction),
                     new ToolStripMenuItem("TBST", null, NewTBSTAction)
-                    )
-                ));
+                )
+            ));
             _menu.Items.Add(new ToolStripMenuItem("&Import", null,
                 new ToolStripMenuItem("ARChive", null, ImportARCAction),
                 new ToolStripMenuItem("BRResource Pack", null, ImportBRESAction),
@@ -60,9 +61,9 @@ namespace BrawlCrate
                     new ToolStripMenuItem("TBLV", null, ImportTBLVAction),
                     new ToolStripMenuItem("TBRM", null, ImportTBRMAction),
                     new ToolStripMenuItem("TBST", null, ImportTBSTAction)
-                    ),
+                ),
                 new ToolStripMenuItem("Havok Data", null, ImportHavokAction)
-                ));
+            ));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("Preview All Models", null, PreviewAllAction));
             _menu.Items.Add(new ToolStripMenuItem("Export All", null, ExportAllAction));
@@ -81,15 +82,52 @@ namespace BrawlCrate
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
-        protected static void NewBRESAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewBRES(); }
-        protected static void NewARCAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewARC(); }
-        protected static void NewMSBinAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewMSBin(); }
-        protected static void NewCollisionAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewCollision(); }
-        protected static void NewItemGenerationAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewItemGeneration(); }
-        protected static void NewBLOCAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewBLOC(); }
-        protected static void NewSCLAAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewSCLA(0); }
-        protected static void NewSCLAFullAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewSCLA(32); }
-        protected static void NewSCLAExpandedAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewSCLA(256); }
+
+        protected static void NewBRESAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().NewBRES();
+        }
+
+        protected static void NewARCAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().NewARC();
+        }
+
+        protected static void NewMSBinAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().NewMSBin();
+        }
+
+        protected static void NewCollisionAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().NewCollision();
+        }
+
+        protected static void NewItemGenerationAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().NewItemGeneration();
+        }
+
+        protected static void NewBLOCAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().NewBLOC();
+        }
+
+        protected static void NewSCLAAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().NewSCLA(0);
+        }
+
+        protected static void NewSCLAFullAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().NewSCLA(32);
+        }
+
+        protected static void NewSCLAExpandedAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().NewSCLA(256);
+        }
+
         protected static void NewSTDTAction(object sender, EventArgs e)
         {
             NumericEntryBox entryCount = new NumericEntryBox();
@@ -98,7 +136,12 @@ namespace BrawlCrate
                 GetInstance<ARCWrapper>().NewSTDT(entryCount.NewValue);
             }
         }
-        protected static void NewSTPMAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewSTPM(); }
+
+        protected static void NewSTPMAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().NewSTPM();
+        }
+
         protected static void NewTBCLAction(object sender, EventArgs e)
         {
             NumericEntryBox entryCount = new NumericEntryBox();
@@ -107,6 +150,7 @@ namespace BrawlCrate
                 GetInstance<ARCWrapper>().NewTBCL(entryCount.NewValue);
             }
         }
+
         protected static void NewTBGCAction(object sender, EventArgs e)
         {
             NumericEntryBox entryCount = new NumericEntryBox();
@@ -115,6 +159,7 @@ namespace BrawlCrate
                 GetInstance<ARCWrapper>().NewTBGC(entryCount.NewValue);
             }
         }
+
         protected static void NewTBGDAction(object sender, EventArgs e)
         {
             NumericEntryBox entryCount = new NumericEntryBox();
@@ -123,6 +168,7 @@ namespace BrawlCrate
                 GetInstance<ARCWrapper>().NewTBGD(entryCount.NewValue);
             }
         }
+
         protected static void NewTBGMAction(object sender, EventArgs e)
         {
             NumericEntryBox entryCount = new NumericEntryBox();
@@ -131,6 +177,7 @@ namespace BrawlCrate
                 GetInstance<ARCWrapper>().NewTBGM(entryCount.NewValue);
             }
         }
+
         protected static void NewTBLVAction(object sender, EventArgs e)
         {
             NumericEntryBox entryCount = new NumericEntryBox();
@@ -139,6 +186,7 @@ namespace BrawlCrate
                 GetInstance<ARCWrapper>().NewTBLV(entryCount.NewValue);
             }
         }
+
         protected static void NewTBRMAction(object sender, EventArgs e)
         {
             NumericEntryBox entryCount = new NumericEntryBox();
@@ -147,6 +195,7 @@ namespace BrawlCrate
                 GetInstance<ARCWrapper>().NewTBRM(entryCount.NewValue);
             }
         }
+
         protected static void NewTBSTAction(object sender, EventArgs e)
         {
             NumericEntryBox entryCount = new NumericEntryBox();
@@ -155,52 +204,137 @@ namespace BrawlCrate
                 GetInstance<ARCWrapper>().NewTBST(entryCount.NewValue);
             }
         }
-        protected static void NewRedirectAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().NewRedirect(); }
-        protected static void ImportBRESAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportBRES(); }
-        protected static void ImportARCAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportARC(); }
-        protected static void ImportBLOCAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportBLOC(); }
-        protected static void ImportCollisionAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportCollision(); }
-        protected static void ImportMSBinAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportMSBin(); }
-        protected static void ImportSCLAAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportSCLA(); }
-        protected static void ImportSTDTAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportSTDT(); }
-        protected static void ImportSTPMAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportSTPM(); }
 
-        protected static void ImportTBCLAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportTBCL(); }
-        protected static void ImportTBGCAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportTBGC(); }
-        protected static void ImportTBGDAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportTBGD(); }
-        protected static void ImportTBGMAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportTBGM(); }
-        protected static void ImportTBLVAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportTBLV(); }
-        protected static void ImportTBRMAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportTBRM(); }
-        protected static void ImportTBSTAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportTBST(); }
-        protected static void ImportHavokAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ImportHavok(); }
+        protected static void NewRedirectAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().NewRedirect();
+        }
 
-        protected static void PreviewAllAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().PreviewAll(); }
-        protected static void ExportAllAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ExportAll(); }
-        protected static void ReplaceAllAction(object sender, EventArgs e) { GetInstance<ARCWrapper>().ReplaceAll(); }
+        protected static void ImportBRESAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().ImportBRES();
+        }
+
+        protected static void ImportARCAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().ImportARC();
+        }
+
+        protected static void ImportBLOCAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().ImportBLOC();
+        }
+
+        protected static void ImportCollisionAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().ImportCollision();
+        }
+
+        protected static void ImportMSBinAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().ImportMSBin();
+        }
+
+        protected static void ImportSCLAAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().ImportSCLA();
+        }
+
+        protected static void ImportSTDTAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().ImportSTDT();
+        }
+
+        protected static void ImportSTPMAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().ImportSTPM();
+        }
+
+        protected static void ImportTBCLAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().ImportTBCL();
+        }
+
+        protected static void ImportTBGCAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().ImportTBGC();
+        }
+
+        protected static void ImportTBGDAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().ImportTBGD();
+        }
+
+        protected static void ImportTBGMAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().ImportTBGM();
+        }
+
+        protected static void ImportTBLVAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().ImportTBLV();
+        }
+
+        protected static void ImportTBRMAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().ImportTBRM();
+        }
+
+        protected static void ImportTBSTAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().ImportTBST();
+        }
+
+        protected static void ImportHavokAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().ImportHavok();
+        }
+
+        protected static void PreviewAllAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().PreviewAll();
+        }
+
+        protected static void ExportAllAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().ExportAll();
+        }
+
+        protected static void ReplaceAllAction(object sender, EventArgs e)
+        {
+            GetInstance<ARCWrapper>().ReplaceAll();
+        }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-            _menu.Items[8].Enabled = _menu.Items[9].Enabled = _menu.Items[10].Enabled = _menu.Items[12].Enabled = _menu.Items[13].Enabled = _menu.Items[16].Enabled = true;
+            _menu.Items[8].Enabled = _menu.Items[9].Enabled = _menu.Items[10].Enabled =
+                _menu.Items[12].Enabled = _menu.Items[13].Enabled = _menu.Items[16].Enabled = true;
         }
+
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             ARCWrapper w = GetInstance<ARCWrapper>();
             _menu.Items[8].Enabled = _menu.Items[10].Enabled = _menu.Items[16].Enabled = w.Parent != null;
-            _menu.Items[9].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[9].Enabled = w._resource.IsDirty || w._resource.IsBranch;
             _menu.Items[12].Enabled = w.PrevNode != null;
             _menu.Items[13].Enabled = w.NextNode != null;
         }
+
         #endregion
 
         public override string ExportFilter => "PAC Archive (*.pac)|*.pac|" +
-                    "Compressed PAC Archive (*.pcs)|*.pcs|" +
-                    "Archive Pair (*.pac & *.pcs)|*.pair|" +
-                    "Mushroomy Kingdom (STGMARIOPAST_00.pac & STGMARIOPAST_01.pac)|*.mariopast|" +
-                    "Shadow Moses Island (STGMETALGEAR_00, STGMETALGEAR_01.pac, & STGMETALGEAR_02.pac)|*.metalgear|" +
-                    "Smashville (STGVILLAGE_00.pac, STGVILLAGE_01.pac, STGVILLAGE_02.pac, STGVILLAGE_03.pac, & STGVILLAGE_04.pac)|*.village|" +
-                    "Spear Pillar (STGTENGAN_1.pac, STGTENGAN_2.pac, & STGTENGAN_3.pac)|*.tengan|" +
-                    "Multiple Resource Group (*.mrg)|*.mrg";
+                                               "Compressed PAC Archive (*.pcs)|*.pcs|" +
+                                               "Archive Pair (*.pac & *.pcs)|*.pair|" +
+                                               "Mushroomy Kingdom (STGMARIOPAST_00.pac & STGMARIOPAST_01.pac)|*.mariopast|" +
+                                               "Shadow Moses Island (STGMETALGEAR_00, STGMETALGEAR_01.pac, & STGMETALGEAR_02.pac)|*.metalgear|" +
+                                               "Smashville (STGVILLAGE_00.pac, STGVILLAGE_01.pac, STGVILLAGE_02.pac, STGVILLAGE_03.pac, & STGVILLAGE_04.pac)|*.village|" +
+                                               "Spear Pillar (STGTENGAN_1.pac, STGTENGAN_2.pac, & STGTENGAN_3.pac)|*.tengan|" +
+                                               "Multiple Resource Group (*.mrg)|*.mrg";
 
-        public ARCWrapper() { ContextMenuStrip = _menu; }
+        public ARCWrapper()
+        {
+            ContextMenuStrip = _menu;
+        }
 
         public override ResourceNode Duplicate()
         {
@@ -208,22 +342,24 @@ namespace BrawlCrate
             {
                 return null;
             }
+
             _resource.Rebuild();
-            ARCNode newNode = NodeFactory.FromAddress(null, _resource.WorkingUncompressed.Address, _resource.WorkingUncompressed.Length) as ARCNode;
+            ARCNode newNode = NodeFactory.FromAddress(null, _resource.WorkingUncompressed.Address,
+                _resource.WorkingUncompressed.Length) as ARCNode;
             int newIndex = _resource.Index + 1;
             _resource._parent.InsertChild(newNode, true, newIndex);
             newNode.Populate();
-            newNode.FileType = ((ARCNode)_resource).FileType;
-            newNode.FileIndex = ((ARCNode)_resource).FileIndex;
-            newNode.RedirectIndex = ((ARCNode)_resource).RedirectIndex;
-            newNode.GroupID = ((ARCNode)_resource).GroupID;
-            newNode.Compression = ((ARCNode)_resource).Compression;
+            newNode.FileType = ((ARCNode) _resource).FileType;
+            newNode.FileIndex = ((ARCNode) _resource).FileIndex;
+            newNode.RedirectIndex = ((ARCNode) _resource).RedirectIndex;
+            newNode.GroupID = ((ARCNode) _resource).GroupID;
+            newNode.Compression = ((ARCNode) _resource).Compression;
             return newNode;
         }
 
         public ARCNode NewARC()
         {
-            ARCNode node = new ARCNode() { Name = _resource.FindName("NewARChive"), FileType = ARCFileType.MiscData };
+            ARCNode node = new ARCNode() {Name = _resource.FindName("NewARChive"), FileType = ARCFileType.MiscData};
             _resource.AddChild(node);
 
             BaseWrapper w = FindResource(node, false);
@@ -231,6 +367,7 @@ namespace BrawlCrate
             w.TreeView.SelectedNode = w;
             return node;
         }
+
         public ARCEntryNode NewRedirect()
         {
             ARCEntryNode node = new ARCEntryNode() { };
@@ -244,9 +381,10 @@ namespace BrawlCrate
             w.TreeView.SelectedNode = w;
             return node;
         }
+
         public BRRESNode NewBRES()
         {
-            BRRESNode node = new BRRESNode() { FileType = ARCFileType.MiscData };
+            BRRESNode node = new BRRESNode() {FileType = ARCFileType.MiscData};
             _resource.AddChild(node);
 
             BaseWrapper w = FindResource(node, false);
@@ -254,9 +392,10 @@ namespace BrawlCrate
             w.TreeView.SelectedNode = w;
             return node;
         }
+
         public CollisionNode NewCollision()
         {
-            CollisionNode node = new CollisionNode() { FileType = ARCFileType.MiscData };
+            CollisionNode node = new CollisionNode() {FileType = ARCFileType.MiscData};
             _resource.AddChild(node);
 
             BaseWrapper w = FindResource(node, false);
@@ -264,9 +403,10 @@ namespace BrawlCrate
             w.TreeView.SelectedNode = w;
             return node;
         }
+
         public ItmFreqNode NewItemGeneration()
         {
-            ItmFreqNode node = new ItmFreqNode() { FileType = ARCFileType.MiscData };
+            ItmFreqNode node = new ItmFreqNode() {FileType = ARCFileType.MiscData};
             node.Name = "Item Generation";
             _resource.AddChild(node);
 
@@ -275,9 +415,10 @@ namespace BrawlCrate
             w.TreeView.SelectedNode = w;
             return node;
         }
+
         public BLOCNode NewBLOC()
         {
-            BLOCNode node = new BLOCNode() { FileType = ARCFileType.MiscData };
+            BLOCNode node = new BLOCNode() {FileType = ARCFileType.MiscData};
             _resource.AddChild(node);
 
             BaseWrapper w = FindResource(node, false);
@@ -285,9 +426,10 @@ namespace BrawlCrate
             w.TreeView.SelectedNode = w;
             return node;
         }
+
         public MSBinNode NewMSBin()
         {
-            MSBinNode node = new MSBinNode() { FileType = ARCFileType.MiscData };
+            MSBinNode node = new MSBinNode() {FileType = ARCFileType.MiscData};
             _resource.AddChild(node);
 
             BaseWrapper w = FindResource(node, false);
@@ -299,7 +441,7 @@ namespace BrawlCrate
         // StageBox create SCLA
         public SCLANode NewSCLA(uint index)
         {
-            SCLANode node = new SCLANode(index) { FileType = ARCFileType.MiscData };
+            SCLANode node = new SCLANode(index) {FileType = ARCFileType.MiscData};
             _resource.AddChild(node);
 
             BaseWrapper w = FindResource(node, false);
@@ -311,7 +453,7 @@ namespace BrawlCrate
         // StageBox create STDT
         public STDTNode NewSTDT(int numEntries)
         {
-            STDTNode node = new STDTNode(null, numEntries) { FileType = ARCFileType.MiscData };
+            STDTNode node = new STDTNode(null, numEntries) {FileType = ARCFileType.MiscData};
             _resource.AddChild(node);
 
             BaseWrapper w = FindResource(node, false);
@@ -323,7 +465,7 @@ namespace BrawlCrate
         // StageBox create STPM
         public STPMNode NewSTPM()
         {
-            STPMNode node = new STPMNode() { FileType = ARCFileType.MiscData };
+            STPMNode node = new STPMNode() {FileType = ARCFileType.MiscData};
             _resource.AddChild(node);
 
             BaseWrapper w = FindResource(node, false);
@@ -335,7 +477,7 @@ namespace BrawlCrate
         // StageBox create TBCL
         public TBCLNode NewTBCL(int numEntries)
         {
-            TBCLNode node = new TBCLNode(null, numEntries) { FileType = ARCFileType.MiscData };
+            TBCLNode node = new TBCLNode(null, numEntries) {FileType = ARCFileType.MiscData};
             _resource.AddChild(node);
 
             BaseWrapper w = FindResource(node, false);
@@ -347,7 +489,7 @@ namespace BrawlCrate
         // StageBox create TBGC
         public TBGCNode NewTBGC(int numEntries)
         {
-            TBGCNode node = new TBGCNode(null, numEntries) { FileType = ARCFileType.MiscData };
+            TBGCNode node = new TBGCNode(null, numEntries) {FileType = ARCFileType.MiscData};
             _resource.AddChild(node);
 
             BaseWrapper w = FindResource(node, false);
@@ -359,7 +501,7 @@ namespace BrawlCrate
         // StageBox create TBGD
         public TBGDNode NewTBGD(int numEntries)
         {
-            TBGDNode node = new TBGDNode(null, numEntries) { FileType = ARCFileType.MiscData };
+            TBGDNode node = new TBGDNode(null, numEntries) {FileType = ARCFileType.MiscData};
             _resource.AddChild(node);
 
             BaseWrapper w = FindResource(node, false);
@@ -371,7 +513,7 @@ namespace BrawlCrate
         // StageBox create TBGM
         public TBGMNode NewTBGM(int numEntries)
         {
-            TBGMNode node = new TBGMNode(null, numEntries) { FileType = ARCFileType.MiscData };
+            TBGMNode node = new TBGMNode(null, numEntries) {FileType = ARCFileType.MiscData};
             _resource.AddChild(node);
 
             BaseWrapper w = FindResource(node, false);
@@ -383,7 +525,7 @@ namespace BrawlCrate
         // StageBox create TBLV
         public TBLVNode NewTBLV(int numEntries)
         {
-            TBLVNode node = new TBLVNode(null, numEntries) { FileType = ARCFileType.MiscData };
+            TBLVNode node = new TBLVNode(null, numEntries) {FileType = ARCFileType.MiscData};
             _resource.AddChild(node);
 
             BaseWrapper w = FindResource(node, false);
@@ -395,7 +537,7 @@ namespace BrawlCrate
         // StageBox create TBRM
         public TBRMNode NewTBRM(int numEntries)
         {
-            TBRMNode node = new TBRMNode(null, numEntries) { FileType = ARCFileType.MiscData };
+            TBRMNode node = new TBRMNode(null, numEntries) {FileType = ARCFileType.MiscData};
             _resource.AddChild(node);
 
             BaseWrapper w = FindResource(node, false);
@@ -407,7 +549,7 @@ namespace BrawlCrate
         // StageBox create TBST
         public TBSTNode NewTBST(int numEntries)
         {
-            TBSTNode node = new TBSTNode(null, numEntries) { FileType = ARCFileType.MiscData };
+            TBSTNode node = new TBSTNode(null, numEntries) {FileType = ARCFileType.MiscData};
             _resource.AddChild(node);
 
             BaseWrapper w = FindResource(node, false);
@@ -419,7 +561,8 @@ namespace BrawlCrate
         // StageBox create Havok
         public HavokNode NewHavok(int numEntries)
         {
-            HavokNode node = new HavokNode() { Name = _resource.FindName("NewHavokData"), FileType = ARCFileType.MiscData };
+            HavokNode node = new HavokNode()
+                {Name = _resource.FindName("NewHavokData"), FileType = ARCFileType.MiscData};
             _resource.AddChild(node);
 
             BaseWrapper w = FindResource(node, false);
@@ -435,6 +578,7 @@ namespace BrawlCrate
                 NewARC().Replace(path);
             }
         }
+
         public void ImportBRES()
         {
             if (Program.OpenFile(FileFilters.BRES, out string path) > 0)
@@ -442,6 +586,7 @@ namespace BrawlCrate
                 NewBRES().Replace(path);
             }
         }
+
         public void ImportBLOC()
         {
             if (Program.OpenFile(FileFilters.BLOC, out string path) > 0)
@@ -449,6 +594,7 @@ namespace BrawlCrate
                 NewBLOC().Replace(path);
             }
         }
+
         public void ImportCollision()
         {
             if (Program.OpenFile(FileFilters.CollisionDef, out string path) > 0)
@@ -456,6 +602,7 @@ namespace BrawlCrate
                 NewCollision().Replace(path);
             }
         }
+
         public void ImportMSBin()
         {
             if (Program.OpenFile(FileFilters.MSBin, out string path) > 0)
@@ -567,14 +714,30 @@ namespace BrawlCrate
         {
             switch (filterIndex)
             {
-                case 1: ((ARCNode)_resource).Export(outPath); break;
-                case 2: ((ARCNode)_resource).ExportPCS(outPath); break;
-                case 3: ((ARCNode)_resource).ExportPair(outPath); break;
-                case 4: ((ARCNode)_resource).ExportMarioPast(outPath); break;
-                case 5: ((ARCNode)_resource).ExportMetalGear(outPath); break;
-                case 6: ((ARCNode)_resource).ExportVillage(outPath); break;
-                case 7: ((ARCNode)_resource).ExportTengan(outPath); break;
-                case 8: ((ARCNode)_resource).ExportAsMRG(outPath); break;
+                case 1:
+                    ((ARCNode) _resource).Export(outPath);
+                    break;
+                case 2:
+                    ((ARCNode) _resource).ExportPCS(outPath);
+                    break;
+                case 3:
+                    ((ARCNode) _resource).ExportPair(outPath);
+                    break;
+                case 4:
+                    ((ARCNode) _resource).ExportMarioPast(outPath);
+                    break;
+                case 5:
+                    ((ARCNode) _resource).ExportMetalGear(outPath);
+                    break;
+                case 6:
+                    ((ARCNode) _resource).ExportVillage(outPath);
+                    break;
+                case 7:
+                    ((ARCNode) _resource).ExportTengan(outPath);
+                    break;
+                case 8:
+                    ((ARCNode) _resource).ExportAsMRG(outPath);
+                    break;
             }
         }
 
@@ -595,10 +758,10 @@ namespace BrawlCrate
 
                     break;
                 case ResourceType.MDL0:
-                    models.Add((IModel)node);
+                    models.Add((IModel) node);
                     break;
                 case ResourceType.CollisionDef:
-                    collisions.Add((CollisionNode)node);
+                    collisions.Add((CollisionNode) node);
                     break;
             }
         }
@@ -660,6 +823,7 @@ namespace BrawlCrate
                     return;
                 }
             }
+
             if (hasModels)
             {
                 ExportAllFormatDialog dialog = new ExportAllFormatDialog(true);
@@ -673,7 +837,8 @@ namespace BrawlCrate
                     return;
                 }
             }
-            ((ARCNode)_resource).ExtractToFolder(path, extensionTEX0, extensionMDL0);
+
+            ((ARCNode) _resource).ExtractToFolder(path, extensionTEX0, extensionMDL0);
         }
 
         public void ReplaceAll()
@@ -692,7 +857,7 @@ namespace BrawlCrate
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                ((ARCNode)_resource).ReplaceFromFolder(path, dialog.SelectedExtension);
+                ((ARCNode) _resource).ReplaceFromFolder(path, dialog.SelectedExtension);
             }
         }
     }

@@ -7,9 +7,13 @@
         public string InputText1 => txt1;
         public string InputText2 => txt2;
 
-        public TwoInputStringDialog() { InitializeComponent(); }
+        public TwoInputStringDialog()
+        {
+            InitializeComponent();
+        }
 
-        public DialogResult ShowDialog(IWin32Window owner, string title, string label_1, string default_1, string label_2, string default_2)
+        public DialogResult ShowDialog(IWin32Window owner, string title, string label_1, string default_1,
+                                       string label_2, string default_2)
         {
             Text = title;
 
@@ -23,6 +27,7 @@
 
             return base.ShowDialog(owner);
         }
+
         private unsafe void btnOkay_Click(object sender, EventArgs e)
         {
             txt1 = textBox1.Text;
@@ -31,7 +36,11 @@
             Close();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e) { DialogResult = DialogResult.Cancel; Close(); }
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
 
 
         #region Designer
@@ -45,12 +54,12 @@
 
         private void InitializeComponent()
         {
-            textBox1 = new System.Windows.Forms.TextBox();
-            btnCancel = new System.Windows.Forms.Button();
-            btnOkay = new System.Windows.Forms.Button();
-            textBox2 = new System.Windows.Forms.TextBox();
-            label1 = new System.Windows.Forms.Label();
-            label2 = new System.Windows.Forms.Label();
+            textBox1 = new TextBox();
+            btnCancel = new Button();
+            btnOkay = new Button();
+            textBox2 = new TextBox();
+            label1 = new Label();
+            label2 = new Label();
             SuspendLayout();
             // 
             // textBox1
@@ -63,26 +72,26 @@
             // 
             // btnCancel
             // 
-            btnCancel.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
-            btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnCancel.DialogResult = DialogResult.Cancel;
             btnCancel.Location = new System.Drawing.Point(197, 66);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new System.Drawing.Size(75, 23);
             btnCancel.TabIndex = 3;
             btnCancel.Text = "&Cancel";
             btnCancel.UseVisualStyleBackColor = true;
-            btnCancel.Click += new System.EventHandler(btnCancel_Click);
+            btnCancel.Click += new EventHandler(btnCancel_Click);
             // 
             // btnOkay
             // 
-            btnOkay.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
+            btnOkay.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnOkay.Location = new System.Drawing.Point(116, 66);
             btnOkay.Name = "btnOkay";
             btnOkay.Size = new System.Drawing.Size(75, 23);
             btnOkay.TabIndex = 2;
             btnOkay.Text = "&Okay";
             btnOkay.UseVisualStyleBackColor = true;
-            btnOkay.Click += new System.EventHandler(btnOkay_Click);
+            btnOkay.Click += new EventHandler(btnOkay_Click);
             // 
             // textBox2
             // 
@@ -100,7 +109,7 @@
             label1.Size = new System.Drawing.Size(36, 13);
             label1.TabIndex = 4;
             label1.Text = "Repo:";
-            label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label1.TextAlign = Drawing.ContentAlignment.MiddleRight;
             // 
             // label2
             // 
@@ -110,7 +119,7 @@
             label2.Size = new System.Drawing.Size(44, 13);
             label2.TabIndex = 5;
             label2.Text = "Branch:";
-            label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label2.TextAlign = Drawing.ContentAlignment.MiddleRight;
             // 
             // TwoInputStringDialog
             // 
@@ -123,19 +132,17 @@
             Controls.Add(btnOkay);
             Controls.Add(btnCancel);
             Controls.Add(textBox1);
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            Icon = global::BrawlLib.Properties.Resources.BrawlCrateIcon;
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Icon = BrawlLib.Properties.Resources.BrawlCrateIcon;
             Name = "TwoInputStringDialog";
             ShowIcon = false;
             ShowInTaskbar = false;
-            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Change Canary Branch";
             ResumeLayout(false);
             PerformLayout();
-
         }
 
         #endregion
-
     }
 }

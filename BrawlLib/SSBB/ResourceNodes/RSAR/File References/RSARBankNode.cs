@@ -6,10 +6,11 @@ namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class RSARBankNode : RSAREntryNode
     {
-        internal INFOBankEntry* Header => (INFOBankEntry*)WorkingUncompressed.Address;
+        internal INFOBankEntry* Header => (INFOBankEntry*) WorkingUncompressed.Address;
 
-        [Browsable(true), DisplayName("Bank ID")]
-        public override int StringId => Header == null ? -1 : (int)Header->_stringId;
+        [Browsable(true)]
+        [DisplayName("Bank ID")]
+        public override int StringId => Header == null ? -1 : (int) Header->_stringId;
 
         private RSARFileNode _rbnk;
 
@@ -33,6 +34,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                             RBNKNode ext = _rbnk as RBNKNode;
                             ext.RemoveBankRef(this);
                         }
+
                         _rbnk = null;
                     }
 
@@ -51,10 +53,14 @@ namespace BrawlLib.SSBB.ResourceNodes
                         }
                     }
                 }
+
                 SignalPropertyChange();
             }
         }
-        [Category("INFO Bank"), Browsable(true), TypeConverter(typeof(DropDownListBankFiles))]
+
+        [Category("INFO Bank")]
+        [Browsable(true)]
+        [TypeConverter(typeof(DropDownListBankFiles))]
         public string BankFile
         {
             get => _rbnk == null ? null : _rbnk._name;
@@ -75,8 +81,10 @@ namespace BrawlLib.SSBB.ResourceNodes
                             node = r;
                             break;
                         }
+
                         t++;
                     }
+
                     if (node != null)
                     {
                         BankNode = node;
@@ -121,7 +129,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
-            INFOBankEntry* header = (INFOBankEntry*)address;
+            INFOBankEntry* header = (INFOBankEntry*) address;
             header->_stringId = _rebuildStringId;
             header->_fileId = _fileId;
             header->_padding = 0;

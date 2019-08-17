@@ -3,9 +3,11 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
 using System.Windows.Forms.Design;
+
 namespace System.Windows.Forms
 {
     public delegate void ColorChanged(Color c);
+
     public class GoodColorControl2 : UserControl
     {
         #region Designer
@@ -22,44 +24,44 @@ namespace System.Windows.Forms
 
         private void InitializeComponent()
         {
-            btnOkay = new System.Windows.Forms.Button();
-            btnCancel = new System.Windows.Forms.Button();
-            pnlColors = new System.Windows.Forms.Panel();
-            lblOld = new System.Windows.Forms.Label();
-            lblNew = new System.Windows.Forms.Label();
-            chkAlpha = new System.Windows.Forms.CheckBox();
-            pnlNew = new System.Windows.Forms.BufferedPanel();
-            pnlOld = new System.Windows.Forms.BufferedPanel();
-            goodColorControl1 = new System.Windows.Forms.GoodColorControl();
+            btnOkay = new Button();
+            btnCancel = new Button();
+            pnlColors = new Panel();
+            lblOld = new Label();
+            lblNew = new Label();
+            chkAlpha = new CheckBox();
+            pnlNew = new BufferedPanel();
+            pnlOld = new BufferedPanel();
+            goodColorControl1 = new GoodColorControl();
             pnlColors.SuspendLayout();
             SuspendLayout();
             // 
             // btnOkay
             // 
-            btnOkay.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
+            btnOkay.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnOkay.Location = new System.Drawing.Point(200, 221);
             btnOkay.Name = "btnOkay";
             btnOkay.Size = new System.Drawing.Size(59, 24);
             btnOkay.TabIndex = 0;
             btnOkay.Text = "Okay";
             btnOkay.UseVisualStyleBackColor = true;
-            btnOkay.Click += new System.EventHandler(btnOkay_Click);
+            btnOkay.Click += new EventHandler(btnOkay_Click);
             // 
             // btnCancel
             // 
-            btnCancel.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
+            btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnCancel.Location = new System.Drawing.Point(267, 221);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new System.Drawing.Size(59, 24);
             btnCancel.TabIndex = 1;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
-            btnCancel.Click += new System.EventHandler(btnCancel_Click);
+            btnCancel.Click += new EventHandler(btnCancel_Click);
             // 
             // pnlColors
             // 
-            pnlColors.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left);
+            pnlColors.Anchor = AnchorStyles.Top | AnchorStyles.Bottom
+                                                | AnchorStyles.Left;
             pnlColors.Controls.Add(pnlNew);
             pnlColors.Controls.Add(pnlOld);
             pnlColors.Location = new System.Drawing.Point(14, 207);
@@ -69,66 +71,66 @@ namespace System.Windows.Forms
             // 
             // lblOld
             // 
-            lblOld.BackColor = System.Drawing.Color.White;
-            lblOld.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            lblOld.BackColor = Color.White;
+            lblOld.BorderStyle = BorderStyle.FixedSingle;
             lblOld.Location = new System.Drawing.Point(9, 198);
             lblOld.Name = "lblOld";
             lblOld.Size = new System.Drawing.Size(35, 15);
             lblOld.TabIndex = 4;
             lblOld.Text = "Old";
-            lblOld.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblOld.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblNew
             // 
-            lblNew.BackColor = System.Drawing.Color.White;
-            lblNew.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            lblNew.BackColor = Color.White;
+            lblNew.BorderStyle = BorderStyle.FixedSingle;
             lblNew.Location = new System.Drawing.Point(99, 198);
             lblNew.Name = "lblNew";
             lblNew.Size = new System.Drawing.Size(35, 15);
             lblNew.TabIndex = 5;
             lblNew.Text = "New";
-            lblNew.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblNew.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // chkAlpha
             // 
             chkAlpha.Checked = true;
-            chkAlpha.CheckState = System.Windows.Forms.CheckState.Checked;
+            chkAlpha.CheckState = CheckState.Checked;
             chkAlpha.Location = new System.Drawing.Point(221, 200);
             chkAlpha.Name = "chkAlpha";
             chkAlpha.Size = new System.Drawing.Size(90, 18);
             chkAlpha.TabIndex = 6;
             chkAlpha.Text = "Show Alpha";
             chkAlpha.UseVisualStyleBackColor = true;
-            chkAlpha.CheckedChanged += new System.EventHandler(chkAlpha_CheckedChanged);
+            chkAlpha.CheckedChanged += new EventHandler(chkAlpha_CheckedChanged);
             // 
             // pnlNew
             // 
-            pnlNew.Dock = System.Windows.Forms.DockStyle.Fill;
+            pnlNew.Dock = DockStyle.Fill;
             pnlNew.Location = new System.Drawing.Point(90, 0);
             pnlNew.Name = "pnlNew";
             pnlNew.Size = new System.Drawing.Size(90, 37);
             pnlNew.TabIndex = 6;
-            pnlNew.Paint += new System.Windows.Forms.PaintEventHandler(pnlNew_Paint);
+            pnlNew.Paint += new PaintEventHandler(pnlNew_Paint);
             // 
             // pnlOld
             // 
-            pnlOld.Dock = System.Windows.Forms.DockStyle.Left;
+            pnlOld.Dock = DockStyle.Left;
             pnlOld.Location = new System.Drawing.Point(0, 0);
             pnlOld.Name = "pnlOld";
             pnlOld.Size = new System.Drawing.Size(90, 37);
             pnlOld.TabIndex = 5;
-            pnlOld.Paint += new System.Windows.Forms.PaintEventHandler(pnlOld_Paint);
+            pnlOld.Paint += new PaintEventHandler(pnlOld_Paint);
             // 
             // goodColorControl1
             // 
-            goodColorControl1.Color = System.Drawing.Color.FromArgb(0, 0, 0, 0);
+            goodColorControl1.Color = Color.FromArgb(0, 0, 0, 0);
             goodColorControl1.Location = new System.Drawing.Point(12, 10);
             goodColorControl1.MinimumSize = new System.Drawing.Size(310, 186);
             goodColorControl1.Name = "goodColorControl1";
             goodColorControl1.ShowAlpha = true;
             goodColorControl1.Size = new System.Drawing.Size(314, 186);
             goodColorControl1.TabIndex = 2;
-            goodColorControl1.ColorChanged += new System.EventHandler(goodColorControl1_ColorChanged);
+            goodColorControl1.ColorChanged += new EventHandler(goodColorControl1_ColorChanged);
             // 
             // GoodColorControl2
             // 
@@ -143,16 +145,17 @@ namespace System.Windows.Forms
             Size = new System.Drawing.Size(335, 253);
             pnlColors.ResumeLayout(false);
             ResumeLayout(false);
-
         }
 
         #endregion
 
         public delegate void ColorChangedEvent(Color selection);
+
         public event ColorChangedEvent OnColorChanged;
 
         private Color _color;
         private Color _newColor;
+
         public Color Color
         {
             get => _color;
@@ -184,13 +187,17 @@ namespace System.Windows.Forms
         }
 
         private bool _showOld = false;
+
         public bool ShowOldColor
         {
             get => _showOld;
             set => lblOld.Visible = lblNew.Visible = pnlOld.Visible = _showOld = value;
         }
 
-        public GoodColorControl2() { InitializeComponent(); }
+        public GoodColorControl2()
+        {
+            InitializeComponent();
+        }
 
         public event EventHandler Closed;
         public event ColorChanged ColorChanged;
@@ -295,8 +302,8 @@ namespace System.Windows.Forms
             {
                 _service =
                     provider.GetService(
-                    typeof(IWindowsFormsEditorService))
-                    as IWindowsFormsEditorService;
+                            typeof(IWindowsFormsEditorService))
+                        as IWindowsFormsEditorService;
             }
 
             if (_service != null)
@@ -308,15 +315,15 @@ namespace System.Windows.Forms
 
                 if (t == typeof(ARGBPixel))
                 {
-                    selectionControl.Color = (Color)(ARGBPixel)value;
+                    selectionControl.Color = (Color) (ARGBPixel) value;
                 }
                 else if (t == typeof(RGBAPixel))
                 {
-                    selectionControl.Color = (Color)(RGBAPixel)value;
+                    selectionControl.Color = (Color) (RGBAPixel) value;
                 }
                 else if (t == typeof(GXColorS10))
                 {
-                    selectionControl.Color = (Color)(GXColorS10)value;
+                    selectionControl.Color = (Color) (GXColorS10) value;
                 }
 
                 _service.DropDownControl(selectionControl);
@@ -325,17 +332,18 @@ namespace System.Windows.Forms
                 {
                     if (t == typeof(ARGBPixel))
                     {
-                        value = (ARGBPixel)selectionControl.Color;
+                        value = (ARGBPixel) selectionControl.Color;
                     }
                     else if (t == typeof(RGBAPixel))
                     {
-                        value = (RGBAPixel)(ARGBPixel)selectionControl.Color;
+                        value = (RGBAPixel) (ARGBPixel) selectionControl.Color;
                     }
                     else if (t == typeof(GXColorS10))
                     {
-                        value = (GXColorS10)(ARGBPixel)selectionControl.Color;
+                        value = (GXColorS10) (ARGBPixel) selectionControl.Color;
                     }
                 }
+
                 _service = null;
             }
 

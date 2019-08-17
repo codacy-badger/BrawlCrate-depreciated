@@ -6,16 +6,16 @@ namespace System.Windows.Forms
     /// <summary>
     /// Summary description for FormFind.
     /// </summary>
-    public class FormFind : System.Windows.Forms.Form
+    public class FormFind : Form
     {
-        private Be.Windows.Forms.HexBox hexFind;
-        private System.Windows.Forms.TextBox txtFind;
-        private System.Windows.Forms.RadioButton rbString;
-        private System.Windows.Forms.RadioButton rbHex;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnOK;
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private HexBox hexFind;
+        private TextBox txtFind;
+        private RadioButton rbString;
+        private RadioButton rbHex;
+        private Label label1;
+        private Button btnOK;
+        private Button btnCancel;
+        private GroupBox groupBox1;
         private Label lblPercent;
         private Label lblFinding;
         private CheckBox chkMatchCase;
@@ -25,6 +25,7 @@ namespace System.Windows.Forms
         private IContainer components;
         private RadioButton rdoAnnotations;
         private readonly SectionEditor _mainWindow;
+
         public FormFind(SectionEditor mainWindow)
         {
             InitializeComponent();
@@ -53,10 +54,12 @@ namespace System.Windows.Forms
                     components.Dispose();
                 }
             }
+
             base.Dispose(disposing);
         }
 
         #region Windows Form Designer generated code
+
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
@@ -64,7 +67,8 @@ namespace System.Windows.Forms
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormFind));
+            System.ComponentModel.ComponentResourceManager resources =
+                new System.ComponentModel.ComponentResourceManager(typeof(FormFind));
             txtFind = new System.Windows.Forms.TextBox();
             rbString = new System.Windows.Forms.RadioButton();
             rbHex = new System.Windows.Forms.RadioButton();
@@ -206,8 +210,8 @@ namespace System.Windows.Forms
             flowLayoutPanel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
-
         }
+
         #endregion
 
         private FindOptions _findOptions;
@@ -242,7 +246,7 @@ namespace System.Windows.Forms
             hexFind.ByteProvider = new DynamicByteProvider(hex);
             hexFind.ByteProvider.Changed += new EventHandler(ByteProvider_Changed);
 
-            txtFind.Enabled = (rbString.Checked || rdoAnnotations.Checked);
+            txtFind.Enabled = rbString.Checked || rdoAnnotations.Checked;
             hexFind.Enabled = !txtFind.Enabled;
             if (txtFind.Enabled)
             {
@@ -256,9 +260,9 @@ namespace System.Windows.Forms
             ValidateFind();
         }
 
-        private void rb_CheckedChanged(object sender, System.EventArgs e)
+        private void rb_CheckedChanged(object sender, EventArgs e)
         {
-            txtFind.Enabled = (rbString.Checked || rdoAnnotations.Checked);
+            txtFind.Enabled = rbString.Checked || rdoAnnotations.Checked;
             hexFind.Enabled = !txtFind.Enabled;
 
             if (txtFind.Enabled)
@@ -281,7 +285,7 @@ namespace System.Windows.Forms
             hexFind.Focus();
         }
 
-        private void FormFind_Activated(object sender, System.EventArgs e)
+        private void FormFind_Activated(object sender, EventArgs e)
         {
             if (rbString.Checked || rdoAnnotations.Checked)
             {
@@ -293,14 +297,14 @@ namespace System.Windows.Forms
             }
         }
 
-        private void btnOK_Click(object sender, System.EventArgs e)
+        private void btnOK_Click(object sender, EventArgs e)
         {
             _findOptions.MatchCase = chkMatchCase.Checked;
 
             DynamicByteProvider provider = hexFind.ByteProvider as DynamicByteProvider;
             _findOptions.Hex = provider.Bytes.ToArray();
             _findOptions.Text = txtFind.Text;
-            _findOptions.Type = rbHex.Checked ? FindType.Hex : (rbString.Checked ? FindType.Text : FindType.Annotations);
+            _findOptions.Type = rbHex.Checked ? FindType.Hex : rbString.Checked ? FindType.Text : FindType.Annotations;
             _findOptions.MatchCase = chkMatchCase.Checked;
             _findOptions.IsValid = true;
 
@@ -335,7 +339,7 @@ namespace System.Windows.Forms
                 = rdoAnnotations.Enabled = hexFind.Enabled = btnOK.Enabled = false;
         }
 
-        private void btnCancel_Click(object sender, System.EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             if (_finding)
             {
@@ -382,10 +386,10 @@ namespace System.Windows.Forms
         {
             long pos = HexBox.CurrentFindingPosition;
             long length = HexBox.ByteProvider.Length;
-            double percent = pos / (double)length * 100;
+            double percent = pos / (double) length * 100;
 
-            System.Globalization.NumberFormatInfo nfi =
-                new System.Globalization.CultureInfo("en-US").NumberFormat;
+            Globalization.NumberFormatInfo nfi =
+                new Globalization.CultureInfo("en-US").NumberFormat;
 
             string text = percent.ToString("0.00", nfi) + " %";
             lblPercent.Text = text;

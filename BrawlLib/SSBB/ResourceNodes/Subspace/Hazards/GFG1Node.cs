@@ -6,26 +6,35 @@ namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class GFG1Node : ResourceNode
     {
-        internal GFG1* Header => (GFG1*)WorkingUncompressed.Address;
+        internal GFG1* Header => (GFG1*) WorkingUncompressed.Address;
 
         //public override ResourceType ResourceType { get { return ResourceType.GFG1; } }
 
-        private const int _entrySize = 0x54;    // The constant size of a child entry
+        private const int _entrySize = 0x54; // The constant size of a child entry
 
         [Category("GFG1")]
         [DisplayName("Entries")]
         public int count => Header->_count;
+
         public override void OnPopulate()
         {
             for (int i = 0; i < Header->_count; i++)
             {
                 DataSource source;
                 if (i == Header->_count - 1)
-                { source = new DataSource((*Header)[i], WorkingUncompressed.Address + WorkingUncompressed.Length - (*Header)[i]); }
-                else { source = new DataSource((*Header)[i], (*Header)[i + 1] - (*Header)[i]); }
+                {
+                    source = new DataSource((*Header)[i],
+                        WorkingUncompressed.Address + WorkingUncompressed.Length - (*Header)[i]);
+                }
+                else
+                {
+                    source = new DataSource((*Header)[i], (*Header)[i + 1] - (*Header)[i]);
+                }
+
                 new GFG1EntryNode().Initialize(this, source);
             }
         }
+
         public override bool OnInitialize()
         {
             base.OnInitialize();
@@ -39,32 +48,35 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override int OnCalculateSize(bool force, bool rebuilding = true)
         {
-            return 0x08 + (Children.Count * 4) + (Children.Count * _entrySize);
+            return 0x08 + Children.Count * 4 + Children.Count * _entrySize;
         }
 
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
-            GFG1* header = (GFG1*)address;
+            GFG1* header = (GFG1*) address;
             *header = new GFG1(Children.Count);
-            uint offset = (uint)(0x08 + (Children.Count * 4));
+            uint offset = (uint) (0x08 + Children.Count * 4);
             for (int i = 0; i < Children.Count; i++)
             {
                 ResourceNode r = Children[i];
-                *(buint*)(address + 0x08 + i * 4) = offset;
+                *(buint*) (address + 0x08 + i * 4) = offset;
                 r.Rebuild(address + offset, _entrySize, true);
                 offset += _entrySize;
             }
         }
 
-        internal static ResourceNode TryParse(DataSource source) { return ((GFG1*)source.Address)->_tag == GFG1.Tag ? new GFG1Node() : null; }
+        internal static ResourceNode TryParse(DataSource source)
+        {
+            return ((GFG1*) source.Address)->_tag == GFG1.Tag ? new GFG1Node() : null;
+        }
     }
 
     public unsafe class GFG1EntryNode : ResourceNode
     {
-        internal GFG1Entry* Header => (GFG1Entry*)WorkingUncompressed.Address;
+        internal GFG1Entry* Header => (GFG1Entry*) WorkingUncompressed.Address;
         //public override ResourceType ResourceType { get { return ResourceType.GFG1ENTRY; } }
 
-        public uint _header1;           // 0x00
+        public uint _header1; // 0x00
         public byte _unknown0x04;
         public byte _unknown0x05;
         public byte _unknown0x06;
@@ -79,7 +91,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x0F;
         public byte _unknown0x10;
         public byte _unknown0x11;
-        public byte _costumeID;         // 0x12
+        public byte _costumeID; // 0x12
         public byte _flag0x13;
         public byte _unknown0x14;
         public byte _unknown0x15;
@@ -97,9 +109,9 @@ namespace BrawlLib.SSBB.ResourceNodes
         public byte _unknown0x21;
         public byte _unknown0x22;
         public byte _unknown0x23;
-        public float _offenseKBMult;    // 0x24
-        public float _defenseKBMult;    // 0x28
-        public float _scale;            // 0x2C
+        public float _offenseKBMult; // 0x24
+        public float _defenseKBMult; // 0x28
+        public float _scale;         // 0x2C
         public byte _unknown0x30;
         public byte _unknown0x31;
         public byte _unknown0x32;
@@ -286,7 +298,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
-            GFG1Entry* hdr = (GFG1Entry*)address;
+            GFG1Entry* hdr = (GFG1Entry*) address;
             hdr->_header1 = _header1;
             hdr->_unknown0x04 = _unknown0x04;
             hdr->_unknown0x05 = _unknown0x05;

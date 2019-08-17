@@ -12,9 +12,23 @@ namespace BrawlLib.SSBBTypes
         public uint _tag;
         public bint _entryCount;
 
-        public VoidPtr this[int index] => (byte*)Address + Offsets(index);
-        public uint Offsets(int index) { return *(buint*)((byte*)Address + 0x08 + (index * 4)); }
-        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
+        public VoidPtr this[int index] => (byte*) Address + Offsets(index);
+
+        public uint Offsets(int index)
+        {
+            return *(buint*) ((byte*) Address + 0x08 + index * 4);
+        }
+
+        private VoidPtr Address
+        {
+            get
+            {
+                fixed (void* ptr = &this)
+                {
+                    return ptr;
+                }
+            }
+        }
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
@@ -30,7 +44,7 @@ namespace BrawlLib.SSBBTypes
 
         public string BoneName
         {
-            get => new string((sbyte*)Address + 0x4);
+            get => new string((sbyte*) Address + 0x4);
             set
             {
                 if (value == null)
@@ -41,9 +55,9 @@ namespace BrawlLib.SSBBTypes
                 fixed (sbyte* ptr = _boneName)
                 {
                     int i = 0;
-                    while ((i <= 0x29) && (i < value.Length))
+                    while (i <= 0x29 && i < value.Length)
                     {
-                        ptr[i] = (sbyte)value[i++];
+                        ptr[i] = (sbyte) value[i++];
                     }
 
                     while (i <= 0x30)
@@ -54,6 +68,15 @@ namespace BrawlLib.SSBBTypes
             }
         }
 
-        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
+        private VoidPtr Address
+        {
+            get
+            {
+                fixed (void* ptr = &this)
+                {
+                    return ptr;
+                }
+            }
+        }
     }
 }

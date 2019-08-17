@@ -165,7 +165,7 @@ namespace System.Windows.Forms
 
             foreach (NumericInputBox b in _boxes)
             {
-                b.ValueChanged += new System.EventHandler(BoxValueChanged);
+                b.ValueChanged += new EventHandler(BoxValueChanged);
             }
 
             _updating = true;
@@ -306,7 +306,7 @@ namespace System.Windows.Forms
             chkScaleBones.Checked = current.ScaleBones;
             chkUsePointsAsBones.Checked = current.RenderBonesAsPoints;
 
-            cboProjection.SelectedIndex = (int)current.ViewType;
+            cboProjection.SelectedIndex = (int) current.ViewType;
             chkTextOverlays.Checked = current.TextOverlaysEnabled;
 
             for (int i = 0; i < 30; i++)
@@ -335,11 +335,15 @@ namespace System.Windows.Forms
             _boxes[5].Value = _boxes[5].Value.RemapToRange(-180.0f, 180.0f);
             _boxes[6].Value = _boxes[6].Value.RemapToRange(-180.0f, 180.0f);
 
-            current.Ambient = new Vector4(_boxes[0].Value / 255.0f, _boxes[1].Value / 255.0f, _boxes[2].Value / 255.0f, 1.0f);
+            current.Ambient = new Vector4(_boxes[0].Value / 255.0f, _boxes[1].Value / 255.0f, _boxes[2].Value / 255.0f,
+                1.0f);
             current.LightPosition = new Vector4(_boxes[4].Value, _boxes[5].Value, _boxes[6].Value, 1.0f);
-            current.Diffuse = new Vector4(_boxes[7].Value / 255.0f, _boxes[8].Value / 255.0f, _boxes[9].Value / 255.0f, 1.0f);
-            current.Specular = new Vector4(_boxes[11].Value / 255.0f, _boxes[12].Value / 255.0f, _boxes[13].Value / 255.0f, 1.0f);
-            current.Emission = new Vector4(_boxes[3].Value / 255.0f, _boxes[10].Value / 255.0f, _boxes[14].Value / 255.0f, 1.0f);
+            current.Diffuse = new Vector4(_boxes[7].Value / 255.0f, _boxes[8].Value / 255.0f, _boxes[9].Value / 255.0f,
+                1.0f);
+            current.Specular = new Vector4(_boxes[11].Value / 255.0f, _boxes[12].Value / 255.0f,
+                _boxes[13].Value / 255.0f, 1.0f);
+            current.Emission = new Vector4(_boxes[3].Value / 255.0f, _boxes[10].Value / 255.0f,
+                _boxes[14].Value / 255.0f, 1.0f);
 
             current.TranslationScale = _boxes[15].Value;
             current.RotationScale = _boxes[16].Value;
@@ -350,9 +354,9 @@ namespace System.Windows.Forms
             current.Camera._farZ = _boxes[20].Value;
             current.Camera.CalculateProjection();
 
-            _form.AllowedUndos = (uint)Math.Abs(_boxes[21].Value);
+            _form.AllowedUndos = (uint) Math.Abs(_boxes[21].Value);
 
-            int i = (int)(sender as NumericInputBox).Tag;
+            int i = (int) (sender as NumericInputBox).Tag;
 
             if (i == 3 || i == 10 || i == 14)
             {
@@ -465,112 +469,112 @@ namespace System.Windows.Forms
 
         private void InitializeComponent()
         {
-            btnCancel = new System.Windows.Forms.Button();
-            btnOkay = new System.Windows.Forms.Button();
-            label1 = new System.Windows.Forms.Label();
-            label2 = new System.Windows.Forms.Label();
-            label3 = new System.Windows.Forms.Label();
-            label4 = new System.Windows.Forms.Label();
-            label5 = new System.Windows.Forms.Label();
-            label6 = new System.Windows.Forms.Label();
-            label7 = new System.Windows.Forms.Label();
-            grpLighting = new System.Windows.Forms.GroupBox();
-            chkLightDirectional = new System.Windows.Forms.CheckBox();
-            chkLightEnabled = new System.Windows.Forms.CheckBox();
-            label23 = new System.Windows.Forms.Label();
-            label22 = new System.Windows.Forms.Label();
-            label21 = new System.Windows.Forms.Label();
-            label19 = new System.Windows.Forms.Label();
-            ez = new System.Windows.Forms.NumericInputBox();
-            ey = new System.Windows.Forms.NumericInputBox();
-            label8 = new System.Windows.Forms.Label();
-            ex = new System.Windows.Forms.NumericInputBox();
-            label17 = new System.Windows.Forms.Label();
-            label16 = new System.Windows.Forms.Label();
-            sz = new System.Windows.Forms.NumericInputBox();
-            dz = new System.Windows.Forms.NumericInputBox();
-            radius = new System.Windows.Forms.NumericInputBox();
-            az = new System.Windows.Forms.NumericInputBox();
-            elevation = new System.Windows.Forms.NumericInputBox();
-            sy = new System.Windows.Forms.NumericInputBox();
-            azimuth = new System.Windows.Forms.NumericInputBox();
-            dy = new System.Windows.Forms.NumericInputBox();
-            ay = new System.Windows.Forms.NumericInputBox();
-            sx = new System.Windows.Forms.NumericInputBox();
-            dx = new System.Windows.Forms.NumericInputBox();
-            ax = new System.Windows.Forms.NumericInputBox();
-            grpProjection = new System.Windows.Forms.GroupBox();
-            groupBox2 = new System.Windows.Forms.GroupBox();
-            chkDefaultPos = new System.Windows.Forms.RadioButton();
-            chkCurrentPos = new System.Windows.Forms.RadioButton();
-            label26 = new System.Windows.Forms.Label();
-            numPosTX = new System.Windows.Forms.NumericInputBox();
-            label27 = new System.Windows.Forms.Label();
-            numPosTY = new System.Windows.Forms.NumericInputBox();
-            label28 = new System.Windows.Forms.Label();
-            numPosTZ = new System.Windows.Forms.NumericInputBox();
-            numPosSX = new System.Windows.Forms.NumericInputBox();
-            numPosRZ = new System.Windows.Forms.NumericInputBox();
-            numPosSY = new System.Windows.Forms.NumericInputBox();
-            numPosRY = new System.Windows.Forms.NumericInputBox();
-            numPosSZ = new System.Windows.Forms.NumericInputBox();
-            numPosRX = new System.Windows.Forms.NumericInputBox();
-            label25 = new System.Windows.Forms.Label();
-            cboProjection = new System.Windows.Forms.ComboBox();
-            farZ = new System.Windows.Forms.NumericInputBox();
-            nearZ = new System.Windows.Forms.NumericInputBox();
-            yFov = new System.Windows.Forms.NumericInputBox();
-            zScale = new System.Windows.Forms.NumericInputBox();
-            tScale = new System.Windows.Forms.NumericInputBox();
-            rScale = new System.Windows.Forms.NumericInputBox();
-            label14 = new System.Windows.Forms.Label();
-            label13 = new System.Windows.Forms.Label();
-            label12 = new System.Windows.Forms.Label();
-            label11 = new System.Windows.Forms.Label();
-            label10 = new System.Windows.Forms.Label();
-            label9 = new System.Windows.Forms.Label();
-            grpColors = new System.Windows.Forms.GroupBox();
-            lblCol1Color = new System.Windows.Forms.Label();
-            lblLineColor = new System.Windows.Forms.Label();
-            lblCol1Text = new System.Windows.Forms.Label();
-            lblLineText = new System.Windows.Forms.Label();
-            label24 = new System.Windows.Forms.Label();
-            label20 = new System.Windows.Forms.Label();
-            lblOrbColor = new System.Windows.Forms.Label();
-            lblOrbText = new System.Windows.Forms.Label();
-            label15 = new System.Windows.Forms.Label();
-            label18 = new System.Windows.Forms.Label();
-            chkRetrieveCorrAnims = new System.Windows.Forms.CheckBox();
-            chkSyncTexToObj = new System.Windows.Forms.CheckBox();
-            chkSyncObjToVIS = new System.Windows.Forms.CheckBox();
-            chkDisableBonesOnPlay = new System.Windows.Forms.CheckBox();
-            chkDisableHighlight = new System.Windows.Forms.CheckBox();
-            chkSnapBonesToFloor = new System.Windows.Forms.CheckBox();
-            tabControl1 = new System.Windows.Forms.TabControl();
-            tabPage1 = new System.Windows.Forms.TabPage();
-            chkTextOverlays = new System.Windows.Forms.CheckBox();
-            tabPage2 = new System.Windows.Forms.TabPage();
-            chkPixelLighting = new System.Windows.Forms.CheckBox();
-            chkHideMainWindow = new System.Windows.Forms.CheckBox();
-            chkUsePointsAsBones = new System.Windows.Forms.CheckBox();
-            chkScaleBones = new System.Windows.Forms.CheckBox();
-            chkSaveWindowPosition = new System.Windows.Forms.CheckBox();
-            chkMaximize = new System.Windows.Forms.CheckBox();
-            maxUndoCount = new System.Windows.Forms.NumericInputBox();
-            tabPage3 = new System.Windows.Forms.TabPage();
-            chkContextLoop = new System.Windows.Forms.CheckBox();
-            groupBox1 = new System.Windows.Forms.GroupBox();
-            chkTanCam = new System.Windows.Forms.CheckBox();
-            chkTanFog = new System.Windows.Forms.CheckBox();
-            chkTanLight = new System.Windows.Forms.CheckBox();
-            chkTanSHP = new System.Windows.Forms.CheckBox();
-            chkTanSRT = new System.Windows.Forms.CheckBox();
-            chkTanCHR = new System.Windows.Forms.CheckBox();
-            chkPrecalcBoxes = new System.Windows.Forms.CheckBox();
-            panel1 = new System.Windows.Forms.Panel();
-            btnResetSettings = new System.Windows.Forms.Button();
-            btnImportSettings = new System.Windows.Forms.Button();
-            btnExportSettings = new System.Windows.Forms.Button();
+            btnCancel = new Button();
+            btnOkay = new Button();
+            label1 = new Label();
+            label2 = new Label();
+            label3 = new Label();
+            label4 = new Label();
+            label5 = new Label();
+            label6 = new Label();
+            label7 = new Label();
+            grpLighting = new GroupBox();
+            chkLightDirectional = new CheckBox();
+            chkLightEnabled = new CheckBox();
+            label23 = new Label();
+            label22 = new Label();
+            label21 = new Label();
+            label19 = new Label();
+            ez = new NumericInputBox();
+            ey = new NumericInputBox();
+            label8 = new Label();
+            ex = new NumericInputBox();
+            label17 = new Label();
+            label16 = new Label();
+            sz = new NumericInputBox();
+            dz = new NumericInputBox();
+            radius = new NumericInputBox();
+            az = new NumericInputBox();
+            elevation = new NumericInputBox();
+            sy = new NumericInputBox();
+            azimuth = new NumericInputBox();
+            dy = new NumericInputBox();
+            ay = new NumericInputBox();
+            sx = new NumericInputBox();
+            dx = new NumericInputBox();
+            ax = new NumericInputBox();
+            grpProjection = new GroupBox();
+            groupBox2 = new GroupBox();
+            chkDefaultPos = new RadioButton();
+            chkCurrentPos = new RadioButton();
+            label26 = new Label();
+            numPosTX = new NumericInputBox();
+            label27 = new Label();
+            numPosTY = new NumericInputBox();
+            label28 = new Label();
+            numPosTZ = new NumericInputBox();
+            numPosSX = new NumericInputBox();
+            numPosRZ = new NumericInputBox();
+            numPosSY = new NumericInputBox();
+            numPosRY = new NumericInputBox();
+            numPosSZ = new NumericInputBox();
+            numPosRX = new NumericInputBox();
+            label25 = new Label();
+            cboProjection = new ComboBox();
+            farZ = new NumericInputBox();
+            nearZ = new NumericInputBox();
+            yFov = new NumericInputBox();
+            zScale = new NumericInputBox();
+            tScale = new NumericInputBox();
+            rScale = new NumericInputBox();
+            label14 = new Label();
+            label13 = new Label();
+            label12 = new Label();
+            label11 = new Label();
+            label10 = new Label();
+            label9 = new Label();
+            grpColors = new GroupBox();
+            lblCol1Color = new Label();
+            lblLineColor = new Label();
+            lblCol1Text = new Label();
+            lblLineText = new Label();
+            label24 = new Label();
+            label20 = new Label();
+            lblOrbColor = new Label();
+            lblOrbText = new Label();
+            label15 = new Label();
+            label18 = new Label();
+            chkRetrieveCorrAnims = new CheckBox();
+            chkSyncTexToObj = new CheckBox();
+            chkSyncObjToVIS = new CheckBox();
+            chkDisableBonesOnPlay = new CheckBox();
+            chkDisableHighlight = new CheckBox();
+            chkSnapBonesToFloor = new CheckBox();
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            chkTextOverlays = new CheckBox();
+            tabPage2 = new TabPage();
+            chkPixelLighting = new CheckBox();
+            chkHideMainWindow = new CheckBox();
+            chkUsePointsAsBones = new CheckBox();
+            chkScaleBones = new CheckBox();
+            chkSaveWindowPosition = new CheckBox();
+            chkMaximize = new CheckBox();
+            maxUndoCount = new NumericInputBox();
+            tabPage3 = new TabPage();
+            chkContextLoop = new CheckBox();
+            groupBox1 = new GroupBox();
+            chkTanCam = new CheckBox();
+            chkTanFog = new CheckBox();
+            chkTanLight = new CheckBox();
+            chkTanSHP = new CheckBox();
+            chkTanSRT = new CheckBox();
+            chkTanCHR = new CheckBox();
+            chkPrecalcBoxes = new CheckBox();
+            panel1 = new Panel();
+            btnResetSettings = new Button();
+            btnImportSettings = new Button();
+            btnExportSettings = new Button();
             grpLighting.SuspendLayout();
             grpProjection.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -585,8 +589,8 @@ namespace System.Windows.Forms
             // 
             // btnCancel
             // 
-            btnCancel.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
-            btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnCancel.DialogResult = DialogResult.Cancel;
             btnCancel.Enabled = false;
             btnCancel.Location = new System.Drawing.Point(222, 6);
             btnCancel.Name = "btnCancel";
@@ -595,99 +599,99 @@ namespace System.Windows.Forms
             btnCancel.Text = "&Cancel";
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Visible = false;
-            btnCancel.Click += new System.EventHandler(btnCancel_Click);
+            btnCancel.Click += new EventHandler(btnCancel_Click);
             // 
             // btnOkay
             // 
-            btnOkay.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
+            btnOkay.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnOkay.Location = new System.Drawing.Point(288, 6);
             btnOkay.Name = "btnOkay";
             btnOkay.Size = new System.Drawing.Size(60, 23);
             btnOkay.TabIndex = 1;
             btnOkay.Text = "&Okay";
             btnOkay.UseVisualStyleBackColor = true;
-            btnOkay.Click += new System.EventHandler(btnOkay_Click);
+            btnOkay.Click += new EventHandler(btnOkay_Click);
             // 
             // label1
             // 
-            label1.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-            label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            label1.BorderStyle = BorderStyle.FixedSingle;
             label1.Location = new System.Drawing.Point(33, 81);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(56, 20);
             label1.TabIndex = 7;
             label1.Text = "Ambient:";
-            label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label1.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label2
             // 
-            label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label2.BorderStyle = BorderStyle.FixedSingle;
             label2.Location = new System.Drawing.Point(26, 18);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(66, 20);
             label2.TabIndex = 8;
             label2.Text = "Radius";
-            label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
-            label3.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-            label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            label3.BorderStyle = BorderStyle.FixedSingle;
             label3.Location = new System.Drawing.Point(33, 100);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(56, 20);
             label3.TabIndex = 9;
             label3.Text = "Diffuse:";
-            label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label3.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label4
             // 
-            label4.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-            label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label4.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            label4.BorderStyle = BorderStyle.FixedSingle;
             label4.Location = new System.Drawing.Point(33, 119);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(56, 20);
             label4.TabIndex = 10;
             label4.Text = "Specular:";
-            label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label4.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label5
             // 
-            label5.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-            label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label5.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            label5.BorderStyle = BorderStyle.FixedSingle;
             label5.Location = new System.Drawing.Point(88, 62);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(50, 20);
             label5.TabIndex = 19;
             label5.Text = "R";
-            label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label5.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label6
             // 
-            label6.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-            label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label6.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            label6.BorderStyle = BorderStyle.FixedSingle;
             label6.Location = new System.Drawing.Point(137, 62);
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(50, 20);
             label6.TabIndex = 20;
             label6.Text = "G";
-            label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label7
             // 
-            label7.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-            label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label7.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            label7.BorderStyle = BorderStyle.FixedSingle;
             label7.Location = new System.Drawing.Point(186, 62);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(50, 20);
             label7.TabIndex = 21;
             label7.Text = "B";
-            label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // grpLighting
             // 
-            grpLighting.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right);
+            grpLighting.Anchor = AnchorStyles.Top | AnchorStyles.Left
+                                                  | AnchorStyles.Right;
             grpLighting.Controls.Add(chkLightDirectional);
             grpLighting.Controls.Add(chkLightEnabled);
             grpLighting.Controls.Add(label23);
@@ -730,7 +734,7 @@ namespace System.Windows.Forms
             // 
             chkLightDirectional.AutoSize = true;
             chkLightDirectional.Checked = true;
-            chkLightDirectional.CheckState = System.Windows.Forms.CheckState.Checked;
+            chkLightDirectional.CheckState = CheckState.Checked;
             chkLightDirectional.Location = new System.Drawing.Point(245, 38);
             chkLightDirectional.Name = "chkLightDirectional";
             chkLightDirectional.Size = new System.Drawing.Size(76, 17);
@@ -738,7 +742,7 @@ namespace System.Windows.Forms
             chkLightDirectional.Text = "Directional";
             chkLightDirectional.UseVisualStyleBackColor = true;
             chkLightDirectional.Visible = false;
-            chkLightDirectional.CheckedChanged += new System.EventHandler(chkLightDirectional_CheckedChanged);
+            chkLightDirectional.CheckedChanged += new EventHandler(chkLightDirectional_CheckedChanged);
             // 
             // chkLightEnabled
             // 
@@ -749,48 +753,48 @@ namespace System.Windows.Forms
             chkLightEnabled.TabIndex = 44;
             chkLightEnabled.Text = "Enabled";
             chkLightEnabled.UseVisualStyleBackColor = true;
-            chkLightEnabled.CheckedChanged += new System.EventHandler(chkLightEnabled_CheckedChanged);
+            chkLightEnabled.CheckedChanged += new EventHandler(chkLightEnabled_CheckedChanged);
             // 
             // label23
             // 
-            label23.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label23.BorderStyle = BorderStyle.FixedSingle;
             label23.Location = new System.Drawing.Point(235, 138);
             label23.Name = "label23";
             label23.Size = new System.Drawing.Size(40, 20);
             label23.TabIndex = 43;
-            label23.Click += new System.EventHandler(label23_Click);
+            label23.Click += new EventHandler(label23_Click);
             // 
             // label22
             // 
-            label22.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label22.BorderStyle = BorderStyle.FixedSingle;
             label22.Location = new System.Drawing.Point(235, 119);
             label22.Name = "label22";
             label22.Size = new System.Drawing.Size(40, 20);
             label22.TabIndex = 42;
-            label22.Click += new System.EventHandler(label22_Click);
+            label22.Click += new EventHandler(label22_Click);
             // 
             // label21
             // 
-            label21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label21.BorderStyle = BorderStyle.FixedSingle;
             label21.Location = new System.Drawing.Point(235, 100);
             label21.Name = "label21";
             label21.Size = new System.Drawing.Size(40, 20);
             label21.TabIndex = 41;
-            label21.Click += new System.EventHandler(label21_Click);
+            label21.Click += new EventHandler(label21_Click);
             // 
             // label19
             // 
-            label19.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label19.BorderStyle = BorderStyle.FixedSingle;
             label19.Location = new System.Drawing.Point(235, 81);
             label19.Name = "label19";
             label19.Size = new System.Drawing.Size(40, 20);
             label19.TabIndex = 11;
-            label19.Click += new System.EventHandler(label19_Click);
+            label19.Click += new EventHandler(label19_Click);
             // 
             // ez
             // 
-            ez.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-            ez.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            ez.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            ez.BorderStyle = BorderStyle.FixedSingle;
             ez.Integral = false;
             ez.Location = new System.Drawing.Point(186, 138);
             ez.MaximumValue = 3.402823E+38F;
@@ -802,8 +806,8 @@ namespace System.Windows.Forms
             // 
             // ey
             // 
-            ey.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-            ey.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            ey.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            ey.BorderStyle = BorderStyle.FixedSingle;
             ey.Integral = false;
             ey.Location = new System.Drawing.Point(137, 138);
             ey.MaximumValue = 3.402823E+38F;
@@ -815,19 +819,19 @@ namespace System.Windows.Forms
             // 
             // label8
             // 
-            label8.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-            label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label8.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            label8.BorderStyle = BorderStyle.FixedSingle;
             label8.Location = new System.Drawing.Point(33, 138);
             label8.Name = "label8";
             label8.Size = new System.Drawing.Size(56, 20);
             label8.TabIndex = 38;
             label8.Text = "Emission:";
-            label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label8.TextAlign = ContentAlignment.MiddleRight;
             // 
             // ex
             // 
-            ex.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-            ex.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            ex.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            ex.BorderStyle = BorderStyle.FixedSingle;
             ex.Integral = false;
             ex.Location = new System.Drawing.Point(88, 138);
             ex.MaximumValue = 3.402823E+38F;
@@ -839,28 +843,28 @@ namespace System.Windows.Forms
             // 
             // label17
             // 
-            label17.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label17.BorderStyle = BorderStyle.FixedSingle;
             label17.Location = new System.Drawing.Point(163, 18);
             label17.Name = "label17";
             label17.Size = new System.Drawing.Size(66, 20);
             label17.TabIndex = 36;
             label17.Text = "Elevation";
-            label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label17.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label16
             // 
-            label16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label16.BorderStyle = BorderStyle.FixedSingle;
             label16.Location = new System.Drawing.Point(95, 18);
             label16.Name = "label16";
             label16.Size = new System.Drawing.Size(66, 20);
             label16.TabIndex = 35;
             label16.Text = "Azimuth";
-            label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label16.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // sz
             // 
-            sz.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-            sz.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            sz.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            sz.BorderStyle = BorderStyle.FixedSingle;
             sz.Integral = false;
             sz.Location = new System.Drawing.Point(186, 119);
             sz.MaximumValue = 3.402823E+38F;
@@ -872,8 +876,8 @@ namespace System.Windows.Forms
             // 
             // dz
             // 
-            dz.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-            dz.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            dz.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            dz.BorderStyle = BorderStyle.FixedSingle;
             dz.Integral = false;
             dz.Location = new System.Drawing.Point(186, 100);
             dz.MaximumValue = 3.402823E+38F;
@@ -885,7 +889,7 @@ namespace System.Windows.Forms
             // 
             // radius
             // 
-            radius.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            radius.BorderStyle = BorderStyle.FixedSingle;
             radius.Integral = false;
             radius.Location = new System.Drawing.Point(26, 37);
             radius.MaximumValue = 3.402823E+38F;
@@ -897,8 +901,8 @@ namespace System.Windows.Forms
             // 
             // az
             // 
-            az.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-            az.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            az.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            az.BorderStyle = BorderStyle.FixedSingle;
             az.Integral = false;
             az.Location = new System.Drawing.Point(186, 81);
             az.MaximumValue = 3.402823E+38F;
@@ -910,7 +914,7 @@ namespace System.Windows.Forms
             // 
             // elevation
             // 
-            elevation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            elevation.BorderStyle = BorderStyle.FixedSingle;
             elevation.Integral = false;
             elevation.Location = new System.Drawing.Point(163, 37);
             elevation.MaximumValue = 3.402823E+38F;
@@ -922,8 +926,8 @@ namespace System.Windows.Forms
             // 
             // sy
             // 
-            sy.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-            sy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            sy.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            sy.BorderStyle = BorderStyle.FixedSingle;
             sy.Integral = false;
             sy.Location = new System.Drawing.Point(137, 119);
             sy.MaximumValue = 3.402823E+38F;
@@ -935,7 +939,7 @@ namespace System.Windows.Forms
             // 
             // azimuth
             // 
-            azimuth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            azimuth.BorderStyle = BorderStyle.FixedSingle;
             azimuth.Integral = false;
             azimuth.Location = new System.Drawing.Point(95, 37);
             azimuth.MaximumValue = 3.402823E+38F;
@@ -947,8 +951,8 @@ namespace System.Windows.Forms
             // 
             // dy
             // 
-            dy.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-            dy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            dy.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            dy.BorderStyle = BorderStyle.FixedSingle;
             dy.Integral = false;
             dy.Location = new System.Drawing.Point(137, 100);
             dy.MaximumValue = 3.402823E+38F;
@@ -960,8 +964,8 @@ namespace System.Windows.Forms
             // 
             // ay
             // 
-            ay.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-            ay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            ay.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            ay.BorderStyle = BorderStyle.FixedSingle;
             ay.Integral = false;
             ay.Location = new System.Drawing.Point(137, 81);
             ay.MaximumValue = 3.402823E+38F;
@@ -973,8 +977,8 @@ namespace System.Windows.Forms
             // 
             // sx
             // 
-            sx.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-            sx.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            sx.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            sx.BorderStyle = BorderStyle.FixedSingle;
             sx.Integral = false;
             sx.Location = new System.Drawing.Point(88, 119);
             sx.MaximumValue = 3.402823E+38F;
@@ -986,8 +990,8 @@ namespace System.Windows.Forms
             // 
             // dx
             // 
-            dx.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-            dx.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            dx.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            dx.BorderStyle = BorderStyle.FixedSingle;
             dx.Integral = false;
             dx.Location = new System.Drawing.Point(88, 100);
             dx.MaximumValue = 3.402823E+38F;
@@ -999,8 +1003,8 @@ namespace System.Windows.Forms
             // 
             // ax
             // 
-            ax.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-            ax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            ax.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            ax.BorderStyle = BorderStyle.FixedSingle;
             ax.Integral = false;
             ax.Location = new System.Drawing.Point(88, 81);
             ax.MaximumValue = 3.402823E+38F;
@@ -1012,8 +1016,8 @@ namespace System.Windows.Forms
             // 
             // grpProjection
             // 
-            grpProjection.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right);
+            grpProjection.Anchor = AnchorStyles.Top | AnchorStyles.Left
+                                                    | AnchorStyles.Right;
             grpProjection.Controls.Add(groupBox2);
             grpProjection.Controls.Add(label25);
             grpProjection.Controls.Add(cboProjection);
@@ -1038,8 +1042,8 @@ namespace System.Windows.Forms
             // 
             // groupBox2
             // 
-            groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right);
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left
+                                                | AnchorStyles.Right;
             groupBox2.Controls.Add(chkDefaultPos);
             groupBox2.Controls.Add(chkCurrentPos);
             groupBox2.Controls.Add(label26);
@@ -1070,7 +1074,7 @@ namespace System.Windows.Forms
             chkDefaultPos.TabIndex = 27;
             chkDefaultPos.Text = "Default";
             chkDefaultPos.UseVisualStyleBackColor = true;
-            chkDefaultPos.CheckedChanged += new System.EventHandler(chkDefaultPos_CheckedChanged);
+            chkDefaultPos.CheckedChanged += new EventHandler(chkDefaultPos_CheckedChanged);
             // 
             // chkCurrentPos
             // 
@@ -1083,21 +1087,21 @@ namespace System.Windows.Forms
             chkCurrentPos.TabStop = true;
             chkCurrentPos.Text = "Current";
             chkCurrentPos.UseVisualStyleBackColor = true;
-            chkCurrentPos.CheckedChanged += new System.EventHandler(chkCurrentPos_CheckedChanged);
+            chkCurrentPos.CheckedChanged += new EventHandler(chkCurrentPos_CheckedChanged);
             // 
             // label26
             // 
-            label26.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label26.BorderStyle = BorderStyle.FixedSingle;
             label26.Location = new System.Drawing.Point(6, 13);
             label26.Name = "label26";
             label26.Size = new System.Drawing.Size(71, 20);
             label26.TabIndex = 14;
             label26.Text = "Scale: ";
-            label26.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label26.TextAlign = ContentAlignment.MiddleRight;
             // 
             // numPosTX
             // 
-            numPosTX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numPosTX.BorderStyle = BorderStyle.FixedSingle;
             numPosTX.Integral = false;
             numPosTX.Location = new System.Drawing.Point(76, 51);
             numPosTX.MaximumValue = 3.402823E+38F;
@@ -1109,17 +1113,17 @@ namespace System.Windows.Forms
             // 
             // label27
             // 
-            label27.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label27.BorderStyle = BorderStyle.FixedSingle;
             label27.Location = new System.Drawing.Point(6, 32);
             label27.Name = "label27";
             label27.Size = new System.Drawing.Size(71, 20);
             label27.TabIndex = 15;
             label27.Text = "Rotation:";
-            label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label27.TextAlign = ContentAlignment.MiddleRight;
             // 
             // numPosTY
             // 
-            numPosTY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numPosTY.BorderStyle = BorderStyle.FixedSingle;
             numPosTY.Integral = false;
             numPosTY.Location = new System.Drawing.Point(125, 51);
             numPosTY.MaximumValue = 3.402823E+38F;
@@ -1131,17 +1135,17 @@ namespace System.Windows.Forms
             // 
             // label28
             // 
-            label28.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label28.BorderStyle = BorderStyle.FixedSingle;
             label28.Location = new System.Drawing.Point(6, 51);
             label28.Name = "label28";
             label28.Size = new System.Drawing.Size(71, 20);
             label28.TabIndex = 16;
             label28.Text = "Translation:";
-            label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label28.TextAlign = ContentAlignment.MiddleRight;
             // 
             // numPosTZ
             // 
-            numPosTZ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numPosTZ.BorderStyle = BorderStyle.FixedSingle;
             numPosTZ.Integral = false;
             numPosTZ.Location = new System.Drawing.Point(174, 51);
             numPosTZ.MaximumValue = 3.402823E+38F;
@@ -1153,7 +1157,7 @@ namespace System.Windows.Forms
             // 
             // numPosSX
             // 
-            numPosSX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numPosSX.BorderStyle = BorderStyle.FixedSingle;
             numPosSX.Integral = false;
             numPosSX.Location = new System.Drawing.Point(76, 13);
             numPosSX.MaximumValue = 3.402823E+38F;
@@ -1165,7 +1169,7 @@ namespace System.Windows.Forms
             // 
             // numPosRZ
             // 
-            numPosRZ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numPosRZ.BorderStyle = BorderStyle.FixedSingle;
             numPosRZ.Integral = false;
             numPosRZ.Location = new System.Drawing.Point(174, 32);
             numPosRZ.MaximumValue = 3.402823E+38F;
@@ -1177,7 +1181,7 @@ namespace System.Windows.Forms
             // 
             // numPosSY
             // 
-            numPosSY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numPosSY.BorderStyle = BorderStyle.FixedSingle;
             numPosSY.Integral = false;
             numPosSY.Location = new System.Drawing.Point(125, 13);
             numPosSY.MaximumValue = 3.402823E+38F;
@@ -1189,7 +1193,7 @@ namespace System.Windows.Forms
             // 
             // numPosRY
             // 
-            numPosRY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numPosRY.BorderStyle = BorderStyle.FixedSingle;
             numPosRY.Integral = false;
             numPosRY.Location = new System.Drawing.Point(125, 32);
             numPosRY.MaximumValue = 3.402823E+38F;
@@ -1201,7 +1205,7 @@ namespace System.Windows.Forms
             // 
             // numPosSZ
             // 
-            numPosSZ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numPosSZ.BorderStyle = BorderStyle.FixedSingle;
             numPosSZ.Integral = false;
             numPosSZ.Location = new System.Drawing.Point(174, 13);
             numPosSZ.MaximumValue = 3.402823E+38F;
@@ -1213,7 +1217,7 @@ namespace System.Windows.Forms
             // 
             // numPosRX
             // 
-            numPosRX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numPosRX.BorderStyle = BorderStyle.FixedSingle;
             numPosRX.Integral = false;
             numPosRX.Location = new System.Drawing.Point(76, 32);
             numPosRX.MaximumValue = 3.402823E+38F;
@@ -1225,32 +1229,32 @@ namespace System.Windows.Forms
             // 
             // label25
             // 
-            label25.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right);
-            label25.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label25.Anchor = AnchorStyles.Top | AnchorStyles.Left
+                                              | AnchorStyles.Right;
+            label25.BorderStyle = BorderStyle.FixedSingle;
             label25.Location = new System.Drawing.Point(6, 21);
             label25.Name = "label25";
             label25.Size = new System.Drawing.Size(120, 21);
             label25.TabIndex = 13;
             label25.Text = "Projection:";
-            label25.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label25.TextAlign = ContentAlignment.MiddleRight;
             // 
             // cboProjection
             // 
-            cboProjection.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right);
-            cboProjection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cboProjection.Anchor = AnchorStyles.Top | AnchorStyles.Left
+                                                    | AnchorStyles.Right;
+            cboProjection.DropDownStyle = ComboBoxStyle.DropDownList;
             cboProjection.FormattingEnabled = true;
             cboProjection.Location = new System.Drawing.Point(105, 21);
             cboProjection.Name = "cboProjection";
             cboProjection.Size = new System.Drawing.Size(218, 21);
             cboProjection.TabIndex = 12;
-            cboProjection.SelectedIndexChanged += new System.EventHandler(cboProjection_SelectedIndexChanged);
+            cboProjection.SelectedIndexChanged += new EventHandler(cboProjection_SelectedIndexChanged);
             // 
             // farZ
             // 
-            farZ.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
-            farZ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            farZ.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            farZ.BorderStyle = BorderStyle.FixedSingle;
             farZ.Integral = false;
             farZ.Location = new System.Drawing.Point(263, 79);
             farZ.MaximumValue = 3.402823E+38F;
@@ -1262,8 +1266,8 @@ namespace System.Windows.Forms
             // 
             // nearZ
             // 
-            nearZ.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
-            nearZ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            nearZ.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            nearZ.BorderStyle = BorderStyle.FixedSingle;
             nearZ.Integral = false;
             nearZ.Location = new System.Drawing.Point(263, 60);
             nearZ.MaximumValue = 3.402823E+38F;
@@ -1275,8 +1279,8 @@ namespace System.Windows.Forms
             // 
             // yFov
             // 
-            yFov.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
-            yFov.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            yFov.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            yFov.BorderStyle = BorderStyle.FixedSingle;
             yFov.Integral = false;
             yFov.Location = new System.Drawing.Point(263, 41);
             yFov.MaximumValue = 3.402823E+38F;
@@ -1288,8 +1292,8 @@ namespace System.Windows.Forms
             // 
             // zScale
             // 
-            zScale.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
-            zScale.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            zScale.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            zScale.BorderStyle = BorderStyle.FixedSingle;
             zScale.Integral = false;
             zScale.Location = new System.Drawing.Point(125, 79);
             zScale.MaximumValue = 3.402823E+38F;
@@ -1301,8 +1305,8 @@ namespace System.Windows.Forms
             // 
             // tScale
             // 
-            tScale.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
-            tScale.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            tScale.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            tScale.BorderStyle = BorderStyle.FixedSingle;
             tScale.Integral = false;
             tScale.Location = new System.Drawing.Point(125, 60);
             tScale.MaximumValue = 3.402823E+38F;
@@ -1314,8 +1318,8 @@ namespace System.Windows.Forms
             // 
             // rScale
             // 
-            rScale.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
-            rScale.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            rScale.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            rScale.BorderStyle = BorderStyle.FixedSingle;
             rScale.Integral = false;
             rScale.Location = new System.Drawing.Point(125, 41);
             rScale.MaximumValue = 3.402823E+38F;
@@ -1327,77 +1331,77 @@ namespace System.Windows.Forms
             // 
             // label14
             // 
-            label14.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
-            label14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label14.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label14.BorderStyle = BorderStyle.FixedSingle;
             label14.Location = new System.Drawing.Point(174, 79);
             label14.Name = "label14";
             label14.Size = new System.Drawing.Size(90, 20);
             label14.TabIndex = 5;
             label14.Text = "Far Z: ";
-            label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label14.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label13
             // 
-            label13.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
-            label13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label13.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label13.BorderStyle = BorderStyle.FixedSingle;
             label13.Location = new System.Drawing.Point(174, 60);
             label13.Name = "label13";
             label13.Size = new System.Drawing.Size(90, 20);
             label13.TabIndex = 4;
             label13.Text = "Near Z: ";
-            label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label13.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label12
             // 
-            label12.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
-            label12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label12.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label12.BorderStyle = BorderStyle.FixedSingle;
             label12.Location = new System.Drawing.Point(174, 41);
             label12.Name = "label12";
             label12.Size = new System.Drawing.Size(90, 20);
             label12.TabIndex = 3;
             label12.Text = "Y Field Of View: ";
-            label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label12.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label11
             // 
-            label11.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right);
-            label11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label11.Anchor = AnchorStyles.Top | AnchorStyles.Left
+                                              | AnchorStyles.Right;
+            label11.BorderStyle = BorderStyle.FixedSingle;
             label11.Location = new System.Drawing.Point(6, 79);
             label11.Name = "label11";
             label11.Size = new System.Drawing.Size(120, 20);
             label11.TabIndex = 2;
             label11.Text = "Zoom Scale: ";
-            label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label11.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label10
             // 
-            label10.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right);
-            label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label10.Anchor = AnchorStyles.Top | AnchorStyles.Left
+                                              | AnchorStyles.Right;
+            label10.BorderStyle = BorderStyle.FixedSingle;
             label10.Location = new System.Drawing.Point(6, 60);
             label10.Name = "label10";
             label10.Size = new System.Drawing.Size(120, 20);
             label10.TabIndex = 1;
             label10.Text = "Translation Scale: ";
-            label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label10.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label9
             // 
-            label9.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right);
-            label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label9.Anchor = AnchorStyles.Top | AnchorStyles.Left
+                                             | AnchorStyles.Right;
+            label9.BorderStyle = BorderStyle.FixedSingle;
             label9.Location = new System.Drawing.Point(6, 41);
             label9.Name = "label9";
             label9.Size = new System.Drawing.Size(120, 20);
             label9.TabIndex = 0;
             label9.Text = "Rotation Scale: ";
-            label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label9.TextAlign = ContentAlignment.MiddleRight;
             // 
             // grpColors
             // 
-            grpColors.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right);
+            grpColors.Anchor = AnchorStyles.Top | AnchorStyles.Left
+                                                | AnchorStyles.Right;
             grpColors.Controls.Add(lblCol1Color);
             grpColors.Controls.Add(lblLineColor);
             grpColors.Controls.Add(lblCol1Text);
@@ -1416,106 +1420,106 @@ namespace System.Windows.Forms
             // 
             // lblCol1Color
             // 
-            lblCol1Color.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
-            lblCol1Color.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            lblCol1Color.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblCol1Color.BorderStyle = BorderStyle.FixedSingle;
             lblCol1Color.Location = new System.Drawing.Point(283, 54);
             lblCol1Color.Name = "lblCol1Color";
             lblCol1Color.Size = new System.Drawing.Size(40, 20);
             lblCol1Color.TabIndex = 5;
-            lblCol1Color.Click += new System.EventHandler(lblCol1Color_Click);
+            lblCol1Color.Click += new EventHandler(lblCol1Color_Click);
             // 
             // lblLineColor
             // 
-            lblLineColor.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
-            lblLineColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            lblLineColor.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblLineColor.BorderStyle = BorderStyle.FixedSingle;
             lblLineColor.Location = new System.Drawing.Point(283, 35);
             lblLineColor.Name = "lblLineColor";
             lblLineColor.Size = new System.Drawing.Size(40, 20);
             lblLineColor.TabIndex = 8;
-            lblLineColor.Click += new System.EventHandler(lblLineColor_Click);
+            lblLineColor.Click += new EventHandler(lblLineColor_Click);
             // 
             // lblCol1Text
             // 
-            lblCol1Text.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right);
-            lblCol1Text.BackColor = System.Drawing.Color.White;
-            lblCol1Text.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            lblCol1Text.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            lblCol1Text.Anchor = AnchorStyles.Top | AnchorStyles.Left
+                                                  | AnchorStyles.Right;
+            lblCol1Text.BackColor = Color.White;
+            lblCol1Text.BorderStyle = BorderStyle.FixedSingle;
+            lblCol1Text.Font = new Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblCol1Text.Location = new System.Drawing.Point(105, 54);
             lblCol1Text.Name = "lblCol1Text";
             lblCol1Text.Size = new System.Drawing.Size(179, 20);
             lblCol1Text.TabIndex = 7;
-            lblCol1Text.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblCol1Text.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblLineText
             // 
-            lblLineText.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right);
-            lblLineText.BackColor = System.Drawing.Color.White;
-            lblLineText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            lblLineText.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            lblLineText.Anchor = AnchorStyles.Top | AnchorStyles.Left
+                                                  | AnchorStyles.Right;
+            lblLineText.BackColor = Color.White;
+            lblLineText.BorderStyle = BorderStyle.FixedSingle;
+            lblLineText.Font = new Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblLineText.Location = new System.Drawing.Point(105, 35);
             lblLineText.Name = "lblLineText";
             lblLineText.Size = new System.Drawing.Size(179, 20);
             lblLineText.TabIndex = 10;
-            lblLineText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblLineText.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label24
             // 
-            label24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label24.BorderStyle = BorderStyle.FixedSingle;
             label24.Location = new System.Drawing.Point(6, 54);
             label24.Name = "label24";
             label24.Size = new System.Drawing.Size(100, 20);
             label24.TabIndex = 6;
             label24.Text = "Floor Color:";
-            label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label24.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label20
             // 
-            label20.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label20.BorderStyle = BorderStyle.FixedSingle;
             label20.Location = new System.Drawing.Point(6, 35);
             label20.Name = "label20";
             label20.Size = new System.Drawing.Size(100, 20);
             label20.TabIndex = 9;
             label20.Text = "Bone Line Color:";
-            label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label20.TextAlign = ContentAlignment.MiddleRight;
             // 
             // lblOrbColor
             // 
-            lblOrbColor.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
-            lblOrbColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            lblOrbColor.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblOrbColor.BorderStyle = BorderStyle.FixedSingle;
             lblOrbColor.Location = new System.Drawing.Point(283, 16);
             lblOrbColor.Name = "lblOrbColor";
             lblOrbColor.Size = new System.Drawing.Size(40, 20);
             lblOrbColor.TabIndex = 5;
-            lblOrbColor.Click += new System.EventHandler(lblOrbColor_Click);
+            lblOrbColor.Click += new EventHandler(lblOrbColor_Click);
             // 
             // lblOrbText
             // 
-            lblOrbText.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right);
-            lblOrbText.BackColor = System.Drawing.Color.White;
-            lblOrbText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            lblOrbText.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            lblOrbText.Anchor = AnchorStyles.Top | AnchorStyles.Left
+                                                 | AnchorStyles.Right;
+            lblOrbText.BackColor = Color.White;
+            lblOrbText.BorderStyle = BorderStyle.FixedSingle;
+            lblOrbText.Font = new Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblOrbText.Location = new System.Drawing.Point(105, 16);
             lblOrbText.Name = "lblOrbText";
             lblOrbText.Size = new System.Drawing.Size(179, 20);
             lblOrbText.TabIndex = 7;
-            lblOrbText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblOrbText.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label15
             // 
-            label15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            label15.BorderStyle = BorderStyle.FixedSingle;
             label15.Location = new System.Drawing.Point(6, 16);
             label15.Name = "label15";
             label15.Size = new System.Drawing.Size(100, 20);
             label15.TabIndex = 6;
             label15.Text = "Bone Orb Color:";
-            label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label15.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label18
             // 
-            label18.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
+            label18.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label18.AutoSize = true;
             label18.Location = new System.Drawing.Point(4, 367);
             label18.Name = "label18";
@@ -1532,7 +1536,7 @@ namespace System.Windows.Forms
             chkRetrieveCorrAnims.TabIndex = 40;
             chkRetrieveCorrAnims.Text = "Retrieve animations with corresponding name";
             chkRetrieveCorrAnims.UseVisualStyleBackColor = true;
-            chkRetrieveCorrAnims.CheckedChanged += new System.EventHandler(chkRetrieveCorrAnims_CheckedChanged);
+            chkRetrieveCorrAnims.CheckedChanged += new EventHandler(chkRetrieveCorrAnims_CheckedChanged);
             // 
             // chkSyncTexToObj
             // 
@@ -1543,7 +1547,7 @@ namespace System.Windows.Forms
             chkSyncTexToObj.TabIndex = 41;
             chkSyncTexToObj.Text = "Sync texture list with selected object";
             chkSyncTexToObj.UseVisualStyleBackColor = true;
-            chkSyncTexToObj.CheckedChanged += new System.EventHandler(chkSyncTexToObj_CheckedChanged);
+            chkSyncTexToObj.CheckedChanged += new EventHandler(chkSyncTexToObj_CheckedChanged);
             // 
             // chkSyncObjToVIS
             // 
@@ -1554,7 +1558,7 @@ namespace System.Windows.Forms
             chkSyncObjToVIS.TabIndex = 42;
             chkSyncObjToVIS.Text = "Sync object list checkbox changes to selected VIS0";
             chkSyncObjToVIS.UseVisualStyleBackColor = true;
-            chkSyncObjToVIS.CheckedChanged += new System.EventHandler(chkSyncObjToVIS_CheckedChanged);
+            chkSyncObjToVIS.CheckedChanged += new EventHandler(chkSyncObjToVIS_CheckedChanged);
             // 
             // chkDisableBonesOnPlay
             // 
@@ -1565,7 +1569,7 @@ namespace System.Windows.Forms
             chkDisableBonesOnPlay.TabIndex = 43;
             chkDisableBonesOnPlay.Text = "Disable bones when playing animaton";
             chkDisableBonesOnPlay.UseVisualStyleBackColor = true;
-            chkDisableBonesOnPlay.CheckedChanged += new System.EventHandler(chkDisableBonesOnPlay_CheckedChanged);
+            chkDisableBonesOnPlay.CheckedChanged += new EventHandler(chkDisableBonesOnPlay_CheckedChanged);
             // 
             // chkDisableHighlight
             // 
@@ -1576,7 +1580,7 @@ namespace System.Windows.Forms
             chkDisableHighlight.TabIndex = 44;
             chkDisableHighlight.Text = "Disable realtime highlighting in viewport";
             chkDisableHighlight.UseVisualStyleBackColor = true;
-            chkDisableHighlight.CheckedChanged += new System.EventHandler(chkDisableHighlight_CheckedChanged);
+            chkDisableHighlight.CheckedChanged += new EventHandler(chkDisableHighlight_CheckedChanged);
             // 
             // chkSnapBonesToFloor
             // 
@@ -1587,14 +1591,14 @@ namespace System.Windows.Forms
             chkSnapBonesToFloor.TabIndex = 46;
             chkSnapBonesToFloor.Text = "Snap dragged bones to floor collisions";
             chkSnapBonesToFloor.UseVisualStyleBackColor = true;
-            chkSnapBonesToFloor.CheckedChanged += new System.EventHandler(chkSnapBonesToFloor_CheckedChanged);
+            chkSnapBonesToFloor.CheckedChanged += new EventHandler(chkSnapBonesToFloor_CheckedChanged);
             // 
             // tabControl1
             // 
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
-            tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tabControl1.Dock = DockStyle.Fill;
             tabControl1.Location = new System.Drawing.Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -1603,13 +1607,13 @@ namespace System.Windows.Forms
             // 
             // tabPage1
             // 
-            tabPage1.BackColor = System.Drawing.Color.Transparent;
+            tabPage1.BackColor = Color.Transparent;
             tabPage1.Controls.Add(chkTextOverlays);
             tabPage1.Controls.Add(grpProjection);
             tabPage1.Controls.Add(grpLighting);
             tabPage1.Location = new System.Drawing.Point(4, 22);
             tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            tabPage1.Padding = new Padding(3);
             tabPage1.Size = new System.Drawing.Size(344, 393);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Current Viewport";
@@ -1623,7 +1627,7 @@ namespace System.Windows.Forms
             chkTextOverlays.TabIndex = 46;
             chkTextOverlays.Text = "Enable text overlays";
             chkTextOverlays.UseVisualStyleBackColor = true;
-            chkTextOverlays.CheckedChanged += new System.EventHandler(chkTextOverlays_CheckedChanged);
+            chkTextOverlays.CheckedChanged += new EventHandler(chkTextOverlays_CheckedChanged);
             // 
             // tabPage2
             // 
@@ -1641,7 +1645,7 @@ namespace System.Windows.Forms
             tabPage2.Controls.Add(maxUndoCount);
             tabPage2.Location = new System.Drawing.Point(4, 22);
             tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            tabPage2.Padding = new Padding(3);
             tabPage2.Size = new System.Drawing.Size(344, 393);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "General";
@@ -1655,7 +1659,7 @@ namespace System.Windows.Forms
             chkPixelLighting.TabIndex = 52;
             chkPixelLighting.Text = "Per pixel lighting (as opposed to per vertex)";
             chkPixelLighting.UseVisualStyleBackColor = true;
-            chkPixelLighting.CheckedChanged += new System.EventHandler(chkPixelLighting_CheckedChanged);
+            chkPixelLighting.CheckedChanged += new EventHandler(chkPixelLighting_CheckedChanged);
             // 
             // chkHideMainWindow
             // 
@@ -1666,7 +1670,7 @@ namespace System.Windows.Forms
             chkHideMainWindow.TabIndex = 51;
             chkHideMainWindow.Text = "Hide main window";
             chkHideMainWindow.UseVisualStyleBackColor = true;
-            chkHideMainWindow.CheckedChanged += new System.EventHandler(chkHideMainWindow_CheckedChanged);
+            chkHideMainWindow.CheckedChanged += new EventHandler(chkHideMainWindow_CheckedChanged);
             // 
             // chkUsePointsAsBones
             // 
@@ -1677,7 +1681,7 @@ namespace System.Windows.Forms
             chkUsePointsAsBones.TabIndex = 50;
             chkUsePointsAsBones.Text = "Display bones as points";
             chkUsePointsAsBones.UseVisualStyleBackColor = true;
-            chkUsePointsAsBones.CheckedChanged += new System.EventHandler(chkUsePointsAsBones_CheckedChanged);
+            chkUsePointsAsBones.CheckedChanged += new EventHandler(chkUsePointsAsBones_CheckedChanged);
             // 
             // chkScaleBones
             // 
@@ -1688,7 +1692,7 @@ namespace System.Windows.Forms
             chkScaleBones.TabIndex = 49;
             chkScaleBones.Text = "Scale bones with camera";
             chkScaleBones.UseVisualStyleBackColor = true;
-            chkScaleBones.CheckedChanged += new System.EventHandler(chkScaleBones_CheckedChanged);
+            chkScaleBones.CheckedChanged += new EventHandler(chkScaleBones_CheckedChanged);
             // 
             // chkSaveWindowPosition
             // 
@@ -1699,7 +1703,7 @@ namespace System.Windows.Forms
             chkSaveWindowPosition.TabIndex = 48;
             chkSaveWindowPosition.Text = "Save window position and dimensions";
             chkSaveWindowPosition.UseVisualStyleBackColor = true;
-            chkSaveWindowPosition.CheckedChanged += new System.EventHandler(chkSaveWindowPosition_CheckedChanged);
+            chkSaveWindowPosition.CheckedChanged += new EventHandler(chkSaveWindowPosition_CheckedChanged);
             // 
             // chkMaximize
             // 
@@ -1710,12 +1714,12 @@ namespace System.Windows.Forms
             chkMaximize.TabIndex = 47;
             chkMaximize.Text = "Maximize window upon opening";
             chkMaximize.UseVisualStyleBackColor = true;
-            chkMaximize.CheckedChanged += new System.EventHandler(chkMaximize_CheckedChanged);
+            chkMaximize.CheckedChanged += new EventHandler(chkMaximize_CheckedChanged);
             // 
             // maxUndoCount
             // 
-            maxUndoCount.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-            maxUndoCount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            maxUndoCount.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            maxUndoCount.BorderStyle = BorderStyle.FixedSingle;
             maxUndoCount.Integral = false;
             maxUndoCount.Location = new System.Drawing.Point(155, 365);
             maxUndoCount.MaximumValue = 3.402823E+38F;
@@ -1724,7 +1728,7 @@ namespace System.Windows.Forms
             maxUndoCount.Size = new System.Drawing.Size(66, 20);
             maxUndoCount.TabIndex = 37;
             maxUndoCount.Text = "0";
-            maxUndoCount.ValueChanged += new System.EventHandler(maxUndoCount_ValueChanged);
+            maxUndoCount.ValueChanged += new EventHandler(maxUndoCount_ValueChanged);
             // 
             // tabPage3
             // 
@@ -1749,12 +1753,12 @@ namespace System.Windows.Forms
             chkContextLoop.TabIndex = 50;
             chkContextLoop.Text = "Change loop preview based on animation";
             chkContextLoop.UseVisualStyleBackColor = true;
-            chkContextLoop.CheckedChanged += new System.EventHandler(chkContextLoop_CheckedChanged);
+            chkContextLoop.CheckedChanged += new EventHandler(chkContextLoop_CheckedChanged);
             // 
             // groupBox1
             // 
-            groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right);
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left
+                                                | AnchorStyles.Right;
             groupBox1.Controls.Add(chkTanCam);
             groupBox1.Controls.Add(chkTanFog);
             groupBox1.Controls.Add(chkTanLight);
@@ -1777,7 +1781,7 @@ namespace System.Windows.Forms
             chkTanCam.TabIndex = 55;
             chkTanCam.Text = "SCN0 Camera";
             chkTanCam.UseVisualStyleBackColor = true;
-            chkTanCam.CheckedChanged += new System.EventHandler(chkTanCam_CheckedChanged);
+            chkTanCam.CheckedChanged += new EventHandler(chkTanCam_CheckedChanged);
             // 
             // chkTanFog
             // 
@@ -1788,7 +1792,7 @@ namespace System.Windows.Forms
             chkTanFog.TabIndex = 54;
             chkTanFog.Text = "SCN0 Fog";
             chkTanFog.UseVisualStyleBackColor = true;
-            chkTanFog.CheckedChanged += new System.EventHandler(chkTanFog_CheckedChanged);
+            chkTanFog.CheckedChanged += new EventHandler(chkTanFog_CheckedChanged);
             // 
             // chkTanLight
             // 
@@ -1799,7 +1803,7 @@ namespace System.Windows.Forms
             chkTanLight.TabIndex = 53;
             chkTanLight.Text = "SCN0 Light";
             chkTanLight.UseVisualStyleBackColor = true;
-            chkTanLight.CheckedChanged += new System.EventHandler(chkTanLight_CheckedChanged);
+            chkTanLight.CheckedChanged += new EventHandler(chkTanLight_CheckedChanged);
             // 
             // chkTanSHP
             // 
@@ -1810,7 +1814,7 @@ namespace System.Windows.Forms
             chkTanSHP.TabIndex = 52;
             chkTanSHP.Text = "SHP0";
             chkTanSHP.UseVisualStyleBackColor = true;
-            chkTanSHP.CheckedChanged += new System.EventHandler(chkTanSHP_CheckedChanged);
+            chkTanSHP.CheckedChanged += new EventHandler(chkTanSHP_CheckedChanged);
             // 
             // chkTanSRT
             // 
@@ -1821,7 +1825,7 @@ namespace System.Windows.Forms
             chkTanSRT.TabIndex = 51;
             chkTanSRT.Text = "SRT0";
             chkTanSRT.UseVisualStyleBackColor = true;
-            chkTanSRT.CheckedChanged += new System.EventHandler(chkTanSRT_CheckedChanged);
+            chkTanSRT.CheckedChanged += new EventHandler(chkTanSRT_CheckedChanged);
             // 
             // chkTanCHR
             // 
@@ -1832,7 +1836,7 @@ namespace System.Windows.Forms
             chkTanCHR.TabIndex = 50;
             chkTanCHR.Text = "CHR0";
             chkTanCHR.UseVisualStyleBackColor = true;
-            chkTanCHR.CheckedChanged += new System.EventHandler(chkTanCHR_CheckedChanged);
+            chkTanCHR.CheckedChanged += new EventHandler(chkTanCHR_CheckedChanged);
             // 
             // chkPrecalcBoxes
             // 
@@ -1843,7 +1847,7 @@ namespace System.Windows.Forms
             chkPrecalcBoxes.TabIndex = 48;
             chkPrecalcBoxes.Text = "Display precalculated bounding boxes on frame 0";
             chkPrecalcBoxes.UseVisualStyleBackColor = true;
-            chkPrecalcBoxes.CheckedChanged += new System.EventHandler(chkPrecalcBoxes_CheckedChanged);
+            chkPrecalcBoxes.CheckedChanged += new EventHandler(chkPrecalcBoxes_CheckedChanged);
             // 
             // panel1
             // 
@@ -1852,7 +1856,7 @@ namespace System.Windows.Forms
             panel1.Controls.Add(btnExportSettings);
             panel1.Controls.Add(btnCancel);
             panel1.Controls.Add(btnOkay);
-            panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panel1.Dock = DockStyle.Bottom;
             panel1.Location = new System.Drawing.Point(0, 419);
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(352, 35);
@@ -1860,19 +1864,19 @@ namespace System.Windows.Forms
             // 
             // btnResetSettings
             // 
-            btnResetSettings.Anchor = ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right);
+            btnResetSettings.Anchor = AnchorStyles.Bottom | AnchorStyles.Left
+                                                          | AnchorStyles.Right;
             btnResetSettings.Location = new System.Drawing.Point(136, 6);
             btnResetSettings.Name = "btnResetSettings";
             btnResetSettings.Size = new System.Drawing.Size(80, 23);
             btnResetSettings.TabIndex = 5;
             btnResetSettings.Text = "Reset";
             btnResetSettings.UseVisualStyleBackColor = true;
-            btnResetSettings.Click += new System.EventHandler(btnResetSettings_Click);
+            btnResetSettings.Click += new EventHandler(btnResetSettings_Click);
             // 
             // btnImportSettings
             // 
-            btnImportSettings.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
+            btnImportSettings.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnImportSettings.Location = new System.Drawing.Point(70, 6);
             btnImportSettings.Name = "btnImportSettings";
             btnImportSettings.Size = new System.Drawing.Size(60, 23);
@@ -1880,12 +1884,12 @@ namespace System.Windows.Forms
             btnImportSettings.Text = "Import";
             btnImportSettings.UseVisualStyleBackColor = true;
             btnImportSettings.Visible = false;
-            btnImportSettings.Click += new System.EventHandler(btnImportSettings_Click);
+            btnImportSettings.Click += new EventHandler(btnImportSettings_Click);
             // 
             // btnExportSettings
             // 
-            btnExportSettings.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-            btnExportSettings.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnExportSettings.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnExportSettings.DialogResult = DialogResult.Cancel;
             btnExportSettings.Location = new System.Drawing.Point(4, 6);
             btnExportSettings.Name = "btnExportSettings";
             btnExportSettings.Size = new System.Drawing.Size(60, 23);
@@ -1893,19 +1897,19 @@ namespace System.Windows.Forms
             btnExportSettings.Text = "Export";
             btnExportSettings.UseVisualStyleBackColor = true;
             btnExportSettings.Visible = false;
-            btnExportSettings.Click += new System.EventHandler(btnExportSettings_Click);
+            btnExportSettings.Click += new EventHandler(btnExportSettings_Click);
             // 
             // ModelViewerSettingsDialog
             // 
             ClientSize = new System.Drawing.Size(352, 454);
             Controls.Add(tabControl1);
             Controls.Add(panel1);
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             MinimizeBox = false;
             Name = "ModelViewerSettingsDialog";
             ShowIcon = false;
             ShowInTaskbar = false;
-            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Model Editor Settings";
             grpLighting.ResumeLayout(false);
             grpLighting.PerformLayout();
@@ -1925,11 +1929,12 @@ namespace System.Windows.Forms
             groupBox1.PerformLayout();
             panel1.ResumeLayout(false);
             ResumeLayout(false);
-
         }
+
         #endregion
 
         private readonly GoodColorDialog _dlgColor;
+
         private void lblOrbColor_Click(object sender, EventArgs e)
         {
             _dlgColor.Color = MDL0BoneNode.DefaultNodeColor;
@@ -1962,74 +1967,89 @@ namespace System.Windows.Forms
 
         private void UpdateOrb()
         {
-            lblOrbText.Text = ((ARGBPixel)MDL0BoneNode.DefaultNodeColor).ToString();
-            lblOrbColor.BackColor = Color.FromArgb(MDL0BoneNode.DefaultNodeColor.R, MDL0BoneNode.DefaultNodeColor.G, MDL0BoneNode.DefaultNodeColor.B);
+            lblOrbText.Text = ((ARGBPixel) MDL0BoneNode.DefaultNodeColor).ToString();
+            lblOrbColor.BackColor = Color.FromArgb(MDL0BoneNode.DefaultNodeColor.R, MDL0BoneNode.DefaultNodeColor.G,
+                MDL0BoneNode.DefaultNodeColor.B);
 
             if (!_updating && _form != null)
             {
                 _form.ModelPanel.Invalidate();
             }
         }
+
         private void UpdateLine()
         {
-            lblLineText.Text = ((ARGBPixel)MDL0BoneNode.DefaultLineColor).ToString();
-            lblLineColor.BackColor = Color.FromArgb(MDL0BoneNode.DefaultLineColor.R, MDL0BoneNode.DefaultLineColor.G, MDL0BoneNode.DefaultLineColor.B);
+            lblLineText.Text = ((ARGBPixel) MDL0BoneNode.DefaultLineColor).ToString();
+            lblLineColor.BackColor = Color.FromArgb(MDL0BoneNode.DefaultLineColor.R, MDL0BoneNode.DefaultLineColor.G,
+                MDL0BoneNode.DefaultLineColor.B);
 
             if (!_updating && _form != null)
             {
                 _form.ModelPanel.Invalidate();
             }
         }
+
         private void UpdateCol1()
         {
-            lblCol1Text.Text = ((ARGBPixel)ModelEditorBase._floorHue).ToString();
-            lblCol1Color.BackColor = Color.FromArgb(ModelEditorBase._floorHue.R, ModelEditorBase._floorHue.G, ModelEditorBase._floorHue.B);
+            lblCol1Text.Text = ((ARGBPixel) ModelEditorBase._floorHue).ToString();
+            lblCol1Color.BackColor = Color.FromArgb(ModelEditorBase._floorHue.R, ModelEditorBase._floorHue.G,
+                ModelEditorBase._floorHue.B);
 
             if (!_updating && _form != null)
             {
                 _form.ModelPanel.Invalidate();
             }
         }
+
         private void UpdateAmb()
         {
-            label19.BackColor = Color.FromArgb(255, (int)(ax.Value), (int)(ay.Value), (int)(az.Value));
+            label19.BackColor = Color.FromArgb(255, (int) ax.Value, (int) ay.Value, (int) az.Value);
 
             if (!_updating && _form != null)
             {
-                _form.ModelPanel.CurrentViewport.Ambient = new Vector4(ax.Value / 255.0f, ay.Value / 255.0f, az.Value / 255.0f, 1.0f);
+                _form.ModelPanel.CurrentViewport.Ambient =
+                    new Vector4(ax.Value / 255.0f, ay.Value / 255.0f, az.Value / 255.0f, 1.0f);
             }
         }
+
         private void UpdateDif()
         {
-            label21.BackColor = Color.FromArgb(255, (int)(dx.Value), (int)(dy.Value), (int)(dz.Value));
+            label21.BackColor = Color.FromArgb(255, (int) dx.Value, (int) dy.Value, (int) dz.Value);
 
             if (!_updating && _form != null)
             {
-                _form.ModelPanel.CurrentViewport.Diffuse = new Vector4(dx.Value / 255.0f, dy.Value / 255.0f, dz.Value / 255.0f, 1.0f);
+                _form.ModelPanel.CurrentViewport.Diffuse =
+                    new Vector4(dx.Value / 255.0f, dy.Value / 255.0f, dz.Value / 255.0f, 1.0f);
             }
         }
+
         private void UpdateSpe()
         {
-            label22.BackColor = Color.FromArgb(255, (int)(sx.Value), (int)(sy.Value), (int)(sz.Value));
+            label22.BackColor = Color.FromArgb(255, (int) sx.Value, (int) sy.Value, (int) sz.Value);
 
             if (!_updating && _form != null)
             {
-                _form.ModelPanel.CurrentViewport.Specular = new Vector4(sx.Value / 255.0f, sy.Value / 255.0f, sz.Value / 255.0f, 1.0f);
+                _form.ModelPanel.CurrentViewport.Specular =
+                    new Vector4(sx.Value / 255.0f, sy.Value / 255.0f, sz.Value / 255.0f, 1.0f);
             }
         }
+
         private void UpdateEmi()
         {
-            label23.BackColor = Color.FromArgb(255, (int)(ex.Value), (int)(ey.Value), (int)(ez.Value));
+            label23.BackColor = Color.FromArgb(255, (int) ex.Value, (int) ey.Value, (int) ez.Value);
 
             if (!_updating && _form != null)
             {
-                _form.ModelPanel.CurrentViewport.Emission = new Vector4(ex.Value / 255.0f, ey.Value / 255.0f, ez.Value / 255.0f, 1.0f);
+                _form.ModelPanel.CurrentViewport.Emission =
+                    new Vector4(ex.Value / 255.0f, ey.Value / 255.0f, ez.Value / 255.0f, 1.0f);
             }
         }
+
         public bool _updating = false;
+
         private void label19_Click(object sender, EventArgs e)
         {
-            _dlgColor.Color = Color.FromArgb(255, (int)(ax.Value), (int)(ay.Value), (int)(az.Value));
+            _dlgColor.Color = Color.FromArgb(255, (int) ax.Value, (int) ay.Value, (int) az.Value);
             if (_dlgColor.ShowDialog(this) == DialogResult.OK)
             {
                 _updating = true;
@@ -2043,7 +2063,7 @@ namespace System.Windows.Forms
 
         private void label21_Click(object sender, EventArgs e)
         {
-            _dlgColor.Color = Color.FromArgb(255, (int)(dx.Value), (int)(dy.Value), (int)(dz.Value));
+            _dlgColor.Color = Color.FromArgb(255, (int) dx.Value, (int) dy.Value, (int) dz.Value);
             if (_dlgColor.ShowDialog(this) == DialogResult.OK)
             {
                 _updating = true;
@@ -2057,7 +2077,7 @@ namespace System.Windows.Forms
 
         private void label22_Click(object sender, EventArgs e)
         {
-            _dlgColor.Color = Color.FromArgb(255, (int)(sx.Value), (int)(sy.Value), (int)(sz.Value));
+            _dlgColor.Color = Color.FromArgb(255, (int) sx.Value, (int) sy.Value, (int) sz.Value);
             if (_dlgColor.ShowDialog(this) == DialogResult.OK)
             {
                 _updating = true;
@@ -2071,7 +2091,7 @@ namespace System.Windows.Forms
 
         private void label23_Click(object sender, EventArgs e)
         {
-            _dlgColor.Color = Color.FromArgb(255, (int)(ex.Value), (int)(ey.Value), (int)(ez.Value));
+            _dlgColor.Color = Color.FromArgb(255, (int) ex.Value, (int) ey.Value, (int) ez.Value);
             if (_dlgColor.ShowDialog(this) == DialogResult.OK)
             {
                 _updating = true;
@@ -2087,7 +2107,7 @@ namespace System.Windows.Forms
         {
             if (!_updating && _form != null)
             {
-                _form.ModelPanel.CurrentViewport.SetProjectionType((BrawlLib.OpenGL.ViewportProjection)cboProjection.SelectedIndex);
+                _form.ModelPanel.CurrentViewport.SetProjectionType((ViewportProjection) cboProjection.SelectedIndex);
                 UpdateViewport(_form.ModelPanel.CurrentViewport);
             }
         }
@@ -2213,7 +2233,8 @@ namespace System.Windows.Forms
 
         private void btnResetSettings_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(this, "Are you sure you want to reset all settings to default?", "Reset?", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) != Forms.DialogResult.OK)
+            if (MessageBox.Show(this, "Are you sure you want to reset all settings to default?", "Reset?",
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) != DialogResult.OK)
             {
                 return;
             }
@@ -2268,7 +2289,7 @@ namespace System.Windows.Forms
         {
             if (!_updating && _form != null)
             {
-                _form._allowedUndos = (uint)maxUndoCount.Value;
+                _form._allowedUndos = (uint) maxUndoCount.Value;
             }
         }
 

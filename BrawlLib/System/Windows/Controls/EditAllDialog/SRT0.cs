@@ -33,6 +33,7 @@
         private CheckBox chkSrtVersion;
         private ComboBox srtVersion;
         private CheckBox srtEditLoop;
+
         #region Designer
 
         private GroupBox groupBox1;
@@ -40,38 +41,38 @@
 
         private void InitializeComponent()
         {
-            groupBox1 = new System.Windows.Forms.GroupBox();
-            srtTexRename = new System.Windows.Forms.CheckBox();
-            srtModMat = new System.Windows.Forms.CheckBox();
-            textBox7 = new System.Windows.Forms.TextBox();
-            srtMatName = new System.Windows.Forms.TextBox();
-            srtTexName = new System.Windows.Forms.TextBox();
-            textBox3 = new System.Windows.Forms.TextBox();
-            textBox4 = new System.Windows.Forms.TextBox();
-            textBox6 = new System.Windows.Forms.TextBox();
-            textBox9 = new System.Windows.Forms.TextBox();
-            textBox10 = new System.Windows.Forms.TextBox();
-            textBox12 = new System.Windows.Forms.TextBox();
-            srtLoopEnable = new System.Windows.Forms.CheckBox();
-            label2 = new System.Windows.Forms.Label();
-            srtScaleX = new System.Windows.Forms.Label();
-            srtScaleY = new System.Windows.Forms.Label();
-            srtRot = new System.Windows.Forms.Label();
-            srtTransX = new System.Windows.Forms.Label();
-            srtTransY = new System.Windows.Forms.Label();
-            srtScaleSubtract = new System.Windows.Forms.CheckBox();
-            srtScaleAdd = new System.Windows.Forms.CheckBox();
-            srtScaleReplace = new System.Windows.Forms.CheckBox();
-            srtRotSubtract = new System.Windows.Forms.CheckBox();
-            srtRotAdd = new System.Windows.Forms.CheckBox();
-            srtRotReplace = new System.Windows.Forms.CheckBox();
-            srtTransSubtract = new System.Windows.Forms.CheckBox();
-            srtTransAdd = new System.Windows.Forms.CheckBox();
-            srtTransReplace = new System.Windows.Forms.CheckBox();
-            srtCopyKF = new System.Windows.Forms.CheckBox();
-            chkSrtVersion = new System.Windows.Forms.CheckBox();
-            srtVersion = new System.Windows.Forms.ComboBox();
-            srtEditLoop = new System.Windows.Forms.CheckBox();
+            groupBox1 = new GroupBox();
+            srtTexRename = new CheckBox();
+            srtModMat = new CheckBox();
+            textBox7 = new TextBox();
+            srtMatName = new TextBox();
+            srtTexName = new TextBox();
+            textBox3 = new TextBox();
+            textBox4 = new TextBox();
+            textBox6 = new TextBox();
+            textBox9 = new TextBox();
+            textBox10 = new TextBox();
+            textBox12 = new TextBox();
+            srtLoopEnable = new CheckBox();
+            label2 = new Label();
+            srtScaleX = new Label();
+            srtScaleY = new Label();
+            srtRot = new Label();
+            srtTransX = new Label();
+            srtTransY = new Label();
+            srtScaleSubtract = new CheckBox();
+            srtScaleAdd = new CheckBox();
+            srtScaleReplace = new CheckBox();
+            srtRotSubtract = new CheckBox();
+            srtRotAdd = new CheckBox();
+            srtRotReplace = new CheckBox();
+            srtTransSubtract = new CheckBox();
+            srtTransAdd = new CheckBox();
+            srtTransReplace = new CheckBox();
+            srtCopyKF = new CheckBox();
+            chkSrtVersion = new CheckBox();
+            srtVersion = new ComboBox();
+            srtEditLoop = new CheckBox();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -108,7 +109,7 @@
             groupBox1.Controls.Add(chkSrtVersion);
             groupBox1.Controls.Add(srtVersion);
             groupBox1.Controls.Add(srtEditLoop);
-            groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox1.Dock = DockStyle.Fill;
             groupBox1.Location = new System.Drawing.Point(0, 0);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new System.Drawing.Size(396, 243);
@@ -387,9 +388,11 @@
             // 
             srtVersion.Enabled = false;
             srtVersion.FormattingEnabled = true;
-            srtVersion.Items.AddRange(new object[] {
-            "4",
-            "5"});
+            srtVersion.Items.AddRange(new object[]
+            {
+                "4",
+                "5"
+            });
             srtVersion.Location = new System.Drawing.Point(310, 146);
             srtVersion.Name = "srtVersion";
             srtVersion.Size = new System.Drawing.Size(79, 21);
@@ -413,11 +416,13 @@
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ResumeLayout(false);
-
         }
 
         #endregion
 
-        public EditAllSRT0Editor() { InitializeComponent(); }
+        public EditAllSRT0Editor()
+        {
+            InitializeComponent();
+        }
     }
 }

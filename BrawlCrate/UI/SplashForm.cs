@@ -12,7 +12,6 @@ namespace BrawlCrate
 
         private void SplashForm_Load(object sender, System.EventArgs e)
         {
-
         }
     }
 }

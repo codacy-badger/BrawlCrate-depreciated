@@ -10,7 +10,8 @@ namespace System.Windows.Forms
         {
             InitializeComponent();
 
-            _boxes = new NumericInputBox[] {
+            _boxes = new NumericInputBox[]
+            {
                 numScaleX, numScaleY, numScaleZ,
                 numRotX, numRotY, numRotZ,
                 numTransX, numTransY, numTransZ
@@ -23,6 +24,7 @@ namespace System.Windows.Forms
         }
 
         private bool _twoDimensional;
+
         public bool TwoDimensional
         {
             get => _twoDimensional;
@@ -33,7 +35,8 @@ namespace System.Windows.Forms
             }
         }
 
-        public float this[int index] {
+        public float this[int index]
+        {
             get => _boxes[index].Value;
             set => _boxes[index].Value = value;
         }

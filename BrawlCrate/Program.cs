@@ -16,10 +16,12 @@ namespace BrawlCrate
     {
         //Make sure this matches the tag name of the release on github exactly
         public static readonly string TagName = "BrawlCrate_v0.26Hotfix3";
+
         public static readonly string UpdateMessage = @"Updated to BrawlCrate v0.26 Hotfix 3! This release:
 - Fixes various animation bugs
 
-Full changelog can be found in the installation folder: " + '\n' + AppDomain.CurrentDomain.BaseDirectory + "Changelog.txt";
+Full changelog can be found in the installation folder: " + '\n' + AppDomain.CurrentDomain.BaseDirectory +
+                                                      "Changelog.txt";
 
         public static string AssemblyTitle;
         public static readonly string AssemblyVersion;
@@ -34,10 +36,22 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
         private static readonly FolderBrowserDialog _folderDlg;
 
         internal static ResourceNode _rootNode;
-        public static ResourceNode RootNode { get => _rootNode; set { _rootNode = value; MainForm.Instance.Reset(); } }
+
+        public static ResourceNode RootNode
+        {
+            get => _rootNode;
+            set
+            {
+                _rootNode = value;
+                MainForm.Instance.Reset();
+            }
+        }
+
         internal static string _rootPath;
         public static string RootPath => _rootPath;
-        public static string FileName => _rootPath == null ? null : _rootPath.Substring(_rootPath.LastIndexOf('\\') + 1);
+
+        public static string FileName =>
+            _rootPath == null ? null : _rootPath.Substring(_rootPath.LastIndexOf('\\') + 1);
 
         internal static bool _birthday;
         public static bool IsBirthday => _birthday;
@@ -45,8 +59,10 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
         static Program()
         {
             Application.EnableVisualStyles();
-            _birthday = BrawlLib.BrawlCrate.PerSessionSettings.Birthday = (DateTime.Now.Month == 4 && DateTime.Now.Day == 8 && DateTime.Now.Year > 2018);
-            AssemblyTitle = ((AssemblyTitleAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
+            _birthday = PerSessionSettings.Birthday =
+                DateTime.Now.Month == 4 && DateTime.Now.Day == 8 && DateTime.Now.Year > 2018;
+            AssemblyTitle = ((AssemblyTitleAttribute) Assembly.GetExecutingAssembly()
+                .GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
             try
             {
                 if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Canary\\Active"))
@@ -56,19 +72,25 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             }
             catch
             {
-                AssemblyTitle = ((AssemblyTitleAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
+                AssemblyTitle = ((AssemblyTitleAttribute) Assembly.GetExecutingAssembly()
+                    .GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
             }
+
             if (_birthday)
             {
                 AssemblyTitle = "PartyBrawl" + AssemblyTitle.Substring(AssemblyTitle.IndexOf(' '));
             }
 
-            AssemblyDescription = ((AssemblyDescriptionAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false)[0]).Description;
-            AssemblyVersion = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).FileVersion;
-            AssemblyCopyright = ((AssemblyCopyrightAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false)[0]).Copyright;
+            AssemblyDescription = ((AssemblyDescriptionAttribute) Assembly.GetExecutingAssembly()
+                .GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false)[0]).Description;
+            AssemblyVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
+            AssemblyCopyright = ((AssemblyCopyrightAttribute) Assembly.GetExecutingAssembly()
+                .GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false)[0]).Copyright;
             FullPath = Process.GetCurrentProcess().MainModule.FileName;
-            BrawlLibTitle = ((AssemblyTitleAttribute)Assembly.GetAssembly(typeof(ResourceNode)).GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
-            BrawlLibVersion = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetAssembly(typeof(ResourceNode)).Location).FileVersion;
+            BrawlLibTitle = ((AssemblyTitleAttribute) Assembly.GetAssembly(typeof(ResourceNode))
+                .GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0]).Title;
+            BrawlLibVersion = FileVersionInfo.GetVersionInfo(Assembly.GetAssembly(typeof(ResourceNode)).Location)
+                .FileVersion;
 
             _openDlg = new OpenFileDialog();
             _saveDlg = new SaveFileDialog();
@@ -125,6 +147,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
         }
 
         public static bool firstBoot = false;
+
         [STAThread]
         public static void Main(string[] args)
         {
@@ -133,7 +156,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             s.Focus();
             firstBoot = false;
 #if !DEBUG
-            if (BrawlCrate.Properties.Settings.Default.UpdateSettings)
+            if (Properties.Settings.Default.UpdateSettings)
             {
                 foreach (Assembly _Assembly in AppDomain.CurrentDomain.GetAssemblies())
                 {
@@ -141,7 +164,8 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                     {
                         if (_Type.Name == "Settings" && typeof(SettingsBase).IsAssignableFrom(_Type))
                         {
-                            ApplicationSettingsBase settings = (ApplicationSettingsBase)_Type.GetProperty("Default").GetValue(null, null);
+                            ApplicationSettingsBase settings =
+                                (ApplicationSettingsBase) _Type.GetProperty("Default").GetValue(null, null);
                             if (settings != null)
                             {
                                 settings.Upgrade();
@@ -151,41 +175,50 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                         }
                     }
                 }
+
                 // This is the first time booting this update
                 firstBoot = true;
                 // Canary setting should be initialized depending on if canary is active
-                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") &&
+                    File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
                 {
-                    BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
-                    BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
-                    BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
+                    Properties.Settings.Default.DownloadCanaryBuilds = true;
+                    Properties.Settings.Default.CheckUpdatesAtStartup = true;
+                    Properties.Settings.Default.UpdateAutomatically = true;
                 }
                 else
                 {
-                    BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
+                    Properties.Settings.Default.DownloadCanaryBuilds = false;
                 }
+
                 // Ensure settings only get updated once
-                BrawlCrate.Properties.Settings.Default.UpdateSettings = false;
-                BrawlCrate.Properties.Settings.Default.Save();
+                Properties.Settings.Default.UpdateSettings = false;
+                Properties.Settings.Default.Save();
             }
+
             // Ensure canary status updated correctly
-            if ((Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active")) != BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds)
+            if ((Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") &&
+                 File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active")) !=
+                Properties.Settings.Default.DownloadCanaryBuilds)
             {
                 MessageBox.Show("Canary Status Changed. Updating accordingly.");
                 // Canary setting should be initialized depending on if canary is active
-                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") &&
+                    File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
                 {
-                    BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = true;
-                    BrawlCrate.Properties.Settings.Default.CheckUpdatesAtStartup = true;
-                    BrawlCrate.Properties.Settings.Default.UpdateAutomatically = true;
-                    BrawlCrate.Properties.Settings.Default.Save();
+                    Properties.Settings.Default.DownloadCanaryBuilds = true;
+                    Properties.Settings.Default.CheckUpdatesAtStartup = true;
+                    Properties.Settings.Default.UpdateAutomatically = true;
+                    Properties.Settings.Default.Save();
                 }
                 else
                 {
-                    BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds = false;
-                    BrawlCrate.Properties.Settings.Default.Save();
+                    Properties.Settings.Default.DownloadCanaryBuilds = false;
+                    Properties.Settings.Default.Save();
                 }
-                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
+
+                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") &&
+                    File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Active"))
                 {
                     ForceDownloadCanary();
                 }
@@ -194,6 +227,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                     ForceDownloadStable();
                 }
             }
+
             try
             {
                 if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Update.exe"))
@@ -223,7 +257,6 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             }
             catch
             {
-
             }
 #endif
             if (args.Length >= 1)
@@ -261,6 +294,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                         Open(args[0]);
                     }
                 }
+
                 if (args.Length >= 2 && args[1] != "-Canary" && args[1] != "-Stable")
                 {
                     ResourceNode target = ResourceNode.FindNode(RootNode, args[1], true);
@@ -279,10 +313,12 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                 {
                     MainForm.Instance.CheckUpdates(false);
                 }
+
                 // Show changelog if this is the first time opening this release, and the message wasn't seen 
-                if (BrawlCrate.Properties.Settings.Default.DownloadCanaryBuilds)
+                if (Properties.Settings.Default.DownloadCanaryBuilds)
                 {
-                    if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old"))
+                    if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary") &&
+                        File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "Canary" + '\\' + "Old"))
                     {
                         MainForm.Instance.ShowCanaryChangelog();
                     }
@@ -315,8 +351,8 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                 }
                 catch
                 {
-
                 }
+
                 Close(true);
             }
         }
@@ -334,13 +370,14 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
 
                     return;
                 }
-                if (Program.CanRunGithubApp(true, out string path))
+
+                if (CanRunGithubApp(true, out string path))
                 {
                     Process git = Process.Start(new ProcessStartInfo()
                     {
                         FileName = path,
                         WindowStyle = ProcessWindowStyle.Hidden,
-                        Arguments = string.Format("-dlCanary \"{0}\"", Program.RootPath == null ? "<null>" : Program.RootPath),
+                        Arguments = string.Format("-dlCanary \"{0}\"", RootPath == null ? "<null>" : RootPath),
                     });
                     git.WaitForExit();
                 }
@@ -367,13 +404,14 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
 
                     return;
                 }
-                if (Program.CanRunGithubApp(true, out string path))
+
+                if (CanRunGithubApp(true, out string path))
                 {
                     Process git = Process.Start(new ProcessStartInfo()
                     {
                         FileName = path,
                         WindowStyle = ProcessWindowStyle.Hidden,
-                        Arguments = string.Format("-dlStable \"{0}\"", Program.RootPath == null ? "<null>" : Program.RootPath),
+                        Arguments = string.Format("-dlStable \"{0}\"", RootPath == null ? "<null>" : RootPath),
                     });
                     git.WaitForExit();
                 }
@@ -406,7 +444,11 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             return true;
         }
 
-        public static bool Close() { return Close(false); }
+        public static bool Close()
+        {
+            return Close(false);
+        }
+
         public static bool Close(bool force)
         {
             //Have to close external files before the root file
@@ -432,7 +474,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                 if (_rootNode.IsDirty && !force)
                 {
                     DialogResult res = MessageBox.Show("Save changes?", "Closing", MessageBoxButtons.YesNoCancel);
-                    if ((res == DialogResult.Yes && !Save()) || res == DialogResult.Cancel)
+                    if (res == DialogResult.Yes && !Save() || res == DialogResult.Cancel)
                     {
                         return false;
                     }
@@ -456,6 +498,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
         }
 
         public static string openTempFile = null;
+
         public static bool Open(string path, bool setRoot)
         {
             if (string.IsNullOrEmpty(path))
@@ -485,14 +528,15 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                 return false;
             }
 
-        REGEN:
+            REGEN:
             DirectoryInfo tmp = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + '\\' + "tmp");
             tmp.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             Random rand = new Random();
             byte[] buf = new byte[8];
             rand.NextBytes(buf);
             ulong randnumgen = BitConverter.ToUInt64(buf, 0);
-            string newTempFile = AppDomain.CurrentDomain.BaseDirectory + '\\' + "tmp" + '\\' + randnumgen.ToString("X16");
+            string newTempFile = AppDomain.CurrentDomain.BaseDirectory + '\\' + "tmp" + '\\' +
+                                 randnumgen.ToString("X16");
             if (Directory.Exists(newTempFile))
             {
                 goto REGEN;
@@ -512,17 +556,23 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                     {
                         _rootPath = null;
                     }
-                    else if (_rootNode is ARCNode && ((ARCNode)_rootNode).IsCharacter)
+                    else if (_rootNode is ARCNode && ((ARCNode) _rootNode).IsCharacter)
                     {
-                        if (Program.RootPath.EndsWith(".pcs", StringComparison.OrdinalIgnoreCase) && (_rootNode.Compression.Equals("LZ77", StringComparison.OrdinalIgnoreCase) || _rootNode.Compression.Equals("None", StringComparison.OrdinalIgnoreCase)) && BrawlLib.Properties.Settings.Default.AutoCompressFighterPCS)
+                        if (RootPath.EndsWith(".pcs", StringComparison.OrdinalIgnoreCase) &&
+                            (_rootNode.Compression.Equals("LZ77", StringComparison.OrdinalIgnoreCase) ||
+                             _rootNode.Compression.Equals("None", StringComparison.OrdinalIgnoreCase)) &&
+                            BrawlLib.Properties.Settings.Default.AutoCompressFighterPCS)
                         {
                             _rootNode.Compression = "ExtendedLZ77";
                         }
-                        else if (Program.RootPath.EndsWith(".pac", StringComparison.OrdinalIgnoreCase) && !_rootNode.Compression.Equals("None", StringComparison.OrdinalIgnoreCase) && BrawlLib.Properties.Settings.Default.AutoDecompressFighterPAC)
+                        else if (RootPath.EndsWith(".pac", StringComparison.OrdinalIgnoreCase) &&
+                                 !_rootNode.Compression.Equals("None", StringComparison.OrdinalIgnoreCase) &&
+                                 BrawlLib.Properties.Settings.Default.AutoDecompressFighterPAC)
                         {
                             _rootNode.Compression = "None";
                         }
                     }
+
                     MainForm.Instance.Reset();
                     MainForm.Instance.recentFileHandler.AddFile(path);
                     return true;
@@ -536,7 +586,10 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                 }
 #if !DEBUG
             }
-            catch (Exception x) { Say(x.ToString()); }
+            catch (Exception x)
+            {
+                Say(x.ToString());
+            }
 #endif
 
             Close();
@@ -576,17 +629,19 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                     }
                 }
             }
+
             return returnVal;
         }
 
         public static unsafe void Scan(FileMap map, FileScanNode node)
         {
-            using (ProgressWindow progress = new ProgressWindow(MainForm.Instance, "File Scanner", "Scanning for known file types, please wait...", true))
+            using (ProgressWindow progress = new ProgressWindow(MainForm.Instance, "File Scanner",
+                "Scanning for known file types, please wait...", true))
             {
                 progress.TopMost = true;
                 progress.Begin(0, map.Length, 0);
 
-                byte* data = (byte*)map.Address;
+                byte* data = (byte*) map.Address;
                 uint i = 0;
                 do
                 {
@@ -599,17 +654,16 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                             n.Initialize(node, d);
                             try
                             {
-                                i += (uint)n.WorkingSource.Length;
+                                i += (uint) n.WorkingSource.Length;
                             }
                             catch
                             {
-
                             }
                         }
                     }
+
                     progress.Update(i + 1);
-                }
-                while (++i + 4 < map.Length);
+                } while (++i + 4 < map.Length);
 
                 progress.Finish();
             }
@@ -669,9 +723,14 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
 
 #if !DEBUG
                 }
-                catch (Exception x) { Say(x.Message); _rootNode.SignalPropertyChange(); }
+                catch (Exception x)
+                {
+                    Say(x.Message);
+                    _rootNode.SignalPropertyChange();
+                }
 #endif
             }
+
             return false;
         }
 
@@ -685,7 +744,11 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             return null;
         }
 
-        public static int OpenFile(string filter, out string fileName) { return OpenFile(filter, out fileName, true); }
+        public static int OpenFile(string filter, out string fileName)
+        {
+            return OpenFile(filter, out fileName, true);
+        }
+
         public static int OpenFile(string filter, out string fileName, bool categorize)
         {
             _openDlg.Filter = filter;
@@ -697,7 +760,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                 if (_openDlg.ShowDialog() == DialogResult.OK)
                 {
                     fileName = _openDlg.FileName;
-                    if ((categorize) && (_openDlg.FilterIndex == 1))
+                    if (categorize && _openDlg.FilterIndex == 1)
                     {
                         return CategorizeFilter(_openDlg.FileName, filter);
                     }
@@ -708,12 +771,20 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                 }
 #if !DEBUG
             }
-            catch (Exception ex) { Say(ex.ToString()); }
+            catch (Exception ex)
+            {
+                Say(ex.ToString());
+            }
 #endif
             fileName = null;
             return 0;
         }
-        public static int SaveFile(string filter, string name, out string fileName) { return SaveFile(filter, name, out fileName, true); }
+
+        public static int SaveFile(string filter, string name, out string fileName)
+        {
+            return SaveFile(filter, name, out fileName, true);
+        }
+
         public static int SaveFile(string filter, string name, out string fileName, bool categorize)
         {
             int fIndex = 0;
@@ -724,7 +795,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             _saveDlg.FilterIndex = 1;
             if (_saveDlg.ShowDialog() == DialogResult.OK)
             {
-                if ((categorize) && (_saveDlg.FilterIndex == 1) && (Path.HasExtension(_saveDlg.FileName)))
+                if (categorize && _saveDlg.FilterIndex == 1 && Path.HasExtension(_saveDlg.FileName))
                 {
                     fIndex = CategorizeFilter(_saveDlg.FileName, filter);
                 }
@@ -739,6 +810,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
 
             return fIndex;
         }
+
         public static int CategorizeFilter(string path, string filter)
         {
             string ext = "*" + Path.GetExtension(path);
@@ -757,9 +829,10 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
 
             return 1;
         }
+
         public static string ApplyExtension(string path, string filter, int filterIndex)
         {
-            if ((Path.HasExtension(path)) && (!int.TryParse(Path.GetExtension(path), out int tmp)))
+            if (Path.HasExtension(path) && !int.TryParse(Path.GetExtension(path), out int tmp))
             {
                 return path;
             }
@@ -771,7 +844,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
             }
 
             index = filter.IndexOf('.', index);
-            int len = Math.Max(filter.Length, filter.IndexOfAny(new char[] { ';', '|' })) - index;
+            int len = Math.Max(filter.Length, filter.IndexOfAny(new char[] {';', '|'})) - index;
 
             string ext = filter.Substring(index, len);
 
@@ -813,6 +886,7 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                             MainForm.Instance.Invalidate();
                             MainForm.Instance.resourceTree_SelectionChanged(MainForm.Instance, EventArgs.Empty);
                         }
+
                         w.ResourceNode.IsDirty = false;
                         return true;
                     }
@@ -823,7 +897,11 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                     }
 #if !DEBUG
                 }
-                catch (Exception x) { Say(x.Message); _rootNode.SignalPropertyChange(); }
+                catch (Exception x)
+                {
+                    Say(x.Message);
+                    _rootNode.SignalPropertyChange();
+                }
                 //finally { }
 #endif
             }
@@ -834,12 +912,13 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                 MainForm.Instance.Invalidate();
                 MainForm.Instance.resourceTree_SelectionChanged(MainForm.Instance, EventArgs.Empty);
             }
+
             return false;
         }
 
         public static bool CanRunGithubApp(bool showMessages, out string path)
         {
-            path = System.Windows.Forms.Application.StartupPath + "\\Updater.exe";
+            path = Application.StartupPath + "\\Updater.exe";
             if (!File.Exists(path))
             {
                 if (showMessages)
@@ -850,8 +929,8 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                 return false;
             }
 
-            using (RegistryKey ndpKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).
-                OpenSubKey("SOFTWARE\\Microsoft\\NET Framework Setup\\NDP\\v4\\Full\\"))
+            using (RegistryKey ndpKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32)
+                .OpenSubKey("SOFTWARE\\Microsoft\\NET Framework Setup\\NDP\\v4\\Full\\"))
             {
                 object o = ndpKey.GetValue("Release");
                 if (o == null)
@@ -865,12 +944,13 @@ Full changelog can be found in the installation folder: " + '\n' + AppDomain.Cur
                     return false;
                 }
             }
+
             return true;
         }
 
         public static bool CanRunDiscordRPC()
         {
-            string path = System.Windows.Forms.Application.StartupPath + "\\discord-rpc.dll";
+            string path = Application.StartupPath + "\\discord-rpc.dll";
             return File.Exists(path);
         }
     }

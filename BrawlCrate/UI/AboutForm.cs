@@ -12,7 +12,9 @@ namespace BrawlCrate
         {
             InitializeComponent();
             lblName.Text = "BrawlCrate" + (MainForm.Instance.Canary ? " Canary" : "");
-            lblVersion.Text = MainForm.Instance.Canary ? MainForm.Instance.commitIDlong.Substring(1) : "Version " + Program.AssemblyVersion;
+            lblVersion.Text = MainForm.Instance.Canary
+                ? MainForm.Instance.commitIDlong.Substring(1)
+                : "Version " + Program.AssemblyVersion;
 #if DEBUG
             this.lblVersion.Text += " DEBUG";
 #endif
@@ -20,19 +22,25 @@ namespace BrawlCrate
             lblCopyright.Text = Program.AssemblyCopyright;
             try
             {
-                lblBrawlLib.Text = "Using " + (MainForm.Instance.Canary ? ("BrawlCrateLib Canary" + MainForm.Instance.commitIDlong) : (Program.BrawlLibTitle.Substring(0, Program.BrawlLibTitle.LastIndexOf(' ')) + " v" + Program.BrawlLibVersion));
+                lblBrawlLib.Text = "Using " + (MainForm.Instance.Canary
+                                       ? "BrawlCrateLib Canary" + MainForm.Instance.commitIDlong
+                                       : Program.BrawlLibTitle.Substring(0, Program.BrawlLibTitle.LastIndexOf(' ')) +
+                                         " v" + Program.BrawlLibVersion);
             }
             catch
             {
-                lblBrawlLib.Text = "Using " + (MainForm.Instance.Canary ? ("BrawlCrateLib Canary" + MainForm.Instance.commitIDlong) : Program.BrawlLibTitle);
+                lblBrawlLib.Text = "Using " + (MainForm.Instance.Canary
+                                       ? "BrawlCrateLib Canary" + MainForm.Instance.commitIDlong
+                                       : Program.BrawlLibTitle);
             }
+
             if (Program.IsBirthday)
             {
                 txtDescription.Location = new System.Drawing.Point(12, 81);
                 txtDescription.Size = new System.Drawing.Size(454, 218);
 
                 lblSpecialMessage.Text = "Happy ";
-                lblSpecialMessage.Text += (DateTime.Now.Year - 2018);
+                lblSpecialMessage.Text += DateTime.Now.Year - 2018;
                 if (lblSpecialMessage.Text.Substring(0, lblSpecialMessage.Text.Length - 1).EndsWith("1"))
                 {
                     lblSpecialMessage.Text += "th";

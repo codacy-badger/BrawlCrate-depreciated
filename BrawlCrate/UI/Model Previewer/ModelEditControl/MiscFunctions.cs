@@ -41,25 +41,26 @@ namespace System.Windows.Forms
             {
                 case TransformType.None:
                     rotationToolStripMenuItem.Checked =
-                    translationToolStripMenuItem.Checked =
-                    scaleToolStripMenuItem.Checked = false;
+                        translationToolStripMenuItem.Checked =
+                            scaleToolStripMenuItem.Checked = false;
                     break;
                 case TransformType.Scale:
                     rotationToolStripMenuItem.Checked =
-                    translationToolStripMenuItem.Checked = false;
+                        translationToolStripMenuItem.Checked = false;
                     scaleToolStripMenuItem.Checked = true;
                     break;
                 case TransformType.Rotation:
                     translationToolStripMenuItem.Checked =
-                    scaleToolStripMenuItem.Checked = false;
+                        scaleToolStripMenuItem.Checked = false;
                     rotationToolStripMenuItem.Checked = true;
                     break;
                 case TransformType.Translation:
                     rotationToolStripMenuItem.Checked =
-                    scaleToolStripMenuItem.Checked = false;
+                        scaleToolStripMenuItem.Checked = false;
                     translationToolStripMenuItem.Checked = true;
                     break;
             }
+
             _updating = false;
 
             _snapCirc = _snapX = _snapY = _snapZ = false;
@@ -96,8 +97,8 @@ namespace System.Windows.Forms
             object item = models.SelectedItem;
 
             _resetCamera = false;
-            TargetModel = item is IModel ? (IModel)item : null;
-            TargetCollision = item is CollisionNode ? (CollisionNode)item : null;
+            TargetModel = item is IModel ? (IModel) item : null;
+            TargetCollision = item is CollisionNode ? (CollisionNode) item : null;
             //}
             _undoSaves.Clear();
             _redoSaves.Clear();
@@ -115,9 +116,9 @@ namespace System.Windows.Forms
             System.Drawing.Size s = new System.Drawing.Size(animCtrlPnl.Width, animEditors.Height);
             if (_currentControl != null && _currentControl.Visible)
             {
-                s = _currentControl.Visible ?
-                    (_currentControl is SCN0Editor ? scn0Editor.GetDimensions() : _currentControl.MinimumSize) :
-                    (!weightEditor.Visible && !vertexEditor.Visible ? new System.Drawing.Size(0, 0) : s);
+                s = _currentControl.Visible ? _currentControl is SCN0Editor ? scn0Editor.GetDimensions() :
+                    _currentControl.MinimumSize :
+                    !weightEditor.Visible && !vertexEditor.Visible ? new System.Drawing.Size(0, 0) : s;
             }
             else if (!weightEditor.Visible && !vertexEditor.Visible)
             {
@@ -223,6 +224,7 @@ namespace System.Windows.Forms
             weightEditor.BoneChanged();
             chkZoomExtents.Enabled = AllowZoomExtents;
         }
+
         public override void UpdateUndoButtons()
         {
             btnUndo.Enabled = CanUndo;
@@ -242,17 +244,32 @@ namespace System.Windows.Forms
         public void SetCurrentControl()
         {
             Control newControl = null;
-            SyncTexturesToObjectList = (TargetAnimType == NW4RAnimType.SRT || TargetAnimType == NW4RAnimType.PAT);
+            SyncTexturesToObjectList = TargetAnimType == NW4RAnimType.SRT || TargetAnimType == NW4RAnimType.PAT;
             switch (TargetAnimType)
             {
-                case NW4RAnimType.CHR: newControl = chr0Editor; break;
-                case NW4RAnimType.SHP: newControl = shp0Editor; break;
-                case NW4RAnimType.VIS: newControl = vis0Editor; break;
-                case NW4RAnimType.SCN: newControl = scn0Editor; break;
-                case NW4RAnimType.CLR: newControl = clr0Editor; break;
-                case NW4RAnimType.SRT: newControl = srt0Editor; break;
-                case NW4RAnimType.PAT: newControl = pat0Editor; break;
+                case NW4RAnimType.CHR:
+                    newControl = chr0Editor;
+                    break;
+                case NW4RAnimType.SHP:
+                    newControl = shp0Editor;
+                    break;
+                case NW4RAnimType.VIS:
+                    newControl = vis0Editor;
+                    break;
+                case NW4RAnimType.SCN:
+                    newControl = scn0Editor;
+                    break;
+                case NW4RAnimType.CLR:
+                    newControl = clr0Editor;
+                    break;
+                case NW4RAnimType.SRT:
+                    newControl = srt0Editor;
+                    break;
+                case NW4RAnimType.PAT:
+                    newControl = pat0Editor;
+                    break;
             }
+
             if (_currentControl != newControl)
             {
                 if (_currentControl != null)
@@ -272,14 +289,22 @@ namespace System.Windows.Forms
                     _currentControl.Visible = true;
                 }
             }
+
             AnimChanged();
             CheckDimensions();
             UpdateEditor();
             UpdatePropDisplay();
         }
 
-        protected override void UpdateSRT0FocusControls(SRT0Node node) { leftPanel.UpdateSRT0Selection(node); }
-        protected override void UpdatePAT0FocusControls(PAT0Node node) { leftPanel.UpdatePAT0Selection(node); }
+        protected override void UpdateSRT0FocusControls(SRT0Node node)
+        {
+            leftPanel.UpdateSRT0Selection(node);
+        }
+
+        protected override void UpdatePAT0FocusControls(PAT0Node node)
+        {
+            leftPanel.UpdatePAT0Selection(node);
+        }
 
         protected override unsafe void modelPanel1_MouseMove(object sender, MouseEventArgs e)
         {
@@ -324,20 +349,21 @@ namespace System.Windows.Forms
                     Dictionary<int, List<int>> objects = VIS0Indices[boneName];
                     foreach (KeyValuePair<int, List<int>> objKey in objects)
                     {
-                        obj = (MDL0ObjectNode)leftPanel.lstObjects.Items[objKey.Key];
+                        obj = (MDL0ObjectNode) leftPanel.lstObjects.Items[objKey.Key];
                         foreach (int i in objKey.Value)
                         {
                             node = _vis0.FindChild(obj._drawCalls[i].VisibilityBone, true) as VIS0EntryNode;
                             if (node != null)
                             {
-                                bool render = node._entryCount != 0 && _animFrame > 0 ?
-                                    node.GetEntry(_animFrame - 1) :
-                                    node._flags.HasFlag(VIS0Flags.Enabled);
+                                bool render = node._entryCount != 0 && _animFrame > 0
+                                    ? node.GetEntry(_animFrame - 1)
+                                    : node._flags.HasFlag(VIS0Flags.Enabled);
 
                                 if (leftPanel.InvokeRequired)
                                 {
-                                    Action<int, int, bool, MDL0ObjectNode> d = new Action<int, int, bool, MDL0ObjectNode>(leftPanel.SetRenderState);
-                                    Invoke(d, new object[] { objKey.Key, i, render, obj });
+                                    Action<int, int, bool, MDL0ObjectNode> d =
+                                        new Action<int, int, bool, MDL0ObjectNode>(leftPanel.SetRenderState);
+                                    Invoke(d, new object[] {objKey.Key, i, render, obj});
                                 }
                                 else
                                 {
@@ -348,10 +374,12 @@ namespace System.Windows.Forms
                     }
                 }
             }
+
             VIS0Updating = false;
         }
 
         #region Hotkeys
+
         private bool HotkeySelectAllVertices()
         {
             if (!ModelPanel.Focused)
@@ -384,6 +412,7 @@ namespace System.Windows.Forms
 
             return true;
         }
+
         private bool HotkeyToggleLeftPanel()
         {
             if (ModelPanel.Focused)
@@ -391,8 +420,10 @@ namespace System.Windows.Forms
                 btnLeftToggle_Click(this, EventArgs.Empty);
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyToggleTopPanel()
         {
             if (ModelPanel.Focused)
@@ -400,8 +431,10 @@ namespace System.Windows.Forms
                 btnTopToggle_Click(this, EventArgs.Empty);
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyToggleRightPanel()
         {
             if (ModelPanel.Focused)
@@ -409,8 +442,10 @@ namespace System.Windows.Forms
                 btnRightToggle_Click(this, EventArgs.Empty);
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyToggleBottomPanel()
         {
             if (ModelPanel.Focused)
@@ -418,8 +453,10 @@ namespace System.Windows.Forms
                 btnBottomToggle_Click(this, EventArgs.Empty);
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyToggleAllPanels()
         {
             if (ModelPanel.Focused)
@@ -435,8 +472,10 @@ namespace System.Windows.Forms
 
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyScaleTool()
         {
             if (ModelPanel.Focused)
@@ -444,8 +483,10 @@ namespace System.Windows.Forms
                 ControlType = TransformType.Scale;
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyRotateTool()
         {
             if (ModelPanel.Focused)
@@ -453,8 +494,10 @@ namespace System.Windows.Forms
                 ControlType = TransformType.Rotation;
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyTranslateTool()
         {
             if (ModelPanel.Focused)
@@ -462,6 +505,7 @@ namespace System.Windows.Forms
                 ControlType = TransformType.Translation;
                 return true;
             }
+
             return false;
         }
 
@@ -472,8 +516,10 @@ namespace System.Windows.Forms
                 ToggleWeightEditor();
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyVertexEditor()
         {
             if (ModelPanel.Focused)
@@ -481,8 +527,10 @@ namespace System.Windows.Forms
                 ToggleVertexEditor();
                 return true;
             }
+
             return false;
         }
+
         private bool HotkeyOverlays()
         {
             if (ModelPanel.Focused)
@@ -494,6 +542,7 @@ namespace System.Windows.Forms
                 ModelPanel.Invalidate();
                 return true;
             }
+
             return false;
         }
 
@@ -518,13 +567,16 @@ namespace System.Windows.Forms
             };
             _hotkeyList.AddRange(temp);
         }
+
         #endregion
 
         #region Collisions
+
         private bool PointCollides(Vector3 point)
         {
             return PointCollides(point, out float f);
         }
+
         private bool PointCollides(Vector3 point, out float y_result)
         {
             y_result = float.MaxValue;
@@ -537,13 +589,13 @@ namespace System.Windows.Forms
                     {
                         foreach (CollisionPlane plane in obj._planes)
                         {
-                            if (plane._type == BrawlLib.SSBBTypes.CollisionPlaneType.Floor && plane.IsCharacters)
+                            if (plane._type == CollisionPlaneType.Floor && plane.IsCharacters)
                             {
                                 if (plane.PointLeft._x <= v2._x && plane.PointRight._x >= v2._x)
                                 {
                                     float x = v2._x;
                                     float m = (plane.PointLeft._y - plane.PointRight._y)
-                                        / (plane.PointLeft._x - plane.PointRight._x);
+                                              / (plane.PointLeft._x - plane.PointRight._x);
                                     float b = plane.PointRight._y - m * plane.PointRight._x;
                                     float y_target = m * x + b;
                                     //Console.WriteLine(y_target);
@@ -557,24 +609,31 @@ namespace System.Windows.Forms
                     }
                 }
             }
-            return (Math.Abs(y_result - v2._y) <= 5);
+
+            return Math.Abs(y_result - v2._y) <= 5;
         }
+
         private void SnapYIfClose()
         {
-            if (PointCollides(new Vector3(chr0Editor._transBoxes[6].Value, chr0Editor._transBoxes[7].Value, chr0Editor._transBoxes[8].Value), out float f))
+            if (PointCollides(
+                new Vector3(chr0Editor._transBoxes[6].Value, chr0Editor._transBoxes[7].Value,
+                    chr0Editor._transBoxes[8].Value), out float f))
             {
                 ApplyTranslation(1, f - chr0Editor._transBoxes[7].Value);
             }
         }
+
         #endregion
 
         #region Settings
+
         public override void SaveSettings()
         {
             BrawlCrate.Properties.Settings.Default.ViewerSettings = CollectSettings();
             BrawlCrate.Properties.Settings.Default.ViewerSettingsSet = true;
             BrawlCrate.Properties.Settings.Default.Save();
         }
+
         public ModelEditorSettings CollectSettings()
         {
             ModelEditorSettings settings = new ModelEditorSettings()
@@ -606,29 +665,30 @@ namespace System.Windows.Forms
                 _posX = ParentForm.Location.X,
                 _posY = ParentForm.Location.Y,
 
-                _orbColor = (ARGBPixel)MDL0BoneNode.DefaultNodeColor,
-                _lineColor = (ARGBPixel)MDL0BoneNode.DefaultLineColor,
-                _lineDeselectedColor = (ARGBPixel)MDL0BoneNode.DefaultLineDeselectedColor,
-                _floorColor = (ARGBPixel)_floorHue,
+                _orbColor = (ARGBPixel) MDL0BoneNode.DefaultNodeColor,
+                _lineColor = (ARGBPixel) MDL0BoneNode.DefaultLineColor,
+                _lineDeselectedColor = (ARGBPixel) MDL0BoneNode.DefaultLineDeselectedColor,
+                _floorColor = (ARGBPixel) _floorHue,
 
                 _undoCount = _allowedUndos,
                 _imageCapFmt = _imgType,
-                _rightPanelWidth = (uint)rightPanel.Width,
+                _rightPanelWidth = (uint) rightPanel.Width,
 
                 _screenCapPath = ScreenCapBgLocText.Text,
                 _liveTexFolderPath = LiveTextureFolderPath.Text,
 
-                _viewports = ModelPanel.Select(x => ((ModelPanelViewport)x).GetInfo()).ToList(),
+                _viewports = ModelPanel.Select(x => ((ModelPanelViewport) x).GetInfo()).ToList(),
             };
             return settings;
         }
+
         public override void SetDefaultSettings()
         {
             bool isStage = false;
 
             if (MainForm.Instance.RootNode is ARCWrapper)
             {
-                if (((ARCNode)((ARCWrapper)MainForm.Instance.RootNode).ResourceNode).IsStage)
+                if (((ARCNode) ((ARCWrapper) MainForm.Instance.RootNode).ResourceNode).IsStage)
                 {
                     isStage = true;
                 }
@@ -636,6 +696,7 @@ namespace System.Windows.Forms
 
             DistributeSettings(ModelEditorSettings.Default(isStage));
         }
+
         public void DistributeSettings(ModelEditorSettings settings)
         {
             if (settings == null)
@@ -662,12 +723,12 @@ namespace System.Windows.Forms
             UseBindStateBoxes = settings.UseBindStateBox;
             ShaderGenerator.UsePixelLighting = settings.UsePixelLighting;
 
-            MDL0BoneNode.DefaultNodeColor = (Color)settings._orbColor;
-            MDL0BoneNode.DefaultLineColor = (Color)settings._lineColor;
-            MDL0BoneNode.DefaultLineDeselectedColor = (Color)settings._lineDeselectedColor;
-            _floorHue = (Color)settings._floorColor;
+            MDL0BoneNode.DefaultNodeColor = (Color) settings._orbColor;
+            MDL0BoneNode.DefaultLineColor = (Color) settings._lineColor;
+            MDL0BoneNode.DefaultLineDeselectedColor = (Color) settings._lineDeselectedColor;
+            _floorHue = (Color) settings._floorColor;
 
-            int w = (int)settings._rightPanelWidth;
+            int w = (int) settings._rightPanelWidth;
             if (w >= 50)
             {
                 rightPanel.Width = w;
@@ -683,13 +744,14 @@ namespace System.Windows.Forms
             SCN0FogNode._generateTangents = settings.GenTansFog;
             SCN0CameraNode._generateTangents = settings.GenTansCam;
 
-            string applicationFolder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            string applicationFolder = IO.Path.GetDirectoryName(Reflection.Assembly.GetEntryAssembly().Location);
 
             string t = settings._screenCapPath;
             ScreenCapBgLocText.Text = !string.IsNullOrEmpty(t) ? t : applicationFolder + "\\ScreenCaptures";
 
             t = settings._liveTexFolderPath;
-            LiveTextureFolderPath.Text = MDL0TextureNode.TextureOverrideDirectory = !string.IsNullOrEmpty(t) ? t : applicationFolder;
+            LiveTextureFolderPath.Text = MDL0TextureNode.TextureOverrideDirectory =
+                !string.IsNullOrEmpty(t) ? t : applicationFolder;
 
             EnableLiveTextureFolder.Checked = MDL0TextureNode._folderWatcher.EnableRaisingEvents;
 
@@ -704,25 +766,34 @@ namespace System.Windows.Forms
             ModelPanel.EndUpdate();
             _updating = false;
         }
+
         #endregion
 
         #region Panel Toggles
+
         private void showLeft_CheckedChanged(object sender, EventArgs e)
         {
             leftPanel.Visible = spltLeft.Visible = showLeft.Checked;
             btnLeftToggle.Text = showLeft.Checked == false ? ">" : "<";
         }
+
         private void showRight_CheckedChanged(object sender, EventArgs e)
         {
             rightPanel.Visible = spltRight.Visible = showRight.Checked;
             btnRightToggle.Text = showRight.Checked == false ? "<" : ">";
         }
+
         private void showBottom_CheckedChanged(object sender, EventArgs e)
         {
             animEditors.Visible = !animEditors.Visible;
             CheckDimensions();
         }
-        private void showTop_CheckedChanged(object sender, EventArgs e) { controlPanel.Visible = showTop.Checked; }
+
+        private void showTop_CheckedChanged(object sender, EventArgs e)
+        {
+            controlPanel.Visible = showTop.Checked;
+        }
+
         #endregion
 
         protected override void OnSelectedVerticesChanged()
@@ -737,18 +808,22 @@ namespace System.Windows.Forms
         {
             control.Zoomed += affected.Zoom;
         }
+
         public void LinkTranslate(ModelPanelViewport control, ModelPanelViewport affected)
         {
             control.Translated += affected.Translate;
         }
+
         public void LinkScale(ModelPanelViewport control, ModelPanelViewport affected)
         {
             control.Scaled += affected.Scale;
         }
+
         public void LinkRotate(ModelPanelViewport control, ModelPanelViewport affected)
         {
             control.Rotated += affected.Rotate;
         }
+
         public void LinkPivot(ModelPanelViewport control, ModelPanelViewport affected)
         {
             control.Pivoted += affected.Pivot;
@@ -771,14 +846,14 @@ namespace System.Windows.Forms
                 return;
             }
 
-            Array a = (Array)e.Data.GetData(DataFormats.FileDrop);
+            Array a = (Array) e.Data.GetData(DataFormats.FileDrop);
             if (a != null)
             {
                 string s = null;
                 for (int i = 0; i < a.Length; i++)
                 {
                     s = a.GetValue(i).ToString();
-                    BeginInvoke(_openFileDelegate, new object[] { s });
+                    BeginInvoke(_openFileDelegate, new object[] {s});
                 }
             }
         }
@@ -822,22 +897,31 @@ namespace System.Windows.Forms
             switch (p.ViewType)
             {
                 case ViewportProjection.Perspective:
-                    _currentProjBox = perspectiveToolStripMenuItem; break;
+                    _currentProjBox = perspectiveToolStripMenuItem;
+                    break;
                 case ViewportProjection.Orthographic:
-                    _currentProjBox = orthographicToolStripMenuItem; break;
+                    _currentProjBox = orthographicToolStripMenuItem;
+                    break;
                 case ViewportProjection.Top:
-                    _currentProjBox = topToolStripMenuItem; break;
+                    _currentProjBox = topToolStripMenuItem;
+                    break;
                 case ViewportProjection.Bottom:
-                    _currentProjBox = bottomToolStripMenuItem; break;
+                    _currentProjBox = bottomToolStripMenuItem;
+                    break;
                 case ViewportProjection.Left:
-                    _currentProjBox = leftToolStripMenuItem; break;
+                    _currentProjBox = leftToolStripMenuItem;
+                    break;
                 case ViewportProjection.Right:
-                    _currentProjBox = rightToolStripMenuItem; break;
+                    _currentProjBox = rightToolStripMenuItem;
+                    break;
                 case ViewportProjection.Front:
-                    _currentProjBox = frontToolStripMenuItem; break;
+                    _currentProjBox = frontToolStripMenuItem;
+                    break;
                 case ViewportProjection.Back:
-                    _currentProjBox = backToolStripMenuItem; break;
+                    _currentProjBox = backToolStripMenuItem;
+                    break;
             }
+
             _currentProjBox.Checked = true;
 
             showCameraCoordinatesToolStripMenuItem.Checked = v._showCamCoords;
@@ -880,7 +964,7 @@ namespace System.Windows.Forms
                 vis0Editor.listBox1.Items.Count != 0 &&
                 leftPanel.SelectedObject is MDL0ObjectNode)
             {
-                MDL0ObjectNode o = (MDL0ObjectNode)leftPanel.SelectedObject;
+                MDL0ObjectNode o = (MDL0ObjectNode) leftPanel.SelectedObject;
 
                 int x = 0;
                 foreach (object i in vis0Editor.listBox1.Items)
@@ -1055,6 +1139,7 @@ namespace System.Windows.Forms
                 _updating = false;
             }
         }
+
         private void ModelPanel_ScaleBonesChanged(ModelPanel panel, bool value)
         {
             if (ModelPanel == panel && !_updating)
@@ -1084,8 +1169,7 @@ namespace System.Windows.Forms
                     }
                 }
             }
-            else
-                if (TargetCollision != null)
+            else if (TargetCollision != null)
             {
                 foreach (CollisionObject o in TargetCollision._objects)
                 {
@@ -1097,6 +1181,7 @@ namespace System.Windows.Forms
                     leftPanel.lstObjects.SetItemChecked(i, RenderCollisions);
                 }
             }
+
             modelPanel.Invalidate();
             _updating = false;
         }

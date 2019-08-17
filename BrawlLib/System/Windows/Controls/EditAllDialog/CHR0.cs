@@ -62,68 +62,68 @@ namespace System.Windows.Forms
         private RadioButton RotateDoNotChange;
         private RadioButton ScaleDoNotChange;
         private CheckBox ChangeVersion;
-        #region Designer
 
+        #region Designer
 
         private void InitializeComponent()
         {
-            groupBox2 = new System.Windows.Forms.GroupBox();
-            groupBox4 = new System.Windows.Forms.GroupBox();
-            TranslateDoNotChange = new System.Windows.Forms.RadioButton();
-            TranslateDivide = new System.Windows.Forms.RadioButton();
-            TranslateMultiply = new System.Windows.Forms.RadioButton();
-            TranslateSubtract = new System.Windows.Forms.RadioButton();
-            TranslateAdd = new System.Windows.Forms.RadioButton();
-            TranslateClear = new System.Windows.Forms.RadioButton();
-            TranslateReplace = new System.Windows.Forms.RadioButton();
-            label5 = new System.Windows.Forms.Label();
-            label9 = new System.Windows.Forms.Label();
-            label10 = new System.Windows.Forms.Label();
-            TranslateZ = new System.Windows.Forms.NumericInputBox();
-            TranslateY = new System.Windows.Forms.NumericInputBox();
-            TranslateX = new System.Windows.Forms.NumericInputBox();
-            groupBox3 = new System.Windows.Forms.GroupBox();
-            RotateDoNotChange = new System.Windows.Forms.RadioButton();
-            RotateDivide = new System.Windows.Forms.RadioButton();
-            RotateMultiply = new System.Windows.Forms.RadioButton();
-            RotateSubtract = new System.Windows.Forms.RadioButton();
-            RotateAdd = new System.Windows.Forms.RadioButton();
-            RotateClear = new System.Windows.Forms.RadioButton();
-            RotateReplace = new System.Windows.Forms.RadioButton();
-            label2 = new System.Windows.Forms.Label();
-            label3 = new System.Windows.Forms.Label();
-            label4 = new System.Windows.Forms.Label();
-            RotateZ = new System.Windows.Forms.NumericInputBox();
-            RotateY = new System.Windows.Forms.NumericInputBox();
-            RotateX = new System.Windows.Forms.NumericInputBox();
-            groupBox5 = new System.Windows.Forms.GroupBox();
-            ScaleDoNotChange = new System.Windows.Forms.RadioButton();
-            ScaleDivide = new System.Windows.Forms.RadioButton();
-            ScaleMultiply = new System.Windows.Forms.RadioButton();
-            ScaleSubtract = new System.Windows.Forms.RadioButton();
-            ScaleAdd = new System.Windows.Forms.RadioButton();
-            ScaleClear = new System.Windows.Forms.RadioButton();
-            ScaleReplace = new System.Windows.Forms.RadioButton();
-            label7 = new System.Windows.Forms.Label();
-            label6 = new System.Windows.Forms.Label();
-            label8 = new System.Windows.Forms.Label();
-            ScaleZ = new System.Windows.Forms.NumericInputBox();
-            ScaleY = new System.Windows.Forms.NumericInputBox();
-            ScaleX = new System.Windows.Forms.NumericInputBox();
-            keyframeCopy = new System.Windows.Forms.TextBox();
-            copyKeyframes = new System.Windows.Forms.CheckBox();
-            label1 = new System.Windows.Forms.Label();
-            name = new System.Windows.Forms.TextBox();
-            groupBox1 = new System.Windows.Forms.GroupBox();
-            targetName = new System.Windows.Forms.TextBox();
-            NameContains = new System.Windows.Forms.CheckBox();
-            newName = new System.Windows.Forms.TextBox();
-            Rename = new System.Windows.Forms.CheckBox();
-            enableLoop = new System.Windows.Forms.CheckBox();
-            editLoop = new System.Windows.Forms.CheckBox();
-            Port = new System.Windows.Forms.CheckBox();
-            Version = new System.Windows.Forms.ComboBox();
-            ChangeVersion = new System.Windows.Forms.CheckBox();
+            groupBox2 = new GroupBox();
+            groupBox4 = new GroupBox();
+            TranslateDoNotChange = new RadioButton();
+            TranslateDivide = new RadioButton();
+            TranslateMultiply = new RadioButton();
+            TranslateSubtract = new RadioButton();
+            TranslateAdd = new RadioButton();
+            TranslateClear = new RadioButton();
+            TranslateReplace = new RadioButton();
+            label5 = new Label();
+            label9 = new Label();
+            label10 = new Label();
+            TranslateZ = new NumericInputBox();
+            TranslateY = new NumericInputBox();
+            TranslateX = new NumericInputBox();
+            groupBox3 = new GroupBox();
+            RotateDoNotChange = new RadioButton();
+            RotateDivide = new RadioButton();
+            RotateMultiply = new RadioButton();
+            RotateSubtract = new RadioButton();
+            RotateAdd = new RadioButton();
+            RotateClear = new RadioButton();
+            RotateReplace = new RadioButton();
+            label2 = new Label();
+            label3 = new Label();
+            label4 = new Label();
+            RotateZ = new NumericInputBox();
+            RotateY = new NumericInputBox();
+            RotateX = new NumericInputBox();
+            groupBox5 = new GroupBox();
+            ScaleDoNotChange = new RadioButton();
+            ScaleDivide = new RadioButton();
+            ScaleMultiply = new RadioButton();
+            ScaleSubtract = new RadioButton();
+            ScaleAdd = new RadioButton();
+            ScaleClear = new RadioButton();
+            ScaleReplace = new RadioButton();
+            label7 = new Label();
+            label6 = new Label();
+            label8 = new Label();
+            ScaleZ = new NumericInputBox();
+            ScaleY = new NumericInputBox();
+            ScaleX = new NumericInputBox();
+            keyframeCopy = new TextBox();
+            copyKeyframes = new CheckBox();
+            label1 = new Label();
+            name = new TextBox();
+            groupBox1 = new GroupBox();
+            targetName = new TextBox();
+            NameContains = new CheckBox();
+            newName = new TextBox();
+            Rename = new CheckBox();
+            enableLoop = new CheckBox();
+            editLoop = new CheckBox();
+            Port = new CheckBox();
+            Version = new ComboBox();
+            ChangeVersion = new CheckBox();
             groupBox2.SuspendLayout();
             groupBox4.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -140,7 +140,7 @@ namespace System.Windows.Forms
             groupBox2.Controls.Add(copyKeyframes);
             groupBox2.Controls.Add(label1);
             groupBox2.Controls.Add(name);
-            groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox2.Dock = DockStyle.Fill;
             groupBox2.Location = new System.Drawing.Point(0, 89);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new System.Drawing.Size(405, 250);
@@ -150,8 +150,8 @@ namespace System.Windows.Forms
             // 
             // groupBox4
             // 
-            groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left);
+            groupBox4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom
+                                                | AnchorStyles.Left;
             groupBox4.Controls.Add(TranslateDoNotChange);
             groupBox4.Controls.Add(TranslateDivide);
             groupBox4.Controls.Add(TranslateMultiply);
@@ -183,7 +183,7 @@ namespace System.Windows.Forms
             TranslateDoNotChange.TabStop = true;
             TranslateDoNotChange.Text = "Do not change";
             TranslateDoNotChange.UseVisualStyleBackColor = true;
-            TranslateDoNotChange.CheckedChanged += new System.EventHandler(TranslateClear_CheckedChanged);
+            TranslateDoNotChange.CheckedChanged += new EventHandler(TranslateClear_CheckedChanged);
             // 
             // TranslateDivide
             // 
@@ -194,7 +194,7 @@ namespace System.Windows.Forms
             TranslateDivide.TabIndex = 47;
             TranslateDivide.Text = "Divide";
             TranslateDivide.UseVisualStyleBackColor = true;
-            TranslateDivide.CheckedChanged += new System.EventHandler(TranslateClear_CheckedChanged);
+            TranslateDivide.CheckedChanged += new EventHandler(TranslateClear_CheckedChanged);
             // 
             // TranslateMultiply
             // 
@@ -205,7 +205,7 @@ namespace System.Windows.Forms
             TranslateMultiply.TabIndex = 46;
             TranslateMultiply.Text = "Multiply";
             TranslateMultiply.UseVisualStyleBackColor = true;
-            TranslateMultiply.CheckedChanged += new System.EventHandler(TranslateClear_CheckedChanged);
+            TranslateMultiply.CheckedChanged += new EventHandler(TranslateClear_CheckedChanged);
             // 
             // TranslateSubtract
             // 
@@ -216,7 +216,7 @@ namespace System.Windows.Forms
             TranslateSubtract.TabIndex = 45;
             TranslateSubtract.Text = "Subtract";
             TranslateSubtract.UseVisualStyleBackColor = true;
-            TranslateSubtract.CheckedChanged += new System.EventHandler(TranslateClear_CheckedChanged);
+            TranslateSubtract.CheckedChanged += new EventHandler(TranslateClear_CheckedChanged);
             // 
             // TranslateAdd
             // 
@@ -227,7 +227,7 @@ namespace System.Windows.Forms
             TranslateAdd.TabIndex = 44;
             TranslateAdd.Text = "Add";
             TranslateAdd.UseVisualStyleBackColor = true;
-            TranslateAdd.CheckedChanged += new System.EventHandler(TranslateClear_CheckedChanged);
+            TranslateAdd.CheckedChanged += new EventHandler(TranslateClear_CheckedChanged);
             // 
             // TranslateClear
             // 
@@ -238,7 +238,7 @@ namespace System.Windows.Forms
             TranslateClear.TabIndex = 43;
             TranslateClear.Text = "Clear";
             TranslateClear.UseVisualStyleBackColor = true;
-            TranslateClear.CheckedChanged += new System.EventHandler(TranslateClear_CheckedChanged);
+            TranslateClear.CheckedChanged += new EventHandler(TranslateClear_CheckedChanged);
             // 
             // TranslateReplace
             // 
@@ -249,7 +249,7 @@ namespace System.Windows.Forms
             TranslateReplace.TabIndex = 42;
             TranslateReplace.Text = "Replace";
             TranslateReplace.UseVisualStyleBackColor = true;
-            TranslateReplace.CheckedChanged += new System.EventHandler(TranslateClear_CheckedChanged);
+            TranslateReplace.CheckedChanged += new EventHandler(TranslateClear_CheckedChanged);
             // 
             // label5
             // 
@@ -307,8 +307,8 @@ namespace System.Windows.Forms
             // 
             // groupBox3
             // 
-            groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left);
+            groupBox3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom
+                                                | AnchorStyles.Left;
             groupBox3.Controls.Add(RotateDoNotChange);
             groupBox3.Controls.Add(RotateDivide);
             groupBox3.Controls.Add(RotateMultiply);
@@ -340,7 +340,7 @@ namespace System.Windows.Forms
             RotateDoNotChange.TabStop = true;
             RotateDoNotChange.Text = "Do not change";
             RotateDoNotChange.UseVisualStyleBackColor = true;
-            RotateDoNotChange.CheckedChanged += new System.EventHandler(RotateClear_CheckedChanged);
+            RotateDoNotChange.CheckedChanged += new EventHandler(RotateClear_CheckedChanged);
             // 
             // RotateDivide
             // 
@@ -351,7 +351,7 @@ namespace System.Windows.Forms
             RotateDivide.TabIndex = 47;
             RotateDivide.Text = "Divide";
             RotateDivide.UseVisualStyleBackColor = true;
-            RotateDivide.CheckedChanged += new System.EventHandler(RotateClear_CheckedChanged);
+            RotateDivide.CheckedChanged += new EventHandler(RotateClear_CheckedChanged);
             // 
             // RotateMultiply
             // 
@@ -362,7 +362,7 @@ namespace System.Windows.Forms
             RotateMultiply.TabIndex = 46;
             RotateMultiply.Text = "Multiply";
             RotateMultiply.UseVisualStyleBackColor = true;
-            RotateMultiply.CheckedChanged += new System.EventHandler(RotateClear_CheckedChanged);
+            RotateMultiply.CheckedChanged += new EventHandler(RotateClear_CheckedChanged);
             // 
             // RotateSubtract
             // 
@@ -373,7 +373,7 @@ namespace System.Windows.Forms
             RotateSubtract.TabIndex = 45;
             RotateSubtract.Text = "Subtract";
             RotateSubtract.UseVisualStyleBackColor = true;
-            RotateSubtract.CheckedChanged += new System.EventHandler(RotateClear_CheckedChanged);
+            RotateSubtract.CheckedChanged += new EventHandler(RotateClear_CheckedChanged);
             // 
             // RotateAdd
             // 
@@ -384,7 +384,7 @@ namespace System.Windows.Forms
             RotateAdd.TabIndex = 44;
             RotateAdd.Text = "Add";
             RotateAdd.UseVisualStyleBackColor = true;
-            RotateAdd.CheckedChanged += new System.EventHandler(RotateClear_CheckedChanged);
+            RotateAdd.CheckedChanged += new EventHandler(RotateClear_CheckedChanged);
             // 
             // RotateClear
             // 
@@ -395,7 +395,7 @@ namespace System.Windows.Forms
             RotateClear.TabIndex = 43;
             RotateClear.Text = "Clear";
             RotateClear.UseVisualStyleBackColor = true;
-            RotateClear.CheckedChanged += new System.EventHandler(RotateClear_CheckedChanged);
+            RotateClear.CheckedChanged += new EventHandler(RotateClear_CheckedChanged);
             // 
             // RotateReplace
             // 
@@ -406,7 +406,7 @@ namespace System.Windows.Forms
             RotateReplace.TabIndex = 42;
             RotateReplace.Text = "Replace";
             RotateReplace.UseVisualStyleBackColor = true;
-            RotateReplace.CheckedChanged += new System.EventHandler(RotateClear_CheckedChanged);
+            RotateReplace.CheckedChanged += new EventHandler(RotateClear_CheckedChanged);
             // 
             // label2
             // 
@@ -464,8 +464,8 @@ namespace System.Windows.Forms
             // 
             // groupBox5
             // 
-            groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left);
+            groupBox5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom
+                                                | AnchorStyles.Left;
             groupBox5.Controls.Add(ScaleDoNotChange);
             groupBox5.Controls.Add(ScaleDivide);
             groupBox5.Controls.Add(ScaleMultiply);
@@ -497,7 +497,7 @@ namespace System.Windows.Forms
             ScaleDoNotChange.TabStop = true;
             ScaleDoNotChange.Text = "Do not change";
             ScaleDoNotChange.UseVisualStyleBackColor = true;
-            ScaleDoNotChange.CheckedChanged += new System.EventHandler(ScaleClear_CheckedChanged);
+            ScaleDoNotChange.CheckedChanged += new EventHandler(ScaleClear_CheckedChanged);
             // 
             // ScaleDivide
             // 
@@ -508,7 +508,7 @@ namespace System.Windows.Forms
             ScaleDivide.TabIndex = 35;
             ScaleDivide.Text = "Divide";
             ScaleDivide.UseVisualStyleBackColor = true;
-            ScaleDivide.CheckedChanged += new System.EventHandler(ScaleClear_CheckedChanged);
+            ScaleDivide.CheckedChanged += new EventHandler(ScaleClear_CheckedChanged);
             // 
             // ScaleMultiply
             // 
@@ -519,7 +519,7 @@ namespace System.Windows.Forms
             ScaleMultiply.TabIndex = 34;
             ScaleMultiply.Text = "Multiply";
             ScaleMultiply.UseVisualStyleBackColor = true;
-            ScaleMultiply.CheckedChanged += new System.EventHandler(ScaleClear_CheckedChanged);
+            ScaleMultiply.CheckedChanged += new EventHandler(ScaleClear_CheckedChanged);
             // 
             // ScaleSubtract
             // 
@@ -530,7 +530,7 @@ namespace System.Windows.Forms
             ScaleSubtract.TabIndex = 33;
             ScaleSubtract.Text = "Subtract";
             ScaleSubtract.UseVisualStyleBackColor = true;
-            ScaleSubtract.CheckedChanged += new System.EventHandler(ScaleClear_CheckedChanged);
+            ScaleSubtract.CheckedChanged += new EventHandler(ScaleClear_CheckedChanged);
             // 
             // ScaleAdd
             // 
@@ -541,7 +541,7 @@ namespace System.Windows.Forms
             ScaleAdd.TabIndex = 32;
             ScaleAdd.Text = "Add";
             ScaleAdd.UseVisualStyleBackColor = true;
-            ScaleAdd.CheckedChanged += new System.EventHandler(ScaleClear_CheckedChanged);
+            ScaleAdd.CheckedChanged += new EventHandler(ScaleClear_CheckedChanged);
             // 
             // ScaleClear
             // 
@@ -552,7 +552,7 @@ namespace System.Windows.Forms
             ScaleClear.TabIndex = 31;
             ScaleClear.Text = "Clear";
             ScaleClear.UseVisualStyleBackColor = true;
-            ScaleClear.CheckedChanged += new System.EventHandler(ScaleClear_CheckedChanged);
+            ScaleClear.CheckedChanged += new EventHandler(ScaleClear_CheckedChanged);
             // 
             // ScaleReplace
             // 
@@ -563,7 +563,7 @@ namespace System.Windows.Forms
             ScaleReplace.TabIndex = 30;
             ScaleReplace.Text = "Replace";
             ScaleReplace.UseVisualStyleBackColor = true;
-            ScaleReplace.CheckedChanged += new System.EventHandler(ScaleClear_CheckedChanged);
+            ScaleReplace.CheckedChanged += new EventHandler(ScaleClear_CheckedChanged);
             // 
             // label7
             // 
@@ -636,7 +636,7 @@ namespace System.Windows.Forms
             copyKeyframes.TabIndex = 33;
             copyKeyframes.Text = "Copy keyframes from:";
             copyKeyframes.UseVisualStyleBackColor = true;
-            copyKeyframes.CheckedChanged += new System.EventHandler(copyKeyframes_CheckedChanged);
+            copyKeyframes.CheckedChanged += new EventHandler(copyKeyframes_CheckedChanged);
             // 
             // label1
             // 
@@ -665,7 +665,7 @@ namespace System.Windows.Forms
             groupBox1.Controls.Add(Port);
             groupBox1.Controls.Add(Version);
             groupBox1.Controls.Add(ChangeVersion);
-            groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            groupBox1.Dock = DockStyle.Top;
             groupBox1.Location = new System.Drawing.Point(0, 0);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new System.Drawing.Size(405, 89);
@@ -690,7 +690,7 @@ namespace System.Windows.Forms
             NameContains.TabIndex = 85;
             NameContains.Text = "Modify only if name contains: ";
             NameContains.UseVisualStyleBackColor = true;
-            NameContains.CheckedChanged += new System.EventHandler(NameContains_CheckedChanged);
+            NameContains.CheckedChanged += new EventHandler(NameContains_CheckedChanged);
             // 
             // newName
             // 
@@ -709,7 +709,7 @@ namespace System.Windows.Forms
             Rename.TabIndex = 83;
             Rename.Text = "Rename:";
             Rename.UseVisualStyleBackColor = true;
-            Rename.CheckedChanged += new System.EventHandler(Rename_CheckedChanged);
+            Rename.CheckedChanged += new EventHandler(Rename_CheckedChanged);
             // 
             // enableLoop
             // 
@@ -731,7 +731,7 @@ namespace System.Windows.Forms
             editLoop.TabIndex = 38;
             editLoop.Text = "Edit loop:";
             editLoop.UseVisualStyleBackColor = true;
-            editLoop.CheckedChanged += new System.EventHandler(editLoop_CheckedChanged);
+            editLoop.CheckedChanged += new EventHandler(editLoop_CheckedChanged);
             // 
             // Port
             // 
@@ -745,12 +745,14 @@ namespace System.Windows.Forms
             // 
             // Version
             // 
-            Version.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            Version.DropDownStyle = ComboBoxStyle.DropDownList;
             Version.Enabled = false;
             Version.FormattingEnabled = true;
-            Version.Items.AddRange(new object[] {
-            "4",
-            "5"});
+            Version.Items.AddRange(new object[]
+            {
+                "4",
+                "5"
+            });
             Version.Location = new System.Drawing.Point(114, 61);
             Version.Name = "Version";
             Version.Size = new System.Drawing.Size(80, 21);
@@ -765,7 +767,7 @@ namespace System.Windows.Forms
             ChangeVersion.TabIndex = 35;
             ChangeVersion.Text = "Change version:";
             ChangeVersion.UseVisualStyleBackColor = true;
-            ChangeVersion.CheckedChanged += new System.EventHandler(ChangeVersion_CheckedChanged);
+            ChangeVersion.CheckedChanged += new EventHandler(ChangeVersion_CheckedChanged);
             // 
             // EditAllCHR0Editor
             // 
@@ -784,12 +786,14 @@ namespace System.Windows.Forms
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ResumeLayout(false);
-
         }
 
         #endregion
 
-        public EditAllCHR0Editor() { InitializeComponent(); }
+        public EditAllCHR0Editor()
+        {
+            InitializeComponent();
+        }
 
         private void editLoop_CheckedChanged(object sender, EventArgs e)
         {
@@ -804,7 +808,8 @@ namespace System.Windows.Forms
             MDL0Node _targetModel = null;
             if (Port.Checked)
             {
-                MessageBox.Show("Please open the model you want to port the animations to.\nThen open the model the animations work normally for.");
+                MessageBox.Show(
+                    "Please open the model you want to port the animations to.\nThen open the model the animations work normally for.");
                 OpenFileDialog dlgOpen = new OpenFileDialog();
                 OpenFileDialog dlgOpen2 = new OpenFileDialog();
                 dlgOpen.Filter = dlgOpen2.Filter = "MDL0 Model (*.mdl0)|*.mdl0";
@@ -812,13 +817,14 @@ namespace System.Windows.Forms
                 dlgOpen2.Title = "Select the model the animations are for...";
                 if (dlgOpen.ShowDialog() == DialogResult.OK)
                 {
-                    _targetModel = (MDL0Node)NodeFactory.FromFile(null, dlgOpen.FileName);
+                    _targetModel = (MDL0Node) NodeFactory.FromFile(null, dlgOpen.FileName);
                     if (dlgOpen2.ShowDialog() == DialogResult.OK)
                     {
-                        model = (MDL0Node)NodeFactory.FromFile(null, dlgOpen2.FileName);
+                        model = (MDL0Node) NodeFactory.FromFile(null, dlgOpen2.FileName);
                     }
                 }
             }
+
             Vector3 scale = new Vector3(ScaleX.Value, ScaleY.Value, ScaleZ.Value);
             Vector3 rot = new Vector3(RotateX.Value, RotateY.Value, RotateZ.Value);
             Vector3 trans = new Vector3(TranslateX.Value, TranslateY.Value, TranslateZ.Value);
@@ -884,9 +890,10 @@ namespace System.Windows.Forms
                 CHR0EntryNode entry = n.FindChild(_name, false) as CHR0EntryNode;
                 if (entry == null)
                 {
-                    entry = new CHR0EntryNode() { _name = _name };
+                    entry = new CHR0EntryNode() {_name = _name};
                     n.AddChild(entry);
                 }
+
                 CHRAnimationFrame anim;
                 bool hasKeyframe = false;
                 int numFrames = entry.FrameCount;
@@ -1076,7 +1083,8 @@ namespace System.Windows.Forms
                     }
                 }
 
-                low = 3; high = 6;
+                low = 3;
+                high = 6;
                 if (RotateReplace.Checked)
                 {
                     for (int x = 0; x < numFrames; x++)
@@ -1262,7 +1270,8 @@ namespace System.Windows.Forms
                     }
                 }
 
-                low = 6; high = 9;
+                low = 6;
+                high = 9;
                 if (TranslateReplace.Checked)
                 {
                     for (int x = 0; x < numFrames; x++)
@@ -1472,15 +1481,18 @@ namespace System.Windows.Forms
 
         private void ScaleClear_CheckedChanged(object sender, EventArgs e)
         {
-            ScaleX.Enabled = ScaleY.Enabled = ScaleZ.Enabled = (!ScaleClear.Checked && !ScaleDoNotChange.Checked);
+            ScaleX.Enabled = ScaleY.Enabled = ScaleZ.Enabled = !ScaleClear.Checked && !ScaleDoNotChange.Checked;
         }
+
         private void RotateClear_CheckedChanged(object sender, EventArgs e)
         {
-            RotateX.Enabled = RotateY.Enabled = RotateZ.Enabled = (!RotateClear.Checked && !RotateDoNotChange.Checked);
+            RotateX.Enabled = RotateY.Enabled = RotateZ.Enabled = !RotateClear.Checked && !RotateDoNotChange.Checked;
         }
+
         private void TranslateClear_CheckedChanged(object sender, EventArgs e)
         {
-            TranslateX.Enabled = TranslateY.Enabled = TranslateZ.Enabled = (!TranslateClear.Checked && !TranslateDoNotChange.Checked);
+            TranslateX.Enabled = TranslateY.Enabled =
+                TranslateZ.Enabled = !TranslateClear.Checked && !TranslateDoNotChange.Checked;
         }
     }
 }

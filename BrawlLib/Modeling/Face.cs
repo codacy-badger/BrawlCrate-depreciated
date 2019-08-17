@@ -12,25 +12,46 @@ namespace BrawlLib.Modeling
         public Vertex3 _vertex;
 
         private IMatrixNode Node => _vertex != null ? _vertex.MatrixNode : null;
-        public ushort NodeID { get { if (Node != null) { return (ushort)Node.NodeIndex; } return ushort.MaxValue; } }
+
+        public ushort NodeID
+        {
+            get
+            {
+                if (Node != null)
+                {
+                    return (ushort) Node.NodeIndex;
+                }
+
+                return ushort.MaxValue;
+            }
+        }
 
         public int _vertexIndex = -1;
         public int _normalIndex = -1;
-        public int[] _colorIndices = new int[2] { -1, -1 };
-        public int[] _UVIndices = new int[8] { -1, -1, -1, -1, -1, -1, -1, -1 };
+        public int[] _colorIndices = new int[2] {-1, -1};
+        public int[] _UVIndices = new int[8] {-1, -1, -1, -1, -1, -1, -1, -1};
 
-        [Category("Facepoint"), Browsable(true)]
+        [Category("Facepoint")]
+        [Browsable(true)]
         public int VertexIndex => _vertexIndex;
-        [Category("Facepoint"), Browsable(true)]
+
+        [Category("Facepoint")]
+        [Browsable(true)]
         public int NormalIndex => _normalIndex;
-        [Category("Facepoint"), Browsable(true)]
+
+        [Category("Facepoint")]
+        [Browsable(true)]
         public int[] ColorIndices => _colorIndices;
-        [Category("Facepoint"), Browsable(true)]
+
+        [Category("Facepoint")]
+        [Browsable(true)]
         public int[] UVIndices => _UVIndices;
 
         public override string ToString()
         {
-            return string.Format("M({12}), V({0}), N({1}), C({2}, {3}), U({4}, {5}, {6}, {7}, {8}, {9}, {10}, {11})", _vertexIndex, _normalIndex, _colorIndices[0], _colorIndices[1], _UVIndices[0], _UVIndices[1], _UVIndices[2], _UVIndices[3], _UVIndices[4], _UVIndices[5], _UVIndices[6], _UVIndices[7], NodeID);
+            return string.Format("M({12}), V({0}), N({1}), C({2}, {3}), U({4}, {5}, {6}, {7}, {8}, {9}, {10}, {11})",
+                _vertexIndex, _normalIndex, _colorIndices[0], _colorIndices[1], _UVIndices[0], _UVIndices[1],
+                _UVIndices[2], _UVIndices[3], _UVIndices[4], _UVIndices[5], _UVIndices[6], _UVIndices[7], NodeID);
         }
 
         public override bool Equals(object obj)
@@ -58,10 +79,20 @@ namespace BrawlLib.Modeling
         public PrimitiveHeader(WiiPrimitiveType type, int entries)
         {
             Type = type;
-            Entries = (ushort)entries;
+            Entries = (ushort) entries;
         }
 
-        internal VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
+        internal VoidPtr Address
+        {
+            get
+            {
+                fixed (void* ptr = &this)
+                {
+                    return ptr;
+                }
+            }
+        }
+
         public VoidPtr Data => Address + 3;
     }
 
@@ -87,7 +118,9 @@ namespace BrawlLib.Modeling
         }
 
         //For imports
-        public PrimitiveHeader TriangleHeader => new PrimitiveHeader(WiiPrimitiveType.TriangleList, _triangles.Count * 3);
+        public PrimitiveHeader TriangleHeader =>
+            new PrimitiveHeader(WiiPrimitiveType.TriangleList, _triangles.Count * 3);
+
         public PrimitiveHeader LineHeader => new PrimitiveHeader(WiiPrimitiveType.Lines, _lines.Count * 2);
 
         public List<PointTriangle> _triangles = new List<PointTriangle>();
@@ -110,12 +143,12 @@ namespace BrawlLib.Modeling
 
         public unsafe void SetNodeIds(VoidPtr primAddr)
         {
-            byte* grpAddr = (byte*)(primAddr + _offset);
+            byte* grpAddr = (byte*) (primAddr + _offset);
             for (int i = 0; i < _nodeOffsets.Count; i++)
             {
                 if (_nodeOffsets[i]._node != null)
                 {
-                    *(bushort*)(grpAddr + _nodeOffsets[i]._offset) = (ushort)_nodeOffsets[i]._node.NodeIndex;
+                    *(bushort*) (grpAddr + _nodeOffsets[i]._offset) = (ushort) _nodeOffsets[i]._node.NodeIndex;
                 }
             }
         }
@@ -138,6 +171,7 @@ namespace BrawlLib.Modeling
                 _nodes.Add(t._z.NodeID);
             }
         }
+
         private void AddTristrip(PointTriangleStrip t)
         {
             _tristrips.Add(t);
@@ -149,6 +183,7 @@ namespace BrawlLib.Modeling
                 }
             }
         }
+
         private void AddLine(PointLine t)
         {
             _lines.Add(t);
@@ -162,6 +197,7 @@ namespace BrawlLib.Modeling
                 _nodes.Add(t._y.NodeID);
             }
         }
+
         private void AddLinestrip(PointLineStrip t)
         {
             _linestrips.Add(t);
@@ -173,6 +209,7 @@ namespace BrawlLib.Modeling
                 }
             }
         }
+
         private void AddPoint(FPoint t)
         {
             _points.Add(t);
@@ -225,6 +262,7 @@ namespace BrawlLib.Modeling
                 AddTristrip(t);
                 return true;
             }
+
             return false;
         }
 
@@ -257,6 +295,7 @@ namespace BrawlLib.Modeling
                 AddTriangle(t);
                 return true;
             }
+
             return false;
         }
 
@@ -277,6 +316,7 @@ namespace BrawlLib.Modeling
                 AddLinestrip(t);
                 return true;
             }
+
             return false;
         }
 
@@ -303,6 +343,7 @@ namespace BrawlLib.Modeling
                 AddLine(t);
                 return true;
             }
+
             return false;
         }
 
@@ -323,9 +364,14 @@ namespace BrawlLib.Modeling
                 AddPoint(t);
                 return true;
             }
+
             return false;
         }
-        public override string ToString() { return string.Format("Nodes: {0} - Primitives: {1}", _nodes.Count, _headers.Count); }
+
+        public override string ToString()
+        {
+            return string.Format("Nodes: {0} - Primitives: {1}", _nodes.Count, _headers.Count);
+        }
     }
 
     public class NodeOffset
@@ -343,6 +389,7 @@ namespace BrawlLib.Modeling
     public class PrimitiveClass
     {
         public virtual List<Facepoint> Points { get; set; }
+
         public static int Compare(PrimitiveClass p1, PrimitiveClass p2)
         {
             return p1.GetType() == p2.GetType() ? 0 : p1 is PointTriangleStrip ? -1 : 1;
@@ -377,22 +424,29 @@ namespace BrawlLib.Modeling
                     case 1: return _y;
                     case 2: return _z;
                 }
+
                 return null;
             }
             set
             {
                 switch (i)
                 {
-                    case 0: _x = value; break;
-                    case 1: _y = value; break;
-                    case 2: _z = value; break;
+                    case 0:
+                        _x = value;
+                        break;
+                    case 1:
+                        _y = value;
+                        break;
+                    case 2:
+                        _z = value;
+                        break;
                 }
             }
         }
 
         public override List<Facepoint> Points
         {
-            get => new List<Facepoint>() { _x, _y, _z };
+            get => new List<Facepoint>() {_x, _y, _z};
             set
             {
                 _x = value[0];
@@ -401,7 +455,10 @@ namespace BrawlLib.Modeling
             }
         }
 
-        public PointTriangle() { }
+        public PointTriangle()
+        {
+        }
+
         public PointTriangle(Facepoint x, Facepoint y, Facepoint z)
         {
             _x = x;
@@ -456,21 +513,26 @@ namespace BrawlLib.Modeling
                     case 0: return _x;
                     case 1: return _y;
                 }
+
                 return null;
             }
             set
             {
                 switch (i)
                 {
-                    case 0: _x = value; break;
-                    case 1: _y = value; break;
+                    case 0:
+                        _x = value;
+                        break;
+                    case 1:
+                        _y = value;
+                        break;
                 }
             }
         }
 
         public override List<Facepoint> Points
         {
-            get => new List<Facepoint>() { _x, _y };
+            get => new List<Facepoint>() {_x, _y};
             set
             {
                 _x = value[0];
@@ -478,7 +540,10 @@ namespace BrawlLib.Modeling
             }
         }
 
-        public PointLine() { }
+        public PointLine()
+        {
+        }
+
         public PointLine(Facepoint x, Facepoint y)
         {
             _x = x;
@@ -505,6 +570,9 @@ namespace BrawlLib.Modeling
     {
         public Facepoint _x;
 
-        public FPoint(Facepoint x) { _x = x; }
+        public FPoint(Facepoint x)
+        {
+            _x = x;
+        }
     }
 }

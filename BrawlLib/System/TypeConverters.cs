@@ -6,11 +6,12 @@ namespace System
 {
     internal class UserDataConverter : ExpandableObjectConverter
     {
-        public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destType)
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value,
+                                         Type destType)
         {
             if (destType == typeof(string) && value is UserDataClass)
             {
-                return ((UserDataClass)value).ToString();
+                return ((UserDataClass) value).ToString();
             }
 
             return base.ConvertTo(context, culture, value, destType);
@@ -22,7 +23,7 @@ namespace System
             {
                 try
                 {
-                    string s = (string)value;
+                    string s = (string) value;
                     string[] s2 = s.Split(':');
                     string[] s3 = s2[1].Split(',');
 
@@ -37,27 +38,31 @@ namespace System
 
                     return d;
                 }
-                catch { }
+                catch
+                {
+                }
             }
+
             return base.ConvertFrom(context, culture, value);
         }
 
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destType)
         {
-            return (destType == typeof(UserDataClass)) ? true : base.CanConvertTo(context, destType);
+            return destType == typeof(UserDataClass) ? true : base.CanConvertTo(context, destType);
         }
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
-            return (sourceType == typeof(string)) ? true : base.CanConvertFrom(context, sourceType);
+            return sourceType == typeof(string) ? true : base.CanConvertFrom(context, sourceType);
         }
     }
 
     internal class ExpandableObjectCustomConverter : ExpandableObjectConverter
     {
-        public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destType)
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value,
+                                         Type destType)
         {
-            string s = (string)base.ConvertTo(context, culture, value, destType);
+            string s = (string) base.ConvertTo(context, culture, value, destType);
             return s.Substring(s.LastIndexOf('.') + 1);
         }
     }
@@ -88,7 +93,8 @@ namespace System
             }
         }
 
-        public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value,
+                                         Type destinationType)
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(uint))
             {
@@ -100,18 +106,18 @@ namespace System
             }
         }
 
-        public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value.GetType() == typeof(string))
             {
-                string input = (string)value;
+                string input = (string) value;
 
                 if (input.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
                 {
                     input = input.Substring(2);
                 }
 
-                return uint.Parse(input, System.Globalization.NumberStyles.HexNumber, culture);
+                return uint.Parse(input, NumberStyles.HexNumber, culture);
             }
             else
             {
@@ -119,6 +125,7 @@ namespace System
             }
         }
     }
+
     internal class Vector2fTypeConverter : TypeConverter
     {
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
@@ -145,11 +152,12 @@ namespace System
             }
         }
 
-        public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value,
+                                         Type destinationType)
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(Vector2))
             {
-                Vector2 vec = (Vector2)value;
+                Vector2 vec = (Vector2) value;
                 return $"({vec._x},{vec._y})";
             }
             else
@@ -158,14 +166,14 @@ namespace System
             }
         }
 
-        public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value.GetType() == typeof(string))
             {
-                string input = (string)value;
+                string input = (string) value;
                 if (input.StartsWith("(", StringComparison.OrdinalIgnoreCase))
                 {
-                    input = input.Trim(new char[] { '(', ')' });
+                    input = input.Trim(new char[] {'(', ')'});
                 }
 
                 string f1 = input.Substring(0, input.IndexOf(',')).Trim();

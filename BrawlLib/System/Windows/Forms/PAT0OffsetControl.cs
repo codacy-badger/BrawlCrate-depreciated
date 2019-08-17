@@ -9,7 +9,7 @@
             InitializeComponent();
         }
 
-        public int NewValue => (int)numNewCount.Value;
+        public int NewValue => (int) numNewCount.Value;
         public bool IncreaseFrames => chkIncreaseFrames.Checked;
         public bool OffsetOtherTextures => chkOffsetOtherTextures.Checked;
 
@@ -27,24 +27,22 @@
 
         private void btnOkay_Click(object sender, EventArgs e)
         {
-            DialogResult = Forms.DialogResult.OK;
+            DialogResult = DialogResult.OK;
             Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            DialogResult = Forms.DialogResult.Cancel;
+            DialogResult = DialogResult.Cancel;
             Close();
         }
 
         private void chkOffsetOtherTextures_CheckedChanged(object sender, EventArgs e)
         {
-
         }
 
         private void chkIncreaseFrames_CheckedChanged(object sender, EventArgs e)
         {
-
         }
     }
 }

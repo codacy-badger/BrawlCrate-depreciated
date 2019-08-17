@@ -41,8 +41,9 @@ namespace System.Windows.Forms
                             return -1;
                         }
                     }
+
                     // Only allow the max number based on the "numBytes" value
-                    long maxValue = ((long)Math.Pow(16, numBytes)) - 1;
+                    long maxValue = (long) Math.Pow(16, numBytes) - 1;
                     if (Convert.ToInt64(numNewCount.Value, 10) > maxValue)
                     {
                         return -1;
@@ -55,18 +56,21 @@ namespace System.Windows.Forms
                     {
                         return -1;
                     }
+
                     // if it's just "0x", return 0
                     if (numNewCount.Text.Length == 2)
                     {
                         return 0;
                     }
+
                     // Disallow any non numeric characters that aren't A,B,C,D,E,F or lowercase variations
                     if (!hexCheck.Match(numNewCount.Text.Substring(2)).Success)
                     {
                         return -1;
                     }
                 }
-                return (Convert.ToInt64(numNewCount.Text, fromBase));
+
+                return Convert.ToInt64(numNewCount.Text, fromBase);
             }
         }
 
@@ -95,13 +99,13 @@ namespace System.Windows.Forms
 
         private void btnOkay_Click(object sender, EventArgs e)
         {
-            DialogResult = Forms.DialogResult.OK;
+            DialogResult = DialogResult.OK;
             Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            DialogResult = Forms.DialogResult.Cancel;
+            DialogResult = DialogResult.Cancel;
             Close();
         }
     }

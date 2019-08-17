@@ -12,6 +12,7 @@ namespace System.Windows.Forms
             public string _string;
             public List<Vector3> _positions = new List<Vector3>();
         }
+
         public static int _fontSize = 12;
         private static readonly Font _textFont = new Font("Arial", _fontSize);
         private readonly ModelPanelViewport _viewport;
@@ -28,7 +29,7 @@ namespace System.Windows.Forms
             {
                 if (!_text.ContainsKey(text))
                 {
-                    _text.Add(text, new TextData() { _string = text });
+                    _text.Add(text, new TextData() {_string = text});
                 }
 
                 _text[text]._positions.Add(value);
@@ -41,7 +42,10 @@ namespace System.Windows.Forms
             _viewport = viewport;
         }
 
-        public void Clear() { _text.Clear(); }
+        public void Clear()
+        {
+            _text.Clear();
+        }
 
         public unsafe void Draw()
         {
@@ -49,7 +53,7 @@ namespace System.Windows.Forms
             GL.Enable(EnableCap.Blend);
             //GL.BlendFunc(BlendingFactorSrc.One, BlendingFactorDest.OneMinusSrcColor);
 
-            GL.TexEnv(TextureEnvTarget.TextureEnv, TextureEnvParameter.TextureEnvMode, (float)TextureEnvMode.Replace);
+            GL.TexEnv(TextureEnvTarget.TextureEnv, TextureEnvParameter.TextureEnvMode, (float) TextureEnvMode.Replace);
 
             if (_size != _viewport.Region.Size ||
                 _viewport.Region.Size.Width == 0 ||
@@ -80,8 +84,8 @@ namespace System.Windows.Forms
 
                 _texId = GL.GenTexture();
                 GL.BindTexture(TextureTarget.Texture2D, _texId);
-                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)All.Linear);
-                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)All.Linear);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int) All.Linear);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int) All.Linear);
                 GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, _bitmap.Width, _bitmap.Height, 0,
                     OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, IntPtr.Zero);
             }
@@ -89,7 +93,7 @@ namespace System.Windows.Forms
             using (Graphics g = Graphics.FromImage(_bitmap))
             {
                 g.Clear(Color.Transparent);
-                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+                g.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias;
 
                 List<Vector2> _used = new List<Vector2>();
 
@@ -102,7 +106,7 @@ namespace System.Windows.Forms
                             v._z > 0 && v._z < 1 && //near and far depth values
                             !_used.Contains(new Vector2(v._x, v._y)))
                         {
-                            g.DrawString(d._string, ScreenTextHandler._textFont, Brushes.Black, new PointF(v._x, v._y));
+                            g.DrawString(d._string, _textFont, Brushes.Black, new PointF(v._x, v._y));
                             _used.Add(new Vector2(v._x, v._y));
                         }
                     }
@@ -111,8 +115,10 @@ namespace System.Windows.Forms
 
             GL.BindTexture(TextureTarget.Texture2D, _texId);
 
-            BitmapData data = _bitmap.LockBits(new Rectangle(0, 0, _bitmap.Width, _bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            GL.TexSubImage2D(TextureTarget.Texture2D, 0, 0, 0, _bitmap.Width, _bitmap.Height, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
+            BitmapData data = _bitmap.LockBits(new Rectangle(0, 0, _bitmap.Width, _bitmap.Height),
+                ImageLockMode.ReadOnly, Drawing.Imaging.PixelFormat.Format32bppArgb);
+            GL.TexSubImage2D(TextureTarget.Texture2D, 0, 0, 0, _bitmap.Width, _bitmap.Height,
+                OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
             _bitmap.UnlockBits(data);
 
             GL.Begin(BeginMode.Quads);

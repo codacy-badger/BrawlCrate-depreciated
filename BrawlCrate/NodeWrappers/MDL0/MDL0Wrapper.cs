@@ -15,6 +15,7 @@ namespace BrawlCrate.NodeWrappers
         #region Menu
 
         private static readonly ContextMenuStrip _menu;
+
         static MDL0Wrapper()
         {
             _menu = new ContextMenuStrip();
@@ -36,14 +37,14 @@ namespace BrawlCrate.NodeWrappers
                 new ToolStripMenuItem("Normals", null, NewNormalAction),
                 new ToolStripMenuItem("Colors", null, NewColorAction),
                 new ToolStripMenuItem("UVs", null, NewUVAction)
-                ));
+            ));
             _menu.Items.Add(new ToolStripMenuItem("&Import Asset", null,
                 new ToolStripMenuItem("Vertices", null, ImportVertexAction),
                 new ToolStripMenuItem("Normals", null, ImportNormalAction),
                 new ToolStripMenuItem("Colors", null, ImportColorAction),
                 new ToolStripMenuItem("UVs", null, ImportUVAction),
                 new ToolStripMenuItem("Objects", null, ImportObjectAction)
-                ));
+            ));
             _menu.Items.Add(new ToolStripMenuItem("&Sort Assets", null,
                 new ToolStripMenuItem("Materials", null, SortMaterialAction),
                 new ToolStripMenuItem("Vertices", null, SortVertexAction),
@@ -52,7 +53,7 @@ namespace BrawlCrate.NodeWrappers
                 new ToolStripMenuItem("UVs", null, SortUVAction),
                 new ToolStripMenuItem("Objects", null, SortObjectAction),
                 new ToolStripMenuItem("Textures", null, SortTextureAction)
-                ));
+            ));
             _menu.Items.Add(new ToolStripMenuItem("&Auto Name Assets", null,
                 new ToolStripMenuItem("Materials", null, NameMaterialAction),
                 new ToolStripMenuItem("Vertices", null, NameVertexAction),
@@ -60,7 +61,7 @@ namespace BrawlCrate.NodeWrappers
                 new ToolStripMenuItem("Colors", null, NameColorAction),
                 new ToolStripMenuItem("UVs", null, NameUVAction),
                 new ToolStripMenuItem("Objects", null, NameObjectAction)
-                ));
+            ));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Mirror Model", null,
                 new ToolStripMenuItem("X-Axis (Scale)", null, MirrorXAction),
@@ -69,124 +70,322 @@ namespace BrawlCrate.NodeWrappers
                 new ToolStripMenuItem("X-Axis (Translation/Z-Rotation)", null, FlipXAction),
                 new ToolStripMenuItem("Y-Axis (Translation/Z-Rotation)", null, FlipYAction)
                 //new ToolStripMenuItem("Z-Axis (Translation/Rotation)", null, FlipZAction)
-                ));
+            ));
             _menu.Items.Add(new ToolStripMenuItem("&Edit Materials", null,
                 new ToolStripMenuItem("&Characters", null,
                     new ToolStripMenuItem("&Convert To Spy Model", null, SpyConvertAction),
-                    new ToolStripMenuItem("(&Re)generate Metal Materials", null, MetalAction, Keys.Control | Keys.Shift | Keys.M)
-                //new ToolStripMenuItem("(Re)generate Custom Metal Materials", null, CustomMetalAction)
+                    new ToolStripMenuItem("(&Re)generate Metal Materials", null, MetalAction,
+                        Keys.Control | Keys.Shift | Keys.M)
+                    //new ToolStripMenuItem("(Re)generate Custom Metal Materials", null, CustomMetalAction)
                 ),
                 new ToolStripMenuItem("&Stages", null,
                     new ToolStripMenuItem("&Convert To Shadow Model", null, ShadowConvertAction),
                     new ToolStripMenuItem("&Fix Transparency With Characters", null, TransparencyFixAction)
                 ),
                 new ToolStripMenuItem("&Culling", null,
-                    new ToolStripMenuItem("Invert &Culling", null, InvertMaterialsAction, Keys.Control | Keys.Shift | Keys.I),
-                    new ToolStripMenuItem("Set all (Cull &None)", null, CullNoneAction, Keys.Control | Keys.Shift | Keys.D0),
-                    new ToolStripMenuItem("Set all (Cull &Outside)", null, CullOutsideAction, Keys.Control | Keys.Shift | Keys.D1),
-                    new ToolStripMenuItem("Set all (Cull &Inside)", null, CullInsideAction, Keys.Control | Keys.Shift | Keys.D2),
-                    new ToolStripMenuItem("Set all (Cull &All)", null, CullAllAction, Keys.Control | Keys.Shift | Keys.D3)
+                    new ToolStripMenuItem("Invert &Culling", null, InvertMaterialsAction,
+                        Keys.Control | Keys.Shift | Keys.I),
+                    new ToolStripMenuItem("Set all (Cull &None)", null, CullNoneAction,
+                        Keys.Control | Keys.Shift | Keys.D0),
+                    new ToolStripMenuItem("Set all (Cull &Outside)", null, CullOutsideAction,
+                        Keys.Control | Keys.Shift | Keys.D1),
+                    new ToolStripMenuItem("Set all (Cull &Inside)", null, CullInsideAction,
+                        Keys.Control | Keys.Shift | Keys.D2),
+                    new ToolStripMenuItem("Set all (Cull &All)", null, CullAllAction,
+                        Keys.Control | Keys.Shift | Keys.D3)
                 )
-                ));
+            ));
             _menu.Items.Add(new ToolStripMenuItem("&Reimport Meshes", null, ReimportAction));
             _menu.Items.Add(new ToolStripMenuItem("&Optimize Meshes", null, OptimizeAction));
             _menu.Items.Add(new ToolStripMenuItem("&Recalculate Bounding Boxes", null, RecalcBBsOption));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteAction, Keys.Control | Keys.Delete));
-            _menu.Items.Add(new ToolStripMenuItem("Delete All But Bones", null, StripAction, Keys.Control | Keys.Shift | Keys.Delete));
+            _menu.Items.Add(new ToolStripMenuItem("Delete All But Bones", null, StripAction,
+                Keys.Control | Keys.Shift | Keys.Delete));
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
 
         // StageBox model mirroring
-        protected static void MirrorXAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().MirrorX(); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
-        protected static void MirrorYAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().MirrorY(); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
-        protected static void MirrorZAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().MirrorZ(); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
-        protected static void FlipXAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().FlipX(true); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
-        protected static void FlipYAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().FlipY(true); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
+        protected static void MirrorXAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().MirrorX();
+            MainForm.Instance.resourceTree_SelectionChanged(sender, e);
+        }
+
+        protected static void MirrorYAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().MirrorY();
+            MainForm.Instance.resourceTree_SelectionChanged(sender, e);
+        }
+
+        protected static void MirrorZAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().MirrorZ();
+            MainForm.Instance.resourceTree_SelectionChanged(sender, e);
+        }
+
+        protected static void FlipXAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().FlipX(true);
+            MainForm.Instance.resourceTree_SelectionChanged(sender, e);
+        }
+
+        protected static void FlipYAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().FlipY(true);
+            MainForm.Instance.resourceTree_SelectionChanged(sender, e);
+        }
         //protected static void FlipZAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().FlipZ(true); }
 
         // StageBox Material settings
-        protected static void InvertMaterialsAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().InvertMaterials(); }
-        protected static void CullNoneAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().CullMaterials(0); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
-        protected static void CullOutsideAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().CullMaterials(1); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
-        protected static void CullInsideAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().CullMaterials(2); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
-        protected static void CullAllAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().CullMaterials(3); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
-        protected static void ShadowConvertAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().ShadowConvert(); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
-        protected static void SpyConvertAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SpyConvert(); }
+        protected static void InvertMaterialsAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().InvertMaterials();
+        }
 
-        protected static void TransparencyFixAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().StartTransparencyFix(); }
+        protected static void CullNoneAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().CullMaterials(0);
+            MainForm.Instance.resourceTree_SelectionChanged(sender, e);
+        }
 
-        private static void ReimportAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().ReimportMeshes(); }
-        private static void OptimizeAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().Optimize(); }
-        protected static void PreviewAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().Preview(); }
-        protected static void ImportObjectAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().ImportObject(); }
-        protected static void RecalcBBsOption(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().RecalcBoundingBoxes(); }
-        protected static void MetalAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().AutoMetal(); }
-        protected static void CustomMetalAction(object sender, EventArgs e) { StringInputDialog input = new StringInputDialog("Texture Name", "metal00"); input.ShowDialog(); if (input.DialogResult == DialogResult.OK) { GetInstance<MDL0Wrapper>().AutoMetal(input.resultString); } }
+        protected static void CullOutsideAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().CullMaterials(1);
+            MainForm.Instance.resourceTree_SelectionChanged(sender, e);
+        }
 
-        protected static void NewShaderAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NewShader(); }
-        protected static void NewMaterialAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NewMaterial(); }
+        protected static void CullInsideAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().CullMaterials(2);
+            MainForm.Instance.resourceTree_SelectionChanged(sender, e);
+        }
 
-        protected static void NewVertexAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NewVertex(); }
-        protected static void NewNormalAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NewNormal(); }
-        protected static void NewColorAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NewColor(); }
-        protected static void NewUVAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NewUV(); }
+        protected static void CullAllAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().CullMaterials(3);
+            MainForm.Instance.resourceTree_SelectionChanged(sender, e);
+        }
 
-        protected static void NameMaterialAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NameMaterial(); }
-        protected static void NameVertexAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NameVertex(); }
-        protected static void NameNormalAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NameNormal(); }
-        protected static void NameColorAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NameColor(); }
-        protected static void NameUVAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NameUV(); }
-        protected static void NameObjectAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().NameObject(); }
+        protected static void ShadowConvertAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().ShadowConvert();
+            MainForm.Instance.resourceTree_SelectionChanged(sender, e);
+        }
 
-        protected static void ImportVertexAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().ImportVertex(); }
-        protected static void ImportNormalAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().ImportNormal(); }
-        protected static void ImportColorAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().ImportColor(); }
-        protected static void ImportUVAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().ImportUV(); }
+        protected static void SpyConvertAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().SpyConvert();
+        }
 
-        protected static void SortMaterialAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortMaterial(); }
-        protected static void SortVertexAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortVertex(); }
-        protected static void SortNormalAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortNormal(); }
-        protected static void SortColorAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortColor(); }
-        protected static void SortUVAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortUV(); }
-        protected static void SortObjectAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortObject(); }
-        protected static void SortTextureAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().SortTexture(); }
+        protected static void TransparencyFixAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().StartTransparencyFix();
+        }
 
-        protected static void StripAction(object sender, EventArgs e) { GetInstance<MDL0Wrapper>().StripModel(); MainForm.Instance.resourceTree_SelectionChanged(sender, e); }
+        private static void ReimportAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().ReimportMeshes();
+        }
+
+        private static void OptimizeAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().Optimize();
+        }
+
+        protected static void PreviewAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().Preview();
+        }
+
+        protected static void ImportObjectAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().ImportObject();
+        }
+
+        protected static void RecalcBBsOption(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().RecalcBoundingBoxes();
+        }
+
+        protected static void MetalAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().AutoMetal();
+        }
+
+        protected static void CustomMetalAction(object sender, EventArgs e)
+        {
+            StringInputDialog input = new StringInputDialog("Texture Name", "metal00");
+            input.ShowDialog();
+            if (input.DialogResult == DialogResult.OK)
+            {
+                GetInstance<MDL0Wrapper>().AutoMetal(input.resultString);
+            }
+        }
+
+        protected static void NewShaderAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().NewShader();
+        }
+
+        protected static void NewMaterialAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().NewMaterial();
+        }
+
+        protected static void NewVertexAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().NewVertex();
+        }
+
+        protected static void NewNormalAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().NewNormal();
+        }
+
+        protected static void NewColorAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().NewColor();
+        }
+
+        protected static void NewUVAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().NewUV();
+        }
+
+        protected static void NameMaterialAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().NameMaterial();
+        }
+
+        protected static void NameVertexAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().NameVertex();
+        }
+
+        protected static void NameNormalAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().NameNormal();
+        }
+
+        protected static void NameColorAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().NameColor();
+        }
+
+        protected static void NameUVAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().NameUV();
+        }
+
+        protected static void NameObjectAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().NameObject();
+        }
+
+        protected static void ImportVertexAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().ImportVertex();
+        }
+
+        protected static void ImportNormalAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().ImportNormal();
+        }
+
+        protected static void ImportColorAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().ImportColor();
+        }
+
+        protected static void ImportUVAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().ImportUV();
+        }
+
+        protected static void SortMaterialAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().SortMaterial();
+        }
+
+        protected static void SortVertexAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().SortVertex();
+        }
+
+        protected static void SortNormalAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().SortNormal();
+        }
+
+        protected static void SortColorAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().SortColor();
+        }
+
+        protected static void SortUVAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().SortUV();
+        }
+
+        protected static void SortObjectAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().SortObject();
+        }
+
+        protected static void SortTextureAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().SortTexture();
+        }
+
+        protected static void StripAction(object sender, EventArgs e)
+        {
+            GetInstance<MDL0Wrapper>().StripModel();
+            MainForm.Instance.resourceTree_SelectionChanged(sender, e);
+        }
 
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-            _menu.Items[3].Enabled = _menu.Items[4].Enabled = _menu.Items[5].Enabled = _menu.Items[7].Enabled = _menu.Items[8].Enabled = _menu.Items[11].Enabled = _menu.Items[24].Enabled = true;
+            _menu.Items[3].Enabled = _menu.Items[4].Enabled = _menu.Items[5].Enabled = _menu.Items[7].Enabled =
+                _menu.Items[8].Enabled = _menu.Items[11].Enabled = _menu.Items[24].Enabled = true;
         }
+
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             MDL0Wrapper w = GetInstance<MDL0Wrapper>();
             _menu.Items[3].Enabled = _menu.Items[5].Enabled = _menu.Items[24].Enabled = w.Parent != null;
-            _menu.Items[4].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[4].Enabled = w._resource.IsDirty || w._resource.IsBranch;
             _menu.Items[7].Enabled = w.PrevNode != null;
             _menu.Items[8].Enabled = w.NextNode != null;
-            if (((MDL0Node)w._resource)._shadList != null && ((MDL0Node)w._resource)._matList != null)
+            if (((MDL0Node) w._resource)._shadList != null && ((MDL0Node) w._resource)._matList != null)
             {
-                _menu.Items[11].Enabled = (((MDL0Node)w._resource)._shadList.Count < ((MDL0Node)w._resource)._matList.Count);
+                _menu.Items[11].Enabled =
+                    ((MDL0Node) w._resource)._shadList.Count < ((MDL0Node) w._resource)._matList.Count;
             }
             else
             {
                 _menu.Items[11].Enabled = false;
             }
         }
+
         #endregion
 
         public override string ExportFilter => FileFilters.MDL0Export;
         public override string ImportFilter => FileFilters.MDL0Import;
 
-        public MDL0Wrapper() { ContextMenuStrip = _menu; }
+        public MDL0Wrapper()
+        {
+            ContextMenuStrip = _menu;
+        }
 
         public void StartTransparencyFix()
         {
-            if (MessageBox.Show(null, "This option will fix a transparent model to render correctly relative to characters.\nThis merely renames the model. Proper transparency must be set up for this to work fully.\nThis option will fail if the rename would cause a model name to be more than 255 characters.", "", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (MessageBox.Show(null,
+                    "This option will fix a transparent model to render correctly relative to characters.\nThis merely renames the model. Proper transparency must be set up for this to work fully.\nThis option will fail if the rename would cause a model name to be more than 255 characters.",
+                    "", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                ((MDL0Node)_resource).GR2Fix();
+                ((MDL0Node) _resource).GR2Fix();
             }
 
             _resource.Rebuild(true);
@@ -194,27 +393,27 @@ namespace BrawlCrate.NodeWrappers
 
         public void ShadowConvert()
         {
-            ((MDL0Node)_resource).ConvertToShadowModel();
+            ((MDL0Node) _resource).ConvertToShadowModel();
         }
 
         public void SpyConvert()
         {
-            ((MDL0Node)_resource).ConvertToSpyModel();
+            ((MDL0Node) _resource).ConvertToSpyModel();
         }
 
         public void InvertMaterials()
         {
-            ((MDL0Node)_resource).FlipAllMaterials();
+            ((MDL0Node) _resource).FlipAllMaterials();
         }
 
         public void CullMaterials(int cullMode)
         {
-            ((MDL0Node)_resource).SetAllMaterialCulling(cullMode);
+            ((MDL0Node) _resource).SetAllMaterialCulling(cullMode);
         }
 
         public void MirrorX()
         {
-            MDL0Node model = ((MDL0Node)_resource);
+            MDL0Node model = (MDL0Node) _resource;
 
             if (model.FindBoneByIndex(0) != null)
             {
@@ -227,7 +426,7 @@ namespace BrawlCrate.NodeWrappers
 
         public void MirrorY()
         {
-            MDL0Node model = ((MDL0Node)_resource);
+            MDL0Node model = (MDL0Node) _resource;
 
             if (model.FindBoneByIndex(0) != null)
             {
@@ -240,7 +439,7 @@ namespace BrawlCrate.NodeWrappers
 
         public void MirrorZ()
         {
-            MDL0Node model = ((MDL0Node)_resource);
+            MDL0Node model = (MDL0Node) _resource;
 
             if (model.FindBoneByIndex(0) != null)
             {
@@ -253,18 +452,21 @@ namespace BrawlCrate.NodeWrappers
 
         public void FlipX(bool allowBoundaryFix)
         {
-            MDL0Node model = ((MDL0Node)_resource);
+            MDL0Node model = (MDL0Node) _resource;
             bool boundaryFixActive = false;
             if (allowBoundaryFix)
             {
-                if (model.Name == "StgPosition" || model.Name == "Stgposition" || model.Name == "stgPosition" || model.Name == "stgposition" || model.Name == "StagePosition" || model.Name == "Stageposition" || model.Name == "stagePosition" || model.Name == "stageposition")
+                if (model.Name == "StgPosition" || model.Name == "Stgposition" || model.Name == "stgPosition" ||
+                    model.Name == "stgposition" || model.Name == "StagePosition" || model.Name == "Stageposition" ||
+                    model.Name == "stagePosition" || model.Name == "stageposition")
                 {
                     boundaryFixActive = true;
                 }
                 else if (model.Name.Length == 13)
                 {
                     //Console.WriteLine(model + " was found to be 13 characters long");
-                    if (model.Name.Substring(0, 11) == "PokeTrainer" || model.Name.Substring(0, 11) == "Poketrainer" || model.Name.Substring(0, 11) == "pokeTrainer" || model.Name.Substring(0, 11) == "poketrainer")
+                    if (model.Name.Substring(0, 11) == "PokeTrainer" || model.Name.Substring(0, 11) == "Poketrainer" ||
+                        model.Name.Substring(0, 11) == "pokeTrainer" || model.Name.Substring(0, 11) == "poketrainer")
                     {
                         //Console.WriteLine("It's a pokemon trainer");
                         boundaryFixActive = true;
@@ -415,6 +617,7 @@ namespace BrawlCrate.NodeWrappers
                         b.setManualTranslation('X', 0 - b.getManualTranslation('X'));
                         b.setManualRotation('Z', 0 - b.getManualRotation('Z'));
                     }
+
                     b = model.FindBoneByIndex(j);
                     isRestrictedName = false;
                 }
@@ -423,18 +626,21 @@ namespace BrawlCrate.NodeWrappers
 
         public void FlipY(bool allowBoundaryFix)
         {
-            MDL0Node model = ((MDL0Node)_resource);
+            MDL0Node model = (MDL0Node) _resource;
             bool boundaryFixActive = false;
             if (allowBoundaryFix)
             {
-                if (model.Name == "StgPosition" || model.Name == "Stgposition" || model.Name == "stgPosition" || model.Name == "stgposition" || model.Name == "StagePosition" || model.Name == "Stageposition" || model.Name == "stagePosition" || model.Name == "stageposition")
+                if (model.Name == "StgPosition" || model.Name == "Stgposition" || model.Name == "stgPosition" ||
+                    model.Name == "stgposition" || model.Name == "StagePosition" || model.Name == "Stageposition" ||
+                    model.Name == "stagePosition" || model.Name == "stageposition")
                 {
                     boundaryFixActive = true;
                 }
                 else if (model.Name.Length == 13)
                 {
                     //Console.WriteLine(model + " was found to be 13 characters long");
-                    if (model.Name.Substring(0, 11) == "PokeTrainer" || model.Name.Substring(0, 11) == "Poketrainer" || model.Name.Substring(0, 11) == "pokeTrainer" || model.Name.Substring(0, 11) == "poketrainer")
+                    if (model.Name.Substring(0, 11) == "PokeTrainer" || model.Name.Substring(0, 11) == "Poketrainer" ||
+                        model.Name.Substring(0, 11) == "pokeTrainer" || model.Name.Substring(0, 11) == "poketrainer")
                     {
                         //Console.WriteLine("It's a pokemon trainer");
                         boundaryFixActive = true;
@@ -585,6 +791,7 @@ namespace BrawlCrate.NodeWrappers
                         b.setManualTranslation('Y', 0 - b.getManualTranslation('Y'));
                         b.setManualRotation('Z', 0 - b.getManualRotation('Z'));
                     }
+
                     b = model.FindBoneByIndex(j);
                     isRestrictedName = false;
                 }
@@ -603,7 +810,7 @@ namespace BrawlCrate.NodeWrappers
                 MDL0Node replacement = MDL0Node.FromFile(ofd.FileName);
                 if (replacement != null)
                 {
-                    ((MDL0Node)_resource).ReplaceMeshes(replacement, true, true, true);
+                    ((MDL0Node) _resource).ReplaceMeshes(replacement, true, true, true);
                     replacement.Dispose();
                     _resource.UpdateCurrentControl();
                 }
@@ -612,7 +819,7 @@ namespace BrawlCrate.NodeWrappers
 
         public void Preview()
         {
-            new ModelForm().Show(_owner, (MDL0Node)_resource);
+            new ModelForm().Show(_owner, (MDL0Node) _resource);
         }
 
         private void Optimize()
@@ -622,7 +829,7 @@ namespace BrawlCrate.NodeWrappers
 
         public void NewShader()
         {
-            MDL0Node model = ((MDL0Node)_resource);
+            MDL0Node model = (MDL0Node) _resource;
 
             if (model._shadGroup == null)
             {
@@ -630,7 +837,8 @@ namespace BrawlCrate.NodeWrappers
                 if (g == null)
                 {
                     model.AddChild(g = new MDL0GroupNode(MDLResourceType.Shaders), true);
-                    model._shadGroup = g; model._shadList = g.Children;
+                    model._shadGroup = g;
+                    model._shadList = g.Children;
                 }
             }
 
@@ -653,7 +861,7 @@ namespace BrawlCrate.NodeWrappers
 
         public void NewMaterial()
         {
-            MDL0Node model = ((MDL0Node)_resource);
+            MDL0Node model = (MDL0Node) _resource;
 
             if (model._matGroup == null)
             {
@@ -661,7 +869,8 @@ namespace BrawlCrate.NodeWrappers
                 if (g == null)
                 {
                     model.AddChild(g = new MDL0GroupNode(MDLResourceType.Materials), true);
-                    model._matGroup = g; model._matList = g.Children;
+                    model._matGroup = g;
+                    model._matList = g.Children;
                 }
             }
 
@@ -675,15 +884,17 @@ namespace BrawlCrate.NodeWrappers
                 if (g == null)
                 {
                     model.AddChild(g = new MDL0GroupNode(MDLResourceType.Shaders), true);
-                    model._shadGroup = g; model._shadList = g.Children;
+                    model._shadGroup = g;
+                    model._shadList = g.Children;
                 }
             }
+
             if (model._shadList.Count == 0)
             {
                 NewShader();
             }
 
-            mat.ShaderNode = (MDL0ShaderNode)model._shadList[0];
+            mat.ShaderNode = (MDL0ShaderNode) model._shadList[0];
             MDL0MaterialRefNode mr = new MDL0MaterialRefNode();
             mat.AddChild(mr);
             mr.Name = "MatRef0";
@@ -698,27 +909,33 @@ namespace BrawlCrate.NodeWrappers
 
         public void AutoMetal()
         {
-            if (MessageBox.Show(null, "Are you sure you want to regenerate metal materials for Brawl?\nAll existing metal materials and shaders will be reset.", "Metal Material Generation", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(null,
+                    "Are you sure you want to regenerate metal materials for Brawl?\nAll existing metal materials and shaders will be reset.",
+                    "Metal Material Generation", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                MDL0Node m = (MDL0Node)_resource;
+                MDL0Node m = (MDL0Node) _resource;
                 if (string.IsNullOrEmpty(m.MetalTexture) || m.MetalTexture.Equals("<null>"))
                 {
                     m.MetalTexture = "metal00";
                 }
+
                 m.GenerateMetalMaterials(m.MetalTexture);
             }
         }
+
         public void AutoMetal(string metalTextureName)
         {
-            if (MessageBox.Show(null, "Are you sure you want to regenerate metal materials for Brawl?\nAll existing metal materials and shaders will be reset.", "Metal Material Generation", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(null,
+                    "Are you sure you want to regenerate metal materials for Brawl?\nAll existing metal materials and shaders will be reset.",
+                    "Metal Material Generation", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                ((MDL0Node)_resource).GenerateMetalMaterials(metalTextureName);
+                ((MDL0Node) _resource).GenerateMetalMaterials(metalTextureName);
             }
         }
 
         public void NameMaterial()
         {
-            MDL0Node model = ((MDL0Node)_resource);
+            MDL0Node model = (MDL0Node) _resource;
             MDL0GroupNode g = model._matGroup;
             int i = 0;
             if (g != null)
@@ -732,7 +949,7 @@ namespace BrawlCrate.NodeWrappers
 
         public void NameVertex()
         {
-            MDL0Node model = ((MDL0Node)_resource);
+            MDL0Node model = (MDL0Node) _resource;
             MDL0GroupNode g = model._vertGroup;
             if (g != null)
             {
@@ -761,9 +978,10 @@ namespace BrawlCrate.NodeWrappers
                 }
             }
         }
+
         public void NameNormal()
         {
-            MDL0Node model = ((MDL0Node)_resource);
+            MDL0Node model = (MDL0Node) _resource;
             MDL0GroupNode g = model._normGroup;
             if (g != null)
             {
@@ -792,9 +1010,10 @@ namespace BrawlCrate.NodeWrappers
                 }
             }
         }
+
         public void NameColor()
         {
-            MDL0Node model = ((MDL0Node)_resource);
+            MDL0Node model = (MDL0Node) _resource;
             MDL0GroupNode g = model._colorGroup;
             if (g != null)
             {
@@ -823,9 +1042,10 @@ namespace BrawlCrate.NodeWrappers
                 }
             }
         }
+
         public void NameUV()
         {
-            MDL0Node model = ((MDL0Node)_resource);
+            MDL0Node model = (MDL0Node) _resource;
             MDL0GroupNode g = model._uvGroup;
             int i = 0;
             if (g != null)
@@ -836,9 +1056,10 @@ namespace BrawlCrate.NodeWrappers
                 }
             }
         }
+
         public void NameObject()
         {
-            MDL0Node model = ((MDL0Node)_resource);
+            MDL0Node model = (MDL0Node) _resource;
             MDL0GroupNode g = model._objGroup;
             int i = 0;
             if (g != null)
@@ -852,17 +1073,18 @@ namespace BrawlCrate.NodeWrappers
 
         public MDL0VertexNode NewVertex()
         {
-            MDL0Node model = ((MDL0Node)_resource);
+            MDL0Node model = (MDL0Node) _resource;
 
             MDL0GroupNode g = model._vertGroup;
             if (g == null)
             {
                 model.AddChild(g = new MDL0GroupNode(MDLResourceType.Vertices), true);
-                model._vertGroup = g; model._vertList = g.Children;
+                model._vertGroup = g;
+                model._vertList = g.Children;
             }
 
-            MDL0VertexNode node = new MDL0VertexNode() { Name = "VertexSet" + ((MDL0Node)_resource)._vertList.Count };
-            node.Vertices = new Vector3[] { new Vector3(0) };
+            MDL0VertexNode node = new MDL0VertexNode() {Name = "VertexSet" + ((MDL0Node) _resource)._vertList.Count};
+            node.Vertices = new Vector3[] {new Vector3(0)};
             g.AddChild(node, true);
             node.ForceRebuild = true;
             node.Rebuild(true);
@@ -875,17 +1097,18 @@ namespace BrawlCrate.NodeWrappers
 
         public MDL0NormalNode NewNormal()
         {
-            MDL0Node model = ((MDL0Node)_resource);
+            MDL0Node model = (MDL0Node) _resource;
 
             MDL0GroupNode g = model._normGroup;
             if (g == null)
             {
                 model.AddChild(g = new MDL0GroupNode(MDLResourceType.Normals), true);
-                model._normGroup = g; model._normList = g.Children;
+                model._normGroup = g;
+                model._normList = g.Children;
             }
 
-            MDL0NormalNode node = new MDL0NormalNode() { Name = "NormalSet" + ((MDL0Node)_resource)._normList.Count };
-            node.Normals = new Vector3[] { new Vector3(0) };
+            MDL0NormalNode node = new MDL0NormalNode() {Name = "NormalSet" + ((MDL0Node) _resource)._normList.Count};
+            node.Normals = new Vector3[] {new Vector3(0)};
             g.AddChild(node, true);
             node._forceRebuild = true;
             node.Rebuild(true);
@@ -898,17 +1121,18 @@ namespace BrawlCrate.NodeWrappers
 
         public MDL0ColorNode NewColor()
         {
-            MDL0Node model = ((MDL0Node)_resource);
+            MDL0Node model = (MDL0Node) _resource;
 
             MDL0GroupNode g = model._colorGroup;
             if (g == null)
             {
                 model.AddChild(g = new MDL0GroupNode(MDLResourceType.Colors), true);
-                model._colorGroup = g; model._colorList = g.Children;
+                model._colorGroup = g;
+                model._colorList = g.Children;
             }
 
-            MDL0ColorNode node = new MDL0ColorNode() { Name = "ColorSet" + ((MDL0Node)_resource)._colorList.Count };
-            node.Colors = new RGBAPixel[] { new RGBAPixel() { A = 255, R = 128, G = 128, B = 128 } };
+            MDL0ColorNode node = new MDL0ColorNode() {Name = "ColorSet" + ((MDL0Node) _resource)._colorList.Count};
+            node.Colors = new RGBAPixel[] {new RGBAPixel() {A = 255, R = 128, G = 128, B = 128}};
             g.AddChild(node, true);
 
             node.Rebuild(true);
@@ -921,17 +1145,18 @@ namespace BrawlCrate.NodeWrappers
 
         public MDL0UVNode NewUV()
         {
-            MDL0Node model = ((MDL0Node)_resource);
+            MDL0Node model = (MDL0Node) _resource;
 
             MDL0GroupNode g = model._uvGroup;
             if (g == null)
             {
                 model.AddChild(g = new MDL0GroupNode(MDLResourceType.UVs), true);
-                model._uvGroup = g; model._uvList = g.Children;
+                model._uvGroup = g;
+                model._uvList = g.Children;
             }
 
-            MDL0UVNode node = new MDL0UVNode() { Name = "#" + ((MDL0Node)_resource)._uvList.Count };
-            node.Points = new Vector2[] { new Vector2(0) };
+            MDL0UVNode node = new MDL0UVNode() {Name = "#" + ((MDL0Node) _resource)._uvList.Count};
+            node.Points = new Vector2[] {new Vector2(0)};
             g.AddChild(node, true);
             node._forceRebuild = true;
             node.Rebuild(true);
@@ -1004,9 +1229,9 @@ namespace BrawlCrate.NodeWrappers
             };
             if (o.ShowDialog() == DialogResult.OK)
             {
-                if ((external = (MDL0Node)NodeFactory.FromFile(null, o.FileName)) != null)
+                if ((external = (MDL0Node) NodeFactory.FromFile(null, o.FileName)) != null)
                 {
-                    new ObjectImporter().ShowDialog((MDL0Node)_resource, external);
+                    new ObjectImporter().ShowDialog((MDL0Node) _resource, external);
                 }
             }
         }
@@ -1014,43 +1239,49 @@ namespace BrawlCrate.NodeWrappers
         public void SortMaterial()
         {
             int index = Index;
-            ((MDL0Node)_resource).MaterialGroup.SortChildren();
+            ((MDL0Node) _resource).MaterialGroup.SortChildren();
             RefreshView(_resource);
         }
+
         public void SortVertex()
         {
             int index = Index;
-            ((MDL0Node)_resource).VertexGroup.SortChildren();
+            ((MDL0Node) _resource).VertexGroup.SortChildren();
             RefreshView(_resource);
         }
+
         public void SortNormal()
         {
             int index = Index;
-            ((MDL0Node)_resource).NormalGroup.SortChildren();
+            ((MDL0Node) _resource).NormalGroup.SortChildren();
             RefreshView(_resource);
         }
+
         public void SortColor()
         {
             int index = Index;
-            ((MDL0Node)_resource).ColorGroup.SortChildren();
+            ((MDL0Node) _resource).ColorGroup.SortChildren();
             RefreshView(_resource);
         }
+
         public void SortUV()
         {
             int index = Index;
-            ((MDL0Node)_resource).UVGroup.SortChildren();
+            ((MDL0Node) _resource).UVGroup.SortChildren();
             RefreshView(_resource);
         }
+
         public void SortObject()
         {
             int index = Index;
-            ((MDL0Node)_resource).PolygonGroup.SortChildren();
+            ((MDL0Node) _resource).PolygonGroup.SortChildren();
             RefreshView(_resource);
         }
+
         public void SortTexture()
         {
             int index = Index;
-            ((MDL0Node)_resource).TextureGroup.SortChildren();
+            ((MDL0Node) _resource).TextureGroup.SortChildren();
             RefreshView(_resource);
         }
 

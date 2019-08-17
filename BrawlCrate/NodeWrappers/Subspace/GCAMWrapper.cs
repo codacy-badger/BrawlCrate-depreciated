@@ -11,6 +11,7 @@ namespace BrawlCrate.NodeWrappers
         #region Menu
 
         private static readonly ContextMenuStrip _menu;
+
         static GCAMWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -30,26 +31,36 @@ namespace BrawlCrate.NodeWrappers
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
-        protected static void NewEntryAction(object sender, EventArgs e) { GetInstance<GCAMWrapper>().NewEntry(); }
+
+        protected static void NewEntryAction(object sender, EventArgs e)
+        {
+            GetInstance<GCAMWrapper>().NewEntry();
+        }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
             _menu.Items[6].Enabled = _menu.Items[7].Enabled = true;
         }
+
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             GCAMWrapper w = GetInstance<GCAMWrapper>();
             _menu.Items[6].Enabled = w.PrevNode != null;
             _menu.Items[7].Enabled = w.NextNode != null;
         }
+
         #endregion
 
         public void NewEntry()
         {
-            GCAMEntryNode node = new GCAMEntryNode() { Name = "Camera [0]", };
+            GCAMEntryNode node = new GCAMEntryNode() {Name = "Camera [0]",};
             _resource.AddChild(node);
-            ((GCAMNode)_resource)._count += 1;
+            ((GCAMNode) _resource)._count += 1;
         }
 
-        public GCAMWrapper() { ContextMenuStrip = _menu; }
+        public GCAMWrapper()
+        {
+            ContextMenuStrip = _menu;
+        }
     }
 }

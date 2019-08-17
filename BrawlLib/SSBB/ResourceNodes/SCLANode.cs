@@ -6,10 +6,12 @@ namespace BrawlLib.SSBB.ResourceNodes
 {
     public unsafe class SCLANode : ARCEntryNode
     {
-        internal SCLA* Header => (SCLA*)WorkingUncompressed.Address;
+        internal SCLA* Header => (SCLA*) WorkingUncompressed.Address;
         public override ResourceType ResourceType => ResourceType.SCLA;
 
-        public SCLANode() { }
+        public SCLANode()
+        {
+        }
 
         public SCLANode(uint newNodesToCreate)
         {
@@ -52,13 +54,13 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
-            SCLA* header = (SCLA*)address;
+            SCLA* header = (SCLA*) address;
             *header = new SCLA(Children.Count);
-            uint offset = (uint)(0x10 + (Children.Count * 4));
+            uint offset = (uint) (0x10 + Children.Count * 4);
             for (int i = 0; i < Children.Count; i++)
             {
                 ResourceNode r = Children[i];
-                *(buint*)(address + 0x10 + i * 4) = offset;
+                *(buint*) (address + 0x10 + i * 4) = offset;
                 r.Rebuild(address + offset, _entrySize, true);
                 offset += _entrySize;
             }
@@ -95,48 +97,111 @@ namespace BrawlLib.SSBB.ResourceNodes
                 {
                     if (indexFound == false)
                     {
-                        if (((SCLAEntryNode)Children[j]).getSCLAIndex() == i)
+                        if (((SCLAEntryNode) Children[j]).getSCLAIndex() == i)
                         {
                             indexFound = true;
                         }
                     }
                 }
+
                 if (indexFound == false)
                 {
                     SCLAEntryNode node = new SCLAEntryNode(i);
-                    InsertChild(node, true, (int)i);
+                    InsertChild(node, true, (int) i);
                 }
             }
         }
 
-        internal static ResourceNode TryParse(DataSource source) { return ((SCLA*)source.Address)->_tag == SCLA.Tag ? new SCLANode() : null; }
-
+        internal static ResourceNode TryParse(DataSource source)
+        {
+            return ((SCLA*) source.Address)->_tag == SCLA.Tag ? new SCLANode() : null;
+        }
     }
 
     public unsafe class SCLAEntryNode : ResourceNode
     {
-        internal SCLAEntry* Header => (SCLAEntry*)WorkingUncompressed.Address;
+        internal SCLAEntry* Header => (SCLAEntry*) WorkingUncompressed.Address;
         public override ResourceType ResourceType => ResourceType.Unknown;
+
         public int getSCLAIndex()
         {
             if (_index > 255)
             {
                 return -1;
             }
-            return (int)_index;
+
+            return (int) _index;
         }
+
         [Category("SCLA Entry")]
-        public uint CollisionMaterialID { get => _index; set { _index = value; generateSCLAEntryName(); SignalPropertyChange(); } }
+        public uint CollisionMaterialID
+        {
+            get => _index;
+            set
+            {
+                _index = value;
+                generateSCLAEntryName();
+                SignalPropertyChange();
+            }
+        }
+
         [Category("SCLA Entry")]
-        public float Traction { get => _unk1; set { _unk1 = value; SignalPropertyChange(); } }
+        public float Traction
+        {
+            get => _unk1;
+            set
+            {
+                _unk1 = value;
+                SignalPropertyChange();
+            }
+        }
+
         [Category("SCLA Entry")]
-        public uint HitDataSet { get => _unk2; set { _unk2 = value; SignalPropertyChange(); } }
-        [Category("SCLA Entry"), TypeConverter(typeof(ExpandableObjectCustomConverter))]
-        public SCLASubEntryClass WalkRun { get => _sub1; set { _sub1 = value; SignalPropertyChange(); } }
-        [Category("SCLA Entry"), TypeConverter(typeof(ExpandableObjectCustomConverter))]
-        public SCLASubEntryClass JumpLand { get => _sub2; set { _sub2 = value; SignalPropertyChange(); } }
-        [Category("SCLA Entry"), TypeConverter(typeof(ExpandableObjectCustomConverter))]
-        public SCLASubEntryClass TumbleLand { get => _sub3; set { _sub3 = value; SignalPropertyChange(); } }
+        public uint HitDataSet
+        {
+            get => _unk2;
+            set
+            {
+                _unk2 = value;
+                SignalPropertyChange();
+            }
+        }
+
+        [Category("SCLA Entry")]
+        [TypeConverter(typeof(ExpandableObjectCustomConverter))]
+        public SCLASubEntryClass WalkRun
+        {
+            get => _sub1;
+            set
+            {
+                _sub1 = value;
+                SignalPropertyChange();
+            }
+        }
+
+        [Category("SCLA Entry")]
+        [TypeConverter(typeof(ExpandableObjectCustomConverter))]
+        public SCLASubEntryClass JumpLand
+        {
+            get => _sub2;
+            set
+            {
+                _sub2 = value;
+                SignalPropertyChange();
+            }
+        }
+
+        [Category("SCLA Entry")]
+        [TypeConverter(typeof(ExpandableObjectCustomConverter))]
+        public SCLASubEntryClass TumbleLand
+        {
+            get => _sub3;
+            set
+            {
+                _sub3 = value;
+                SignalPropertyChange();
+            }
+        }
 
         public uint _index;
         public float _unk1;
@@ -154,8 +219,8 @@ namespace BrawlLib.SSBB.ResourceNodes
             _sub3 = new SCLASubEntryClass();
 
             _sub1._parent =
-            _sub2._parent =
-            _sub3._parent = this;
+                _sub2._parent =
+                    _sub3._parent = this;
 
             generateSCLAEntry_name();
         }
@@ -171,8 +236,8 @@ namespace BrawlLib.SSBB.ResourceNodes
             _sub3 = new SCLASubEntryClass();
 
             _sub1._parent =
-            _sub2._parent =
-            _sub3._parent = this;
+                _sub2._parent =
+                    _sub3._parent = this;
 
             generateSCLAEntry_name();
         }
@@ -188,8 +253,8 @@ namespace BrawlLib.SSBB.ResourceNodes
             _sub3 = Header->_entry3;
 
             _sub1._parent =
-            _sub2._parent =
-            _sub3._parent = this;
+                _sub2._parent =
+                    _sub3._parent = this;
 
             generateSCLAEntry_name();
 
@@ -227,7 +292,7 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         public override void OnRebuild(VoidPtr address, int length, bool force)
         {
-            SCLAEntry* hdr = (SCLAEntry*)address;
+            SCLAEntry* hdr = (SCLAEntry*) address;
             hdr->_index = _index;
             generateSCLAEntry_name();
             hdr->_unk1 = _unk1;
@@ -242,15 +307,62 @@ namespace BrawlLib.SSBB.ResourceNodes
             public SCLAEntryNode _parent;
 
             [Category("SCLA Sub Entry")]
-            public byte CreatesDust { get => _unk1; set { _unk1 = value; _parent.SignalPropertyChange(); } }
+            public byte CreatesDust
+            {
+                get => _unk1;
+                set
+                {
+                    _unk1 = value;
+                    _parent.SignalPropertyChange();
+                }
+            }
+
             [Category("SCLA Sub Entry")]
-            public byte Unknown2 { get => _unk2; set { _unk2 = value; _parent.SignalPropertyChange(); } }
+            public byte Unknown2
+            {
+                get => _unk2;
+                set
+                {
+                    _unk2 = value;
+                    _parent.SignalPropertyChange();
+                }
+            }
+
             [Category("SCLA Sub Entry")]
-            public ushort Unknown3 { get => _unk3; set { _unk3 = value; _parent.SignalPropertyChange(); } }
+            public ushort Unknown3
+            {
+                get => _unk3;
+                set
+                {
+                    _unk3 = value;
+                    _parent.SignalPropertyChange();
+                }
+            }
+
             [Category("SCLA Sub Entry")]
-            public uint GFXFlag { get => _unk4; set { _unk4 = value; _parent.SignalPropertyChange(); } }
+            public uint GFXFlag
+            {
+                get => _unk4;
+                set
+                {
+                    _unk4 = value;
+                    _parent.SignalPropertyChange();
+                }
+            }
+
             [Category("SCLA Sub Entry")]
-            public int SFXFlag { get => _index1; set { _index1 = value; _index2 = value; _index3 = value; _index4 = value; _parent.SignalPropertyChange(); } }
+            public int SFXFlag
+            {
+                get => _index1;
+                set
+                {
+                    _index1 = value;
+                    _index2 = value;
+                    _index3 = value;
+                    _index4 = value;
+                    _parent.SignalPropertyChange();
+                }
+            }
 #if DEBUG
             [Category("SCLA Sub Entry")]
             public int Index1 { get { return _index1; } set { _index1 = value; _parent.SignalPropertyChange(); } }
@@ -300,14 +412,24 @@ namespace BrawlLib.SSBB.ResourceNodes
                 // If index 1 - 4 are different, return full string
                 if (_index1 != _index2 || _index1 != _index3 || _index1 != _index4)
                 {
-                    return string.Format("{0} {1} {2} {3} {4} {5} {6} {7} | Report this to soopercool101 if you see this message", _unk1, _unk2, _unk3, _unk4, _index1, _index2, _index3, _index4);
+                    return string.Format(
+                        "{0} {1} {2} {3} {4} {5} {6} {7} | Report this to soopercool101 if you see this message", _unk1,
+                        _unk2, _unk3, _unk4, _index1, _index2, _index3, _index4);
                 }
+
                 // Otherwise only show the first index (All seem to be edited in tandem)
                 return string.Format("{0} {1} {2} {3} {4}", _unk1, _unk2, _unk3, _unk4, _index1);
             }
 
-            public static implicit operator SCLASubEntry(SCLASubEntryClass val) { return new SCLASubEntry(val); }
-            public static implicit operator SCLASubEntryClass(SCLASubEntry val) { return new SCLASubEntryClass(val); }
+            public static implicit operator SCLASubEntry(SCLASubEntryClass val)
+            {
+                return new SCLASubEntry(val);
+            }
+
+            public static implicit operator SCLASubEntryClass(SCLASubEntry val)
+            {
+                return new SCLASubEntryClass(val);
+            }
         }
     }
 }

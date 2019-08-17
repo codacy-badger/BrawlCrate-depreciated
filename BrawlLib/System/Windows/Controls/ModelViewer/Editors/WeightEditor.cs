@@ -12,25 +12,26 @@ namespace System.Windows.Forms
     {
         #region Designer
 
-        private readonly System.ComponentModel.IContainer components;
+        private readonly IContainer components;
+
         private void InitializeComponent()
         {
-            btnSetWeight = new System.Windows.Forms.Button();
-            btnBlend = new System.Windows.Forms.Button();
-            btnAdd = new System.Windows.Forms.Button();
-            btnSubtract = new System.Windows.Forms.Button();
-            btnLock = new System.Windows.Forms.Button();
-            lblBoneName = new System.Windows.Forms.Label();
-            btnRemove = new System.Windows.Forms.Button();
-            panel1 = new System.Windows.Forms.Panel();
-            numMult = new System.Windows.Forms.NumericInputBox();
-            btnMult = new System.Windows.Forms.Button();
-            btnDiv = new System.Windows.Forms.Button();
-            numAdd = new System.Windows.Forms.NumericInputBox();
-            numWeight = new System.Windows.Forms.NumericInputBox();
-            btnPaste = new System.Windows.Forms.Button();
-            btnCopy = new System.Windows.Forms.Button();
-            lstBoneWeights = new System.Windows.Forms.RefreshableListBox();
+            btnSetWeight = new Button();
+            btnBlend = new Button();
+            btnAdd = new Button();
+            btnSubtract = new Button();
+            btnLock = new Button();
+            lblBoneName = new Label();
+            btnRemove = new Button();
+            panel1 = new Panel();
+            numMult = new NumericInputBox();
+            btnMult = new Button();
+            btnDiv = new Button();
+            numAdd = new NumericInputBox();
+            numWeight = new NumericInputBox();
+            btnPaste = new Button();
+            btnCopy = new Button();
+            lstBoneWeights = new RefreshableListBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -43,7 +44,7 @@ namespace System.Windows.Forms
             btnSetWeight.TabIndex = 2;
             btnSetWeight.Text = "Set";
             btnSetWeight.UseVisualStyleBackColor = true;
-            btnSetWeight.Click += new System.EventHandler(btnSetWeight_Click);
+            btnSetWeight.Click += new EventHandler(btnSetWeight_Click);
             // 
             // btnBlend
             // 
@@ -54,7 +55,7 @@ namespace System.Windows.Forms
             btnBlend.Text = "Blend";
             btnBlend.UseVisualStyleBackColor = true;
             btnBlend.Visible = false;
-            btnBlend.Click += new System.EventHandler(btnBlend_Click);
+            btnBlend.Click += new EventHandler(btnBlend_Click);
             // 
             // btnAdd
             // 
@@ -65,7 +66,7 @@ namespace System.Windows.Forms
             btnAdd.TabIndex = 7;
             btnAdd.Text = "+";
             btnAdd.UseVisualStyleBackColor = true;
-            btnAdd.Click += new System.EventHandler(btnAdd_Click);
+            btnAdd.Click += new EventHandler(btnAdd_Click);
             // 
             // btnSubtract
             // 
@@ -76,7 +77,7 @@ namespace System.Windows.Forms
             btnSubtract.TabIndex = 8;
             btnSubtract.Text = "-";
             btnSubtract.UseVisualStyleBackColor = true;
-            btnSubtract.Click += new System.EventHandler(btnSubtract_Click);
+            btnSubtract.Click += new EventHandler(btnSubtract_Click);
             // 
             // btnLock
             // 
@@ -87,7 +88,7 @@ namespace System.Windows.Forms
             btnLock.TabIndex = 10;
             btnLock.Text = "Lock";
             btnLock.UseVisualStyleBackColor = true;
-            btnLock.Click += new System.EventHandler(btnLock_Click);
+            btnLock.Click += new EventHandler(btnLock_Click);
             // 
             // lblBoneName
             // 
@@ -107,7 +108,7 @@ namespace System.Windows.Forms
             btnRemove.TabIndex = 12;
             btnRemove.Text = "Remove";
             btnRemove.UseVisualStyleBackColor = true;
-            btnRemove.Click += new System.EventHandler(btnRemoveBone_Click);
+            btnRemove.Click += new EventHandler(btnRemoveBone_Click);
             // 
             // panel1
             // 
@@ -125,7 +126,7 @@ namespace System.Windows.Forms
             panel1.Controls.Add(btnLock);
             panel1.Controls.Add(lblBoneName);
             panel1.Controls.Add(btnRemove);
-            panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel1.Dock = DockStyle.Fill;
             panel1.Location = new System.Drawing.Point(130, 0);
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(130, 103);
@@ -152,7 +153,7 @@ namespace System.Windows.Forms
             btnMult.TabIndex = 14;
             btnMult.Text = "x";
             btnMult.UseVisualStyleBackColor = true;
-            btnMult.Click += new System.EventHandler(btnMult_Click);
+            btnMult.Click += new EventHandler(btnMult_Click);
             // 
             // btnDiv
             // 
@@ -163,7 +164,7 @@ namespace System.Windows.Forms
             btnDiv.TabIndex = 15;
             btnDiv.Text = "/";
             btnDiv.UseVisualStyleBackColor = true;
-            btnDiv.Click += new System.EventHandler(btnDiv_Click);
+            btnDiv.Click += new EventHandler(btnDiv_Click);
             // 
             // numAdd
             // 
@@ -188,7 +189,7 @@ namespace System.Windows.Forms
             numWeight.Size = new System.Drawing.Size(62, 20);
             numWeight.TabIndex = 3;
             numWeight.Text = "0";
-            numWeight.ValueChanged += new System.EventHandler(numWeight_ValueChanged);
+            numWeight.ValueChanged += new EventHandler(numWeight_ValueChanged);
             // 
             // btnPaste
             // 
@@ -199,7 +200,7 @@ namespace System.Windows.Forms
             btnPaste.Text = "Paste";
             btnPaste.UseVisualStyleBackColor = true;
             btnPaste.Visible = false;
-            btnPaste.Click += new System.EventHandler(btnPaste_Click);
+            btnPaste.Click += new EventHandler(btnPaste_Click);
             // 
             // btnCopy
             // 
@@ -210,20 +211,20 @@ namespace System.Windows.Forms
             btnCopy.Text = "Copy";
             btnCopy.UseVisualStyleBackColor = true;
             btnCopy.Visible = false;
-            btnCopy.Click += new System.EventHandler(btnCopy_Click);
+            btnCopy.Click += new EventHandler(btnCopy_Click);
             // 
             // lstBoneWeights
             // 
-            lstBoneWeights.Dock = System.Windows.Forms.DockStyle.Left;
-            lstBoneWeights.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            lstBoneWeights.Dock = DockStyle.Left;
+            lstBoneWeights.DrawMode = DrawMode.OwnerDrawFixed;
             lstBoneWeights.FormattingEnabled = true;
             lstBoneWeights.IntegralHeight = false;
             lstBoneWeights.Location = new System.Drawing.Point(0, 0);
             lstBoneWeights.Name = "lstBoneWeights";
             lstBoneWeights.Size = new System.Drawing.Size(130, 103);
             lstBoneWeights.TabIndex = 0;
-            lstBoneWeights.DrawItem += new System.Windows.Forms.DrawItemEventHandler(lstBoneWeights_DrawItem);
-            lstBoneWeights.SelectedIndexChanged += new System.EventHandler(lstBoneWeights_SelectedIndexChanged);
+            lstBoneWeights.DrawItem += new DrawItemEventHandler(lstBoneWeights_DrawItem);
+            lstBoneWeights.SelectedIndexChanged += new EventHandler(lstBoneWeights_SelectedIndexChanged);
             // 
             // WeightEditor
             // 
@@ -235,12 +236,15 @@ namespace System.Windows.Forms
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
-
         }
 
         #endregion
 
-        public WeightEditor() { InitializeComponent(); }
+        public WeightEditor()
+        {
+            InitializeComponent();
+        }
+
         private readonly BindingList<BoneWeight> _targetWeights;
 
         public IBoneNode[] Bones => _targetWeights.Select(x => x.Bone).ToArray();
@@ -254,21 +258,29 @@ namespace System.Windows.Forms
         private Label lblBoneName;
         private Button btnSubtract;
 
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int CurrentFrame
         {
             get => _mainWindow.CurrentFrame;
             set => _mainWindow.CurrentFrame = value;
         }
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IModel TargetModel
         {
             get => _mainWindow.TargetModel;
             set => _mainWindow.TargetModel = value;
         }
 
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public IBoneNode SelectedBone { get => _mainWindow.SelectedBone; set => _mainWindow.SelectedBone = value; }
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public IBoneNode SelectedBone
+        {
+            get => _mainWindow.SelectedBone;
+            set => _mainWindow.SelectedBone = value;
+        }
 
         private readonly Vertex3 _vertex = null;
         private Button btnLock;
@@ -277,7 +289,9 @@ namespace System.Windows.Forms
         private RefreshableListBox lstBoneWeights;
 
         public List<Vertex3> _targetVertices;
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<Vertex3> TargetVertices
         {
             get => _targetVertices;
@@ -289,7 +303,9 @@ namespace System.Windows.Forms
                 }
             }
         }
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public BoneWeight TargetBoneWeight
         {
             get => _targetBoneWeight;
@@ -303,7 +319,9 @@ namespace System.Windows.Forms
                 _mainWindow.ModelPanel.Invalidate();
             }
         }
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IBoneNode TargetBone
         {
             get => _targetBone;
@@ -321,7 +339,7 @@ namespace System.Windows.Forms
                     {
                         int i = _bones.IndexOf(_targetBone);
                         lstBoneWeights.SelectedIndex = i;
-                        numWeight.Value = i != -1 ? ((BoneWeight)lstBoneWeights.Items[i]).Weight * 100.0f : 0;
+                        numWeight.Value = i != -1 ? ((BoneWeight) lstBoneWeights.Items[i]).Weight * 100.0f : 0;
                     }
                     else
                     {
@@ -359,12 +377,14 @@ namespace System.Windows.Forms
                         break;
                     }
                 }
+
                 //Bone not found in array?
                 if (!canRemove)
                 {
                     canAdd = numAdd.Value != 0.0f;
                 }
             }
+
             btnAdd.Enabled = canAdd;
             btnMult.Enabled = canMul;
             btnSubtract.Enabled = canSub;
@@ -383,15 +403,18 @@ namespace System.Windows.Forms
         private Button btnDiv;
         private NumericInputBox numAdd;
         public IBoneNode _targetBone;
+
         public void SetVertices(List<Vertex3> vertices)
         {
             _targetVertices = vertices.ToList();
 
             ResetList();
         }
+
         public float _weightTotal = 0;
         private Dictionary<string, float[]> _totals = new Dictionary<string, float[]>();
         public List<IBoneNode> _bones;
+
         public void ResetList()
         {
             lstBoneWeights.Items.Clear();
@@ -409,13 +432,14 @@ namespace System.Windows.Forms
                         if (!_totals.ContainsKey(b.Bone.Name))
                         {
                             _bones.Add(b.Bone);
-                            _totals.Add(b.Bone.Name, new float[] { b.Weight, 1 });
+                            _totals.Add(b.Bone.Name, new float[] {b.Weight, 1});
                         }
                         else
                         {
                             _totals[b.Bone.Name][0] += b.Weight;
                             _totals[b.Bone.Name][1] += 1;
                         }
+
                         _weightTotal += b.Weight;
                     }
                 }
@@ -423,7 +447,7 @@ namespace System.Windows.Forms
 
             foreach (MDL0BoneNode b in _bones)
             {
-                lstBoneWeights.Items.Add(new BoneWeight(b, (_totals[b.Name][0] / _weightTotal)));
+                lstBoneWeights.Items.Add(new BoneWeight(b, _totals[b.Name][0] / _weightTotal));
             }
 
             if (_bones.Contains(_mainWindow.SelectedBone))
@@ -450,10 +474,12 @@ namespace System.Windows.Forms
 
             UpdateBindState(TargetVertices.ToArray());
         }
+
         public void SetWeight(float value, Vertex3 vertex)
         {
             Weight(value, vertex, WeightType.Set);
         }
+
         public void IncrementWeight(float value)
         {
             if (TargetVertices == null || TargetVertices.Count == 0)
@@ -469,10 +495,12 @@ namespace System.Windows.Forms
 
             UpdateBindState(TargetVertices.ToArray());
         }
+
         public void IncrementWeight(float value, Vertex3 vertex)
         {
             Weight(value, vertex, WeightType.Add);
         }
+
         public void MultiplyWeight(float value)
         {
             if (TargetVertices == null || TargetVertices.Count == 0)
@@ -488,6 +516,7 @@ namespace System.Windows.Forms
 
             UpdateBindState(TargetVertices.ToArray());
         }
+
         public void MultiplyWeight(float value, Vertex3 vertex)
         {
             Weight(value, vertex, WeightType.Multiply);
@@ -527,7 +556,7 @@ namespace System.Windows.Forms
 
         private float RoundValue(float value, float max)
         {
-            return (float)Math.Round(value.Clamp(0.0f, max), 7);
+            return (float) Math.Round(value.Clamp(0.0f, max), 7);
         }
 
         private enum WeightType
@@ -562,9 +591,7 @@ namespace System.Windows.Forms
             }
 
             //Duplicate the influence if it affects more than just this vertex
-            targetInf = node.Users.Count > 1 ?
-                (node as Influence).Clone() :
-                node as Influence;
+            targetInf = node.Users.Count > 1 ? (node as Influence).Clone() : node as Influence;
 
             //Find or add the current bone to the influence
             List<BoneWeight> weights = targetInf.Weights;
@@ -702,6 +729,7 @@ namespace System.Windows.Forms
 
             return true;
         }
+
         public void UpdateValues()
         {
             lstBoneWeights.RefreshItems();
@@ -713,7 +741,11 @@ namespace System.Windows.Forms
                 numWeight.Value = _targetBoneWeight.Weight * 100.0f;
             }
         }
-        public void BoneChanged() { TargetBone = SelectedBone; }
+
+        public void BoneChanged()
+        {
+            TargetBone = SelectedBone;
+        }
 
         private void lstBoneWeights_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -729,17 +761,14 @@ namespace System.Windows.Forms
 
         private void btnCopy_Click(object sender, EventArgs e)
         {
-
         }
 
         private void btnPaste_Click(object sender, EventArgs e)
         {
-
         }
 
         private void btnBlend_Click(object sender, EventArgs e)
         {
-
         }
 
         private void btnRemoveBone_Click(object sender, EventArgs e)
@@ -752,7 +781,12 @@ namespace System.Windows.Forms
         }
 
         private float _increment = 0.1f;
-        public float WeightIncrement { get => _increment; set => _increment = value; }
+
+        public float WeightIncrement
+        {
+            get => _increment;
+            set => _increment = value;
+        }
 
         private void btnSubtract_Click(object sender, EventArgs e)
         {
@@ -785,7 +819,7 @@ namespace System.Windows.Forms
         {
             e.DrawBackground();
 
-            bool selected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
+            bool selected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
 
             int index = e.Index;
             if (index >= 0 && index < lstBoneWeights.Items.Count)
@@ -793,7 +827,8 @@ namespace System.Windows.Forms
                 string text = lstBoneWeights.Items[index].ToString();
                 Graphics g = e.Graphics;
 
-                Color color = selected ? Color.FromKnownColor(KnownColor.Highlight) : _bones[index].Locked ? Color.Red : Color.White;
+                Color color = selected ? Color.FromKnownColor(KnownColor.Highlight) :
+                    _bones[index].Locked ? Color.Red : Color.White;
                 g.FillRectangle(new SolidBrush(color), e.Bounds);
 
                 g.DrawString(text, e.Font, selected ? Brushes.White : Brushes.Black,
@@ -811,6 +846,7 @@ namespace System.Windows.Forms
 
         private bool _resizing = false;
         private int o = 0;
+
         private void splitter2_MouseDown(object sender, MouseEventArgs e)
         {
             _resizing = true;
@@ -864,7 +900,14 @@ namespace System.Windows.Forms
 
     public class RefreshableListBox : ListBox
     {
-        public new void RefreshItem(int index) { base.RefreshItem(index); }
-        public new void RefreshItems() { base.RefreshItems(); }
+        public new void RefreshItem(int index)
+        {
+            base.RefreshItem(index);
+        }
+
+        public new void RefreshItems()
+        {
+            base.RefreshItems();
+        }
     }
 }

@@ -14,77 +14,112 @@ namespace BrawlCrate
         #region Designer
 
         private ModelEditControl modelEditControl1;
+
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModelForm));
-            modelEditControl1 = new System.Windows.Forms.ModelEditControl();
+            System.ComponentModel.ComponentResourceManager resources =
+                new System.ComponentModel.ComponentResourceManager(typeof(ModelForm));
+            modelEditControl1 = new ModelEditControl();
             SuspendLayout();
             // 
             // modelEditControl1
             // 
             modelEditControl1.AllowDrop = true;
-            modelEditControl1.BackColor = System.Drawing.Color.Lavender;
-            modelEditControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            modelEditControl1.Location = new System.Drawing.Point(0, 0);
+            modelEditControl1.BackColor = Color.Lavender;
+            modelEditControl1.Dock = DockStyle.Fill;
+            modelEditControl1.Location = new Point(0, 0);
             modelEditControl1.Name = "modelEditControl1";
-            modelEditControl1.Size = new System.Drawing.Size(709, 686);
+            modelEditControl1.Size = new Size(709, 686);
             modelEditControl1.TabIndex = 0;
             modelEditControl1.TargetAnimation = null;
             modelEditControl1.VertexLoc = null;
             modelEditControl1.VIS0Updating = false;
-            modelEditControl1.TargetModelChanged += new System.EventHandler(TargetModelChanged);
-            modelEditControl1.ModelViewerChanged += new System.EventHandler(ModelViewerChanged);
+            modelEditControl1.TargetModelChanged += new EventHandler(TargetModelChanged);
+            modelEditControl1.ModelViewerChanged += new EventHandler(ModelViewerChanged);
             // 
             // ModelForm
             // 
-            BackColor = System.Drawing.Color.PowderBlue;
-            ClientSize = new System.Drawing.Size(709, 686);
+            BackColor = Color.PowderBlue;
+            ClientSize = new Size(709, 686);
             Controls.Add(modelEditControl1);
             Icon = BrawlLib.Properties.Resources.BrawlCrateIcon;
             Name = "ModelForm";
-            FormClosing += new System.Windows.Forms.FormClosingEventHandler(ModelForm_FormClosing);
+            FormClosing += new FormClosingEventHandler(ModelForm_FormClosing);
             ResumeLayout(false);
-
         }
+
         #endregion
 
-        public ModelForm() { InitializeComponent(); }
+        public ModelForm()
+        {
+            InitializeComponent();
+        }
 
         private List<IModel> _models = new List<IModel>();
         private List<CollisionNode> _collisions = new List<CollisionNode>();
 
-        public DialogResult ShowDialog(List<IModel> models) { return ShowDialog(null, models); }
+        public DialogResult ShowDialog(List<IModel> models)
+        {
+            return ShowDialog(null, models);
+        }
+
         public DialogResult ShowDialog(IWin32Window owner, List<IModel> models,
-            List<CollisionNode> collisions = null)
+                                       List<CollisionNode> collisions = null)
         {
             _models = models;
             _collisions = collisions ?? _collisions;
-            try { return base.ShowDialog(owner); }
-            finally { _models = null; }
+            try
+            {
+                return base.ShowDialog(owner);
+            }
+            finally
+            {
+                _models = null;
+            }
         }
-        public DialogResult ShowDialog(IModel model) { return ShowDialog(null, model); }
+
+        public DialogResult ShowDialog(IModel model)
+        {
+            return ShowDialog(null, model);
+        }
+
         public DialogResult ShowDialog(IWin32Window owner, IModel model)
         {
             _models.Add(model);
-            try { return base.ShowDialog(owner); }
-            finally { _models = null; }
+            try
+            {
+                return base.ShowDialog(owner);
+            }
+            finally
+            {
+                _models = null;
+            }
         }
 
         public void Show(IWin32Window owner, List<IModel> models,
-            List<CollisionNode> collisions = null)
+                         List<CollisionNode> collisions = null)
         {
             _models = models;
             _collisions = collisions ?? _collisions;
             base.Show(owner);
         }
 
-        public void Show(List<IModel> models) { Show(null, models); }
+        public void Show(List<IModel> models)
+        {
+            Show(null, models);
+        }
+
         public void Show(IWin32Window owner, List<IModel> models)
         {
             _models = models;
             base.Show(owner);
         }
-        public void Show(IModel model) { Show(null, model); }
+
+        public void Show(IModel model)
+        {
+            Show(null, model);
+        }
+
         public void Show(IWin32Window owner, IModel model)
         {
             _models.Add(model);
@@ -93,17 +128,19 @@ namespace BrawlCrate
 
         public unsafe void ReadSettings()
         {
-            BrawlCrate.Properties.Settings settings = BrawlCrate.Properties.Settings.Default;
+            Properties.Settings settings = Properties.Settings.Default;
             bool isStage = false;
             if (MainForm.Instance.RootNode is ARCWrapper)
             {
-                if (((ARCNode)((ARCWrapper)MainForm.Instance.RootNode).ResourceNode).IsStage)
+                if (((ARCNode) ((ARCWrapper) MainForm.Instance.RootNode).ResourceNode).IsStage)
                 {
                     isStage = true;
                 }
             }
 
-            ModelEditorSettings viewerSettings = settings.ViewerSettingsSet ? settings.ViewerSettings : ModelEditorSettings.Default(isStage);
+            ModelEditorSettings viewerSettings = settings.ViewerSettingsSet
+                ? settings.ViewerSettings
+                : ModelEditorSettings.Default(isStage);
 
             if (settings.ViewerSettingsSet)
             {
@@ -153,7 +190,7 @@ namespace BrawlCrate
             modelEditControl1._openedFiles.Add(Program.RootNode);
 
             MainForm.Instance.Visible =
-                !BrawlCrate.Properties.Settings.Default.ViewerSettings.HideMainWindow;
+                !Properties.Settings.Default.ViewerSettings.HideMainWindow;
 
             if (_models.Count != 0)
             {
@@ -188,13 +225,14 @@ namespace BrawlCrate
                             continue;
                         }
 
-                        MDL0Node model = _models.
-                            Where(m => m is MDL0Node && ((ResourceNode)m).Name == obj._modelName).
-                            FirstOrDefault() as MDL0Node;
+                        MDL0Node model = _models.Where(m => m is MDL0Node && ((ResourceNode) m).Name == obj._modelName)
+                            .FirstOrDefault() as MDL0Node;
 
                         if (model != null)
                         {
-                            MDL0BoneNode bone = model._linker.BoneCache.Where(b => b.Name == obj._boneName).FirstOrDefault() as MDL0BoneNode;
+                            MDL0BoneNode bone =
+                                model._linker.BoneCache.Where(b => b.Name == obj._boneName)
+                                    .FirstOrDefault() as MDL0BoneNode;
                             if (bone != null)
                             {
                                 obj._linkedBone = bone;
@@ -213,8 +251,9 @@ namespace BrawlCrate
         protected override void OnClosed(EventArgs e)
         {
             MainForm.Instance.Visible =
-                BrawlCrate.Properties.Settings.Default.ViewerSettings.HideMainWindow ?
-                ModelEditControl.Instances.Count == 0 : true;
+                Properties.Settings.Default.ViewerSettings.HideMainWindow
+                    ? ModelEditControl.Instances.Count == 0
+                    : true;
 
             MainForm.Instance.modelPanel1.Capture();
             MainForm.Instance.resourceTree_SelectionChanged(this, null);
@@ -233,7 +272,7 @@ namespace BrawlCrate
             {
                 //IsMdiContainer = true;
                 //modelEditControl1.ModelViewerForm.MdiParent = this;
-                Application.AddMessageFilter(mouseMessageFilter = new MouseMoveMessageFilter() { TargetForm = this });
+                Application.AddMessageFilter(mouseMessageFilter = new MouseMoveMessageFilter() {TargetForm = this});
             }
             else
             {
@@ -246,7 +285,8 @@ namespace BrawlCrate
         {
             if (modelEditControl1.TargetModel != null)
             {
-                Text = string.Format("{1} - Advanced Model Editor - {0}", ((ResourceNode)modelEditControl1.TargetModel).Name, Program.AssemblyTitle);
+                Text = string.Format("{1} - Advanced Model Editor - {0}",
+                    ((ResourceNode) modelEditControl1.TargetModel).Name, Program.AssemblyTitle);
             }
             else
             {
@@ -261,6 +301,7 @@ namespace BrawlCrate
             public ModelForm TargetForm { get; set; }
 
             private bool _mainWindowFocused = false;
+
             public bool PreFilterMessage(ref Message m)
             {
                 int numMsg = m.Msg;
@@ -268,7 +309,7 @@ namespace BrawlCrate
                 {
                     if (TargetForm.modelEditControl1.ModelViewerForm != null)
                     {
-                        if (InForm(TargetForm.modelEditControl1.ModelViewerForm, Control.MousePosition))
+                        if (InForm(TargetForm.modelEditControl1.ModelViewerForm, MousePosition))
                         {
                             if (_mainWindowFocused)
                             {
@@ -276,7 +317,7 @@ namespace BrawlCrate
                                 _mainWindowFocused = false;
                             }
                         }
-                        else if (InForm(TargetForm, Control.MousePosition))
+                        else if (InForm(TargetForm, MousePosition))
                         {
                             if (!_mainWindowFocused)
                             {
@@ -286,8 +327,10 @@ namespace BrawlCrate
                         }
                     }
                 }
+
                 return false;
             }
+
             private bool InForm(Form f, Point screenPoint)
             {
                 Point p = f.PointToClient(screenPoint);

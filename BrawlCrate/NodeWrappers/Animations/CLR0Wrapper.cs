@@ -12,6 +12,7 @@ namespace BrawlCrate
         #region Menu
 
         private static readonly ContextMenuStrip _menu;
+
         static CLR0Wrapper()
         {
             _menu = new ContextMenuStrip();
@@ -32,17 +33,24 @@ namespace BrawlCrate
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
-        protected static void NewCLRAction(object sender, EventArgs e) { GetInstance<CLR0Wrapper>().NewCLR(); }
+
+        protected static void NewCLRAction(object sender, EventArgs e)
+        {
+            GetInstance<CLR0Wrapper>().NewCLR();
+        }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-            _menu.Items[3].Enabled = _menu.Items[4].Enabled = _menu.Items[5].Enabled = _menu.Items[7].Enabled = _menu.Items[8].Enabled = _menu.Items[11].Enabled = true;
+            _menu.Items[3].Enabled = _menu.Items[4].Enabled = _menu.Items[5].Enabled =
+                _menu.Items[7].Enabled = _menu.Items[8].Enabled = _menu.Items[11].Enabled = true;
         }
+
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             CLR0Wrapper w = GetInstance<CLR0Wrapper>();
 
             _menu.Items[5].Enabled = _menu.Items[7].Enabled = _menu.Items[13].Enabled = w.Parent != null;
-            _menu.Items[6].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[6].Enabled = w._resource.IsDirty || w._resource.IsBranch;
             _menu.Items[9].Enabled = w.PrevNode != null;
             _menu.Items[10].Enabled = w.NextNode != null;
         }
@@ -51,11 +59,14 @@ namespace BrawlCrate
 
         public override string ExportFilter => FileFilters.CLR0;
 
-        public CLR0Wrapper() { ContextMenuStrip = _menu; }
+        public CLR0Wrapper()
+        {
+            ContextMenuStrip = _menu;
+        }
 
         private void NewCLR()
         {
-            CLR0MaterialEntryNode n = ((CLR0Node)_resource).CreateEntry();
+            CLR0MaterialEntryNode n = ((CLR0Node) _resource).CreateEntry();
             if (n != null)
             {
                 BaseWrapper b = FindResource(n, true);
@@ -73,6 +84,7 @@ namespace BrawlCrate
         #region Menu
 
         private static readonly ContextMenuStrip _menu;
+
         static CLR0MaterialWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -90,28 +102,38 @@ namespace BrawlCrate
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
-        protected static void NewCLRAction(object sender, EventArgs e) { GetInstance<CLR0MaterialWrapper>().NewCLR(); }
+
+        protected static void NewCLRAction(object sender, EventArgs e)
+        {
+            GetInstance<CLR0MaterialWrapper>().NewCLR();
+        }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-            _menu.Items[3].Enabled = _menu.Items[4].Enabled = _menu.Items[6].Enabled = _menu.Items[7].Enabled = _menu.Items[9].Enabled = true;
+            _menu.Items[3].Enabled = _menu.Items[4].Enabled =
+                _menu.Items[6].Enabled = _menu.Items[7].Enabled = _menu.Items[9].Enabled = true;
         }
+
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             CLR0MaterialWrapper w = GetInstance<CLR0MaterialWrapper>();
 
             _menu.Items[3].Enabled = _menu.Items[9].Enabled = w.Parent != null;
-            _menu.Items[4].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[4].Enabled = w._resource.IsDirty || w._resource.IsBranch;
             _menu.Items[6].Enabled = w.PrevNode != null;
             _menu.Items[7].Enabled = w.NextNode != null;
         }
 
         #endregion
 
-        public CLR0MaterialWrapper() { ContextMenuStrip = _menu; }
+        public CLR0MaterialWrapper()
+        {
+            ContextMenuStrip = _menu;
+        }
 
         private void NewCLR()
         {
-            CLR0MaterialEntryNode n = ((CLR0MaterialNode)_resource).CreateEntry();
+            CLR0MaterialEntryNode n = ((CLR0MaterialNode) _resource).CreateEntry();
             if (n != null)
             {
                 BaseWrapper b = FindResource(n, true);
@@ -129,6 +151,7 @@ namespace BrawlCrate
         #region Menu
 
         private static readonly ContextMenuStrip _menu;
+
         static CLR0MaterialEntryWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -143,22 +166,28 @@ namespace BrawlCrate
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-            _menu.Items[1].Enabled = _menu.Items[2].Enabled = _menu.Items[4].Enabled = _menu.Items[5].Enabled = _menu.Items[7].Enabled = true;
+            _menu.Items[1].Enabled = _menu.Items[2].Enabled =
+                _menu.Items[4].Enabled = _menu.Items[5].Enabled = _menu.Items[7].Enabled = true;
         }
+
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             CLR0MaterialEntryWrapper w = GetInstance<CLR0MaterialEntryWrapper>();
 
             _menu.Items[1].Enabled = _menu.Items[7].Enabled = w.Parent != null;
-            _menu.Items[2].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[2].Enabled = w._resource.IsDirty || w._resource.IsBranch;
             _menu.Items[4].Enabled = w.PrevNode != null;
             _menu.Items[5].Enabled = w.NextNode != null;
         }
 
         #endregion
 
-        public CLR0MaterialEntryWrapper() { ContextMenuStrip = _menu; }
+        public CLR0MaterialEntryWrapper()
+        {
+            ContextMenuStrip = _menu;
+        }
     }
 }

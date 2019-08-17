@@ -12,8 +12,14 @@ namespace BrawlLib.SSBB.ResourceNodes
 
         private List<hkClassMemberNode> _memberArray = null;
 
-        public HavokMetaObjectNode() { }
-        public HavokMetaObjectNode(hkClassNode classNode) { _classNode = classNode; }
+        public HavokMetaObjectNode()
+        {
+        }
+
+        public HavokMetaObjectNode(hkClassNode classNode)
+        {
+            _classNode = classNode;
+        }
 
         public override bool OnInitialize()
         {
@@ -86,6 +92,7 @@ namespace BrawlLib.SSBB.ResourceNodes
                         Console.WriteLine("Could not find " + member._class + " class");
                     }
                 }
+
                 if (!string.IsNullOrEmpty(member._enum))
                 {
                     //Loop through inheritance starting with the eldest class, added last
@@ -141,7 +148,7 @@ namespace BrawlLib.SSBB.ResourceNodes
         public static ClassMemberInstanceNode TryGetMember(hkClassMember.Type type)
         {
             ClassMemberInstanceNode m = null;
-            int index = (int)type;
+            int index = (int) type;
             if (index >= 0 && index < MemberTypes.Length)
             {
                 Type t = MemberTypes[index];
@@ -180,11 +187,11 @@ namespace BrawlLib.SSBB.ResourceNodes
             typeof(cmQSTransformNode),
             typeof(cmMat4Node),
             typeof(cmMat4Node), //Transform is hkRotation(Mat3) + Trans(Vec4), so just a Mat4
-            null, //Zero
+            null,               //Zero
             typeof(cmPointerNode),
             typeof(cmPointerNode), //Function Pointer
-            typeof(cmArrayNode), //Array
-            null, //In Place Array
+            typeof(cmArrayNode),   //Array
+            null,                  //In Place Array
             typeof(cmEnumNode),
             typeof(HavokMetaObjectNode),
             typeof(cmSimpleArrayNode),

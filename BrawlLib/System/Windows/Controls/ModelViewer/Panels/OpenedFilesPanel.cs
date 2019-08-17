@@ -9,9 +9,11 @@ namespace System.Windows.Forms
     public partial class OpenedFilesControl : UserControl
     {
         public ModelEditorBase _mainWindow;
-        public ResourceNode SelectedFile => (ResourceNode)listBox1.SelectedItem;
+        public ResourceNode SelectedFile => (ResourceNode) listBox1.SelectedItem;
 
-        public BindingList<ResourceNode> OpenedFiles => _mainWindow != null ? _mainWindow._openedFiles : new BindingList<ResourceNode>();
+        public BindingList<ResourceNode> OpenedFiles =>
+            _mainWindow != null ? _mainWindow._openedFiles : new BindingList<ResourceNode>();
+
         public OpenedFilesControl()
         {
             InitializeComponent();
@@ -63,7 +65,9 @@ namespace System.Windows.Forms
                 return;
             }
 
-            string s = Path.GetFileName(listBox1.SelectedItem.ToString() == "<null>" ? "null" : listBox1.SelectedItem.ToString());
+            string s = Path.GetFileName(listBox1.SelectedItem.ToString() == "<null>"
+                ? "null"
+                : listBox1.SelectedItem.ToString());
             label1.Text = string.Format("{0} - Has {1}changed", s, SelectedFile.IsDirty ? "" : "not ");
         }
 
@@ -82,7 +86,7 @@ namespace System.Windows.Forms
                 return SaveAs(r);
             }
 
-            r.Merge(Control.ModifierKeys == (Keys.Control | Keys.Shift));
+            r.Merge(ModifierKeys == (Keys.Control | Keys.Shift));
             r.Export(r._origPath);
             r.IsDirty = false;
             return true;
@@ -91,7 +95,9 @@ namespace System.Windows.Forms
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ResourceNode r = SelectedFile;
-            if (MessageBox.Show(this, string.Format("Are you sure you want to save {0}?", Path.GetFileName(r._origPath)), "Are you sure?", MessageBoxButtons.OKCancel) != Forms.DialogResult.OK)
+            if (MessageBox.Show(this,
+                    string.Format("Are you sure you want to save {0}?", Path.GetFileName(r._origPath)), "Are you sure?",
+                    MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;
             }
@@ -113,6 +119,7 @@ namespace System.Windows.Forms
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -144,9 +151,10 @@ namespace System.Windows.Forms
             bool shouldClose = _mainWindow.ShouldCloseFile(r);
             if (r.IsDirty && shouldClose)
             {
-                string s = user ?
-                    "Save changes?" :
-                    "You have made changes to the file \"" + r._origPath + "\". Would you like to save those changes?";
+                string s = user
+                    ? "Save changes?"
+                    : "You have made changes to the file \"" + r._origPath +
+                      "\". Would you like to save those changes?";
 
                 DialogResult res = MessageBox.Show(this, s, "Closing external file.", MessageBoxButtons.YesNoCancel);
 
@@ -155,7 +163,7 @@ namespace System.Windows.Forms
                     return false;
                 }
 
-                if ((res == DialogResult.Yes && !SaveExternal(r, false)))
+                if (res == DialogResult.Yes && !SaveExternal(r, false))
                 {
                     DialogResult res2 = MessageBox.Show(this,
                         "Unable to save this file. Close it anyway?",
@@ -179,6 +187,7 @@ namespace System.Windows.Forms
                     m--;
                 }
             }
+
             _mainWindow.ModelPanel.RemoveReference(r, false);
             _mainWindow.UnloadAnimations(r);
             _mainWindow.Updating = false;
@@ -217,6 +226,7 @@ namespace System.Windows.Forms
 
             return false;
         }
+
         public bool CloseAllFiles()
         {
             if (OpenedFiles != null)
@@ -232,9 +242,10 @@ namespace System.Windows.Forms
 
             return true;
         }
+
         public bool SaveExternal(ResourceNode current, bool As)
         {
-            if (current == null || (!current.IsDirty && !As))
+            if (current == null || !current.IsDirty && !As)
             {
                 return true;
             }
@@ -262,10 +273,15 @@ namespace System.Windows.Forms
                     current.Merge();
                     current.Export(current._origPath);
                 }
+
                 return true;
 #if !DEBUG
             }
-            catch (Exception x) { MessageBox.Show(this, x.ToString()); }
+            catch (Exception x)
+            {
+                MessageBox.Show(this, x.ToString());
+            }
+
             return false;
 #endif
         }

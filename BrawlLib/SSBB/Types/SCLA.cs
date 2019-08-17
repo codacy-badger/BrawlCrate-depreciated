@@ -21,9 +21,23 @@ namespace BrawlLib.SSBBTypes
             pad0 = pad1 = 0;
         }
 
-        public VoidPtr this[int index] => (byte*)Address + Offsets(index);
-        public uint Offsets(int index) { return *((buint*)Address + 4 + index); }
-        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
+        public VoidPtr this[int index] => (byte*) Address + Offsets(index);
+
+        public uint Offsets(int index)
+        {
+            return *((buint*) Address + 4 + index);
+        }
+
+        private VoidPtr Address
+        {
+            get
+            {
+                fixed (void* ptr = &this)
+                {
+                    return ptr;
+                }
+            }
+        }
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
@@ -36,7 +50,16 @@ namespace BrawlLib.SSBBTypes
         public SCLASubEntry _entry2;
         public SCLASubEntry _entry3;
 
-        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
+        private VoidPtr Address
+        {
+            get
+            {
+                fixed (void* ptr = &this)
+                {
+                    return ptr;
+                }
+            }
+        }
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
@@ -51,7 +74,7 @@ namespace BrawlLib.SSBBTypes
         public bint _index3;
         public bint _index4;
 
-        public SCLASubEntry(BrawlLib.SSBB.ResourceNodes.SCLAEntryNode.SCLASubEntryClass e)
+        public SCLASubEntry(SSBB.ResourceNodes.SCLAEntryNode.SCLASubEntryClass e)
         {
             _unk1 = e._unk1;
             _unk2 = e._unk2;
@@ -63,6 +86,15 @@ namespace BrawlLib.SSBBTypes
             _index4 = e._index4;
         }
 
-        private VoidPtr Address { get { fixed (void* ptr = &this) { return ptr; } } }
+        private VoidPtr Address
+        {
+            get
+            {
+                fixed (void* ptr = &this)
+                {
+                    return ptr;
+                }
+            }
+        }
     }
 }

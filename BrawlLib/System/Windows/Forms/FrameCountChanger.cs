@@ -7,7 +7,8 @@
             InitializeComponent();
         }
 
-        public int NewValue => (int)numNewCount.Value;
+        public int NewValue => (int) numNewCount.Value;
+
         public DialogResult ShowDialog(int frameCount)
         {
             lblPrevCount.Text = (numNewCount.Value = frameCount).ToString();
@@ -16,13 +17,13 @@
 
         private void btnOkay_Click(object sender, EventArgs e)
         {
-            DialogResult = Forms.DialogResult.OK;
+            DialogResult = DialogResult.OK;
             Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            DialogResult = Forms.DialogResult.Cancel;
+            DialogResult = DialogResult.Cancel;
             Close();
         }
     }

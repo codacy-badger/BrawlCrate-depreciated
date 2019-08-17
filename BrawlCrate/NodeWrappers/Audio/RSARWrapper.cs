@@ -14,6 +14,7 @@ namespace BrawlCrate.NodeWrappers
         #region Menu
 
         private static readonly ContextMenuStrip _menu;
+
         static RSARWrapper()
         {
             _menu = new ContextMenuStrip();
@@ -31,25 +32,36 @@ namespace BrawlCrate.NodeWrappers
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
-        protected static void ImportSawndzAction(object sender, EventArgs e) { GetInstance<RSARWrapper>().ImportSawndz(); }
+
+        protected static void ImportSawndzAction(object sender, EventArgs e)
+        {
+            GetInstance<RSARWrapper>().ImportSawndz();
+        }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-            _menu.Items[0].Enabled = _menu.Items[0].Visible = _menu.Items[1].Visible = _menu.Items[2].Enabled = _menu.Items[4].Enabled = _menu.Items[6].Enabled = _menu.Items[7].Enabled = true;
+            _menu.Items[0].Enabled = _menu.Items[0].Visible = _menu.Items[1].Visible = _menu.Items[2].Enabled =
+                _menu.Items[4].Enabled = _menu.Items[6].Enabled = _menu.Items[7].Enabled = true;
         }
+
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             RSARWrapper w = GetInstance<RSARWrapper>();
             RSARSoundNode n = w._resource as RSARSoundNode;
-            _menu.Items[0].Enabled = _menu.Items[0].Visible = _menu.Items[1].Visible = (w._resource.Parent == null && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawndz.exe"));
+            _menu.Items[0].Enabled = _menu.Items[0].Visible = _menu.Items[1].Visible =
+                w._resource.Parent == null && File.Exists(AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawndz.exe");
             _menu.Items[2].Enabled = w.Parent != null;
-            _menu.Items[4].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[4].Enabled = w._resource.IsDirty || w._resource.IsBranch;
             _menu.Items[6].Enabled = w.PrevNode != null;
             _menu.Items[7].Enabled = w.NextNode != null;
         }
 
         #endregion
 
-        public RSARWrapper() { ContextMenuStrip = _menu; }
+        public RSARWrapper()
+        {
+            ContextMenuStrip = _menu;
+        }
 
         public override string ExportFilter => FileFilters.RSAR;
 
@@ -108,13 +120,13 @@ namespace BrawlCrate.NodeWrappers
                 p.StartInfo.FileName = AppDomain.CurrentDomain.BaseDirectory + '\\' + "sawndz.exe";
                 p.StartInfo.Arguments = args;
                 p.Start();
-                while ((!p.HasExited || !p.StandardOutput.EndOfStream))
+                while (!p.HasExited || !p.StandardOutput.EndOfStream)
                 {
-
                     char[] buffer = new char[1];
                     int count = p.StandardOutput.Read(buffer, 0, 1);
                     Console.Write(buffer);
                 }
+
                 if (!p.HasExited)
                 {
                     p.WaitForExit();

@@ -11,6 +11,7 @@ namespace BrawlCrate.NodeWrappers
         #region Menu
 
         private static readonly ContextMenuStrip _menu;
+
         static GIB2Wrapper()
         {
             _menu = new ContextMenuStrip();
@@ -30,26 +31,36 @@ namespace BrawlCrate.NodeWrappers
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
-        protected static void NewEntryAction(object sender, EventArgs e) { GetInstance<GIB2Wrapper>().NewEntry(); }
+
+        protected static void NewEntryAction(object sender, EventArgs e)
+        {
+            GetInstance<GIB2Wrapper>().NewEntry();
+        }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
             _menu.Items[6].Enabled = _menu.Items[7].Enabled = true;
         }
+
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             GIB2Wrapper w = GetInstance<GIB2Wrapper>();
             _menu.Items[6].Enabled = w.PrevNode != null;
             _menu.Items[7].Enabled = w.NextNode != null;
         }
+
         #endregion
 
         public void NewEntry()
         {
-            GIB2EntryNode node = new GIB2EntryNode() { Name = "Item Box [0]", };
+            GIB2EntryNode node = new GIB2EntryNode() {Name = "Item Box [0]",};
             _resource.AddChild(node);
-            ((GIB2Node)_resource)._count += 1;
+            ((GIB2Node) _resource)._count += 1;
         }
 
-        public GIB2Wrapper() { ContextMenuStrip = _menu; }
+        public GIB2Wrapper()
+        {
+            ContextMenuStrip = _menu;
+        }
     }
 }

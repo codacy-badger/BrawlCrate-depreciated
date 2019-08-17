@@ -9,9 +9,14 @@ using System.Linq;
 namespace System
 {
     #region MDL0
+
     public class DropDownListMaterialsDrawCall : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             MDL0Node model = (context.Instance as DrawCall)._parentObject.Model;
@@ -24,9 +29,14 @@ namespace System
             return new StandardValuesCollection(mats.Select(n => n.ToString()).ToList());
         }
     }
+
     public class DropDownListOpaMaterials : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             MDL0Node model = (context.Instance as MDL0EntryNode).Model;
@@ -39,9 +49,14 @@ namespace System
             return new StandardValuesCollection(opaMats.Select(n => n.ToString()).ToList());
         }
     }
+
     public class DropDownListXluMaterials : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             MDL0Node model = (context.Instance as MDL0EntryNode).Model;
@@ -57,7 +72,11 @@ namespace System
 
     public class DropDownListTextures : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             MDL0Node model = (context.Instance as MDL0EntryNode).Model;
@@ -67,25 +86,39 @@ namespace System
 
     public class DropDownListShaders : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             MDL0Node model = (context.Instance as MDL0EntryNode).Model;
             return new StandardValuesCollection(model._shadList.Select(n => n.ToString()).ToList());
         }
     }
+
     public class DropDownListBonesDrawCall : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             MDL0Node model = (context.Instance as DrawCall)._parentObject.Model;
             return new StandardValuesCollection(model._linker.BoneCache.Select(n => n.ToString()).ToList());
         }
     }
+
     public class DropDownListBones : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             MDL0Node model = (context.Instance as MDL0EntryNode).Model;
@@ -95,61 +128,97 @@ namespace System
 
     public class DropDownListColors : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             MDL0Node model = (context.Instance as MDL0EntryNode).Model;
-            return new StandardValuesCollection(model != null && model._colorList != null ? model._colorList.Select(n => n.ToString()).ToList() : null);
+            return new StandardValuesCollection(model != null && model._colorList != null
+                ? model._colorList.Select(n => n.ToString()).ToList()
+                : null);
         }
     }
 
     public class DropDownListVertices : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             MDL0Node model = (context.Instance as MDL0EntryNode).Model;
-            return new StandardValuesCollection(model != null && model._vertList != null ? model._vertList.Select(n => n.ToString()).ToList() : null);
+            return new StandardValuesCollection(model != null && model._vertList != null
+                ? model._vertList.Select(n => n.ToString()).ToList()
+                : null);
         }
     }
 
     public class DropDownListNormals : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             MDL0Node model = (context.Instance as MDL0EntryNode).Model;
-            return new StandardValuesCollection(model != null && model._normList != null ? model._normList.Select(n => n.ToString()).ToList() : null);
+            return new StandardValuesCollection(model != null && model._normList != null
+                ? model._normList.Select(n => n.ToString()).ToList()
+                : null);
         }
     }
 
     public class DropDownListUVs : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             MDL0Node model = (context.Instance as MDL0EntryNode).Model;
-            return new StandardValuesCollection(model != null && model._uvList != null ? model._uvList.Select(n => n.ToString()).ToList() : null);
+            return new StandardValuesCollection(model != null && model._uvList != null
+                ? model._uvList.Select(n => n.ToString()).ToList()
+                : null);
         }
     }
 
     public class DropDownListFurPos : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             MDL0Node model = (context.Instance as MDL0EntryNode).Model;
-            return new StandardValuesCollection(model != null && model._furPosList != null ? model._furPosList.Select(n => n.ToString()).ToList() : null);
+            return new StandardValuesCollection(model != null && model._furPosList != null
+                ? model._furPosList.Select(n => n.ToString()).ToList()
+                : null);
         }
     }
 
     public class DropDownListFurVec : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             MDL0Node model = (context.Instance as MDL0EntryNode).Model;
-            return new StandardValuesCollection(model != null && model._furVecList != null ? model._furVecList.Select(n => n.ToString()).ToList() : null);
+            return new StandardValuesCollection(model != null && model._furVecList != null
+                ? model._furVecList.Select(n => n.ToString()).ToList()
+                : null);
         }
     }
 
@@ -159,7 +228,11 @@ namespace System
 
     public class DropDownListSCN0Ambience : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             SCN0Node node = (context.Instance as SCN0EntryNode).Parent.Parent as SCN0Node;
@@ -177,7 +250,11 @@ namespace System
 
     public class DropDownListSCN0Light : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             SCN0Node node = (context.Instance as SCN0EntryNode).Parent.Parent as SCN0Node;
@@ -199,7 +276,11 @@ namespace System
 
     public class DropDownListPAT0Textures : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             PAT0Node main = (context.Instance as PAT0TextureEntryNode).Parent.Parent.Parent as PAT0Node;
@@ -209,7 +290,11 @@ namespace System
 
     public class DropDownListPAT0Palettes : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             PAT0Node main = (context.Instance as PAT0TextureEntryNode).Parent.Parent.Parent as PAT0Node;
@@ -223,17 +308,26 @@ namespace System
 
     public class DropDownListBankFiles : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             RSAREntryNode n = context.Instance as RSAREntryNode;
-            return new StandardValuesCollection(n.RSARNode.Files.Where(x => x is RBNKNode || x is RSARExtFileNode).Select(r => r.ToString()).ToList());
+            return new StandardValuesCollection(n.RSARNode.Files.Where(x => x is RBNKNode || x is RSARExtFileNode)
+                .Select(r => r.ToString()).ToList());
         }
     }
 
     public class DropDownListNonBankFiles : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             Type e;
@@ -241,18 +335,30 @@ namespace System
             switch (n.SoundType)
             {
                 default: return null;
-                case RSARSoundNode.SndType.SEQ: e = typeof(RSEQNode); break;
-                case RSARSoundNode.SndType.STRM: e = typeof(RSTMNode); break;
-                case RSARSoundNode.SndType.WAVE: e = typeof(RWSDNode); break;
+                case RSARSoundNode.SndType.SEQ:
+                    e = typeof(RSEQNode);
+                    break;
+                case RSARSoundNode.SndType.STRM:
+                    e = typeof(RSTMNode);
+                    break;
+                case RSARSoundNode.SndType.WAVE:
+                    e = typeof(RWSDNode);
+                    break;
             }
+
             Type ext = typeof(RSARExtFileNode);
             return new StandardValuesCollection(
                 n.RSARNode.Files.Where(x => x.GetType() == e || x.GetType() == ext).Select(r => r.ToString()).ToList());
         }
     }
+
     public class DropDownListRSARBankRefFiles : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             RSAREntryNode n = context.Instance as RSAREntryNode;
@@ -262,17 +368,26 @@ namespace System
 
     public class DropDownListRWSDSounds : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             RSARFileEntryNode n = context.Instance as RSARFileEntryNode;
-            return new StandardValuesCollection(n.Parent.Parent.Children[1].Children.Select(r => r.ToString()).ToList());
+            return new StandardValuesCollection(n.Parent.Parent.Children[1].Children.Select(r => r.ToString())
+                .ToList());
         }
     }
 
     public class DropDownListRSARInfoSound : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             RSARSoundNode n = context.Instance as RSARSoundNode;
@@ -281,13 +396,18 @@ namespace System
                 return null;
             }
 
-            return new StandardValuesCollection(n.SoundFileNode.Children[0].Children.Select(r => r.ToString()).ToList());
+            return new StandardValuesCollection(n.SoundFileNode.Children[0].Children.Select(r => r.ToString())
+                .ToList());
         }
     }
 
     public class DropDownListRSARInfoSeqLabls : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             RSARSoundNode n = context.Instance as RSARSoundNode;
@@ -303,11 +423,15 @@ namespace System
 
     public class DropDownListRBNKSounds : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             ResourceNode n = context.Instance as RSAREntryNode;
-            while (((n = n.Parent) != null) && !(n is RBNKNode))
+            while ((n = n.Parent) != null && !(n is RBNKNode))
             {
                 ;
             }
@@ -322,7 +446,11 @@ namespace System
 
     public class DropDownListReffAnimType : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             REFFAnimationNode node = context.Instance as REFFAnimationNode;
@@ -344,161 +472,216 @@ namespace System
                 case AnimCurveType.EmitterFloat:
                     return new StandardValuesCollection(Enum.GetNames(typeof(v9AnimCurveTargetEmitterFloat)));
             }
+
             return new StandardValuesCollection(null);
         }
     }
 
     public class DropDownListReffBillboardAssist : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             REFFEmitterNode9 node = context.Instance as REFFEmitterNode9;
-            if (node.ParticleType == BrawlLib.SSBBTypes.ReffType.Billboard)
+            if (node.ParticleType == ReffType.Billboard)
             {
-                return new StandardValuesCollection(Enum.GetNames(typeof(BrawlLib.SSBBTypes.BillboardAssist)));
+                return new StandardValuesCollection(Enum.GetNames(typeof(BillboardAssist)));
             }
 
             return new StandardValuesCollection(null);
         }
     }
+
     public class DropDownListReffStripeAssist : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             REFFEmitterNode9 node = context.Instance as REFFEmitterNode9;
-            if (node.ParticleType >= BrawlLib.SSBBTypes.ReffType.Stripe)
+            if (node.ParticleType >= ReffType.Stripe)
             {
-                return new StandardValuesCollection(Enum.GetNames(typeof(BrawlLib.SSBBTypes.StripeAssist)));
+                return new StandardValuesCollection(Enum.GetNames(typeof(StripeAssist)));
             }
 
             return new StandardValuesCollection(null);
         }
     }
+
     public class DropDownListReffAssist : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             REFFEmitterNode9 node = context.Instance as REFFEmitterNode9;
-            if (node.ParticleType != BrawlLib.SSBBTypes.ReffType.Billboard)
+            if (node.ParticleType != ReffType.Billboard)
             {
-                return new StandardValuesCollection(Enum.GetNames(typeof(BrawlLib.SSBBTypes.Assist)));
+                return new StandardValuesCollection(Enum.GetNames(typeof(Assist)));
             }
 
             return new StandardValuesCollection(null);
         }
     }
+
     public class DropDownListReffBillboardDirection : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             REFFEmitterNode9 node = context.Instance as REFFEmitterNode9;
-            if (node.ParticleType == BrawlLib.SSBBTypes.ReffType.Billboard)
+            if (node.ParticleType == ReffType.Billboard)
             {
-                return new StandardValuesCollection(Enum.GetNames(typeof(BrawlLib.SSBBTypes.BillboardAhead)));
+                return new StandardValuesCollection(Enum.GetNames(typeof(BillboardAhead)));
             }
 
             return new StandardValuesCollection(null);
         }
     }
+
     public class DropDownListReffDirection : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             REFFEmitterNode9 node = context.Instance as REFFEmitterNode9;
-            if (node.ParticleType != BrawlLib.SSBBTypes.ReffType.Billboard)
+            if (node.ParticleType != ReffType.Billboard)
             {
-                return new StandardValuesCollection(Enum.GetNames(typeof(BrawlLib.SSBBTypes.Ahead)));
+                return new StandardValuesCollection(Enum.GetNames(typeof(Ahead)));
             }
 
             return new StandardValuesCollection(null);
         }
     }
+
     public class DropDownListReffStripeConnect : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             REFFEmitterNode9 node = context.Instance as REFFEmitterNode9;
-            if (node.ParticleType >= BrawlLib.SSBBTypes.ReffType.Stripe)
+            if (node.ParticleType >= ReffType.Stripe)
             {
-                return new StandardValuesCollection(Enum.GetNames(typeof(BrawlLib.SSBBTypes.StripeConnect)));
+                return new StandardValuesCollection(Enum.GetNames(typeof(StripeConnect)));
             }
 
             return new StandardValuesCollection(null);
         }
     }
+
     public class DropDownListReffStripeInitialPrevAxis : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             REFFEmitterNode9 node = context.Instance as REFFEmitterNode9;
-            if (node.ParticleType >= BrawlLib.SSBBTypes.ReffType.Stripe)
+            if (node.ParticleType >= ReffType.Stripe)
             {
-                return new StandardValuesCollection(Enum.GetNames(typeof(BrawlLib.SSBBTypes.StripeInitialPrevAxis)));
+                return new StandardValuesCollection(Enum.GetNames(typeof(StripeInitialPrevAxis)));
             }
 
             return new StandardValuesCollection(null);
         }
     }
+
     public class DropDownListReffStripeTexmapType : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             REFFEmitterNode9 node = context.Instance as REFFEmitterNode9;
-            if (node.ParticleType >= BrawlLib.SSBBTypes.ReffType.Stripe)
+            if (node.ParticleType >= ReffType.Stripe)
             {
-                return new StandardValuesCollection(Enum.GetNames(typeof(BrawlLib.SSBBTypes.StripeTexmapType)));
+                return new StandardValuesCollection(Enum.GetNames(typeof(StripeTexmapType)));
             }
 
             return new StandardValuesCollection(null);
         }
     }
+
     public class DropDownListReffDirectionalPivot : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             REFFEmitterNode9 node = context.Instance as REFFEmitterNode9;
-            if (node.ParticleType == BrawlLib.SSBBTypes.ReffType.Directional)
+            if (node.ParticleType == ReffType.Directional)
             {
-                return new StandardValuesCollection(Enum.GetNames(typeof(BrawlLib.SSBBTypes.DirectionalPivot)));
+                return new StandardValuesCollection(Enum.GetNames(typeof(DirectionalPivot)));
             }
 
             return new StandardValuesCollection(null);
         }
     }
+
     public class DropDownListReffDirectionalFace : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             REFFEmitterNode9 node = context.Instance as REFFEmitterNode9;
-            if (node.ParticleType == BrawlLib.SSBBTypes.ReffType.Directional)
+            if (node.ParticleType == ReffType.Directional)
             {
-                return new StandardValuesCollection(Enum.GetNames(typeof(BrawlLib.SSBBTypes.Face)));
+                return new StandardValuesCollection(Enum.GetNames(typeof(Face)));
             }
 
             return new StandardValuesCollection(null);
         }
     }
+
     #endregion
 
     public class DropDownListCompression : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             List<string> values = new List<string>();
             foreach (int i in Compressor._supportedCompressionTypes)
             {
-                values.Add(((CompressionType)i).ToString());
+                values.Add(((CompressionType) i).ToString());
             }
 
             return new StandardValuesCollection(values);
@@ -507,7 +690,11 @@ namespace System
 
     public class DropDownListRELModuleIDs : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             return new StandardValuesCollection(RELNode._idNames.Values.ToList());
@@ -516,7 +703,11 @@ namespace System
 
     public class DropDownListARCEntry : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             ARCEntryNode entry = context.Instance as ARCEntryNode;
@@ -530,31 +721,44 @@ namespace System
             return new StandardValuesCollection(list);
         }
     }
+
     public class DropDownListEnemies : StringConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             List<string> values = new List<string>();
             foreach (int i in GEG1Entry._KnownEnemies)
             {
-                values.Add(((GEG1Entry.EnemyType)i).ToString());
+                values.Add(((GEG1Entry.EnemyType) i).ToString());
             }
 
             return new StandardValuesCollection(values);
         }
     }
+
     public class DropDownListStageIDs : Int32Converter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(BrawlLib.BrawlCrate.StageNameGenerators.stageList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+            return new StandardValuesCollection(BrawlLib.BrawlCrate.StageNameGenerators.stageList
+                .Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
         }
+
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
         }
+
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value.GetType() == typeof(string))
@@ -565,16 +769,21 @@ namespace System
                     : 10;
                 return Convert.ToInt32(field0, fromBase);
             }
+
             return base.ConvertFrom(context, culture, value);
         }
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value,
+                                         Type destinationType)
         {
             if (destinationType == typeof(string) && value != null && value.GetType() == typeof(int))
             {
-                BrawlLib.SSBB.Stage stage = BrawlLib.BrawlCrate.StageNameGenerators.stageList.Where(s => s.ID == (int)value).FirstOrDefault();
-                return "0x" + ((int)value).ToString("X2") + (stage == null ? "" : (" - " + stage.Name));
+                BrawlLib.SSBB.Stage stage = BrawlLib.BrawlCrate.StageNameGenerators.stageList
+                    .Where(s => s.ID == (int) value).FirstOrDefault();
+                return "0x" + ((int) value).ToString("X2") + (stage == null ? "" : " - " + stage.Name);
             }
-            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null &&
+                     value.GetType() == typeof(string))
             {
                 return 0;
             }
@@ -582,17 +791,25 @@ namespace System
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
+
     public class DropDownListStageIDs_Hardcoded : Int32Converter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(BrawlLib.SSBB.Stage.Stages.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+            return new StandardValuesCollection(BrawlLib.SSBB.Stage.Stages
+                .Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
         }
+
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
         }
+
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value.GetType() == typeof(string))
@@ -603,16 +820,20 @@ namespace System
                     : 10;
                 return Convert.ToInt32(field0, fromBase);
             }
+
             return base.ConvertFrom(context, culture, value);
         }
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value,
+                                         Type destinationType)
         {
             if (destinationType == typeof(string) && value != null && value.GetType() == typeof(int))
             {
-                BrawlLib.SSBB.Stage stage = BrawlLib.SSBB.Stage.Stages.Where(s => s.ID == (int)value).FirstOrDefault();
-                return "0x" + ((int)value).ToString("X2") + (stage == null ? "" : (" - " + stage.Name));
+                BrawlLib.SSBB.Stage stage = BrawlLib.SSBB.Stage.Stages.Where(s => s.ID == (int) value).FirstOrDefault();
+                return "0x" + ((int) value).ToString("X2") + (stage == null ? "" : " - " + stage.Name);
             }
-            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null &&
+                     value.GetType() == typeof(string))
             {
                 return 0;
             }
@@ -620,17 +841,25 @@ namespace System
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
+
     public class DropDownListAITypes : ByteConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(BrawlLib.SSBB.ResourceNodes.BrawlAITypes.AITypes.Select(s => "0x" + s.AIID.ToString("X2") + " - " + s.Name).ToList());
+            return new StandardValuesCollection(BrawlAITypes.AITypes
+                .Select(s => "0x" + s.AIID.ToString("X2") + " - " + s.Name).ToList());
         }
+
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
         }
+
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value.GetType() == typeof(string))
@@ -641,16 +870,21 @@ namespace System
                     : 10;
                 return Convert.ToByte(field0, fromBase);
             }
+
             return base.ConvertFrom(context, culture, value);
         }
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value,
+                                         Type destinationType)
         {
-            if (destinationType == typeof(string) && value != null && (value.GetType() == typeof(byte) || value.GetType() == typeof(int)))
+            if (destinationType == typeof(string) && value != null &&
+                (value.GetType() == typeof(byte) || value.GetType() == typeof(int)))
             {
-                BrawlAITypes stage = BrawlLib.SSBB.ResourceNodes.BrawlAITypes.AITypes.Where(s => s.AIID == (byte)value).FirstOrDefault();
-                return "0x" + ((byte)value).ToString("X2") + (stage == null ? "" : (" - " + stage.Name));
+                BrawlAITypes stage = BrawlAITypes.AITypes.Where(s => s.AIID == (byte) value).FirstOrDefault();
+                return "0x" + ((byte) value).ToString("X2") + (stage == null ? "" : " - " + stage.Name);
             }
-            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null &&
+                     value.GetType() == typeof(string))
             {
                 return 0;
             }
@@ -658,17 +892,25 @@ namespace System
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
+
     public class DropDownListStageRelIDs : Int32Converter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(BrawlLib.SSBB.Stage.RelList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+            return new StandardValuesCollection(BrawlLib.SSBB.Stage.RelList
+                .Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
         }
+
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
         }
+
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value.GetType() == typeof(string))
@@ -679,16 +921,21 @@ namespace System
                     : 10;
                 return Convert.ToInt32(field0, fromBase);
             }
+
             return base.ConvertFrom(context, culture, value);
         }
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value,
+                                         Type destinationType)
         {
             if (destinationType == typeof(string) && value != null && value.GetType() == typeof(int))
             {
-                BrawlLib.SSBB.Stage stage = BrawlLib.SSBB.Stage.RelList.Where(s => s.ID == (int)value).FirstOrDefault();
-                return "0x" + ((int)value).ToString("X2") + (stage == null ? "" : (" - " + stage.Name));
+                BrawlLib.SSBB.Stage stage = BrawlLib.SSBB.Stage.RelList.Where(s => s.ID == (int) value)
+                    .FirstOrDefault();
+                return "0x" + ((int) value).ToString("X2") + (stage == null ? "" : " - " + stage.Name);
             }
-            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null &&
+                     value.GetType() == typeof(string))
             {
                 return 0;
             }
@@ -696,17 +943,25 @@ namespace System
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
+
     public class DropDownListItemIDs : Int32Converter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(BrawlLib.SSBB.Item.Items.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+            return new StandardValuesCollection(BrawlLib.SSBB.Item.Items
+                .Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
         }
+
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
         }
+
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value.GetType() == typeof(string))
@@ -717,16 +972,20 @@ namespace System
                     : 10;
                 return Convert.ToInt32(field0, fromBase);
             }
+
             return base.ConvertFrom(context, culture, value);
         }
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value,
+                                         Type destinationType)
         {
             if (destinationType == typeof(string) && value != null && value.GetType() == typeof(int))
             {
-                BrawlLib.SSBB.Item item = BrawlLib.SSBB.Item.Items.Where(s => s.ID == (int)value).FirstOrDefault();
-                return "0x" + ((int)value).ToString("X2") + (item == null ? "" : (" - " + item.Name));
+                BrawlLib.SSBB.Item item = BrawlLib.SSBB.Item.Items.Where(s => s.ID == (int) value).FirstOrDefault();
+                return "0x" + ((int) value).ToString("X2") + (item == null ? "" : " - " + item.Name);
             }
-            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null &&
+                     value.GetType() == typeof(string))
             {
                 return 0;
             }
@@ -734,17 +993,25 @@ namespace System
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
+
     public class DropDownListFighterIDs : ByteConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(BrawlLib.BrawlCrate.FighterNameGenerators.singlePlayerSlotIDList.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+            return new StandardValuesCollection(BrawlLib.BrawlCrate.FighterNameGenerators.singlePlayerSlotIDList
+                .Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
         }
+
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
         }
+
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value.GetType() == typeof(string))
@@ -755,16 +1022,21 @@ namespace System
                     : 10;
                 return Convert.ToByte(field0, fromBase);
             }
+
             return base.ConvertFrom(context, culture, value);
         }
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value,
+                                         Type destinationType)
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(byte))
             {
-                BrawlLib.SSBB.Fighter fighter = BrawlLib.BrawlCrate.FighterNameGenerators.singlePlayerSlotIDList.Where(s => s.ID == (byte)value).FirstOrDefault();
-                return "0x" + ((byte)value).ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
+                BrawlLib.SSBB.Fighter fighter = BrawlLib.BrawlCrate.FighterNameGenerators.singlePlayerSlotIDList
+                    .Where(s => s.ID == (byte) value).FirstOrDefault();
+                return "0x" + ((byte) value).ToString("X2") + (fighter == null ? "" : " - " + fighter.Name);
             }
-            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null &&
+                     value.GetType() == typeof(string))
             {
                 return 0;
             }
@@ -775,15 +1047,22 @@ namespace System
 
     public class DropDownListFighterIDs_Hardcoded : ByteConverter
     {
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) { return true; }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(BrawlLib.SSBB.Fighter.Fighters.Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
+            return new StandardValuesCollection(BrawlLib.SSBB.Fighter.Fighters
+                .Select(s => "0x" + s.ID.ToString("X2") + " - " + s.Name).ToList());
         }
+
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
         }
+
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value.GetType() == typeof(string))
@@ -794,16 +1073,21 @@ namespace System
                     : 10;
                 return Convert.ToByte(field0, fromBase);
             }
+
             return base.ConvertFrom(context, culture, value);
         }
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value,
+                                         Type destinationType)
         {
             if (destinationType == typeof(string) && value.GetType() == typeof(byte))
             {
-                BrawlLib.SSBB.Fighter fighter = BrawlLib.SSBB.Fighter.Fighters.Where(s => s.ID == (byte)value).FirstOrDefault();
-                return "0x" + ((byte)value).ToString("X2") + (fighter == null ? "" : (" - " + fighter.Name));
+                BrawlLib.SSBB.Fighter fighter =
+                    BrawlLib.SSBB.Fighter.Fighters.Where(s => s.ID == (byte) value).FirstOrDefault();
+                return "0x" + ((byte) value).ToString("X2") + (fighter == null ? "" : " - " + fighter.Name);
             }
-            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null && value.GetType() == typeof(string))
+            else if ((destinationType == typeof(int) || destinationType == typeof(byte)) && value != null &&
+                     value.GetType() == typeof(string))
             {
                 return 0;
             }

@@ -12,11 +12,13 @@ namespace BrawlCrate
         #region Menu
 
         private static readonly ContextMenuStrip _menu;
+
         static CollisionWrapper()
         {
             _menu = new ContextMenuStrip();
             _menu.Items.Add(new ToolStripMenuItem("&Preview / Edit", null, EditAction, Keys.Control | Keys.P));
-            _menu.Items.Add(new ToolStripMenuItem("&Advanced Editor", null, AdvancedEditAction, Keys.Control | Keys.Shift | Keys.P));
+            _menu.Items.Add(new ToolStripMenuItem("&Advanced Editor", null, AdvancedEditAction,
+                Keys.Control | Keys.Shift | Keys.P));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Merge", null, MergeAction, Keys.Control | Keys.M));
             _menu.Items.Add(new ToolStripSeparator());
@@ -32,37 +34,62 @@ namespace BrawlCrate
             _menu.Items.Add(new ToolStripMenuItem("&Mirror Unbound Collisions", null,
                 new ToolStripMenuItem("X-Axis", null, FlipXAction),
                 new ToolStripMenuItem("Y-Axis", null, FlipYAction)
-                ));
+            ));
             _menu.Items.Add(new ToolStripSeparator());
             _menu.Items.Add(new ToolStripMenuItem("&Delete", null, DeleteAction, Keys.Control | Keys.Delete));
             _menu.Opening += MenuOpening;
             _menu.Closing += MenuClosing;
         }
+
         // StageBox collision flipping
-        private static void FlipXAction(object sender, EventArgs e) { GetInstance<CollisionWrapper>().FlipX(); }
-        private static void FlipYAction(object sender, EventArgs e) { GetInstance<CollisionWrapper>().FlipY(); }
+        private static void FlipXAction(object sender, EventArgs e)
+        {
+            GetInstance<CollisionWrapper>().FlipX();
+        }
 
-        private static void MergeAction(object sender, EventArgs e) { GetInstance<CollisionWrapper>().Merge(); }
+        private static void FlipYAction(object sender, EventArgs e)
+        {
+            GetInstance<CollisionWrapper>().FlipY();
+        }
 
-        protected static void EditAction(object sender, EventArgs e) { GetInstance<CollisionWrapper>().Preview(); }
-        protected static void AdvancedEditAction(object sender, EventArgs e) { GetInstance<CollisionWrapper>().AdvancedEdit(); }
+        private static void MergeAction(object sender, EventArgs e)
+        {
+            GetInstance<CollisionWrapper>().Merge();
+        }
+
+        protected static void EditAction(object sender, EventArgs e)
+        {
+            GetInstance<CollisionWrapper>().Preview();
+        }
+
+        protected static void AdvancedEditAction(object sender, EventArgs e)
+        {
+            GetInstance<CollisionWrapper>().AdvancedEdit();
+        }
+
         private static void MenuClosing(object sender, ToolStripDropDownClosingEventArgs e)
         {
-            _menu.Items[5].Enabled = _menu.Items[6].Enabled = _menu.Items[8].Enabled = _menu.Items[10].Enabled = _menu.Items[11].Enabled = _menu.Items[16].Enabled = true;
+            _menu.Items[5].Enabled = _menu.Items[6].Enabled = _menu.Items[8].Enabled =
+                _menu.Items[10].Enabled = _menu.Items[11].Enabled = _menu.Items[16].Enabled = true;
         }
+
         private static void MenuOpening(object sender, CancelEventArgs e)
         {
             CollisionWrapper w = GetInstance<CollisionWrapper>();
             _menu.Items[6].Enabled = _menu.Items[8].Enabled = _menu.Items[16].Enabled = w.Parent != null;
-            _menu.Items[7].Enabled = ((w._resource.IsDirty) || (w._resource.IsBranch));
+            _menu.Items[7].Enabled = w._resource.IsDirty || w._resource.IsBranch;
             _menu.Items[10].Enabled = w.PrevNode != null;
             _menu.Items[11].Enabled = w.NextNode != null;
         }
+
         #endregion
 
         public override string ExportFilter => FileFilters.CollisionDef;
 
-        public CollisionWrapper() { ContextMenuStrip = _menu; }
+        public CollisionWrapper()
+        {
+            ContextMenuStrip = _menu;
+        }
 
         public override ResourceNode Duplicate()
         {
@@ -70,26 +97,29 @@ namespace BrawlCrate
             {
                 return null;
             }
+
             _resource.Rebuild();
-            CollisionNode newNode = NodeFactory.FromAddress(null, _resource.WorkingUncompressed.Address, _resource.WorkingUncompressed.Length) as CollisionNode;
+            CollisionNode newNode =
+                NodeFactory.FromAddress(null, _resource.WorkingUncompressed.Address,
+                    _resource.WorkingUncompressed.Length) as CollisionNode;
             int newIndex = _resource.Index + 1;
             _resource._parent.InsertChild(newNode, true, newIndex);
             newNode.Populate();
-            newNode.FileType = ((CollisionNode)_resource).FileType;
-            newNode.FileIndex = ((CollisionNode)_resource).FileIndex;
-            newNode.RedirectIndex = ((CollisionNode)_resource).RedirectIndex;
-            newNode.GroupID = ((CollisionNode)_resource).GroupID;
+            newNode.FileType = ((CollisionNode) _resource).FileType;
+            newNode.FileIndex = ((CollisionNode) _resource).FileIndex;
+            newNode.RedirectIndex = ((CollisionNode) _resource).RedirectIndex;
+            newNode.GroupID = ((CollisionNode) _resource).GroupID;
             return newNode;
         }
 
         public void Merge()
         {
-            ((CollisionNode)_resource).MergeWith();
+            ((CollisionNode) _resource).MergeWith();
         }
 
         public void FlipX()
         {
-            CollisionNode coll = ((CollisionNode)_resource);
+            CollisionNode coll = (CollisionNode) _resource;
             //int i = 0;
             //int j = 0;
             foreach (CollisionObject cObj in coll._objects)
@@ -109,12 +139,13 @@ namespace BrawlCrate
                     }
                 }
             }
+
             coll.SignalPropertyChange();
         }
 
         public void FlipY()
         {
-            CollisionNode coll = ((CollisionNode)_resource);
+            CollisionNode coll = (CollisionNode) _resource;
             //int i = 0;
             //int j = 0;
             foreach (CollisionObject cObj in coll._objects)
@@ -134,6 +165,7 @@ namespace BrawlCrate
                     }
                 }
             }
+
             coll.SignalPropertyChange();
         }
 
@@ -147,7 +179,9 @@ namespace BrawlCrate
 
         private void AdvancedEdit()
         {
-            DialogResult CollisionResult = MessageBox.Show("Please note: The advanced collision editor is for experimental purposes only. Unless you really know what you're doing, the regular collision editor is overall better for the same purposes. Are you sure you'd like to open in the Advanced Editor?", "Open Advanced Editor", MessageBoxButtons.YesNo);
+            DialogResult CollisionResult = MessageBox.Show(
+                "Please note: The advanced collision editor is for experimental purposes only. Unless you really know what you're doing, the regular collision editor is overall better for the same purposes. Are you sure you'd like to open in the Advanced Editor?",
+                "Open Advanced Editor", MessageBoxButtons.YesNo);
             if (CollisionResult == DialogResult.Yes)
             {
                 using (AdvancedCollisionForm frm = new AdvancedCollisionForm())

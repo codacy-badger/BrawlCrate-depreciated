@@ -35,22 +35,23 @@ namespace BrawlCrate.Discord
             public RequestCallback requestCallback;
         }
 
-        [Serializable, StructLayout(LayoutKind.Sequential)]
+        [Serializable]
+        [StructLayout(LayoutKind.Sequential)]
         public struct RichPresenceStruct
         {
-            public IntPtr state; /* max 128 bytes */
+            public IntPtr state;   /* max 128 bytes */
             public IntPtr details; /* max 128 bytes */
             public long startTimestamp;
             public long endTimestamp;
-            public IntPtr largeImageKey; /* max 32 bytes */
+            public IntPtr largeImageKey;  /* max 32 bytes */
             public IntPtr largeImageText; /* max 128 bytes */
-            public IntPtr smallImageKey; /* max 32 bytes */
+            public IntPtr smallImageKey;  /* max 32 bytes */
             public IntPtr smallImageText; /* max 128 bytes */
-            public IntPtr partyId; /* max 128 bytes */
+            public IntPtr partyId;        /* max 128 bytes */
             public int partySize;
             public int partyMax;
-            public IntPtr matchSecret; /* max 128 bytes */
-            public IntPtr joinSecret; /* max 128 bytes */
+            public IntPtr matchSecret;    /* max 128 bytes */
+            public IntPtr joinSecret;     /* max 128 bytes */
             public IntPtr spectateSecret; /* max 128 bytes */
             public bool instance;
         }
@@ -72,7 +73,8 @@ namespace BrawlCrate.Discord
         }
 
         [DllImport("discord-rpc", EntryPoint = "Discord_Initialize", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Initialize(string applicationId, ref EventHandlers handlers, bool autoRegister, string optionalSteamId);
+        public static extern void Initialize(string applicationId, ref EventHandlers handlers, bool autoRegister,
+                                             string optionalSteamId);
 
         [DllImport("discord-rpc", EntryPoint = "Discord_Shutdown", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Shutdown();
@@ -101,19 +103,19 @@ namespace BrawlCrate.Discord
             private RichPresenceStruct _presence;
             private readonly List<IntPtr> _buffers = new List<IntPtr>(10);
 
-            public string state; /* max 128 bytes */
+            public string state;   /* max 128 bytes */
             public string details; /* max 128 bytes */
             public long startTimestamp;
             public long endTimestamp;
-            public string largeImageKey; /* max 32 bytes */
+            public string largeImageKey;  /* max 32 bytes */
             public string largeImageText; /* max 128 bytes */
-            public string smallImageKey; /* max 32 bytes */
+            public string smallImageKey;  /* max 32 bytes */
             public string smallImageText; /* max 128 bytes */
-            public string partyId; /* max 128 bytes */
+            public string partyId;        /* max 128 bytes */
             public int partySize;
             public int partyMax;
-            public string matchSecret; /* max 128 bytes */
-            public string joinSecret; /* max 128 bytes */
+            public string matchSecret;    /* max 128 bytes */
+            public string joinSecret;     /* max 128 bytes */
             public string spectateSecret; /* max 128 bytes */
             public bool instance;
 
@@ -181,6 +183,7 @@ namespace BrawlCrate.Discord
                 {
                     str += "\0\0";
                 }
+
                 return Encoding.UTF8.GetString(Encoding.UTF8.GetBytes(str));
             }
 
