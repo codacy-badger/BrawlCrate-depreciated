@@ -346,7 +346,7 @@ namespace System.Windows.Forms
             numScaleY.Size = new System.Drawing.Size(70, 20);
             numScaleY.TabIndex = 3;
             numScaleY.Text = "0";
-            numScaleY.ValueChanged += new EventHandler(BoxChanged);
+            numScaleY.ValueChanged += BoxChanged;
             // 
             // numRot
             // 
@@ -357,7 +357,7 @@ namespace System.Windows.Forms
             numRot.Size = new System.Drawing.Size(70, 20);
             numRot.TabIndex = 6;
             numRot.Text = "0";
-            numRot.ValueChanged += new EventHandler(BoxChanged);
+            numRot.ValueChanged += BoxChanged;
             // 
             // numTransX
             // 
@@ -368,7 +368,7 @@ namespace System.Windows.Forms
             numTransX.Size = new System.Drawing.Size(70, 20);
             numTransX.TabIndex = 9;
             numTransX.Text = "0";
-            numTransX.ValueChanged += new EventHandler(BoxChanged);
+            numTransX.ValueChanged += BoxChanged;
             // 
             // numTransY
             // 
@@ -379,7 +379,7 @@ namespace System.Windows.Forms
             numTransY.Size = new System.Drawing.Size(70, 20);
             numTransY.TabIndex = 10;
             numTransY.Text = "0";
-            numTransY.ValueChanged += new EventHandler(BoxChanged);
+            numTransY.ValueChanged += BoxChanged;
             // 
             // numScaleX
             // 
@@ -390,7 +390,7 @@ namespace System.Windows.Forms
             numScaleX.Size = new System.Drawing.Size(70, 20);
             numScaleX.TabIndex = 11;
             numScaleX.Text = "0";
-            numScaleX.ValueChanged += new EventHandler(BoxChanged);
+            numScaleX.ValueChanged += BoxChanged;
             // 
             // label7
             // 
@@ -421,7 +421,7 @@ namespace System.Windows.Forms
                 0,
                 0
             });
-            numFrame.ValueChanged += new EventHandler(numFrame_ValueChanged);
+            numFrame.ValueChanged += numFrame_ValueChanged;
             // 
             // lblFrameCount
             // 
@@ -443,7 +443,7 @@ namespace System.Windows.Forms
             btnPrev.Text = "<";
             btnPrev.TextAlign = ContentAlignment.TopCenter;
             btnPrev.UseVisualStyleBackColor = true;
-            btnPrev.Click += new EventHandler(btnPrev_Click);
+            btnPrev.Click += btnPrev_Click;
             // 
             // btnNext
             // 
@@ -456,7 +456,7 @@ namespace System.Windows.Forms
             btnNext.Text = ">";
             btnNext.TextAlign = ContentAlignment.TopCenter;
             btnNext.UseVisualStyleBackColor = true;
-            btnNext.Click += new EventHandler(btnNext_Click);
+            btnNext.Click += btnNext_Click;
             // 
             // listKeyframes
             // 
@@ -470,7 +470,7 @@ namespace System.Windows.Forms
             listKeyframes.Name = "listKeyframes";
             listKeyframes.Size = new System.Drawing.Size(294, 96);
             listKeyframes.TabIndex = 18;
-            listKeyframes.SelectedIndexChanged += new EventHandler(listKeyframes_SelectedIndexChanged);
+            listKeyframes.SelectedIndexChanged += listKeyframes_SelectedIndexChanged;
             // 
             // groupBox1
             // 

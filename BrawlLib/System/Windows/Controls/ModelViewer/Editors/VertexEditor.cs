@@ -61,7 +61,7 @@ namespace System.Windows.Forms
             numPosZ.Size = new System.Drawing.Size(78, 20);
             numPosZ.TabIndex = 6;
             numPosZ.Text = "0";
-            numPosZ.ValueChanged += new EventHandler(numPosZ_TextChanged);
+            numPosZ.ValueChanged += numPosZ_TextChanged;
             // 
             // label2
             // 
@@ -84,7 +84,7 @@ namespace System.Windows.Forms
             numPosY.Size = new System.Drawing.Size(78, 20);
             numPosY.TabIndex = 4;
             numPosY.Text = "0";
-            numPosY.ValueChanged += new EventHandler(numPosY_TextChanged);
+            numPosY.ValueChanged += numPosY_TextChanged;
             // 
             // label1
             // 
@@ -107,7 +107,7 @@ namespace System.Windows.Forms
             numPosX.Size = new System.Drawing.Size(78, 20);
             numPosX.TabIndex = 0;
             numPosX.Text = "0";
-            numPosX.ValueChanged += new EventHandler(numPosX_TextChanged);
+            numPosX.ValueChanged += numPosX_TextChanged;
             // 
             // groupBox1
             // 
@@ -154,7 +154,7 @@ namespace System.Windows.Forms
             numNormZ.Size = new System.Drawing.Size(78, 20);
             numNormZ.TabIndex = 6;
             numNormZ.Text = "0";
-            numNormZ.ValueChanged += new EventHandler(numNormZ_ValueChanged);
+            numNormZ.ValueChanged += numNormZ_ValueChanged;
             // 
             // label4
             // 
@@ -177,7 +177,7 @@ namespace System.Windows.Forms
             numNormX.Size = new System.Drawing.Size(78, 20);
             numNormX.TabIndex = 0;
             numNormX.Text = "0";
-            numNormX.ValueChanged += new EventHandler(numNormX_ValueChanged);
+            numNormX.ValueChanged += numNormX_ValueChanged;
             // 
             // label5
             // 
@@ -210,7 +210,7 @@ namespace System.Windows.Forms
             numNormY.Size = new System.Drawing.Size(78, 20);
             numNormY.TabIndex = 4;
             numNormY.Text = "0";
-            numNormY.ValueChanged += new EventHandler(numNormY_ValueChanged);
+            numNormY.ValueChanged += numNormY_ValueChanged;
             // 
             // groupBox4
             // 
@@ -234,7 +234,7 @@ namespace System.Windows.Forms
             colorBox.Name = "colorBox";
             colorBox.Size = new System.Drawing.Size(99, 38);
             colorBox.TabIndex = 12;
-            colorBox.DoubleClick += new EventHandler(colorBox_Click);
+            colorBox.DoubleClick += colorBox_Click;
             // 
             // colorIndex
             // 
@@ -249,7 +249,7 @@ namespace System.Windows.Forms
             colorIndex.Name = "colorIndex";
             colorIndex.Size = new System.Drawing.Size(99, 21);
             colorIndex.TabIndex = 7;
-            colorIndex.SelectedIndexChanged += new EventHandler(colorIndex_SelectedIndexChanged);
+            colorIndex.SelectedIndexChanged += colorIndex_SelectedIndexChanged;
             // 
             // btnAverage
             // 
@@ -261,7 +261,7 @@ namespace System.Windows.Forms
             btnAverage.TabIndex = 12;
             btnAverage.Text = "Average";
             btnAverage.UseVisualStyleBackColor = true;
-            btnAverage.Click += new EventHandler(btnAverage_Click);
+            btnAverage.Click += btnAverage_Click;
             // 
             // label7
             // 

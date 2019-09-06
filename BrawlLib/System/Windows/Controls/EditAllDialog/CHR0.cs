@@ -183,7 +183,7 @@ namespace System.Windows.Forms
             TranslateDoNotChange.TabStop = true;
             TranslateDoNotChange.Text = "Do not change";
             TranslateDoNotChange.UseVisualStyleBackColor = true;
-            TranslateDoNotChange.CheckedChanged += new EventHandler(TranslateClear_CheckedChanged);
+            TranslateDoNotChange.CheckedChanged += TranslateClear_CheckedChanged;
             // 
             // TranslateDivide
             // 
@@ -194,7 +194,7 @@ namespace System.Windows.Forms
             TranslateDivide.TabIndex = 47;
             TranslateDivide.Text = "Divide";
             TranslateDivide.UseVisualStyleBackColor = true;
-            TranslateDivide.CheckedChanged += new EventHandler(TranslateClear_CheckedChanged);
+            TranslateDivide.CheckedChanged += TranslateClear_CheckedChanged;
             // 
             // TranslateMultiply
             // 
@@ -205,7 +205,7 @@ namespace System.Windows.Forms
             TranslateMultiply.TabIndex = 46;
             TranslateMultiply.Text = "Multiply";
             TranslateMultiply.UseVisualStyleBackColor = true;
-            TranslateMultiply.CheckedChanged += new EventHandler(TranslateClear_CheckedChanged);
+            TranslateMultiply.CheckedChanged += TranslateClear_CheckedChanged;
             // 
             // TranslateSubtract
             // 
@@ -216,7 +216,7 @@ namespace System.Windows.Forms
             TranslateSubtract.TabIndex = 45;
             TranslateSubtract.Text = "Subtract";
             TranslateSubtract.UseVisualStyleBackColor = true;
-            TranslateSubtract.CheckedChanged += new EventHandler(TranslateClear_CheckedChanged);
+            TranslateSubtract.CheckedChanged += TranslateClear_CheckedChanged;
             // 
             // TranslateAdd
             // 
@@ -227,7 +227,7 @@ namespace System.Windows.Forms
             TranslateAdd.TabIndex = 44;
             TranslateAdd.Text = "Add";
             TranslateAdd.UseVisualStyleBackColor = true;
-            TranslateAdd.CheckedChanged += new EventHandler(TranslateClear_CheckedChanged);
+            TranslateAdd.CheckedChanged += TranslateClear_CheckedChanged;
             // 
             // TranslateClear
             // 
@@ -238,7 +238,7 @@ namespace System.Windows.Forms
             TranslateClear.TabIndex = 43;
             TranslateClear.Text = "Clear";
             TranslateClear.UseVisualStyleBackColor = true;
-            TranslateClear.CheckedChanged += new EventHandler(TranslateClear_CheckedChanged);
+            TranslateClear.CheckedChanged += TranslateClear_CheckedChanged;
             // 
             // TranslateReplace
             // 
@@ -249,7 +249,7 @@ namespace System.Windows.Forms
             TranslateReplace.TabIndex = 42;
             TranslateReplace.Text = "Replace";
             TranslateReplace.UseVisualStyleBackColor = true;
-            TranslateReplace.CheckedChanged += new EventHandler(TranslateClear_CheckedChanged);
+            TranslateReplace.CheckedChanged += TranslateClear_CheckedChanged;
             // 
             // label5
             // 
@@ -340,7 +340,7 @@ namespace System.Windows.Forms
             RotateDoNotChange.TabStop = true;
             RotateDoNotChange.Text = "Do not change";
             RotateDoNotChange.UseVisualStyleBackColor = true;
-            RotateDoNotChange.CheckedChanged += new EventHandler(RotateClear_CheckedChanged);
+            RotateDoNotChange.CheckedChanged += RotateClear_CheckedChanged;
             // 
             // RotateDivide
             // 
@@ -351,7 +351,7 @@ namespace System.Windows.Forms
             RotateDivide.TabIndex = 47;
             RotateDivide.Text = "Divide";
             RotateDivide.UseVisualStyleBackColor = true;
-            RotateDivide.CheckedChanged += new EventHandler(RotateClear_CheckedChanged);
+            RotateDivide.CheckedChanged += RotateClear_CheckedChanged;
             // 
             // RotateMultiply
             // 
@@ -362,7 +362,7 @@ namespace System.Windows.Forms
             RotateMultiply.TabIndex = 46;
             RotateMultiply.Text = "Multiply";
             RotateMultiply.UseVisualStyleBackColor = true;
-            RotateMultiply.CheckedChanged += new EventHandler(RotateClear_CheckedChanged);
+            RotateMultiply.CheckedChanged += RotateClear_CheckedChanged;
             // 
             // RotateSubtract
             // 
@@ -373,7 +373,7 @@ namespace System.Windows.Forms
             RotateSubtract.TabIndex = 45;
             RotateSubtract.Text = "Subtract";
             RotateSubtract.UseVisualStyleBackColor = true;
-            RotateSubtract.CheckedChanged += new EventHandler(RotateClear_CheckedChanged);
+            RotateSubtract.CheckedChanged += RotateClear_CheckedChanged;
             // 
             // RotateAdd
             // 
@@ -384,7 +384,7 @@ namespace System.Windows.Forms
             RotateAdd.TabIndex = 44;
             RotateAdd.Text = "Add";
             RotateAdd.UseVisualStyleBackColor = true;
-            RotateAdd.CheckedChanged += new EventHandler(RotateClear_CheckedChanged);
+            RotateAdd.CheckedChanged += RotateClear_CheckedChanged;
             // 
             // RotateClear
             // 
@@ -395,7 +395,7 @@ namespace System.Windows.Forms
             RotateClear.TabIndex = 43;
             RotateClear.Text = "Clear";
             RotateClear.UseVisualStyleBackColor = true;
-            RotateClear.CheckedChanged += new EventHandler(RotateClear_CheckedChanged);
+            RotateClear.CheckedChanged += RotateClear_CheckedChanged;
             // 
             // RotateReplace
             // 
@@ -406,7 +406,7 @@ namespace System.Windows.Forms
             RotateReplace.TabIndex = 42;
             RotateReplace.Text = "Replace";
             RotateReplace.UseVisualStyleBackColor = true;
-            RotateReplace.CheckedChanged += new EventHandler(RotateClear_CheckedChanged);
+            RotateReplace.CheckedChanged += RotateClear_CheckedChanged;
             // 
             // label2
             // 
@@ -497,7 +497,7 @@ namespace System.Windows.Forms
             ScaleDoNotChange.TabStop = true;
             ScaleDoNotChange.Text = "Do not change";
             ScaleDoNotChange.UseVisualStyleBackColor = true;
-            ScaleDoNotChange.CheckedChanged += new EventHandler(ScaleClear_CheckedChanged);
+            ScaleDoNotChange.CheckedChanged += ScaleClear_CheckedChanged;
             // 
             // ScaleDivide
             // 
@@ -508,7 +508,7 @@ namespace System.Windows.Forms
             ScaleDivide.TabIndex = 35;
             ScaleDivide.Text = "Divide";
             ScaleDivide.UseVisualStyleBackColor = true;
-            ScaleDivide.CheckedChanged += new EventHandler(ScaleClear_CheckedChanged);
+            ScaleDivide.CheckedChanged += ScaleClear_CheckedChanged;
             // 
             // ScaleMultiply
             // 
@@ -519,7 +519,7 @@ namespace System.Windows.Forms
             ScaleMultiply.TabIndex = 34;
             ScaleMultiply.Text = "Multiply";
             ScaleMultiply.UseVisualStyleBackColor = true;
-            ScaleMultiply.CheckedChanged += new EventHandler(ScaleClear_CheckedChanged);
+            ScaleMultiply.CheckedChanged += ScaleClear_CheckedChanged;
             // 
             // ScaleSubtract
             // 
@@ -530,7 +530,7 @@ namespace System.Windows.Forms
             ScaleSubtract.TabIndex = 33;
             ScaleSubtract.Text = "Subtract";
             ScaleSubtract.UseVisualStyleBackColor = true;
-            ScaleSubtract.CheckedChanged += new EventHandler(ScaleClear_CheckedChanged);
+            ScaleSubtract.CheckedChanged += ScaleClear_CheckedChanged;
             // 
             // ScaleAdd
             // 
@@ -541,7 +541,7 @@ namespace System.Windows.Forms
             ScaleAdd.TabIndex = 32;
             ScaleAdd.Text = "Add";
             ScaleAdd.UseVisualStyleBackColor = true;
-            ScaleAdd.CheckedChanged += new EventHandler(ScaleClear_CheckedChanged);
+            ScaleAdd.CheckedChanged += ScaleClear_CheckedChanged;
             // 
             // ScaleClear
             // 
@@ -552,7 +552,7 @@ namespace System.Windows.Forms
             ScaleClear.TabIndex = 31;
             ScaleClear.Text = "Clear";
             ScaleClear.UseVisualStyleBackColor = true;
-            ScaleClear.CheckedChanged += new EventHandler(ScaleClear_CheckedChanged);
+            ScaleClear.CheckedChanged += ScaleClear_CheckedChanged;
             // 
             // ScaleReplace
             // 
@@ -563,7 +563,7 @@ namespace System.Windows.Forms
             ScaleReplace.TabIndex = 30;
             ScaleReplace.Text = "Replace";
             ScaleReplace.UseVisualStyleBackColor = true;
-            ScaleReplace.CheckedChanged += new EventHandler(ScaleClear_CheckedChanged);
+            ScaleReplace.CheckedChanged += ScaleClear_CheckedChanged;
             // 
             // label7
             // 
@@ -636,7 +636,7 @@ namespace System.Windows.Forms
             copyKeyframes.TabIndex = 33;
             copyKeyframes.Text = "Copy keyframes from:";
             copyKeyframes.UseVisualStyleBackColor = true;
-            copyKeyframes.CheckedChanged += new EventHandler(copyKeyframes_CheckedChanged);
+            copyKeyframes.CheckedChanged += copyKeyframes_CheckedChanged;
             // 
             // label1
             // 
@@ -690,7 +690,7 @@ namespace System.Windows.Forms
             NameContains.TabIndex = 85;
             NameContains.Text = "Modify only if name contains: ";
             NameContains.UseVisualStyleBackColor = true;
-            NameContains.CheckedChanged += new EventHandler(NameContains_CheckedChanged);
+            NameContains.CheckedChanged += NameContains_CheckedChanged;
             // 
             // newName
             // 
@@ -709,7 +709,7 @@ namespace System.Windows.Forms
             Rename.TabIndex = 83;
             Rename.Text = "Rename:";
             Rename.UseVisualStyleBackColor = true;
-            Rename.CheckedChanged += new EventHandler(Rename_CheckedChanged);
+            Rename.CheckedChanged += Rename_CheckedChanged;
             // 
             // enableLoop
             // 
@@ -731,7 +731,7 @@ namespace System.Windows.Forms
             editLoop.TabIndex = 38;
             editLoop.Text = "Edit loop:";
             editLoop.UseVisualStyleBackColor = true;
-            editLoop.CheckedChanged += new EventHandler(editLoop_CheckedChanged);
+            editLoop.CheckedChanged += editLoop_CheckedChanged;
             // 
             // Port
             // 
@@ -767,7 +767,7 @@ namespace System.Windows.Forms
             ChangeVersion.TabIndex = 35;
             ChangeVersion.Text = "Change version:";
             ChangeVersion.UseVisualStyleBackColor = true;
-            ChangeVersion.CheckedChanged += new EventHandler(ChangeVersion_CheckedChanged);
+            ChangeVersion.CheckedChanged += ChangeVersion_CheckedChanged;
             // 
             // EditAllCHR0Editor
             // 

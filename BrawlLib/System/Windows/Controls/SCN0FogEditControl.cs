@@ -334,7 +334,7 @@ namespace System.Windows.Forms
             listKeyframes.Name = "listKeyframes";
             listKeyframes.Size = new System.Drawing.Size(207, 83);
             listKeyframes.TabIndex = 18;
-            listKeyframes.SelectedIndexChanged += new EventHandler(listKeyframes_SelectedIndexChanged);
+            listKeyframes.SelectedIndexChanged += listKeyframes_SelectedIndexChanged;
             // 
             // panel2
             // 
@@ -385,7 +385,7 @@ namespace System.Windows.Forms
             btnNext.Text = ">";
             btnNext.TextAlign = ContentAlignment.TopCenter;
             btnNext.UseVisualStyleBackColor = true;
-            btnNext.Click += new EventHandler(btnNext_Click);
+            btnNext.Click += btnNext_Click;
             // 
             // btnPrev
             // 
@@ -398,7 +398,7 @@ namespace System.Windows.Forms
             btnPrev.Text = "<";
             btnPrev.TextAlign = ContentAlignment.TopCenter;
             btnPrev.UseVisualStyleBackColor = true;
-            btnPrev.Click += new EventHandler(btnPrev_Click);
+            btnPrev.Click += btnPrev_Click;
             // 
             // lblFrameCount
             // 
@@ -418,7 +418,7 @@ namespace System.Windows.Forms
             numStart.Size = new System.Drawing.Size(70, 20);
             numStart.TabIndex = 3;
             numStart.Text = "0";
-            numStart.ValueChanged += new EventHandler(BoxChanged);
+            numStart.ValueChanged += BoxChanged;
             // 
             // numEnd
             // 
@@ -429,7 +429,7 @@ namespace System.Windows.Forms
             numEnd.Size = new System.Drawing.Size(70, 20);
             numEnd.TabIndex = 6;
             numEnd.Text = "0";
-            numEnd.ValueChanged += new EventHandler(BoxChanged);
+            numEnd.ValueChanged += BoxChanged;
             // 
             // numFrame
             // 
@@ -451,7 +451,7 @@ namespace System.Windows.Forms
                 0,
                 0
             });
-            numFrame.ValueChanged += new EventHandler(numFrame_ValueChanged);
+            numFrame.ValueChanged += numFrame_ValueChanged;
             // 
             // label1
             // 

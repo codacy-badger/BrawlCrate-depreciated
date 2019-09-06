@@ -70,7 +70,7 @@ namespace System.Windows.Forms
             dtgrdAttributes.Size = new System.Drawing.Size(479, 200);
             dtgrdAttributes.TabIndex = 5;
             dtgrdAttributes.CellEndEdit += new DataGridViewCellEventHandler(dtgrdAttributes_CellEndEdit);
-            dtgrdAttributes.CurrentCellChanged += new EventHandler(dtgrdAttributes_CurrentCellChanged);
+            dtgrdAttributes.CurrentCellChanged += dtgrdAttributes_CurrentCellChanged;
             // 
             // description
             // 
@@ -90,7 +90,7 @@ namespace System.Windows.Forms
             description.TabIndex = 6;
             description.Text = "No Description Available.";
             description.LinkClicked += new LinkClickedEventHandler(description_LinkClicked);
-            description.TextChanged += new EventHandler(description_TextChanged);
+            description.TextChanged += description_TextChanged;
             // 
             // splitter1
             // 
@@ -127,7 +127,7 @@ namespace System.Windows.Forms
             btnInf.Text = "∞";
             btnInf.UseVisualStyleBackColor = true;
             btnInf.Visible = false;
-            btnInf.Click += new EventHandler(btnInf_Click);
+            btnInf.Click += btnInf_Click;
             // 
             // btnMinusInf
             // 
@@ -141,7 +141,7 @@ namespace System.Windows.Forms
             btnMinusInf.Text = "-∞";
             btnMinusInf.UseVisualStyleBackColor = true;
             btnMinusInf.Visible = false;
-            btnMinusInf.Click += new EventHandler(btnMinusInf_Click);
+            btnMinusInf.Click += btnMinusInf_Click;
             // 
             // lblColor
             // 
@@ -152,7 +152,7 @@ namespace System.Windows.Forms
             lblColor.Size = new System.Drawing.Size(41, 14);
             lblColor.TabIndex = 10;
             lblColor.Visible = false;
-            lblColor.Click += new EventHandler(lblColor_Click);
+            lblColor.Click += lblColor_Click;
             // 
             // lblCNoA
             // 
@@ -163,7 +163,7 @@ namespace System.Windows.Forms
             lblCNoA.Size = new System.Drawing.Size(41, 14);
             lblCNoA.TabIndex = 11;
             lblCNoA.Visible = false;
-            lblCNoA.Click += new EventHandler(lblColor_Click);
+            lblCNoA.Click += lblColor_Click;
             // 
             // tableLayoutPanel1
             // 
@@ -204,7 +204,7 @@ namespace System.Windows.Forms
             rdoFloat.TabStop = true;
             rdoFloat.Text = "Float";
             rdoFloat.UseVisualStyleBackColor = true;
-            rdoFloat.CheckedChanged += new EventHandler(radioButtonsChanged);
+            rdoFloat.CheckedChanged += radioButtonsChanged;
             // 
             // rdoInt
             // 
@@ -220,7 +220,7 @@ namespace System.Windows.Forms
             rdoInt.TabStop = true;
             rdoInt.Text = "Integer";
             rdoInt.UseVisualStyleBackColor = true;
-            rdoInt.CheckedChanged += new EventHandler(radioButtonsChanged);
+            rdoInt.CheckedChanged += radioButtonsChanged;
             // 
             // rdoColor
             // 
@@ -237,7 +237,7 @@ namespace System.Windows.Forms
             rdoColor.TabStop = true;
             rdoColor.Text = "Color";
             rdoColor.UseVisualStyleBackColor = true;
-            rdoColor.CheckedChanged += new EventHandler(radioButtonsChanged);
+            rdoColor.CheckedChanged += radioButtonsChanged;
             // 
             // rdoFlags
             // 
@@ -254,7 +254,7 @@ namespace System.Windows.Forms
             rdoFlags.TabStop = true;
             rdoFlags.Text = "Flags";
             rdoFlags.UseVisualStyleBackColor = true;
-            rdoFlags.CheckedChanged += new EventHandler(radioButtonsChanged);
+            rdoFlags.CheckedChanged += radioButtonsChanged;
             // 
             // rdoDegrees
             // 
@@ -271,7 +271,7 @@ namespace System.Windows.Forms
             rdoDegrees.TabStop = true;
             rdoDegrees.Text = "Degrees";
             rdoDegrees.UseVisualStyleBackColor = true;
-            rdoDegrees.CheckedChanged += new EventHandler(radioButtonsChanged);
+            rdoDegrees.CheckedChanged += radioButtonsChanged;
             // 
             // rdoUnknown
             // 
@@ -288,7 +288,7 @@ namespace System.Windows.Forms
             rdoUnknown.TabStop = true;
             rdoUnknown.Text = "Hex";
             rdoUnknown.UseVisualStyleBackColor = true;
-            rdoUnknown.CheckedChanged += new EventHandler(radioButtonsChanged);
+            rdoUnknown.CheckedChanged += radioButtonsChanged;
             // 
             // AttributeGrid
             // 

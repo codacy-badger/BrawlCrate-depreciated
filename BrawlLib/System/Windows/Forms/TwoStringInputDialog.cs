@@ -80,7 +80,7 @@
             btnCancel.TabIndex = 3;
             btnCancel.Text = "&Cancel";
             btnCancel.UseVisualStyleBackColor = true;
-            btnCancel.Click += new EventHandler(btnCancel_Click);
+            btnCancel.Click += btnCancel_Click;
             // 
             // btnOkay
             // 
@@ -91,7 +91,7 @@
             btnOkay.TabIndex = 2;
             btnOkay.Text = "&Okay";
             btnOkay.UseVisualStyleBackColor = true;
-            btnOkay.Click += new EventHandler(btnOkay_Click);
+            btnOkay.Click += btnOkay_Click;
             // 
             // textBox2
             // 

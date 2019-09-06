@@ -34,8 +34,8 @@ namespace BrawlCrate
             modelEditControl1.TargetAnimation = null;
             modelEditControl1.VertexLoc = null;
             modelEditControl1.VIS0Updating = false;
-            modelEditControl1.TargetModelChanged += new EventHandler(TargetModelChanged);
-            modelEditControl1.ModelViewerChanged += new EventHandler(ModelViewerChanged);
+            modelEditControl1.TargetModelChanged += TargetModelChanged;
+            modelEditControl1.ModelViewerChanged += ModelViewerChanged;
             // 
             // ModelForm
             // 
