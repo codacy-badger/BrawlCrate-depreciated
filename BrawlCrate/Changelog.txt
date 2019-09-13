@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.26 Hotfix 3
+BrawlCrate - v0.26b
 Copyright © 2018 - 2019 soopercool101, MarioDox, Syvkal
 BrawlBox  © 2009 - 2019 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,10 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.26b - (9/13/2019)
+ . Rewrite anim exporter. Maya now correctly reads BrawlCrate-exported anim files
+ . Fix bug in which attempting to sort MDL0 textures sorted objects instead
  
  - BrawlCrate v0.26 Hotfix 3 - (7/25/2019)
  . Improve interpolation function to match v0.71 in all aspects

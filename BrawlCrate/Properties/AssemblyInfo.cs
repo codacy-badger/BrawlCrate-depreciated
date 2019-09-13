@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 #if !DEBUG
-[assembly: AssemblyTitle("BrawlCrate v0.26")]
+[assembly: AssemblyTitle("BrawlCrate v0.26b")]
 #else
 [assembly: AssemblyTitle("BrawlCrate v0.27 (BETA)")]
 #endif
@@ -51,4 +51,4 @@ Super Smash Bros. Brawl © 2008 Nintendo and HAL Laboratory")]
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("0.26.*")]
-[assembly: AssemblyFileVersion("0.26.3.0")]
+[assembly: AssemblyFileVersion("0.26.4.0")]

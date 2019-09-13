@@ -15,10 +15,11 @@ namespace BrawlCrate
     internal static class Program
     {
         //Make sure this matches the tag name of the release on github exactly
-        public static readonly string TagName = "BrawlCrate_v0.26Hotfix3";
+        public static readonly string TagName = "BrawlCrate_v0.26b";
 
-        public static readonly string UpdateMessage = @"Updated to BrawlCrate v0.26 Hotfix 3! This release:
-- Fixes various animation bugs
+        public static readonly string UpdateMessage = @"Updated to BrawlCrate v0.26b! This release:
+- Fixes bug in which Maya couldn't read exported anims
+- Fixes bug in which sorting textures for an MDL0 would instead sort objects
 
 Full changelog can be found in the installation folder: " + '\n' + AppDomain.CurrentDomain.BaseDirectory +
                                                       "Changelog.txt";
