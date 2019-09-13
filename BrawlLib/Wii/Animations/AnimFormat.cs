@@ -9,10 +9,10 @@ namespace BrawlLib.Wii.Animations
 {
     public class AnimFormat
     {
-        private static readonly string[] types = new[] {"scale", "rotate", "translate"};
-        private static readonly string[] axes = new[] {"X", "Y", "Z"};
+        private static readonly string[] types = { "scale", "rotate", "translate" };
+        private static readonly string[] axes = { "X", "Y", "Z" };
 
-        public static void Serialize(CHR0Node node, bool bake, string output)
+        public static void Serialize(CHR0Node node, string output)
         {
             MDL0Node model;
 
@@ -23,11 +23,11 @@ namespace BrawlLib.Wii.Animations
             };
 
             if (dlgOpen.ShowDialog() != DialogResult.OK ||
-                (model = (MDL0Node) NodeFactory.FromFile(null, dlgOpen.FileName)) == null)
+                (model = (MDL0Node)NodeFactory.FromFile(null, dlgOpen.FileName)) == null)
             {
                 return;
             }
-
+            model.Populate();
             using (StreamWriter file = new StreamWriter(output))
             {
                 file.WriteLine("animVersion 1.1;");
@@ -35,17 +35,28 @@ namespace BrawlLib.Wii.Animations
                 file.WriteLine("timeUnit ntsc;");
                 file.WriteLine("linearUnit cm;");
                 file.WriteLine("angularUnit deg;");
-                file.WriteLine("startTime 1;");
-                file.WriteLine($"endTime {node.FrameCount};");
-                foreach (CHR0EntryNode e in node.Children)
+                file.WriteLine("startTime 0;");
+                file.WriteLine($"endTime {node.FrameCount - 1};");
+                foreach (MDL0BoneNode b in model.RecursiveBoneList)
                 {
-                    MDL0BoneNode bone = model.FindChild("Bones/" + e.Name, true) as MDL0BoneNode;
-                    if (bone == null)
+                    CHR0EntryNode e = null;
+                    foreach (CHR0EntryNode ce in node.Children)
                     {
+                        if (ce.Name == b.Name)
+                        {
+                            e = ce;
+                            break;
+                        }
+                    }
+
+                    if (e == null)
+                    {
+                        file.WriteLine($"anim {b.Name} 0 {b.Children.Count} 0;");
                         continue;
                     }
 
                     KeyframeCollection c = e.Keyframes;
+                    int counter = 0;
                     for (int index = 0; index < 9; index++)
                     {
                         KeyframeArray array = c._keyArrays[index];
@@ -55,8 +66,8 @@ namespace BrawlLib.Wii.Animations
                             continue;
                         }
 
-                        file.WriteLine("anim {0}.{0}{1} {0}{1} {2} {3} {4} {5}", types[index / 3], axes[index % 3],
-                            e.Name, 0, bone.Children.Count, index < 6 ? index + 3 : index - 6);
+                        file.WriteLine("anim {0}.{0}{1} {0}{1} {2} {3} {4} {5};", types[index / 3], axes[index % 3],
+                            e.Name, 0, b.Children.Count, counter);
                         file.WriteLine("animData {");
                         file.WriteLine("  input time;");
                         file.WriteLine($"  output {(index > 2 && index < 6 ? "angular" : "linear")};");
@@ -66,9 +77,9 @@ namespace BrawlLib.Wii.Animations
                         file.WriteLine("  keys {");
                         for (KeyframeEntry entry = array._keyRoot._next; entry != array._keyRoot; entry = entry._next)
                         {
-                            float angle = (float) Math.Atan(entry._tangent) * Maths._rad2degf;
-                            file.WriteLine(" {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10};",
-                                entry._index + 1,
+                            float angle = (float)Math.Atan(entry._tangent) * Maths._rad2degf;
+                            file.WriteLine("    {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10};",
+                                entry._index,
                                 entry._value.ToString(CultureInfo.InvariantCulture.NumberFormat),
                                 "fixed",
                                 "fixed",
@@ -83,6 +94,7 @@ namespace BrawlLib.Wii.Animations
 
                         file.WriteLine("  }");
                         file.WriteLine("}");
+                        counter++;
                     }
                 }
             }
@@ -90,7 +102,7 @@ namespace BrawlLib.Wii.Animations
 
         public static CHR0Node Read(string input)
         {
-            CHR0Node node = new CHR0Node() {_name = Path.GetFileNameWithoutExtension(input)};
+            CHR0Node node = new CHR0Node() { _name = Path.GetFileNameWithoutExtension(input) };
             using (StreamReader file = new StreamReader(input))
             {
                 float start = 0.0f;
@@ -99,6 +111,12 @@ namespace BrawlLib.Wii.Animations
                 while (true)
                 {
                     line = file.ReadLine();
+
+                    if (line == null)
+                    {
+                        break;
+                    }
+
                     int i = line.IndexOf(' ');
                     string tag = line.Substring(0, i);
 
@@ -130,7 +148,7 @@ namespace BrawlLib.Wii.Animations
                     }
                 }
 
-                int frameCount = (int) (end - start + 1.5f);
+                int frameCount = (int)(end - start + 1.5f);
                 node.FrameCount = frameCount;
 
                 while (true)
@@ -218,7 +236,7 @@ namespace BrawlLib.Wii.Animations
 
                         if ((e = node.FindChild(bone, false) as CHR0EntryNode) == null)
                         {
-                            e = new CHR0EntryNode() {_name = bone};
+                            e = new CHR0EntryNode() { _name = bone };
                             node.AddChild(e);
                         }
 
@@ -312,7 +330,7 @@ namespace BrawlLib.Wii.Animations
                                     bool anyFixed = secondFixed || firstFixed;
                                     bool bothFixed = secondFixed && firstFixed;
 
-                                    KeyframeEntry x = e.SetKeyframe(mode, (int) (inVal - 0.5f), outVal, true);
+                                    KeyframeEntry x = e.SetKeyframe(mode, (int)(inVal - 0.5f), outVal, true);
                                     if (!anyFixed)
                                     {
                                         l.Add(x);
@@ -321,16 +339,16 @@ namespace BrawlLib.Wii.Animations
                                     {
                                         if (bothFixed)
                                         {
-                                            x._tangent = (float) Math.Tan((angle1 + angle2) / 2 * Maths._deg2radf) *
+                                            x._tangent = (float)Math.Tan((angle1 + angle2) / 2 * Maths._deg2radf) *
                                                          ((weight1 + weight2) / 2);
                                         }
                                         else if (firstFixed)
                                         {
-                                            x._tangent = (float) Math.Tan(angle1 * Maths._deg2radf) * weight1;
+                                            x._tangent = (float)Math.Tan(angle1 * Maths._deg2radf) * weight1;
                                         }
                                         else
                                         {
-                                            x._tangent = (float) Math.Tan(angle2 * Maths._deg2radf) * weight2;
+                                            x._tangent = (float)Math.Tan(angle2 * Maths._deg2radf) * weight2;
                                         }
                                     }
                                 }

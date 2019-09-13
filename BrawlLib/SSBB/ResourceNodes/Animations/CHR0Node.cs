@@ -221,7 +221,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             }
             else if (outPath.EndsWith(".anim", StringComparison.OrdinalIgnoreCase))
             {
-                AnimFormat.Serialize(this, false, outPath);
+                AnimFormat.Serialize(this, outPath);
             }
             else
             {
