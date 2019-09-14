@@ -33,23 +33,14 @@ namespace BrawlLib.Wii.Animations
             {
                 file.WriteLine("animVersion 1.1;");
                 file.WriteLine("mayaVersion 2015;");
-                file.WriteLine("timeUnit ntsc;");
+                file.WriteLine("timeUnit ntscf;");
                 file.WriteLine("linearUnit cm;");
                 file.WriteLine("angularUnit deg;");
                 file.WriteLine("startTime 0;");
                 file.WriteLine($"endTime {node.FrameCount - 1};");
-                foreach (MDL0BoneNode b in model.RecursiveBoneList)
+                foreach (MDL0BoneNode b in model.AllBones)
                 {
-                    CHR0EntryNode e = null;
-                    foreach (CHR0EntryNode ce in node.Children)
-                    {
-                        if (ce.Name == b.Name)
-                        {
-                            e = ce;
-                            break;
-                        }
-                    }
-
+                    CHR0EntryNode e = node.FindChild(b.Name, true) as CHR0EntryNode;
                     if (e == null)
                     {
                         file.WriteLine($"anim {b.Name} 0 {b.Children.Count} 0;");
@@ -72,7 +63,7 @@ namespace BrawlLib.Wii.Animations
                         file.WriteLine("animData {");
                         file.WriteLine("  input time;");
                         file.WriteLine($"  output {(index > 2 && index < 6 ? "angular" : "linear")};");
-                        file.WriteLine("  weighted 0;");
+                        file.WriteLine("  weighted 1;");
                         file.WriteLine("  preInfinity constant;");
                         file.WriteLine("  postInfinity constant;");
                         file.WriteLine("  keys {");
