@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("BrawlCrateLib v0.26.4")]
+[assembly: AssemblyTitle("BrawlCrateLib v0.26.5")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("BrawlCrate")]
@@ -36,4 +36,4 @@ BrawlLib Copyright © 2009 - 2019 Bryan Moulton, BlackJax96, libertyernie && Sam
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("0.26.*")]
-[assembly: AssemblyFileVersion("0.26.4.0")]
+[assembly: AssemblyFileVersion("0.26.5.0")]
