@@ -155,7 +155,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             byte.TryParse(Path.GetFileNameWithoutExtension(_origPath), out _cosmeticSlot);
             if (_name == null && _origPath != null)
             {
-                _name = MasqueradeIDs[_cosmeticSlot];
+                _name = _cosmeticSlot > MasqueradeIDs.Length ? $"{_cosmeticSlot}" : MasqueradeIDs[_cosmeticSlot];
             }
 
             return true;
