@@ -83,8 +83,7 @@ namespace BrawlCrate.NodeWrappers
                     new ToolStripMenuItem("&Fix Transparency With Characters", null, TransparencyFixAction)
                 ),
                 new ToolStripMenuItem("&Culling", null,
-                    new ToolStripMenuItem("Invert &Culling", null, InvertMaterialsAction,
-                        Keys.Control | Keys.Shift | Keys.I),
+                    new ToolStripMenuItem("Invert &Culling", null, InvertMaterialsAction),
                     new ToolStripMenuItem("Set all (Cull &None)", null, CullNoneAction,
                         Keys.Control | Keys.Shift | Keys.D0),
                     new ToolStripMenuItem("Set all (Cull &Outside)", null, CullOutsideAction,
