@@ -1,5 +1,5 @@
 ﻿
-BrawlCrate - v0.26b Hotfix 1
+BrawlCrate - v0.26b Hotfix 2
 Copyright © 2018 - 2019 soopercool101, MarioDox, Syvkal
 BrawlBox  © 2009 - 2019 Bryan Moulton, BlackJax96, libertyernie & Sammi Husky
 
@@ -15,6 +15,9 @@ they be held accountable for the manner in which it is used.
  ===============================================
 |************ BrawlCrate Change Log ************|
  ===============================================
+ 
+ - BrawlCrate v0.26b Hotfix 2 - (10/11/2019)
+ . Remove shortcut key for culling inversion, fixing issue where screenshots could not be taken when an MDL0 is selected on the main form.
  
  - BrawlCrate v0.26b Hotfix 1 - (9/16/2019)
  . Fix bug in which animations for models with non-sequential bonesets wouldn't export as anim properly

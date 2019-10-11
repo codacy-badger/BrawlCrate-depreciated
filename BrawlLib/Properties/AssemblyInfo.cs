@@ -36,4 +36,4 @@ BrawlLib Copyright © 2009 - 2019 Bryan Moulton, BlackJax96, libertyernie && Sam
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("0.26.*")]
-[assembly: AssemblyFileVersion("0.26.5.0")]
+[assembly: AssemblyFileVersion("0.26.6.0")]
