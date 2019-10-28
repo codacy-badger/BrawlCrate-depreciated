@@ -1,4 +1,4 @@
-Ground Frames
+﻿Ground Frames
 (Float) The number of frames that a transformation will stay grounded before returning to the air
 
 Default (Float): 1020 (0x447F0000)

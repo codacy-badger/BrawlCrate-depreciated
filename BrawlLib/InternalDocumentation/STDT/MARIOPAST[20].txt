@@ -1,4 +1,4 @@
-0x014
+﻿0x014
 Default (Float): 0.3 (0x3E99999A)
 	/EndDescription
 0

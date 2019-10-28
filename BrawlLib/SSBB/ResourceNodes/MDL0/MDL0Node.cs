@@ -514,7 +514,7 @@ namespace BrawlLib.SSBB.ResourceNodes
             Name = Name + "_Shadow";
         }
 
-        public bool MultiTypeWorks = false;
+        public static bool MultiTypeWorks = false;
 
         public void ConvertToSpyModel()
         {

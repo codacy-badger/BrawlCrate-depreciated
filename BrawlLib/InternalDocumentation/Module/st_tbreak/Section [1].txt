@@ -1,4 +1,4 @@
-st_tbreak Section [1]: 0x00000B6C
+﻿st_tbreak Section [1]: 0x00000B6C
 Catapult Sound Effect 1
 
 The sound made by the Catapult gimmick when it grabs a player.

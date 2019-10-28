@@ -1,4 +1,4 @@
-st_donkey Section [1]: 0x00004CDC
+﻿st_donkey Section [1]: 0x00004CDC
 Donkey Kong Sound Effect
 
 The sound made by the DK hazard on a successful hit.

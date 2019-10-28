@@ -1,4 +1,4 @@
-st_plankton Section [1]: 0x00003B38
+﻿st_plankton Section [1]: 0x00003B38
 grPlanktonAshiba Plankton Hurtbox Generation and Rotation function caller Function
 
 This function controls the generation of the plankton-only hurtboxes for all color-changing leaves and the rotation function caller (grPlanktonAshiba Function[0][118]).

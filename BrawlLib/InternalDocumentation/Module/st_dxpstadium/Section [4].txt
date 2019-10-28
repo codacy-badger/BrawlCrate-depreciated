@@ -1,4 +1,4 @@
-st_dxpstadium Section [4]: 0x00000004
+﻿st_dxpstadium Section [4]: 0x00000004
 Stage Size
 
 (Float) Affects the scale of the transfomations.

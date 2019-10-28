@@ -1,4 +1,4 @@
-Platform Health
+﻿Platform Health
 (Float) The amount of damage that a breakable platform can take before breaking
 
 Default (Float): 38 (0x42180000)

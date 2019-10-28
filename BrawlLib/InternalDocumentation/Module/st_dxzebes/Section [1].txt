@@ -1,4 +1,4 @@
-st_dxzebes Section [1]: 0x00000798
+﻿st_dxzebes Section [1]: 0x00000798
 Acid Damage
 
 The amount of damage the Acid hazard deals to the players.

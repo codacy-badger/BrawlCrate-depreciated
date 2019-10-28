@@ -1,4 +1,4 @@
-Shield Damage Tolerance
+﻿Shield Damage Tolerance
 (Float) Number of weak hits needed to shatter the shield (Setting to 0 causes it to shatter as soon as Sandbag hits it)
 
 Default (Float): 6 (0x40C00000)

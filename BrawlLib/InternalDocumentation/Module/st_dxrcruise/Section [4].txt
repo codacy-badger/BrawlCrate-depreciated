@@ -1,4 +1,4 @@
-st_dxrcruise Section [4]: 0x00000008
+﻿st_dxrcruise Section [4]: 0x00000008
 PAC Model Data Scale
 
 For certain specific Model Data files, all MDL0 files contained within are scaled by this amount.

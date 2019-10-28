@@ -1,4 +1,4 @@
-Mansion Respawn Timer
+﻿Mansion Respawn Timer
 (Float) The number of frames before the mansion respawns after it is completely broken
 
 Default (Float): 1200 (0x44960000)

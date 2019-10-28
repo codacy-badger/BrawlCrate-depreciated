@@ -1,4 +1,4 @@
-~0x014
+﻿~0x014
 Default (Unknown Type): (0x06080A00)
 	/EndDescription
 4

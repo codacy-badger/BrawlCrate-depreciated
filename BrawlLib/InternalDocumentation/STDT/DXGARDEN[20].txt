@@ -1,4 +1,4 @@
-Water Height
+﻿Water Height
 (Float) The height of the swimmable water
 
 Default (Float): -40 (0xC2200000)

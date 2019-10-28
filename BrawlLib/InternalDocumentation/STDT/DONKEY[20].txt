@@ -1,4 +1,4 @@
-DK Frame Timer (Initial)
+﻿DK Frame Timer (Initial)
 (Float) Frame timer before DK’s first activation check (Setting to 0 causes instant activation at the start of the match, setting high makes him never activate)
 
 Default (Float): 900 (0x44610000)

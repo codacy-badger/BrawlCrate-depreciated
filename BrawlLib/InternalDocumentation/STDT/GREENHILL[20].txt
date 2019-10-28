@@ -1,4 +1,4 @@
-Checkpoint Active Frames
+﻿Checkpoint Active Frames
 (Float) The time a checkpoint will remain spinning (frames). The chr0 will still be set for 240 frames unless otherwise set
 
 Default (Float): 240 (0x43700000)

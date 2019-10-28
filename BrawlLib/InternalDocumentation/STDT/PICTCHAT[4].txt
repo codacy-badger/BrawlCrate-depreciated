@@ -1,4 +1,4 @@
-First Drawing Timer
+﻿First Drawing Timer
 (Float) The number of frames before the first drawing is drawn.
 
 Default (Float): 300 (0x43960000)

@@ -1,4 +1,4 @@
-0x014
+﻿0x014
 Default (Float): -30 (0xC1F00000)
 *Has something to do with the position of cars. 1000 makes them fall into the void, -50 makes them clip into each other
 	/EndDescription
@@ -47,7 +47,9 @@ Default (Float): 45 (0x42340000)
 	/EndDescription
 0
 
-0x038
+Car Speed
+(Float) Speed at which cars travel (affects both forward and backward speed, cars stop when there's another car in front)
+
 Default (Float): 0.45 (0x3EE66666)
 	/EndDescription
 0

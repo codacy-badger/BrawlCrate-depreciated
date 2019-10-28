@@ -1,4 +1,4 @@
-st_tengan Section [1]: 0x000004BC
+﻿st_tengan Section [1]: 0x000004BC
 Stage Slot 1 File Type
 
 Changes the file structure required and hazards associated when loading STGTENGAN_1

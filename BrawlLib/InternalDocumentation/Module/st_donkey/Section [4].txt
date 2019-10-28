@@ -1,4 +1,4 @@
-st_donkey Section [4]: 0x000000B4
+﻿st_donkey Section [4]: 0x000000B4
 Donkey Kong Musical Cue Timer
 
 How many frames after the musical cue starts DK's hazard activates

@@ -1,4 +1,4 @@
-st_famicom Section [1]: 0x0000EA40
+﻿st_famicom Section [1]: 0x0000EA40
 Shellcreeper Stage 1 Damage
 
 The amount of damage that a Green Shellcreeper hazard deals to the players.

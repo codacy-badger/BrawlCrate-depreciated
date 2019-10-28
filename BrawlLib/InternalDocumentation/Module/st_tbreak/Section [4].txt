@@ -1,4 +1,4 @@
-st_tbreak Section [4]: 0x00000000
+﻿st_tbreak Section [4]: 0x00000000
 Spikes Collision Damage
 
 The amount of damage the spike hazard collisions deal to the players.

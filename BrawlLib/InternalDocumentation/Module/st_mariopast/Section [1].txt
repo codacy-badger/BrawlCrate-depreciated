@@ -1,4 +1,4 @@
-st_mariopast Section [1]: 0x0000036F
+﻿st_mariopast Section [1]: 0x0000036F
 Stage Slot 1 File Type
 
 Changes the file structure required and hazards associated when loading STGMARIOPAST_00
