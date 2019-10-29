@@ -44,7 +44,7 @@ namespace System.Windows.Forms
             btnSetWeight.TabIndex = 2;
             btnSetWeight.Text = "Set";
             btnSetWeight.UseVisualStyleBackColor = true;
-            btnSetWeight.Click += btnSetWeight_Click;
+            btnSetWeight.Click += new EventHandler(btnSetWeight_Click);
             // 
             // btnBlend
             // 
@@ -55,7 +55,7 @@ namespace System.Windows.Forms
             btnBlend.Text = "Blend";
             btnBlend.UseVisualStyleBackColor = true;
             btnBlend.Visible = false;
-            btnBlend.Click += btnBlend_Click;
+            btnBlend.Click += new EventHandler(btnBlend_Click);
             // 
             // btnAdd
             // 
@@ -66,7 +66,7 @@ namespace System.Windows.Forms
             btnAdd.TabIndex = 7;
             btnAdd.Text = "+";
             btnAdd.UseVisualStyleBackColor = true;
-            btnAdd.Click += btnAdd_Click;
+            btnAdd.Click += new EventHandler(btnAdd_Click);
             // 
             // btnSubtract
             // 
@@ -77,7 +77,7 @@ namespace System.Windows.Forms
             btnSubtract.TabIndex = 8;
             btnSubtract.Text = "-";
             btnSubtract.UseVisualStyleBackColor = true;
-            btnSubtract.Click += btnSubtract_Click;
+            btnSubtract.Click += new EventHandler(btnSubtract_Click);
             // 
             // btnLock
             // 
@@ -88,7 +88,7 @@ namespace System.Windows.Forms
             btnLock.TabIndex = 10;
             btnLock.Text = "Lock";
             btnLock.UseVisualStyleBackColor = true;
-            btnLock.Click += btnLock_Click;
+            btnLock.Click += new EventHandler(btnLock_Click);
             // 
             // lblBoneName
             // 
@@ -108,7 +108,7 @@ namespace System.Windows.Forms
             btnRemove.TabIndex = 12;
             btnRemove.Text = "Remove";
             btnRemove.UseVisualStyleBackColor = true;
-            btnRemove.Click += btnRemoveBone_Click;
+            btnRemove.Click += new EventHandler(btnRemoveBone_Click);
             // 
             // panel1
             // 
@@ -153,7 +153,7 @@ namespace System.Windows.Forms
             btnMult.TabIndex = 14;
             btnMult.Text = "x";
             btnMult.UseVisualStyleBackColor = true;
-            btnMult.Click += btnMult_Click;
+            btnMult.Click += new EventHandler(btnMult_Click);
             // 
             // btnDiv
             // 
@@ -164,7 +164,7 @@ namespace System.Windows.Forms
             btnDiv.TabIndex = 15;
             btnDiv.Text = "/";
             btnDiv.UseVisualStyleBackColor = true;
-            btnDiv.Click += btnDiv_Click;
+            btnDiv.Click += new EventHandler(btnDiv_Click);
             // 
             // numAdd
             // 
@@ -189,7 +189,7 @@ namespace System.Windows.Forms
             numWeight.Size = new System.Drawing.Size(62, 20);
             numWeight.TabIndex = 3;
             numWeight.Text = "0";
-            numWeight.ValueChanged += numWeight_ValueChanged;
+            numWeight.ValueChanged += new EventHandler(numWeight_ValueChanged);
             // 
             // btnPaste
             // 
@@ -200,7 +200,7 @@ namespace System.Windows.Forms
             btnPaste.Text = "Paste";
             btnPaste.UseVisualStyleBackColor = true;
             btnPaste.Visible = false;
-            btnPaste.Click += btnPaste_Click;
+            btnPaste.Click += new EventHandler(btnPaste_Click);
             // 
             // btnCopy
             // 
@@ -211,7 +211,7 @@ namespace System.Windows.Forms
             btnCopy.Text = "Copy";
             btnCopy.UseVisualStyleBackColor = true;
             btnCopy.Visible = false;
-            btnCopy.Click += btnCopy_Click;
+            btnCopy.Click += new EventHandler(btnCopy_Click);
             // 
             // lstBoneWeights
             // 
@@ -224,7 +224,7 @@ namespace System.Windows.Forms
             lstBoneWeights.Size = new System.Drawing.Size(130, 103);
             lstBoneWeights.TabIndex = 0;
             lstBoneWeights.DrawItem += new DrawItemEventHandler(lstBoneWeights_DrawItem);
-            lstBoneWeights.SelectedIndexChanged += lstBoneWeights_SelectedIndexChanged;
+            lstBoneWeights.SelectedIndexChanged += new EventHandler(lstBoneWeights_SelectedIndexChanged);
             // 
             // WeightEditor
             // 

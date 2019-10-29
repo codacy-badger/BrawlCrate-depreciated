@@ -51,7 +51,7 @@ namespace System.Windows.Forms
             lstTarget.Name = "lstTarget";
             lstTarget.Size = new System.Drawing.Size(100, 21);
             lstTarget.TabIndex = 2;
-            lstTarget.SelectedIndexChanged += lstTarget_SelectedIndexChanged;
+            lstTarget.SelectedIndexChanged += new EventHandler(lstTarget_SelectedIndexChanged);
             // 
             // listBox1
             // 
@@ -62,7 +62,7 @@ namespace System.Windows.Forms
             listBox1.Name = "listBox1";
             listBox1.Size = new System.Drawing.Size(156, 74);
             listBox1.TabIndex = 4;
-            listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
+            listBox1.SelectedIndexChanged += new EventHandler(listBox1_SelectedIndexChanged);
             // 
             // panel1
             // 

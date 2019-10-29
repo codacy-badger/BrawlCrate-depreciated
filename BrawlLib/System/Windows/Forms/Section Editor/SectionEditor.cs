@@ -1739,18 +1739,18 @@ namespace System.Windows.Forms
             {
                 ContextMenu contextMenu = new ContextMenu();
                 MenuItem menuItem = new MenuItem("Cut");
-                menuItem.Click += CutAction;
+                menuItem.Click += new EventHandler(CutAction);
                 menuItem.Enabled = annotationDescription.SelectedText.Length > 0;
                 contextMenu.MenuItems.Add(menuItem);
                 menuItem = new MenuItem("Copy");
-                menuItem.Click += CopyAction;
+                menuItem.Click += new EventHandler(CopyAction);
                 menuItem.Enabled = annotationDescription.SelectedText.Length > 0;
                 contextMenu.MenuItems.Add(menuItem);
                 menuItem = new MenuItem("Paste")
                 {
                     Enabled = Clipboard.ContainsText()
                 };
-                menuItem.Click += PasteAction;
+                menuItem.Click += new EventHandler(PasteAction);
                 contextMenu.MenuItems.Add(menuItem);
 
                 annotationDescription.ContextMenu = contextMenu;

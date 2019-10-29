@@ -260,7 +260,7 @@ namespace System.Windows.Forms
             numScale.TabIndex = 3;
             numScale.Text = "0";
             numScale.TextAlign = HorizontalAlignment.Right;
-            numScale.ValueChanged += BoxChanged;
+            numScale.ValueChanged += new EventHandler(BoxChanged);
             // 
             // label7
             // 
@@ -291,7 +291,7 @@ namespace System.Windows.Forms
                 0,
                 0
             });
-            numFrame.ValueChanged += numFrame_ValueChanged;
+            numFrame.ValueChanged += new EventHandler(numFrame_ValueChanged);
             // 
             // lblFrameCount
             // 
@@ -313,7 +313,7 @@ namespace System.Windows.Forms
             btnPrev.Text = "<";
             btnPrev.TextAlign = ContentAlignment.TopCenter;
             btnPrev.UseVisualStyleBackColor = true;
-            btnPrev.Click += btnPrev_Click;
+            btnPrev.Click += new EventHandler(btnPrev_Click);
             // 
             // btnNext
             // 
@@ -326,7 +326,7 @@ namespace System.Windows.Forms
             btnNext.Text = ">";
             btnNext.TextAlign = ContentAlignment.TopCenter;
             btnNext.UseVisualStyleBackColor = true;
-            btnNext.Click += btnNext_Click;
+            btnNext.Click += new EventHandler(btnNext_Click);
             // 
             // listKeyframes
             // 
@@ -340,7 +340,7 @@ namespace System.Windows.Forms
             listKeyframes.Name = "listKeyframes";
             listKeyframes.Size = new System.Drawing.Size(224, 119);
             listKeyframes.TabIndex = 18;
-            listKeyframes.SelectedIndexChanged += listKeyframes_SelectedIndexChanged;
+            listKeyframes.SelectedIndexChanged += new EventHandler(listKeyframes_SelectedIndexChanged);
             // 
             // groupBox1
             // 

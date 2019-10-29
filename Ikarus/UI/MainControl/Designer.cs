@@ -1529,8 +1529,8 @@ namespace Ikarus.UI
 
             _targetModels = new List<IModel>();
 
-            Manager.RootChanged += FolderManager_RootChanged;
-            Manager.TargetCharacterChanged += FolderManager_TargetCharacterChanged;
+            Manager.RootChanged += new EventHandler(FolderManager_RootChanged);
+            Manager.TargetCharacterChanged += new EventHandler(FolderManager_TargetCharacterChanged);
 
             _floorHue = Color.FromArgb(255, 99, 101, 107);
 
