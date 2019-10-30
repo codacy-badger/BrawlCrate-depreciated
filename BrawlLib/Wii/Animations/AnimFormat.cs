@@ -28,6 +28,11 @@ namespace BrawlLib.Wii.Animations
                 return;
             }
 
+            Serialize(node, output, model);
+        }
+
+        public static void Serialize(CHR0Node node, string output, MDL0Node model)
+        {
             model.Populate();
             using (StreamWriter file = new StreamWriter(output))
             {
@@ -94,7 +99,7 @@ namespace BrawlLib.Wii.Animations
 
         public static CHR0Node Read(string input)
         {
-            CHR0Node node = new CHR0Node() {_name = Path.GetFileNameWithoutExtension(input)};
+            CHR0Node node = new CHR0Node {_name = Path.GetFileNameWithoutExtension(input)};
             using (StreamReader file = new StreamReader(input))
             {
                 float start = 0.0f;
@@ -102,41 +107,48 @@ namespace BrawlLib.Wii.Animations
                 string line;
                 while (true)
                 {
-                    line = file.ReadLine();
-
-                    if (line == null)
+                    try
                     {
-                        break;
+                        line = file.ReadLine();
+
+                        if (line == null)
+                        {
+                            break;
+                        }
+
+                        int i = line.IndexOf(' ');
+                        string tag = line.Substring(0, i);
+
+                        if (tag == "anim")
+                        {
+                            break;
+                        }
+
+                        string val = line.Substring(i + 1, line.IndexOf(';') - i - 1);
+
+                        switch (tag)
+                        {
+                            case "startTime":
+                            case "startUnitless":
+                                float.TryParse(val, out start);
+                                break;
+                            case "endTime":
+                            case "endUnitless":
+                                float.TryParse(val, out end);
+                                break;
+
+                            case "animVersion":
+                            case "mayaVersion":
+                            case "timeUnit":
+                            case "linearUnit":
+                            case "angularUnit":
+                            default:
+                                break;
+                        }
                     }
-
-                    int i = line.IndexOf(' ');
-                    string tag = line.Substring(0, i);
-
-                    if (tag == "anim")
+                    catch
                     {
-                        break;
-                    }
-
-                    string val = line.Substring(i + 1, line.IndexOf(';') - i - 1);
-
-                    switch (tag)
-                    {
-                        case "startTime":
-                        case "startUnitless":
-                            float.TryParse(val, out start);
-                            break;
-                        case "endTime":
-                        case "endUnitless":
-                            float.TryParse(val, out end);
-                            break;
-
-                        case "animVersion":
-                        case "mayaVersion":
-                        case "timeUnit":
-                        case "linearUnit":
-                        case "angularUnit":
-                        default:
-                            break;
+                        // ignored
                     }
                 }
 
@@ -145,248 +157,255 @@ namespace BrawlLib.Wii.Animations
 
                 while (true)
                 {
-                    if (line == null)
+                    try
                     {
-                        break;
-                    }
-
-                    string[] anim = line.Split(' ');
-                    if (anim.Length != 7)
-                    {
-                        while ((line = file.ReadLine()) != null && !line.StartsWith("anim "))
+                        if (line == null)
                         {
-                            ;
+                            break;
                         }
 
-                        continue;
-                    }
-
-                    string t = anim[2];
-                    string bone = anim[3];
-                    int mode = -1;
-                    if (t.StartsWith("scale"))
-                    {
-                        if (t.EndsWith("X"))
+                        string[] anim = line.Split(' ');
+                        if (anim.Length != 7)
                         {
-                            mode = 0;
-                        }
-                        else if (t.EndsWith("Y"))
-                        {
-                            mode = 1;
-                        }
-                        else if (t.EndsWith("Z"))
-                        {
-                            mode = 2;
-                        }
-                    }
-                    else if (t.StartsWith("rotate"))
-                    {
-                        if (t.EndsWith("X"))
-                        {
-                            mode = 3;
-                        }
-                        else if (t.EndsWith("Y"))
-                        {
-                            mode = 4;
-                        }
-                        else if (t.EndsWith("Z"))
-                        {
-                            mode = 5;
-                        }
-                    }
-                    else if (t.StartsWith("translate"))
-                    {
-                        if (t.EndsWith("X"))
-                        {
-                            mode = 6;
-                        }
-                        else if (t.EndsWith("Y"))
-                        {
-                            mode = 7;
-                        }
-                        else if (t.EndsWith("Z"))
-                        {
-                            mode = 8;
-                        }
-                    }
-
-                    if (mode == -1)
-                    {
-                        while ((line = file.ReadLine()) != null && !line.StartsWith("anim "))
-                        {
-                            ;
-                        }
-
-                        continue;
-                    }
-
-                    line = file.ReadLine();
-
-                    if (line.StartsWith("animData"))
-                    {
-                        CHR0EntryNode e;
-
-                        if ((e = node.FindChild(bone, false) as CHR0EntryNode) == null)
-                        {
-                            e = new CHR0EntryNode() {_name = bone};
-                            node.AddChild(e);
-                        }
-
-                        while (true)
-                        {
-                            line = file.ReadLine().TrimStart();
-                            int i = line.IndexOf(' ');
-
-                            if (i < 0)
+                            while ((line = file.ReadLine()) != null && !line.StartsWith("anim "))
                             {
-                                break;
+                                ;
                             }
 
-                            string tag = line.Substring(0, i);
+                            continue;
+                        }
 
-                            if (tag == "keys")
+                        string t = anim[2];
+                        string bone = anim[3];
+                        int mode = -1;
+                        if (t.StartsWith("scale"))
+                        {
+                            if (t.EndsWith("X"))
                             {
-                                List<KeyframeEntry> l = new List<KeyframeEntry>();
-                                while (true)
+                                mode = 0;
+                            }
+                            else if (t.EndsWith("Y"))
+                            {
+                                mode = 1;
+                            }
+                            else if (t.EndsWith("Z"))
+                            {
+                                mode = 2;
+                            }
+                        }
+                        else if (t.StartsWith("rotate"))
+                        {
+                            if (t.EndsWith("X"))
+                            {
+                                mode = 3;
+                            }
+                            else if (t.EndsWith("Y"))
+                            {
+                                mode = 4;
+                            }
+                            else if (t.EndsWith("Z"))
+                            {
+                                mode = 5;
+                            }
+                        }
+                        else if (t.StartsWith("translate"))
+                        {
+                            if (t.EndsWith("X"))
+                            {
+                                mode = 6;
+                            }
+                            else if (t.EndsWith("Y"))
+                            {
+                                mode = 7;
+                            }
+                            else if (t.EndsWith("Z"))
+                            {
+                                mode = 8;
+                            }
+                        }
+
+                        if (mode == -1)
+                        {
+                            while ((line = file.ReadLine()) != null && !line.StartsWith("anim "))
+                            {
+                                ;
+                            }
+
+                            continue;
+                        }
+
+                        line = file.ReadLine();
+
+                        if (line.StartsWith("animData"))
+                        {
+                            CHR0EntryNode e;
+
+                            if ((e = node.FindChild(bone, false) as CHR0EntryNode) == null)
+                            {
+                                e = new CHR0EntryNode {_name = bone};
+                                node.AddChild(e);
+                            }
+
+                            while (true)
+                            {
+                                line = file.ReadLine().TrimStart();
+                                int i = line.IndexOf(' ');
+
+                                if (i < 0)
                                 {
-                                    line = file.ReadLine().TrimStart();
+                                    break;
+                                }
 
-                                    if (line == "}")
+                                string tag = line.Substring(0, i);
+
+                                if (tag == "keys")
+                                {
+                                    List<KeyframeEntry> l = new List<KeyframeEntry>();
+                                    while (true)
                                     {
-                                        break;
-                                    }
+                                        line = file.ReadLine().TrimStart();
 
-                                    string[] s = line.Split(' ');
-
-                                    for (int si = 0; si < s.Length; si++)
-                                    {
-                                        s[si] = s[si].Trim('\n', ';', ' ');
-                                    }
-
-                                    float.TryParse(s[0], NumberStyles.Number, CultureInfo.InvariantCulture,
-                                        out float inVal);
-                                    float.TryParse(s[1], NumberStyles.Number, CultureInfo.InvariantCulture,
-                                        out float outVal);
-
-                                    float weight1 = 0;
-                                    float weight2 = 0;
-
-                                    float angle1 = 0;
-                                    float angle2 = 0;
-
-                                    bool firstFixed = false;
-                                    bool secondFixed = false;
-                                    switch (s[2])
-                                    {
-                                        case "linear":
-                                        case "spline":
-                                        case "auto":
-                                            break;
-
-                                        case "fixed":
-                                            firstFixed = true;
-                                            float.TryParse(s[7], NumberStyles.Number, CultureInfo.InvariantCulture,
-                                                out angle1);
-                                            float.TryParse(s[8], NumberStyles.Number, CultureInfo.InvariantCulture,
-                                                out weight1);
-                                            break;
-                                    }
-
-                                    switch (s[3])
-                                    {
-                                        case "linear":
-                                        case "spline":
-                                        case "auto":
-                                            break;
-
-                                        case "fixed":
-                                            secondFixed = true;
-                                            if (firstFixed)
-                                            {
-                                                float.TryParse(s[9], NumberStyles.Number, CultureInfo.InvariantCulture,
-                                                    out angle2);
-                                                float.TryParse(s[10], NumberStyles.Number, CultureInfo.InvariantCulture,
-                                                    out weight2);
-                                            }
-                                            else
-                                            {
-                                                float.TryParse(s[7], NumberStyles.Number, CultureInfo.InvariantCulture,
-                                                    out angle2);
-                                                float.TryParse(s[8], NumberStyles.Number, CultureInfo.InvariantCulture,
-                                                    out weight2);
-                                            }
-
-                                            break;
-                                    }
-
-                                    bool anyFixed = secondFixed || firstFixed;
-                                    bool bothFixed = secondFixed && firstFixed;
-
-                                    KeyframeEntry x = e.SetKeyframe(mode, (int) (inVal - 0.5f), outVal, true);
-                                    if (!anyFixed)
-                                    {
-                                        l.Add(x);
-                                    }
-                                    else
-                                    {
-                                        if (bothFixed)
+                                        if (line == "}")
                                         {
-                                            x._tangent = (float) Math.Tan((angle1 + angle2) / 2 * Maths._deg2radf) *
-                                                         ((weight1 + weight2) / 2);
+                                            break;
                                         }
-                                        else if (firstFixed)
+
+                                        string[] s = line.Split(' ');
+
+                                        for (int si = 0; si < s.Length; si++)
                                         {
-                                            x._tangent = (float) Math.Tan(angle1 * Maths._deg2radf) * weight1;
+                                            s[si] = s[si].Trim('\n', ';', ' ');
+                                        }
+
+                                        float.TryParse(s[0], NumberStyles.Number, CultureInfo.InvariantCulture,
+                                            out float inVal);
+                                        float.TryParse(s[1], NumberStyles.Number, CultureInfo.InvariantCulture,
+                                            out float outVal);
+
+                                        float weight1 = 0;
+                                        float weight2 = 0;
+
+                                        float angle1 = 0;
+                                        float angle2 = 0;
+
+                                        bool firstFixed = false;
+                                        bool secondFixed = false;
+                                        switch (s[2])
+                                        {
+                                            case "linear":
+                                            case "spline":
+                                            case "auto":
+                                                break;
+
+                                            case "fixed":
+                                                firstFixed = true;
+                                                float.TryParse(s[7], NumberStyles.Number, CultureInfo.InvariantCulture,
+                                                    out angle1);
+                                                float.TryParse(s[8], NumberStyles.Number, CultureInfo.InvariantCulture,
+                                                    out weight1);
+                                                break;
+                                        }
+
+                                        switch (s[3])
+                                        {
+                                            case "linear":
+                                            case "spline":
+                                            case "auto":
+                                                break;
+
+                                            case "fixed":
+                                                secondFixed = true;
+                                                if (firstFixed)
+                                                {
+                                                    float.TryParse(s[9], NumberStyles.Number, CultureInfo.InvariantCulture,
+                                                        out angle2);
+                                                    float.TryParse(s[10], NumberStyles.Number, CultureInfo.InvariantCulture,
+                                                        out weight2);
+                                                }
+                                                else
+                                                {
+                                                    float.TryParse(s[7], NumberStyles.Number, CultureInfo.InvariantCulture,
+                                                        out angle2);
+                                                    float.TryParse(s[8], NumberStyles.Number, CultureInfo.InvariantCulture,
+                                                        out weight2);
+                                                }
+
+                                                break;
+                                        }
+
+                                        bool anyFixed = secondFixed || firstFixed;
+                                        bool bothFixed = secondFixed && firstFixed;
+
+                                        KeyframeEntry x = e.SetKeyframe(mode, (int) (inVal - 0.5f), outVal, true);
+                                        if (!anyFixed)
+                                        {
+                                            l.Add(x);
                                         }
                                         else
                                         {
-                                            x._tangent = (float) Math.Tan(angle2 * Maths._deg2radf) * weight2;
+                                            if (bothFixed)
+                                            {
+                                                x._tangent = (float) Math.Tan((angle1 + angle2) / 2 * Maths._deg2radf) *
+                                                             ((weight1 + weight2) / 2);
+                                            }
+                                            else if (firstFixed)
+                                            {
+                                                x._tangent = (float) Math.Tan(angle1 * Maths._deg2radf) * weight1;
+                                            }
+                                            else
+                                            {
+                                                x._tangent = (float) Math.Tan(angle2 * Maths._deg2radf) * weight2;
+                                            }
                                         }
                                     }
+
+                                    foreach (KeyframeEntry w in l)
+                                    {
+                                        w.GenerateTangent();
+                                    }
                                 }
-
-                                foreach (KeyframeEntry w in l)
+                                else
                                 {
-                                    w.GenerateTangent();
-                                }
-                            }
-                            else
-                            {
-                                int z = line.IndexOf(';') - i - 1;
-                                if (z < 0)
-                                {
-                                    continue;
-                                }
+                                    int z = line.IndexOf(';') - i - 1;
+                                    if (z < 0)
+                                    {
+                                        continue;
+                                    }
 
-                                string val = line.Substring(i + 1, z);
+                                    string val = line.Substring(i + 1, z);
 
-                                switch (tag)
-                                {
-                                    case "input":
+                                    switch (tag)
+                                    {
+                                        case "input":
 
-                                        break;
-                                    case "output":
+                                            break;
+                                        case "output":
 
-                                        break;
-                                    case "weighted":
+                                            break;
+                                        case "weighted":
 
-                                        break;
-                                    case "inputUnit":
+                                            break;
+                                        case "inputUnit":
 
-                                        break;
-                                    case "outputUnit":
+                                            break;
+                                        case "outputUnit":
 
-                                        break;
-                                    case "preInfinity":
-                                    case "postInfinity":
-                                    default:
-                                        break;
+                                            break;
+                                        case "preInfinity":
+                                        case "postInfinity":
+                                        default:
+                                            break;
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    line = file.ReadLine();
+                        line = file.ReadLine();
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
                 }
             }
 
