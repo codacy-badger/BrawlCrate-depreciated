@@ -1,6 +1,6 @@
 BrawlLib / BrawlCrate
 ==========
-[![GitHub release](https://img.shields.io/github/release/soopercool101/BrawlCrate-depreciated.svg)](https://github.com/soopercool101/BrawlCrate-depreciated/releases/latest)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/soopercool101/BrawlCrate-depreciated)](https://github.com/soopercool101/BrawlCrate-depreciated/releases/latest)
 [![GitHub downloads](https://img.shields.io/github/downloads/soopercool101/BrawlCrate-depreciated/total.svg)](https://github.com/soopercool101/BrawlCrate-depreciated/releases)
 [![GitHub latest downloads](https://img.shields.io/github/downloads/soopercool101/BrawlCrate-depreciated/latest/total)](https://github.com/soopercool101/BrawlCrate-depreciated/releases/latest)
 [![Appveyor build status](https://ci.appveyor.com/api/projects/status/github/soopercool101/BrawlCrate?branch=brawlcrate-master&svg=true)](https://ci.appveyor.com/project/soopercool101/BrawlCrate-depreciated)
